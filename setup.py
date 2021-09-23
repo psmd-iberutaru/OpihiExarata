@@ -24,7 +24,7 @@ DEPENDENCIES = []
 ###############################################################################
 
 
-def get_date_version():
+def get_date_version() -> str:
     """The version of the project.
     
     Returns the project's version using date notation, rather than version
