@@ -8,9 +8,26 @@ import opihiexarata.library.error as error
 import opihiexarata.library.typehints as hint
 
 
-def get_filename_without_extension(pathname:str) -> str:
+def get_directory(pathname: str) -> str:
+    """Get the directory from the pathname without the file or the extension.
+
+    Parameters
+    ----------
+    pathname : string
+        The pathname which the directory will be extracted.
+
+    Returns
+    -------
+    directory : string
+        The directory which belongs to the pathname.
+    """
+    directory = os.path.dirname(pathname)
+    return directory
+
+
+def get_filename_without_extension(pathname: str) -> str:
     """Get the filename from the pathname without the file extension.
-    
+
     Parameters
     ----------
     pathname : string
@@ -26,9 +43,10 @@ def get_filename_without_extension(pathname:str) -> str:
     filename = "".join(file_components)
     return filename
 
-def get_filename_with_extension(pathname:str) -> str:
+
+def get_filename_with_extension(pathname: str) -> str:
     """Get the filename from the pathname with the file extension.
-    
+
     Parameters
     ----------
     pathname : string
@@ -41,9 +59,10 @@ def get_filename_with_extension(pathname:str) -> str:
     """
     return os.path.basename(pathname)
 
-def get_file_extension(pathname:str) -> str:
+
+def get_file_extension(pathname: str) -> str:
     """Get the file extension only from the pathname.
-    
+
     Parameters
     ----------
     pathname : string
@@ -54,16 +73,19 @@ def get_file_extension(pathname:str) -> str:
     extension : string
         The file extension only.
     """
-    return os.path.basename(pathname).split(".")[-1]
+    extension = os.path.basename(pathname).split(".")[-1]
+    return extension
 
 
-def merge_pathnames(directory: hint.Union[str, list]=None, filename:str=None, extension:str=None) -> str:
-    """Joins paths, filenames, and file extensions into one pathname.
-    
+def merge_pathname(
+    directory: hint.Union[str, list] = None, filename: str = None, extension: str = None
+) -> str:
+    """Joins directories, filenames, and file extensions into one pathname.
+
     Parameters
     ----------
     directory : string or list
-        The directory(s) which is going to be used. If it is a list, 
+        The directory(s) which is going to be used. If it is a list,
         then the paths within it are combined.
     filename : string
         The filename that is going to be used for path construction.
@@ -77,8 +99,7 @@ def merge_pathnames(directory: hint.Union[str, list]=None, filename:str=None, ex
     """
     # Combine the directories if it is a list.
     directory = directory if directory is not None else ""
-    directory = (directory if isinstance(directory, (list,tuple))
-                 else [str(directory)])
+    directory = directory if isinstance(directory, (list, tuple)) else [str(directory)]
     total_directory = os.path.join(*directory)
     # Filename.
     filename = filename if filename is not None else ""
@@ -90,12 +111,26 @@ def merge_pathnames(directory: hint.Union[str, list]=None, filename:str=None, ex
     return pathname
 
 
+def split_pathname(pathname: str) -> tuple[str, str, str]:
+    """Splits a path into a directory, filename, and file extension.
 
+    This is a wrapper function around the more elementry functions `get_directory`, `get_filename_without_extension`, and `get_file_extension`.
 
+    Parameters
+    -------
+    pathname : string
+        The combined pathname which to be split.
 
-
-
-
-
-
-
+    Returns
+    ----------
+    directory : string
+        The directory which was split from the pathname.
+    filename : string
+        The filename which was split from the pathname.
+    extension : string
+        The filename extension which was split from the pathname.
+    """
+    directory = get_directory(pathname=pathname)
+    filename = get_filename_without_extension(pathname=pathname)
+    extension = get_file_extension(pathname=pathname)
+    return directory, filename, extension
