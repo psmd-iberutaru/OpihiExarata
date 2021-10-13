@@ -28,7 +28,7 @@ jobs:
     - name: Build and install package
       run: |
         python -m build
-        pkdist="$(ls ./dist/*)"
+        pkdist="$(ls ./dist/*.whl)"
         pip install $pkdist
       working-directory: ./
       shell: bash
