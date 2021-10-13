@@ -1,9 +1,20 @@
 # OpihiExarata
  An IRTF Opihi telescope software tool used primarily for solving asteroid ephemerides using astrometric solutions.
 
+# Building and Installing
 
+## Python Code and General Software
+Run the following commands based on your operating system to build the Python binary wheel (Windows or Linux).
+ 
+```bash
+> py -m build
+$ python3 -m build
+```
 
-
+Install the wheel package. You will need to modify this command to the proper wheel that you generated from before. Because this project using date-based versioning, your package will likely be that of the date that you build the wheel. (Force reinstall is optional but suggested to ensure you have the most up-to-date version.)
+```bash
+pip install ./dist/OpihiExarata-YYYY.MM.DD-py3-none-any.whl --force-reinstall
+```
 
 # Why the name Exarata?
 
