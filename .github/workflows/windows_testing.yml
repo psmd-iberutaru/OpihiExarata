@@ -1,0 +1,37 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Testing Windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        py -m pip install --upgrade pip
+        py -m pip install --upgrade build
+        pip install pytest setuptools
+    - name: Build and install package
+      run: |
+        py -m build
+        $pkdist = (Get-ChildItem .\dist\*.whl).FullName
+        pip install $pkdist
+      working-directory: ./
+      shell: pwsh
+    - name: Test with pytest
+      run: |
+        pytest .
