@@ -40,7 +40,7 @@ def test_get_directory() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -  Episode 1 - Kirby"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -83,7 +83,7 @@ def test_get_filename_without_extension() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -  Episode 1 - Kirby"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -91,7 +91,7 @@ def test_get_filename_without_extension() -> None:
             pathname=example_linux_pathname
         )
         expected_filename = (
-            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby -   Right Back at Ya!"
+            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right Back at Ya!"
             R" Japanese [a9vrQ3Ns0gg]"
         )
         # Asserting.
@@ -130,7 +130,7 @@ def test_get_filename_with_extension() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -  Episode 1 - Kirby"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -138,7 +138,7 @@ def test_get_filename_with_extension() -> None:
             pathname=example_linux_pathname
         )
         expected_filename = (
-            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby -   Right Back at Ya!"
+            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right Back at Ya!"
             R" Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Asserting.
@@ -175,7 +175,7 @@ def test_get_file_extension() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -  Episode 1 - Kirby"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -267,9 +267,7 @@ def test_split_pathname() -> None:
         ), assert_message
     else:
         # For Linux based pathnames.
-        linux_pathname = (
-            R"/home/sparrow/test/wiki/docker-compose.yml"
-        )
+        linux_pathname = R"/home/sparrow/test/wiki/docker-compose.yml"
         # Splitting.
         (
             linux_directory,

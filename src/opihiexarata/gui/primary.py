@@ -6,7 +6,7 @@ layout = [
     [sg.Text("Some text on Row 1")],
     [sg.Text("Enter something on Row 2"), sg.InputText(key="-input-")],
     [sg.Button("Dome"), sg.Text("On", key="-dome-"), sg.Button("More")],
-    [sg.Graph((200,200), (0,0), (200,200), enable_events=True, key="-grid-")],
+    [sg.Graph((200, 200), (0, 0), (200, 200), enable_events=True, key="-grid-")],
     [sg.OK(), sg.Cancel()],
 ]
 
@@ -14,7 +14,7 @@ layout = [
 window = sg.Window("Window Title", layout, finalize=True)
 
 graph = window["-grid-"]
-#graph.bind('<Button-3>', '+RIGHT+')
+# graph.bind('<Button-3>', '+RIGHT+')
 
 dome_state = True
 true_timeout = None

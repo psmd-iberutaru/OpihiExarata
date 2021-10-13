@@ -114,8 +114,8 @@ def merge_pathname(
 def split_pathname(pathname: str) -> tuple[str, str, str]:
     """Splits a path into a directory, filename, and file extension.
 
-    This is a wrapper function around the more elementry functions 
-    `get_directory`, `get_filename_without_extension`, and 
+    This is a wrapper function around the more elementry functions
+    `get_directory`, `get_filename_without_extension`, and
     `get_file_extension`.
 
     Parameters
