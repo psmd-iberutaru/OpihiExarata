@@ -16,7 +16,7 @@ BUG_URL = "https://github.com/psmd-iberutaru/OpihiExarata/issues"
 DOCUMENTATION_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
-
+DEPENDENCIES = ["astropy"]
 
 
 ###############################################################################
@@ -47,26 +47,6 @@ def get_date_version() -> str:
     return version_string
 DATE_VERSION = get_date_version()
 
-def get_dependencies() -> list:
-    """Obtains the requirements for this project.
-    
-    This reads the local requirements.txt file and extracts the dependencies 
-    from it to be used to the setuptools pipeline.
-
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    dependencies : list
-        The list of package dependencies for this project.
-    """
-    with open("requirements.txt", "r", encoding="utf-8") as file:
-        requirements_file = file.read()
-        dependencies = requirements_file.split("\n")
-    return dependencies
-DEPENDENCIES = get_dependencies()
 
 with open("README.md", "r", encoding="utf-8") as file:
     README_FILE = file.read()

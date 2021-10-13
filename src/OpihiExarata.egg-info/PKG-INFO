@@ -1,13 +1,13 @@
 Metadata-Version: 2.1
 Name: OpihiExarata
-Version: 2021.9.27.dev0
+Version: 2021.10.12
 Summary: Analysis software for the IRTF Opihi telescope.
 Home-page: https://github.com/psmd-iberutaru/OpihiExarata
 Author: Sparrow
-Author-email: kemerson@hawaii.edu
+Author-email: psmd.iberutaru@gmail.com
 License: UNKNOWN
 Project-URL: Bug Tracker, https://github.com/psmd-iberutaru/OpihiExarata/issues
-Project-URL: Documentation, 
+Project-URL: Documentation, https://github.com/psmd-iberutaru/OpihiExarata
 Project-URL: Source Code, https://github.com/psmd-iberutaru/OpihiExarata
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
@@ -20,9 +20,20 @@ License-File: LICENSE
 # OpihiExarata
  An IRTF Opihi telescope software tool used primarily for solving asteroid ephemerides using astrometric solutions.
 
+# Building and Installing
 
+## Python Code and General Software
+Run the following commands based on your operating system to build the Python binary wheel (Windows or Linux).
+ 
+```bash
+> py -m build
+$ python3 -m build
+```
 
-
+Install the wheel package. You will need to modify this command to the proper wheel that you generated from before. Because this project using date-based versioning, your package will likely be that of the date that you build the wheel. (Force reinstall is optional but suggested to ensure you have the most up-to-date version.)
+```bash
+pip install ./dist/OpihiExarata-YYYY.MM.DD-py3-none-any.whl --force-reinstall
+```
 
 # Why the name Exarata?
 
