@@ -16,7 +16,7 @@ BUG_URL = "https://github.com/psmd-iberutaru/OpihiExarata/issues"
 DOCUMENTATION_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
-DEPENDENCIES = ["astropy"]
+DEPENDENCIES = ["astropy", "numpy", "pyyaml", "PySimpleGUIQt", "PyQt5"]
 
 
 ###############################################################################
@@ -25,11 +25,11 @@ DEPENDENCIES = ["astropy"]
 
 def get_date_version() -> str:
     """The version of the project.
-    
+
     Returns the project's version using date notation, rather than version
-    numbering. There is not expectation for anything but the most recent 
+    numbering. There is not expectation for anything but the most recent
     version to be used anyways.
-    
+
     Parameters
     ----------
     None
@@ -41,10 +41,13 @@ def get_date_version() -> str:
     """
     current_datatime = datetime.datetime.now()
     version_string = "{year}.{month}.{day}".format(
-        year=current_datatime.year, 
-        month=current_datatime.month, 
-        day=current_datatime.day)
+        year=current_datatime.year,
+        month=current_datatime.month,
+        day=current_datatime.day,
+    )
     return version_string
+
+
 DATE_VERSION = get_date_version()
 
 
@@ -61,9 +64,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url=URL,
     project_urls={
-        "Bug Tracker":BUG_URL,
-        "Documentation":DOCUMENTATION_URL,
-        "Source Code":SOURCE_URL,
+        "Bug Tracker": BUG_URL,
+        "Documentation": DOCUMENTATION_URL,
+        "Source Code": SOURCE_URL,
     },
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -72,8 +75,6 @@ setuptools.setup(
     ],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
-    install_requires = DEPENDENCIES,
+    install_requires=DEPENDENCIES,
     python_requires=">=3.6",
 )
-
-
