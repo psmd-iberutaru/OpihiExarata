@@ -7,13 +7,13 @@ import setuptools
 
 NAME = "OpihiExarata"
 AUTHOR = "Sparrow"
-AUTHOR_EMAIL = "kemerson@hawaii.edu"
+AUTHOR_EMAIL = "psmd.iberutaru@gmail.com"
 SHORT_DESCRIPTION = "Analysis software for the IRTF Opihi telescope."
 
 KEYWORDS = []
 URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 BUG_URL = "https://github.com/psmd-iberutaru/OpihiExarata/issues"
-DOCUMENTATION_URL = ""
+DOCUMENTATION_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
 DEPENDENCIES = []
