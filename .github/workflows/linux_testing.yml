@@ -31,6 +31,7 @@ jobs:
         pkdist="$(ls ./dist/*)"
         pip install $pkdist
       working-directory: ./
+      shell: bash
     - name: Test with pytest
       run: |
         pytest .
