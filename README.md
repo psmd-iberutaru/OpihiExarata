@@ -1,7 +1,7 @@
 # OpihiExarata
  An IRTF Opihi telescope software tool used primarily for solving asteroid ephemerides using astrometric solutions.
 
-[![Tests (Windows)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/windows_testing.yml/badge.svg)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/windows_testing.yml) [![Tests (Windows)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/linux_testing.yml/badge.svg)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/linux_testing.yml)
+[![Tests (Windows)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/tests_windows.yml/badge.svg)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/tests_windows.yml) [![Tests (Linux)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/tests_linux.yml/badge.svg)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/tests_linux.yml)
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![Python Black Linting](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/black.yml/badge.svg)](https://github.com/psmd-iberutaru/OpihiExarata/actions/workflows/black.yml)
 # Building and Installing
