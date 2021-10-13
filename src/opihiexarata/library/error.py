@@ -9,6 +9,17 @@ class ExarataBaseException(BaseException):
     caught and should bring everything to a halt."""
 
     def __init__(self, message: str = None) -> None:
+        """The initialization of a base exception.
+
+        Parameters
+        ----------
+        message : string
+            The message of the error message.
+
+        Returns
+        -------
+        None
+        """
         # The user's message.
         message = message if message is not None else ""
         # There also defined is two extra lines of text, this helps with
@@ -31,6 +42,17 @@ class ExarataException(Exception):
     managed."""
 
     def __init__(self, message: str = None) -> None:
+        """The initialization of a base exception.
+
+        Parameters
+        ----------
+        message : string
+            The message of the error message.
+
+        Returns
+        -------
+        None
+        """
         # The user's message.
         message = message if message is not None else ""
         # Note that these errors are from OpihiExarata.
@@ -44,14 +66,13 @@ class ExarataException(Exception):
 class FileError(ExarataException):
     """An error to be used when obtaining data files or configuration files
     and something fails."""
-
     pass
 
 
 class ConfigurationError(ExarataException):
     """An error to be used where the expectation of how configuration files
     and configuration parameters are structures are violated."""
-
+    pass
 
 # Warnings
 ####################
