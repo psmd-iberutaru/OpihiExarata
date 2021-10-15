@@ -6,11 +6,13 @@ Note these configuration constant parameters are all accessed using capital
 letters regardless of the configuration file's labels.
 """
 
+import os
 import yaml
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.typehints as hint
+
 
 
 def load_configuration_file(filename: str) -> dict:
@@ -76,6 +78,7 @@ def load_then_apply_configuration(filename: str) -> None:
     -------
     None
     """
+
     # Load the configuration dictionary.
     configuration = load_configuration_file(filename=filename)
     # Applying the configurations to this module's global namespace is the
@@ -90,3 +93,4 @@ def load_then_apply_configuration(filename: str) -> None:
     # Applying it to the global space of this module only.
     globals().update(configuration)
     return None
+

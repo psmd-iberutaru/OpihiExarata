@@ -1,4 +1,6 @@
-"""Errors pertinent to the function of Exarata."""
+"""Error, warning, and logging functionality pertinent to the function of Exarata."""
+
+import warnings
 
 # Halting errors
 ####################
@@ -9,7 +11,7 @@ class ExarataBaseException(BaseException):
     caught and should bring everything to a halt."""
 
     def __init__(self, message: str = None) -> None:
-        """The initialization of a base exception.
+        """The initialization of a base exception for OpihiExarata.
 
         Parameters
         ----------
@@ -21,7 +23,7 @@ class ExarataBaseException(BaseException):
         None
         """
         # The user's message.
-        message = message if message is not None else ""
+        message = message if message is not None else "Unrecoverable error!"
         # There also defined is two extra lines of text, this helps with
         # giving the user more information as to how to proceed.
         prefix = "(OpihiExarata) TERMINAL - "
@@ -31,6 +33,16 @@ class ExarataBaseException(BaseException):
     def __str__(self) -> str:
         return self.message
 
+
+class DevelopmentError(ExarataBaseException):
+    """This is an error where the development of OpihiExarata is not correct and
+    something is not coded based on the expectations of the software itself.
+    This is not the fault of the user."""
+
+class LogicFlowError(ExarataBaseException):
+    """This is an error to ensure that the logic does not flow to a point to a 
+    place where it is not supposed to. This is helpful in making sure changes 
+    to the code do not screw up the logical flow of the program."""
 
 # Handled errors
 ####################
@@ -42,7 +54,7 @@ class ExarataException(Exception):
     managed."""
 
     def __init__(self, message: str = None) -> None:
-        """The initialization of a base exception.
+        """The initialization of a normal exception.
 
         Parameters
         ----------
@@ -54,7 +66,7 @@ class ExarataException(Exception):
         None
         """
         # The user's message.
-        message = message if message is not None else ""
+        message = message if message is not None else "Error."
         # Note that these errors are from OpihiExarata.
         prefix = "(OpihiExarata) - "
         self.message = prefix + message
@@ -66,13 +78,69 @@ class ExarataException(Exception):
 class FileError(ExarataException):
     """An error to be used when obtaining data files or configuration files
     and something fails."""
+
     pass
 
 
 class ConfigurationError(ExarataException):
     """An error to be used where the expectation of how configuration files
     and configuration parameters are structures are violated."""
+
     pass
 
+
+class WebRequestError(ExarataException):
+    """An error to be used when a web request to some API fails, either because
+    of something from their end, or our end."""
+
+    pass
+
+
 # Warnings
+####################
+
+
+class ExarataWarning(UserWarning):
+    pass
+
+
+def warn(
+    warn_class: type[ExarataWarning] = ExarataWarning,
+    message: str = "",
+    stacklevel: int = 2,
+):
+    """The common method to use to warn for any OpihiExarata based warnings.
+
+    This is used because it has better context manager wrappers.
+
+    Parameters
+    ----------
+    warn_class : type, default = ExarataWarning
+        The warning class, it must be a subtype of a user warning.
+    message : string, default = ""
+        The warning message.
+    stacklevel : integer, default = 2
+        The location in the stack that the warning call will highlight.
+
+    Returns
+    -------
+    None
+    """
+    # The warning class must be a subset of the OpihiExarata warnings as that
+    # is all this function is supposed to use.
+    if not issubclass(warn_class, ExarataWarning):
+        raise DevelopmentError(
+            "The OpihiExarata warning system is build only for user defined errors"
+            " coming from OpihiExarata."
+        )
+    else:
+        warnings.warn(message=message, category=warn_class, stacklevel=stacklevel)
+    return None
+
+
+# Logging
+####################
+
+
+# Context manegers
 ####################
