@@ -78,7 +78,7 @@ def get_file_extension(pathname: str) -> str:
 
 
 def merge_pathname(
-    directory: hint.Union[str, list] = None, filename: str = None, extension: str = None
+    directory: hints.Union[str, list] = None, filename: str = None, extension: str = None
 ) -> str:
     """Joins directories, filenames, and file extensions into one pathname.
 
