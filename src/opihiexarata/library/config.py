@@ -3,7 +3,9 @@ of the configuration parameters into a more accessable space which other parts
 of Exarata can use.
 
 Note these configuration constant parameters are all accessed using capital 
-letters regardless of the configuration file's labels.
+letters regardless of the configuration file's labels. Moreover, there are 
+constant parameters which are stored here which are not otherwise changeable
+by the configuration file.
 """
 
 import os
@@ -11,8 +13,7 @@ import yaml
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.typehints as hint
-
+import opihiexarata.library.hints as hints
 
 
 def load_configuration_file(filename: str) -> dict:
@@ -94,3 +95,12 @@ def load_then_apply_configuration(filename: str) -> None:
     globals().update(configuration)
     return None
 
+
+# Configuration/constant parameters which are otherwise not usually provided.
+###################
+
+# The default path which this module is installed in. It is one higher than 
+# this file which is within the library module of the OpihiExarata install.
+MODULE_INSTALLATION_PATH = os.path.dirname(
+    os.path.realpath(os.path.join(os.path.realpath(__file__), ".."))
+)

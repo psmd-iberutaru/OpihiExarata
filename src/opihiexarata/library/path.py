@@ -5,7 +5,7 @@ import os
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.typehints as hint
+import opihiexarata.library.hints as hints
 
 
 def get_directory(pathname: str) -> str:

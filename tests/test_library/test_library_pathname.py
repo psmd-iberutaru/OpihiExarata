@@ -3,7 +3,7 @@ import sys
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.typehints as hint
+import opihiexarata.library.hints as hints
 
 # The operating system that is running, if it is Windows, the tests for
 # pathnames are different.
