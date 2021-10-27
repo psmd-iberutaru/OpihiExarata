@@ -44,6 +44,11 @@ class LogicFlowError(ExarataBaseException):
     place where it is not supposed to. This is helpful in making sure changes 
     to the code do not screw up the logical flow of the program."""
 
+class UndiscoveredError(ExarataBaseException):
+    """This is an error used in cases where the source of the error has not 
+    been determined and so a more helpful error message or mitigation strategy 
+    cannot be devised."""
+
 # Handled errors
 ####################
 
