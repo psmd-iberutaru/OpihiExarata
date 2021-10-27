@@ -10,6 +10,7 @@ by the configuration file.
 
 import os
 import yaml
+import shutil
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -36,16 +37,20 @@ def load_configuration_file(filename: str) -> dict:
     """
     # Checking the extension is valid, just as a quick sanity check that the
     # configuration file is proper.
-    config_extension = "yaml"
+    config_extension = ("yaml", "yml")
     filename_ext = library.path.get_file_extension(pathname=filename)
-    if config_extension != filename_ext:
+    if config_extension not in filename_ext:
         raise error.FileError(
             "Configuration file does not have the proper extension it should be a yaml"
             " file."
         )
     # Loading the configuration file.
-    with open(filename, "r") as config_file:
-        configuration_dict = dict(yaml.load(config_file, Loader=yaml.SafeLoader))
+    try:
+        with open(filename, "r") as config_file:
+            configuration_dict = dict(yaml.load(config_file, Loader=yaml.SafeLoader))
+    except FileNotFoundError:
+        # This is an error that is specific to OpihiExarata.
+        raise error.FileError("The following configuration filename does not exist: \n {fname}".format(fname=filename))
     # Double check that the configuration is flat as per the documentation
     # and expectation.
     for __, valuedex in configuration_dict.items():
@@ -95,8 +100,86 @@ def load_then_apply_configuration(filename: str) -> None:
     globals().update(configuration)
     return None
 
+def generate_configuration_file_copy(filename: str, overwrite=False) -> None:
+    """This generates a copy of the default configuration file to the given 
+    location.
+    
+    Parameters
+    ----------
+    filename : string 
+        The pathname or filename where the configuration file should be put
+        to. If it does not have the proper yaml extension, it will be added.
+    overwrite : bool, default = False
+        If the file already exists, overwrite it. If False, it would raise
+        an error instead.
 
-# Configuration/constant parameters which are otherwise not usually provided.
+    Returns
+    -------
+    None
+    """
+    # Check if the filename is already taken by something.
+    if os.path.isfile(filename) and (not overwrite):
+        raise error.FileError("Filename already exists, overwrite is False: \n {fname}".format(fname=filename))
+    # If the user did not provide a filename with the proper extension, add it.
+    user_ext = library.path.get_file_extension(pathname=filename)
+    yaml_extensions = ("yaml", "yml")
+    preferred_yaml_extension = yaml_extensions[0]
+    if user_ext not in yaml_extensions:
+        file_destination = library.path.merge_pathname(filename=filename, extension=preferred_yaml_extension)
+    else:
+        # Nothing needs to be done. The filename is fine.
+        file_destination = filename
+    
+    # Copy the file over from the default location within this install.
+    default_config_path=library.path.merge_pathname(
+        directory=library.config.MODULE_INSTALLATION_PATH,
+        filename="configuration",
+        extension="yaml",
+    )
+    shutil.copyfile(default_config_path, file_destination)
+    return None
+
+def generate_secrets_file_copy(filename: str, overwrite=False) -> None:
+    """This generates a copy of the secrets configuration file to the given 
+    location.
+    
+    Parameters
+    ----------
+    filename : string 
+        The pathname or filename where the configuration file should be put
+        to. If it does not have the proper yaml extension, it will be added.
+    overwrite : bool, default = False
+        If the file already exists, overwrite it. If False, it would raise
+        an error instead.
+
+    Returns
+    -------
+    None
+    """
+    # Check if the filename is already taken by something.
+    if os.path.isfile(filename) and (not overwrite):
+        raise error.FileError("Filename already exists, overwrite is False: \n {fname}".format(fname=filename))
+    # If the user did not provide a filename with the proper extension, add it.
+    user_ext = library.path.get_file_extension(pathname=filename)
+    yaml_extensions = ("yaml", "yml")
+    preferred_yaml_extension = yaml_extensions[0]
+    if user_ext not in yaml_extensions:
+        file_destination = library.path.merge_pathname(filename=filename, extension=preferred_yaml_extension)
+    else:
+        # Nothing needs to be done. The filename is fine.
+        file_destination = filename
+    
+    # Copy the file over from the default location within this install.
+    default_config_path=library.path.merge_pathname(
+        directory=library.config.MODULE_INSTALLATION_PATH,
+        filename="secrets",
+        extension="yaml",
+    )
+    shutil.copyfile(default_config_path, file_destination)
+    return None
+
+# Configuration/constant parameters which are otherwise not usually provided
+# or must be provided at runtime with code.
 ###################
 
 # The default path which this module is installed in. It is one higher than 
