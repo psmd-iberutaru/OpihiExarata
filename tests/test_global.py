@@ -5,6 +5,7 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+
 def test_true() -> None:
     """This is a test that should always pass. This is just a default test
     to make sure tests runs.

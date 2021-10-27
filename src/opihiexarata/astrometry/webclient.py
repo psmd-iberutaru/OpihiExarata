@@ -310,8 +310,9 @@ class AstrometryWebAPI:
                 + "\n"
                 + "Content-Type: application/octet-stream\r\n"
                 + "MIME-Version: 1.0\r\n"
-                + 'Content-disposition: form-data; name="file"; filename="{name}"'
-                .format(name=file_args["filename"])
+                + 'Content-disposition: form-data; name="file"; filename="{name}"'.format(
+                    name=file_args["filename"]
+                )
                 + "\r\n"
                 + "\r\n"
             )
