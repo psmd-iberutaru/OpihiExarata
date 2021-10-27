@@ -88,6 +88,9 @@ class ConfigurationError(ExarataException):
 
     pass
 
+class ReadOnlyError(ExarataException):
+    """An error where variables or files are assumed to be read only, this 
+    enforces that notion."""
 
 class WebRequestError(ExarataException):
     """An error to be used when a web request to some API fails, either because

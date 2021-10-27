@@ -5,7 +5,7 @@ import os
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.hints as hints
+import opihiexarata.library.hint as hint
 
 
 def get_directory(pathname: str) -> str:
@@ -78,7 +78,7 @@ def get_file_extension(pathname: str) -> str:
 
 
 def merge_pathname(
-    directory: hints.Union[str, list] = None, filename: str = None, extension: str = None
+    directory: hint.Union[str, list] = None, filename: str = None, extension: str = None
 ) -> str:
     """Joins directories, filenames, and file extensions into one pathname.
 

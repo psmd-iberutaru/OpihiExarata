@@ -9,3 +9,5 @@ be a central collection of types for the purpose of type hinting..
 from typing import *
 from collections import *
 from collections.abc import *
+
+from numpy.typing import ArrayLike, DTypeLike

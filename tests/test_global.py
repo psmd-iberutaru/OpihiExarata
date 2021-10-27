@@ -3,7 +3,7 @@ globally."""
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.hints as hints
+import opihiexarata.library.hint as hint
 
 def test_true() -> None:
     """This is a test that should always pass. This is just a default test

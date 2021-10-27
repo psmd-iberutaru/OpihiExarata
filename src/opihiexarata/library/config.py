@@ -14,7 +14,7 @@ import shutil
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.hints as hints
+import opihiexarata.library.hint as hint
 
 
 def load_configuration_file(filename: str) -> dict:
@@ -39,7 +39,7 @@ def load_configuration_file(filename: str) -> dict:
     # configuration file is proper.
     config_extension = ("yaml", "yml")
     filename_ext = library.path.get_file_extension(pathname=filename)
-    if config_extension not in filename_ext:
+    if filename_ext not in config_extension:
         raise error.FileError(
             "Configuration file does not have the proper extension it should be a yaml"
             " file."
