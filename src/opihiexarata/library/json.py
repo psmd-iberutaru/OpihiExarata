@@ -3,6 +3,10 @@ most part, these functions are just wrappers around the built-in JSON handling."
 
 import json
 
+import opihiexarata.library as library
+import opihiexarata.library.error as error
+import opihiexarata.library.hint as hint
+
 def dictionary_to_json(dictionary:dict) -> str:
     """Converts a Python dictionary to a JSON string. 
     
@@ -16,7 +20,7 @@ def dictionary_to_json(dictionary:dict) -> str:
     json_string : str
         The JSON string.
     """
-    json_string = json.dump(dictionary)
+    json_string = json.dumps(dictionary)
     return json_string
 
 def json_to_dictionary(json_string:str) -> dict:
