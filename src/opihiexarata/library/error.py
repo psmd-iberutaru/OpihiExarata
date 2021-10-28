@@ -39,15 +39,18 @@ class DevelopmentError(ExarataBaseException):
     something is not coded based on the expectations of the software itself.
     This is not the fault of the user."""
 
+
 class LogicFlowError(ExarataBaseException):
-    """This is an error to ensure that the logic does not flow to a point to a 
-    place where it is not supposed to. This is helpful in making sure changes 
+    """This is an error to ensure that the logic does not flow to a point to a
+    place where it is not supposed to. This is helpful in making sure changes
     to the code do not screw up the logical flow of the program."""
 
+
 class UndiscoveredError(ExarataBaseException):
-    """This is an error used in cases where the source of the error has not 
-    been determined and so a more helpful error message or mitigation strategy 
+    """This is an error used in cases where the source of the error has not
+    been determined and so a more helpful error message or mitigation strategy
     cannot be devised."""
+
 
 # Handled errors
 ####################
@@ -80,28 +83,29 @@ class ExarataException(Exception):
         return self.message
 
 
-class FileError(ExarataException):
-    """An error to be used when obtaining data files or configuration files
-    and something fails."""
-
-    pass
-
-
 class ConfigurationError(ExarataException):
     """An error to be used where the expectation of how configuration files
     and configuration parameters are structures are violated."""
 
-    pass
+
+class DirectoryError(ExarataException):
+    """An error to be used when there are issues specifically with directories
+    and not just files."""
+
+
+class FileError(ExarataException):
+    """An error to be used when obtaining data files or configuration files
+    and something fails."""
+
 
 class ReadOnlyError(ExarataException):
-    """An error where variables or files are assumed to be read only, this 
+    """An error where variables or files are assumed to be read only, this
     enforces that notion."""
+
 
 class WebRequestError(ExarataException):
     """An error to be used when a web request to some API fails, either because
     of something from their end, or our end."""
-
-    pass
 
 
 # Warnings
@@ -109,7 +113,8 @@ class WebRequestError(ExarataException):
 
 
 class ExarataWarning(UserWarning):
-    pass
+    """The base warning class which all of the other OpihiExarata warnings 
+    are derived from."""
 
 
 def warn(
