@@ -32,9 +32,9 @@ class AstrometryWebAPI:
     Methods
     -------
     """
-
+    
     # The base URL for the API which all other service URLs are derived from.
-    _DEFAULT_BASE_API_URL = library.config.ASTROMETRYNET_BASE_API_URL
+    _DEFAULT_BASE_API_URL = "http://nova.astrometry.net/api/"
 
     # The default arguments for uploading files. In (key, value, type) form.
     # Detailed is also their useage cases per
