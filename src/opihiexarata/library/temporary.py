@@ -49,25 +49,25 @@ def delete_temporary_directory() -> None:
     -------
     None
     """
-    directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
+    temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     # Determine if the directory is empty of all useful files.
     try:
-        with os.scandir(directory) as temp_dir:
+        with os.scandir(temp_dir) as temp_dir:
             for entry in temp_dir:
                 if entry.is_file():
                     raise error.DirectoryError(
                         "Cannot delete the temporary directory, it contains files."
                         " Purge the temporary directory before deleteing it. Directory:"
-                        " {dir}".format(dir=directory)
+                        " {dir}".format(dir=temp_dir)
                     )
     except FileNotFoundError:
         raise error.DirectoryError(
             "The directory cannot be found. The temporary directory cannot be deleted"
-            " if it does not exist. Directory: {dir}".format(dir=directory)
+            " if it does not exist. Directory: {dir}".format(dir=temp_dir)
         )
     # Otherwise, delete the directory.
-    if os.path.isdir(directory):
-        os.removedirs(directory)
+    if os.path.isdir(temp_dir):
+        os.removedirs(temp_dir)
     else:
         # The directory does not exist, or it is not actually a directory.
         pass
@@ -87,8 +87,11 @@ def purge_temporary_directory() -> None:
     None
     """
     # List of all of the files.
-    directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
-    file_list = glob.glob(directory, recursive=True)
+    temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
+    path_search_string = library.path.merge_pathname(
+        directory=[temp_dir, "**"], filename="*"
+    )
+    file_list = glob.glob(path_search_string, recursive=True)
     # Remove all of the files.
     for filedex in file_list:
         try:
@@ -114,6 +117,6 @@ def make_temporary_directory_path(filename: str) -> str:
         The full path of the file, as it would be stored in the temporary
         directory.
     """
-    directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
-    full_path = library.path.merge_pathname(directory=directory, filename=filename)
+    temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
+    full_path = library.path.merge_pathname(directory=temp_dir, filename=filename)
     return full_path
