@@ -16,7 +16,7 @@ BUG_URL = "https://github.com/psmd-iberutaru/OpihiExarata/issues"
 DOCUMENTATION_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
-DEPENDENCIES = ["astropy", "numpy", "pyyaml", "PySimpleGUIQt", "PyQt5"]
+DEPENDENCIES = ["astropy", "numpy", "pyyaml", "PySimpleGUIQt", "PyQt5", "requests"]
 
 
 ###############################################################################
