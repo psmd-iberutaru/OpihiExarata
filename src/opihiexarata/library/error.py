@@ -92,11 +92,22 @@ class DirectoryError(ExarataException):
     """An error to be used when there are issues specifically with directories
     and not just files."""
 
+class EngineError(ExarataException):
+    """This error is for when the astrometric, photometric, or asteroid-metric 
+    solver engines provided are not valid or expected."""
 
 class FileError(ExarataException):
     """An error to be used when obtaining data files or configuration files
     and something fails."""
 
+
+class InputError(ExarataException):
+    """An error to be used when the inputs to a function are not valid and do 
+    not match the expectations of that function."""
+
+class IntentionalError(ExarataException):
+    """An error to be used where error catching is helpful. This error 
+    generally should always be caught by the code in context."""
 
 class ReadOnlyError(ExarataException):
     """An error where variables or files are assumed to be read only, this

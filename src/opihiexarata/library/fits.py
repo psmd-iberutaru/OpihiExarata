@@ -59,17 +59,20 @@ def read_fits_table_file(
     -------
     header : Astropy Header
         The header of the fits file.
-    table : array-like
+    table : Astropy Table
         The data table of the fits file.
     """
     with ap_fits.open(filename) as hdul:
         hdu = hdul[extension].copy()
         header = hdu.header
-        table = hdu.data
-    # Check that the data really is an image.
-    if not isinstance(table, ap_table.Table):
+        data = hdu.data
+    # Check that the data really is table-like.
+    if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):
         raise error.FileError(
             "This function is designed to read binary table fits files, and thus the"
-            " data of this fits file or extension is expected to be array-like."
+            " data of this fits file or extension is expected to be a table."
         )
+    else:
+        # The return is specified to be an astropy table.
+        table = ap_table.Table(data)
     return header, table

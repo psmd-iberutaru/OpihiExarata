@@ -10,7 +10,7 @@ from typing import *
 from collections import *
 from collections.abc import *
 
-from astropy.io.fits import Header
+from astropy.io.fits import Header, FITS_rec
 from astropy.table import Table
 from numpy.typing import ArrayLike, DTypeLike
 

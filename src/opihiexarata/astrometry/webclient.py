@@ -1,3 +1,4 @@
+import os
 import urllib.parse
 import urllib.request
 import urllib.error
@@ -8,7 +9,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class AstrometryWebAPI:
+class AstrometryWebAPI(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
     This API does not have the full functionality of the default Python client
@@ -20,6 +21,8 @@ class AstrometryWebAPI:
     ----------
     _apikey : string
         The API key used to log in.
+    original_upload_filename : string
+        The original filename that was used to upload the data.
     session : string
         The session ID of this API connection to astrometry.net
     submission_id : string
@@ -32,7 +35,7 @@ class AstrometryWebAPI:
     Methods
     -------
     """
-    
+
     # The base URL for the API which all other service URLs are derived from.
     _DEFAULT_BASE_API_URL = "http://nova.astrometry.net/api/"
 
@@ -78,6 +81,7 @@ class AstrometryWebAPI:
 
     # Placeholder variables.
     _apikey = None
+    original_upload_filename = None
     _image_return_results = {}
     session = None
 
@@ -310,9 +314,8 @@ class AstrometryWebAPI:
                 + "\n"
                 + "Content-Type: application/octet-stream\r\n"
                 + "MIME-Version: 1.0\r\n"
-                + 'Content-disposition: form-data; name="file"; filename="{name}"'.format(
-                    name=file_args["filename"]
-                )
+                + 'Content-disposition: form-data; name="file"; filename="{name}"'
+                .format(name=file_args["filename"])
                 + "\r\n"
                 + "\r\n"
             )
@@ -366,7 +369,8 @@ class AstrometryWebAPI:
         Returns
         -------
         results : dict
-            The results of the astrometry.net job. They are, in general:
+            The results of the astrometry.net job. They are, in general: (If 
+            the job has not finished yet, None is returned.)
 
                 - Status : The status of the job.
                 - Calibration : Calibration of the image uploaded.
@@ -379,7 +383,11 @@ class AstrometryWebAPI:
         job_id = job_id if job_id is not None else self.job_id
         # Get the result of the job.
         service_string = "jobs/{id}".format(id=job_id)
-        job_result = self._send_web_request(service=service_string)
+        try:
+            job_result = self._send_web_request(service=service_string)
+        except error.WebRequestError:
+            # This error is likely because the job is still in queue.
+            return None
         # Check that the service was successful.
         status = job_result.get("status", False)
         if status != "success":
@@ -424,15 +432,25 @@ class AstrometryWebAPI:
         Returns
         -------
         status : string
-            The status of the submission.
+            The status of the submission. If the job has not run yet, None is
+            returned instead.
         """
         job_id = job_id if job_id is not None else self.job_id
         # Get the result of the job.
         service_string = "jobs/{id}".format(id=job_id)
-        job_result = self._send_web_request(service=service_string)
-        # Check the job status.
-        status = job_result.get("status")
-        return status
+        try:
+            job_result = self._send_web_request(service=service_string)
+        except error.WebRequestError:
+            # This error is likely because the job is still in queue.
+            status = None
+        else:
+            # Check the job status.
+            status = job_result.get("status")
+        finally:
+            return status
+        # Should not get here.
+        raise error.LogicFlowError
+        return None
 
     def get_submission_results(self, submission_id: str = None) -> dict:
         """Get the results of a submission specified by its ID.
@@ -476,6 +494,60 @@ class AstrometryWebAPI:
         status = results.get("status")
         return status
 
+    def get_reference_star_pixel_correlation(
+        self, job_id: str = None, temp_filename: str = None, delete_after:bool=True
+    ) -> hint.Table:
+        """This obtains the table that correlates the location of reference
+        stars and their pixel locations. It is obtained from the fits corr file
+        that is downloaded into a temporary directory.
+
+        Parameters
+        ----------
+        job_id : string, default = None
+            The ID of the job that the results should be obtained from. If not
+            provided, the ID determined by the file upload is used.
+        temp_filename : string, default = None
+            The filename that the downloaded correlation file will be
+            downloaded as. The path is going to still be in the temporary
+            directory.
+        delete_after : bool, default = True
+            Delete the file after downloading it to extract its information.
+
+        Returns
+        -------
+        correlation_table : Table
+            The table which details the correlation between the coordinates of
+            the stars and their pixel locations.
+        """
+        job_id = job_id if job_id is not None else self.job_id
+        # Download the correlation file to read into a data table.
+        upload_filename = library.path.get_filename_without_extension(
+            pathname=self.original_upload_filename
+        )
+        fits_table_filename = (
+            temp_filename if temp_filename is not None else upload_filename + "_corr"
+        )
+        # The full path of the filename derived from saving it in a temporary
+        # directory.
+        corr_filename = library.path.merge_pathname(
+            filename=fits_table_filename, extension="fits"
+        )
+        corr_pathname = library.temporary.make_temporary_directory_path(
+            filename=corr_filename
+        )
+        # Save the correlation file.
+        self.download_result_file(
+            filename=corr_pathname, file_type="corr", job_id=job_id
+        )
+        # Load the data from the file.
+        __, correlation_table = library.fits.read_fits_table_file(
+            filename=corr_pathname, extension=1
+        )
+        # Delete the temporary file after loading it if desired.
+        if delete_after:
+            os.remove(corr_pathname)
+        return correlation_table
+
     def upload_file(self, pathname: str, **kwargs) -> dict:
         """A wrapper to allow for the uploading of files or images to the API.
 
@@ -496,6 +568,9 @@ class AstrometryWebAPI:
         # When uploading a new file, the submission and job IDs will change.
         # They must be reset because of their read-only nature.
         del self.submission_id, self.job_id
+
+        # Save the file information.
+        self.original_upload_filename = pathname
 
         args = self._generate_upload_args(**kwargs)
         # Process the file upload.
@@ -527,7 +602,7 @@ class AstrometryWebAPI:
 
                 - `wcs`: The world corrdinate data table file.
                 - `new_fits`, `new_image`: A new fits file, containing the
-                   original image, annotations, and WCS header information.
+                original image, annotations, and WCS header information.
                 - `rdls`: A table of reference stars nearby.
                 - `axy`: A table in of the location of stars detected in the
                 provided image.
@@ -539,6 +614,7 @@ class AstrometryWebAPI:
             provided, the ID determined by the file upload is used.
 
         Returns
+        -------
         None
         """
         # Get the proper job ID.
@@ -565,6 +641,15 @@ class AstrometryWebAPI:
             return url
 
         file_download_url = _construct_file_download_url(ftype=file_type, id=job_id)
+        # Before downloading the file, check that the file actually exists.
+        if job_id is None:
+            raise error.WebRequestError("There is no job to download the file from.")
+        if library.http.get_http_status_code(url=file_download_url) != 200:
+            raise error.WebRequestError(
+                "The file download link is not giving an acceptable http status code."
+                " It is likely that the job is still processing and thus the data files"
+                " are not ready."
+            )
         # Download the file.
         library.http.download_file_from_url(
             url=file_download_url, filename=filename, overwrite=True

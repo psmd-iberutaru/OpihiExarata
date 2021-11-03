@@ -3,12 +3,51 @@ resources. Included here are functions which download files, query web resources
 and other things. This interacts mostly with HTTP based services."""
 
 import os
-import urllib.request
 import shutil
+import time
+import urllib.request
+import requests
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
+
+
+def get_http_status_code(url:str) -> int:
+    """This gets the http status code of a web resource.
+    
+    Parameters
+    ----------
+    url : string
+        The url which the http status code will try and obtain.
+    
+    Return
+    ------
+    status_code : int
+        The status code.
+    """
+    web_request = requests.get(url)
+    status_code = web_request.status_code
+    return status_code
+
+def api_request_sleep(seconds:float=None) -> None:
+    """Sleep for the time, specified in the configuration file, for API 
+    requests. This function exists to ensure uniformity in application.
+    
+    Parameters
+    ----------
+    seconds : float, default = None
+        The number of seconds that the program should sleep for. If not 
+        provided, then it defaults to the configuration value.
+
+    Results
+    -------
+    None
+    """
+    SLEEP_SECONDS = library.config.API_CONNECTION_REQUEST_SLEEP_SECONDS
+    time.sleep(SLEEP_SECONDS)
+    return None
+
 
 def download_file_from_url(url:str, filename:str, overwrite:bool=False)-> None:
     """Download a file from a URL to disk.
