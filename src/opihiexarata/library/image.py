@@ -94,7 +94,7 @@ def save_array_as_png_grayscale(
     """
     # Check the extension.
     user_ext = library.path.get_file_extension(pathname=filename)
-    valid_ext = "png"
+    valid_ext = ("png",)
     if user_ext not in valid_ext:
         # Adding the extension.
         preferred_ext = valid_ext[-1]

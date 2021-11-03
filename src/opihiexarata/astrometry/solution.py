@@ -172,7 +172,12 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
         )
         # Save the image as a png as a temporary file.
         png_path = library.temporary.make_temporary_directory_path(
-            filename=library.path.get_filename_without_extension(pathname=fits_filename)
+            filename=library.path.merge_pathname(
+                filename=library.path.get_filename_without_extension(
+                    pathname=fits_filename
+                ),
+                extension="png",
+            )
         )
         library.image.save_array_as_png_grayscale(
             array=scaled_image_data, filename=png_path, overwrite=False

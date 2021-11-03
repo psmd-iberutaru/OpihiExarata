@@ -106,10 +106,10 @@ def merge_pathname(
     # File extension.
     extension = extension if extension is not None else ""
     # Combining them into one path.
-    if extension is not None:
-        filename_extension = filename + "." + extension
-    else:
+    if extension == "":
         filename_extension = filename
+    else:
+        filename_extension = filename + "." + extension
     pathname = os.path.join(total_directory, filename_extension)
     return pathname
 

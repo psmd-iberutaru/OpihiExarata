@@ -15,3 +15,10 @@ library.config.load_then_apply_configuration(
         extension="yaml",
     )
 )
+library.config.load_then_apply_configuration(
+    filename=library.path.merge_pathname(
+        directory=library.config.MODULE_INSTALLATION_PATH,
+        filename="secrets",
+        extension="yaml",
+    )
+)
