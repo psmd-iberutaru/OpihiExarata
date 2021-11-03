@@ -335,18 +335,26 @@ class AstrometryWebAPI(hint.AstrometryEngine):
 
         # Processing the request.
         try:
-            file = urllib.request.urlopen(request)
+            file = urllib.request.urlopen(
+                request, timeout=library.config.ASTROMETRY_WEBAPI_JOB_QUEUE_TIMEOUT
+            )
             text = file.read()
             result = library.json.json_to_dictionary(json_string=text)
             # Check if the status of the request provided is a valid status.
             status = result.get("status")
             if status == "error":
                 error_message = result.get("errormessage", "(none)")
-                raise error.WebRequestError(
-                    "The server returned an error status message: \n {message}".format(
-                        message=error_message
+                # Try to deduce what the error is.
+                if error_message == "bad apikey":
+                    raise error.WebRequestError(
+                        "The API key provided is not a valid key."
                     )
-                )
+                else:
+                    raise error.WebRequestError(
+                        "The server returned an error status message: \n {message}".format(
+                            message=error_message
+                        )
+                    )
             else:
                 return result
         except urllib.error.HTTPError:
