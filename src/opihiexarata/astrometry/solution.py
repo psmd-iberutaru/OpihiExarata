@@ -210,6 +210,9 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
             elif job_status == "success":
                 # The job completed.
                 break
+            elif job_status == "solving":
+                # It is in the process of solving, give it more time.
+                continue
             elif job_status == "failure":
                 # The job failed.
                 raise error.EngineError(
@@ -218,7 +221,7 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
             else:
                 raise error.UndiscoveredError(
                     "There is a response case that is not checked? Astrometry.net job"
-                    " id {id} and status {stat}".format(id=job_id, stat=job_status)
+                    " id `{id}` and status `{stat}`".format(id=job_id, stat=job_status)
                 )
         except error.IntentionalError:
             # The job likely has not completed yet so the data request did
