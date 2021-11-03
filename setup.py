@@ -35,7 +35,7 @@ def get_date_version() -> str:
     """The version of the project.
 
     Returns the project's version using date notation, rather than version
-    numbering. There is not expectation for anything but the most recent
+    numbering. There is no expectation for anything but the most recent
     version to be used anyways.
 
     Parameters
