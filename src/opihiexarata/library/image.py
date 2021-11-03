@@ -73,11 +73,13 @@ def scale_image_array(
     return scaled_array
 
 
-def save_array_as_png_grayscale(array:hint.ArrayLike, filename:str, overwrite:bool=False)->None:
+def save_array_as_png_grayscale(
+    array: hint.ArrayLike, filename: str, overwrite: bool = False
+) -> None:
     """This converts an array to a grayscale PNG file.
 
-    The PNG specification requires that the data values be integer. Note that 
-    if you are saving an array as a PNG, then data may be lost during the 
+    The PNG specification requires that the data values be integer. Note that
+    if you are saving an array as a PNG, then data may be lost during the
     conversion between float to integer.
 
     Parameters
@@ -92,11 +94,13 @@ def save_array_as_png_grayscale(array:hint.ArrayLike, filename:str, overwrite:bo
     """
     # Check the extension.
     user_ext = library.path.get_file_extension(pathname=filename)
-    valid_ext = ("png")
+    valid_ext = "png"
     if user_ext not in valid_ext:
         # Adding the extension.
         preferred_ext = valid_ext[-1]
-        filename_png = library.path.merge_pathname(filename=filename,extension=preferred_ext)
+        filename_png = library.path.merge_pathname(
+            filename=filename, extension=preferred_ext
+        )
     else:
         filename_png = filename
     # Check if the file already exists, if it does, check if overwriting was
@@ -106,7 +110,10 @@ def save_array_as_png_grayscale(array:hint.ArrayLike, filename:str, overwrite:bo
             # Overwrite the file by deleting it.
             os.remove(filename_png)
         else:
-            raise error.FileError("The png file already exists. Overwrite is False. The image cannot be saved at the specified path: {path}".format(path=filename_png))
+            raise error.FileError(
+                "The png file already exists. Overwrite is False. The image cannot be"
+                " saved at the specified path: {path}".format(path=filename_png)
+            )
     # Finally, scale the file.
     image_object = PIL.Image.fromarray(array).convert("L")
     image_object.save(filename_png)

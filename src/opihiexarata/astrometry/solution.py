@@ -79,12 +79,18 @@ class AstrometricSolution:
         # Derive the astrometry depending on the engine provided.
         if issubclass(solver_engine, astrometry.AstrometryWebAPI):
             # Solve using the API.
-            solution_results = _solve_using_astrometry_web_engine(fits_filename=fits_filename)
+            solution_results = _solve_using_astrometry_web_engine(
+                fits_filename=fits_filename
+            )
         else:
             # There is no converter function, the engine is not supported.
-            raise error.EngineError("The provided astrometric engine `{eng}` is not supported.".format(eng=str(solver_engine)))
+            raise error.EngineError(
+                "The provided astrometric engine `{eng}` is not supported.".format(
+                    eng=str(solver_engine)
+                )
+            )
 
-        # Get the results of the solution. If the engine did not provide all of 
+        # Get the results of the solution. If the engine did not provide all of
         # the needed values, then the engine is deficient.
         try:
             # The base astrometric properties of the image.
@@ -94,9 +100,15 @@ class AstrometricSolution:
             # The stars within the region.
             self.star_table = solution_results["star_table"]
         except KeyError:
-            raise error.EngineError("The engine results provided are insufficient for this astrometric solver. Either the engine cannot be used because it cannot provide the needed results, or the derivation function does not pull the required results from the engine.")
+            raise error.EngineError(
+                "The engine results provided are insufficient for this astrometric"
+                " solver. Either the engine cannot be used because it cannot provide"
+                " the needed results, or the derivation function does not pull the"
+                " required results from the engine."
+            )
         # All done.
         return None
+
 
 def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
     """Solve the fits file astrometry using the Web API.
@@ -224,8 +236,8 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
     # Preparing data for extraction.
     job_results = anet_webapi.get_job_results()
     star_corr_table = anet_webapi.get_reference_star_pixel_correlation()
-    column_key = ("field_x","field_y","field_ra","field_dec")
-    pref_name = ("pixel_x","pixel_y","ra","dec")
+    column_key = ("field_x", "field_y", "field_ra", "field_dec")
+    pref_name = ("pixel_x", "pixel_y", "ra", "dec")
     star_corr_subset = star_corr_table[column_key]
     for keydex, namedex in zip(column_key, pref_name):
         star_corr_subset.rename_column(keydex, namedex)

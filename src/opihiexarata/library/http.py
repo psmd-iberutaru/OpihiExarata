@@ -13,14 +13,14 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-def get_http_status_code(url:str) -> int:
+def get_http_status_code(url: str) -> int:
     """This gets the http status code of a web resource.
-    
+
     Parameters
     ----------
     url : string
         The url which the http status code will try and obtain.
-    
+
     Return
     ------
     status_code : int
@@ -30,14 +30,15 @@ def get_http_status_code(url:str) -> int:
     status_code = web_request.status_code
     return status_code
 
-def api_request_sleep(seconds:float=None) -> None:
-    """Sleep for the time, specified in the configuration file, for API 
+
+def api_request_sleep(seconds: float = None) -> None:
+    """Sleep for the time, specified in the configuration file, for API
     requests. This function exists to ensure uniformity in application.
-    
+
     Parameters
     ----------
     seconds : float, default = None
-        The number of seconds that the program should sleep for. If not 
+        The number of seconds that the program should sleep for. If not
         provided, then it defaults to the configuration value.
 
     Results
@@ -49,10 +50,10 @@ def api_request_sleep(seconds:float=None) -> None:
     return None
 
 
-def download_file_from_url(url:str, filename:str, overwrite:bool=False)-> None:
+def download_file_from_url(url: str, filename: str, overwrite: bool = False) -> None:
     """Download a file from a URL to disk.
-    
-    ..warning:: The backend of this function relies on a function which may be 
+
+    ..warning:: The backend of this function relies on a function which may be
     depreciated in the future. This function may need to be rewritten.
 
     Parameters
@@ -74,13 +75,17 @@ def download_file_from_url(url:str, filename:str, overwrite:bool=False)-> None:
             os.remove(filename)
         else:
             # Cannot overwrite file.
-            raise error.FileError("The filename provided already exists: \n {fname}".format(fname=filename))
+            raise error.FileError(
+                "The filename provided already exists: \n {fname}".format(
+                    fname=filename
+                )
+            )
     # Save the file. We supply here two methods in the event the first really
     # does get removed.
     try:
         urllib.request.urlretrieve(url, filename)
     except Exception:
         # Alternative method.
-        with urllib.request.urlopen(url) as in_stream, open(filename, 'wb') as out_file:
+        with urllib.request.urlopen(url) as in_stream, open(filename, "wb") as out_file:
             shutil.copyfileobj(in_stream, out_file)
     return None

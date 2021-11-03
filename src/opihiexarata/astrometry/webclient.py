@@ -369,7 +369,7 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         Returns
         -------
         results : dict
-            The results of the astrometry.net job. They are, in general: (If 
+            The results of the astrometry.net job. They are, in general: (If
             the job has not finished yet, None is returned.)
 
                 - Status : The status of the job.
@@ -495,7 +495,7 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         return status
 
     def get_reference_star_pixel_correlation(
-        self, job_id: str = None, temp_filename: str = None, delete_after:bool=True
+        self, job_id: str = None, temp_filename: str = None, delete_after: bool = True
     ) -> hint.Table:
         """This obtains the table that correlates the location of reference
         stars and their pixel locations. It is obtained from the fits corr file
