@@ -76,3 +76,77 @@ def read_fits_table_file(
         # The return is specified to be an astropy table.
         table = ap_table.Table(data)
     return header, table
+
+
+def write_fits_image_file(
+    filename: str, header: hint.Header, data: hint.ArrayLike, overwrite: bool = False
+) -> None:
+    """This writes fits image files to disk. Acting as a wrapper around the
+    fits functionality of astropy.
+
+    Parameters
+    ----------
+    filename : string
+        The filename that the fits image file will be written to.
+    header : Astropy Header
+        The header of the fits file.
+    data : array-like
+        The data image of the fits file.
+    overwrite : boolean, default = False
+        Decides if to overwrite the file if it already exists.
+
+    Returns
+    -------
+    None
+    """
+    # Type checking, ensuring that this function is being used for images only.
+    if not isinstance(header, (dict, ap_fits.Header)):
+        raise error.InputError(
+            "The header must either be an astropy Header class or something convertable"
+            " to it."
+        )
+    if not isinstance(data, np.ndarray):
+        raise error.InputError(
+            "The data must be an image-like object, stored as a Numpy array."
+        )
+    # Create the image and add the header.
+    hdu = ap_fits.PrimaryHDU(data=data, header=header)
+    # Write.
+    hdu.writeto(filename, overwrite=overwrite)
+    return None
+
+
+def write_fits_table_file(
+    filename: str, header: hint.Header, data: hint.Table, overwrite: bool = False
+) -> None:
+    """This writes fits table files to disk. Acting as a wrapper around the
+    fits functionality of astropy.
+
+    Parameters
+    ----------
+    filename : string
+        The filename that the fits image file will be written to.
+    header : Astropy Header
+        The header of the fits file.
+    data : Astropy Table
+        The data table of the table file.
+    overwrite : boolean, default = False
+        Decides if to overwrite the file if it already exists.
+
+    Returns
+    -------
+    None
+    """
+    # Type checking, ensuring that this function is being used for images only.
+    if not isinstance(header, (dict, ap_fits.Header)):
+        raise error.InputError(
+            "The header must either be an astropy Header class or something convertable"
+            " to it."
+        )
+    if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):
+        raise error.InputError("The data must be an table-like object.")
+    # Create the table data
+    binary_table = ap_fits.BinTableHDU(data=data, header=header)
+    # Write.
+    binary_table.writeto(filename, overwrite=overwrite)
+    return None
