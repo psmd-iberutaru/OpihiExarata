@@ -3,7 +3,7 @@ globally."""
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.typehints as hint
+import opihiexarata.library.hint as hint
 
 
 def test_true() -> None:

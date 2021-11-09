@@ -16,7 +16,15 @@ BUG_URL = "https://github.com/psmd-iberutaru/OpihiExarata/issues"
 DOCUMENTATION_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
-DEPENDENCIES = ["astropy", "numpy", "pyyaml", "PySimpleGUIQt", "PyQt5"]
+DEPENDENCIES = [
+    "astropy",
+    "numpy",
+    "pyyaml",
+    "pillow",
+    "PySimpleGUIQt",
+    "PyQt5",
+    "requests",
+]
 
 
 ###############################################################################
@@ -27,7 +35,7 @@ def get_date_version() -> str:
     """The version of the project.
 
     Returns the project's version using date notation, rather than version
-    numbering. There is not expectation for anything but the most recent
+    numbering. There is no expectation for anything but the most recent
     version to be used anyways.
 
     Parameters
@@ -74,6 +82,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
+    package_data={"": ["*.yaml"]},
     packages=setuptools.find_packages(where="src"),
     install_requires=DEPENDENCIES,
     python_requires=">=3.6",

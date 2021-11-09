@@ -2,4 +2,37 @@
 # not be edited by the user, it acts as a template and defaults.
 # You should pass your own configuration.yaml file when running this software.
 
-test: 42
+
+# These is the directory which can be used to store temporary files when using
+# this program. This directory should not be used by or relied on by other 
+# programs.
+TEMPORARY_DIRECTORY : ".exarata_temp"
+
+
+############################################################
+##########     API Services Configuration
+############################################################
+
+# The maximum number of attempts that will be made when connecting to any API
+# service.
+API_CONNECTION_MAXIMUM_ATTEMPTS : 10
+
+# The time, in seconds, that API connections should wait before trying again
+# should it have failed.
+API_CONNECTION_REQUEST_SLEEP_SECONDS : 5
+
+###########
+##### astrometry.net
+###########
+
+# It takes time for the job queue to return results, this is the maximum 
+# timeout time before the program fails (in seconds).
+ASTROMETRY_WEBAPI_JOB_QUEUE_TIMEOUT : 600
+
+# If the sending of fits files to the API service is resulting in errors, send
+# png files instead. Also, as the scaling is automated, percentile cuts should
+# be taken. The values here is the percent of the X highest or lowest pixels 
+# that are cut; it must be 0 <= X <= 100.
+SEND_PNG_IMAGE_FILES : False
+SEND_PNG_LOWER_PERCENT_CUT : 1
+SEND_PNG_UPPER_PERCENT_CUT : 1

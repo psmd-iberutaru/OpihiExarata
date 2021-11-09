@@ -5,7 +5,7 @@ import os
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
-import opihiexarata.library.typehints as hint
+import opihiexarata.library.hint as hint
 
 
 def get_directory(pathname: str) -> str:
@@ -84,12 +84,12 @@ def merge_pathname(
 
     Parameters
     ----------
-    directory : string or list
+    directory : string or list, default = None
         The directory(s) which is going to be used. If it is a list,
         then the paths within it are combined.
-    filename : string
+    filename : string, default = None
         The filename that is going to be used for path construction.
-    extension : string
+    extension : string, default = None
         The filename extension that is going to be used.
 
     Returns
@@ -106,7 +106,10 @@ def merge_pathname(
     # File extension.
     extension = extension if extension is not None else ""
     # Combining them into one path.
-    filename_extension = filename + "." + extension
+    if extension == "":
+        filename_extension = filename
+    else:
+        filename_extension = filename + "." + extension
     pathname = os.path.join(total_directory, filename_extension)
     return pathname
 
