@@ -27,12 +27,12 @@ API_CONNECTION_REQUEST_SLEEP_SECONDS : 5
 
 # It takes time for the job queue to return results, this is the maximum 
 # timeout time before the program fails (in seconds).
-ASTROMETRY_WEBAPI_JOB_QUEUE_TIMEOUT : 600
+ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT : 600
 
 # If the sending of fits files to the API service is resulting in errors, send
 # png files instead. Also, as the scaling is automated, percentile cuts should
 # be taken. The values here is the percent of the X highest or lowest pixels 
 # that are cut; it must be 0 <= X <= 100.
-SEND_PNG_IMAGE_FILES : False
-SEND_PNG_LOWER_PERCENT_CUT : 1
-SEND_PNG_UPPER_PERCENT_CUT : 1
+ASTROMETRYNET_SEND_PNG_IMAGE_FILES : False
+ASTROMETRYNET_SEND_PNG_LOWER_PERCENT_CUT : 1
+ASTROMETRYNET_SEND_PNG_UPPER_PERCENT_CUT : 1

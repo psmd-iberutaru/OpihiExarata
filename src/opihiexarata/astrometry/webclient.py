@@ -9,7 +9,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class AstrometryWebAPI(hint.AstrometryEngine):
+class AstrometryNetWebAPI(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
     This API does not have the full functionality of the default Python client

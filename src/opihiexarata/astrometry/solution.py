@@ -77,7 +77,7 @@ class AstrometricSolution:
             )
 
         # Derive the astrometry depending on the engine provided.
-        if issubclass(solver_engine, astrometry.AstrometryWebAPI):
+        if issubclass(solver_engine, astrometry.AstrometrynetWebAPI):
             # Solve using the API.
             solution_results = _solve_using_astrometry_web_engine(
                 fits_filename=fits_filename
@@ -134,7 +134,7 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
     MAX_ATTEMPTS = library.config.API_CONNECTION_MAXIMUM_ATTEMPTS
     while True:
         try:
-            anet_webapi = astrometry.AstrometryWebAPI(apikey=PRIVATE_KEY)
+            anet_webapi = astrometry.AstrometryNetWebAPI(apikey=PRIVATE_KEY)
         except error.WebRequestError:
             # The connection failed, try again in a little while.
             if attempt_count >= MAX_ATTEMPTS:
@@ -155,14 +155,14 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
     # Before the image is uploaded to astrometry.net, it should be scaled
     # appropriately. To also guard against oddities with fits files, pngs are
     # send instead if configured to do so.
-    if library.config.SEND_PNG_IMAGE_FILES:
+    if library.config.ASTROMETRYNET_SEND_PNG_IMAGE_FILES:
         # Convert and send the png file instead. The png is made in a temporary
         # directory.
         __, image_data = library.fits.read_fits_image_file(filename=fits_filename)
         # Rescaling the array as it helps with finding the stars. The maximum
         # and minimum values are determined by the png specification.
-        LOW_CUT = library.config.SEND_PNG_LOWER_PERCENT_CUT
-        HIGH_CUT = library.config.SEND_PNG_UPPER_PERCENT_CUT
+        LOW_CUT = library.config.ASTROMETRYNET_SEND_PNG_LOWER_PERCENT_CUT
+        HIGH_CUT = library.config.ASTROMETRYNET_SEND_PNG_UPPER_PERCENT_CUT
         scaled_image_data = library.image.scale_image_array(
             array=image_data,
             minimum=0,
@@ -200,7 +200,7 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
     # It may take a little for the job to finish as there is a job queue for
     # astrometry.net.
     start_time = time.time()
-    TIMEOUT_TIME = library.config.ASTROMETRY_WEBAPI_JOB_QUEUE_TIMEOUT
+    TIMEOUT_TIME = library.config.ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT
     while True:
         try:
             job_id = anet_webapi.job_id
