@@ -103,7 +103,7 @@ class AstrometricSolution:
             raise error.EngineError(
                 "The engine results provided are insufficient for this astrometric"
                 " solver. Either the engine cannot be used because it cannot provide"
-                " the needed results, or the derivation function does not pull the"
+                " the needed results, or the vehicle function does not pull the"
                 " required results from the engine."
             )
         # All done.
