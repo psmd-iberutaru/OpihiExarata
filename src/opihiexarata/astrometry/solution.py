@@ -76,18 +76,18 @@ class AstrometricSolution:
                 " used for astrometric solutions."
             )
 
-        # Derive the astrometry depending on the engine provided.
+        # Derive the astrometry depending on the engine provided, calling the
+        # vehicle functions to run the engines and provide the data needed.
         if issubclass(solver_engine, astrometry.AstrometrynetWebAPI):
             # Solve using the API.
-            solution_results = _solve_using_astrometry_web_engine(
+            solution_results = _vehicle_astrometrynet_web_api(
                 fits_filename=fits_filename
             )
         else:
-            # There is no converter function, the engine is not supported.
+            # There is no vehicle function, the engine is not supported.
             raise error.EngineError(
-                "The provided astrometric engine `{eng}` is not supported.".format(
-                    eng=str(solver_engine)
-                )
+                "The provided astrometric engine `{eng}` is not supported, there is no"
+                " associated vehicle function for it.".format(eng=str(solver_engine))
             )
 
         # Get the results of the solution. If the engine did not provide all of
@@ -110,8 +110,9 @@ class AstrometricSolution:
         return None
 
 
-def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
-    """Solve the fits file astrometry using the Web API.
+def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
+    """A vehicle function for astrometric solutions. Solve the fits file
+    astrometry using the astrometry.net nova web API.
 
     Parameters
     ----------
@@ -224,7 +225,7 @@ def _solve_using_astrometry_web_engine(fits_filename: str) -> dict:
                     " id `{id}` and status `{stat}`".format(id=job_id, stat=job_status)
                 )
         except error.IntentionalError:
-            # The job likely has not completed yet so the data request did
+            # The job likely has not started yet so the data request did
             # not do anything. But, check if the time waited exceeded the
             # timeout.
             current_time = time.time()
