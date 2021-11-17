@@ -140,11 +140,11 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         self.__submission_id = image_results.get("subid", None)
         return self.__submission_id
 
-    def __set_submission_id(self, subid) -> None:
+    def __set_submission_id(self, sub_id) -> None:
         """Assign the submission ID, it should only be done once when the
         image is obtained."""
         if self.__submission_id is None:
-            self.__submission_id = subid
+            self.__submission_id = sub_id
         else:
             raise error.ReadOnlyError(
                 "The submission ID has already been set by obtaining it from the API"
@@ -196,11 +196,11 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         raise error.LogicFlowError
         return None
 
-    def __set_job_id(self, jobid) -> None:
+    def __set_job_id(self, job_id) -> None:
         """Assign the job ID, it should only be done once when the
         image is obtained."""
         if self.__job_id is None:
-            self.__job_id = jobid
+            self.__job_id = job_id
         else:
             raise error.ReadOnlyError(
                 "The job ID has already been set by obtaining it from the API service."

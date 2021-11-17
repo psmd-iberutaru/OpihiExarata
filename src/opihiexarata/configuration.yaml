@@ -8,6 +8,15 @@
 # programs.
 TEMPORARY_DIRECTORY : ".exarata_temp"
 
+############################################################
+##########     Photometric Solution Configuration
+############################################################
+
+# The minimum number of observations per color filter needed to be included 
+# in a photometric solution's database. This only is applied to photometric
+# engines which support excluding data based on the number of colored filter 
+# observations.
+PHOTOMETRY_MINIMUM_FILTER_OBSERVATIONS : 3
 
 ############################################################
 ##########     API Services Configuration
@@ -21,8 +30,12 @@ API_CONNECTION_MAXIMUM_ATTEMPTS : 10
 # should it have failed.
 API_CONNECTION_REQUEST_SLEEP_SECONDS : 5
 
+# To force secure connections. If there are certificate issues, try and 
+# disabling this. This only affects APIs which allow for insecure connections.
+API_CONNECTION_ENABLE_SSL_CHECKS : True
+
 ###########
-##### astrometry.net
+##### astrometry.net Nova API
 ###########
 
 # It takes time for the job queue to return results, this is the maximum 
@@ -36,3 +49,14 @@ ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT : 600
 ASTROMETRYNET_SEND_PNG_IMAGE_FILES : False
 ASTROMETRYNET_SEND_PNG_LOWER_PERCENT_CUT : 1
 ASTROMETRYNET_SEND_PNG_UPPER_PERCENT_CUT : 1
+
+###########
+##### PanSTARRS MAST API
+###########
+
+# Which data release should the MAST API use?
+PANSTARRS_MAST_API_DATA_RELEASE_VERSION : 2
+
+# The maximum number of rows to query from the MAST API, use this if the 
+# downloading of the rows is too much.
+PANSTARRS_MAST_API_MAXIMUM_DATA_ROWS : 10000

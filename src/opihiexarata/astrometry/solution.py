@@ -55,7 +55,7 @@ class AstrometricSolution:
             solution.
         solver_engine : AstrometryEngine subclass
             The astrometric solver engine class. This is what will act as the
-            "behind the scenes" and solve the felid, using this middlewhere to
+            "behind the scenes" and solve the field, using this middlewhere to
             translate it into something that is easier.
 
         Returns
@@ -167,7 +167,7 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
             attempt_count += 1
 
     # Before the image is uploaded to astrometry.net, it should be scaled
-    # appropriately. To also guard against oddities with fits files, pngs are
+    # appropriately. To also guard against oddities with fits files, png are
     # send instead if configured to do so.
     if library.config.ASTROMETRYNET_SEND_PNG_IMAGE_FILES:
         # Convert and send the png file instead. The png is made in a temporary

@@ -152,17 +152,23 @@ class PanstarrsMastWebAPI(library.engine.PhotometricEngine):
     information.
     """
 
-    def __init__(self):
+    verify_ssl = True
+
+    def __init__(self, verify_ssl:bool=True) -> None:
         """Create the instance of the API.
 
         Parameters
         ----------
-        None
+        verify_ssl : boolean, default = True
+            Connecting to the MAST API usually uses SSL verification via HTTPS,
+            set to False to allow bypassing this.
 
         Returns
         -------
         None
         """
+        self.verify_ssl = verify_ssl
+
         return None
 
     def _mask_table_data(self, data_table: hint.Table) -> hint.Table:
@@ -343,7 +349,7 @@ class PanstarrsMastWebAPI(library.engine.PhotometricEngine):
             p=color_detections,
         )
         # Pull the data into a table.
-        query = requests.post(mast_api_url)
+        query = requests.post(mast_api_url, verify=self.verify_ssl)
         catalog_results = ap_ascii.read(query.text, format="csv")
         return catalog_results
 
