@@ -121,7 +121,9 @@ class AstrometricSolution:
                 " required results from the engine."
             )
         # Construct the Skycoord object from the data provided.
-        self.skycoord = ap_coordinates.SkyCoord(self.ra, self.dec, frame='icrs', unit='deg')
+        self.skycoord = ap_coordinates.SkyCoord(
+            self.ra, self.dec, frame="icrs", unit="deg"
+        )
 
         # All done.
         return None
@@ -268,7 +270,6 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     pref_name = ("pixel_x", "pixel_y", "ra_astro", "dec_astro")
     star_corr_subset = star_corr_table[column_key]
     star_corr_subset.rename_columns(column_key, pref_name)
-
 
     # Extracting the data
     solution_results["ra"] = job_results["calibration"]["ra"]

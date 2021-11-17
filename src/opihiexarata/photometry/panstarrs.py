@@ -154,7 +154,7 @@ class PanstarrsMastWebAPI(library.engine.PhotometryEngine):
 
     verify_ssl = True
 
-    def __init__(self, verify_ssl:bool=True) -> None:
+    def __init__(self, verify_ssl: bool = True) -> None:
         """Create the instance of the API.
 
         Parameters
@@ -353,11 +353,10 @@ class PanstarrsMastWebAPI(library.engine.PhotometryEngine):
         catalog_results = ap_ascii.read(query.text, format="csv")
         return catalog_results
 
-
     def masked_cone_search(self, *args, **kwargs) -> hint.Table:
-        """The same as cone_search, but it also masks the data based on the 
+        """The same as cone_search, but it also masks the data based on the
         masking idiosyncrasies of PanSTARRS.
-        
+
         Parameters
         ----------
         (see cone_search)
@@ -365,7 +364,7 @@ class PanstarrsMastWebAPI(library.engine.PhotometryEngine):
         Returns
         -------
         masked_catalog_results : Astropy Table
-            The data from the cone search with the entries masked where 
+            The data from the cone search with the entries masked where
             appropriate.
         """
         # Get the data that will be post-processed using making.

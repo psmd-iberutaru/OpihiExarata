@@ -558,8 +558,10 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
             os.remove(corr_pathname)
         return correlation_table
 
-    def get_wcs(self, job_id: str = None, temp_filename: str = None, delete_after: bool = True) -> hint.WCS:
-        """This obtains the wcs header file and then computes World Coordinate 
+    def get_wcs(
+        self, job_id: str = None, temp_filename: str = None, delete_after: bool = True
+    ) -> hint.WCS:
+        """This obtains the wcs header file and then computes World Coordinate
         System solution from it. Because astrometry.net computes it for us,
         we just extract it from the header file using Astropy.
 
@@ -569,7 +571,7 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
             The ID of the job that the results should be obtained from. If not
             provided, the ID determined by the file upload is used.
         temp_filename : string, default = None
-            The filename that the downloaded wcs file will be downloaded as. 
+            The filename that the downloaded wcs file will be downloaded as.
             The path is going to still be in the temporary directory.
         delete_after : bool, default = True
             Delete the file after downloading it to extract its information.
