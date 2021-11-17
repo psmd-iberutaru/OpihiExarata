@@ -18,6 +18,12 @@ TEMPORARY_DIRECTORY : ".exarata_temp"
 # observations.
 PHOTOMETRY_MINIMUM_FILTER_OBSERVATIONS : 3
 
+# This is the maximum angular separation that two entries in the astrometric 
+# table and the photometric table can be while still being considered the same 
+# star/entry and thus correlated enough to be added to the intersection table.
+# This value is in arcseconds.
+PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION : 5
+
 ############################################################
 ##########     API Services Configuration
 ############################################################

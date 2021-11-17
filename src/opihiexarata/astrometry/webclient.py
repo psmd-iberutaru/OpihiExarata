@@ -337,7 +337,7 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         # Processing the request.
         try:
             file = urllib.request.urlopen(
-                request, timeout=library.config.ASTROMETRY_WEBAPI_JOB_QUEUE_TIMEOUT
+                request, timeout=library.config.ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT
             )
             text = file.read()
             result = library.json.json_to_dictionary(json_string=text)

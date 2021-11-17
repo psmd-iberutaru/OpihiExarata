@@ -34,6 +34,9 @@ class AstrometricSolution:
         The declination of the center of the image, in decimal degrees.
     orientation : float
         The angle of orientation that the image is at, in degrees.
+    radius : float
+        The radius of the image, or more specifically, the approximate radius
+        that the image covers in the sky.
     star_table : Table
         A table detailing the correlation of star locations in both pixel and
         celestial space.
@@ -83,7 +86,7 @@ class AstrometricSolution:
 
         # Derive the astrometry depending on the engine provided, calling the
         # vehicle functions to run the engines and provide the data needed.
-        if issubclass(solver_engine, astrometry.AstrometrynetWebAPI):
+        if issubclass(solver_engine, astrometry.AstrometryNetWebAPI):
             # Solve using the API.
             solution_results = _vehicle_astrometrynet_web_api(
                 fits_filename=fits_filename
@@ -106,6 +109,7 @@ class AstrometricSolution:
             self.ra = solution_results["ra"]
             self.dec = solution_results["dec"]
             self.orientation = solution_results["orientation"]
+            self.radius = solution_results["radius"]
             self.wcs = solution_results["wcs"]
             # The stars within the region.
             self.star_table = solution_results["star_table"]
@@ -261,16 +265,16 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     wcs = anet_webapi.get_wcs()
     star_corr_table = anet_webapi.get_reference_star_pixel_correlation()
     column_key = ("field_x", "field_y", "field_ra", "field_dec")
-    pref_name = ("pixel_x", "pixel_y", "ra", "dec")
+    pref_name = ("pixel_x", "pixel_y", "ra_astro", "dec_astro")
     star_corr_subset = star_corr_table[column_key]
-    for keydex, namedex in zip(column_key, pref_name):
-        star_corr_subset.rename_column(keydex, namedex)
+    star_corr_subset.rename_columns(column_key, pref_name)
 
 
     # Extracting the data
     solution_results["ra"] = job_results["calibration"]["ra"]
     solution_results["dec"] = job_results["calibration"]["dec"]
     solution_results["orientation"] = job_results["calibration"]["orientation"]
+    solution_results["radius"] = job_results["calibration"]["radius"]
     solution_results["wcs"] = wcs
     solution_results["star_table"] = star_corr_subset
 

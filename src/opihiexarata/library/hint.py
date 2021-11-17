@@ -16,6 +16,6 @@ from astropy.wcs import WCS
 from numpy.typing import ArrayLike, DTypeLike
 
 # Importing the engines and the solutions.
+from opihiexarata.library.engine import *
 from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
-from opihiexarata.library.engine import *

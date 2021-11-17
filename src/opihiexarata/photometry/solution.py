@@ -1,5 +1,8 @@
 """The general photometric solver."""
 
+import astropy.table as ap_table
+import numpy as np
+
 import opihiexarata.astrometry as astrometry
 import opihiexarata.photometry as photometry
 import opihiexarata.library as library
@@ -30,7 +33,7 @@ class PhotometricSolution:
         A table of stars around the image with their RA, DEC, and filter
         magnitudes. It is not guaranteed that this star table and the
         astrometric star table is correlated.
-    union_star_table : Table
+    intersection_star_table : Table
         A table of stars with both the astrometric and photometric RA and DEC
         coordinates found by the astrometric solution and the photometric
         engine. The filter magnitudes of these stars are also provided. It is
@@ -39,7 +42,7 @@ class PhotometricSolution:
 
     astrometrics = None
     star_table = None
-    union_star_table = None
+    intersection_star_table = None
 
     def __init__(
         self,
@@ -54,7 +57,7 @@ class PhotometricSolution:
         fits_filename : string
             The path of the fits file that contains the data for the astrometric
             solution.
-        solver_engine : AstrometryEngine subclass
+        solver_engine : PhotometryEngine subclass
             The photometric solver engine class. This is what will act as the
             "behind the scenes" and solve the field, using this middlewhere to
             translate it into something that is easier.
@@ -65,6 +68,16 @@ class PhotometricSolution:
         -------
         None
         """
+        # It is a core assumption that the astrometric solution and this
+        # photometric solution is working on the same file.
+        if fits_filename != astrometrics._original_filename:
+            raise error.InputError(
+                "The astrometric solution solved an image file different than the image"
+                " this photometric solution is trying to solve. It is assumed that the"
+                " input astrometric solution and this photometric solution is solving"
+                " the same image."
+            )
+
         # Check that the solver engine is a valid submission, that is is an
         # expected engine class.
         if isinstance(solver_engine, library.engine.PhotometryEngine):
@@ -97,7 +110,9 @@ class PhotometricSolution:
         if issubclass(solver_engine, photometry.PanstarrsMastWebAPI):
             # Solve using the API.
             photo_star_table = _vehicle_panstarrs_mast_web_api(
-                fits_filename=fits_filename
+                ra=self.astrometrics.ra,
+                dec=self.astrometrics.dec,
+                radius=self.astrometrics.radius,
             )
         else:
             # There is no vehicle function, the engine is not supported.
@@ -131,17 +146,120 @@ class PhotometricSolution:
                 )
         self.star_table = photo_star_table
 
-        # Derive the union star table from the photometric results and the
+        # Derive the intersection star table from the photometric results and the
         # astrometric solution. The data table is also used.
-        self.union_star_table = self.__calculate_union_star_table()
+        self.intersection_star_table = self.__calculate_intersection_star_table()
 
         # All done.
         return None
 
+    def __calculate_intersection_star_table(self) -> hint.Table:
+        """This function determines the intersection star table.
 
-def _vehicle_panstarrs_mast_web_api(
-    self, ra: float, dec: float, radius: float
-) -> hint.Table:
+        Basically this function matches the entries in the astrometric star
+        table with the photometric star table. This function accomplishes that
+        by simpily associating the closest entires as the same star. The
+        distance function assumes a tangent sky projection.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        intersection_table : Table
+            The intersection of the astrometric and photometric star tables
+            giving the correleated star entries between them.
+        """
+        # The astrometric and photometric tables to be worked with. This
+        # functions should be called after they exist so this is fine. This
+        # also makes the code a little more readable.
+        astrometric_table = self.astrometrics.star_table
+        photometric_table = self.star_table
+
+        # The intersection table. The columns are just both tables joined.
+        # The first entries are just hard-coded to be first because they are
+        # the basic required columns.
+        base_columns = [
+            "ra_astro",
+            "dec_astro",
+            "ra_photo",
+            "dec_photo",
+            "pixel_x",
+            "pixel_y",
+            "separation",
+            "g_mag",
+            "g_err",
+            "r_mag",
+            "r_err",
+            "i_mag",
+            "i_err",
+            "z_mag",
+            "z_err",
+        ]
+        # This sorting method relies on dictionaries preserving insertion
+        # order.
+        intersection_colnames = (
+            base_columns + astrometric_table.colnames + photometric_table.colnames
+        )
+        intersection_colnames = list(dict.fromkeys(intersection_colnames))
+        # Making the table.
+        intersection_table = ap_table.Table(masked=True, names=intersection_colnames)
+
+        # The RA and DEC of the photometric tables. Cache them as variables
+        # is a little more time efficient.
+        ra_phototable = photometric_table["ra_photo"]
+        dec_phototable = photometric_table["dec_photo"]
+
+        # A function for finding the signed difference between two angles. This
+        # is needed for angular separation comparison to avoid angle wrapping.
+        def _sgn_ang_diff(a, b):
+            """Find the signed difference between two angles. Assumes degrees."""
+            return 180 - (180 - a + b) % 360
+
+        # The maximum that two entries can be seperated while still being the
+        # same target. The configuration file's units is arcseconds, convert to
+        # degrees.
+        MAX_SEP_AECSEC = library.config.PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION
+        MAX_SEP_DEG = MAX_SEP_AECSEC / 3600
+
+        # Find the closest star within the photometric table for each
+        # astrometric star. It is assumed that the two closest entries are
+        # the same star.
+        for rowdex in astrometric_table:
+            # Reassignment for ease.
+            ra_astro_row = rowdex["ra_astro"]
+            dec_astro_row = rowdex["dec_astro"]
+            # Assuming tangential projection and pythagoras distances for
+            # finding closest star. Modulus is needed to ensure that angle
+            # differences properly wrap around 0 degrees.
+            ra_diff = _sgn_ang_diff(a=ra_astro_row, b=ra_phototable)
+            dec_diff = _sgn_ang_diff(a=dec_astro_row, b=dec_phototable)
+            # Finding minimum separation.
+            separations = np.sqrt(ra_diff ** 2 + dec_diff ** 2)
+            minimum_separation_index = np.nanargmin(separations)
+            minimum_separation = separations[minimum_separation_index]
+
+            # If the separation exceeds the maximum set, then there simply is
+            # no pair.
+            if MAX_SEP_DEG < minimum_separation:
+                # No luck, no matching entry.
+                continue
+            else:
+                # Entries are good enough to match. The photometric table row
+                # at the found index is the matching star, combine the data
+                # entries. The separation between the is also helpful to have.
+                data = (
+                    dict(photometric_table[minimum_separation_index])
+                    | dict(rowdex)
+                    | {"separation": minimum_separation}
+                )
+                intersection_table.add_row(data)
+        # All done.
+        return intersection_table
+
+
+def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hint.Table:
     """A vehicle function for photometric solutions. Extract photometric
     data using the PanSTARRS database accessed via the MAST API.
 
@@ -202,7 +320,9 @@ def _vehicle_panstarrs_mast_web_api(
     # To ensure that the format of the table is as expected for the output
     # of this vehicle function, the columns must be renamed to their
     # prescribed names.
-    current_column_names = list(using_columns.values())
+    # When pulling the table data, the column names are built to be case
+    # insensitive, but Astropy tables are case sensitive.
+    current_column_names = list(map(lambda s: s.casefold(), using_columns.values()))
     expected_column_names = list(using_columns.keys())
     masked_star_table.rename_columns(current_column_names, expected_column_names)
     # Renaming for documentation purposes.
