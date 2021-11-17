@@ -1,6 +1,7 @@
 """The astrometric solution class."""
 
 import time
+import astropy.coordinates as ap_coordinates
 
 import opihiexarata.astrometry as astrometry
 import opihiexarata.library as library
@@ -25,16 +26,17 @@ class AstrometricSolution:
     _original_data : array-like
         The original data of the fits file that was pulled to solve for this
         astrometric solution.
-    skycord : SkyCoord
+    skycoord : SkyCoord
         The sky coordinate which describes the current astrometric solution.
     ra : float
         The right ascension of the center of the image, in decimal degrees.
     dec : float
         The declination of the center of the image, in decimal degrees.
-    grayscale : array-like
-        The image, in gray scale, scaled appropriately. A fraction of pixels
-        are removed/masked depending on the percentile cut values in the
-        configuration.
+    orientation : float
+        The angle of orientation that the image is at, in degrees.
+    star_table : Table
+        A table detailing the correlation of star locations in both pixel and
+        celestial space.
 
     Methods
     -------
@@ -76,6 +78,9 @@ class AstrometricSolution:
                 " used for astrometric solutions."
             )
 
+        # Extract information from the header itself.
+        header, data = library.fits.read_fits_image_file(filename=fits_filename)
+
         # Derive the astrometry depending on the engine provided, calling the
         # vehicle functions to run the engines and provide the data needed.
         if issubclass(solver_engine, astrometry.AstrometrynetWebAPI):
@@ -93,10 +98,15 @@ class AstrometricSolution:
         # Get the results of the solution. If the engine did not provide all of
         # the needed values, then the engine is deficient.
         try:
+            # The original information.
+            self._original_filename = fits_filename
+            self._original_header = header
+            self._original_data = data
             # The base astrometric properties of the image.
             self.ra = solution_results["ra"]
             self.dec = solution_results["dec"]
-            self.angle = self.orientation = solution_results["orientation"]
+            self.orientation = solution_results["orientation"]
+            self.wcs = solution_results["wcs"]
             # The stars within the region.
             self.star_table = solution_results["star_table"]
         except KeyError:
@@ -106,6 +116,9 @@ class AstrometricSolution:
                 " the needed results, or the vehicle function does not pull the"
                 " required results from the engine."
             )
+        # Construct the Skycoord object from the data provided.
+        self.skycoord = ap_coordinates.SkyCoord(self.ra, self.dec, frame='icrs', unit='deg')
+
         # All done.
         return None
 
@@ -244,6 +257,8 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
 
     # Preparing data for extraction.
     job_results = anet_webapi.get_job_results()
+
+    wcs = anet_webapi.get_wcs()
     star_corr_table = anet_webapi.get_reference_star_pixel_correlation()
     column_key = ("field_x", "field_y", "field_ra", "field_dec")
     pref_name = ("pixel_x", "pixel_y", "ra", "dec")
@@ -251,10 +266,12 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     for keydex, namedex in zip(column_key, pref_name):
         star_corr_subset.rename_column(keydex, namedex)
 
+
     # Extracting the data
     solution_results["ra"] = job_results["calibration"]["ra"]
     solution_results["dec"] = job_results["calibration"]["dec"]
     solution_results["orientation"] = job_results["calibration"]["orientation"]
+    solution_results["wcs"] = wcs
     solution_results["star_table"] = star_corr_subset
 
     return solution_results

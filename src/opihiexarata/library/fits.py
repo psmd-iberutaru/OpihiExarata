@@ -9,6 +9,38 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
+def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint.Header:
+    """This reads the header of fits files only. This should be used only if
+    there is no data.
+
+    Really, this is just a wrapper around Astropy, but it is made for
+    consistency and to avoid the usage of the convince functions.
+
+    Parameters
+    ----------
+    filename : string
+        The filename that the fits image file is at.
+    extension : int or string, default = 0
+        The fits extension that is desired to be opened.
+
+    Returns
+    -------
+    header : Astropy Header
+        The header of the fits file.
+    """
+    with ap_fits.open(filename) as hdul:
+        hdu = hdul[extension].copy()
+        header = hdu.header
+        data = hdu.data
+    # Check that the data does not exist, so the data read should be none.
+    if data is not None:
+        raise error.FileError(
+            "This function is designed to read headers of fits files only, and thus the"
+            " data of this fits file or extension is expected to be None, nothing."
+        )
+    return header
+
+
 def read_fits_image_file(
     filename: str, extension: hint.Union[int, str] = 0
 ) -> tuple[hint.Header, hint.ArrayLike]:
@@ -26,8 +58,6 @@ def read_fits_image_file(
     -------
     header : Astropy Header
         The header of the fits file.
-    data : array-like
-        The data image of the fits file.
     """
     with ap_fits.open(filename) as hdul:
         hdu = hdul[extension].copy()

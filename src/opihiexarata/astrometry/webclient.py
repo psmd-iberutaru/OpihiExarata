@@ -3,6 +3,7 @@ import urllib.parse
 import urllib.request
 import urllib.error
 import random
+import astropy.wcs as ap_wcs
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -556,6 +557,56 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         if delete_after:
             os.remove(corr_pathname)
         return correlation_table
+
+    def get_wcs(self, job_id: str = None, temp_filename: str = None, delete_after: bool = True) -> hint.WCS:
+        """This obtains the wcs header file and then computes World Coordinate 
+        System solution from it. Because astrometry.net computes it for us,
+        we just extract it from the header file using Astropy.
+
+        Parameters
+        ----------
+        job_id : string, default = None
+            The ID of the job that the results should be obtained from. If not
+            provided, the ID determined by the file upload is used.
+        temp_filename : string, default = None
+            The filename that the downloaded wcs file will be downloaded as. 
+            The path is going to still be in the temporary directory.
+        delete_after : bool, default = True
+            Delete the file after downloading it to extract its information.
+
+        Returns
+        -------
+        wcs : Astropy WCS
+            The world coordinate solution class for the image provided.
+        """
+        job_id = job_id if job_id is not None else self.job_id
+        # Download the correlation file to read into a data table.
+        upload_filename = library.path.get_filename_without_extension(
+            pathname=self.original_upload_filename
+        )
+        fits_table_filename = (
+            temp_filename if temp_filename is not None else upload_filename + "_wcs"
+        )
+        # The full path of the filename derived from saving it in a temporary
+        # directory.
+        corr_filename = library.path.merge_pathname(
+            filename=fits_table_filename, extension="fits"
+        )
+        corr_pathname = library.temporary.make_temporary_directory_path(
+            filename=corr_filename
+        )
+        # Save the correlation file.
+        self.download_result_file(
+            filename=corr_pathname, file_type="wcs", job_id=job_id
+        )
+        # Load the header from the file.
+        wcs_header = library.fits.read_fits_header(filename=corr_pathname)
+        wcs = ap_wcs.WCS(wcs_header)
+
+        # Delete the temporary file after loading it if desired.
+        if delete_after:
+            os.remove(corr_pathname)
+        return wcs
 
     def upload_file(self, pathname: str, **kwargs) -> dict:
         """A wrapper to allow for the uploading of files or images to the API.
