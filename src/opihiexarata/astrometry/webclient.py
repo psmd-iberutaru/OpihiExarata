@@ -9,6 +9,8 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+# The base URL for the API which all other service URLs are derived from.
+_DEFAULT_BASE_URL = "http://nova.astrometry.net/api/"
 
 class AstrometryNetWebAPI(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
@@ -36,9 +38,6 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
     Methods
     -------
     """
-
-    # The base URL for the API which all other service URLs are derived from.
-    _DEFAULT_BASE_API_URL = "http://nova.astrometry.net/api/"
 
     # The default arguments for uploading files. In (key, value, type) form.
     # Detailed is also their useage cases per
@@ -86,11 +85,16 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
     _image_return_results = {}
     session = None
 
-    def __init__(self, apikey: str = None, silent: bool = True) -> None:
+    def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
         """The instantiation, connecting to the web API using the API key.
 
         Parameters
         ----------
+        url : string, default = None
+            The base url which all other API URL links are derived from. This
+            should be used if the API is a self-hosted install or has a 
+            different web source than nova.astrometry.net. Defaults to the 
+            nova.astrometry.net api service.
         apikey : string
             The API key of the user.
         silent : bool, default = True
@@ -101,6 +105,9 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         -------
         None
         """
+        # Defining the URL.
+        self.ASTROMETRY_BASE_API_URL = str(url) if url is not None else _DEFAULT_BASE_URL
+
         # Use the API key to log in a derive a session key.
         session_key = self.__login(apikey=apikey)
         self._apikey = apikey
@@ -229,7 +236,7 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         url : str
             The URL for the service.
         """
-        url = self._DEFAULT_BASE_API_URL + service
+        url = self.ASTROMETRY_BASE_API_URL + service
         return url
 
     def _generate_upload_args(self, **kwargs) -> dict:
