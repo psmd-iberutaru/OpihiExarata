@@ -1,5 +1,6 @@
 """The general photometric solver."""
 
+import astropy.coordinates as ap_coord
 import astropy.table as ap_table
 import numpy as np
 
@@ -29,6 +30,8 @@ class PhotometricSolution:
         photometric solution.
     astrometrics : AstrometricSolution
         The astrometric solution that is required for the photometric solution.
+    sky_counts : float
+        The average sky contribution per pixel.
     star_table : Table
         A table of stars around the image with their RA, DEC, and filter
         magnitudes. It is not guaranteed that this star table and the
@@ -38,17 +41,36 @@ class PhotometricSolution:
         coordinates found by the astrometric solution and the photometric
         engine. The filter magnitudes of these stars are also provided. It is
         gauranteed that the stars within this table are correlated.
+    exposure_time : float
+        How long, in seconds, the image in question was exposed for.
+    filter_name : string
+        A single character string describing the name of the filter band that 
+        this image was taken in. Currently, it assumes the MKO/SDSS visual 
+        filters. 
+    zero_point : float
+        The zero point of the image.
+    zero_point_error : float
+        The standard deviation of the error point mean as calculated using 
+        many stars.
     """
-
+    # Initial variables.
     astrometrics = None
+    sky_counts_mask = None
+    sky_counts = 0
     star_table = None
     intersection_star_table = None
+    exposure_time = 0
+    filter_name = None
+    zero_point = 0
+    zero_point_error = 0
 
     def __init__(
         self,
         fits_filename: str,
         solver_engine: hint.PhotometryEngine,
         astrometrics: hint.AstrometricSolution,
+        exposure_time: float,
+        filter_name: str
     ) -> None:
         """Initialization of the photometric solution.
 
@@ -63,6 +85,12 @@ class PhotometricSolution:
             translate it into something that is easier.
         astrometrics : AstrometricSolution, default = None
             A precomputed astrometric solution which belongs to this image.
+        exposure_time : float
+            How long, in seconds, the image in question was exposed for.
+        filter_name : string
+            A single character string describing the name of the filter band that 
+            this image was taken in. Currently, it assumes the MKO/SDSS visual 
+            filters. 
 
         Returns
         -------
@@ -105,6 +133,9 @@ class PhotometricSolution:
 
         # Extract information from the header itself.
         header, data = library.fits.read_fits_image_file(filename=fits_filename)
+        self._original_filename = fits_filename
+        self._original_header = header
+        self._original_data = data
 
         # Derive the photometric star table.
         if issubclass(solver_engine, photometry.PanstarrsMastWebAPI):
@@ -149,6 +180,26 @@ class PhotometricSolution:
         # Derive the intersection star table from the photometric results and the
         # astrometric solution. The data table is also used.
         self.intersection_star_table = self.__calculate_intersection_star_table()
+
+        # Determine the average sky contribution per pixel.
+        self.sky_counts_mask = self.__calculate_sky_counts_mask()
+        self.sky_counts = self.__calculate_sky_counts_value()
+
+        # The exposure time information.
+        self.exposure_time = float(exposure_time)
+
+        # The filter name, check that it is a valid expected filter which the
+        # photometric engines and vehicle functions are expected to deal with.
+        ACCEPTED_FILTERS = ()
+        if (filter_name not in ACCEPTED_FILTERS):
+            raise error.InputError("The filter name provided `{f}` is not a filter that is supposed by OpihiExarata's supported photometric engines and vehicle functions and therefore cannot be used to derive a photometric solution. Accepted filters: {af}".format(f=filter_name, af=ACCEPTED_FILTERS))
+        else:
+            self.filter_name = str(filter_name)
+
+        # Calculating the zero point of this filter image as it is part of the photometric solution.
+        zero, zero_err = self._calculate_zero_point()
+        self.zero_point = zero
+        self.zero_point_error = zero_err
 
         # All done.
         return None
@@ -196,6 +247,7 @@ class PhotometricSolution:
             "i_err",
             "z_mag",
             "z_err",
+            "counts",
         ]
         # This sorting method relies on dictionaries preserving insertion
         # order.
@@ -223,6 +275,10 @@ class PhotometricSolution:
         MAX_SEP_AECSEC = library.config.PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION
         MAX_SEP_DEG = MAX_SEP_AECSEC / 3600
 
+        # The size of a star, used for the photometric count determination. As
+        # the star photon counts function uses degrees, a conversion is done.
+        STAR_RADIUS_DEG = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND * (1 / 3600)
+
         # Find the closest star within the photometric table for each
         # astrometric star. It is assumed that the two closest entries are
         # the same star.
@@ -231,8 +287,8 @@ class PhotometricSolution:
             ra_astro_row = rowdex["ra_astro"]
             dec_astro_row = rowdex["dec_astro"]
             # Assuming tangential projection and pythagoras distances for
-            # finding closest star. Modulus is needed to ensure that angle
-            # differences properly wrap around 0 degrees.
+            # finding closest star. Special function used to handle angle
+            # wrapping.
             ra_diff = _sgn_ang_diff(a=ra_astro_row, b=ra_phototable)
             dec_diff = _sgn_ang_diff(a=dec_astro_row, b=dec_phototable)
             # Finding minimum separation.
@@ -246,17 +302,265 @@ class PhotometricSolution:
                 # No luck, no matching entry.
                 continue
             else:
-                # Entries are good enough to match. The photometric table row
-                # at the found index is the matching star, combine the data
-                # entries. The separation between the is also helpful to have.
+                # Entries are good enough to match.
+
+                # The difference between the two locations in space may be
+                # useful.
+                separation = minimum_separation
+                # The total counts of this star. This table is going to be
+                # used for photometric calculations so having this in the table
+                # is a useful convince.
+                dn_counts = self._calculate_star_photon_counts_coordinate(
+                    ra=ra_astro_row, dec=dec_astro_row, radius=STAR_RADIUS_DEG
+                )
+
+                # The photometric table row at the found index is the matching
+                # star, combine the data entries.
                 data = (
                     dict(photometric_table[minimum_separation_index])
                     | dict(rowdex)
-                    | {"separation": minimum_separation}
+                    | {"separation": separation}
+                    | {"counts": dn_counts}
                 )
                 intersection_table.add_row(data)
         # All done.
         return intersection_table
+
+    def __calculate_sky_counts_mask(self) -> hint.ArrayLike:
+        """Calculate a mask which blocks out all but the sky for sky counts
+        determination.
+
+        The method used is to exclude the regions where stars exist (as
+        determined by the star tables) and also the central region
+        of the image (as it is expected that there is a science object there).
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        sky_counts_mask : float
+            The mask which masks out which is not intresting regarding sky
+            count calculations.
+        """
+        # Extracting the needed information from the computed solution values.
+        data_array = np.array(self.astrometrics._original_data, dtype=float, copy=True)
+        wcs = self.astrometrics.wcs
+        arcsec_pixel_scale = self.astrometrics.pixel_scale
+        photo_star_table = self.star_table
+        astro_star_table = self.astrometrics.star_table
+        # Information about the data array.
+        n_rows, n_cols = data_array.shape
+
+        # Using the photometric star table as the locations for the stars is
+        # likely more accurate and also would theoretically exclude more stars
+        # than the astrometric star table. But, there is no harm in using both.
+        # The pixel values for the photometric table are derived from the WCS.
+        photo_ra, photo_dec = (
+            photo_star_table["ra_photo"],
+            photo_star_table["dec_photo"],
+        )
+        photo_x, photo_y = wcs.world_to_pixel_values(photo_ra, photo_dec)
+        photo_x = np.array(photo_x, dtype=int)
+        photo_y = np.array(photo_y, dtype=int)
+        astro_x = np.array(astro_star_table["pixel_x"], dtype=int)
+        astro_y = np.array(astro_star_table["pixel_y"], dtype=int)
+        # The pixel locations of all detected stars.
+        stars_x = np.append(photo_x, astro_x)
+        stars_y = np.append(photo_y, astro_y)
+        # The length of the masking box region for a star, being generous on
+        # the half definition for odd sized boxes.
+        STAR_RADIUS_AS = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
+        STAR_RADIUS_PIXEL = STAR_RADIUS_AS / arcsec_pixel_scale
+        HALF_BOX_LENGTH = int(2 * STAR_RADIUS_PIXEL) + 2
+        # Definiting the star mask to mask regions where stars have been
+        # detected.
+        star_mask = np.zeros_like(data_array, dtype=bool)
+        for colindex, rowindex in zip(stars_x, stars_y):
+            star_mask[
+                rowindex - HALF_BOX_LENGTH : rowindex + HALF_BOX_LENGTH,
+                colindex - HALF_BOX_LENGTH : colindex + HALF_BOX_LENGTH,
+            ] = True
+        # Masking the center region as well as a science object is expected
+        # to be there.
+        SCIENCE_RADIUS = library.config.PHOTOMETRY_SCIENCE_RADIUS_MASK_PIXELS
+        SCI_WIDTH = int(2 * SCIENCE_RADIUS + 1)
+        science_mask = np.zeros_like(data_array, dtype=bool)
+        science_mask[
+            n_rows // 2 - SCI_WIDTH : n_rows // 2 + SCI_WIDTH,
+            n_cols // 2 - SCI_WIDTH : n_cols // 2 + SCI_WIDTH,
+        ] = True
+        # Mask the edges of the array as often they are spurious and may have
+        # bleed over from electronics onto the detector itself. This also is a
+        # way of ignoring that the slices above may not be proper, hence the
+        # edge value.
+        EDGE_WIDTH = library.config.PHOTOMETRY_EDGE_WIDTH_MASK_PIXELS
+        edge_mask = np.ones_like(data_array, dtype=bool)
+        edge_mask[EDGE_WIDTH:-EDGE_WIDTH, EDGE_WIDTH:-EDGE_WIDTH] = False
+        # Finally, making any values which do not really make any sense or are
+        # already nans.
+        nan_mask = ~(np.isfinite(data_array))
+
+        # Adding all of the masks.
+        sky_counts_mask = star_mask | science_mask | edge_mask | nan_mask
+        return sky_counts_mask
+
+    def __calculate_sky_counts_value(self) -> float:
+        """Calculate the background sky value, in counts, from the image.
+        Obviously needed for photometric calibrations.
+
+        The regions outside of the sky mask represent the sky and the sky
+        counts is extracted from that.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        sky_counts : float
+            The total number of counts, in DN that, on average, the sky
+            contributes per pixel.
+        """
+        # Extracting the needed information from the computed solution values.
+        data_array = np.array(self.astrometrics._original_data, dtype=float, copy=True)
+        # If the sky mask has not been computed, then it should be determined.
+        try:
+            sky_counts_mask = self.sky_counts_mask
+        except AttributeError:
+            # Calculate the mask first, it is strange that this is called first.
+            sky_counts_mask = self.__calculate_sky_counts_mask()
+
+        # Apply the sky mask.
+        masked_data_array = np.ma.array(data_array, mask=sky_counts_mask)
+        sky_data_values = masked_data_array.compressed()
+
+        # Computing the sky value based on the star-masked array.
+        sky_counts = np.ma.median(sky_data_values)
+        return sky_counts
+
+    def _calculate_star_photon_counts_coordinate(
+        self, ra: float, dec: float, radius: float
+    ) -> float:
+        """Calculate the total number of photometric counts at an RA DEC. The
+        counts are already corrected for the sky counts.
+
+        This function does not check if a star is actually there. This function
+        is a wrapper around its pixel version, converting via the WCS solution.
+
+        Parameters
+        ----------
+        ra : float
+            The right ascension in degrees.
+        dec : float
+            The declination in degrees.
+        radius : float
+            The radius of the circular aperture to be considered, in degrees.
+
+        Returns
+        -------
+        photon_counts : float
+            The sum of the sky corrected counts for the region defined.
+        """
+        # Extracting the needed parameters.
+        wcs = self.astrometrics.wcs
+        arcsec_pixel_scale = self.astrometrics.pixel_scale
+
+        # Translating the coordinates to the usable pixels.
+        photo_x, photo_y = wcs.world_to_pixel_values(ra, dec)
+
+        # The radius is in angular degrees, converting it to pixels via the
+        # scale. Converting the astrometrics scale to degrees as well as the
+        # input unit is that.
+        pixel_radius = radius / (arcsec_pixel_scale * (1 / 3600))
+
+        # Using the pixel version because there is little need to implement
+        # it all again.
+        photon_counts = self._calculate_star_photon_counts_pixel(
+            pixel_x=photo_x, pixel_y=photo_y, radius=pixel_radius
+        )
+        return photon_counts
+
+    def _calculate_star_photon_counts_pixel(
+        self, pixel_x: int, pixel_y: int, radius: float
+    ) -> float:
+        """Calculate the total number of photometric counts at a pixel
+        location. The counts are already corrected for the sky counts.
+
+        This function does not check if a star is actually there.
+
+        Parameters
+        ----------
+        pixel_x : int
+            The x cordinate of the center pixel.
+        pixel_y : int
+            The y cordinate of the center pixel.
+        radius : float
+            The radius of the circular aperture to be considered in pixel
+            counts.
+
+        Returns
+        -------
+        photon_counts : float
+            The sum of the sky corrected counts for the region defined.
+        """
+        # Extracting the needed parameters.
+        data_array = np.array(self.astrometrics._original_data, dtype=float, copy=True)
+        sky_counts = self.sky_counts
+
+        # Taking out the sky contribution.
+        data_array_nosky = data_array - sky_counts
+
+        # A circular mask is used to define the star.
+        star_mask = library.image.create_circular_mask(
+            array=data_array_nosky, center_x=pixel_x, center_y=pixel_y, radius=radius
+        )
+        star_array_nosky = np.ma.array(data_array_nosky, mask=star_mask)
+
+        # Summing up the total counts within the star region as defined by the
+        # star mask, this is the total photon counts.
+        photon_counts = np.nansum(star_array_nosky)
+        return photon_counts
+
+    def _calculate_zero_point(self) -> float:
+        """This function calculates the photometric zero-point of the image 
+        provided the data in the intersection star table. 
+
+        This function uses the set exposure time and the intersection star 
+        table. The band is also assumed from the initial parameters.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        zero_point : float
+            The zero point of this image. This is computed as a mean of all of
+            the calculated zero points.
+        zero_point_error : float
+            The standard deviation of the zero points calculated.
+        """
+        # Obtaining the needed information.
+        inter_star_table = self.intersection_star_table
+        exposure_time = self.exposure_time
+        filter_name = self.filter_name
+
+        # Extract the proper photometric values for the filter being used.
+        filter_table_header = "{f}_mag".format(f=filter_name)
+        magnitude = inter_star_table[filter_table_header]
+        # And the count data.
+        counts = inter_star_table["counts"]
+
+        # Instrument magnitudes.
+        inst_magnitude = -2.5 * np.log10(counts/exposure_time)
+        
+        # Zero points via the definition equation
+        zero_points = magnitude - inst_magnitude
+        zero_point = np.mean(zero_points)
+        zero_point_error = np.std(zero_points)
+        return zero_point, zero_point_error
 
 
 def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hint.Table:

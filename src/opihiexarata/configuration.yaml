@@ -24,6 +24,21 @@ PHOTOMETRY_MINIMUM_FILTER_OBSERVATIONS : 3
 # This value is in arcseconds.
 PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION : 5
 
+# The star radius is used to define the photometric radius of a star for 
+# zero-points; the unit is in arcseconds. A star's photometric profile is a 
+# circle. (This is also used to define the mask for stars when calculating the
+# total sky value.)
+PHOTOMETRY_STAR_RADIUS_ARCSECOND : 1
+
+# The science radius and the edge length mask the center and the edges of the 
+# array respectively as they other wise contribute to a worse sky flux 
+# correction value. Unlike the photometric radii, these are set by the 
+# detector and so are pixel based and have units of pixels. (For faster 
+# computational speed, the science mask is a box.)
+PHOTOMETRY_SCIENCE_RADIUS_MASK_PIXELS : 500
+PHOTOMETRY_EDGE_WIDTH_MASK_PIXELS : 100
+
+
 ############################################################
 ##########     API Services Configuration
 ############################################################
@@ -41,7 +56,7 @@ API_CONNECTION_REQUEST_SLEEP_SECONDS : 5
 API_CONNECTION_ENABLE_SSL_CHECKS : True
 
 ###########
-##### astrometry.net Nova API
+##### astrometry.net Nova or self-install API.
 ###########
 
 # It takes time for the job queue to return results, this is the maximum 

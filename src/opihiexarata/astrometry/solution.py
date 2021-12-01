@@ -36,7 +36,13 @@ class AstrometricSolution:
         The angle of orientation that the image is at, in degrees.
     radius : float
         The radius of the image, or more specifically, the approximate radius
-        that the image covers in the sky.
+        that the image covers in the sky, in degrees.
+    pixel_scale : float
+        The pixel scale of the image, in arcseconds per pixel.
+    wcs : Astropy WCS
+        The world coordinate solution unified interface provided by Astropy
+        for interface to the world coordinate which allows conversion between
+        sky and pixel spaces.
     star_table : Table
         A table detailing the correlation of star locations in both pixel and
         celestial space.
@@ -110,6 +116,7 @@ class AstrometricSolution:
             self.dec = solution_results["dec"]
             self.orientation = solution_results["orientation"]
             self.radius = solution_results["radius"]
+            self.pixel_scale = solution_results["pixscale"]
             self.wcs = solution_results["wcs"]
             # The stars within the region.
             self.star_table = solution_results["star_table"]
@@ -276,6 +283,7 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     solution_results["dec"] = job_results["calibration"]["dec"]
     solution_results["orientation"] = job_results["calibration"]["orientation"]
     solution_results["radius"] = job_results["calibration"]["radius"]
+    solution_results["pixscale"] = job_results["calibration"]["pixscale"]
     solution_results["wcs"] = wcs
     solution_results["star_table"] = star_corr_subset
 
