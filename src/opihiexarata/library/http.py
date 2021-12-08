@@ -46,7 +46,8 @@ def api_request_sleep(seconds: float = None) -> None:
     None
     """
     SLEEP_SECONDS = library.config.API_CONNECTION_REQUEST_SLEEP_SECONDS
-    time.sleep(SLEEP_SECONDS)
+    seconds = seconds if seconds is not None else SLEEP_SECONDS
+    time.sleep(seconds)
     return None
 
 
