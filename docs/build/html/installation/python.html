@@ -47,6 +47,7 @@
 <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#download">Download</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#build">Build</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
 </ul>
@@ -125,10 +126,17 @@ it is likely also the simplest.</p>
 parts of OpihiExarata <em>must</em> be installed in order for it to work properly.
 Return to this part only after completing all other parts of the installation.</p>
 </div>
+<section id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h2>
+<p>Download and install a current release of Python if you have not already. You
+can find the latest releases at: <a class="reference external" href="https://www.python.org/downloads/">Python Releases</a>.</p>
+<p>Please note you must install/have Python 3.9+.</p>
+</section>
 <section id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h2>
 <p>You should have already have the repository code in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>. You can
-run the build command based on the operation system you are using:</p>
+run the build command (while in the directory) based on the operation system
+you are using:</p>
 <p>Windows: <code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
 <p>Linux: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
 <p>The package will build into a distributable wheel, note in the output the version
@@ -137,12 +145,13 @@ the name of the wheel file for the next step.</p>
 </section>
 <section id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h2>
-<p>Install the wheel package. You will need to modify this command to the proper
-wheel that you generated from before. Because this project using date-based
-versioning, your package will likely be that of the date that you build the
-wheel. (Force reinstall is optional but suggested to ensure you have the most
+<p>Install the wheel package.</p>
+<p>You will need to modify this command to the proper wheel that you generated
+from before. Because this project using date-based versioning, your package
+will likely be that of the date that you build the wheel.</p>
+<p>(Force reinstall is optional but suggested to ensures you have the most
 up-to-date version.)</p>
-<p>You can install the wheel using:</p>
+<p>You can install the wheel using while in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">dist</span><span class="o">/</span><span class="n">OpihiExarata</span><span class="o">-</span><span class="n">YYYY</span><span class="o">.</span><span class="n">MM</span><span class="o">.</span><span class="n">DD</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span>
 </pre></div>
 </div>

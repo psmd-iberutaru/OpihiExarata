@@ -12,11 +12,22 @@ You will build the Python wheel from the source and install it.
     parts of OpihiExarata *must* be installed in order for it to work properly.
     Return to this part only after completing all other parts of the installation.
 
+Download
+========
+
+Download and install a current release of Python if you have not already. You 
+can find the latest releases at: `Python Releases`_.
+
+Please note you must install/have Python 3.9+.
+
+.. _Python Releases: https://www.python.org/downloads/
+
 Build
 =====
 
 You should have already have the repository code in ``OpihiExarata/``. You can 
-run the build command based on the operation system you are using:
+run the build command (while in the directory) based on the operation system 
+you are using:
 
 Windows: ``py -m build``
 
@@ -30,12 +41,15 @@ the name of the wheel file for the next step.
 Install
 =======
 
-Install the wheel package. You will need to modify this command to the proper 
-wheel that you generated from before. Because this project using date-based 
-versioning, your package will likely be that of the date that you build the 
-wheel. (Force reinstall is optional but suggested to ensure you have the most 
+Install the wheel package. 
+
+You will need to modify this command to the proper wheel that you generated 
+from before. Because this project using date-based versioning, your package 
+will likely be that of the date that you build the wheel. 
+
+(Force reinstall is optional but suggested to ensures you have the most 
 up-to-date version.)
 
-You can install the wheel using::
+You can install the wheel using while in ``OpihiExarata/``::
 
     pip install ./dist/OpihiExarata-YYYY.MM.DD-py3-none-any.whl --force-reinstall
