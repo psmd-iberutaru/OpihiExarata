@@ -1,38 +1,71 @@
-
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>opihiexarata.library.config module &#8212; OpihiExarata 2021.12.9 documentation</title>
-    
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/scrolls.css" />
-    <link rel="stylesheet" href="_static/print.css" type="text/css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/theme_extras.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.library.config module &mdash; OpihiExarata 2021.12.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
-  </head><body>
-    <div id="content">
-      <div class="header">
-        <h1 class="heading"><a href="../index.html"
-          title="back to the documentation overview"><span>opihiexarata.library.config module</span></a></h1>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">opihiexarata.library.config module</a></li>
+</ul>
+</div>
+        </div>
       </div>
-      <div class="relnav" role="navigation" aria-label="related navigation">
-        <a href="#">opihiexarata.library.config module</a>
-      </div>
-      <div id="contentwrapper">
-        <div role="main">
-        
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>opihiexarata.library.config module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/opihiexarata.library.config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="module-opihiexarata.library.config">
-<span id="opihiexarata-library-config-module"></span><h1>opihiexarata.library.config module<a class="headerlink" href="#module-opihiexarata.library.config" title="Permalink to this headline">¶</a></h1>
+<span id="opihiexarata-library-config-module"></span><h1>opihiexarata.library.config module<a class="headerlink" href="#module-opihiexarata.library.config" title="Permalink to this headline"></a></h1>
 <p>Controls the inputting of configuration files. This also serves to bring all
 of the configuration parameters into a more accessable space which other parts
 of Exarata can use.</p>
@@ -42,7 +75,7 @@ constant parameters which are stored here which are not otherwise changeable
 by the configuration file.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.config.generate_configuration_file_copy">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">generate_configuration_file_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#generate_configuration_file_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.generate_configuration_file_copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">generate_configuration_file_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#generate_configuration_file_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.generate_configuration_file_copy" title="Permalink to this definition"></a></dt>
 <dd><p>This generates a copy of the default configuration file to the given
 location.</p>
 <dl class="field-list simple">
@@ -65,7 +98,7 @@ an error instead.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.config.generate_secrets_file_copy">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">generate_secrets_file_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#generate_secrets_file_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.generate_secrets_file_copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">generate_secrets_file_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#generate_secrets_file_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.generate_secrets_file_copy" title="Permalink to this definition"></a></dt>
 <dd><p>This generates a copy of the secrets configuration file to the given
 location.</p>
 <dl class="field-list simple">
@@ -88,7 +121,7 @@ an error instead.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.config.load_configuration_file">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">load_configuration_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#load_configuration_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.load_configuration_file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">load_configuration_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#load_configuration_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.load_configuration_file" title="Permalink to this definition"></a></dt>
 <dd><p>Loads a configuration file and outputs a dictionary of parameters.</p>
 <p>Note configuration files should be flat, there should be no nested
 configuration parameters.</p>
@@ -109,7 +142,7 @@ within it.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.config.load_then_apply_configuration">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">load_then_apply_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#load_then_apply_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.load_then_apply_configuration" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.config.</span></span><span class="sig-name descname"><span class="pre">load_then_apply_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/config.html#load_then_apply_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.config.load_then_apply_configuration" title="Permalink to this definition"></a></dt>
 <dd><p>Loads a configuration file, then applies it to the entire Exarata system.</p>
 <p>Loads a configuration file and overwrites any overlapping
 configurations. It writes the configuration to the configuration module
@@ -133,13 +166,31 @@ if the filename is not the correct extension, just as a quick check.</p>
 </section>
 
 
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-    </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Kenji Sparrow Emerson.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
-    </div>
-  </body>
+</body>
 </html>

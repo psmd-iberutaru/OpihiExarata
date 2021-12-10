@@ -1,35 +1,65 @@
-
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>opihiexarata.astrometry.solution &#8212; OpihiExarata 2021.12.9 documentation</title>
-    
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/scrolls.css" />
-    <link rel="stylesheet" href="_static/print.css" type="text/css" />
-    
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/theme_extras.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.astrometry.solution &mdash; OpihiExarata 2021.12.9 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-  </head><body>
-    <div id="content">
-      <div class="header">
-        <h1 class="heading"><a href="../../../index.html"
-          title="back to the documentation overview"><span>opihiexarata.astrometry.solution</span></a></h1>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
       </div>
-      <div class="relnav" role="navigation" aria-label="related navigation">
-        <a href="#">opihiexarata.astrometry.solution</a>
-      </div>
-      <div id="contentwrapper">
-        <div role="main">
-        
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.astrometry.solution</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <h1>Source code for opihiexarata.astrometry.solution</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;The astrometric solution class.&quot;&quot;&quot;</span>
 
@@ -84,7 +114,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="AstrometricSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">solver_engine</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Solving the astrometry via the image provided. The engine class must</span>
@@ -97,7 +127,7 @@
 <span class="sd">            solution.</span>
 <span class="sd">        solver_engine : AstrometryEngine subclass</span>
 <span class="sd">            The astrometric solver engine class. This is what will act as the</span>
-<span class="sd">            &quot;behind the scenes&quot; and solve the field, using this middlewhere to</span>
+<span class="sd">            &quot;behind the scenes&quot; and solve the field, using this middleware to</span>
 <span class="sd">            translate it into something that is easier.</span>
 
 <span class="sd">        Returns</span>
@@ -119,6 +149,7 @@
                 <span class="s2">&quot;The provided astrometric engine is not a valid engine which can be&quot;</span>
                 <span class="s2">&quot; used for astrometric solutions.&quot;</span>
             <span class="p">)</span>
+
 
         <span class="c1"># Extract information from the header itself.</span>
         <span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">fits_filename</span><span class="p">)</span>
@@ -164,9 +195,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">skycoord</span> <span class="o">=</span> <span class="n">ap_coordinates</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ra</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;deg&quot;</span>
         <span class="p">)</span>
-
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <span class="k">def</span> <span class="nf">_vehicle_astrometrynet_web_api</span><span class="p">(</span><span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -323,13 +353,31 @@
     <span class="k">return</span> <span class="n">solution_results</span>
 </pre></div>
 
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-    </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Kenji Sparrow Emerson.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
-    </div>
-  </body>
+</body>
 </html>
