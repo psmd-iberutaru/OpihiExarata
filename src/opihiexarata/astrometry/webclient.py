@@ -3,13 +3,17 @@ import urllib.parse
 import urllib.request
 import urllib.error
 import random
+import astropy.wcs as ap_wcs
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+# The base URL for the API which all other service URLs are derived from.
+_DEFAULT_BASE_URL = "http://nova.astrometry.net/api/"
 
-class AstrometryWebAPI(hint.AstrometryEngine):
+
+class AstrometryNetWebAPI(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
     This API does not have the full functionality of the default Python client
@@ -35,9 +39,6 @@ class AstrometryWebAPI(hint.AstrometryEngine):
     Methods
     -------
     """
-
-    # The base URL for the API which all other service URLs are derived from.
-    _DEFAULT_BASE_API_URL = "http://nova.astrometry.net/api/"
 
     # The default arguments for uploading files. In (key, value, type) form.
     # Detailed is also their useage cases per
@@ -85,11 +86,16 @@ class AstrometryWebAPI(hint.AstrometryEngine):
     _image_return_results = {}
     session = None
 
-    def __init__(self, apikey: str = None, silent: bool = True) -> None:
+    def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
         """The instantiation, connecting to the web API using the API key.
 
         Parameters
         ----------
+        url : string, default = None
+            The base url which all other API URL links are derived from. This
+            should be used if the API is a self-hosted install or has a
+            different web source than nova.astrometry.net. Defaults to the
+            nova.astrometry.net api service.
         apikey : string
             The API key of the user.
         silent : bool, default = True
@@ -100,6 +106,11 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         -------
         None
         """
+        # Defining the URL.
+        self.ASTROMETRY_BASE_API_URL = (
+            str(url) if url is not None else _DEFAULT_BASE_URL
+        )
+
         # Use the API key to log in a derive a session key.
         session_key = self.__login(apikey=apikey)
         self._apikey = apikey
@@ -139,11 +150,11 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         self.__submission_id = image_results.get("subid", None)
         return self.__submission_id
 
-    def __set_submission_id(self, subid) -> None:
+    def __set_submission_id(self, sub_id) -> None:
         """Assign the submission ID, it should only be done once when the
         image is obtained."""
         if self.__submission_id is None:
-            self.__submission_id = subid
+            self.__submission_id = sub_id
         else:
             raise error.ReadOnlyError(
                 "The submission ID has already been set by obtaining it from the API"
@@ -195,11 +206,11 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         raise error.LogicFlowError
         return None
 
-    def __set_job_id(self, jobid) -> None:
+    def __set_job_id(self, job_id) -> None:
         """Assign the job ID, it should only be done once when the
         image is obtained."""
         if self.__job_id is None:
-            self.__job_id = jobid
+            self.__job_id = job_id
         else:
             raise error.ReadOnlyError(
                 "The job ID has already been set by obtaining it from the API service."
@@ -228,7 +239,7 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         url : str
             The URL for the service.
         """
-        url = self._DEFAULT_BASE_API_URL + service
+        url = self.ASTROMETRY_BASE_API_URL + service
         return url
 
     def _generate_upload_args(self, **kwargs) -> dict:
@@ -336,7 +347,7 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         # Processing the request.
         try:
             file = urllib.request.urlopen(
-                request, timeout=library.config.ASTROMETRY_WEBAPI_JOB_QUEUE_TIMEOUT
+                request, timeout=library.config.ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT
             )
             text = file.read()
             result = library.json.json_to_dictionary(json_string=text)
@@ -447,6 +458,7 @@ class AstrometryWebAPI(hint.AstrometryEngine):
         job_id = job_id if job_id is not None else self.job_id
         # Get the result of the job.
         service_string = "jobs/{id}".format(id=job_id)
+        status = None
         try:
             job_result = self._send_web_request(service=service_string)
         except error.WebRequestError:
@@ -557,14 +569,66 @@ class AstrometryWebAPI(hint.AstrometryEngine):
             os.remove(corr_pathname)
         return correlation_table
 
+    def get_wcs(
+        self, job_id: str = None, temp_filename: str = None, delete_after: bool = True
+    ) -> hint.WCS:
+        """This obtains the wcs header file and then computes World Coordinate
+        System solution from it. Because astrometry.net computes it for us,
+        we just extract it from the header file using Astropy.
+
+        Parameters
+        ----------
+        job_id : string, default = None
+            The ID of the job that the results should be obtained from. If not
+            provided, the ID determined by the file upload is used.
+        temp_filename : string, default = None
+            The filename that the downloaded wcs file will be downloaded as.
+            The path is going to still be in the temporary directory.
+        delete_after : bool, default = True
+            Delete the file after downloading it to extract its information.
+
+        Returns
+        -------
+        wcs : Astropy WCS
+            The world coordinate solution class for the image provided.
+        """
+        job_id = job_id if job_id is not None else self.job_id
+        # Download the correlation file to read into a data table.
+        upload_filename = library.path.get_filename_without_extension(
+            pathname=self.original_upload_filename
+        )
+        fits_table_filename = (
+            temp_filename if temp_filename is not None else upload_filename + "_wcs"
+        )
+        # The full path of the filename derived from saving it in a temporary
+        # directory.
+        corr_filename = library.path.merge_pathname(
+            filename=fits_table_filename, extension="fits"
+        )
+        corr_pathname = library.temporary.make_temporary_directory_path(
+            filename=corr_filename
+        )
+        # Save the correlation file.
+        self.download_result_file(
+            filename=corr_pathname, file_type="wcs", job_id=job_id
+        )
+        # Load the header from the file.
+        wcs_header = library.fits.read_fits_header(filename=corr_pathname)
+        wcs = ap_wcs.WCS(wcs_header)
+
+        # Delete the temporary file after loading it if desired.
+        if delete_after:
+            os.remove(corr_pathname)
+        return wcs
+
     def upload_file(self, pathname: str, **kwargs) -> dict:
         """A wrapper to allow for the uploading of files or images to the API.
 
         This also determines the submission ID and the job ID for the uploaded
         image and saves it.
 
-        Paramters
-        ---------
+        Parameters
+        ----------
         pathname : str
             The pathname of the file to open. The filename is extracted and
             used as well.
@@ -601,8 +665,8 @@ class AstrometryWebAPI(hint.AstrometryEngine):
     ) -> None:
         """Downloads fits data table files which correspond to the job id.
 
-        Parameter
-        ---------
+        Parameters
+        ----------
         filename : str
             The filename of the file when it is downloaded and saved to disk.
         file_type : str
@@ -611,12 +675,12 @@ class AstrometryWebAPI(hint.AstrometryEngine):
 
                 - `wcs`: The world corrdinate data table file.
                 - `new_fits`, `new_image`: A new fits file, containing the
-                original image, annotations, and WCS header information.
+                  original image, annotations, and WCS header information.
                 - `rdls`: A table of reference stars nearby.
                 - `axy`: A table in of the location of stars detected in the
-                provided image.
+                  provided image.
                 - `corr`: A table of the correspondences between reference
-                stars location in the sky and in pixel space.
+                  stars location in the sky and in pixel space.
 
         job_id : str, default = None
             The ID of the job that the results should be obtained from. If not

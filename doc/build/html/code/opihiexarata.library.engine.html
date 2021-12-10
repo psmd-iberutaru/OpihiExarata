@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>opihiexarata.library.engine module &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../index.html"
+          title="back to the documentation overview"><span>opihiexarata.library.engine module</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.library.engine module</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <section id="module-opihiexarata.library.engine">
+<span id="opihiexarata-library-engine-module"></span><h1>opihiexarata.library.engine module<a class="headerlink" href="#module-opihiexarata.library.engine" title="Permalink to this headline">¶</a></h1>
+<p>Where the base classes of the solvers and engines lie.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.library.engine.AstrometryEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.engine.</span></span><span class="sig-name descname"><span class="pre">AstrometryEngine</span></span><a class="reference internal" href="../_modules/opihiexarata/library/engine.html#AstrometryEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.engine.AstrometryEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.engine.ExarataEngine" title="opihiexarata.library.engine.ExarataEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.ExarataEngine</span></code></a></p>
+<p>The base class where the Astrometry engines are derived from. Should
+not be used other than for type hinting and subclassing.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.library.engine.ExarataEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.engine.</span></span><span class="sig-name descname"><span class="pre">ExarataEngine</span></span><a class="reference internal" href="../_modules/opihiexarata/library/engine.html#ExarataEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.engine.ExarataEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The base class for all of the engines which power the interfaces for
+the OpihiExarata system. This should not used for anything other than
+type hinting and subclassing.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.library.engine.ExarataSolution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.engine.</span></span><span class="sig-name descname"><span class="pre">ExarataSolution</span></span><a class="reference internal" href="../_modules/opihiexarata/library/engine.html#ExarataSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.engine.ExarataSolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The base class for all of the solution classes which use engines to
+solve particar problems.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.library.engine.PhotometryEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.engine.</span></span><span class="sig-name descname"><span class="pre">PhotometryEngine</span></span><a class="reference internal" href="../_modules/opihiexarata/library/engine.html#PhotometryEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.engine.PhotometryEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.engine.ExarataEngine" title="opihiexarata.library.engine.ExarataEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.ExarataEngine</span></code></a></p>
+<p>The base class where the Photometry engines are derived from. Should
+not be used other than for type hinting and subclassing.</p>
+</dd></dl>
+
+</section>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

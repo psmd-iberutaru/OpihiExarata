@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>opihiexarata.photometry.solution module &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../index.html"
+          title="back to the documentation overview"><span>opihiexarata.photometry.solution module</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.photometry.solution module</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <section id="module-opihiexarata.photometry.solution">
+<span id="opihiexarata-photometry-solution-module"></span><h1>opihiexarata.photometry.solution module<a class="headerlink" href="#module-opihiexarata.photometry.solution" title="Permalink to this headline">¶</a></h1>
+<p>The general photometric solver.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.photometry.solution.</span></span><span class="sig-name descname"><span class="pre">PhotometricSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><span class="pre">opihiexarata.library.engine.PhotometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">astrometrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><span class="pre">opihiexarata.astrometry.solution.AstrometricSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The primary class describing an photometric solution, based on an image
+provided and catalog data provided from the photometric engine.</p>
+<p>This class is the middlewere class between the engines which solve the
+photometry, and the rest of the OpihiExarata code.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution._original_filename">
+<span class="sig-name descname"><span class="pre">_original_filename</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution._original_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>The original filename where the fits file is stored at, or copied to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution._original_header">
+<span class="sig-name descname"><span class="pre">_original_header</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution._original_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>The original header of the fits file that was pulled to solve for this
+astrometric solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Header</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution._original_data">
+<span class="sig-name descname"><span class="pre">_original_data</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution._original_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The original data of the fits file that was pulled to solve for this
+photometric solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.astrometrics">
+<span class="sig-name descname"><span class="pre">astrometrics</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.astrometrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>The astrometric solution that is required for the photometric solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution">AstrometricSolution</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.sky_counts">
+<span class="sig-name descname"><span class="pre">sky_counts</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.sky_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>The average sky contribution per pixel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.star_table">
+<span class="sig-name descname"><span class="pre">star_table</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.star_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>A table of stars around the image with their RA, DEC, and filter
+magnitudes. It is not guaranteed that this star table and the
+astrometric star table is correlated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.intersection_star_table">
+<span class="sig-name descname"><span class="pre">intersection_star_table</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.intersection_star_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>A table of stars with both the astrometric and photometric RA and DEC
+coordinates found by the astrometric solution and the photometric
+engine. The filter magnitudes of these stars are also provided. It is
+gauranteed that the stars within this table are correlated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.exposure_time">
+<span class="sig-name descname"><span class="pre">exposure_time</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.exposure_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>How long, in seconds, the image in question was exposed for.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.filter_name">
+<span class="sig-name descname"><span class="pre">filter_name</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.filter_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A single character string describing the name of the filter band that
+this image was taken in. Currently, it assumes the MKO/SDSS visual
+filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.zero_point">
+<span class="sig-name descname"><span class="pre">zero_point</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.zero_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>The zero point of the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.zero_point_error">
+<span class="sig-name descname"><span class="pre">zero_point_error</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.zero_point_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>The standard deviation of the error point mean as calculated using
+many stars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><span class="pre">opihiexarata.library.engine.PhotometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">astrometrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><span class="pre">opihiexarata.astrometry.solution.AstrometricSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialization of the photometric solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fits_filename</strong> (<em>string</em>) – The path of the fits file that contains the data for the astrometric
+solution.</p></li>
+<li><p><strong>solver_engine</strong> (<em>PhotometryEngine subclass</em>) – The photometric solver engine class. This is what will act as the
+“behind the scenes” and solve the field, using this middlewhere to
+translate it into something that is easier.</p></li>
+<li><p><strong>astrometrics</strong> (<a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><em>AstrometricSolution</em></a><em>, </em><em>default = None</em>) – A precomputed astrometric solution which belongs to this image.</p></li>
+<li><p><strong>exposure_time</strong> (<em>float</em><em>, </em><em>default = None</em>) – How long, in seconds, the image in question was exposed for. If
+not provided, calculation of the zero-point is skipped.</p></li>
+<li><p><strong>filter_name</strong> (<em>string</em><em>, </em><em>default = None</em>) – A single character string describing the name of the filter band that
+this image was taken in. Currently, it assumes the MKO/SDSS visual
+filters. If it is None, calculation of the zero-point is skipped.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">astrometrics</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">exposure_time</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">filter_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">intersection_star_table</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">sky_counts</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.sky_counts_mask">
+<span class="sig-name descname"><span class="pre">sky_counts_mask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.sky_counts_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">star_table</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">zero_point</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">zero_point_error</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

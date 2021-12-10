@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>opihiexarata.library.temporary &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../../../index.html"
+          title="back to the documentation overview"><span>opihiexarata.library.temporary</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.library.temporary</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <h1>Source code for opihiexarata.library.temporary</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This is where functions dealing with the temporary files and temporary </span>
+<span class="sd">directory of the OpihiExarata system. Temporary files are helpful because they </span>
+<span class="sd">may also contain information useful to the user. These functions thus serve the </span>
+<span class="sd">same purpose as Python&#39;s build-in functions, but it is more restricted to </span>
+<span class="sd">OpihiExarata and it is also more persistant.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+
+<div class="viewcode-block" id="create_temporary_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.create_temporary_directory">[docs]</a><span class="k">def</span> <span class="nf">create_temporary_directory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Make the temporary directory. Fails if the directory already exists.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
+            <span class="s2">&quot;The directory path provided for the temporary directory already exists. A&quot;</span>
+            <span class="s2">&quot; temporary directory cannot be made. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">dir</span><span class="o">=</span><span class="n">directory</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="delete_temporary_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.delete_temporary_directory">[docs]</a><span class="k">def</span> <span class="nf">delete_temporary_directory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Delete the temporary directory. If the directory does not exist, this</span>
+<span class="sd">    function will do nothing. If the directory exists, but contains files, then</span>
+<span class="sd">    this function will fail.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
+    <span class="c1"># Determine if the directory is empty of all useful files.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_dir</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">temp_dir</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                    <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
+                        <span class="s2">&quot;Cannot delete the temporary directory, it contains files.&quot;</span>
+                        <span class="s2">&quot; Purge the temporary directory before deleteing it. Directory:&quot;</span>
+                        <span class="s2">&quot; </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
+                    <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
+            <span class="s2">&quot;The directory cannot be found. The temporary directory cannot be deleted&quot;</span>
+            <span class="s2">&quot; if it does not exist. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># Otherwise, delete the directory.</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">removedirs</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># The directory does not exist, or it is not actually a directory.</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="purge_temporary_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.purge_temporary_directory">[docs]</a><span class="k">def</span> <span class="nf">purge_temporary_directory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Delete or purge all files in the temporary directory. This does it</span>
+<span class="sd">    recursively.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># List of all of the files.</span>
+    <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
+    <span class="n">path_search_string</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="p">[</span><span class="n">temp_dir</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">],</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*&quot;</span>
+    <span class="p">)</span>
+    <span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path_search_string</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Remove all of the files.</span>
+    <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filedex</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="k">continue</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="make_temporary_directory_path"><a class="viewcode-back" href="../../../code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.make_temporary_directory_path">[docs]</a><span class="k">def</span> <span class="nf">make_temporary_directory_path</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Creates a full filename path to use. This function basically adds the</span>
+<span class="sd">    temporary directory path prefix to place the filename path into it.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The filename of the target to be placed in the temporary directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    full_path : string</span>
+<span class="sd">        The full path of the file, as it would be stored in the temporary</span>
+<span class="sd">        directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
+    <span class="n">full_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">full_path</span></div>
+</pre></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

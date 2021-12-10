@@ -9,6 +9,50 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
+
+def slice_array_boundary(
+    array: hint.ArrayLike, x_min: int, x_max: int, y_min: int, y_max: int
+) -> hint.ArrayLike:
+    """Slice an image array such that it stops at the boundaries and does not
+    exceed past it. This function basically handels runtime slicing, but it
+    returns a copy.
+
+    This function does not wrap around slices.
+
+    Parameters
+    ----------
+    array : array-like
+        The base array which the slice will access.
+    x_min : int
+        The lower index bound of the x-axis slice.
+    x_max : int
+        The upper index bound of the x-axis slice.
+    y_min : int
+        The lower index bound of the y-axis slice.
+    y_max : int
+        The upper index bound of the y-axis slice.
+
+    Returns
+    -------
+    boundary_sliced_array : array-like
+        The array, sliced while adhering to the boundary of the slices.
+    """
+    # The maximum value that a slice can have is determined by their column
+    # and row count.
+    n_rows, n_cols = array.shape
+    # Negative slices are already invalid and out of bounds.
+    x_min = 0 if x_min <= 0 else x_min
+    x_max = n_cols if x_max <= 0 else x_max
+    y_min = 0 if y_min <= 0 else y_min
+    y_max = n_rows if y_max <= 0 else y_max
+    # Likewise, if any of the indexes exceed the bounds of the array, force
+    # them back.
+    x_max = n_cols if n_cols < x_max else x_max
+    y_max = n_rows if n_rows < y_max else y_max
+    # Return the slice with these bounds.
+    boundary_sliced_array = array[y_min:y_max, x_min:x_max]
+    return boundary_sliced_array
+
 def scale_image_array(
     array: hint.ArrayLike,
     minimum: float,
@@ -72,6 +116,70 @@ def scale_image_array(
     scaled_array[invalid_pixels] = np.nan
     return scaled_array
 
+def create_circular_mask(
+    array: hint.ArrayLike, center_x: int, center_y: int, radius: float
+) -> hint.ArrayLike:
+    """Creates an array which is a circular mask of some radius centered at a
+    custom index value location. This process is a little intensive so using
+    smaller subsets of arrays are preferred.
+
+    Method inspired by https://stackoverflow.com/a/44874588.
+
+    Parameters
+    ----------
+    array : array-like
+        The data array which the mask will base itself off of. The data in the
+        array is not actually modified but it is required for the shape
+        definition.
+    center_x : integer
+        The x-axis coordinate where the mask will be centered.
+    center_y : integer
+        The y-axis coordinate where the mask will be centered.
+    radius : float
+        The radius of the circle of the mask in pixels.
+
+    Returns
+    -------
+    circular_mask : array-like
+        The mask; it is the same dimensions of the input data array. If True,
+        the the mask should be applied.
+    """
+    # Creating an array to make the circle, it should be just big enough to
+    # create the circle but not too big to have unneeded calculations. To
+    # ensure that it is centered, the array should have odd widths.
+    width = int(2 * radius) + 3
+    width += 1 - (width % 2)
+    working_array = np.full((width, width), False)
+
+    # Performing the circular mask calculation on this middle region.
+    near_n_rows, near_n_cols = working_array.shape
+    near_center_x = near_n_rows // 2
+    near_center_y = near_n_cols // 2
+    grid_y, grid_x = np.ogrid[:near_n_rows, :near_n_cols]
+    dist_sq = (grid_x - near_center_x) ** 2 + (grid_y - near_center_y) ** 2
+    near_mask = dist_sq <= radius ** 2
+
+    # The circular mask is local and should be expanded to the full array's
+    # size. Padding is needed in the event that the center pixel is on the
+    # edge as the arrays are co-aligned.
+    center_x = int(center_x)
+    center_y = int(center_y)
+    half_width = width // 2
+    base_mask = np.full_like(array, False, dtype=bool)
+    padded_mask = np.pad(base_mask, width, mode="constant", constant_values=False)
+    center_x = int(center_x) + width
+    center_y = int(center_y) + width
+    padded_mask[
+        center_y - half_width : center_y + half_width + 1,
+        center_x - half_width : center_x + half_width + 1,
+    ] = near_mask
+    # Reshape the padded mask to the proper size, the same as the input array.
+    circular_mask = padded_mask[width:-width, width:-width]
+    # As per Numpy, masked values are considered True in the mask. The current
+    # method above creates a circle of True values, so the real mask is the
+    # inverse.
+    circular_mask = ~circular_mask
+    return circular_mask
 
 def save_array_as_png_grayscale(
     array: hint.ArrayLike, filename: str, overwrite: bool = False

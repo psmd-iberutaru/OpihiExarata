@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>opihiexarata.photometry.panstarrs module &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../index.html"
+          title="back to the documentation overview"><span>opihiexarata.photometry.panstarrs module</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.photometry.panstarrs module</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <section id="module-opihiexarata.photometry.panstarrs">
+<span id="opihiexarata-photometry-panstarrs-module"></span><h1>opihiexarata.photometry.panstarrs module<a class="headerlink" href="#module-opihiexarata.photometry.panstarrs" title="Permalink to this headline">¶</a></h1>
+<p>Photometric database access using PANSTARRS data. There are a few ways and
+they are implemented here.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.photometry.panstarrs.</span></span><span class="sig-name descname"><span class="pre">PanstarrsMastWebAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verify_ssl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.PhotometryEngine</span></code></a></p>
+<p>This is a photometric data extractor using PanSTARRS data obtained from
+their catalogs via the MAST API.</p>
+<p>See <a class="reference external" href="https://catalogs.mast.stsci.edu/docs/panstarrs.html">https://catalogs.mast.stsci.edu/docs/panstarrs.html</a> for more
+information.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verify_ssl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the instance of the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verify_ssl</strong> (<em>boolean</em><em>, </em><em>default = True</em>) – Connecting to the MAST API usually uses SSL verification via HTTPS,
+set to False to allow bypassing this.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.cone_search">
+<span class="sig-name descname"><span class="pre">cone_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_detections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_release</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI.cone_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.cone_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the PanSTARRS database for targets within a cone region
+specified.</p>
+<p>The table data returned from this function is not processed and is raw
+from the fetching of the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>float</em>) – The right ascension of the center point of the cone search, in
+degrees.</p></li>
+<li><p><strong>dec</strong> (<em>float</em>) – The declination of the center point of the cone search, in
+degrees.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – The radius from the center point of the cone search in which to
+search, in degrees.</p></li>
+<li><p><strong>detections</strong> (<em>int</em><em>, </em><em>default = 3</em>) – The minimum number of detections each object needs to have to be
+included.</p></li>
+<li><p><strong>color_detections</strong> (<em>int</em><em>, </em><em>default = 1</em>) – The minimum number of detections for the g, r, i, z filters of the
+Sloan filters of PanSTARRS. As this is a photometric engine for
+OpihiExarata, the filters should be the ones pertinent to the
+telescope.</p></li>
+<li><p><strong>columns</strong> (<em>list</em>) – The columns that are desired to be pulled. The purpose of this is
+to lighten the data download load. If None, then it defaults to
+all columns.</p></li>
+<li><p><strong>max_rows</strong> (<em>int</em><em>, </em><em>default = 1000</em>) – The maximum entries that will be pulled from the server.</p></li>
+<li><p><strong>data_release</strong> (<em>int</em><em>, </em><em>default = 2</em>) – The PanSTARRS data release version from which to take the data from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>catalog_results</strong> – The result of the cone search, pulled from the PanSTARRS catalog.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Astropy Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.masked_cone_search">
+<span class="sig-name descname"><span class="pre">masked_cone_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI.masked_cone_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.masked_cone_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>The same as cone_search, but it also masks the data based on the
+masking idiosyncrasies of PanSTARRS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cone_search</strong><strong>)</strong> (<em>(</em><em>see</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>masked_catalog_results</strong> – The data from the cone search with the entries masked where
+appropriate.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Astropy Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.verify_ssl">
+<span class="sig-name descname"><span class="pre">verify_ssl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.verify_ssl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

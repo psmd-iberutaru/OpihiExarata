@@ -12,7 +12,10 @@ from collections.abc import *
 
 from astropy.io.fits import Header, FITS_rec
 from astropy.table import Table
+from astropy.wcs import WCS
 from numpy.typing import ArrayLike, DTypeLike
 
-# Importing the engines.
+# Importing the engines and the solutions.
 from opihiexarata.library.engine import *
+from opihiexarata.astrometry.solution import AstrometricSolution
+from opihiexarata.photometry.solution import PhotometricSolution
