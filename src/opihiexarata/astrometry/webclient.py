@@ -12,6 +12,7 @@ import opihiexarata.library.hint as hint
 # The base URL for the API which all other service URLs are derived from.
 _DEFAULT_BASE_URL = "http://nova.astrometry.net/api/"
 
+
 class AstrometryNetWebAPI(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
@@ -92,8 +93,8 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         ----------
         url : string, default = None
             The base url which all other API URL links are derived from. This
-            should be used if the API is a self-hosted install or has a 
-            different web source than nova.astrometry.net. Defaults to the 
+            should be used if the API is a self-hosted install or has a
+            different web source than nova.astrometry.net. Defaults to the
             nova.astrometry.net api service.
         apikey : string
             The API key of the user.
@@ -106,7 +107,9 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         None
         """
         # Defining the URL.
-        self.ASTROMETRY_BASE_API_URL = str(url) if url is not None else _DEFAULT_BASE_URL
+        self.ASTROMETRY_BASE_API_URL = (
+            str(url) if url is not None else _DEFAULT_BASE_URL
+        )
 
         # Use the API key to log in a derive a session key.
         session_key = self.__login(apikey=apikey)
@@ -455,6 +458,7 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         job_id = job_id if job_id is not None else self.job_id
         # Get the result of the job.
         service_string = "jobs/{id}".format(id=job_id)
+        status = None
         try:
             job_result = self._send_web_request(service=service_string)
         except error.WebRequestError:
@@ -623,8 +627,8 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         This also determines the submission ID and the job ID for the uploaded
         image and saves it.
 
-        Paramters
-        ---------
+        Parameters
+        ----------
         pathname : str
             The pathname of the file to open. The filename is extracted and
             used as well.
@@ -661,8 +665,8 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
     ) -> None:
         """Downloads fits data table files which correspond to the job id.
 
-        Parameter
-        ---------
+        Parameters
+        ----------
         filename : str
             The filename of the file when it is downloaded and saved to disk.
         file_type : str
@@ -671,12 +675,12 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
 
                 - `wcs`: The world corrdinate data table file.
                 - `new_fits`, `new_image`: A new fits file, containing the
-                original image, annotations, and WCS header information.
+                  original image, annotations, and WCS header information.
                 - `rdls`: A table of reference stars nearby.
                 - `axy`: A table in of the location of stars detected in the
-                provided image.
+                  provided image.
                 - `corr`: A table of the correspondences between reference
-                stars location in the sky and in pixel space.
+                  stars location in the sky and in pixel space.
 
         job_id : str, default = None
             The ID of the job that the results should be obtained from. If not

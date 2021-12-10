@@ -44,15 +44,16 @@ class PhotometricSolution:
     exposure_time : float
         How long, in seconds, the image in question was exposed for.
     filter_name : string
-        A single character string describing the name of the filter band that 
-        this image was taken in. Currently, it assumes the MKO/SDSS visual 
-        filters. 
+        A single character string describing the name of the filter band that
+        this image was taken in. Currently, it assumes the MKO/SDSS visual
+        filters.
     zero_point : float
         The zero point of the image.
     zero_point_error : float
-        The standard deviation of the error point mean as calculated using 
+        The standard deviation of the error point mean as calculated using
         many stars.
     """
+
     # Initial variables.
     astrometrics = None
     sky_counts_mask = None
@@ -69,8 +70,8 @@ class PhotometricSolution:
         fits_filename: str,
         solver_engine: hint.PhotometryEngine,
         astrometrics: hint.AstrometricSolution,
-        exposure_time: float,
-        filter_name: str
+        exposure_time: float = None,
+        filter_name: str = None,
     ) -> None:
         """Initialization of the photometric solution.
 
@@ -85,12 +86,13 @@ class PhotometricSolution:
             translate it into something that is easier.
         astrometrics : AstrometricSolution, default = None
             A precomputed astrometric solution which belongs to this image.
-        exposure_time : float
-            How long, in seconds, the image in question was exposed for.
-        filter_name : string
-            A single character string describing the name of the filter band that 
-            this image was taken in. Currently, it assumes the MKO/SDSS visual 
-            filters. 
+        exposure_time : float, default = None
+            How long, in seconds, the image in question was exposed for. If
+            not provided, calculation of the zero-point is skipped.
+        filter_name : string, default = None
+            A single character string describing the name of the filter band that
+            this image was taken in. Currently, it assumes the MKO/SDSS visual
+            filters. If it is None, calculation of the zero-point is skipped.
 
         Returns
         -------
@@ -185,21 +187,17 @@ class PhotometricSolution:
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
         self.sky_counts = self.__calculate_sky_counts_value()
 
-        # The exposure time information.
-        self.exposure_time = float(exposure_time)
-
-        # The filter name, check that it is a valid expected filter which the
-        # photometric engines and vehicle functions are expected to deal with.
-        ACCEPTED_FILTERS = ()
-        if (filter_name not in ACCEPTED_FILTERS):
-            raise error.InputError("The filter name provided `{f}` is not a filter that is supposed by OpihiExarata's supported photometric engines and vehicle functions and therefore cannot be used to derive a photometric solution. Accepted filters: {af}".format(f=filter_name, af=ACCEPTED_FILTERS))
+        # Calculating the zero point of this filter image as it is part of the
+        # photometric solution.
+        if exposure_time is None or filter_name is None:
+            # Both is needed to compute the zero point, skip it.
+            pass
         else:
-            self.filter_name = str(filter_name)
-
-        # Calculating the zero point of this filter image as it is part of the photometric solution.
-        zero, zero_err = self._calculate_zero_point()
-        self.zero_point = zero
-        self.zero_point_error = zero_err
+            zero, zero_err = self._calculate_zero_point(
+                exposure_time=exposure_time, filter_name=filter_name
+            )
+            self.zero_point = zero
+            self.zero_point_error = zero_err
 
         # All done.
         return None
@@ -523,16 +521,23 @@ class PhotometricSolution:
         photon_counts = np.nansum(star_array_nosky)
         return photon_counts
 
-    def _calculate_zero_point(self) -> float:
-        """This function calculates the photometric zero-point of the image 
-        provided the data in the intersection star table. 
+    def _calculate_zero_point(
+        self, exposure_time: float, filter_name: str = None
+    ) -> float:
+        """This function calculates the photometric zero-point of the image
+        provided the data in the intersection star table.
 
-        This function uses the set exposure time and the intersection star 
+        This function uses the set exposure time and the intersection star
         table. The band is also assumed from the initial parameters.
 
         Parameters
         ----------
-        None
+        exposure_time : float
+            How long, in seconds, the image in question was exposed for.
+        filter_name : string, default = None
+            A single character string describing the name of the filter band that
+            this image was taken in. Currently, it assumes the MKO/SDSS visual
+            filters. If it is None, then this function does nothing.
 
         Returns
         -------
@@ -544,8 +549,28 @@ class PhotometricSolution:
         """
         # Obtaining the needed information.
         inter_star_table = self.intersection_star_table
-        exposure_time = self.exposure_time
-        filter_name = self.filter_name
+
+        # The exposure time information.
+        self.exposure_time = float(exposure_time)
+
+        # The filter name, check that it is a valid expected filter which the
+        # photometric engines and vehicle functions are expected to deal with.
+        ACCEPTED_FILTERS = ("g", "r", "i", "z")
+        if filter_name is None:
+            # The filter is not provided and thus photometry cannot be
+            # performed.
+            zero_point = self.zero_point
+            zero_point_error = self.zero_point_error
+            return zero_point, zero_point_error
+        elif filter_name not in ACCEPTED_FILTERS:
+            raise error.InputError(
+                "The filter name provided `{f}` is not a filter that is supposed by"
+                " OpihiExarata's supported photometric engines and vehicle functions"
+                " and therefore cannot be used to derive a photometric solution."
+                " Accepted filters: {af}".format(f=filter_name, af=ACCEPTED_FILTERS)
+            )
+        else:
+            self.filter_name = str(filter_name)
 
         # Extract the proper photometric values for the filter being used.
         filter_table_header = "{f}_mag".format(f=filter_name)
@@ -554,8 +579,8 @@ class PhotometricSolution:
         counts = inter_star_table["counts"]
 
         # Instrument magnitudes.
-        inst_magnitude = -2.5 * np.log10(counts/exposure_time)
-        
+        inst_magnitude = -2.5 * np.log10(counts / exposure_time)
+
         # Zero points via the definition equation
         zero_points = magnitude - inst_magnitude
         zero_point = np.mean(zero_points)

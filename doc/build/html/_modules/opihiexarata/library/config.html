@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>opihiexarata.library.config &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../../../index.html"
+          title="back to the documentation overview"><span>opihiexarata.library.config</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.library.config</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <h1>Source code for opihiexarata.library.config</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Controls the inputting of configuration files. This also serves to bring all </span>
+<span class="sd">of the configuration parameters into a more accessable space which other parts </span>
+<span class="sd">of Exarata can use.</span>
+
+<span class="sd">Note these configuration constant parameters are all accessed using capital </span>
+<span class="sd">letters regardless of the configuration file&#39;s labels. Moreover, there are </span>
+<span class="sd">constant parameters which are stored here which are not otherwise changeable</span>
+<span class="sd">by the configuration file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+
+<div class="viewcode-block" id="load_configuration_file"><a class="viewcode-back" href="../../../code/opihiexarata.library.config.html#opihiexarata.library.config.load_configuration_file">[docs]</a><span class="k">def</span> <span class="nf">load_configuration_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Loads a configuration file and outputs a dictionary of parameters.</span>
+
+<span class="sd">    Note configuration files should be flat, there should be no nested</span>
+<span class="sd">    configuration parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The filename of the configuration file, with the extension. Will raise</span>
+<span class="sd">        if the filename is not the correct extension, just as a quick check.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    configuration_dict : dictionary</span>
+<span class="sd">        The dictionary which contains all of the configuration parameters</span>
+<span class="sd">        within it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Checking the extension is valid, just as a quick sanity check that the</span>
+    <span class="c1"># configuration file is proper.</span>
+    <span class="n">config_extension</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;yml&quot;</span><span class="p">)</span>
+    <span class="n">filename_ext</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config_extension</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span>
+            <span class="s2">&quot;Configuration file does not have the proper extension it should be a yaml&quot;</span>
+            <span class="s2">&quot; file.&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># Loading the configuration file.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+            <span class="n">configuration_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="c1"># This is an error that is specific to OpihiExarata.</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span>
+            <span class="s2">&quot;The following configuration filename does not exist: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{fname}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">fname</span><span class="o">=</span><span class="n">filename</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># Double check that the configuration is flat as per the documentation</span>
+    <span class="c1"># and expectation.</span>
+    <span class="k">for</span> <span class="n">__</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">configuration_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">valuedex</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># A dictionary implies a nested configuration which is not allowed.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">(</span>
+                <span class="s2">&quot;The configuration file should not have any embedded configurations, it&quot;</span>
+                <span class="s2">&quot; should be a flat file. Please use the configuration file templates.&quot;</span>
+            <span class="p">)</span>
+    <span class="c1"># The configuration dictionary should be good.</span>
+    <span class="k">return</span> <span class="n">configuration_dict</span></div>
+
+
+<div class="viewcode-block" id="load_then_apply_configuration"><a class="viewcode-back" href="../../../code/opihiexarata.library.config.html#opihiexarata.library.config.load_then_apply_configuration">[docs]</a><span class="k">def</span> <span class="nf">load_then_apply_configuration</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Loads a configuration file, then applies it to the entire Exarata system.</span>
+
+<span class="sd">    Loads a configuration file and overwrites any overlapping</span>
+<span class="sd">    configurations. It writes the configuration to the configuration module</span>
+<span class="sd">    for usage throughout the entire program.</span>
+
+<span class="sd">    Note configuration files should be flat, there should be no nested</span>
+<span class="sd">    configuration parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The filename of the configuration file, with the extension. Will raise</span>
+<span class="sd">        if the filename is not the correct extension, just as a quick check.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Load the configuration dictionary.</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">load_configuration_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="c1"># Applying the configurations to this module&#39;s global namespace is the</span>
+    <span class="c1"># preferred method of applying the configuration. As these configurations</span>
+    <span class="c1"># will not change, they are constant like and thus can be accessed in a</span>
+    <span class="c1"># more Pythonic manner.</span>
+
+    <span class="c1"># Constants typically are all capitalized in their variable naming.</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">keydex</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">valuedex</span> <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="c1"># Applying it to the global space of this module only.</span>
+    <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="generate_configuration_file_copy"><a class="viewcode-back" href="../../../code/opihiexarata.library.config.html#opihiexarata.library.config.generate_configuration_file_copy">[docs]</a><span class="k">def</span> <span class="nf">generate_configuration_file_copy</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This generates a copy of the default configuration file to the given</span>
+<span class="sd">    location.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The pathname or filename where the configuration file should be put</span>
+<span class="sd">        to. If it does not have the proper yaml extension, it will be added.</span>
+<span class="sd">    overwrite : bool, default = False</span>
+<span class="sd">        If the file already exists, overwrite it. If False, it would raise</span>
+<span class="sd">        an error instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the filename is already taken by something.</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">overwrite</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span>
+            <span class="s2">&quot;Filename already exists, overwrite is False: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{fname}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">fname</span><span class="o">=</span><span class="n">filename</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># If the user did not provide a filename with the proper extension, add it.</span>
+    <span class="n">user_ext</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">yaml_extensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;yml&quot;</span><span class="p">)</span>
+    <span class="n">preferred_yaml_extension</span> <span class="o">=</span> <span class="n">yaml_extensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">user_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">yaml_extensions</span><span class="p">:</span>
+        <span class="n">file_destination</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">preferred_yaml_extension</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Nothing needs to be done. The filename is fine.</span>
+        <span class="n">file_destination</span> <span class="o">=</span> <span class="n">filename</span>
+
+    <span class="c1"># Copy the file over from the default location within this install.</span>
+    <span class="n">default_config_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;configuration&quot;</span><span class="p">,</span>
+        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">default_config_path</span><span class="p">,</span> <span class="n">file_destination</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="generate_secrets_file_copy"><a class="viewcode-back" href="../../../code/opihiexarata.library.config.html#opihiexarata.library.config.generate_secrets_file_copy">[docs]</a><span class="k">def</span> <span class="nf">generate_secrets_file_copy</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This generates a copy of the secrets configuration file to the given</span>
+<span class="sd">    location.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The pathname or filename where the configuration file should be put</span>
+<span class="sd">        to. If it does not have the proper yaml extension, it will be added.</span>
+<span class="sd">    overwrite : bool, default = False</span>
+<span class="sd">        If the file already exists, overwrite it. If False, it would raise</span>
+<span class="sd">        an error instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the filename is already taken by something.</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">overwrite</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span>
+            <span class="s2">&quot;Filename already exists, overwrite is False: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{fname}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">fname</span><span class="o">=</span><span class="n">filename</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># If the user did not provide a filename with the proper extension, add it.</span>
+    <span class="n">user_ext</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">yaml_extensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;yml&quot;</span><span class="p">)</span>
+    <span class="n">preferred_yaml_extension</span> <span class="o">=</span> <span class="n">yaml_extensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">user_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">yaml_extensions</span><span class="p">:</span>
+        <span class="n">file_destination</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">preferred_yaml_extension</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Nothing needs to be done. The filename is fine.</span>
+        <span class="n">file_destination</span> <span class="o">=</span> <span class="n">filename</span>
+
+    <span class="c1"># Copy the file over from the default location within this install.</span>
+    <span class="n">default_config_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;secrets&quot;</span><span class="p">,</span>
+        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">default_config_path</span><span class="p">,</span> <span class="n">file_destination</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># Configuration/constant parameters which are otherwise not usually provided</span>
+<span class="c1"># or must be provided at runtime with code.</span>
+<span class="c1">###################</span>
+
+<span class="c1"># The default path which this module is installed in. It is one higher than</span>
+<span class="c1"># this file which is within the library module of the OpihiExarata install.</span>
+<span class="n">MODULE_INSTALLATION_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

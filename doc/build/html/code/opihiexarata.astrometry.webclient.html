@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>opihiexarata.astrometry.webclient module &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../index.html"
+          title="back to the documentation overview"><span>opihiexarata.astrometry.webclient module</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.astrometry.webclient module</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <section id="module-opihiexarata.astrometry.webclient">
+<span id="opihiexarata-astrometry-webclient-module"></span><h1>opihiexarata.astrometry.webclient module<a class="headerlink" href="#module-opihiexarata.astrometry.webclient" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.astrometry.webclient.</span></span><span class="sig-name descname"><span class="pre">AstrometryNetWebAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apikey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.AstrometryEngine</span></code></a></p>
+<p>A python-based wrapper around the web API for astrometry.net.</p>
+<p>This API does not have the full functionality of the default Python client
+seen at <a class="reference external" href="https://github.com/dstndstn/astrometry.net/blob/master/net/client/client.py">https://github.com/dstndstn/astrometry.net/blob/master/net/client/client.py</a>.
+The point of this class is to be simple enough to be understood by others and
+be specialized for OpihiExarata.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI._apikey">
+<span class="sig-name descname"><span class="pre">_apikey</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._apikey" title="Permalink to this definition">¶</a></dt>
+<dd><p>The API key used to log in.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.original_upload_filename">
+<span class="sig-name descname"><span class="pre">original_upload_filename</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.original_upload_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>The original filename that was used to upload the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.session">
+<span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>The session ID of this API connection to astrometry.net</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.submission_id">
+<span class="sig-name descname"><span class="pre">submission_id</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.submission_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>When file upload or table upload is sent to the API, the submission ID
+is saved here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.job_id">
+<span class="sig-name descname"><span class="pre">job_id</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.job_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>When file upload or table upload is sent to the API, the job ID of the
+submission is saved here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apikey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The instantiation, connecting to the web API using the API key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>string</em><em>, </em><em>default = None</em>) – The base url which all other API URL links are derived from. This
+should be used if the API is a self-hosted install or has a
+different web source than nova.astrometry.net. Defaults to the
+nova.astrometry.net api service.</p></li>
+<li><p><strong>apikey</strong> (<em>string</em>) – The API key of the user.</p></li>
+<li><p><strong>silent</strong> (<em>bool</em><em>, </em><em>default = True</em>) – Should there be printed messages as the processes are executed.
+This is helpful for debugging or similar processes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.download_result_file">
+<span class="sig-name descname"><span class="pre">download_result_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.download_result_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.download_result_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads fits data table files which correspond to the job id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename of the file when it is downloaded and saved to disk.</p></li>
+<li><p><strong>file_type</strong> (<em>str</em>) – <p>The type of file to be downloaded from astrometry.net. It should
+one of the following:</p>
+<blockquote>
+<div><ul>
+<li><p><cite>wcs</cite>: The world corrdinate data table file.</p></li>
+<li><p><cite>new_fits</cite>, <cite>new_image</cite>: A new fits file, containing the
+original image, annotations, and WCS header information.</p></li>
+<li><p><cite>rdls</cite>: A table of reference stars nearby.</p></li>
+<li><p><cite>axy</cite>: A table in of the location of stars detected in the
+provided image.</p></li>
+<li><p><cite>corr</cite>: A table of the correspondences between reference
+stars location in the sky and in pixel space.</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>job_id</strong> (<em>str</em><em>, </em><em>default = None</em>) – The ID of the job that the results should be obtained from. If not
+provided, the ID determined by the file upload is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_results">
+<span class="sig-name descname"><span class="pre">get_job_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.get_job_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the results of a job sent to the API service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>job_id</strong> (<em>str</em><em>, </em><em>default = None</em>) – The ID of the job that the results should be obtained from. If not
+provided, the ID determined by the file upload is used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>results</strong> – The results of the astrometry.net job. They are, in general: (If
+the job has not finished yet, None is returned.)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Status : The status of the job.</p></li>
+<li><p>Calibration : Calibration of the image uploaded.</p></li>
+<li><p>Tags : Known tagged objects in the image, people inputted.</p></li>
+<li><p>Machine Tags : Ditto for tags, but only via machine inputs.</p></li>
+<li><p>Objects in field : Known objects in the image field.</p></li>
+<li><p>Annotations : Known objects in the field, with annotations.</p></li>
+<li><p>Info : A collection of most everything above.</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_status">
+<span class="sig-name descname"><span class="pre">get_job_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.get_job_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the status of a job specified by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>job_id</strong> (<em>str</em><em>, </em><em>default = None</em>) – The ID of the job that the results should be obtained from. If not
+provided, the ID determined by the file upload is used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>status</strong> – The status of the submission. If the job has not run yet, None is
+returned instead.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_reference_star_pixel_correlation">
+<span class="sig-name descname"><span class="pre">get_reference_star_pixel_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.get_reference_star_pixel_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_reference_star_pixel_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This obtains the table that correlates the location of reference
+stars and their pixel locations. It is obtained from the fits corr file
+that is downloaded into a temporary directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_id</strong> (<em>string</em><em>, </em><em>default = None</em>) – The ID of the job that the results should be obtained from. If not
+provided, the ID determined by the file upload is used.</p></li>
+<li><p><strong>temp_filename</strong> (<em>string</em><em>, </em><em>default = None</em>) – The filename that the downloaded correlation file will be
+downloaded as. The path is going to still be in the temporary
+directory.</p></li>
+<li><p><strong>delete_after</strong> (<em>bool</em><em>, </em><em>default = True</em>) – Delete the file after downloading it to extract its information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>correlation_table</strong> – The table which details the correlation between the coordinates of
+the stars and their pixel locations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_submission_results">
+<span class="sig-name descname"><span class="pre">get_submission_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submission_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.get_submission_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_submission_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the results of a submission specified by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>submission_id</strong> (<em>str</em>) – The ID of the submission. If it is not passed, the ID determined
+by the file upload is used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – The result of the submission.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_submission_status">
+<span class="sig-name descname"><span class="pre">get_submission_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submission_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.get_submission_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_submission_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the status of a submission specified by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>submission_id</strong> (<em>str</em><em>, </em><em>default = None</em>) – The ID of the submission. If it is not passed, the ID determined
+by the file upload is used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>status</strong> – The status of the submission.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_wcs">
+<span class="sig-name descname"><span class="pre">get_wcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.wcs.wcs.WCS</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.get_wcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_wcs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This obtains the wcs header file and then computes World Coordinate
+System solution from it. Because astrometry.net computes it for us,
+we just extract it from the header file using Astropy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_id</strong> (<em>string</em><em>, </em><em>default = None</em>) – The ID of the job that the results should be obtained from. If not
+provided, the ID determined by the file upload is used.</p></li>
+<li><p><strong>temp_filename</strong> (<em>string</em><em>, </em><em>default = None</em>) – The filename that the downloaded wcs file will be downloaded as.
+The path is going to still be in the temporary directory.</p></li>
+<li><p><strong>delete_after</strong> (<em>bool</em><em>, </em><em>default = True</em>) – Delete the file after downloading it to extract its information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>wcs</strong> – The world coordinate solution class for the image provided.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Astropy WCS</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the job ID from the image upload results. It may be the
+case that there is not job yet associated with this submission.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">original_upload_filename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">session</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id3">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">submission_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the submission ID from the image upload results.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPI.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPI.upload_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper to allow for the uploading of files or images to the API.</p>
+<p>This also determines the submission ID and the job ID for the uploaded
+image and saves it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pathname</strong> (<em>str</em>) – The pathname of the file to open. The filename is extracted and
+used as well.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>results</strong> – The results of the API call to upload the image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

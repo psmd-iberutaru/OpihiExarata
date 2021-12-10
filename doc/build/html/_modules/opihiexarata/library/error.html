@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>opihiexarata.library.error &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../../../index.html"
+          title="back to the documentation overview"><span>opihiexarata.library.error</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.library.error</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <h1>Source code for opihiexarata.library.error</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Error, warning, and logging functionality pertinent to the function of Exarata.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Halting errors</span>
+<span class="c1">####################</span>
+
+
+<div class="viewcode-block" id="ExarataBaseException"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataBaseException">[docs]</a><span class="k">class</span> <span class="nc">ExarataBaseException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base exception class. This is for exceptions that should never be</span>
+<span class="sd">    caught and should bring everything to a halt.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ExarataBaseException.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataBaseException.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The initialization of a base exception for OpihiExarata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        message : string</span>
+<span class="sd">            The message of the error message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The user&#39;s message.</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Unrecoverable error!&quot;</span>
+        <span class="c1"># There also defined is two extra lines of text, this helps with</span>
+        <span class="c1"># giving the user more information as to how to proceed.</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;(OpihiExarata) TERMINAL - &quot;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;&gt;&gt; Contact the maintainers of OpihiExarata to fix this issue.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="n">suffix</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span></div>
+
+
+<div class="viewcode-block" id="DevelopmentError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.DevelopmentError">[docs]</a><span class="k">class</span> <span class="nc">DevelopmentError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error where the development of OpihiExarata is not correct and</span>
+<span class="sd">    something is not coded based on the expectations of the software itself.</span>
+<span class="sd">    This is not the fault of the user.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LogicFlowError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.LogicFlowError">[docs]</a><span class="k">class</span> <span class="nc">LogicFlowError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error to ensure that the logic does not flow to a point to a</span>
+<span class="sd">    place where it is not supposed to. This is helpful in making sure changes</span>
+<span class="sd">    to the code do not screw up the logical flow of the program.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="UndiscoveredError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.UndiscoveredError">[docs]</a><span class="k">class</span> <span class="nc">UndiscoveredError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error used in cases where the source of the error has not</span>
+<span class="sd">    been determined and so a more helpful error message or mitigation strategy</span>
+<span class="sd">    cannot be devised.&quot;&quot;&quot;</span></div>
+
+
+<span class="c1"># Handled errors</span>
+<span class="c1">####################</span>
+
+
+<div class="viewcode-block" id="ExarataException"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataException">[docs]</a><span class="k">class</span> <span class="nc">ExarataException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The main inheriting class which all exceptions use as their base. This</span>
+<span class="sd">    is done for ease of error handling and is something that can and should be</span>
+<span class="sd">    managed.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ExarataException.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataException.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The initialization of a normal exception.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        message : string</span>
+<span class="sd">            The message of the error message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The user&#39;s message.</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Error.&quot;</span>
+        <span class="c1"># Note that these errors are from OpihiExarata.</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;(OpihiExarata) - &quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">message</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span></div>
+
+
+<div class="viewcode-block" id="ConfigurationError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ConfigurationError">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used where the expectation of how configuration files</span>
+<span class="sd">    and configuration parameters are structures are violated.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="DirectoryError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.DirectoryError">[docs]</a><span class="k">class</span> <span class="nc">DirectoryError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when there are issues specifically with directories</span>
+<span class="sd">    and not just files.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EngineError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.EngineError">[docs]</a><span class="k">class</span> <span class="nc">EngineError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This error is for when the astrometric, photometric, or asteroid-metric</span>
+<span class="sd">    solver engines provided are not valid or expected.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="FileError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.FileError">[docs]</a><span class="k">class</span> <span class="nc">FileError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when obtaining data files or configuration files</span>
+<span class="sd">    and something fails.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InputError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.InputError">[docs]</a><span class="k">class</span> <span class="nc">InputError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when the inputs to a function are not valid and do</span>
+<span class="sd">    not match the expectations of that function.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="IntentionalError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.IntentionalError">[docs]</a><span class="k">class</span> <span class="nc">IntentionalError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used where error catching is helpful. This error</span>
+<span class="sd">    generally should always be caught by the code in context.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ReadOnlyError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ReadOnlyError">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error where variables or files are assumed to be read only, this</span>
+<span class="sd">    enforces that notion.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="WebRequestError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.WebRequestError">[docs]</a><span class="k">class</span> <span class="nc">WebRequestError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when a web request to some API fails, either because</span>
+<span class="sd">    of something from their end, or our end.&quot;&quot;&quot;</span></div>
+
+
+<span class="c1"># Warnings</span>
+<span class="c1">####################</span>
+
+
+<div class="viewcode-block" id="ExarataWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataWarning">[docs]</a><span class="k">class</span> <span class="nc">ExarataWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base warning class which all of the other OpihiExarata warnings</span>
+<span class="sd">    are derived from.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="warn"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.warn">[docs]</a><span class="k">def</span> <span class="nf">warn</span><span class="p">(</span>
+    <span class="n">warn_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">ExarataWarning</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExarataWarning</span><span class="p">,</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The common method to use to warn for any OpihiExarata based warnings.</span>
+
+<span class="sd">    This is used because it has better context manager wrappers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    warn_class : type, default = ExarataWarning</span>
+<span class="sd">        The warning class, it must be a subtype of a user warning.</span>
+<span class="sd">    message : string, default = &quot;&quot;</span>
+<span class="sd">        The warning message.</span>
+<span class="sd">    stacklevel : integer, default = 2</span>
+<span class="sd">        The location in the stack that the warning call will highlight.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The warning class must be a subset of the OpihiExarata warnings as that</span>
+    <span class="c1"># is all this function is supposed to use.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">warn_class</span><span class="p">,</span> <span class="n">ExarataWarning</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">DevelopmentError</span><span class="p">(</span>
+            <span class="s2">&quot;The OpihiExarata warning system is build only for user defined errors&quot;</span>
+            <span class="s2">&quot; coming from OpihiExarata.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">warn_class</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># Logging</span>
+<span class="c1">####################</span>
+
+
+<span class="c1"># Context manegers</span>
+<span class="c1">####################</span>
+</pre></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

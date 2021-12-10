@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>opihiexarata.library.http module &#8212; OpihiExarata 2021.12.9 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="../index.html"
+          title="back to the documentation overview"><span>opihiexarata.library.http module</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">opihiexarata.library.http module</a>
+      </div>
+      <div id="contentwrapper">
+        <div role="main">
+        
+  <section id="module-opihiexarata.library.http">
+<span id="opihiexarata-library-http-module"></span><h1>opihiexarata.library.http module<a class="headerlink" href="#module-opihiexarata.library.http" title="Permalink to this headline">¶</a></h1>
+<p>Functions and methods which allow for ease of interacting with web based
+resources. Included here are functions which download files, query web resources
+and other things. This interacts mostly with HTTP based services.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.http.api_request_sleep">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.http.</span></span><span class="sig-name descname"><span class="pre">api_request_sleep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/http.html#api_request_sleep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.http.api_request_sleep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sleep for the time, specified in the configuration file, for API
+requests. This function exists to ensure uniformity in application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seconds</strong> (<em>float</em><em>, </em><em>default = None</em>) – The number of seconds that the program should sleep for. If not
+provided, then it defaults to the configuration value.</p></li>
+<li><p><strong>Results</strong> – </p></li>
+<li><p><strong>-------</strong> – </p></li>
+<li><p><strong>None</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.http.download_file_from_url">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.http.</span></span><span class="sig-name descname"><span class="pre">download_file_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/http.html#download_file_from_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.http.download_file_from_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file from a URL to disk.</p>
+<p>..warning:: The backend of this function relies on a function which may be
+depreciated in the future. This function may need to be rewritten.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>string</em>) – The url which the file will be downloaded from.</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – The filename where the file will be saved.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If the file already exists, overwrite it. If False, it would raise
+an error instead.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.http.get_http_status_code">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.http.</span></span><span class="sig-name descname"><span class="pre">get_http_status_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/http.html#get_http_status_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.http.get_http_status_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>This gets the http status code of a web resource.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>string</em>) – The url which the http status code will try and obtain.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>status_code</strong> – The status code.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kenji Sparrow Emerson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>
