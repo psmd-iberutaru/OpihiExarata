@@ -1,12 +1,12 @@
+
 """Where the base classes of the solvers and engines lie."""
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+
 # The solution classes.
-
-
 class ExarataSolution:
     """The base class for all of the solution classes which use engines to
     solve particar problems."""
@@ -19,8 +19,6 @@ class ExarataSolution:
 
 
 # The engine classes
-
-
 class ExarataEngine:
     """The base class for all of the engines which power the interfaces for
     the OpihiExarata system. This should not used for anything other than
@@ -36,6 +34,7 @@ class ExarataEngine:
 class AstrometryEngine(ExarataEngine):
     """The base class where the Astrometry engines are derived from. Should
     not be used other than for type hinting and subclassing."""
+
 
 
 class PhotometryEngine(ExarataEngine):

@@ -64,7 +64,7 @@ class AstrometricSolution:
             solution.
         solver_engine : AstrometryEngine subclass
             The astrometric solver engine class. This is what will act as the
-            "behind the scenes" and solve the field, using this middlewhere to
+            "behind the scenes" and solve the field, using this middleware to
             translate it into something that is easier.
 
         Returns
@@ -86,6 +86,7 @@ class AstrometricSolution:
                 "The provided astrometric engine is not a valid engine which can be"
                 " used for astrometric solutions."
             )
+
 
         # Extract information from the header itself.
         header, data = library.fits.read_fits_image_file(filename=fits_filename)
@@ -131,7 +132,6 @@ class AstrometricSolution:
         self.skycoord = ap_coordinates.SkyCoord(
             self.ra, self.dec, frame="icrs", unit="deg"
         )
-
         # All done.
         return None
 

@@ -9,6 +9,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
+
 def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint.Header:
     """This reads the header of fits files only. This should be used only if
     there is no data.
@@ -40,7 +41,6 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
         )
     return header
 
-
 def read_fits_image_file(
     filename: str, extension: hint.Union[int, str] = 0
 ) -> tuple[hint.Header, hint.ArrayLike]:
@@ -58,6 +58,8 @@ def read_fits_image_file(
     -------
     header : Astropy Header
         The header of the fits file.
+    data : array-like
+        The data image of the fits file.
     """
     with ap_fits.open(filename) as hdul:
         hdu = hdul[extension].copy()
