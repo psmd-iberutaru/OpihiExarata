@@ -29,15 +29,6 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         The original filename that was used to upload the data.
     session : string
         The session ID of this API connection to astrometry.net
-    submission_id : string
-        When file upload or table upload is sent to the API, the submission ID
-        is saved here.
-    job_id : string
-        When file upload or table upload is sent to the API, the job ID of the
-        submission is saved here.
-
-    Methods
-    -------
     """
 
     # The default arguments for uploading files. In (key, value, type) form.
@@ -80,12 +71,6 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         ("album", None, str),
     ]
 
-    # Placeholder variables.
-    _apikey = None
-    original_upload_filename = None
-    _image_return_results = {}
-    session = None
-
     def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
         """The instantiation, connecting to the web API using the API key.
 
@@ -115,6 +100,10 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         session_key = self.__login(apikey=apikey)
         self._apikey = apikey
         self.session = session_key
+
+        # Placeholder variables.
+        self.original_upload_filename = str()
+        self._image_return_results = {}
         return None
 
     def __login(self, apikey: str) -> str:
@@ -167,9 +156,16 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         self.__submission_id = None
         return None
 
+    __doc_submission_id = (
+        "When file upload or table upload is sent to the API, the submission ID is"
+        " saved here."
+    )
     __submission_id = None
     submission_id = property(
-        __get_submission_id, __set_submission_id, __del_submission_id
+        __get_submission_id,
+        __set_submission_id,
+        __del_submission_id,
+        __doc_submission_id,
     )
 
     def __get_job_id(self) -> str:
@@ -222,8 +218,12 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
         self.__job_id = None
         return None
 
+    __doc_job_id = (
+        "When file upload or table upload is sent to the API, the job ID of the"
+        " submission is saved here."
+    )
     __job_id = None
-    job_id = property(__get_job_id, __set_job_id, __del_job_id)
+    job_id = property(__get_job_id, __set_job_id, __del_job_id, __doc_job_id)
 
     def _generate_service_url(self, service: str) -> str:
         """Generate the correct URL for the desired service. Because astrometry.net
@@ -325,9 +325,8 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
                 + "\n"
                 + "Content-Type: application/octet-stream\r\n"
                 + "MIME-Version: 1.0\r\n"
-                + 'Content-disposition: form-data; name="file"; filename="{name}"'.format(
-                    name=file_args["filename"]
-                )
+                + 'Content-disposition: form-data; name="file"; filename="{name}"'
+                .format(name=file_args["filename"])
                 + "\r\n"
                 + "\r\n"
             )
@@ -362,9 +361,8 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
                     )
                 else:
                     raise error.WebRequestError(
-                        "The server returned an error status message: \n {message}".format(
-                            message=error_message
-                        )
+                        "The server returned an error status message: \n {message}"
+                        .format(message=error_message)
                     )
             else:
                 return result

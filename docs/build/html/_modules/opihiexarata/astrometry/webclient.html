@@ -34,8 +34,59 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#new">New</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/python.html">Installation: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -92,15 +143,6 @@
 <span class="sd">        The original filename that was used to upload the data.</span>
 <span class="sd">    session : string</span>
 <span class="sd">        The session ID of this API connection to astrometry.net</span>
-<span class="sd">    submission_id : string</span>
-<span class="sd">        When file upload or table upload is sent to the API, the submission ID</span>
-<span class="sd">        is saved here.</span>
-<span class="sd">    job_id : string</span>
-<span class="sd">        When file upload or table upload is sent to the API, the job ID of the</span>
-<span class="sd">        submission is saved here.</span>
-
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># The default arguments for uploading files. In (key, value, type) form.</span>
@@ -143,13 +185,7 @@
         <span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
     <span class="p">]</span>
 
-    <span class="c1"># Placeholder variables.</span>
-    <span class="n">_apikey</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">original_upload_filename</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_image_return_results</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPI.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The instantiation, connecting to the web API using the API key.</span>
 
 <span class="sd">        Parameters</span>
@@ -178,7 +214,11 @@
         <span class="n">session_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__login</span><span class="p">(</span><span class="n">apikey</span><span class="o">=</span><span class="n">apikey</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_apikey</span> <span class="o">=</span> <span class="n">apikey</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_key</span>
-        <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Placeholder variables.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_upload_filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_return_results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
     <span class="k">def</span> <span class="nf">__login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The method to log into the API system.</span>
@@ -230,9 +270,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__submission_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="kc">None</span>
 
+    <span class="n">__doc_submission_id</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;When file upload or table upload is sent to the API, the submission ID is&quot;</span>
+        <span class="s2">&quot; saved here.&quot;</span>
+    <span class="p">)</span>
     <span class="n">__submission_id</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">submission_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span>
-        <span class="n">__get_submission_id</span><span class="p">,</span> <span class="n">__set_submission_id</span><span class="p">,</span> <span class="n">__del_submission_id</span>
+        <span class="n">__get_submission_id</span><span class="p">,</span>
+        <span class="n">__set_submission_id</span><span class="p">,</span>
+        <span class="n">__del_submission_id</span><span class="p">,</span>
+        <span class="n">__doc_submission_id</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__get_job_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -285,10 +332,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="kc">None</span>
 
+    <span class="n">__doc_job_id</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;When file upload or table upload is sent to the API, the job ID of the&quot;</span>
+        <span class="s2">&quot; submission is saved here.&quot;</span>
+    <span class="p">)</span>
     <span class="n">__job_id</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">job_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_job_id</span><span class="p">,</span> <span class="n">__set_job_id</span><span class="p">,</span> <span class="n">__del_job_id</span><span class="p">)</span>
+    <span class="n">job_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_job_id</span><span class="p">,</span> <span class="n">__set_job_id</span><span class="p">,</span> <span class="n">__del_job_id</span><span class="p">,</span> <span class="n">__doc_job_id</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_generate_service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPI._generate_service_url"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._generate_service_url">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate the correct URL for the desired service. Because astrometry.net</span>
 <span class="sd">        uses a convension, we can follow it to obtain the desired service URL.</span>
 
@@ -303,9 +354,9 @@
 <span class="sd">            The URL for the service.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ASTROMETRY_BASE_API_URL</span> <span class="o">+</span> <span class="n">service</span>
-        <span class="k">return</span> <span class="n">url</span>
+        <span class="k">return</span> <span class="n">url</span></div>
 
-    <span class="k">def</span> <span class="nf">_generate_upload_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPI._generate_upload_args"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._generate_upload_args">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_upload_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate the arguments for sending a request. This constructs the</span>
 <span class="sd">        needed arguments, replacing the defaults with user provided arguments</span>
 <span class="sd">        where desired.</span>
@@ -329,9 +380,9 @@
                 <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">keydex</span><span class="p">:</span> <span class="n">new_value</span><span class="p">})</span>
             <span class="k">elif</span> <span class="n">defaultdex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">keydex</span><span class="p">:</span> <span class="n">defaultdex</span><span class="p">})</span>
-        <span class="k">return</span> <span class="n">args</span>
+        <span class="k">return</span> <span class="n">args</span></div>
 
-    <span class="k">def</span> <span class="nf">_send_web_request</span><span class="p">(</span>
+<div class="viewcode-block" id="AstrometryNetWebAPI._send_web_request"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._send_web_request">[docs]</a>    <span class="k">def</span> <span class="nf">_send_web_request</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">file_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;A wrapper function for sending a webrequest to the astrometry.net API</span>
@@ -388,9 +439,8 @@
                 <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="o">+</span> <span class="s2">&quot;Content-Type: application/octet-stream</span><span class="se">\r\n</span><span class="s2">&quot;</span>
                 <span class="o">+</span> <span class="s2">&quot;MIME-Version: 1.0</span><span class="se">\r\n</span><span class="s2">&quot;</span>
-                <span class="o">+</span> <span class="s1">&#39;Content-disposition: form-data; name=&quot;file&quot;; filename=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">name</span><span class="o">=</span><span class="n">file_args</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span>
-                <span class="p">)</span>
+                <span class="o">+</span> <span class="s1">&#39;Content-disposition: form-data; name=&quot;file&quot;; filename=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">file_args</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">])</span>
                 <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
                 <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
             <span class="p">)</span>
@@ -425,9 +475,8 @@
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
-                        <span class="s2">&quot;The server returned an error status message: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{message}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">message</span><span class="o">=</span><span class="n">error_message</span>
-                        <span class="p">)</span>
+                        <span class="s2">&quot;The server returned an error status message: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{message}</span><span class="s2">&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">error_message</span><span class="p">)</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">result</span>
@@ -438,7 +487,7 @@
             <span class="p">)</span>
         <span class="c1"># The logic should not flow beyond this point.</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="AstrometryNetWebAPI.get_job_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the results of a job sent to the API service.</span>
@@ -815,7 +864,7 @@
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.Navigation.enable(false);
       });
   </script> 
 

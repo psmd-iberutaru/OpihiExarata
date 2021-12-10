@@ -69,6 +69,9 @@ extensions = [
 # Sphinx Napoleon autodoc config.
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = True
+napoleon_include_private_with_doc = True
+napoleon_include_special_with_doc = True
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
@@ -93,6 +96,11 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = "sphinx_rtd_theme"
+html_theme_options = {
+    "collapse_navigation": False,
+    "sticky_navigation": False,
+    "navigation_depth": 5,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

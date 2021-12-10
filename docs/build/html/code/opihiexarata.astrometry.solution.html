@@ -17,7 +17,9 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.astrometry.webclient module" href="opihiexarata.astrometry.webclient.html" />
+    <link rel="prev" title="opihiexarata.astrometry package" href="opihiexarata.astrometry.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,11 +37,59 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">opihiexarata.astrometry.solution module</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#new">New</a></li>
 </ul>
-</div>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Installation: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -54,6 +104,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">opihiexarata</a> &raquo;</li>
+          <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
+          <li><a href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a> &raquo;</li>
       <li>opihiexarata.astrometry.solution module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/code/opihiexarata.astrometry.solution.rst.txt" rel="nofollow"> View page source</a>
@@ -202,6 +255,49 @@ celestial space.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.solution.AstrometricSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">opihiexarata.library.engine.AstrometryEngine</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/solution.html#AstrometricSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.solution.AstrometricSolution.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Solving the astrometry via the image provided. The engine class must
+also be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fits_filename</strong> (<em>string</em>) – The path of the fits file that contains the data for the astrometric
+solution.</p></li>
+<li><p><strong>solver_engine</strong> (<em>AstrometryEngine subclass</em>) – The astrometric solver engine class. This is what will act as the
+“behind the scenes” and solve the field, using this middleware to
+translate it into something that is easier.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.solution._vehicle_astrometrynet_web_api">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.astrometry.solution.</span></span><span class="sig-name descname"><span class="pre">_vehicle_astrometrynet_web_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/solution.html#_vehicle_astrometrynet_web_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.solution._vehicle_astrometrynet_web_api" title="Permalink to this definition"></a></dt>
+<dd><p>A vehicle function for astrometric solutions. Solve the fits file
+astrometry using the astrometry.net nova web API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fits_filename</strong> (<em>string</em>) – The path of the fits file that contains the data for the astrometric
+solution.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>solution_results</strong> – A dictionary containing the results of the astrometric solution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -209,7 +305,10 @@ celestial space.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.astrometry.html" class="btn btn-neutral float-left" title="opihiexarata.astrometry package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.astrometry.webclient.html" class="btn btn-neutral float-right" title="opihiexarata.astrometry.webclient module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
@@ -229,7 +328,7 @@ celestial space.</p>
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.Navigation.enable(false);
       });
   </script> 
 

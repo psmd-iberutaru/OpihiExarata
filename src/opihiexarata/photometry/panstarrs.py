@@ -151,9 +151,7 @@ class PanstarrsMastWebAPI(library.engine.PhotometryEngine):
     See https://catalogs.mast.stsci.edu/docs/panstarrs.html for more
     information.
     """
-
-    verify_ssl = True
-
+    
     def __init__(self, verify_ssl: bool = True) -> None:
         """Create the instance of the API.
 

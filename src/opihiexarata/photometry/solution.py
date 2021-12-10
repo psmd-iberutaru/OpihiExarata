@@ -54,17 +54,6 @@ class PhotometricSolution:
         many stars.
     """
 
-    # Initial variables.
-    astrometrics = None
-    sky_counts_mask = None
-    sky_counts = 0
-    star_table = None
-    intersection_star_table = None
-    exposure_time = 0
-    filter_name = None
-    zero_point = 0
-    zero_point_error = 0
-
     def __init__(
         self,
         fits_filename: str,
@@ -191,13 +180,18 @@ class PhotometricSolution:
         # photometric solution.
         if exposure_time is None or filter_name is None:
             # Both is needed to compute the zero point, skip it.
-            pass
+            self.exposure_time = None
+            self.zero_point = None
+            self.zero_point_error = None
+            self.filter_name = None
         else:
             zero, zero_err = self._calculate_zero_point(
                 exposure_time=exposure_time, filter_name=filter_name
             )
+            self.exposure_time = exposure_time
             self.zero_point = zero
             self.zero_point_error = zero_err
+            self.filter_name = filter_name
 
         # All done.
         return None

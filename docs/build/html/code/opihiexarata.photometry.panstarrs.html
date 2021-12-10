@@ -17,7 +17,9 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.photometry.solution module" href="opihiexarata.photometry.solution.html" />
+    <link rel="prev" title="opihiexarata.photometry package" href="opihiexarata.photometry.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,11 +37,59 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">opihiexarata.photometry.panstarrs module</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#new">New</a></li>
 </ul>
-</div>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Installation: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -54,6 +104,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">opihiexarata</a> &raquo;</li>
+          <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
+          <li><a href="opihiexarata.photometry.html">opihiexarata.photometry package</a> &raquo;</li>
       <li>opihiexarata.photometry.panstarrs module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/code/opihiexarata.photometry.panstarrs.rst.txt" rel="nofollow"> View page source</a>
@@ -76,6 +129,44 @@ they are implemented here.</p>
 their catalogs via the MAST API.</p>
 <p>See <a class="reference external" href="https://catalogs.mast.stsci.edu/docs/panstarrs.html">https://catalogs.mast.stsci.edu/docs/panstarrs.html</a> for more
 information.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verify_ssl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Create the instance of the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verify_ssl</strong> (<em>boolean</em><em>, </em><em>default = True</em>) – Connecting to the MAST API usually uses SSL verification via HTTPS,
+set to False to allow bypassing this.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI._mask_table_data">
+<span class="sig-name descname"><span class="pre">_mask_table_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">astropy.table.table.Table</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI._mask_table_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI._mask_table_data" title="Permalink to this definition"></a></dt>
+<dd><p>This masks the raw data derived from PanSTARRS, implementing the
+masking/null value specifics of the PanSTARRS system.</p>
+<p>The point of this is to make masked or invalid data more typical to
+the user by abstracting the idiosyncrasies of PanSTARRS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_table</strong> (<em>Astropy Table</em>) – The data table to be cleaned up.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>masked_data_table</strong> – The masked table.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Astropy Table</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.cone_search">
 <span class="sig-name descname"><span class="pre">cone_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_detections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_release</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/panstarrs.html#PanstarrsMastWebAPI.cone_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.cone_search" title="Permalink to this definition"></a></dt>
@@ -133,11 +224,6 @@ appropriate.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.verify_ssl">
-<span class="sig-name descname"><span class="pre">verify_ssl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPI.verify_ssl" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -145,7 +231,10 @@ appropriate.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.photometry.html" class="btn btn-neutral float-left" title="opihiexarata.photometry package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.photometry.solution.html" class="btn btn-neutral float-right" title="opihiexarata.photometry.solution module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
@@ -165,7 +254,7 @@ appropriate.</p>
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.Navigation.enable(false);
       });
   </script> 
 
