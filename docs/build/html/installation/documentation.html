@@ -164,11 +164,18 @@ while within this directory.</p>
 </section>
 <section id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h2>
-<p>First, the Python docstrings need to be processed into documentation. This can be done
-via running the script file: <code class="docutils literal notranslate"><span class="pre">./docstring.cmd</span></code></p>
-<p>Second, the documentation can be built using the batch/makefile using the command:</p>
+<p><strong>First</strong>, the Python docstrings need to be processed into documentation. This
+can be done via running the script file: <code class="docutils literal notranslate"><span class="pre">./docstring.cmd</span></code></p>
+<p><strong>Second</strong>, it is helpful to removed the cached versions of the documentation files,
+you can do this via the commands: (This just removes the build directory along
+with other goodies.)</p>
 <ul class="simple">
-<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">make.bat</span> <span class="pre">&lt;type&gt;</span></code></p></li>
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">clean</span></code></p></li>
+<li><p>Linux: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code></p></li>
+</ul>
+<p><strong>Third</strong>, the documentation can be built using the batch/makefile using the command:</p>
+<ul class="simple">
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">&lt;type&gt;</span></code></p></li>
 <li><p>Linux: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&lt;type&gt;</span></code></p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> should be replaced with the type of output desired, suggestions below:</p>

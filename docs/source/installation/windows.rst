@@ -16,9 +16,9 @@ Powershell Execution Policy
 
 Powershell scripts are seen as the most reliable way to call WSL on Windows. But,
 the default execution policy of most Windows machines disable scripts. To enable 
-scripts, do the following command in an administrator Powershell shell.
+scripts, do the following command in an administrator Powershell shell::
 
-``Set-ExecutionPolicy -ExecutionPolicy RemoteSigned``
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
 See Microsoft's documentation for more information on 
 `setting Powershell execution policies`_ and `what policies are available`_.
@@ -46,7 +46,9 @@ Modern Install
 In newer Windows versions (Windows 10 version 2004 and higher (Build 19041 and higher) or 
 Windows 11), the installation of WSL is relatively simple. 
 
-In an administrator Powershell, run the following: ``wsl --install``
+In an administrator Powershell, run the following::
+
+    wsl --install
 
 This installs Ubuntu as the WSL distribution by default. See the 
 `WSL install documentation`_ for more information.
@@ -104,9 +106,13 @@ Verify
 
 To verify that that the Powershell execution policy is correct, check that the Local 
 Machine policy is at least RemoteSigned. You can check this by using an administrative 
-Powershell command: ``Get-ExecutionPolicy -List``
+Powershell command::
 
-To verify that you have installed and set up WSL properly, in an administrative Powershell run ``wsl`` or ``bash``. 
+    Get-ExecutionPolicy -List
+
+To verify that you have installed and set up WSL properly, in an administrative Powershell run::
+
+    wsl
 
 If this is the first time you have installed the WSL system onto your computer, you will 
 have to setup a user account similar to a fresh install. Follow and complete the prompt, 

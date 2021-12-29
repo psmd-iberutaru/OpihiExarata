@@ -36,12 +36,19 @@ while within this directory.
 Build
 =====
 
-First, the Python docstrings need to be processed into documentation. This can be done 
-via running the script file: ``./docstring.cmd``
+**First**, the Python docstrings need to be processed into documentation. This 
+can be done via running the script file: ``./docstring.cmd``
 
-Second, the documentation can be built using the batch/makefile using the command: 
+**Second**, it is helpful to removed the cached versions of the documentation files,
+you can do this via the commands: (This just removes the build directory along 
+with other goodies.)
 
-* Windows: ``make.bat <type>``
+* Windows: ``.\make.bat clean``
+* Linux: ``make clean``
+
+**Third**, the documentation can be built using the batch/makefile using the command: 
+
+* Windows: ``.\make.bat <type>``
 * Linux: ``make <type>``
 
 The ``<type>`` should be replaced with the type of output desired, suggestions below:
