@@ -37,7 +37,7 @@ Build
 =====
 
 First, the Python docstrings need to be processed into documentation. This can be done 
-via running the script file: ``./docstring.sh``
+via running the script file: ``./docstring.cmd``
 
 Second, the documentation can be built using the batch/makefile using the command: ``make <type>``. The ``<type>`` should be replaced with the type of output desired, suggestions below:
 

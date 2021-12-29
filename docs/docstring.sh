@@ -1,1 +1,0 @@
-sphinx-apidoc -f -e -o ./source/code/ ./../src/opihiexarata/
