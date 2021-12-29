@@ -38,6 +38,7 @@ The binomial taxonomical name of the Hawaiian blackfoot opihi is Cellana exarata
    :hidden:
    :caption: Installation
 
+   installation/documentation
    installation/windows
    installation/python
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Python Part &mdash; OpihiExarata 2021.12.28 documentation</title>
+  <title>Optional: Documentation &mdash; OpihiExarata 2021.12.28 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="opihiexarata" href="../code/modules.html" />
-    <link rel="prev" title="Optional: Windows Compatibility" href="windows.html" /> 
+    <link rel="next" title="Optional: Windows Compatibility" href="windows.html" />
+    <link rel="prev" title="Introduction" href="../introduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,6 +46,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Optional: Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#latex">LaTeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#build">Build</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="windows.html">Optional: Windows Compatibility</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
@@ -56,10 +66,10 @@
 <li class="toctree-l2"><a class="reference internal" href="windows.html#verify">Verify</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Install: Python Part</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#download">Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#build">Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#install">Install</a></li>
 </ul>
 </li>
 </ul>
@@ -115,9 +125,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Install: Python Part</li>
+      <li>Optional: Documentation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/installation/python.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/installation/documentation.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -125,51 +135,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="install-python-part">
-<h1>Install: Python Part<a class="headerlink" href="#install-python-part" title="Permalink to this headline"></a></h1>
-<p>The Python part of OpihiExarata is the primary part of OpihiExarata. Luckily,
-it is likely also the simplest.</p>
-<p>You will build the Python wheel from the source and install it.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This should be the last part of OpihiExarata that should be installed. All
-parts of OpihiExarata <em>must</em> be installed in order for it to work properly.
-Return to this part only after completing all other parts of the installation.</p>
-</div>
-<section id="download">
-<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h2>
-<p>Download and install a current release of Python if you have not already. You
-can find the latest releases at: <a class="reference external" href="https://www.python.org/downloads/">Python Releases</a>.</p>
-<p>Please note you must install/have Python 3.9+.</p>
-<p>Then, if you already have not, download the <a class="reference external" href="https://github.com/psmd-iberutaru/OpihiExarata">OpihiExarata Python code via Github</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">psmd</span><span class="o">-</span><span class="n">iberutaru</span><span class="o">/</span><span class="n">OpihiExarata</span><span class="o">.</span><span class="n">git</span>
+  <section id="optional-documentation">
+<h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this headline"></a></h1>
+<p>Building the documentation is relatively simple as we leverage Sphinx to build it.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<section id="sphinx">
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline"></a></h3>
+<p>To build the Sphinx documentation, Python needs to be installed (the Python version
+installed in this installation procedure can be used).</p>
+<p>The following packages must be installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">rtd</span><span class="o">-</span><span class="n">theme</span>
 </pre></div>
 </div>
-<p>This stores the code in the <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code> directory of the location of install.</p>
+</section>
+<section id="latex">
+<h3>LaTeX<a class="headerlink" href="#latex" title="Permalink to this headline"></a></h3>
+<p>If a PDF version of the documentation is desired, Sphinx can build it via LaTeX. LaTeX
+must be installed. We suggest installing the <a class="reference external" href="https://tug.org/texlive/">TeX Live distribution</a> and installing the
+full install. Instructions on how to install TeX Live is beyond the scope of this
+documentation.</p>
+</section>
+<section id="directory">
+<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this headline"></a></h3>
+<p>Change your directory to the <code class="docutils literal notranslate"><span class="pre">OpihiExarata/docs</span></code> directory, run all of the commands
+while within this directory.</p>
+</section>
 </section>
 <section id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h2>
-<p>You should have have the repository code in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>. You can
-run the build command (while in the directory) based on the operation system
-you are using:</p>
-<p>Windows: <code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
-<p>Linux: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
-<p>The package will build into a distributable wheel, note in the output the version
-that you installed. The version is likely to be the day you built it, it affects
-the name of the wheel file for the next step.</p>
-</section>
-<section id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h2>
-<p>Install the wheel package.</p>
-<p>You will need to modify this command to the proper wheel that you generated
-from before. Because this project using date-based versioning, your package
-will likely be that of the date that you build the wheel.</p>
-<p>(Force reinstall is optional but suggested to ensures you have the most
-up-to-date version.)</p>
-<p>You can install the wheel using while in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">dist</span><span class="o">/</span><span class="n">OpihiExarata</span><span class="o">-</span><span class="n">YYYY</span><span class="o">.</span><span class="n">MM</span><span class="o">.</span><span class="n">DD</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span>
-</pre></div>
-</div>
+<p>First, the Python docstrings need to be processed into documentation. This can be done
+via running the script file: <code class="docutils literal notranslate"><span class="pre">./docstring.cmd</span></code></p>
+<p>Second, the documentation can be built using the batch/makefile using the command:</p>
+<ul class="simple">
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">make.bat</span> <span class="pre">&lt;type&gt;</span></code></p></li>
+<li><p>Linux: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&lt;type&gt;</span></code></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> should be replaced with the type of output desired, suggestions below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">html</span></code> A collection of webpages ordered and structured. This is the suggested method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">singlehtml</span></code> A single HTML page; useful when sending the documentation between devices.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latexpdf</span></code> A PDF compiled by built LaTeX files. Using this option invokes the entire toolchain for you.</p></li>
+</ul>
+<p>The documentation can be built to other different forms, see the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html">sphinx-build documentation</a>.</p>
 </section>
 </section>
 
@@ -177,8 +186,8 @@ up-to-date version.)</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="windows.html" class="btn btn-neutral float-left" title="Optional: Windows Compatibility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../code/modules.html" class="btn btn-neutral float-right" title="opihiexarata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="windows.html" class="btn btn-neutral float-right" title="Optional: Windows Compatibility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
