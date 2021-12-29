@@ -20,8 +20,8 @@ scripts, do the following command in an administrator Powershell shell.
 
 ``Set-ExecutionPolicy -ExecutionPolicy RemoteSigned``
 
-See Microsoft's documentation for more information on `setting Powershell execution 
-policies`_ and `what policies are available`_.
+See Microsoft's documentation for more information on 
+`setting Powershell execution policies`_ and `what policies are available`_.
 
 .. _setting Powershell execution policies: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy
 .. what policies are available: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies
@@ -74,7 +74,8 @@ In an administrator Powershell, enable the virtual machine platform::
 
 **Download Linux Kernel Update Package**
 
-You can download the latest kernel package from: `WSL2 Linux kernel update package for x64 machines`_.
+You can download the latest kernel package from: 
+`WSL2 Linux kernel update package for x64 machines`_.
 
 Run the downloaded package; you will likely be prompted for administrative permissions.
 
