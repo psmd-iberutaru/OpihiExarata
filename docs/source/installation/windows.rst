@@ -118,3 +118,10 @@ If this is the first time you have installed the WSL system onto your computer, 
 have to setup a user account similar to a fresh install. Follow and complete the prompt, 
 and then check ``wsl`` again to ensure that it enters a standard Linux shell without any 
 interruptions.
+
+Final
+=====
+
+When installing other parts of the OpihiExarata software, follow the instructions using 
+the WSL OS installed where needed. The commands should be run in your usual WSL shell in 
+the proper relevant directory.
