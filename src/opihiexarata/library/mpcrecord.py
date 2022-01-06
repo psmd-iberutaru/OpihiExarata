@@ -1,5 +1,5 @@
-"""This many wrapper functions for dealing with MPC 80 column standard 
-records."""
+"""This contains many wrapper functions for dealing with MPC 80 column 
+standard records."""
 
 import astropy as ap
 import astropy.table as ap_table

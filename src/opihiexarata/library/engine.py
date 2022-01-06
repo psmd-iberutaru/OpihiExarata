@@ -40,3 +40,7 @@ class AstrometryEngine(ExarataEngine):
 class PhotometryEngine(ExarataEngine):
     """The base class where the Photometry engines are derived from. Should
     not be used other than for type hinting and subclassing."""
+
+class OrbitEngine(ExarataEngine):
+    """The base class for all of the Orbit determination engines. Should not 
+    be used other than for type hinting and subclassing."""

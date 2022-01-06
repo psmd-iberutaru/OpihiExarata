@@ -9,7 +9,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class AstrometricSolution:
+class AstrometricSolution(hint.ExarataSolution):
     """The primary class describing an astrometric solution, based on an image
     provided.
 

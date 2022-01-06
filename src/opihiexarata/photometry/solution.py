@@ -11,7 +11,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class PhotometricSolution:
+class PhotometricSolution(hint.ExarataSolution):
     """The primary class describing an photometric solution, based on an image
     provided and catalog data provided from the photometric engine.
 
