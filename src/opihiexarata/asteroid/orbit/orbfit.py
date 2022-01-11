@@ -201,9 +201,9 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
 
         Parameters
         ----------
-        observation_record : Astropy Table
-            The table of observational records; this will be converted to the
-            required MPC 80 column format.
+        observation_table : Astropy Table
+            The table of observations; this will be converted to the
+            required formats for processing.
 
         Returns
         -------
@@ -521,12 +521,12 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             ang=kepler_element_table["mean_anomaly"],
             err=kepler_error_table["mean_anomaly_error"],
         )
-        # This really is not needed, but it might be better than using the first
-        # value
+        # This really is not needed, but it might be better than using the
+        # first value
         avg_mod_julian_date = np.mean(mod_julian_date_array)
 
-        # Assembling the elements into the proper dictionaries to return; same with
-        # the errors.
+        # Assembling the elements into the proper dictionaries to return;
+        # same with the errors.
         kepler_elements = {
             "semimajor_axis": avg_semimajor_axis,
             "eccentricity": avg_eccentricity,
@@ -545,4 +545,37 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         }
         modified_julian_date = avg_mod_julian_date
         # All done.
+        return kepler_elements, kepler_error, modified_julian_date
+
+    def solve_orbit_via_record(
+        self, observation_record: list
+    ) -> tuple[dict, dict, float]:
+        """Attempts to compute Keplarian orbits provided a standard 80-column
+         record of observations.
+
+        This function calls and depends on `solve_orbfit`.
+
+         Parameters
+         ----------
+         observation_record : Astropy Table
+             The record of observations in the standard 80-column format.
+
+         Returns
+         -------
+         kepler_elements : dict
+             The Keplarian orbital elements.
+         kepler_error : dict
+             The error on the Keplarian orbital elements.
+         modified_julian_date : float
+             The modified Julian date corresponding to the osculating orbit and
+             the Keplerian orbital parameters provided.
+        """
+        # Convert from the record to a the table.
+        obs_table = library.mpcrecord.minor_planet_record_to_table(
+            records=observation_record
+        )
+        # Calling the primary function.
+        kepler_elements, kepler_error, modified_julian_date = self.solve_orbit(
+            observation_table=obs_table
+        )
         return kepler_elements, kepler_error, modified_julian_date
