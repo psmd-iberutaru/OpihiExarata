@@ -48,6 +48,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Install: Download</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#via-zip-archive">Via zip archive</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
@@ -173,11 +174,26 @@
 </pre></div>
 </div>
 <p>The location where you download OpihiExarata is relatively irrelevant.</p>
-<p>Throughout the installation tutorial we refer to the OpihiExarata directory
-as <cite>OpihiExarata/</cite>. This allows for the instructions to be general. Please
-adapt any absolute paths as needed.</p>
-<p>Via zip archive</p>
-<p>There are alternative ways to download the software.</p>
+<p>Throughout the installation tutorial we refer to the internal OpihiExarata
+directory as <cite>OpihiExarata/</cite>. This allows for the instructions to be general.
+Please adapt any absolute paths as needed.</p>
+</section>
+<section id="via-zip-archive">
+<h2>Via zip archive<a class="headerlink" href="#via-zip-archive" title="Permalink to this headline"></a></h2>
+<p>There are alternative ways to download the software. Although, the only other
+method that is worthwhile to document is downloading the software as an
+archive and extracting it to the desired location.</p>
+<p>A zip archive of the git repository can be downloaded via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="o">-</span><span class="n">L</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">psmd</span><span class="o">-</span><span class="n">iberutaru</span><span class="o">/</span><span class="n">OpihiExarata</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">unzip</span> <span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># Optional; to follow the documentation naming conventions.</span>
+<span class="n">mv</span> <span class="n">OpihiExarata</span><span class="o">-</span><span class="n">master</span> <span class="n">OpihiExarata</span>
+<span class="c1"># The zip is no longer needed.</span>
+</pre></div>
+</div>
+<p>Throughout the installation tutorial we refer to the internal OpihiExarata
+directory as <cite>OpihiExarata/</cite>. This allows for the instructions to be general.
+Please adapt any absolute paths as needed.</p>
 </section>
 </section>
 
