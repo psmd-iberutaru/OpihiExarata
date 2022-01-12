@@ -338,7 +338,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         elif os.path.isfile(orbit_file_path):
             # The orbit has been determined. The parameters can be extracted
             # from the orbit file.
-            with open("exarata.oel", "r") as file:
+            with open(orbit_file_path, "r") as file:
                 content = file.readlines()
                 # Stripping the newlines; the list itself kind of encodes this.
                 content = [linedex.strip() for linedex in content]
@@ -364,7 +364,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
                 "eccentricity",
                 "inclination",
                 "longitude_ascending_node",
-                "argument_periapsis",
+                "argument_perihelion",
                 "mean_anomaly",
             )
             # The beginning characters, which identified the line, are not
@@ -567,8 +567,8 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             err=kepler_error_table["longitude_ascending_node_error"],
         )
         avg_periapsis, err_periapsis = _average_angle(
-            ang=kepler_element_table["argument_periapsis"],
-            err=kepler_error_table["argument_periapsis_error"],
+            ang=kepler_element_table["argument_perihelion"],
+            err=kepler_error_table["argument_perihelion_error"],
         )
         avg_mean_anomaly, err_mean_anomaly = _average_angle(
             ang=kepler_element_table["mean_anomaly"],
@@ -585,7 +585,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             "eccentricity": avg_eccentricity,
             "inclination": avg_inclination,
             "longitude_ascending_node": avg_longitude,
-            "argument_periapsis": avg_periapsis,
+            "argument_perihelion": avg_periapsis,
             "mean_anomaly": avg_mean_anomaly,
         }
         kepler_error = {
@@ -593,7 +593,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             "eccentricity_error": err_eccentricity,
             "inclination_error": err_inclination,
             "longitude_ascending_node_error": err_longitude,
-            "argument_periapsis_error": err_periapsis,
+            "argument_perihelion_error": err_periapsis,
             "mean_anomaly_error": err_mean_anomaly,
         }
         modified_julian_date = avg_mod_julian_date

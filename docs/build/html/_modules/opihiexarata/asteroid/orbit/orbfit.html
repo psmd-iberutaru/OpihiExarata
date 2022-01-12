@@ -529,7 +529,7 @@
                 <span class="s2">&quot;eccentricity&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;inclination&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;argument_periapsis&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="c1"># The beginning characters, which identified the line, are not</span>
@@ -732,8 +732,8 @@
             <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">avg_periapsis</span><span class="p">,</span> <span class="n">err_periapsis</span> <span class="o">=</span> <span class="n">_average_angle</span><span class="p">(</span>
-            <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;argument_periapsis&quot;</span><span class="p">],</span>
-            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;argument_periapsis_error&quot;</span><span class="p">],</span>
+            <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;argument_perihelion&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">avg_mean_anomaly</span><span class="p">,</span> <span class="n">err_mean_anomaly</span> <span class="o">=</span> <span class="n">_average_angle</span><span class="p">(</span>
             <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">],</span>
@@ -750,7 +750,7 @@
             <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">avg_eccentricity</span><span class="p">,</span>
             <span class="s2">&quot;inclination&quot;</span><span class="p">:</span> <span class="n">avg_inclination</span><span class="p">,</span>
             <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">:</span> <span class="n">avg_longitude</span><span class="p">,</span>
-            <span class="s2">&quot;argument_periapsis&quot;</span><span class="p">:</span> <span class="n">avg_periapsis</span><span class="p">,</span>
+            <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">:</span> <span class="n">avg_periapsis</span><span class="p">,</span>
             <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">avg_mean_anomaly</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">kepler_error</span> <span class="o">=</span> <span class="p">{</span>
@@ -758,7 +758,7 @@
             <span class="s2">&quot;eccentricity_error&quot;</span><span class="p">:</span> <span class="n">err_eccentricity</span><span class="p">,</span>
             <span class="s2">&quot;inclination_error&quot;</span><span class="p">:</span> <span class="n">err_inclination</span><span class="p">,</span>
             <span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">:</span> <span class="n">err_longitude</span><span class="p">,</span>
-            <span class="s2">&quot;argument_periapsis_error&quot;</span><span class="p">:</span> <span class="n">err_periapsis</span><span class="p">,</span>
+            <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">err_periapsis</span><span class="p">,</span>
             <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">err_mean_anomaly</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">avg_mod_julian_date</span>
