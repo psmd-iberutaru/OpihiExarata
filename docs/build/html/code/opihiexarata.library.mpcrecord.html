@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.library.mpcrecord module &mdash; OpihiExarata 2022.1.11 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.library.path module" href="opihiexarata.library.path.html" />
+    <link rel="prev" title="opihiexarata.library.json module" href="opihiexarata.library.json.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#new">New</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#fortran-compiler">Fortran Compiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#install">Install</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#apt-package-managers">APT Package Managers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#yum-dnf-zypper-package-managers">YUM, DNF, Zypper Package Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">opihiexarata</a> &raquo;</li>
+          <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
+          <li><a href="opihiexarata.library.html">opihiexarata.library package</a> &raquo;</li>
+      <li>opihiexarata.library.mpcrecord module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/opihiexarata.library.mpcrecord.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-opihiexarata.library.mpcrecord">
+<span id="opihiexarata-library-mpcrecord-module"></span><h1>opihiexarata.library.mpcrecord module<a class="headerlink" href="#module-opihiexarata.library.mpcrecord" title="Permalink to this headline"></a></h1>
+<p>This contains many wrapper functions for dealing with MPC 80 column
+standard records.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.mpcrecord.minor_planet_blank_table">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.mpcrecord.</span></span><span class="sig-name descname"><span class="pre">minor_planet_blank_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/mpcrecord.html#minor_planet_blank_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.mpcrecord.minor_planet_blank_table" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a blank table which contains the columns which are recognized by
+the MPC standard 80-column record format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>blank_table</strong> – The table with only the column headings; no records are in the table.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Astropy Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.mpcrecord.minor_planet_record_to_table">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.mpcrecord.</span></span><span class="sig-name descname"><span class="pre">minor_planet_record_to_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/mpcrecord.html#minor_planet_record_to_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.mpcrecord.minor_planet_record_to_table" title="Permalink to this definition"></a></dt>
+<dd><p>This converts an 80 column record for minor planets to a table
+representing the same data.</p>
+<p>The documentation for how the columns are assigned is provided by the
+Minor Planet Center:
+<a class="reference external" href="https://www.minorplanetcenter.net/iau/info/OpticalObs.html">https://www.minorplanetcenter.net/iau/info/OpticalObs.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>records</strong> (<em>list</em>) – The records in MPC format. Each entry of the list should be an 80
+column string representing an observed record, a single line.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>table</strong> – A table containing the same information that is in the MPC record
+format in an easier interface.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Astropy Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.mpcrecord.minor_planet_table_to_record">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.mpcrecord.</span></span><span class="sig-name descname"><span class="pre">minor_planet_table_to_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">astropy.table.table.Table</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/mpcrecord.html#minor_planet_table_to_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.mpcrecord.minor_planet_table_to_record" title="Permalink to this definition"></a></dt>
+<dd><p>This converts an 80 column record for minor planets to a table
+representing the same data.</p>
+<p>This function provides a minimal amount of verification that the input
+table is correct. If the provided entry of the table is too long, the text
+is striped of whitespace and then ususally cut.</p>
+<p>The documentation for how the columns are assigned is provided by the
+Minor Planet Center:
+<a class="reference external" href="https://www.minorplanetcenter.net/iau/info/OpticalObs.html">https://www.minorplanetcenter.net/iau/info/OpticalObs.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>Astropy Table</em>) – A table containing the same information that can be written as the
+standard 80-column record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>records</strong> – The records in MPC format. Each entry is 80 characters long and are in
+the standard format. The entries are derived from the provided table
+with information cut to fit into the format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.library.json.html" class="btn btn-neutral float-left" title="opihiexarata.library.json module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.library.path.html" class="btn btn-neutral float-right" title="opihiexarata.library.path module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

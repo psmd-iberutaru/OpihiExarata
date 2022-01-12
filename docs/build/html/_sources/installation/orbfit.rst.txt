@@ -216,11 +216,16 @@ Executable Path for Configuration File
 For this program's executables to be used, the path that they exist in must be known to 
 OpihiExarata. Copy the output of the working directory command and add it to the 
 configuration file's entries as noted. The path should be an absolute path; these 
-commands should be run in the ``Orbfit/`` directory.::
+commands should be run in the ``Orbfit/`` directory::
 
     cd .; echo "ORBFIT_DIRECTORY =="; pwd
     cd ./bin; echo "ORBFIT_BINARY_EXECUTABLE_DIRECTORY =="; pwd; cd ..
 
+If your main operating system is Windows and you are installing this via WSL Ubuntu, 
+use the following instead::
+
+    cd .; echo "ORBFIT_DIRECTORY =="; echo "\\\\wsl$/Ubuntu"$(pwd)
+    cd ./bin; echo "ORBFIT_BINARY_EXECUTABLE_DIRECTORY =="; pwd; cd ..
 
 OpihiExarata Template Files
 ===========================
@@ -230,9 +235,9 @@ OrbFit must be collected for OpihiExarata to leverage.
 
 Create and enter the directory (starting from ``Orbfit/``)::
 
-    mkdir template; cd template
+    mkdir exarata; cd exarata
 
-Within the ``Orbfit/template`` directory, copy over the asteroid propagation files. This 
+Within the ``Orbfit/exarata/`` directory, copy over the asteroid propagation files. This 
 contains ephemerides data for asteroids to better propagations. Generally, these files 
 can be found in ``Orbfit/tests/bineph/testout``. For some reason, the file extensions on 
 these files are not in a form which is liked by Orbfit, so they are also changed. Namely, 
@@ -248,20 +253,21 @@ the commands below should work::
     mv CPV.bep_431_fcct CPV.bep
     mv CPV_iter.bop CPV.bop
 
-Also, create the files which are to be used to input data into Orbfit from OpihiExarata. The main file that needs to be created is ``template.oop``. Create it with your favorite text editor and fill the file and save it with the following:
+Also, create the files which are to be used to input data into Orbfit from OpihiExarata. The main file that needs to be created is ``exarata.oop``. Create it with your favorite text editor and fill the file and save it with the following:
 
 ::
 
     ! First object
     object1.
-        .name = {NAME}         ! Object name
+        .name = exarata        ! Object name
         .obs_dir = '.'         ! Observations directory
 
     ! Elements output
     output.
-        .elements='KEP'             ! Kepler output elements
+        .epoch = CAL 2022/01/01  00:00:00 UTC  ! The epoch time of the orbit
+        .elements = 'KEP'                      ! Kepler output elements
 
-    !Operations: preliminary orbits, differential corrections, identification
+    ! Operations: preliminary orbits, differential corrections, identification
     operations.
         .init_orbdet = 1    ! Initial orbit determination
                             ! (0 = no, 1 = yes)
@@ -296,8 +302,8 @@ Also, create the files which are to be used to input data into Orbfit from Opihi
 
 The other two files you can create with the following commands::
 
-    echo "TEMPLATE" > template.inp
-    touch template.obs
+    echo "exarata" > exarata.inp
+    touch exarata.obs
 
 .. note::
     OpihiExarata will check that these three files exist as a check to see that these 

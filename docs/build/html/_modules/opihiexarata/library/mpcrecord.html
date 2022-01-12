@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.library.mpcrecord &mdash; OpihiExarata 2022.1.11 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#new">New</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation/orbfit.html#fortran-compiler">Fortran Compiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../installation/orbfit.html#install">Install</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../installation/orbfit.html#apt-package-managers">APT Package Managers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../installation/orbfit.html#yum-dnf-zypper-package-managers">YUM, DNF, Zypper Package Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../installation/orbfit.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.library.mpcrecord</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.library.mpcrecord</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This contains many wrapper functions for dealing with MPC 80 column </span>
+<span class="sd">standard records.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">astropy</span> <span class="k">as</span> <span class="nn">ap</span>
+<span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="n">MPC_MINOR_PLANET_TABLE_COLUMN_NAMES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;packed_mpc_number&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;packed_provisional_number&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;discovery_asterisk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;publishable_note&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;observing_note&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dec&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;blank&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;magnitude_and_band&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pseudo_blank&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;observatory_code&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="minor_planet_blank_table"><a class="viewcode-back" href="../../../code/opihiexarata.library.mpcrecord.html#opihiexarata.library.mpcrecord.minor_planet_blank_table">[docs]</a><span class="k">def</span> <span class="nf">minor_planet_blank_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Creates a blank table which contains the columns which are recognized by</span>
+<span class="sd">    the MPC standard 80-column record format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    blank_table : Astropy Table</span>
+<span class="sd">        The table with only the column headings; no records are in the table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The names of the columns</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="n">MPC_MINOR_PLANET_TABLE_COLUMN_NAMES</span>
+    <span class="n">blank_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">blank_table</span></div>
+
+
+<div class="viewcode-block" id="minor_planet_record_to_table"><a class="viewcode-back" href="../../../code/opihiexarata.library.mpcrecord.html#opihiexarata.library.mpcrecord.minor_planet_record_to_table">[docs]</a><span class="k">def</span> <span class="nf">minor_planet_record_to_table</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This converts an 80 column record for minor planets to a table</span>
+<span class="sd">    representing the same data.</span>
+
+<span class="sd">    The documentation for how the columns are assigned is provided by the</span>
+<span class="sd">    Minor Planet Center:</span>
+<span class="sd">    https://www.minorplanetcenter.net/iau/info/OpticalObs.html</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    records : list</span>
+<span class="sd">        The records in MPC format. Each entry of the list should be an 80</span>
+<span class="sd">        column string representing an observed record, a single line.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    table : Astropy Table</span>
+<span class="sd">        A table containing the same information that is in the MPC record</span>
+<span class="sd">        format in an easier interface.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Each line of the record should be 80 characters long.</span>
+    <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;At least one of the lines is not 80 characters in length. It is not a&quot;</span>
+                <span class="s2">&quot; standard MPC 80-column format.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># The table which the information will be added into.</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="n">MPC_MINOR_PLANET_TABLE_COLUMN_NAMES</span>
+    <span class="c1"># It is easier to make the Table from lists representing rows.</span>
+    <span class="n">table_rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Going through each of the rows to extract the information into their</span>
+    <span class="c1"># string representations.</span>
+    <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+        <span class="c1"># Extract the information</span>
+        <span class="n">tmp_packed_mp_number</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">tmp_packed_prov_desig</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+        <span class="n">tmp_discovery_asterisk</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+        <span class="n">tmp_publish_note</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span>
+        <span class="n">tmp_observe_note</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span>
+        <span class="n">tmp_obs_date</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">32</span><span class="p">]</span>
+        <span class="n">tmp_obs_ra</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">32</span><span class="p">:</span><span class="mi">44</span><span class="p">]</span>
+        <span class="n">tmp_obs_dec</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">44</span><span class="p">:</span><span class="mi">56</span><span class="p">]</span>
+        <span class="n">tmp_blank_1</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">56</span><span class="p">:</span><span class="mi">65</span><span class="p">]</span>
+        <span class="n">tmp_mag_and_band</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">65</span><span class="p">:</span><span class="mi">71</span><span class="p">]</span>
+        <span class="n">tmp_blank_2</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">71</span><span class="p">:</span><span class="mi">77</span><span class="p">]</span>
+        <span class="n">tmp_observatory_code</span> <span class="o">=</span> <span class="n">linedex</span><span class="p">[</span><span class="mi">77</span><span class="p">:</span><span class="mi">80</span><span class="p">]</span>
+        <span class="c1"># Apply it as a row to the table rows, it will be converted to a table</span>
+        <span class="c1"># later.</span>
+        <span class="n">table_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">tmp_packed_mp_number</span><span class="p">,</span>
+                <span class="n">tmp_packed_prov_desig</span><span class="p">,</span>
+                <span class="n">tmp_discovery_asterisk</span><span class="p">,</span>
+                <span class="n">tmp_publish_note</span><span class="p">,</span>
+                <span class="n">tmp_observe_note</span><span class="p">,</span>
+                <span class="n">tmp_obs_date</span><span class="p">,</span>
+                <span class="n">tmp_obs_ra</span><span class="p">,</span>
+                <span class="n">tmp_obs_dec</span><span class="p">,</span>
+                <span class="n">tmp_blank_1</span><span class="p">,</span>
+                <span class="n">tmp_mag_and_band</span><span class="p">,</span>
+                <span class="n">tmp_blank_2</span><span class="p">,</span>
+                <span class="n">tmp_observatory_code</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="c1"># Construct the Astropy Table.</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="n">table_rows</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span></div>
+
+
+<div class="viewcode-block" id="minor_planet_table_to_record"><a class="viewcode-back" href="../../../code/opihiexarata.library.mpcrecord.html#opihiexarata.library.mpcrecord.minor_planet_table_to_record">[docs]</a><span class="k">def</span> <span class="nf">minor_planet_table_to_record</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;This converts an 80 column record for minor planets to a table</span>
+<span class="sd">    representing the same data.</span>
+
+<span class="sd">    This function provides a minimal amount of verification that the input</span>
+<span class="sd">    table is correct. If the provided entry of the table is too long, the text</span>
+<span class="sd">    is striped of whitespace and then ususally cut.</span>
+
+<span class="sd">    The documentation for how the columns are assigned is provided by the</span>
+<span class="sd">    Minor Planet Center:</span>
+<span class="sd">    https://www.minorplanetcenter.net/iau/info/OpticalObs.html</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    table : Astropy Table</span>
+<span class="sd">        A table containing the same information that can be written as the</span>
+<span class="sd">        standard 80-column record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    records : list</span>
+<span class="sd">        The records in MPC format. Each entry is 80 characters long and are in</span>
+<span class="sd">        the standard format. The entries are derived from the provided table</span>
+<span class="sd">        with information cut to fit into the format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check that the table has the required column headers. Although the order</span>
+    <span class="c1"># is not required to be the same, ensuring the same order ensures the</span>
+    <span class="c1"># blank table was used as a template.</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="n">MPC_MINOR_PLANET_TABLE_COLUMN_NAMES</span>
+    <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">colnames</span> <span class="o">!=</span> <span class="n">column_names</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+            <span class="s2">&quot;The headers of the table do not match the expected column names. This&quot;</span>
+            <span class="s2">&quot; function only can handle tables with the expected names.&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># An inner function to convert a table row to a record 80-col string.</span>
+    <span class="c1"># It is easier to understand this way despite the performance hit.</span>
+    <span class="k">def</span> <span class="nf">_row_to_record</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Row</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># Obtain each of the parameters and employ the needed constraints upon</span>
+        <span class="c1"># them so that they match the 80-column standard format.</span>
+        <span class="c1"># The minor planet number.</span>
+        <span class="n">in_pack_mpc_num</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;packed_mpc_number&quot;</span><span class="p">])</span>
+        <span class="n">str_packed_mpc_number</span> <span class="o">=</span> <span class="n">in_pack_mpc_num</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="c1"># The packed provisional designation.</span>
+        <span class="n">in_pack_prov_desig</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;packed_provisional_number&quot;</span><span class="p">])</span>
+        <span class="n">str_packed_provisional_number</span> <span class="o">=</span> <span class="n">in_pack_prov_desig</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">7</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+        <span class="c1"># The discovery asterisk.</span>
+        <span class="n">in_discov_aster</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;discovery_asterisk&quot;</span><span class="p">])</span>
+        <span class="n">str_discovery_asterisk</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="k">if</span> <span class="n">in_discov_aster</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span> <span class="k">else</span> <span class="s2">&quot; &quot;</span>
+        <span class="c1"># The publishable note.</span>
+        <span class="n">in_publish_note</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;publishable_note&quot;</span><span class="p">])</span>
+        <span class="n">str_publish_note</span> <span class="o">=</span> <span class="n">in_publish_note</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># The observational note.</span>
+        <span class="n">in_obs_note</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;observing_note&quot;</span><span class="p">])</span>
+        <span class="n">str_observing_note</span> <span class="o">=</span> <span class="n">in_obs_note</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># The date of observation.</span>
+        <span class="n">in_obs_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+        <span class="n">str_date</span> <span class="o">=</span> <span class="n">in_obs_date</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="mi">17</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+        <span class="c1"># The right ascension.</span>
+        <span class="n">in_ra</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">])</span>
+        <span class="n">str_ra</span> <span class="o">=</span> <span class="n">in_ra</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+        <span class="c1"># The declination.</span>
+        <span class="n">in_dec</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">])</span>
+        <span class="n">str_dec</span> <span class="o">=</span> <span class="n">in_dec</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+        <span class="c1"># Space which is defined to be blank by the specification.</span>
+        <span class="n">in_blank</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;blank&quot;</span><span class="p">])</span>
+        <span class="n">str_blank</span> <span class="o">=</span> <span class="n">in_blank</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">9</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+        <span class="c1"># The magnitude and its accompanying band.</span>
+        <span class="n">in_mag_band</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;magnitude_and_band&quot;</span><span class="p">])</span>
+        <span class="n">band_char</span> <span class="o">=</span> <span class="n">in_mag_band</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mag_str</span> <span class="o">=</span> <span class="n">in_mag_band</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">str_magnitude_and_band</span> <span class="o">=</span> <span class="n">mag_str</span> <span class="o">+</span> <span class="n">band_char</span>
+        <span class="c1"># The pseudo blank area, which is defined to be blank but is often not</span>
+        <span class="c1"># for some reason.</span>
+        <span class="n">in_psu_blank</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;pseudo_blank&quot;</span><span class="p">])</span>
+        <span class="n">str_pseudo_blank</span> <span class="o">=</span> <span class="n">in_psu_blank</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+        <span class="c1"># The observetory code.</span>
+        <span class="n">in_obs_code</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;observatory_code&quot;</span><span class="p">])</span>
+        <span class="n">str_observatory_code</span> <span class="o">=</span> <span class="n">in_obs_code</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Done.</span>
+        <span class="c1"># From the length controlled strings, the record which encodes the</span>
+        <span class="c1"># information about this row can be derived.</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">str_packed_mpc_number</span>
+            <span class="o">+</span> <span class="n">str_packed_provisional_number</span>
+            <span class="o">+</span> <span class="n">str_discovery_asterisk</span>
+            <span class="o">+</span> <span class="n">str_publish_note</span>
+            <span class="o">+</span> <span class="n">str_observing_note</span>
+            <span class="o">+</span> <span class="n">str_date</span>
+            <span class="o">+</span> <span class="n">str_ra</span>
+            <span class="o">+</span> <span class="n">str_dec</span>
+            <span class="o">+</span> <span class="n">str_blank</span>
+            <span class="o">+</span> <span class="n">str_magnitude_and_band</span>
+            <span class="o">+</span> <span class="n">str_pseudo_blank</span>
+            <span class="o">+</span> <span class="n">str_observatory_code</span>
+        <span class="p">)</span>
+        <span class="c1"># Ensure that the record is exactly 80 columns long.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+                <span class="s2">&quot;The row derived record string is not 80 columns. The current record&quot;</span>
+                <span class="s2">&quot; string: `</span><span class="si">{rec}</span><span class="s2">`.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rec</span><span class="o">=</span><span class="n">record</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The record is assumed to be good.</span>
+            <span class="k">return</span> <span class="n">record</span>
+        <span class="c1"># The code should not reach here.</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Creating the records via the table.</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rowdex</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
+        <span class="c1"># The length of the records are checked in the subfunction.</span>
+        <span class="n">temp_record</span> <span class="o">=</span> <span class="n">_row_to_record</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">rowdex</span><span class="p">)</span>
+        <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_record</span><span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">records</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

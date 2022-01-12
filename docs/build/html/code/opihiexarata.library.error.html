@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error module &mdash; OpihiExarata 2021.12.29 documentation</title>
+  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.1.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -46,6 +46,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/documentation.html">Optional: Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#prerequisites">Prerequisites</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#sphinx">Sphinx</a></li>
@@ -67,10 +73,27 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#final">Final</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Install: Python Part</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#download">Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#fortran-compiler">Fortran Compiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#install">Install</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#apt-package-managers">APT Package Managers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#yum-dnf-zypper-package-managers">YUM, DNF, Zypper Package Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
 </ul>
@@ -80,6 +103,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
 </ul>
 </li>
@@ -172,7 +196,9 @@ and not just files.</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">EngineError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#EngineError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.EngineError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
 <p>This error is for when the astrometric, photometric, or asteroid-metric
-solver engines provided are not valid or expected.</p>
+solver engines provided are not valid or expected. This error can also be
+used when an engine fails to solve or otherwise does not work as
+intended.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -248,6 +274,15 @@ and something fails.</p>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
 <p>An error to be used when the inputs to a function are not valid and do
 not match the expectations of that function.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.InstallError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">InstallError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#InstallError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.InstallError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<p>An error to be used when informing the user or the program that the
+installation was not done properly and lack some of the features and
+assumptions which are a consequence of it.</p>
 </dd></dl>
 
 <dl class="py exception">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; OpihiExarata 2021.12.29 documentation</title>
+  <title>Index &mdash; OpihiExarata 2022.1.11 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -43,6 +43,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/download.html">Install: Download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/python.html#install">Install</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="installation/documentation.html">Optional: Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation/documentation.html#prerequisites">Prerequisites</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation/documentation.html#sphinx">Sphinx</a></li>
@@ -87,12 +97,6 @@
 <li class="toctree-l2"><a class="reference internal" href="installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation/python.html">Install: Python Part</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation/python.html#download">Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation/python.html#build">Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation/python.html#install">Install</a></li>
-</ul>
-</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
 <ul>
@@ -100,6 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="code/opihiexarata.html">opihiexarata package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="code/opihiexarata.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="code/opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
 </ul>
 </li>
@@ -182,9 +187,11 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.__init__">__init__() (opihiexarata.astrometry.solution.AstrometricSolution method)</a>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.__init__">__init__() (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer method)</a>
 
       <ul>
+        <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.__init__">(opihiexarata.astrometry.solution.AstrometricSolution method)</a>
+</li>
         <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.__init__">(opihiexarata.astrometry.webclient.AstrometryNetWebAPI method)</a>
 </li>
         <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataBaseException.__init__">(opihiexarata.library.error.ExarataBaseException method)</a>
@@ -203,6 +210,8 @@
       <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_pixel">_calculate_star_photon_counts_pixel() (opihiexarata.photometry.solution.PhotometricSolution method)</a>
 </li>
       <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._calculate_zero_point">_calculate_zero_point() (opihiexarata.photometry.solution.PhotometricSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._clean_orbfit_files">_clean_orbfit_files() (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer method)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._generate_service_url">_generate_service_url() (opihiexarata.astrometry.webclient.AstrometryNetWebAPI method)</a>
 </li>
@@ -230,7 +239,11 @@
         <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._original_header">(opihiexarata.photometry.solution.PhotometricSolution attribute)</a>
 </li>
       </ul></li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._prepare_orbfit_files">_prepare_orbfit_files() (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer method)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._send_web_request">_send_web_request() (opihiexarata.astrometry.webclient.AstrometryNetWebAPI method)</a>
+</li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._solve_single_orbit">_solve_single_orbit() (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer method)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution._vehicle_astrometrynet_web_api">_vehicle_astrometrynet_web_api() (in module opihiexarata.astrometry.solution)</a>
 </li>
@@ -368,6 +381,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.InputError">InputError</a>
 </li>
+      <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.InstallError">InstallError</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.IntentionalError">IntentionalError</a>
@@ -414,6 +429,12 @@
 </li>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.merge_pathname">merge_pathname() (in module opihiexarata.library.path)</a>
 </li>
+      <li><a href="code/opihiexarata.library.mpcrecord.html#opihiexarata.library.mpcrecord.minor_planet_blank_table">minor_planet_blank_table() (in module opihiexarata.library.mpcrecord)</a>
+</li>
+      <li><a href="code/opihiexarata.library.mpcrecord.html#opihiexarata.library.mpcrecord.minor_planet_record_to_table">minor_planet_record_to_table() (in module opihiexarata.library.mpcrecord)</a>
+</li>
+      <li><a href="code/opihiexarata.library.mpcrecord.html#opihiexarata.library.mpcrecord.minor_planet_table_to_record">minor_planet_table_to_record() (in module opihiexarata.library.mpcrecord)</a>
+</li>
       <li>
     module
 
@@ -421,6 +442,10 @@
         <li><a href="code/opihiexarata.html#module-opihiexarata">opihiexarata</a>
 </li>
         <li><a href="code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">opihiexarata.asteroid</a>
+</li>
+        <li><a href="code/opihiexarata.asteroid.orbit.html#module-opihiexarata.asteroid.orbit">opihiexarata.asteroid.orbit</a>
+</li>
+        <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#module-opihiexarata.asteroid.orbit.orbfit">opihiexarata.asteroid.orbit.orbfit</a>
 </li>
         <li><a href="code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">opihiexarata.astrometry</a>
 </li>
@@ -454,6 +479,8 @@
 </li>
         <li><a href="code/opihiexarata.library.json.html#module-opihiexarata.library.json">opihiexarata.library.json</a>
 </li>
+        <li><a href="code/opihiexarata.library.mpcrecord.html#module-opihiexarata.library.mpcrecord">opihiexarata.library.mpcrecord</a>
+</li>
         <li><a href="code/opihiexarata.library.path.html#module-opihiexarata.library.path">opihiexarata.library.path</a>
 </li>
         <li><a href="code/opihiexarata.library.temporary.html#module-opihiexarata.library.temporary">opihiexarata.library.temporary</a>
@@ -483,6 +510,20 @@
 
       <ul>
         <li><a href="code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">module</a>
+</li>
+      </ul></li>
+      <li>
+    opihiexarata.asteroid.orbit
+
+      <ul>
+        <li><a href="code/opihiexarata.asteroid.orbit.html#module-opihiexarata.asteroid.orbit">module</a>
+</li>
+      </ul></li>
+      <li>
+    opihiexarata.asteroid.orbit.orbfit
+
+      <ul>
+        <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#module-opihiexarata.asteroid.orbit.orbfit">module</a>
 </li>
       </ul></li>
       <li>
@@ -555,8 +596,6 @@
         <li><a href="code/opihiexarata.library.engine.html#module-opihiexarata.library.engine">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     opihiexarata.library.error
 
@@ -564,6 +603,8 @@
         <li><a href="code/opihiexarata.library.error.html#module-opihiexarata.library.error">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     opihiexarata.library.fits
 
@@ -597,6 +638,13 @@
 
       <ul>
         <li><a href="code/opihiexarata.library.json.html#module-opihiexarata.library.json">module</a>
+</li>
+      </ul></li>
+      <li>
+    opihiexarata.library.mpcrecord
+
+      <ul>
+        <li><a href="code/opihiexarata.library.mpcrecord.html#module-opihiexarata.library.mpcrecord">module</a>
 </li>
       </ul></li>
       <li>
@@ -634,6 +682,14 @@
         <li><a href="code/opihiexarata.photometry.solution.html#module-opihiexarata.photometry.solution">module</a>
 </li>
       </ul></li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer">OrbfitOrbitDeterminer (class in opihiexarata.asteroid.orbit.orbfit)</a>
+</li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.orbital_elements">orbital_elements (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer attribute)</a>
+</li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.orbital_elements_errors">orbital_elements_errors (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer attribute)</a>
+</li>
+      <li><a href="code/opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine">OrbitEngine (class in opihiexarata.library.engine)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.orientation">orientation (opihiexarata.astrometry.solution.AstrometricSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.original_upload_filename">original_upload_filename (opihiexarata.astrometry.webclient.AstrometryNetWebAPI attribute)</a>
@@ -692,9 +748,13 @@
 </li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.skycoord">skycoord (opihiexarata.astrometry.solution.AstrometricSolution attribute)</a>
 </li>
+      <li><a href="code/opihiexarata.library.image.html#opihiexarata.library.image.slice_array_boundary">slice_array_boundary() (in module opihiexarata.library.image)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/opihiexarata.library.image.html#opihiexarata.library.image.slice_array_boundary">slice_array_boundary() (in module opihiexarata.library.image)</a>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit">solve_orbit() (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer method)</a>
+</li>
+      <li><a href="code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit_via_record">solve_orbit_via_record() (opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer method)</a>
 </li>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.split_pathname">split_pathname() (in module opihiexarata.library.path)</a>
 </li>

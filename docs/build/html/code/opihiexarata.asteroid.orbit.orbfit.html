@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.asteroid.orbit.orbfit module &mdash; OpihiExarata 2022.1.11 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.astrometry package" href="opihiexarata.astrometry.html" />
+    <link rel="prev" title="opihiexarata.asteroid.orbit package" href="opihiexarata.asteroid.orbit.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#new">New</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/download.html">Install: Download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#fortran-compiler">Fortran Compiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#install">Install</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#apt-package-managers">APT Package Managers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#yum-dnf-zypper-package-managers">YUM, DNF, Zypper Package Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">opihiexarata</a> &raquo;</li>
+          <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
+          <li><a href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a> &raquo;</li>
+          <li><a href="opihiexarata.asteroid.orbit.html">opihiexarata.asteroid.orbit package</a> &raquo;</li>
+      <li>opihiexarata.asteroid.orbit.orbfit module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/opihiexarata.asteroid.orbit.orbfit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-opihiexarata.asteroid.orbit.orbfit">
+<span id="opihiexarata-asteroid-orbit-orbfit-module"></span><h1>opihiexarata.asteroid.orbit.orbfit module<a class="headerlink" href="#module-opihiexarata.asteroid.orbit.orbfit" title="Permalink to this headline"></a></h1>
+<p>This contains the Python wrapper class around Orbfit, assuming the
+installation procedure was followed.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.asteroid.orbit.orbfit.</span></span><span class="sig-name descname"><span class="pre">OrbfitOrbitDeterminer</span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine" title="opihiexarata.library.engine.OrbitEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.OrbitEngine</span></code></a></p>
+<p>Uses the Orbfit package to determine the orbital elements of an astroid
+provided observations. This assumes that the installation instructions
+provided were followed.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.orbital_elements">
+<span class="sig-name descname"><span class="pre">orbital_elements</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.orbital_elements" title="Permalink to this definition"></a></dt>
+<dd><p>The six Keplarian orbital elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.orbital_elements_errors">
+<span class="sig-name descname"><span class="pre">orbital_elements_errors</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.orbital_elements_errors" title="Permalink to this definition"></a></dt>
+<dd><p>The errors of the orbital elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Instantiation of the orbfit package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._clean_orbfit_files">
+<span class="sig-name descname"><span class="pre">_clean_orbfit_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer._clean_orbfit_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._clean_orbfit_files" title="Permalink to this definition"></a></dt>
+<dd><p>This function cleans up the operational directory of Orbfit.
+If there are leftover files, the program may try to use them in a
+manner which is not desired. It is usually better to start from
+scratch each time to avoid these issues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._prepare_orbfit_files">
+<span class="sig-name descname"><span class="pre">_prepare_orbfit_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer._prepare_orbfit_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._prepare_orbfit_files" title="Permalink to this definition"></a></dt>
+<dd><p>This function prepares the operational directory for Orbfit inside
+of the temporary directory. This allows for files to be generated for
+useage by the binary orbfit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._solve_single_orbit">
+<span class="sig-name descname"><span class="pre">_solve_single_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">astropy.table.table.Table</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer._solve_single_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._solve_single_orbit" title="Permalink to this definition"></a></dt>
+<dd><p>This uses the Orbfit program to an orbit provided a record of
+observations. If it cannot be solved, an error is raised.</p>
+<p>This function is not intended to solve an entire set of observations,
+but instead a subset of them. The rational being that orbfit tends to
+fail on larger sets; averaging the values of smaller sets is a little
+more robust against failure. Use the non-hidden function to compute
+orbital elements for a full range of observations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observation_table</strong> (<em>Astropy Table</em>) – The table of observations; this will be converted to the
+required formats for processing.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>kepler_elements</strong> (<em>dict</em>) – The Keplarian orbital elements.</p></li>
+<li><p><strong>kepler_error</strong> (<em>dict</em>) – The error on the Keplarian orbital elements.</p></li>
+<li><p><strong>modified_julian_date</strong> (<em>float</em>) – The modified Julian date corresponding to the osculating orbit and
+the Keplerian orbital parameters provided.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit">
+<span class="sig-name descname"><span class="pre">solve_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">astropy.table.table.Table</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer.solve_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit" title="Permalink to this definition"></a></dt>
+<dd><p>Attempts to compute Keplarian orbits provided a table of observations.</p>
+<p>This function attempts to compute the orbit using the entire
+observation table. If it is unable to, then the observations are split
+into subsets based on the year of observations. The derived orbital
+elements are averaged and errors propagated. If no orbit is found,
+then an error is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observation_record</strong> (<em>Astropy Table</em>) – The table of observational records; this will be converted to the
+required MPC 80 column format.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>kepler_elements</strong> (<em>dict</em>) – The Keplarian orbital elements.</p></li>
+<li><p><strong>kepler_error</strong> (<em>dict</em>) – The error on the Keplarian orbital elements.</p></li>
+<li><p><strong>modified_julian_date</strong> (<em>float</em>) – The modified Julian date corresponding to the osculating orbit and
+the Keplerian orbital parameters provided.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit_via_record">
+<span class="sig-name descname"><span class="pre">solve_orbit_via_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/orbfit.html#OrbfitOrbitDeterminer.solve_orbit_via_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit_via_record" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Attempts to compute Keplarian orbits provided a standard 80-column</dt><dd><p>record of observations.</p>
+</dd>
+</dl>
+<p>This function calls and depends on <cite>solve_orbfit</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observation_record</strong> (<em>Astropy Table</em>) – The record of observations in the standard 80-column format.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>kepler_elements</strong> (<em>dict</em>) – The Keplarian orbital elements.</p></li>
+<li><p><strong>kepler_error</strong> (<em>dict</em>) – The error on the Keplarian orbital elements.</p></li>
+<li><p><strong>modified_julian_date</strong> (<em>float</em>) – The modified Julian date corresponding to the osculating orbit and
+the Keplerian orbital parameters provided.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.asteroid.orbit.html" class="btn btn-neutral float-left" title="opihiexarata.asteroid.orbit package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.astrometry.html" class="btn btn-neutral float-right" title="opihiexarata.astrometry package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Orbfit &mdash; OpihiExarata 2021.12.29 documentation</title>
+  <title>Install: Orbfit &mdash; OpihiExarata 2022.1.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Install: Python Part" href="python.html" />
+    <link rel="next" title="opihiexarata" href="../code/modules.html" />
     <link rel="prev" title="Optional: Windows Compatibility" href="windows.html" /> 
 </head>
 
@@ -46,6 +46,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#install">Install</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Optional: Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#prerequisites">Prerequisites</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
@@ -90,12 +96,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="python.html#download">Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python.html#build">Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python.html#install">Install</a></li>
-</ul>
-</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
 <ul>
@@ -103,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code/opihiexarata.html">opihiexarata package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
 </ul>
 </li>
@@ -347,9 +348,15 @@ does not seem to affect the orbit determination part of the program.</p>
 <p>For this program’s executables to be used, the path that they exist in must be known to
 OpihiExarata. Copy the output of the working directory command and add it to the
 configuration file’s entries as noted. The path should be an absolute path; these
-commands should be run in the <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory.:</p>
+commands should be run in the <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span>
 <span class="n">cd</span> <span class="o">./</span><span class="nb">bin</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span><span class="p">;</span> <span class="n">cd</span> <span class="o">..</span>
+</pre></div>
+</div>
+<p>If your main operating system is Windows and you are installing this via WSL Ubuntu,
+use the following instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd .; echo &quot;ORBFIT_DIRECTORY ==&quot;; echo &quot;\\\\wsl$/Ubuntu&quot;$(pwd)
+cd ./bin; echo &quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;; pwd; cd ..
 </pre></div>
 </div>
 </section>
@@ -358,10 +365,10 @@ commands should be run in the <code class="docutils literal notranslate"><span c
 <p>In order for OpihiExarata to properly use the OrbFit program, files which are used by
 OrbFit must be collected for OpihiExarata to leverage.</p>
 <p>Create and enter the directory (starting from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">template</span><span class="p">;</span> <span class="n">cd</span> <span class="n">template</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">exarata</span><span class="p">;</span> <span class="n">cd</span> <span class="n">exarata</span>
 </pre></div>
 </div>
-<p>Within the <code class="docutils literal notranslate"><span class="pre">Orbfit/template</span></code> directory, copy over the asteroid propagation files. This
+<p>Within the <code class="docutils literal notranslate"><span class="pre">Orbfit/exarata/</span></code> directory, copy over the asteroid propagation files. This
 contains ephemerides data for asteroids to better propagations. Generally, these files
 can be found in <code class="docutils literal notranslate"><span class="pre">Orbfit/tests/bineph/testout</span></code>. For some reason, the file extensions on
 these files are not in a form which is liked by Orbfit, so they are also changed. Namely,
@@ -377,17 +384,18 @@ the commands below should work:</p>
 <span class="n">mv</span> <span class="n">CPV_iter</span><span class="o">.</span><span class="n">bop</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bop</span>
 </pre></div>
 </div>
-<p>Also, create the files which are to be used to input data into Orbfit from OpihiExarata. The main file that needs to be created is <code class="docutils literal notranslate"><span class="pre">template.oop</span></code>. Create it with your favorite text editor and fill the file and save it with the following:</p>
+<p>Also, create the files which are to be used to input data into Orbfit from OpihiExarata. The main file that needs to be created is <code class="docutils literal notranslate"><span class="pre">exarata.oop</span></code>. Create it with your favorite text editor and fill the file and save it with the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! First object
 object1.
-    .name = {NAME}         ! Object name
+    .name = exarata        ! Object name
     .obs_dir = &#39;.&#39;         ! Observations directory
 
 ! Elements output
 output.
-    .elements=&#39;KEP&#39;             ! Kepler output elements
+    .epoch = CAL 2022/01/01  00:00:00 UTC  ! The epoch time of the orbit
+    .elements = &#39;KEP&#39;                      ! Kepler output elements
 
-!Operations: preliminary orbits, differential corrections, identification
+! Operations: preliminary orbits, differential corrections, identification
 operations.
     .init_orbdet = 1    ! Initial orbit determination
                         ! (0 = no, 1 = yes)
@@ -421,8 +429,8 @@ reject.
 </pre></div>
 </div>
 <p>The other two files you can create with the following commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;TEMPLATE&quot;</span> <span class="o">&gt;</span> <span class="n">template</span><span class="o">.</span><span class="n">inp</span>
-<span class="n">touch</span> <span class="n">template</span><span class="o">.</span><span class="n">obs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;exarata&quot;</span> <span class="o">&gt;</span> <span class="n">exarata</span><span class="o">.</span><span class="n">inp</span>
+<span class="n">touch</span> <span class="n">exarata</span><span class="o">.</span><span class="n">obs</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -439,7 +447,7 @@ paths provided in the configuration are valid and point to the right location.)<
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="windows.html" class="btn btn-neutral float-left" title="Optional: Windows Compatibility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="python.html" class="btn btn-neutral float-right" title="Install: Python Part" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../code/modules.html" class="btn btn-neutral float-right" title="opihiexarata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
