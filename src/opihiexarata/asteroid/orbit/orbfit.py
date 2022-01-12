@@ -608,20 +608,20 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
 
         This function calls and depends on `solve_orbfit`.
 
-         Parameters
-         ----------
-         observation_record : Astropy Table
-             The record of observations in the standard 80-column format.
+        Parameters
+        ----------
+        observation_record : Astropy Table
+            The record of observations in the standard 80-column format.
 
-         Returns
-         -------
-         kepler_elements : dict
-             The Keplarian orbital elements.
-         kepler_error : dict
-             The error on the Keplarian orbital elements.
-         modified_julian_date : float
-             The modified Julian date corresponding to the osculating orbit and
-             the Keplerian orbital parameters provided.
+        Returns
+        -------
+        kepler_elements : dict
+            The Keplarian orbital elements.
+        kepler_error : dict
+            The error on the Keplarian orbital elements.
+        modified_julian_date : float
+            The modified Julian date corresponding to the osculating orbit and
+            the Keplerian orbital parameters provided.
         """
         # Convert from the record to a the table.
         obs_table = library.mpcrecord.minor_planet_record_to_table(
