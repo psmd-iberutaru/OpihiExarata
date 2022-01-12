@@ -55,7 +55,8 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         self.ORBFIT_OPERATING_DIR = os.path.abspath(
             os.path.join(library.config.TEMPORARY_DIRECTORY, "operate_orbfit")
         )
-
+        # Preparing the directory for orbfit to work in.
+        self._prepare_orbfit_files()
         # Pre-cleaning of the directory in the event some files were leftover.
         self._clean_orbfit_files()
 
@@ -111,7 +112,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             directory=ORBFIT_TEMPLATE_PATH, filename="exarata", extension="oop"
         )
         ORBFIT_EXECUTABLE = library.path.merge_pathname(
-            directory=ORBFIT_BIN_PATH, filename="orbfit", extension="x"
+            directory=[ORBFIT_PATH, "bin"], filename="orbfit", extension="x"
         )
         # Test if the files exist.
         if not os.path.exists(INP_FILE_PATHNAME):
@@ -137,12 +138,71 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
                 "The orbfit compiled executable does not exist in the expected binary"
                 " directory. This is indicative of a bad install of OrbFit. Please"
                 " reinstall Orbfit."
+                + ORBFIT_EXECUTABLE
+            )
+
+        # An additional check is needed if the system is Windows; the
+        # Powershell method uses Linux root pathnames for the mounted drive.
+        # For a Linux system however, the additional handling is not needed.
+        if _IS_WINDOWS_OPERATING_SYSTEM:
+            # Special handling must be used for the path because the path
+            # provided by the configuration file is an absolute path and
+            # path join cuts off the preceding paths.
+            test_binary_dir = os.path.join(
+                *[R"\\wsl$", "Ubuntu/", ORBFIT_BIN_PATH.removeprefix("/")]
+            )
+        else:
+            test_binary_dir = ORBFIT_BIN_PATH
+        test_binary_path = library.path.merge_pathname(
+            directory=test_binary_dir, filename="orbfit", extension="x"
+        )
+        if not os.path.exists(test_binary_path):
+            raise error.InstallError(
+                "The orbfit compiled executable does not exist in the expected"
+                " directory as per the install instructions. However, it was found in a"
+                " previous check using the orbfit directory. Check your configuration"
+                " file that the binary executable directory entry is correct."
             )
 
         # If it passed without raising any errors, then the install is likely
         # fine.
         valid_install = True
         return valid_install
+
+    def _prepare_orbfit_files(self) -> None:
+        """This function prepares the operational directory for Orbfit inside
+        of the temporary directory. This allows for files to be generated for 
+        useage by the binary orbfit.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # The paths which hold the needed files.
+        ORBFIT_BIN = library.config.ORBFIT_BINARY_EXECUTABLE_DIRECTORY
+        ORBFIT_DIR = library.config.ORBFIT_DIRECTORY
+        ORBFIT_TEM = os.path.join(ORBFIT_DIR, "exarata")
+
+        # The environment which Orbfit will run needs to be prepared first.
+        ORBFIT_OPERATING_DIR = self.ORBFIT_OPERATING_DIR
+        if os.path.isdir(ORBFIT_OPERATING_DIR):
+            # It probably already exists because this was run before.
+            pass
+        else:
+            os.makedirs(ORBFIT_OPERATING_DIR)
+        # Copying the template files.
+        orbfit_list = glob.glob(
+            library.path.merge_pathname(
+                directory=ORBFIT_TEM, filename="*", extension="*"
+            )
+        )
+        for filedex in orbfit_list:
+            shutil.copy(filedex, ORBFIT_OPERATING_DIR)
+        return None
 
     def _clean_orbfit_files(self) -> None:
         """This function cleans up the operational directory of Orbfit.
@@ -219,22 +279,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         ORBFIT_BIN = library.config.ORBFIT_BINARY_EXECUTABLE_DIRECTORY
         ORBFIT_DIR = library.config.ORBFIT_DIRECTORY
         ORBFIT_TEM = os.path.join(ORBFIT_DIR, "exarata")
-
-        # The environment which Orbfit will run needs to be prepared first.
         ORBFIT_OPERATING_DIR = self.ORBFIT_OPERATING_DIR
-        if os.path.isdir(ORBFIT_OPERATING_DIR):
-            # It probably already exists because this was run before.
-            pass
-        else:
-            os.makedirs(ORBFIT_OPERATING_DIR)
-        # Copying the template files.
-        orbfit_list = glob.glob(
-            library.path.merge_pathname(
-                directory=ORBFIT_TEM, filename="*", extension="*"
-            )
-        )
-        for filedex in orbfit_list:
-            shutil.copy(filedex, ORBFIT_OPERATING_DIR)
 
         # Convert the table into the needed 80-column format.
         obs_record = library.mpcrecord.minor_planet_table_to_record(
@@ -242,7 +287,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         )
         # Creating the observation file.
         obs_file = library.path.merge_pathname(
-            directory=ORBFIT_TEM, filename="exarata", extension="obs"
+            directory=ORBFIT_OPERATING_DIR, filename="exarata", extension="obs"
         )
         with open(obs_file, "w") as file:
             # Because for some reason, newlines needs to be added in manually.
@@ -254,10 +299,13 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             directory=ORBFIT_BIN, filename="orbfit", extension="x"
         )
         if _IS_WINDOWS_OPERATING_SYSTEM:
-            # It's Windows, leverage Powershell and WSL.
+            # The Orbfit executable must use POSIX-like pathnames only as it is 
+            # accessed via WSL. This is a little shoddy.
+            ORBFIT_EXE_WSL_PATH = ORBFIT_EXE.replace("\\", "/")
+            # Leveraging Powershell and WSL.
             windows_command = (
                 'powershell.exe "cd {opdir}; wsl echo exarata | wsl {orbexe}"'.format(
-                    opdir=ORBFIT_OPERATING_DIR, orbexe=ORBFIT_EXE
+                    opdir=ORBFIT_OPERATING_DIR, orbexe=ORBFIT_EXE_WSL_PATH
                 )
             )
             command = windows_command
@@ -269,7 +317,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             command = linux_command
         # Run the command and complete the orbital elements via the Orbfit
         # executable.
-        subprocess.run(command, shell=True)
+        __ = subprocess.run(command, shell=True)
 
         # Process the output. The results, if successful are stored in an
         # orbital elements file which needs to be processed and read in.
@@ -283,6 +331,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         if os.path.isfile(error_file_path):
             # The orbit determincation failed, likely because the software
             # could not converge on a good fit.
+            self._clean_orbfit_files()
             raise error.EngineError(
                 "The orbfit software could not determine a fitting orbit solution."
             )
@@ -322,7 +371,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             # needed and would mess up float conversion otherwise.
             kep_ele_values = np.array(kep_ele_line.split()[1:], dtype=float)
             kep_err_values = np.array(kep_err_line.split()[2:], dtype=float)
-            mjd_dat_values = float(mjd_dat_line.split()[1:-1])
+            mjd_dat_values = float(mjd_dat_line.split()[1:-1][0])
             # Constructing the dictionary which holds the values. The error
             # is also noted in the key to avoid confusion.
             kep_ele_dict = {
@@ -480,6 +529,10 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
             )
             # Back into degrees.
             circ_mean = circ_mean_rad * (180 / np.pi)
+            # Sometimes the average of the angle is an equivalent negative 
+            # angle; seemingly by convention, the orbital parameter angles 
+            # should be positive.
+            circ_mean = (circ_mean + 360) % 360
             # Linear errors are used because of a lack of a better method.
             lin_error = np.sqrt(np.sum(err ** 2)) / err.size
             # Done.
@@ -548,7 +601,7 @@ class OrbfitOrbitDeterminer(hint.OrbitEngine):
         return kepler_elements, kepler_error, modified_julian_date
 
     def solve_orbit_via_record(
-        self, observation_record: list
+        self, observation_record: list[str]
     ) -> tuple[dict, dict, float]:
         """Attempts to compute Keplarian orbits provided a standard 80-column
          record of observations.
