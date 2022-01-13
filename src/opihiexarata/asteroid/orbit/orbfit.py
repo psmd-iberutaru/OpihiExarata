@@ -22,7 +22,7 @@ _IS_WINDOWS_OPERATING_SYSTEM = (
 )
 
 
-class OrbfitOrbitDeterminer(hint.OrbitEngine):
+class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
     """Uses the Orbfit package to determine the orbital elements of an astroid
     provided observations. This assumes that the installation instructions
     provided were followed.

@@ -144,7 +144,7 @@ PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE = [
 ]
 
 
-class PanstarrsMastWebAPI(library.engine.PhotometryEngine):
+class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
     """This is a photometric data extractor using PanSTARRS data obtained from
     their catalogs via the MAST API.
 

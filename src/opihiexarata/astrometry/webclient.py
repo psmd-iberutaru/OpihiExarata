@@ -13,7 +13,7 @@ import opihiexarata.library.hint as hint
 _DEFAULT_BASE_URL = "http://nova.astrometry.net/api/"
 
 
-class AstrometryNetWebAPI(hint.AstrometryEngine):
+class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
     This API does not have the full functionality of the default Python client

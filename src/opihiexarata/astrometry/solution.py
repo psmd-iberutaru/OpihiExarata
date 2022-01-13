@@ -93,7 +93,7 @@ class AstrometricSolution(hint.ExarataSolution):
 
         # Derive the astrometry depending on the engine provided, calling the
         # vehicle functions to run the engines and provide the data needed.
-        if issubclass(solver_engine, astrometry.AstrometryNetWebAPI):
+        if issubclass(solver_engine, astrometry.AstrometryNetWebAPIEngine):
             # Solve using the API.
             solution_results = _vehicle_astrometrynet_web_api(
                 fits_filename=fits_filename
@@ -161,7 +161,7 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     MAX_ATTEMPTS = library.config.API_CONNECTION_MAXIMUM_ATTEMPTS
     while True:
         try:
-            anet_webapi = astrometry.AstrometryNetWebAPI(apikey=PRIVATE_KEY)
+            anet_webapi = astrometry.AstrometryNetWebAPIEngine(apikey=PRIVATE_KEY)
         except error.WebRequestError:
             # The connection failed, try again in a little while.
             if attempt_count >= MAX_ATTEMPTS:
