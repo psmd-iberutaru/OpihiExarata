@@ -10,10 +10,10 @@ import opihiexarata.library.hint as hint
 
 
 class OrbitSolution(hint.ExarataSolution):
-    """This is the class which solves a record of observations to derive the 
-    orbital parameters of asteroids or objects in general. A record of 
+    """This is the class which solves a record of observations to derive the
+    orbital parameters of asteroids or objects in general. A record of
     observations must be provided.
-    
+
     Attributes
     ----------
     semimajor_axis : float
@@ -41,21 +41,23 @@ class OrbitSolution(hint.ExarataSolution):
     mean_anomaly_error : float
         The error on the mean anomaly of the orbit solved, in degrees.
     true_anomaly : float
-        The true anomaly of the orbit solved, in degrees. This value is 
+        The true anomaly of the orbit solved, in degrees. This value is
         calculated from the mean anomaly.
     true_anomaly_error : float
-        The error on the true anomaly of the orbit solved, in degrees. This 
+        The error on the true anomaly of the orbit solved, in degrees. This
         value is calculated from the error on the mean anomaly.
     modified_julian_date : float
-        The modified Julian date used by the engine to calculate the osculating 
+        The modified Julian date used by the engine to calculate the osculating
         orbital elements.
     """
 
-    def __init__(self, observation_record:list[str], solver_engine: type[hint.OrbitEngine]) -> None:
+    def __init__(
+        self, observation_record: list[str], solver_engine: type[hint.OrbitEngine]
+    ) -> None:
         """The initialization function. Provided the list of observations,
-        solves the orbit for the Keplarian orbits. 
+        solves the orbit for the Keplarian orbits.
 
-        Additional representations of the orbits in different coordinate 
+        Additional representations of the orbits in different coordinate
         frames are provided via computation. TODO
 
         Parameters
@@ -64,7 +66,7 @@ class OrbitSolution(hint.ExarataSolution):
             A list of the standard MPC 80-column observation records. Each
             element of the list should be a string representing the observation.
         solver_engine : OrbitEngine subclass
-            The engine which will be used to complete the orbital elements 
+            The engine which will be used to complete the orbital elements
             from the observation record.
 
         Returns
@@ -87,7 +89,7 @@ class OrbitSolution(hint.ExarataSolution):
                 " used for astrometric solutions."
             )
 
-        # Derive the orbital elements using the proper vehicle function for 
+        # Derive the orbital elements using the proper vehicle function for
         # the desired engine is that is to be used.
         if issubclass(solver_engine, orbit.OrbfitOrbitDeterminerEngine):
             # Solve using the API.
@@ -103,11 +105,19 @@ class OrbitSolution(hint.ExarataSolution):
 
         # Sanity check on the dictionary-like return.
         if not isinstance(raw_orbit_results, dict):
-            raise error.DevelopmentError("The results of the orbit engines should be a dictionary. The orbit engine used, and the subsequent vehicle function: {engtype}".format(engtype=solver_engine))
+            raise error.DevelopmentError(
+                "The results of the orbit engines should be a dictionary. The orbit"
+                " engine used, and the subsequent vehicle function: {engtype}".format(
+                    engtype=solver_engine
+                )
+            )
         else:
-            # Quick type checking; everything should be float or at the least 
+            # Quick type checking; everything should be float or at the least
             # float-convertable. This may be unneeded but it does not hurt.
-            orbit_results = {keydex:float(valuedex) for keydex, valuedex in raw_orbit_results.items()}
+            orbit_results = {
+                keydex: float(valuedex)
+                for keydex, valuedex in raw_orbit_results.items()
+            }
 
         # Extract the needed values from the results of the engine.
         try:
@@ -122,7 +132,9 @@ class OrbitSolution(hint.ExarataSolution):
             self.inclination_error = orbit_results["inclination_error"]
             # Longitude
             self.longitude_ascending_node = orbit_results["longitude_ascending_node"]
-            self.longitude_ascending_node_error = orbit_results["longitude_ascending_node_error"]
+            self.longitude_ascending_node_error = orbit_results[
+                "longitude_ascending_node_error"
+            ]
             # Perihelion
             self.argument_perihelion = orbit_results["argument_perihelion"]
             self.argument_perihelion_error = orbit_results["argument_perihelion_error"]
@@ -140,18 +152,20 @@ class OrbitSolution(hint.ExarataSolution):
             )
 
         # Calculating the eccentric anomaly and error from the provided values.
-        eccentric_anomaly, eccentric_anomaly_error = self.__calculate_eccentric_anomaly()
+        (
+            eccentric_anomaly,
+            eccentric_anomaly_error,
+        ) = self.__calculate_eccentric_anomaly()
         self.eccentric_anomaly = eccentric_anomaly
         self.eccentric_anomaly_error = eccentric_anomaly_error
 
         # Calculating the true anomaly and error from the provided values.
         true_anomaly, true_anomaly_error = self.__calculate_true_anomaly()
         self.true_anomaly = true_anomaly
-        self.true_anomaly_error =true_anomaly_error
+        self.true_anomaly_error = true_anomaly_error
 
         # All done.
         return None
-
 
     def __calculate_eccentric_anomaly(self) -> tuple[float, float]:
         """Calculating the eccentric anomaly and error from the mean anomaly.
@@ -165,20 +179,30 @@ class OrbitSolution(hint.ExarataSolution):
         eccentric_anomaly : float
             The eccentric anomaly as derived from the mean anomaly.
         eccentric_anomaly_error : float
-            The eccentric anomaly error derived as an average from the upper 
+            The eccentric anomaly error derived as an average from the upper
             and lower ranges of the mean anomaly.
         """
         # Needed orbital values.
         eccentricity = self.eccentricity
         mean_anomaly = self.mean_anomaly
-        mean_anomaly_error= self.mean_anomaly_error
+        mean_anomaly_error = self.mean_anomaly_error
         # Calculating the eccentric anomaly.
-        eccentric_anomaly = _calculate_eccentric_anomaly(mean_anomaly=mean_anomaly, eccentricity=eccentricity)
+        eccentric_anomaly = _calculate_eccentric_anomaly(
+            mean_anomaly=mean_anomaly, eccentricity=eccentricity
+        )
         # And the error using upper and lower bound method.
-        lower_eccentric_anomaly = _calculate_eccentric_anomaly(mean_anomaly=mean_anomaly-mean_anomaly_error, eccentricity=eccentricity)
-        upper_eccentric_anomaly = _calculate_eccentric_anomaly(mean_anomaly=mean_anomaly+mean_anomaly_error, eccentricity=eccentricity)
-        bounds_eccentric_anomaly = np.array([lower_eccentric_anomaly, upper_eccentric_anomaly], dtype=float)
-        eccentric_anomaly_error = np.mean(np.abs(bounds_eccentric_anomaly - eccentric_anomaly))
+        lower_eccentric_anomaly = _calculate_eccentric_anomaly(
+            mean_anomaly=mean_anomaly - mean_anomaly_error, eccentricity=eccentricity
+        )
+        upper_eccentric_anomaly = _calculate_eccentric_anomaly(
+            mean_anomaly=mean_anomaly + mean_anomaly_error, eccentricity=eccentricity
+        )
+        bounds_eccentric_anomaly = np.array(
+            [lower_eccentric_anomaly, upper_eccentric_anomaly], dtype=float
+        )
+        eccentric_anomaly_error = np.mean(
+            np.abs(bounds_eccentric_anomaly - eccentric_anomaly)
+        )
         return eccentric_anomaly, eccentric_anomaly_error
 
     def __calculate_true_anomaly(self) -> tuple[float, float]:
@@ -193,27 +217,37 @@ class OrbitSolution(hint.ExarataSolution):
         true_anomaly : float
             The true anomaly as derived from the mean anomaly.
         true_anomaly_error : float
-            The true anomaly error derived as an average from the upper 
+            The true anomaly error derived as an average from the upper
             and lower ranges of the eccentric anomaly.
         """
         # Needed orbital values.
         eccentricity = self.eccentricity
         eccentric_anomaly = self.eccentric_anomaly
-        eccentric_anomaly_error= self.eccentric_anomaly_error
+        eccentric_anomaly_error = self.eccentric_anomaly_error
         # Calculating the eccentric anomaly.
-        true_anomaly = _calculate_true_anomaly(mean_anomaly=eccentric_anomaly, eccentricity=eccentricity)
+        true_anomaly = _calculate_true_anomaly(
+            mean_anomaly=eccentric_anomaly, eccentricity=eccentricity
+        )
         # And the error using upper and lower bound method.
-        lower_true_anomaly = _calculate_true_anomaly(eccentric_anomaly=eccentric_anomaly-eccentric_anomaly_error, eccentricity=eccentricity)
-        upper_true_anomaly = _calculate_true_anomaly(eccentric_anomaly=eccentric_anomaly+eccentric_anomaly_error, eccentricity=eccentricity)
-        bounds_true_anomaly = np.array([lower_true_anomaly, upper_true_anomaly], dtype=float)
+        lower_true_anomaly = _calculate_true_anomaly(
+            eccentric_anomaly=eccentric_anomaly - eccentric_anomaly_error,
+            eccentricity=eccentricity,
+        )
+        upper_true_anomaly = _calculate_true_anomaly(
+            eccentric_anomaly=eccentric_anomaly + eccentric_anomaly_error,
+            eccentricity=eccentricity,
+        )
+        bounds_true_anomaly = np.array(
+            [lower_true_anomaly, upper_true_anomaly], dtype=float
+        )
         true_anomaly_error = np.mean(np.abs(bounds_true_anomaly - true_anomaly))
         return true_anomaly, true_anomaly_error
-        
 
-def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity:float) -> float:
-    """Calculate the eccentric anomaly from the mean anomaly and eccentricity 
+
+def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> float:
+    """Calculate the eccentric anomaly from the mean anomaly and eccentricity
     of an orbit. This is found iteratively using Newton's method.
-    
+
     Parameters
     ----------
     mean_anomaly : float
@@ -229,17 +263,23 @@ def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity:float) -> flo
     # The prime equation to solve using the root finding algorithm; as derived
     # from Kepler's equation.
     def root_kepler_equation(ecc_ano=0, mean_ano=0, eccen=0):
-        return ecc_ano - eccen*np.sin(ecc_ano) - mean_ano
+        return ecc_ano - eccen * np.sin(ecc_ano) - mean_ano
+
     # Using the root finding algorithm to find the eccentric anomaly.
-    radian_eccentric_anomaly = sp_optimize.root_scalar(lambda ec_an: root_kepler_equation(ecc_ano=ec_an, mean_ano=radian_mean_anomaly, eccen=eccentricity))
+    radian_eccentric_anomaly = sp_optimize.root_scalar(
+        lambda ec_an: root_kepler_equation(
+            ecc_ano=ec_an, mean_ano=radian_mean_anomaly, eccen=eccentricity
+        )
+    )
     # Converting back to degrees.
     eccentric_anomaly = radian_eccentric_anomaly * (180 / np.pi)
     return eccentric_anomaly
 
-def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity:float) -> float:
-    """Calculate the true anomaly from the mean anomaly and eccentricity 
+
+def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity: float) -> float:
+    """Calculate the true anomaly from the mean anomaly and eccentricity
     of an orbit.
-    
+
     Parameters
     ----------
     eccentric_anomaly : float
@@ -255,14 +295,16 @@ def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity:float) -> flo
     # Using just the tangent version. There is no expectation that the
     # eccentricity will be close to 1.
     e_ratio = (1 + eccentricity) / (1 - eccentricity)
-    radian_true_anomaly = 2 * np.arctan(np.sqrt(e_ratio) * np.tan(radian_eccentric_anomaly/2))
+    radian_true_anomaly = 2 * np.arctan(
+        np.sqrt(e_ratio) * np.tan(radian_eccentric_anomaly / 2)
+    )
     # Converting back to degrees.
     true_anomaly = radian_true_anomaly * (180 / np.pi)
     return true_anomaly
 
 
-def _vehicle_orbfit_orbit_determiner(observation_record:list[str]) -> dict:
-    """This uses the Orbfit engine to calculate orbital elements from the 
+def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
+    """This uses the Orbfit engine to calculate orbital elements from the
     observation record. The results are then returned to be managed by
     the main class.
 
@@ -279,34 +321,41 @@ def _vehicle_orbfit_orbit_determiner(observation_record:list[str]) -> dict:
         this returns the 6 classical Kepler elements, using mean anamonly.
     """
     # Creating the Orbfit class. It does an correct installation check. If
-    # the installation is wrong, it is mentioned. Catching it should it fail 
-    # to add context as well as the stack trace should give the error 
+    # the installation is wrong, it is mentioned. Catching it should it fail
+    # to add context as well as the stack trace should give the error
     # information.
     try:
         orbfit = orbit.OrbfitOrbitDeterminerEngine()
     except error.InstallError:
-        raise error.InstallError("The Orbfit engine is not properly installed; thus it cannot be used to compute the orbital elements for this solution class.")
-    
+        raise error.InstallError(
+            "The Orbfit engine is not properly installed; thus it cannot be used to"
+            " compute the orbital elements for this solution class."
+        )
+
     # Solving for the orbit. This engine has a record-based solution function
     # so just using it.
-    kepler_elements, kepler_error, mjd = orbfit.solve_orbit_via_record(observation_record=observation_record)
+    kepler_elements, kepler_error, mjd = orbfit.solve_orbit_via_record(
+        observation_record=observation_record
+    )
 
     # Converting the the results from this engine to the standard output
     # expected by the vehicle functions for orbit solving.
     orbit_results = {
-    "semimajor_axis" : kepler_elements["semimajor_axis"],
-    "semimajor_axis_error" : kepler_error["semimajor_axis_error"],
-    "eccentricity" : kepler_elements["eccentricity"],
-    "eccentricity_error" : kepler_error["eccentricity_error"],
-    "inclination" : kepler_elements["inclination"],
-    "inclination_error" : kepler_error["inclination_error"],
-    "longitude_ascending_node" : kepler_elements["longitude_ascending_node"],
-    "longitude_ascending_node_error" : kepler_error["longitude_ascending_node_error"],
-    "argument_perihelion" : kepler_elements["argument_perihelion"],
-    "argument_perihelion_error" : kepler_error["argument_perihelion_error"],
-    "mean_anomaly" : kepler_elements["mean_anomaly"],
-    "mean_anomaly_error" : kepler_error["mean_anomaly_error"],
-    "modified_julian_date" : mjd,
+        "semimajor_axis": kepler_elements["semimajor_axis"],
+        "semimajor_axis_error": kepler_error["semimajor_axis_error"],
+        "eccentricity": kepler_elements["eccentricity"],
+        "eccentricity_error": kepler_error["eccentricity_error"],
+        "inclination": kepler_elements["inclination"],
+        "inclination_error": kepler_error["inclination_error"],
+        "longitude_ascending_node": kepler_elements["longitude_ascending_node"],
+        "longitude_ascending_node_error": kepler_error[
+            "longitude_ascending_node_error"
+        ],
+        "argument_perihelion": kepler_elements["argument_perihelion"],
+        "argument_perihelion_error": kepler_error["argument_perihelion_error"],
+        "mean_anomaly": kepler_elements["mean_anomaly"],
+        "mean_anomaly_error": kepler_error["mean_anomaly_error"],
+        "modified_julian_date": mjd,
     }
     # All done.
     return orbit_results
