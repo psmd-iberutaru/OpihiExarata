@@ -171,9 +171,9 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
 
     def _prepare_orbfit_files(self) -> None:
         """This function prepares the operational directory for Orbfit inside
-        of the temporary directory. This allows for files to be generated for 
+        of the temporary directory. This allows for files to be generated for
         useage by the binary orbfit.
-        
+
         Parameters
         ----------
         None
@@ -299,7 +299,7 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
             directory=ORBFIT_BIN, filename="orbfit", extension="x"
         )
         if _IS_WINDOWS_OPERATING_SYSTEM:
-            # The Orbfit executable must use POSIX-like pathnames only as it is 
+            # The Orbfit executable must use POSIX-like pathnames only as it is
             # accessed via WSL. This is a little shoddy.
             ORBFIT_EXE_WSL_PATH = ORBFIT_EXE.replace("\\", "/")
             # Leveraging Powershell and WSL.
@@ -347,9 +347,23 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
                     [linedex for linedex in content if "KEP" in linedex][0]
                 )
                 # Getting the errors on the Kepler orbital elements.
-                kep_err_line = str(
-                    [linedex for linedex in content if "RMS" in linedex][0]
-                )
+                try:
+                    kep_err_line = str(
+                        [linedex for linedex in content if "RMS" in linedex][0]
+                    )
+                except IndexError:
+                    # It does not look like an error was computed; using
+                    # the configuration defaults. Filling in what is the usual
+                    # line in the orbit file, but with the new errors.
+                    LIN_ERR_FRAC = library.config.ORBFIT_MAXIMUM_LINEAR_ERROR
+                    ANG_ERR_FRAC = library.config.ORBFIT_MAXIMUM_ANGULAR_ERROR
+                    kep_err_line = (
+                        "! RMS    {la}   {le}   {a}   {a}   {a}   {a}".format(
+                            la=float(kep_ele_line.split()[1:][0]) * LIN_ERR_FRAC,
+                            le=float(kep_ele_line.split()[1:][1]) * LIN_ERR_FRAC,
+                            a=360 * ANG_ERR_FRAC,
+                        )
+                    )
                 # The modified Julian date which these elements correspond to.
                 mjd_dat_line = str(
                     [linedex for linedex in content if "MJD" in linedex][0]
@@ -529,8 +543,8 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
             )
             # Back into degrees.
             circ_mean = circ_mean_rad * (180 / np.pi)
-            # Sometimes the average of the angle is an equivalent negative 
-            # angle; seemingly by convention, the orbital parameter angles 
+            # Sometimes the average of the angle is an equivalent negative
+            # angle; seemingly by convention, the orbital parameter angles
             # should be positive.
             circ_mean = (circ_mean + 360) % 360
             # Linear errors are used because of a lack of a better method.
@@ -542,8 +556,8 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
             data: hint.ArrayLike, err: hint.ArrayLike
         ) -> tuple[float, float]:
             """Finds the average and the propagated error of standard linear points."""
-            # Linear mean.
-            lin_mean = np.mean(data)
+            # Linear median; sometimes orbfit throws out some weird answers.
+            lin_mean = np.median(data)
             # Linear error propagation.
             lin_error = np.sqrt(np.sum(err ** 2)) / err.size
             # Done.

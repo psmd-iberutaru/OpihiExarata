@@ -226,7 +226,7 @@ class OrbitSolution(hint.ExarataSolution):
         eccentric_anomaly_error = self.eccentric_anomaly_error
         # Calculating the eccentric anomaly.
         true_anomaly = _calculate_true_anomaly(
-            mean_anomaly=eccentric_anomaly, eccentricity=eccentricity
+            eccentric_anomaly=eccentric_anomaly, eccentricity=eccentricity
         )
         # And the error using upper and lower bound method.
         lower_true_anomaly = _calculate_true_anomaly(
@@ -260,17 +260,35 @@ def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> fl
     """
     # Converting first to radians.
     radian_mean_anomaly = mean_anomaly * (np.pi / 180)
-    # The prime equation to solve using the root finding algorithm; as derived
+    # The main equation to solve using the root finding algorithm; as derived
     # from Kepler's equation.
     def root_kepler_equation(ecc_ano=0, mean_ano=0, eccen=0):
         return ecc_ano - eccen * np.sin(ecc_ano) - mean_ano
 
+    def root_kepler_equation_prime(ecc_ano=0, mean_ano=0, eccen=0):
+        return 1 - eccen * np.cos(ecc_ano)
+
+    # Initial guess. High eccentricities are better served by a different
+    # initial guess than the native one.
+    if eccentricity <= 0.7:
+        initial_guess = radian_mean_anomaly
+    else:
+        initial_guess = np.pi
+
     # Using the root finding algorithm to find the eccentric anomaly.
-    radian_eccentric_anomaly = sp_optimize.root_scalar(
-        lambda ec_an: root_kepler_equation(
+    root_results = sp_optimize.root_scalar(
+        f=lambda ec_an: root_kepler_equation(
             ecc_ano=ec_an, mean_ano=radian_mean_anomaly, eccen=eccentricity
-        )
+        ),
+        fprime=lambda ec_an: root_kepler_equation_prime(
+            ecc_ano=ec_an, mean_ano=radian_mean_anomaly, eccen=eccentricity
+        ),
+        method="newton",
+        x0=initial_guess,
     )
+    # Scipy gives a class back rather than just a tuple of values. Who knows 
+    # why.
+    radian_eccentric_anomaly = root_results.root
     # Converting back to degrees.
     eccentric_anomaly = radian_eccentric_anomaly * (180 / np.pi)
     return eccentric_anomaly
