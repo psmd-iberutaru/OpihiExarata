@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2022.1.11 documentation</title>
+  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2022.1.13 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -178,7 +178,7 @@
 <span class="n">_DEFAULT_BASE_URL</span> <span class="o">=</span> <span class="s2">&quot;http://nova.astrometry.net/api/&quot;</span>
 
 
-<div class="viewcode-block" id="AstrometryNetWebAPI"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI">[docs]</a><span class="k">class</span> <span class="nc">AstrometryNetWebAPI</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">AstrometryNetWebAPIEngine</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A python-based wrapper around the web API for astrometry.net.</span>
 
 <span class="sd">    This API does not have the full functionality of the default Python client</span>
@@ -236,7 +236,7 @@
         <span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
     <span class="p">]</span>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The instantiation, connecting to the web API using the API key.</span>
 
 <span class="sd">        Parameters</span>
@@ -390,7 +390,7 @@
     <span class="n">__job_id</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">job_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_job_id</span><span class="p">,</span> <span class="n">__set_job_id</span><span class="p">,</span> <span class="n">__del_job_id</span><span class="p">,</span> <span class="n">__doc_job_id</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI._generate_service_url"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._generate_service_url">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine._generate_service_url"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate the correct URL for the desired service. Because astrometry.net</span>
 <span class="sd">        uses a convension, we can follow it to obtain the desired service URL.</span>
 
@@ -407,7 +407,7 @@
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ASTROMETRY_BASE_API_URL</span> <span class="o">+</span> <span class="n">service</span>
         <span class="k">return</span> <span class="n">url</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI._generate_upload_args"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._generate_upload_args">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_upload_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine._generate_upload_args"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_upload_args">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_upload_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate the arguments for sending a request. This constructs the</span>
 <span class="sd">        needed arguments, replacing the defaults with user provided arguments</span>
 <span class="sd">        where desired.</span>
@@ -433,7 +433,7 @@
                 <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">keydex</span><span class="p">:</span> <span class="n">defaultdex</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">args</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI._send_web_request"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI._send_web_request">[docs]</a>    <span class="k">def</span> <span class="nf">_send_web_request</span><span class="p">(</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine._send_web_request"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._send_web_request">[docs]</a>    <span class="k">def</span> <span class="nf">_send_web_request</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">file_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;A wrapper function for sending a webrequest to the astrometry.net API</span>
@@ -540,7 +540,7 @@
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.get_job_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_job_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the results of a job sent to the API service.</span>
 
 <span class="sd">        Parameters</span>
@@ -603,7 +603,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">results</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.get_job_status"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_job_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_job_status"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the status of a job specified by its ID.</span>
 
 <span class="sd">        Parameters</span>
@@ -636,7 +636,7 @@
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.get_submission_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_submission_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_submission_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submission_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_submission_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_submission_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_submission_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submission_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the results of a submission specified by its ID.</span>
 
 <span class="sd">        Parameters</span>
@@ -657,7 +657,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.get_submission_status"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_submission_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_submission_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submission_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_submission_status"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_submission_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_submission_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submission_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the status of a submission specified by its ID.</span>
 
 <span class="sd">        Parameters</span>
@@ -678,7 +678,7 @@
         <span class="n">status</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">status</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.get_reference_star_pixel_correlation"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_reference_star_pixel_correlation">[docs]</a>    <span class="k">def</span> <span class="nf">get_reference_star_pixel_correlation</span><span class="p">(</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation">[docs]</a>    <span class="k">def</span> <span class="nf">get_reference_star_pixel_correlation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">temp_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete_after</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This obtains the table that correlates the location of reference</span>
@@ -732,7 +732,7 @@
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">corr_pathname</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">correlation_table</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.get_wcs"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.get_wcs">[docs]</a>    <span class="k">def</span> <span class="nf">get_wcs</span><span class="p">(</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_wcs"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_wcs">[docs]</a>    <span class="k">def</span> <span class="nf">get_wcs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">temp_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete_after</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">WCS</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This obtains the wcs header file and then computes World Coordinate</span>
@@ -784,7 +784,7 @@
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">corr_pathname</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">wcs</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.upload_file"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.upload_file">[docs]</a>    <span class="k">def</span> <span class="nf">upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.upload_file"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.upload_file">[docs]</a>    <span class="k">def</span> <span class="nf">upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;A wrapper to allow for the uploading of files or images to the API.</span>
 
 <span class="sd">        This also determines the submission ID and the job ID for the uploaded</span>
@@ -823,7 +823,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_image_return_results</span> <span class="o">=</span> <span class="n">upload_results</span>
         <span class="k">return</span> <span class="n">upload_results</span></div>
 
-<div class="viewcode-block" id="AstrometryNetWebAPI.download_result_file"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPI.download_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">download_result_file</span><span class="p">(</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.download_result_file"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.download_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">download_result_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Downloads fits data table files which correspond to the job id.</span>

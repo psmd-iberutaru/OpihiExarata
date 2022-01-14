@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.asteroid.orbit.solution module &mdash; OpihiExarata 2022.1.13 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.astrometry package" href="opihiexarata.astrometry.html" />
+    <link rel="prev" title="opihiexarata.asteroid.orbit.orbfit module" href="opihiexarata.asteroid.orbit.orbfit.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#new">New</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/download.html">Install: Download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation/orbfit.html#fortran-compiler">Fortran Compiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#install">Install</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#apt-package-managers">APT Package Managers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../installation/orbfit.html#yum-dnf-zypper-package-managers">YUM, DNF, Zypper Package Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../installation/orbfit.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Docstrings</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.asteroid.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">opihiexarata</a> &raquo;</li>
+          <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
+          <li><a href="opihiexarata.asteroid.html">opihiexarata.asteroid package</a> &raquo;</li>
+          <li><a href="opihiexarata.asteroid.orbit.html">opihiexarata.asteroid.orbit package</a> &raquo;</li>
+      <li>opihiexarata.asteroid.orbit.solution module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/opihiexarata.asteroid.orbit.solution.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-opihiexarata.asteroid.orbit.solution">
+<span id="opihiexarata-asteroid-orbit-solution-module"></span><h1>opihiexarata.asteroid.orbit.solution module<a class="headerlink" href="#module-opihiexarata.asteroid.orbit.solution" title="Permalink to this headline"></a></h1>
+<p>The orbit solution class.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.asteroid.orbit.solution.</span></span><span class="sig-name descname"><span class="pre">OrbitSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine" title="opihiexarata.library.engine.OrbitEngine"><span class="pre">opihiexarata.library.engine.OrbitEngine</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/solution.html#OrbitSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution" title="opihiexarata.library.engine.ExarataSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.ExarataSolution</span></code></a></p>
+<p>This is the class which solves a record of observations to derive the
+orbital parameters of asteroids or objects in general. A record of
+observations must be provided.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.semimajor_axis">
+<span class="sig-name descname"><span class="pre">semimajor_axis</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.semimajor_axis" title="Permalink to this definition"></a></dt>
+<dd><p>The semimajor axis of the orbit solved, in AU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.semimajor_axis_error">
+<span class="sig-name descname"><span class="pre">semimajor_axis_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.semimajor_axis_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the semimajor axis of the orbit solved, in AU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.eccentricity">
+<span class="sig-name descname"><span class="pre">eccentricity</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.eccentricity" title="Permalink to this definition"></a></dt>
+<dd><p>The eccentricity of the orbit solved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.eccentricity_error">
+<span class="sig-name descname"><span class="pre">eccentricity_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.eccentricity_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the eccentricity of the orbit solved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.inclination">
+<span class="sig-name descname"><span class="pre">inclination</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.inclination" title="Permalink to this definition"></a></dt>
+<dd><p>The angle of inclination of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.inclination_error">
+<span class="sig-name descname"><span class="pre">inclination_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.inclination_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the angle of inclination of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.longitude_ascending_node">
+<span class="sig-name descname"><span class="pre">longitude_ascending_node</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.longitude_ascending_node" title="Permalink to this definition"></a></dt>
+<dd><p>The longitude of the ascending node of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.longitude_ascending_node_error">
+<span class="sig-name descname"><span class="pre">longitude_ascending_node_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.longitude_ascending_node_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the longitude of the ascending node of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.argument_perihelion">
+<span class="sig-name descname"><span class="pre">argument_perihelion</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.argument_perihelion" title="Permalink to this definition"></a></dt>
+<dd><p>The argument of perihelion of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.argument_perihelion_error">
+<span class="sig-name descname"><span class="pre">argument_perihelion_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.argument_perihelion_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the argument of perihelion of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.mean_anomaly">
+<span class="sig-name descname"><span class="pre">mean_anomaly</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.mean_anomaly" title="Permalink to this definition"></a></dt>
+<dd><p>The mean anomaly of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.mean_anomaly_error">
+<span class="sig-name descname"><span class="pre">mean_anomaly_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.mean_anomaly_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the mean anomaly of the orbit solved, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.true_anomaly">
+<span class="sig-name descname"><span class="pre">true_anomaly</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.true_anomaly" title="Permalink to this definition"></a></dt>
+<dd><p>The true anomaly of the orbit solved, in degrees. This value is
+calculated from the mean anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.true_anomaly_error">
+<span class="sig-name descname"><span class="pre">true_anomaly_error</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.true_anomaly_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the true anomaly of the orbit solved, in degrees. This
+value is calculated from the error on the mean anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.modified_julian_date">
+<span class="sig-name descname"><span class="pre">modified_julian_date</span></span><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.modified_julian_date" title="Permalink to this definition"></a></dt>
+<dd><p>The modified Julian date used by the engine to calculate the osculating
+orbital elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution.OrbitSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine" title="opihiexarata.library.engine.OrbitEngine"><span class="pre">opihiexarata.library.engine.OrbitEngine</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/solution.html#OrbitSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution.OrbitSolution.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>The initialization function. Provided the list of observations,
+solves the orbit for the Keplarian orbits.</p>
+<p>Additional representations of the orbits in different coordinate
+frames are provided via computation. TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observation_record</strong> (<em>list</em>) – A list of the standard MPC 80-column observation records. Each
+element of the list should be a string representing the observation.</p></li>
+<li><p><strong>solver_engine</strong> (<em>OrbitEngine subclass</em>) – The engine which will be used to complete the orbital elements
+from the observation record.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution._calculate_eccentric_anomaly">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.asteroid.orbit.solution.</span></span><span class="sig-name descname"><span class="pre">_calculate_eccentric_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_anomaly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/solution.html#_calculate_eccentric_anomaly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution._calculate_eccentric_anomaly" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the eccentric anomaly from the mean anomaly and eccentricity
+of an orbit. This is found iteratively using Newton’s method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mean_anomaly</strong> (<em>float</em>) – The mean anomaly of the orbit, in degrees.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>eccentric_anomaly</strong> – The eccentric anomaly as derived from the mean anomaly, in degrees.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution._calculate_true_anomaly">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.asteroid.orbit.solution.</span></span><span class="sig-name descname"><span class="pre">_calculate_true_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eccentric_anomaly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/solution.html#_calculate_true_anomaly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution._calculate_true_anomaly" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the true anomaly from the mean anomaly and eccentricity
+of an orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eccentric_anomaly</strong> (<em>float</em>) – The eccentric anomaly of the orbit, in degrees.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>true_anomaly</strong> – The true anomaly as derived from the eccentric anomaly, in degrees.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.asteroid.orbit.solution._vehicle_orbfit_orbit_determiner">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.asteroid.orbit.solution.</span></span><span class="sig-name descname"><span class="pre">_vehicle_orbfit_orbit_determiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/asteroid/orbit/solution.html#_vehicle_orbfit_orbit_determiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.asteroid.orbit.solution._vehicle_orbfit_orbit_determiner" title="Permalink to this definition"></a></dt>
+<dd><p>This uses the Orbfit engine to calculate orbital elements from the
+observation record. The results are then returned to be managed by
+the main class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observation_record</strong> (<em>list</em>) – The MPC standard 80-column record for observations of the asteroid
+by which the orbit shall be computed from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>orbit_results</strong> – The results of the orbit computation using the Orbfit engine. Namely,
+this returns the 6 classical Kepler elements, using mean anamonly.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.asteroid.orbit.orbfit.html" class="btn btn-neutral float-left" title="opihiexarata.asteroid.orbit.orbfit module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.astrometry.html" class="btn btn-neutral float-right" title="opihiexarata.astrometry package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -95,3 +95,10 @@ PANSTARRS_MAST_API_MAXIMUM_DATA_ROWS : 10000
 # as `\\\\wsl$` for the Windows instructions.
 ORBFIT_DIRECTORY : ""
 ORBFIT_BINARY_EXECUTABLE_DIRECTORY : ""
+
+# For some reason, the error calculations cannot be completed with this method.
+# These values are the default and serve as a type of "maximum" error for the
+# case of no error bars.
+# Linear is a fraction of the actual value; angular is a fraction of a circle.
+ORBFIT_MAXIMUM_LINEAR_ERROR : 0.05
+ORBFIT_MAXIMUM_ANGULAR_ERROR : 0.05

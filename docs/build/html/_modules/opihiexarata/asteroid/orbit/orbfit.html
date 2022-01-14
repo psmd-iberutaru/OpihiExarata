@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.asteroid.orbit.orbfit &mdash; OpihiExarata 2022.1.11 documentation</title>
+  <title>opihiexarata.asteroid.orbit.orbfit &mdash; OpihiExarata 2022.1.13 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -187,7 +187,7 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer">[docs]</a><span class="k">class</span> <span class="nc">OrbfitOrbitDeterminer</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine">[docs]</a><span class="k">class</span> <span class="nc">OrbfitOrbitDeterminerEngine</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Uses the Orbfit package to determine the orbital elements of an astroid</span>
 <span class="sd">    provided observations. This assumes that the installation instructions</span>
 <span class="sd">    provided were followed.</span>
@@ -200,7 +200,7 @@
 <span class="sd">        The errors of the orbital elements.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer.__init__"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.__init__"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Instantiation of the orbfit package.</span>
 
 <span class="sd">        Parameters</span>
@@ -334,11 +334,11 @@
         <span class="n">valid_install</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">valid_install</span>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer._prepare_orbfit_files"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._prepare_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_prepare_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._prepare_orbfit_files"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine._prepare_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_prepare_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This function prepares the operational directory for Orbfit inside</span>
-<span class="sd">        of the temporary directory. This allows for files to be generated for </span>
+<span class="sd">        of the temporary directory. This allows for files to be generated for</span>
 <span class="sd">        useage by the binary orbfit.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        None</span>
@@ -369,7 +369,7 @@
             <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">filedex</span><span class="p">,</span> <span class="n">ORBFIT_OPERATING_DIR</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer._clean_orbfit_files"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._clean_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_clean_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._clean_orbfit_files"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine._clean_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_clean_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This function cleans up the operational directory of Orbfit.</span>
 <span class="sd">        If there are leftover files, the program may try to use them in a</span>
 <span class="sd">        manner which is not desired. It is usually better to start from</span>
@@ -412,7 +412,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer._solve_single_orbit"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer._solve_single_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">_solve_single_orbit</span><span class="p">(</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._solve_single_orbit"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">_solve_single_orbit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;This uses the Orbfit program to an orbit provided a record of</span>
@@ -464,7 +464,7 @@
             <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_BIN</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;orbfit&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;x&quot;</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">_IS_WINDOWS_OPERATING_SYSTEM</span><span class="p">:</span>
-            <span class="c1"># The Orbfit executable must use POSIX-like pathnames only as it is </span>
+            <span class="c1"># The Orbfit executable must use POSIX-like pathnames only as it is</span>
             <span class="c1"># accessed via WSL. This is a little shoddy.</span>
             <span class="n">ORBFIT_EXE_WSL_PATH</span> <span class="o">=</span> <span class="n">ORBFIT_EXE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
             <span class="c1"># Leveraging Powershell and WSL.</span>
@@ -503,7 +503,7 @@
         <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">orbit_file_path</span><span class="p">):</span>
             <span class="c1"># The orbit has been determined. The parameters can be extracted</span>
             <span class="c1"># from the orbit file.</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;exarata.oel&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">orbit_file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
                 <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
                 <span class="c1"># Stripping the newlines; the list itself kind of encodes this.</span>
                 <span class="n">content</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span><span class="p">]</span>
@@ -512,9 +512,23 @@
                     <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;KEP&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
                 <span class="p">)</span>
                 <span class="c1"># Getting the errors on the Kepler orbital elements.</span>
-                <span class="n">kep_err_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
-                    <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;RMS&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                <span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">kep_err_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;RMS&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="c1"># It does not look like an error was computed; using</span>
+                    <span class="c1"># the configuration defaults. Filling in what is the usual</span>
+                    <span class="c1"># line in the orbit file, but with the new errors.</span>
+                    <span class="n">LIN_ERR_FRAC</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_MAXIMUM_LINEAR_ERROR</span>
+                    <span class="n">ANG_ERR_FRAC</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_MAXIMUM_ANGULAR_ERROR</span>
+                    <span class="n">kep_err_line</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s2">&quot;! RMS    </span><span class="si">{la}</span><span class="s2">   </span><span class="si">{le}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">la</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">kep_ele_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:][</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">LIN_ERR_FRAC</span><span class="p">,</span>
+                            <span class="n">le</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">kep_ele_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">LIN_ERR_FRAC</span><span class="p">,</span>
+                            <span class="n">a</span><span class="o">=</span><span class="mi">360</span> <span class="o">*</span> <span class="n">ANG_ERR_FRAC</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
                 <span class="c1"># The modified Julian date which these elements correspond to.</span>
                 <span class="n">mjd_dat_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
                     <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;MJD&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -558,7 +572,7 @@
         <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">mjd_dat_values</span>
         <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer.solve_orbit"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Attempts to compute Keplarian orbits provided a table of observations.</span>
 
 <span class="sd">        This function attempts to compute the orbit using the entire</span>
@@ -694,8 +708,8 @@
             <span class="p">)</span>
             <span class="c1"># Back into degrees.</span>
             <span class="n">circ_mean</span> <span class="o">=</span> <span class="n">circ_mean_rad</span> <span class="o">*</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-            <span class="c1"># Sometimes the average of the angle is an equivalent negative </span>
-            <span class="c1"># angle; seemingly by convention, the orbital parameter angles </span>
+            <span class="c1"># Sometimes the average of the angle is an equivalent negative</span>
+            <span class="c1"># angle; seemingly by convention, the orbital parameter angles</span>
             <span class="c1"># should be positive.</span>
             <span class="n">circ_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">circ_mean</span> <span class="o">+</span> <span class="mi">360</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
             <span class="c1"># Linear errors are used because of a lack of a better method.</span>
@@ -707,8 +721,8 @@
             <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of standard linear points.&quot;&quot;&quot;</span>
-            <span class="c1"># Linear mean.</span>
-            <span class="n">lin_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="c1"># Linear median; sometimes orbfit throws out some weird answers.</span>
+            <span class="n">lin_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="c1"># Linear error propagation.</span>
             <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
             <span class="c1"># Done.</span>
@@ -765,7 +779,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminer.solve_orbit_via_record"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminer.solve_orbit_via_record">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit_via_record</span><span class="p">(</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit_via_record"><a class="viewcode-back" href="../../../../code/opihiexarata.asteroid.orbit.orbfit.html#opihiexarata.asteroid.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit_via_record">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit_via_record</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Attempts to compute Keplarian orbits provided a standard 80-column</span>

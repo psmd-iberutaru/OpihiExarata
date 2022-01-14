@@ -8,6 +8,7 @@ Submodules
    :maxdepth: 4
 
    opihiexarata.asteroid.orbit.orbfit
+   opihiexarata.asteroid.orbit.solution
 
 Module contents
 ---------------

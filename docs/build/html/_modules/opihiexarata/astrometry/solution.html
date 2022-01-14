@@ -258,7 +258,7 @@
 
         <span class="c1"># Derive the astrometry depending on the engine provided, calling the</span>
         <span class="c1"># vehicle functions to run the engines and provide the data needed.</span>
-        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometryNetWebAPI</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometryNetWebAPIEngine</span><span class="p">):</span>
             <span class="c1"># Solve using the API.</span>
             <span class="n">solution_results</span> <span class="o">=</span> <span class="n">_vehicle_astrometrynet_web_api</span><span class="p">(</span>
                 <span class="n">fits_filename</span><span class="o">=</span><span class="n">fits_filename</span>
@@ -326,7 +326,7 @@
     <span class="n">MAX_ATTEMPTS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">API_CONNECTION_MAXIMUM_ATTEMPTS</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">anet_webapi</span> <span class="o">=</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometryNetWebAPI</span><span class="p">(</span><span class="n">apikey</span><span class="o">=</span><span class="n">PRIVATE_KEY</span><span class="p">)</span>
+            <span class="n">anet_webapi</span> <span class="o">=</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometryNetWebAPIEngine</span><span class="p">(</span><span class="n">apikey</span><span class="o">=</span><span class="n">PRIVATE_KEY</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">:</span>
             <span class="c1"># The connection failed, try again in a little while.</span>
             <span class="k">if</span> <span class="n">attempt_count</span> <span class="o">&gt;=</span> <span class="n">MAX_ATTEMPTS</span><span class="p">:</span>
