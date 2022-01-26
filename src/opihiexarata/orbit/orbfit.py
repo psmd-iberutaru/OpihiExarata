@@ -138,7 +138,6 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
                 "The orbfit compiled executable does not exist in the expected binary"
                 " directory. This is indicative of a bad install of OrbFit. Please"
                 " reinstall Orbfit."
-                + ORBFIT_EXECUTABLE
             )
 
         # An additional check is needed if the system is Windows; the

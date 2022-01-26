@@ -87,7 +87,6 @@ class AstrometricSolution(hint.ExarataSolution):
                 " used for astrometric solutions."
             )
 
-
         # Extract information from the header itself.
         header, data = library.fits.read_fits_image_file(filename=fits_filename)
 

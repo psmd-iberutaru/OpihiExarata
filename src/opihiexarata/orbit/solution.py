@@ -286,7 +286,7 @@ def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> fl
         method="newton",
         x0=initial_guess,
     )
-    # Scipy gives a class back rather than just a tuple of values. Who knows 
+    # Scipy gives a class back rather than just a tuple of values. Who knows
     # why.
     radian_eccentric_anomaly = root_results.root
     # Converting back to degrees.

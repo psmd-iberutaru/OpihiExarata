@@ -1,4 +1,3 @@
-
 """Where the base classes of the solvers and engines lie."""
 
 import opihiexarata.library as library
@@ -36,11 +35,11 @@ class AstrometryEngine(ExarataEngine):
     not be used other than for type hinting and subclassing."""
 
 
-
 class PhotometryEngine(ExarataEngine):
     """The base class where the Photometry engines are derived from. Should
     not be used other than for type hinting and subclassing."""
 
+
 class OrbitEngine(ExarataEngine):
-    """The base class for all of the Orbit determination engines. Should not 
+    """The base class for all of the Orbit determination engines. Should not
     be used other than for type hinting and subclassing."""

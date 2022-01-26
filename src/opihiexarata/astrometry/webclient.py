@@ -325,8 +325,9 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
                 + "\n"
                 + "Content-Type: application/octet-stream\r\n"
                 + "MIME-Version: 1.0\r\n"
-                + 'Content-disposition: form-data; name="file"; filename="{name}"'
-                .format(name=file_args["filename"])
+                + 'Content-disposition: form-data; name="file"; filename="{name}"'.format(
+                    name=file_args["filename"]
+                )
                 + "\r\n"
                 + "\r\n"
             )
@@ -361,8 +362,9 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
                     )
                 else:
                     raise error.WebRequestError(
-                        "The server returned an error status message: \n {message}"
-                        .format(message=error_message)
+                        "The server returned an error status message: \n {message}".format(
+                            message=error_message
+                        )
                     )
             else:
                 return result
