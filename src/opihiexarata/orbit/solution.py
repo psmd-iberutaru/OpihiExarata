@@ -3,7 +3,7 @@
 import numpy as np
 import scipy.optimize as sp_optimize
 
-import opihiexarata.asteroid.orbit as orbit
+import opihiexarata.orbit as orbit
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint

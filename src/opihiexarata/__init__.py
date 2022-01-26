@@ -1,9 +1,9 @@
 """Test"""
 
 import opihiexarata.library as library
-import opihiexarata.asteroid as asteroid
 import opihiexarata.astrometry as astrometry
 import opihiexarata.gui as gui
+import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
 
 # Load the default configuration parameters. The user's configurations should
