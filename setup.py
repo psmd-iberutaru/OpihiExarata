@@ -19,6 +19,7 @@ SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 DEPENDENCIES = [
     "astropy",
     "numba",
+    "scipy",
     "numpy",
     "pyyaml",
     "pillow",
