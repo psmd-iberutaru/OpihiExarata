@@ -11,7 +11,7 @@ from collections import *
 from collections.abc import *
 
 from astropy.io.fits import Header, FITS_rec
-from astropy.table import Table
+from astropy.table import Table, Row
 from astropy.wcs import WCS
 from numpy.typing import ArrayLike, DTypeLike
 

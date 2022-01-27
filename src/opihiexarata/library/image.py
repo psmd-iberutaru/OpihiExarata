@@ -9,7 +9,6 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-
 def slice_array_boundary(
     array: hint.ArrayLike, x_min: int, x_max: int, y_min: int, y_max: int
 ) -> hint.ArrayLike:
@@ -52,6 +51,7 @@ def slice_array_boundary(
     # Return the slice with these bounds.
     boundary_sliced_array = array[y_min:y_max, x_min:x_max]
     return boundary_sliced_array
+
 
 def scale_image_array(
     array: hint.ArrayLike,
@@ -115,6 +115,7 @@ def scale_image_array(
     # Ensuring the invalid pixels are still invalid.
     scaled_array[invalid_pixels] = np.nan
     return scaled_array
+
 
 def create_circular_mask(
     array: hint.ArrayLike, center_x: int, center_y: int, radius: float
@@ -180,6 +181,7 @@ def create_circular_mask(
     # inverse.
     circular_mask = ~circular_mask
     return circular_mask
+
 
 def save_array_as_png_grayscale(
     array: hint.ArrayLike, filename: str, overwrite: bool = False

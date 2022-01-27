@@ -25,6 +25,7 @@ DEPENDENCIES = [
     "PySimpleGUIQt",
     "PyQt5",
     "requests",
+    "scipy",
 ]
 
 

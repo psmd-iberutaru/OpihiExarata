@@ -7,10 +7,10 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   opihiexarata.asteroid
    opihiexarata.astrometry
    opihiexarata.gui
    opihiexarata.library
+   opihiexarata.orbit
    opihiexarata.photometry
 
 Module contents

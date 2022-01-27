@@ -15,6 +15,7 @@ Submodules
    opihiexarata.library.http
    opihiexarata.library.image
    opihiexarata.library.json
+   opihiexarata.library.mpcrecord
    opihiexarata.library.path
    opihiexarata.library.temporary
 

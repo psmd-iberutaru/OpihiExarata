@@ -5,8 +5,15 @@
 
 
 :;# Execute the building of the Python document strings, toggling based on how
-:;# different shells handle different comment strings.
+:;# different shells handle different comment strings. Removing the previous
+:;# docstring files is also useful.
 
-:; sphinx-apidoc -f -e -o ./source/code/ ./../src/opihiexarata/ ; exit
+:;# Bash-like shell
+:; rm -r ./source/code/*
+:; sphinx-apidoc -f -e -o ./source/code/ ./../src/opihiexarata/ 
+:; exit
+
+:;# DOS-like shell
 @ECHO OFF
+del /S /Q .\source\code\*
 sphinx-apidoc -f -e -o ./source/code/ ./../src/opihiexarata/

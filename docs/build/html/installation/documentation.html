@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optional: Documentation &mdash; OpihiExarata 2021.12.28 documentation</title>
+  <title>Optional: Documentation &mdash; OpihiExarata 2022.1.26 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Optional: Windows Compatibility" href="windows.html" />
-    <link rel="prev" title="Introduction" href="../introduction.html" /> 
+    <link rel="prev" title="Install: Python Part" href="python.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,6 +46,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="download.html">Install: Download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#install">Install</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Optional: Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sphinx">Sphinx</a></li>
@@ -64,12 +75,30 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="windows.html#verify">Verify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html#final">Final</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="python.html#download">Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python.html#build">Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="orbfit.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="orbfit.html#fortran-compiler">Fortran Compiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="orbfit.html#install">Install</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="orbfit.html#apt-package-managers">APT Package Managers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="orbfit.html#yum-dnf-zypper-package-managers">YUM, DNF, Zypper Package Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="orbfit.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
 </ul>
@@ -78,10 +107,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../code/modules.html">opihiexarata</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../code/opihiexarata.html">opihiexarata package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.asteroid.html">opihiexarata.asteroid package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.asteroid.html#module-opihiexarata.asteroid">Module contents</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
@@ -95,6 +120,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
@@ -193,7 +223,7 @@ with other goodies.)</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="python.html" class="btn btn-neutral float-left" title="Install: Python Part" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="windows.html" class="btn btn-neutral float-right" title="Optional: Windows Compatibility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

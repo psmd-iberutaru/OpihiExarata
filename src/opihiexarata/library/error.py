@@ -95,7 +95,9 @@ class DirectoryError(ExarataException):
 
 class EngineError(ExarataException):
     """This error is for when the astrometric, photometric, or asteroid-metric
-    solver engines provided are not valid or expected."""
+    solver engines provided are not valid or expected. This error can also be
+    used when an engine fails to solve or otherwise does not work as
+    intended."""
 
 
 class FileError(ExarataException):
@@ -106,6 +108,12 @@ class FileError(ExarataException):
 class InputError(ExarataException):
     """An error to be used when the inputs to a function are not valid and do
     not match the expectations of that function."""
+
+
+class InstallError(ExarataException):
+    """An error to be used when informing the user or the program that the
+    installation was not done properly and lack some of the features and
+    assumptions which are a consequence of it."""
 
 
 class IntentionalError(ExarataException):
