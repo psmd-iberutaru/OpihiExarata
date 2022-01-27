@@ -174,7 +174,6 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-
 <div class="viewcode-block" id="slice_array_boundary"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.slice_array_boundary">[docs]</a><span class="k">def</span> <span class="nf">slice_array_boundary</span><span class="p">(</span>
     <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">:</span>
@@ -217,6 +216,7 @@
     <span class="c1"># Return the slice with these bounds.</span>
     <span class="n">boundary_sliced_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">boundary_sliced_array</span></div>
+
 
 <div class="viewcode-block" id="scale_image_array"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.scale_image_array">[docs]</a><span class="k">def</span> <span class="nf">scale_image_array</span><span class="p">(</span>
     <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
@@ -280,6 +280,7 @@
     <span class="c1"># Ensuring the invalid pixels are still invalid.</span>
     <span class="n">scaled_array</span><span class="p">[</span><span class="n">invalid_pixels</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">return</span> <span class="n">scaled_array</span></div>
+
 
 <div class="viewcode-block" id="create_circular_mask"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.create_circular_mask">[docs]</a><span class="k">def</span> <span class="nf">create_circular_mask</span><span class="p">(</span>
     <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">center_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">center_y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span>
@@ -345,6 +346,7 @@
     <span class="c1"># inverse.</span>
     <span class="n">circular_mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">circular_mask</span>
     <span class="k">return</span> <span class="n">circular_mask</span></div>
+
 
 <div class="viewcode-block" id="save_array_as_png_grayscale"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.save_array_as_png_grayscale">[docs]</a><span class="k">def</span> <span class="nf">save_array_as_png_grayscale</span><span class="p">(</span>
     <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>

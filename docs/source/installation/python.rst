@@ -15,14 +15,7 @@ can find the latest releases at: `Python Releases`_.
 
 Please note you must install/have Python 3.9+.
 
-Then, if you already have not, download the `OpihiExarata Python code via Github`_::
-
-    git clone https://github.com/psmd-iberutaru/OpihiExarata.git
-
-This stores the code in the ``OpihiExarata/`` directory of the location of install.
-
 .. _Python Releases: https://www.python.org/downloads/
-.. _OpihiExarata Python code via Github: https://github.com/psmd-iberutaru/OpihiExarata
 
 Build
 =====
