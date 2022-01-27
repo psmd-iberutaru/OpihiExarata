@@ -9,7 +9,6 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-
 def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint.Header:
     """This reads the header of fits files only. This should be used only if
     there is no data.
@@ -40,6 +39,7 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
             " data of this fits file or extension is expected to be None, nothing."
         )
     return header
+
 
 def read_fits_image_file(
     filename: str, extension: hint.Union[int, str] = 0

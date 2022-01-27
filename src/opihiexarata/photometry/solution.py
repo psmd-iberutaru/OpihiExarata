@@ -11,7 +11,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class PhotometricSolution:
+class PhotometricSolution(hint.ExarataSolution):
     """The primary class describing an photometric solution, based on an image
     provided and catalog data provided from the photometric engine.
 
@@ -129,7 +129,7 @@ class PhotometricSolution:
         self._original_data = data
 
         # Derive the photometric star table.
-        if issubclass(solver_engine, photometry.PanstarrsMastWebAPI):
+        if issubclass(solver_engine, photometry.PanstarrsMastWebAPIEngine):
             # Solve using the API.
             photo_star_table = _vehicle_panstarrs_mast_web_api(
                 ra=self.astrometrics.ra,
@@ -605,7 +605,7 @@ def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hin
     # Instance of the PanSTARRS web api client, there does not need to be
     # an API key so far. Sometimes SSL issues arise though.
     SSL_VERIFY = library.config.API_CONNECTION_ENABLE_SSL_CHECKS
-    panstarrs_client = photometry.PanstarrsMastWebAPI(verify_ssl=SSL_VERIFY)
+    panstarrs_client = photometry.PanstarrsMastWebAPIEngine(verify_ssl=SSL_VERIFY)
 
     # The columns of relevance to this photometric solver, and their
     # associations with the expected photometric star table that is

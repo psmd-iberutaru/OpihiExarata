@@ -7,11 +7,6 @@ it is likely also the simplest.
 
 You will build the Python wheel from the source and install it.
 
-.. warning::
-    This should be the last part of OpihiExarata that should be installed. All
-    parts of OpihiExarata *must* be installed in order for it to work properly.
-    Return to this part only after completing all other parts of the installation.
-
 Download
 ========
 

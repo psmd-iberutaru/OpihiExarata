@@ -13,7 +13,7 @@ import opihiexarata.library.hint as hint
 _DEFAULT_BASE_URL = "http://nova.astrometry.net/api/"
 
 
-class AstrometryNetWebAPI(hint.AstrometryEngine):
+class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
     This API does not have the full functionality of the default Python client
@@ -325,8 +325,9 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
                 + "\n"
                 + "Content-Type: application/octet-stream\r\n"
                 + "MIME-Version: 1.0\r\n"
-                + 'Content-disposition: form-data; name="file"; filename="{name}"'
-                .format(name=file_args["filename"])
+                + 'Content-disposition: form-data; name="file"; filename="{name}"'.format(
+                    name=file_args["filename"]
+                )
                 + "\r\n"
                 + "\r\n"
             )
@@ -361,8 +362,9 @@ class AstrometryNetWebAPI(hint.AstrometryEngine):
                     )
                 else:
                     raise error.WebRequestError(
-                        "The server returned an error status message: \n {message}"
-                        .format(message=error_message)
+                        "The server returned an error status message: \n {message}".format(
+                            message=error_message
+                        )
                     )
             else:
                 return result
