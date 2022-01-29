@@ -80,7 +80,7 @@ Deriving Rates
 
 Multiple observations from Opihi provides multiple sightings of an asteroid at 
 many different points in the sky, providing multiple RA and DEC coordinates, 
-:math:`\alpha_n` and :math:`\delta_n` at time :math:`t_n`. We have a total of :math:`N` RA DEC observations. (The propagation calculation will need to be redone for a new observation :math:`N' = N + 1`.)
+:math:`\alpha_n` and :math:`\delta_n` at time :math:`t_n`. We have a total of :math:`N` RA DEC observations. (The propagation calculation will need to be redone for a new observation set :math:`N' = N + 1`.)
 
 We can convert this to spherical coordinates with :math:`\phi_n = \alpha_n` and :math:`\theta_n = \pi - \delta_n`.
 
@@ -162,7 +162,7 @@ Celestial Sphere
 ================
 
 These new future position vectors :math:`\mathbf{r}^+_i` in spherical coordinates can be 
-converted to positions vectors in Cartesian coordinates :math:`\mathbf{s}^+_i`.
+converted to position vectors in Cartesian coordinates :math:`\mathbf{s}^+_i`.
 
 Each position vector can be represented as:
 
@@ -196,14 +196,14 @@ spherical position vectors to Cartesian position vectors: :math:`\mathbf{s} = \m
    \end{bmatrix} \begin{bmatrix} A_i \\ B_i \\ C_i \end{bmatrix}
 
 These Cartesian coordinate position vectors, centered on the origin, represents where the
-asteroid is on the celestial sphere in the future at an observation time of $t^+_i$.
+asteroid is on the celestial sphere in the future at an observation time of :math:`t^+_i`.
 From these Cartesian coordinates, we can extract their location in spherical coordinates,
 
 .. math:: 
 
    r^+_i &= \sqrt{X_i^2 + Y_i^2 + Z_i^2} \\
-   \theta^+_i &= \arccos\left(\frac{z}{r}\right) = \arccos\left(\frac{z}{\sqrt{X_i^2 + Y_i^2 + Z_i^2}}\right) \\
-   \phi^+_i &= \atan\!2(Y_i, X_i) \sim \arctan\left(\frac{Y_i}{X_i}\right)
+   \theta^+_i &= \arccos\left(\frac{Z_i}{r^+_i}\right) = \arccos\left(\frac{z}{\sqrt{X_i^2 + Y_i^2 + Z_i^2}}\right) \\
+   \phi^+_i &= \arctan\!2(Y_i, X_i) \simeq \arctan\left(\frac{Y_i}{X_i}\right)
 
 .. note::
 

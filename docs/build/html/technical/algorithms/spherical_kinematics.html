@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spherical Kinematics &mdash; OpihiExarata 2022.1.27 documentation</title>
+  <title>Spherical Kinematics &mdash; OpihiExarata 2022.1.28 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -105,6 +105,9 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Algorithms</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#celestial-sphere">Celestial Sphere</a></li>
 </ul>
 </li>
 </ul>
@@ -188,10 +191,11 @@ in spherical coordinates.</p>
 for the radial distance, polar angle, and azimuthal angle respectively. In relation to
 astrometric coordinates RA and DEC, <span class="math notranslate nohighlight">\((\alpha, \delta)\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\alpha = \phi\\\delta = \pi - \theta\end{aligned}\end{align} \]</div>
+\[\alpha = \phi   \qquad   \delta = \pi - \theta\]</div>
 <p>Observations taken by the Opihi telescoped and processed by OpihiExarata are
-represented as <span class="math notranslate nohighlight">\((\alpha_i, \delta_i, t_i)\)</span>. These correspond to the
-temporal spherical coordinates <span class="math notranslate nohighlight">\((r=1, \phi_i, \delta_i, t_i)\)</span>.</p>
+represented as <span class="math notranslate nohighlight">\((\alpha_n, \delta_n, t_n)\)</span>. These correspond to the
+temporal spherical coordinates <span class="math notranslate nohighlight">\((r=1, \phi_n, \delta_n, t_n)\)</span>. For <span class="math notranslate nohighlight">\(t\)</span>
+is the absolute time of the observation; UNIX time or Julian date time works best.</p>
 <p>Moreover, in spherical coordinates, the position, velocity, and acceleration
 vectors are given as: (see <a class="reference external" href="http://www.worldcat.org/oclc/1104053368">Keplerian Ellipses Chapter 2 Reed 2019</a>)</p>
 <div class="math notranslate nohighlight">
@@ -202,9 +206,9 @@ vectors are given as: (see <a class="reference external" href="http://www.worldc
  &amp;\quad + \left( r\ddot\phi\sin\theta + 2\dot{r}\dot\phi\sin\theta + 2 r\dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
 <p>Where the basis vectors of the spherical coordinates are:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{\hat r} &amp;= \sin\theta \cos\phi \mathbf{\hat x} + \sin\theta \sin\theta \mathbf{\hat y} + \cos\theta \mathbf{\hat z} \\
-\hat{\boldsymbol\theta} &amp;= \cos\theta \mathbf{\hat x} + \cos\theta \sin\phi \mathbf{\hat y} - \sin\theta \mathbf{\hat z} \\
-\hat{\boldsymbol\phi} &amp;= -\sin\phi \mathbf{\hat x} + \cos\phi \mathbf{\hat y} + 0 \mathbf{\hat z}\end{split}\]</div>
+\[\begin{split}\hat{\mathbf r} &amp;= \sin\theta \cos\phi \hat{\mathbf x} + \sin\theta \sin\phi \hat{\mathbf y} + \cos\theta \hat{\mathbf z} \\
+\hat{\boldsymbol\theta} &amp;= \cos\theta \cos\phi \hat{\mathbf x} + \cos\theta \sin\phi \hat{\mathbf y} - \sin\theta \hat{\mathbf z} \\
+\hat{\boldsymbol\phi} &amp;= - \sin\phi \hat{\mathbf x} + \cos\phi \hat{\mathbf y} + 0 \hat{\mathbf z}\end{split}\]</div>
 <p>However, for the purposes of finding by propagation, we only care about the location
 of the asteroid on the sky as determined by the celestial coordinates. The distance
 from the origin of the coordinate system does not change. Thus:</p>
@@ -219,9 +223,107 @@ from the origin of the coordinate system does not change. Thus:</p>
 equation of motion for constant acceleration can be used to determine the
 movement of the position vector representing the asteroid:</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{r} \triangleq \mathbf{r} \qquad \mathbf{v} \triangleq \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} \qquad \mathbf{a} \triangleq \frac{\mathrm{d}^2\mathbf{r}}{\mathrm{d}t^2} \qquad \mathbf{j} \triangleq \frac{\mathrm{d}^3\mathbf{r}}{\mathrm{d}t^3} \triangleq 0\]</div>
+\[\mathbf{r} \triangleq \mathbf{r} \qquad \mathbf{v} \triangleq \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} \qquad \mathbf{a} \triangleq \frac{\mathrm{d}^2\mathbf{r}}{\mathrm{d}t^2} \qquad \mathbf{j} \triangleq \frac{\mathrm{d}^3\mathbf{r}}{\mathrm{d}t^3} = 0\]</div>
 <div class="math notranslate nohighlight">
-\[\mathbf{r} = \mathbf{r}_0 + \mathbf{v}_0 t + \frac{1}{2} \mathbf{a} t^2\]</div>
+\[\mathbf{r} = \mathbf{r}_0 + \mathbf{v}_0 \tau + \frac{1}{2} \mathbf{a} \tau^2\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\tau\)</span> is the time interval between the defining time of observation to
+the current time.</p>
+</section>
+<section id="deriving-rates">
+<h2>Deriving Rates<a class="headerlink" href="#deriving-rates" title="Permalink to this headline"></a></h2>
+<p>Multiple observations from Opihi provides multiple sightings of an asteroid at
+many different points in the sky, providing multiple RA and DEC coordinates,
+<span class="math notranslate nohighlight">\(\alpha_n\)</span> and <span class="math notranslate nohighlight">\(\delta_n\)</span> at time <span class="math notranslate nohighlight">\(t_n\)</span>. We have a total of <span class="math notranslate nohighlight">\(N\)</span> RA DEC observations. (The propagation calculation will need to be redone for a new observation set <span class="math notranslate nohighlight">\(N' = N + 1\)</span>.)</p>
+<p>We can convert this to spherical coordinates with <span class="math notranslate nohighlight">\(\phi_n = \alpha_n\)</span> and <span class="math notranslate nohighlight">\(\theta_n = \pi - \delta_n\)</span>.</p>
+<p>These multiple observations allows for the determination of the rates of change of
+spherical coordinates for the asteroid, namely: (For the time difference <span class="math notranslate nohighlight">\(t_\Delta = t_{n+1} - t_n\)</span>.)</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\dot\theta_p = \frac{\theta_{n+1} - \theta_{n}}{t_{n+1} - t_n}\\\dot\phi_p = \frac{\phi_{n+1} - \phi_{n}}{t_{n+1} - t_n}\\t'_p = \frac{1}{2} \left( t_{n+1} + t_n \right)\end{aligned}\end{align} \]</div>
+<p>…and…</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\ddot\theta_q = \frac{\dot\theta_{p+1} - \dot\theta_{p}}{t'_{p+1} - t'_p}\\\ddot\phi_q = \frac{\dot\phi_{p+1} - \dot\phi_{p}}{t'_{p+1} - t'_p}\end{aligned}\end{align} \]</div>
+<p>The first order rates changes over time. As such, it is required that two observations
+be reserved as special observations which the first order rates are calculated and to
+established the spherical coordinate system itself. Although it does not need to be
+the first two observations, it is often connivent to use them. As such, using the first
+two observations <span class="math notranslate nohighlight">\(n=0\)</span> and <span class="math notranslate nohighlight">\(n=1\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\theta &amp;= \theta_0 \\
+\phi &amp;= \phi_0 \\
+\dot\theta &amp;= \dot\theta_0 = \frac{\theta_1 - \theta_0}{t_1 - t_0} \\
+\dot\phi &amp;= \dot\phi_0 = \frac{\phi_1 - \phi_0}{t_1 - t_0} \\\end{split}\]</div>
+<p>Because we assume constant acceleration (<span class="math notranslate nohighlight">\(\mathbf{j} = 0\)</span>), the second
+differential values are assumed to be constant and thus an average is more
+representational of the value. (A mean or median is valid.)</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\ddot\theta = \frac{1}{Q} \sum_q^Q \ddot\theta_q \approx \mathrm{median} (\ddot\theta_q)\\\ddot\phi = \frac{1}{Q} \sum_q^Q \ddot\phi_q \approx \mathrm{median} (\ddot\phi_q)\end{aligned}\end{align} \]</div>
+<p>In the case for <span class="math notranslate nohighlight">\(N=2\)</span>, then the total number of derived angular first order rates
+is <span class="math notranslate nohighlight">\(P=1\)</span>. As such the second order rates cannot be calculated and <span class="math notranslate nohighlight">\(Q=0\)</span> (the
+cardinality of the arrays are zero). By default, for this special case:</p>
+<div class="math notranslate nohighlight">
+\[\#(\ddot\theta_q) = \#(\ddot\phi_q) = 0 \implies Q = 0 \longrightarrow \ddot\theta = 0 \quad \ddot\phi = 0\]</div>
+</section>
+<section id="spherical-motion">
+<h2>Spherical Motion<a class="headerlink" href="#spherical-motion" title="Permalink to this headline"></a></h2>
+<p>With the 0th, 1st, and 2nd order rates calculated from the set of <span class="math notranslate nohighlight">\(N\)</span> observations,
+the kinematic vectors can be calculated. The special observations defining the coordinate
+system and the velocities also define the initial vectors from which kinematics shall be
+applied to. The acceleration vector, being constant means <span class="math notranslate nohighlight">\(\mathbf{a}_0 = \mathbf{a}\)</span>. Namely,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{r}_0 &amp;= \mathbf{\hat r} + 0 \hat{\boldsymbol\theta } + 0 \mathbf{\hat{\boldsymbol\phi}} \\
+\mathbf{v}_0 &amp;= 0 \mathbf{\hat r} + \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
+\mathbf{a} &amp;= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
+<p>All three of these vectors are constant in future time. The position at a set of
+future observations at time(s) <span class="math notranslate nohighlight">\(t^+_i\)</span> can be calculated using the kinematic
+equation; the time intervals <span class="math notranslate nohighlight">\(\tau_i\)</span> being <span class="math notranslate nohighlight">\(\tau_i = t^+_i - t_0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{r}_i = \mathbf{r}_0 + \mathbf{v}_0 \left(t^+_i - t_0\right) + \frac{1}{2} \mathbf{a} \left(t^+_i - t_0\right)\]</div>
+</section>
+<section id="celestial-sphere">
+<h2>Celestial Sphere<a class="headerlink" href="#celestial-sphere" title="Permalink to this headline"></a></h2>
+<p>These new future position vectors <span class="math notranslate nohighlight">\(\mathbf{r}^+_i\)</span> in spherical coordinates can be
+converted to position vectors in Cartesian coordinates <span class="math notranslate nohighlight">\(\mathbf{s}^+_i\)</span>.</p>
+<p>Each position vector can be represented as:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\mathbf{r}^+_i = A_i \mathbf{\hat r} + B_i \hat{\boldsymbol\theta } + C_i \mathbf{\hat{\boldsymbol\phi}} = \begin{bmatrix} A_i \\ B_i \\ C_i \end{bmatrix}\end{split}\\\begin{split}\mathbf{s}^+_i = X_i \mathbf{\hat x} + Y_i \mathbf{\hat y} + Z_i \mathbf{\hat z} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}\end{split}\end{aligned}\end{align} \]</div>
+<p>The spherical to Cartesian transformation matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> can be derived from
+the defining angles of the spherical coordinate system <span class="math notranslate nohighlight">\(\theta=\theta_0\)</span>
+and <span class="math notranslate nohighlight">\(\phi=\phi_0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{R} = \begin{bmatrix}
+\sin\theta \cos\phi &amp; \sin\theta \sin\phi &amp; \cos\theta \\
+\cos\theta \cos\phi &amp; \cos\theta \sin\phi &amp; -\sin\theta \\
+-\sin\phi           &amp; \cos\phi            &amp; 0
+\end{bmatrix}\end{split}\]</div>
+<p>Provided the matrix transformation matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span>, we can convert the
+spherical position vectors to Cartesian position vectors: <span class="math notranslate nohighlight">\(\mathbf{s} = \mathbf{R} \mathbf{r}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{s}^+_i = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix} = \begin{bmatrix}
+\sin\theta \cos\phi &amp; \sin\theta \sin\phi &amp; \cos\theta \\
+\cos\theta \cos\phi &amp; \cos\theta \sin\phi &amp; -\sin\theta \\
+-\sin\phi           &amp; \cos\phi            &amp; 0
+\end{bmatrix} \begin{bmatrix} A_i \\ B_i \\ C_i \end{bmatrix}\end{split}\]</div>
+<p>These Cartesian coordinate position vectors, centered on the origin, represents where the
+asteroid is on the celestial sphere in the future at an observation time of <span class="math notranslate nohighlight">\(t^+_i\)</span>.
+From these Cartesian coordinates, we can extract their location in spherical coordinates,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}r^+_i &amp;= \sqrt{X_i^2 + Y_i^2 + Z_i^2} \\
+\theta^+_i &amp;= \arccos\left(\frac{Z_i}{r^+_i}\right) = \arccos\left(\frac{z}{\sqrt{X_i^2 + Y_i^2 + Z_i^2}}\right) \\
+\phi^+_i &amp;= \arctan\!2(Y_i, X_i) \simeq \arctan\left(\frac{Y_i}{X_i}\right)\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to properly handle the quadrant issue, the 2-argument arctangent is
+required. Moreover, if the 2-argument arctangent function returns in a range
+<span class="math notranslate nohighlight">\(-\pi \leq \angle \leq \pi\)</span>, it can be converted to the usual range of
+<span class="math notranslate nohighlight">\(0 \leq \phi \leq 2\pi\)</span> with: <span class="math notranslate nohighlight">\(\phi = \angle \mod 2\pi\)</span>
+or <span class="math notranslate nohighlight">\(\phi = \angle \mod 360^\circ\)</span></p>
+</div>
+<p>These spherical coordinate locations can then be converted into future RA and
+DEC temporal coordinates <span class="math notranslate nohighlight">\((\alpha^+_i, \delta^+_i, t^+_i)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\alpha^+_i &amp;= \phi^+_i \\
+\delta^+_i &amp;= \pi - \theta^+_i \\
+t^+_i &amp;= t^+_i\end{split}\]</div>
 </section>
 </section>
 
