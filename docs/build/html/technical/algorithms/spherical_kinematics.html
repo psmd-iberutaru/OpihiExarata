@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spherical Kinematics &mdash; OpihiExarata 2022.1.28 documentation</title>
+  <title>Spherical Kinematics &mdash; OpihiExarata 2022.2.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -108,6 +108,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#deriving-rates">Deriving Rates</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#spherical-motion">Spherical Motion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -191,7 +195,7 @@ in spherical coordinates.</p>
 for the radial distance, polar angle, and azimuthal angle respectively. In relation to
 astrometric coordinates RA and DEC, <span class="math notranslate nohighlight">\((\alpha, \delta)\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\alpha = \phi   \qquad   \delta = \pi - \theta\]</div>
+\[\alpha = \phi   \qquad   \delta = \frac{\pi}{2} - \theta\]</div>
 <p>Observations taken by the Opihi telescoped and processed by OpihiExarata are
 represented as <span class="math notranslate nohighlight">\((\alpha_n, \delta_n, t_n)\)</span>. These correspond to the
 temporal spherical coordinates <span class="math notranslate nohighlight">\((r=1, \phi_n, \delta_n, t_n)\)</span>. For <span class="math notranslate nohighlight">\(t\)</span>
@@ -219,6 +223,21 @@ from the origin of the coordinate system does not change. Thus:</p>
 \[\begin{split}\mathbf{r} &amp;= \mathbf{\hat r} \\
 \mathbf{v} &amp;=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
 \mathbf{a} &amp;= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
+<p>We can convert these vectors to Cartesian coordinates using the matrix transformation.
+The spherical to Cartesian transformation matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> can be derived from
+the defining angles of the spherical coordinate system <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>.
+Where <span class="math notranslate nohighlight">\(\mathbf{u}_\text{cart} = \mathbf{R} \mathbf{u}_\text{sph}\)</span>.:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{R} = \begin{bmatrix}
+\sin\theta\cos\phi &amp; \cos\theta\cos\phi &amp; -\sin\phi \\
+\sin\theta\sin\phi &amp; \cos\theta\sin\phi &amp;  \cos\phi \\
+\cos\theta         &amp; -\sin\theta        &amp; 0
+\end{bmatrix}\end{split}\]</div>
+<p>Thus, in Cartesian coordinates:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{r} &amp;= \mathbf{R} \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \\
+\mathbf{v} &amp;= \mathbf{R} \begin{bmatrix} 0 \\ \dot\theta \\ \dot\phi \sin\theta \end{bmatrix} \\
+\mathbf{a} &amp;= \mathbf{R} \begin{bmatrix} -\dot\theta^2 - \dot\phi^2\sin^2\theta \\ \ddot\theta - \dot\phi^2\sin\theta\cos\theta \\ \ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \end{bmatrix}\end{split}\]</div>
 <p>Generally, as kinematics are defined based on the time derivatives, the general
 equation of motion for constant acceleration can be used to determine the
 movement of the position vector representing the asteroid:</p>
@@ -234,7 +253,7 @@ the current time.</p>
 <p>Multiple observations from Opihi provides multiple sightings of an asteroid at
 many different points in the sky, providing multiple RA and DEC coordinates,
 <span class="math notranslate nohighlight">\(\alpha_n\)</span> and <span class="math notranslate nohighlight">\(\delta_n\)</span> at time <span class="math notranslate nohighlight">\(t_n\)</span>. We have a total of <span class="math notranslate nohighlight">\(N\)</span> RA DEC observations. (The propagation calculation will need to be redone for a new observation set <span class="math notranslate nohighlight">\(N' = N + 1\)</span>.)</p>
-<p>We can convert this to spherical coordinates with <span class="math notranslate nohighlight">\(\phi_n = \alpha_n\)</span> and <span class="math notranslate nohighlight">\(\theta_n = \pi - \delta_n\)</span>.</p>
+<p>We can convert this to spherical coordinates with <span class="math notranslate nohighlight">\(\phi_n = \alpha_n\)</span> and <span class="math notranslate nohighlight">\(\theta_n = \frac{\pi}{2} - \delta_n\)</span>.</p>
 <p>These multiple observations allows for the determination of the rates of change of
 spherical coordinates for the asteroid, namely: (For the time difference <span class="math notranslate nohighlight">\(t_\Delta = t_{n+1} - t_n\)</span>.)</p>
 <div class="math notranslate nohighlight">
@@ -268,47 +287,42 @@ cardinality of the arrays are zero). By default, for this special case:</p>
 <p>With the 0th, 1st, and 2nd order rates calculated from the set of <span class="math notranslate nohighlight">\(N\)</span> observations,
 the kinematic vectors can be calculated. The special observations defining the coordinate
 system and the velocities also define the initial vectors from which kinematics shall be
-applied to. The acceleration vector, being constant means <span class="math notranslate nohighlight">\(\mathbf{a}_0 = \mathbf{a}\)</span>. Namely,</p>
+applied to. The acceleration vector, being constant means <span class="math notranslate nohighlight">\(\mathbf{a}_0 = \mathbf{a}\)</span>. Namely, these vectors are, in Cartesian coordinates,</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{r}_0 &amp;= \mathbf{\hat r} + 0 \hat{\boldsymbol\theta } + 0 \mathbf{\hat{\boldsymbol\phi}} \\
-\mathbf{v}_0 &amp;= 0 \mathbf{\hat r} + \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
-\mathbf{a} &amp;= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
+\[\begin{split}\mathbf{r_0} &amp;= \begin{bmatrix}
+\sin\theta\cos\phi &amp; \cos\theta\cos\phi &amp; -\sin\phi \\
+\sin\theta\sin\phi &amp; \cos\theta\sin\phi &amp;  \cos\phi \\
+\cos\theta         &amp; -\sin\theta        &amp; 0
+\end{bmatrix} \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \\
+\mathbf{v_0} &amp;= \begin{bmatrix}
+\sin\theta\cos\phi &amp; \cos\theta\cos\phi &amp; -\sin\phi \\
+\sin\theta\sin\phi &amp; \cos\theta\sin\phi &amp;  \cos\phi \\
+\cos\theta         &amp; -\sin\theta        &amp; 0
+\end{bmatrix} \begin{bmatrix} 0 \\ \dot\theta \\ \dot\phi \sin\theta \end{bmatrix} \\
+\mathbf{a} &amp;= \begin{bmatrix}
+\sin\theta\cos\phi &amp; \cos\theta\cos\phi &amp; -\sin\phi \\
+\sin\theta\sin\phi &amp; \cos\theta\sin\phi &amp;  \cos\phi \\
+\cos\theta         &amp; -\sin\theta        &amp; 0
+\end{bmatrix} \begin{bmatrix} -\dot\theta^2 - \dot\phi^2\sin^2\theta \\ \ddot\theta - \dot\phi^2\sin\theta\cos\theta \\ \ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \end{bmatrix}\end{split}\]</div>
 <p>All three of these vectors are constant in future time. The position at a set of
 future observations at time(s) <span class="math notranslate nohighlight">\(t^+_i\)</span> can be calculated using the kinematic
 equation; the time intervals <span class="math notranslate nohighlight">\(\tau_i\)</span> being <span class="math notranslate nohighlight">\(\tau_i = t^+_i - t_0\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{r}_i = \mathbf{r}_0 + \mathbf{v}_0 \left(t^+_i - t_0\right) + \frac{1}{2} \mathbf{a} \left(t^+_i - t_0\right)\]</div>
+\[\mathbf{r}^+_i = \mathbf{r}_0 + \mathbf{v}_0 \left(t^+_i - t_0\right) + \frac{1}{2} \mathbf{a} \left(t^+_i - t_0\right)^2\]</div>
 </section>
 <section id="celestial-sphere">
 <h2>Celestial Sphere<a class="headerlink" href="#celestial-sphere" title="Permalink to this headline"></a></h2>
-<p>These new future position vectors <span class="math notranslate nohighlight">\(\mathbf{r}^+_i\)</span> in spherical coordinates can be
-converted to position vectors in Cartesian coordinates <span class="math notranslate nohighlight">\(\mathbf{s}^+_i\)</span>.</p>
+<p>These new future position vectors <span class="math notranslate nohighlight">\(\mathbf{r}^+_i\)</span> are in Cartesian coordinates.
+The calculations should be done in Cartesian, provided the conversion earlier.</p>
 <p>Each position vector can be represented as:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{split}\mathbf{r}^+_i = A_i \mathbf{\hat r} + B_i \hat{\boldsymbol\theta } + C_i \mathbf{\hat{\boldsymbol\phi}} = \begin{bmatrix} A_i \\ B_i \\ C_i \end{bmatrix}\end{split}\\\begin{split}\mathbf{s}^+_i = X_i \mathbf{\hat x} + Y_i \mathbf{\hat y} + Z_i \mathbf{\hat z} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}\end{split}\end{aligned}\end{align} \]</div>
-<p>The spherical to Cartesian transformation matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> can be derived from
-the defining angles of the spherical coordinate system <span class="math notranslate nohighlight">\(\theta=\theta_0\)</span>
-and <span class="math notranslate nohighlight">\(\phi=\phi_0\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{R} = \begin{bmatrix}
-\sin\theta \cos\phi &amp; \sin\theta \sin\phi &amp; \cos\theta \\
-\cos\theta \cos\phi &amp; \cos\theta \sin\phi &amp; -\sin\theta \\
--\sin\phi           &amp; \cos\phi            &amp; 0
-\end{bmatrix}\end{split}\]</div>
-<p>Provided the matrix transformation matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span>, we can convert the
-spherical position vectors to Cartesian position vectors: <span class="math notranslate nohighlight">\(\mathbf{s} = \mathbf{R} \mathbf{r}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{s}^+_i = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix} = \begin{bmatrix}
-\sin\theta \cos\phi &amp; \sin\theta \sin\phi &amp; \cos\theta \\
-\cos\theta \cos\phi &amp; \cos\theta \sin\phi &amp; -\sin\theta \\
--\sin\phi           &amp; \cos\phi            &amp; 0
-\end{bmatrix} \begin{bmatrix} A_i \\ B_i \\ C_i \end{bmatrix}\end{split}\]</div>
+\[\begin{split}\mathbf{r}^+_i = X_i \mathbf{\hat x} + Y_i \mathbf{\hat y} + Z_i \mathbf{\hat z} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}\end{split}\]</div>
 <p>These Cartesian coordinate position vectors, centered on the origin, represents where the
 asteroid is on the celestial sphere in the future at an observation time of <span class="math notranslate nohighlight">\(t^+_i\)</span>.
 From these Cartesian coordinates, we can extract their location in spherical coordinates,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}r^+_i &amp;= \sqrt{X_i^2 + Y_i^2 + Z_i^2} \\
-\theta^+_i &amp;= \arccos\left(\frac{Z_i}{r^+_i}\right) = \arccos\left(\frac{z}{\sqrt{X_i^2 + Y_i^2 + Z_i^2}}\right) \\
+\theta^+_i &amp;= \arccos\left(\frac{Z_i}{r^+_i}\right) = \arccos\left(\frac{Z_i}{\sqrt{X_i^2 + Y_i^2 + Z_i^2}}\right) \\
 \phi^+_i &amp;= \arctan\!2(Y_i, X_i) \simeq \arctan\left(\frac{Y_i}{X_i}\right)\end{split}\]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -322,8 +336,42 @@ or <span class="math notranslate nohighlight">\(\phi = \angle \mod 360^\circ\)</
 DEC temporal coordinates <span class="math notranslate nohighlight">\((\alpha^+_i, \delta^+_i, t^+_i)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\alpha^+_i &amp;= \phi^+_i \\
-\delta^+_i &amp;= \pi - \theta^+_i \\
+\delta^+_i &amp;= \frac{\pi}{2} - \theta^+_i \\
 t^+_i &amp;= t^+_i\end{split}\]</div>
+</section>
+<section id="lemmas">
+<h2>Lemmas<a class="headerlink" href="#lemmas" title="Permalink to this headline"></a></h2>
+<section id="derivation-of-vector-equation-of-motion">
+<h3>Derivation of Vector Equation of Motion<a class="headerlink" href="#derivation-of-vector-equation-of-motion" title="Permalink to this headline"></a></h3>
+<p>Newton’s second law and constant acceleration stipulates:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{F} = m \mathbf{a} = m \ddot{\mathbf{r}} \qquad \dot{\mathbf{F}} = 0\]</div>
+<p>This thus provides the differential equation of motion (For constant <span class="math notranslate nohighlight">\(\mathbf{F}\)</span>.)</p>
+<div class="math notranslate nohighlight">
+\[\ddot{\mathbf{r}} = \frac{\mathrm{d}^2\mathbf{r}}{\mathrm{d}t^2} = \frac{\mathbf{F}}{m}\]</div>
+<p>We define based on the laws of integrations (and in essence the fundamental theorem of
+calculus):</p>
+<div class="math notranslate nohighlight">
+\[\dot{\mathbf{f}} \triangleq \frac{\mathrm{d}\mathbf{f}}{\mathrm{d}t} \Longleftrightarrow \int \dot{\mathbf{f}} \mathrm{d} t = \mathbf{f} + \mathbf{C}\]</div>
+<div class="math notranslate nohighlight">
+\[\int \frac{\mathrm{d}\mathbf{f}}{\mathrm{d}t} \mathrm{d} t = \mathbf{f}\]</div>
+<p>We can solve the differential equation of motion:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\ddot{\mathbf{r}} &amp;= \frac{\mathbf{F}}{m} \\
+\frac{\mathrm{d}}{\mathrm{d}t} \left( \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} \right) &amp;= \frac{\mathbf{F}}{m} \\
+\int \frac{\mathrm{d}}{\mathrm{d}t} \left( \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} \right) \mathrm{d}t &amp;= \int \frac{\mathbf{F}}{m} \mathrm{d}t = \frac{\mathbf{F}}{m} \int 1 \mathrm{d}t = \frac{\mathbf{F}}{m} t + \mathbf{C_1} \\
+\frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} &amp;= \frac{\mathbf{F}}{m} t + \mathbf{C_1} \\
+\int \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} \mathrm{d}t &amp;= \int \frac{\mathbf{F}}{m} t + \mathbf{C_1} \mathrm{d}t = \frac{\mathbf{F}}{m} \int t \mathrm{d}t + \int \mathbf{C_1} \mathrm{d}t = \frac{\mathbf{F}}{m} \frac{1}{2} t^2 + \mathbf{C_1} t + \mathbf{C_2} \\
+\mathbf{r} &amp;= \frac{\mathbf{F}}{m} \frac{1}{2} t^2 + \mathbf{C_1} t + \mathbf{C_2}\end{split}\]</div>
+<p>For the initial conditions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t = 0 &amp;\implies \mathbf{r} = \mathbf{C_2} = \mathbf{r_0} \\
+t = 0 &amp;\implies \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} = \mathbf{C_1} = \mathbf{v_0} \\
+\dot{\mathbf{F}} = 0 &amp;\implies \frac{\mathrm{d}^2\mathbf{r}}{\mathrm{d}t^2} = \frac{\mathbf{F}}{m} = \mathbf{a_0} = \mathbf{a}\end{split}\]</div>
+<p>Thus, the total valid solution is:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{r} = \mathbf{r_0} + \mathbf{v_0} t + \frac{1}{2} \mathbf{a} t^2\]</div>
+</section>
 </section>
 </section>
 
