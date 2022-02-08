@@ -86,7 +86,7 @@ class OrbitSolution(hint.ExarataSolution):
         else:
             raise error.EngineError(
                 "The provided orbit engine is not a valid engine which can be"
-                " used for astrometric solutions."
+                " used for orbit solutions."
             )
 
         # Derive the orbital elements using the proper vehicle function for
