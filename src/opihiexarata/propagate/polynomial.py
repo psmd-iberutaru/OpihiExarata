@@ -22,7 +22,7 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
         The array of declinations measurements to extrapolate to.
     obs_time_array : ndarray
         The array of observation times which the RA and DEC measurements were
-        taken at.
+        taken at. The values are in UNIX time.
     ra_poly_param : tuple
             The polynomial fit parameters for the RA(time) propagation.
     dec_poly_param : tuple
@@ -143,41 +143,43 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
         try:
             # Most efficient method, but might fail with too few observations.
             fit_param, fit_covar = sp_optimize.curve_fit(
-                polynomial_function, fit_x, fit_y, method="lm", p0=[1, 1, 0], max_nfev=int(1e5)
+                polynomial_function, fit_x, fit_y, method="lm", p0=[1, 1, 0], max_nfev=10000
             )
         except:
             fit_param, fit_covar = sp_optimize.curve_fit(
-                polynomial_function, fit_x, fit_y, method="trf", p0=[1, 1, 0], max_nfev=int(1e5)
+                polynomial_function, fit_x, fit_y, method="trf", p0=[1, 1, 0], max_nfev=10000
             )
         # Error on the fit itself.
         fit_error = np.sqrt(np.diag(fit_covar))
         # All done.
         return fit_param, fit_error
 
-    def propagate(
-        self, new_time: hint.ArrayLike
+    def forward_propagate(
+        self, future_time: hint.ArrayLike
     ) -> tuple[hint.ArrayLike, hint.ArrayLike]:
         """Determine a new location(s) based on the polynomial propagation,
         providing new times to locate in the future.
 
         Parameters
         ----------
-        new_time : array-like
-            The set of new times which to derive new RA and DEC coordinates.
+        future_time : array-like
+            The set of future times which to derive new RA and DEC coordinates.
             The time must be in UNIX time.
 
         Returns
         -------
-        new_ra : ndarray
-            The set of right ascensions that cooresponds to the new times, in degrees.
-        new_dec : ndarray
-            The set of declinations that cooresponds to the new times, in degrees.
+        future_ra : ndarray
+            The set of right ascensions that cooresponds to the future times, 
+            in degrees.
+        future_dec : ndarray
+            The set of declinations that cooresponds to the future times, in 
+            degrees.
         """
         # Determining the RA and DEC via the polynomial function based on the
         # fitted parameters.
-        new_ra = self.__polynomial_function(new_time, *self.ra_poly_param)
-        new_dec = self.__polynomial_function(new_time, *self.dec_poly_param)
+        new_ra = self.__polynomial_function(future_time, *self.ra_poly_param)
+        new_dec = self.__polynomial_function(future_time, *self.dec_poly_param)
         # Apply wrap around for the angles.
-        new_ra = (new_ra + 360) % 360
-        new_dec = np.abs(((new_dec - 90) % 360) - 180) - 90
-        return new_ra, new_dec
+        future_ra = (new_ra + 360) % 360
+        future_dec = np.abs(((new_dec - 90) % 360) - 180) - 90
+        return future_ra, future_dec

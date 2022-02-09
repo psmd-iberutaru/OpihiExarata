@@ -4,11 +4,12 @@ import astropy.coordinates as ap_coord
 import astropy.table as ap_table
 import numpy as np
 
-import opihiexarata.astrometry as astrometry
-import opihiexarata.photometry as photometry
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
+
+import opihiexarata.astrometry as astrometry
+import opihiexarata.photometry as photometry
 
 
 class PhotometricSolution(hint.ExarataSolution):

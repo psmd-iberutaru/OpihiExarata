@@ -3,12 +3,12 @@
 import numpy as np
 import scipy.optimize as sp_optimize
 
-import opihiexarata.orbit as orbit
+
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
-
+import opihiexarata.orbit as orbit
 class OrbitSolution(hint.ExarataSolution):
     """This is the class which solves a record of observations to derive the
     orbital parameters of asteroids or objects in general. A record of
@@ -92,7 +92,7 @@ class OrbitSolution(hint.ExarataSolution):
         # Derive the orbital elements using the proper vehicle function for
         # the desired engine is that is to be used.
         if issubclass(solver_engine, orbit.OrbfitOrbitDeterminerEngine):
-            # Solve using the API.
+            # Solve using Orbfit.
             raw_orbit_results = _vehicle_orbfit_orbit_determiner(
                 observation_record=observation_record
             )

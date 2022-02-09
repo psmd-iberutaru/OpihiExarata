@@ -3,11 +3,11 @@
 import time
 import astropy.coordinates as ap_coordinates
 
-import opihiexarata.astrometry as astrometry
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+import opihiexarata.astrometry as astrometry
 
 class AstrometricSolution(hint.ExarataSolution):
     """The primary class describing an astrometric solution, based on an image
