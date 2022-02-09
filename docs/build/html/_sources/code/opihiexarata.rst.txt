@@ -12,6 +12,7 @@ Subpackages
    opihiexarata.library
    opihiexarata.orbit
    opihiexarata.photometry
+   opihiexarata.propagate
 
 Module contents
 ---------------

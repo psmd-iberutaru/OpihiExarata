@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.2.2 documentation</title>
+  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.2.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -145,6 +145,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
@@ -184,12 +189,12 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">sp_optimize</span>
 
-<span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
+
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
-
+<span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
 <div class="viewcode-block" id="OrbitSolution"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitSolution">[docs]</a><span class="k">class</span> <span class="nc">OrbitSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the class which solves a record of observations to derive the</span>
 <span class="sd">    orbital parameters of asteroids or objects in general. A record of</span>
@@ -267,13 +272,13 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
                 <span class="s2">&quot;The provided orbit engine is not a valid engine which can be&quot;</span>
-                <span class="s2">&quot; used for astrometric solutions.&quot;</span>
+                <span class="s2">&quot; used for orbit solutions.&quot;</span>
             <span class="p">)</span>
 
         <span class="c1"># Derive the orbital elements using the proper vehicle function for</span>
         <span class="c1"># the desired engine is that is to be used.</span>
         <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbfitOrbitDeterminerEngine</span><span class="p">):</span>
-            <span class="c1"># Solve using the API.</span>
+            <span class="c1"># Solve using Orbfit.</span>
             <span class="n">raw_orbit_results</span> <span class="o">=</span> <span class="n">_vehicle_orbfit_orbit_determiner</span><span class="p">(</span>
                 <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span>
             <span class="p">)</span>

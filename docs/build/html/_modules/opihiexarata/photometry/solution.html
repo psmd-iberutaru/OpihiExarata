@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.2.2 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.2.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -145,6 +145,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
@@ -185,11 +190,12 @@
 <span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">import</span> <span class="nn">opihiexarata.astrometry</span> <span class="k">as</span> <span class="nn">astrometry</span>
-<span class="kn">import</span> <span class="nn">opihiexarata.photometry</span> <span class="k">as</span> <span class="nn">photometry</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.astrometry</span> <span class="k">as</span> <span class="nn">astrometry</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.photometry</span> <span class="k">as</span> <span class="nn">photometry</span>
 
 
 <div class="viewcode-block" id="PhotometricSolution"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution">[docs]</a><span class="k">class</span> <span class="nc">PhotometricSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>

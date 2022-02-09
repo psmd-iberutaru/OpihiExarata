@@ -8,6 +8,7 @@ Submodules
    :maxdepth: 4
 
    opihiexarata.library.config
+   opihiexarata.library.conversion
    opihiexarata.library.engine
    opihiexarata.library.error
    opihiexarata.library.fits
