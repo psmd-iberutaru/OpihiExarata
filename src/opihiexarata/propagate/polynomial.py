@@ -30,7 +30,7 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
     """
 
     def __init__(
-        self, ra: hint.ArrayLike, dec: hint.ArrayLike, obs_time: hint.ArrayLike
+        self, ra: hint.array, dec: hint.array, obs_time: hint.array
     ) -> None:
         """Instantiation of the propagation engine.
 
@@ -84,8 +84,8 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
 
     @staticmethod
     def __polynomial_function(
-        x: hint.ArrayLike, c0: float, c1: float, c2: float
-    ) -> hint.ArrayLike:
+        x: hint.array, c0: float, c1: float, c2: float
+    ) -> hint.array:
         """The polynomial function that will be used.
 
         This function is hard coded to be a specific order on purpose. The
@@ -115,8 +115,8 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
 
     @classmethod
     def __fit_polynomial_function(
-        cls, fit_x: hint.ArrayLike, fit_y: hint.ArrayLike
-    ) -> tuple[hint.ArrayLike, hint.ArrayLike]:
+        cls, fit_x: hint.array, fit_y: hint.array
+    ) -> tuple[hint.array, hint.array]:
         """A wrapper class for fitting the defined specific polynomial function.
 
         Parameters
@@ -155,8 +155,8 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
         return fit_param, fit_error
 
     def forward_propagate(
-        self, future_time: hint.ArrayLike
-    ) -> tuple[hint.ArrayLike, hint.ArrayLike]:
+        self, future_time: hint.array
+    ) -> tuple[hint.array, hint.array]:
         """Determine a new location(s) based on the polynomial propagation,
         providing new times to locate in the future.
 

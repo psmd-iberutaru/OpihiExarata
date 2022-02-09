@@ -60,8 +60,8 @@ class PropagationSolution(hint.ExarataSolution):
 
     def __init__(
         self,
-        ra: hint.ArrayLike,
-        dec: hint.ArrayLike,
+        ra: hint.array,
+        dec: hint.array,
         obs_time: list,
         solver_engine: hint.PropagationEngine,
     ):
@@ -151,9 +151,9 @@ class PropagationSolution(hint.ExarataSolution):
 
     def _compute_raw_motion(
         self,
-        ra_array: hint.ArrayLike,
-        dec_array: hint.ArrayLike,
-        obs_time_array: hint.ArrayLike,
+        ra_array: hint.array,
+        dec_array: hint.array,
+        obs_time_array: hint.array,
     ) -> tuple[float, float, float, float]:
         """Compute the raw velocities and accelerations of RA and DEC.
 
@@ -212,8 +212,8 @@ class PropagationSolution(hint.ExarataSolution):
         )
 
     def forward_propagate(
-        self, future_time: hint.ArrayLike
-    ) -> tuple[hint.ArrayLike, hint.ArrayLike]:
+        self, future_time: hint.array
+    ) -> tuple[hint.array, hint.array]:
         """A wrapper call around the engine's propagation function. This
         allows the computation of future positions at a future time using
         propagation.
@@ -238,7 +238,7 @@ class PropagationSolution(hint.ExarataSolution):
 
 
 def _vehicle_polynomial_propagation(
-    ra_array: hint.ArrayLike, dec_array: hint.ArrayLike, obs_time_array: hint.ArrayLike
+    ra_array: hint.array, dec_array: hint.array, obs_time_array: hint.array
 ) -> dict:
     """Derive the propagation from polynomial extrapolation methods.
 

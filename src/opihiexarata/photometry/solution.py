@@ -319,7 +319,7 @@ class PhotometricSolution(hint.ExarataSolution):
         # All done.
         return intersection_table
 
-    def __calculate_sky_counts_mask(self) -> hint.ArrayLike:
+    def __calculate_sky_counts_mask(self) -> hint.array:
         """Calculate a mask which blocks out all but the sky for sky counts
         determination.
 

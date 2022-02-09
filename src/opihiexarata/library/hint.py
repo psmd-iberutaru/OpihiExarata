@@ -13,9 +13,18 @@ from collections.abc import *
 from astropy.io.fits import Header, FITS_rec
 from astropy.table import Table, Row
 from astropy.wcs import WCS
+from numpy import ndarray
 from numpy.typing import ArrayLike, DTypeLike
 
 # Importing the engines and the solutions.
 from opihiexarata.library.engine import *
 from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
+
+
+# Defining type themselves.
+###########################
+
+# Arrays. This is done because ArrayLike casts a rather larger union 
+# documentation. This is good enough.
+array = ndarray
