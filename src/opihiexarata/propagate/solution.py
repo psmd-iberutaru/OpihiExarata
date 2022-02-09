@@ -150,7 +150,10 @@ class PropagationSolution(hint.ExarataSolution):
         self.raw_dec_acceleration = r_dc_a
 
     def _compute_raw_motion(
-        self, ra_array, dec_array, obs_time_array
+        self,
+        ra_array: hint.ArrayLike,
+        dec_array: hint.ArrayLike,
+        obs_time_array: hint.ArrayLike,
     ) -> tuple[float, float, float, float]:
         """Compute the raw velocities and accelerations of RA and DEC.
 
