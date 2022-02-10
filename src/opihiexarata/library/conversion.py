@@ -76,5 +76,5 @@ def full_date_to_unix_time(
         "second": second,
     }
     time_instance = ap_time.Time(time_param, scale="utc", format="ymdhms")
-    unix_time = time_instance.to_value("unix", subfmt="float")
+    unix_time = time_instance.to_value("unix", subfmt="long")
     return unix_time
