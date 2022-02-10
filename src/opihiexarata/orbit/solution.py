@@ -52,7 +52,7 @@ class OrbitSolution(hint.ExarataSolution):
     """
 
     def __init__(
-        self, observation_record: list[str], solver_engine: type[hint.OrbitEngine]
+        self, observation_record: list[str], solver_engine: hint.OrbitEngine
     ) -> None:
         """The initialization function. Provided the list of observations,
         solves the orbit for the Keplarian orbits.
@@ -65,7 +65,7 @@ class OrbitSolution(hint.ExarataSolution):
         observation_record : list
             A list of the standard MPC 80-column observation records. Each
             element of the list should be a string representing the observation.
-        solver_engine : OrbitEngine subclass
+        solver_engine : OrbitEngine
             The engine which will be used to complete the orbital elements
             from the observation record.
 

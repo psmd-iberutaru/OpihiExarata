@@ -1,6 +1,5 @@
 """The general photometric solver."""
 
-import astropy.coordinates as ap_coord
 import astropy.table as ap_table
 import numpy as np
 
@@ -70,7 +69,7 @@ class PhotometricSolution(hint.ExarataSolution):
         fits_filename : string
             The path of the fits file that contains the data for the astrometric
             solution.
-        solver_engine : PhotometryEngine subclass
+        solver_engine : PhotometryEngine
             The photometric solver engine class. This is what will act as the
             "behind the scenes" and solve the field, using this middlewhere to
             translate it into something that is easier.
@@ -598,7 +597,7 @@ def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hin
     radius : float
         The search radius from the center that defines the search area.
 
-    Retruns
+    Returns
     -------
     photo_star_table : Table
         The photometric star table as found from the query.

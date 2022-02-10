@@ -81,6 +81,10 @@ class PropagationSolution(hint.ExarataSolution):
         solver_engine : PropagationEngine
             The propagation solver engine class that will be used to compute
             the propagation solution.
+
+        Returns
+        -------
+        None
         """
         # Saving the sent values.
         self.ra_array = np.asarray(ra, dtype=float)
