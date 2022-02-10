@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -216,7 +216,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PolynomialPropagationEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">obs_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Instantiation of the propagation engine.</span>
 
@@ -270,8 +270,8 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">__polynomial_function</span><span class="p">(</span>
-        <span class="n">x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">c0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">c1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">c2</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">c0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">c1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">c2</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The polynomial function that will be used.</span>
 
 <span class="sd">        This function is hard coded to be a specific order on purpose. The</span>
@@ -301,8 +301,8 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__fit_polynomial_function</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">fit_x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">fit_y</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]:</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">fit_x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">fit_y</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;A wrapper class for fitting the defined specific polynomial function.</span>
 
 <span class="sd">        Parameters</span>
@@ -341,8 +341,8 @@
         <span class="k">return</span> <span class="n">fit_param</span><span class="p">,</span> <span class="n">fit_error</span>
 
 <div class="viewcode-block" id="PolynomialPropagationEngine.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Determine a new location(s) based on the polynomial propagation,</span>
 <span class="sd">        providing new times to locate in the future.</span>
 

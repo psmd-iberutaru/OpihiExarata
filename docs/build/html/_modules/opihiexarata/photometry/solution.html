@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -186,7 +186,6 @@
   <h1>Source code for opihiexarata.photometry.solution</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;The general photometric solver.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">ap_coord</span>
 <span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -256,7 +255,7 @@
 <span class="sd">        fits_filename : string</span>
 <span class="sd">            The path of the fits file that contains the data for the astrometric</span>
 <span class="sd">            solution.</span>
-<span class="sd">        solver_engine : PhotometryEngine subclass</span>
+<span class="sd">        solver_engine : PhotometryEngine</span>
 <span class="sd">            The photometric solver engine class. This is what will act as the</span>
 <span class="sd">            &quot;behind the scenes&quot; and solve the field, using this middlewhere to</span>
 <span class="sd">            translate it into something that is easier.</span>
@@ -505,7 +504,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">intersection_table</span>
 
-    <span class="k">def</span> <span class="nf">__calculate_sky_counts_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__calculate_sky_counts_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Calculate a mask which blocks out all but the sky for sky counts</span>
 <span class="sd">        determination.</span>
 
@@ -784,7 +783,7 @@
 <span class="sd">    radius : float</span>
 <span class="sd">        The search radius from the center that defines the search area.</span>
 
-<span class="sd">    Retruns</span>
+<span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    photo_star_table : Table</span>
 <span class="sd">        The photometric star table as found from the query.</span>

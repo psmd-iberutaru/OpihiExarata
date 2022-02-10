@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution module &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.photometry.solution module &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -340,7 +340,7 @@ many stars.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fits_filename</strong> (<em>string</em>) – The path of the fits file that contains the data for the astrometric
 solution.</p></li>
-<li><p><strong>solver_engine</strong> (<em>PhotometryEngine subclass</em>) – The photometric solver engine class. This is what will act as the
+<li><p><strong>solver_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><em>PhotometryEngine</em></a>) – The photometric solver engine class. This is what will act as the
 “behind the scenes” and solve the field, using this middlewhere to
 translate it into something that is easier.</p></li>
 <li><p><strong>astrometrics</strong> (<a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><em>AstrometricSolution</em></a><em>, </em><em>default = None</em>) – A precomputed astrometric solution which belongs to this image.</p></li>
@@ -450,10 +450,13 @@ in degrees.</p></li>
 <li><p><strong>dec</strong> (<em>float</em>) – The declination of the center of the area to extract from,
 in degrees.</p></li>
 <li><p><strong>radius</strong> (<em>float</em>) – The search radius from the center that defines the search area.</p></li>
-<li><p><strong>Retruns</strong> – </p></li>
-<li><p><strong>-------</strong> – </p></li>
-<li><p><strong>photo_star_table</strong> (<em>Table</em>) – The photometric star table as found from the query.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>photo_star_table</strong> – The photometric star table as found from the query.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
 </dd>
 </dl>
 </dd></dl>

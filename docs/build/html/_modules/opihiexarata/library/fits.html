@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.fits &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.library.fits &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -229,7 +229,7 @@
 
 <div class="viewcode-block" id="read_fits_image_file"><a class="viewcode-back" href="../../../code/opihiexarata.library.fits.html#opihiexarata.library.fits.read_fits_image_file">[docs]</a><span class="k">def</span> <span class="nf">read_fits_image_file</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;This reads fits files, assuming that the fits file is an image. It is a</span>
 <span class="sd">    wrapper function around the astropy functions.</span>
 
@@ -297,7 +297,7 @@
 
 
 <div class="viewcode-block" id="write_fits_image_file"><a class="viewcode-back" href="../../../code/opihiexarata.library.fits.html#opihiexarata.library.fits.write_fits_image_file">[docs]</a><span class="k">def</span> <span class="nf">write_fits_image_file</span><span class="p">(</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This writes fits image files to disk. Acting as a wrapper around the</span>
 <span class="sd">    fits functionality of astropy.</span>

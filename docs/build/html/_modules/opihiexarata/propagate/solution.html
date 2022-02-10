@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -246,8 +246,8 @@
 
 <div class="viewcode-block" id="PropagationSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
-        <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
         <span class="n">obs_time</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">,</span>
     <span class="p">):</span>
@@ -267,6 +267,10 @@
 <span class="sd">        solver_engine : PropagationEngine</span>
 <span class="sd">            The propagation solver engine class that will be used to compute</span>
 <span class="sd">            the propagation solution.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Saving the sent values.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -336,7 +340,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">r_dc_a</span></div>
 
 <div class="viewcode-block" id="PropagationSolution._compute_raw_motion"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution._compute_raw_motion">[docs]</a>    <span class="k">def</span> <span class="nf">_compute_raw_motion</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">ra_array</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">,</span> <span class="n">obs_time_array</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Compute the raw velocities and accelerations of RA and DEC.</span>
 
@@ -395,8 +402,8 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="PropagationSolution.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;A wrapper call around the engine&#39;s propagation function. This</span>
 <span class="sd">        allows the computation of future positions at a future time using</span>
 <span class="sd">        propagation.</span>
@@ -421,7 +428,7 @@
 
 
 <div class="viewcode-block" id="_vehicle_polynomial_propagation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution._vehicle_polynomial_propagation">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_polynomial_propagation</span><span class="p">(</span>
-    <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
+    <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Derive the propagation from polynomial extrapolation methods.</span>
 

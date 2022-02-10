@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.image &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.library.image &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -196,8 +196,8 @@
 
 
 <div class="viewcode-block" id="slice_array_boundary"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.slice_array_boundary">[docs]</a><span class="k">def</span> <span class="nf">slice_array_boundary</span><span class="p">(</span>
-    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">:</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Slice an image array such that it stops at the boundaries and does not</span>
 <span class="sd">    exceed past it. This function basically handels runtime slicing, but it</span>
 <span class="sd">    returns a copy.</span>
@@ -240,12 +240,12 @@
 
 
 <div class="viewcode-block" id="scale_image_array"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.scale_image_array">[docs]</a><span class="k">def</span> <span class="nf">scale_image_array</span><span class="p">(</span>
-    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
     <span class="n">minimum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">maximum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">lower_percent_cut</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">upper_percent_cut</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This function scales the array to the provided minimum and maximum</span>
 <span class="sd">    ranges after the percentile masks are taken.</span>
 
@@ -304,8 +304,8 @@
 
 
 <div class="viewcode-block" id="create_circular_mask"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.create_circular_mask">[docs]</a><span class="k">def</span> <span class="nf">create_circular_mask</span><span class="p">(</span>
-    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">center_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">center_y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">:</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">center_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">center_y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Creates an array which is a circular mask of some radius centered at a</span>
 <span class="sd">    custom index value location. This process is a little intensive so using</span>
 <span class="sd">    smaller subsets of arrays are preferred.</span>
@@ -370,7 +370,7 @@
 
 
 <div class="viewcode-block" id="save_array_as_png_grayscale"><a class="viewcode-back" href="../../../code/opihiexarata.library.image.html#opihiexarata.library.image.save_array_as_png_grayscale">[docs]</a><span class="k">def</span> <span class="nf">save_array_as_png_grayscale</span><span class="p">(</span>
-    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This converts an array to a grayscale PNG file.</span>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2022.2.8 documentation</title>
+  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2022.2.9 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -717,7 +717,7 @@
         <span class="c1"># they are circular quantities. See https://en.wikipedia.org/wiki/Circular_mean</span>
         <span class="c1"># Wrapper functions make it easy to implement with error propagation.</span>
         <span class="k">def</span> <span class="nf">_average_angle</span><span class="p">(</span>
-            <span class="n">ang</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
+            <span class="n">ang</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of angles in degrees.&quot;&quot;&quot;</span>
             <span class="c1"># Numpy trigonometric functions use radians.</span>
@@ -738,7 +738,7 @@
             <span class="k">return</span> <span class="n">circ_mean</span><span class="p">,</span> <span class="n">lin_error</span>
 
         <span class="k">def</span> <span class="nf">_average_linear</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ArrayLike</span>
+            <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of standard linear points.&quot;&quot;&quot;</span>
             <span class="c1"># Linear median; sometimes orbfit throws out some weird answers.</span>
