@@ -22,8 +22,7 @@ DEPENDENCIES = [
     "numpy",
     "pyyaml",
     "pillow",
-    "PySimpleGUIQt",
-    "PyQt5",
+    "PyQt6",
     "requests",
     "scipy",
 ]
@@ -84,7 +83,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
-    package_data={"": ["*.yaml"]},
+    package_data={"": ["*.yaml", "*.ui"]},
     packages=setuptools.find_packages(where="src"),
     install_requires=DEPENDENCIES,
     python_requires=">=3.6",
