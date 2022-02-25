@@ -5,6 +5,7 @@ import opihiexarata.astrometry as astrometry
 import opihiexarata.gui as gui
 import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
+import opihiexarata.propagate as propagate
 
 # Load the default configuration parameters. The user's configurations should
 # overwrite these when supplied.

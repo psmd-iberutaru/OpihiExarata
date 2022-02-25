@@ -1,14 +1,14 @@
 """The general photometric solver."""
 
-import astropy.coordinates as ap_coord
 import astropy.table as ap_table
 import numpy as np
 
-import opihiexarata.astrometry as astrometry
-import opihiexarata.photometry as photometry
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
+
+import opihiexarata.astrometry as astrometry
+import opihiexarata.photometry as photometry
 
 
 class PhotometricSolution(hint.ExarataSolution):
@@ -69,7 +69,7 @@ class PhotometricSolution(hint.ExarataSolution):
         fits_filename : string
             The path of the fits file that contains the data for the astrometric
             solution.
-        solver_engine : PhotometryEngine subclass
+        solver_engine : PhotometryEngine
             The photometric solver engine class. This is what will act as the
             "behind the scenes" and solve the field, using this middlewhere to
             translate it into something that is easier.
@@ -284,7 +284,7 @@ class PhotometricSolution(hint.ExarataSolution):
             ra_diff = _sgn_ang_diff(a=ra_astro_row, b=ra_phototable)
             dec_diff = _sgn_ang_diff(a=dec_astro_row, b=dec_phototable)
             # Finding minimum separation.
-            separations = np.sqrt(ra_diff ** 2 + dec_diff ** 2)
+            separations = np.sqrt(ra_diff**2 + dec_diff**2)
             minimum_separation_index = np.nanargmin(separations)
             minimum_separation = separations[minimum_separation_index]
 
@@ -318,7 +318,7 @@ class PhotometricSolution(hint.ExarataSolution):
         # All done.
         return intersection_table
 
-    def __calculate_sky_counts_mask(self) -> hint.ArrayLike:
+    def __calculate_sky_counts_mask(self) -> hint.array:
         """Calculate a mask which blocks out all but the sky for sky counts
         determination.
 
@@ -597,7 +597,7 @@ def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hin
     radius : float
         The search radius from the center that defines the search area.
 
-    Retruns
+    Returns
     -------
     photo_star_table : Table
         The photometric star table as found from the query.

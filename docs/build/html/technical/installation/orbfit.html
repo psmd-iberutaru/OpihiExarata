@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install: Orbfit &mdash; OpihiExarata 2022.2.9 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Algorithms" href="../algorithms/index.html" />
+    <link rel="prev" title="Optional: Windows Compatibility" href="windows.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technical Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Technical Manual</a> &raquo;</li>
+          <li><a href="index.html">Installation</a> &raquo;</li>
+      <li>Install: Orbfit</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/technical/installation/orbfit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="install-orbfit">
+<h1>Install: Orbfit<a class="headerlink" href="#install-orbfit" title="Permalink to this headline"></a></h1>
+<p>Orbfit is one of the available asteroid orbit determiners.</p>
+<p>The instructions of installing Orbfit is derived from the
+<a class="reference external" href="http://adams.dm.unipi.it/~orbmaint/orbfit/OrbFit/doc/help.html#install">Orbfit installation documentation</a>.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<p>There are a few prerequisites before the software can be installed.</p>
+<section id="directory">
+<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this headline"></a></h3>
+<p>Enter into a directory which is accessible and usable by programs. In this documentation,
+we will call this directory <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>. You should do the commands of this section of
+the installation documentation within this directory.</p>
+</section>
+<section id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
+<p>The following dependencies should be installed. The installation of these are dependent
+on the package manager and operating system used.</p>
+<p>For APT-based systems:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">curl</span> <span class="n">time</span>
+</pre></div>
+</div>
+<p>For YUM, DNF, or Zypper based systems:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">curl</span> <span class="n">time</span>
+</pre></div>
+</div>
+</section>
+<section id="fortran-compiler">
+<h3>Fortran Compiler<a class="headerlink" href="#fortran-compiler" title="Permalink to this headline"></a></h3>
+<p>A Fortran compiler is needed to compile the software. Although there are many different
+compilers available, we document here how to use the Intel Fortran compiler. The method
+of install is OS dependent, or more specifically, package manager dependent. Other
+installation method exist, see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top/installation.html">Intel Fortran compiler install</a> for more information
+(these instructions were derived from it).</p>
+<section id="install">
+<h4>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h4>
+<p>Using package managers to install is the most convenient.</p>
+<section id="apt-package-managers">
+<h5>APT Package Managers<a class="headerlink" href="#apt-package-managers" title="Permalink to this headline"></a></h5>
+<p>Download the Intel repository to the system keyring:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Downloading key...</span>
+<span class="n">wget</span> <span class="o">-</span><span class="n">O</span><span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">apt</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">intel</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">intel</span><span class="o">-</span><span class="n">gpg</span><span class="o">-</span><span class="n">keys</span><span class="o">/</span><span class="n">GPG</span><span class="o">-</span><span class="n">PUB</span><span class="o">-</span><span class="n">KEY</span><span class="o">-</span><span class="n">INTEL</span><span class="o">-</span><span class="n">SW</span><span class="o">-</span><span class="n">PRODUCTS</span><span class="o">.</span><span class="n">PUB</span> \
+<span class="o">|</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">oneapi</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="c1"># Adding signed entry...</span>
+<span class="n">echo</span> <span class="s2">&quot;deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">oneAPI</span><span class="o">.</span><span class="n">list</span>
+<span class="c1"># Update the repository list...</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+</pre></div>
+</div>
+<p>Install the Intel Fortran compiler, the base toolkit is also needed as a requirement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">basekit</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">hpckit</span>
+</pre></div>
+</div>
+<p>It is highly suggested to update or install the following toolchains:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">cmake</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
+</pre></div>
+</div>
+</section>
+<section id="yum-dnf-zypper-package-managers">
+<h5>YUM, DNF, Zypper Package Managers<a class="headerlink" href="#yum-dnf-zypper-package-managers" title="Permalink to this headline"></a></h5>
+<p>Download the Intel repository file and add it to the configuration directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Creating repository file...
+tee &gt; /tmp/oneAPI.repo &lt;&lt; EOF
+[oneAPI]
+name=Intel® oneAPI repository
+baseurl=https://yum.repos.intel.com/oneapi
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+EOF
+# Moving the file to the directory...
+sudo mv /tmp/oneAPI.repo /etc/yum.repos.d
+# Update the repository list...
+sudo yum update
+</pre></div>
+</div>
+<p>If you are using Zypper:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating repository file...</span>
+<span class="n">sudo</span> <span class="n">zypper</span> <span class="n">addrepo</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">intel</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">oneapi</span> <span class="n">oneAPI</span>
+<span class="n">rpm</span> <span class="o">--</span><span class="kn">import</span> <span class="nn">https</span><span class="p">:</span><span class="o">//</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">intel</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">intel</span><span class="o">-</span><span class="n">gpg</span><span class="o">-</span><span class="n">keys</span><span class="o">/</span><span class="n">GPG</span><span class="o">-</span><span class="n">PUB</span><span class="o">-</span><span class="n">KEY</span><span class="o">-</span><span class="n">INTEL</span><span class="o">-</span><span class="n">SW</span><span class="o">-</span><span class="n">PRODUCTS</span><span class="o">.</span><span class="n">PUB</span>
+<span class="c1"># Update the repository list...</span>
+<span class="n">sudo</span> <span class="n">zypper</span> <span class="n">update</span>
+</pre></div>
+</div>
+<p>Install the Intel Fortran compiler, the base toolkit is also needed as a requirement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">basekit</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">hpckit</span>
+</pre></div>
+</div>
+<p>It is highly suggested to update or install the following toolchains:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">cmake</span> <span class="n">pkgconfig</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">groupinstall</span> <span class="s2">&quot;Development Tools&quot;</span>
+</pre></div>
+</div>
+<p>For Zypper, both is done via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">zypper</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">basekit</span>
+<span class="n">sudo</span> <span class="n">zypper</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">hpckit</span>
+<span class="n">sudo</span> <span class="n">zypper</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">zypper</span> <span class="n">install</span> <span class="n">cmake</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span>
+<span class="n">sudo</span> <span class="n">zypper</span> <span class="n">install</span> <span class="n">pattern</span> <span class="n">devel_C_C</span><span class="o">++</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="environment-variables">
+<h4>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline"></a></h4>
+<p>Set the environment variables for command-line development. This command sets the variables for the current session only. (For persistent environment variable set up, consider adding it to your startup script.):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">oneapi</span><span class="o">/</span><span class="n">setvars</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="download-orbfit">
+<h2>Download OrbFit<a class="headerlink" href="#download-orbfit" title="Permalink to this headline"></a></h2>
+<p>The software needs to be downloaded.</p>
+<p>You can likely find the software package on the <a class="reference external" href="http://adams.dm.unipi.it/orbfit/">OrbFit website</a>. Otherwise, a download
+command may work:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">adams</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">unipi</span><span class="o">.</span><span class="n">it</span><span class="o">/</span><span class="n">orbfit</span><span class="o">/</span><span class="n">OrbFit5</span><span class="mf">.0.7</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>And it can thus be extracted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvzf</span> <span class="n">OrbFit5</span><span class="mf">.0.7</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</section>
+<section id="compile">
+<h2>Compile<a class="headerlink" href="#compile" title="Permalink to this headline"></a></h2>
+<p>To configure the compilation flags, OrbFit comes with a set of files which describe the
+flags. Initialize the proper compilation flags via the <code class="docutils literal notranslate"><span class="pre">config</span></code> command, (flags for an
+optimized build using the Intel compiler):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">config</span> <span class="o">-</span><span class="n">O</span> <span class="n">intel</span>
+</pre></div>
+</div>
+<p>The generated compilation flags, however, needs to be changed. The generated compilation flags can be found in the file <code class="docutils literal notranslate"><span class="pre">Orbfit/src/make.flags</span></code>, as generated by the <code class="docutils literal notranslate"><span class="pre">config</span></code> script. The options should be (see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/fortran-compiler-oneapi-dev-guide-and-reference/top/compiler-reference/compiler-options/alphabetical-list-of-compiler-options.html">Intel Fortran compiler options</a> for more information):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FFLAGS</span><span class="o">=</span> <span class="o">-</span><span class="n">warn</span> <span class="n">nousage</span> <span class="o">-</span><span class="n">O</span> <span class="o">-</span><span class="n">mp1</span> <span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">intel</span> <span class="o">-</span><span class="n">save</span> <span class="o">-</span><span class="n">assume</span> <span class="n">byterecl</span> <span class="o">-</span><span class="n">I</span><span class="o">../</span><span class="n">include</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You make use the default compilation flags as well; the change to the flags just
+allows the program to run with the Intel Fortran libraries statically compiled
+with the program rather than linked in. This alleviates the need for always needing
+to set up the environment variables whenever OrbFit is run. The changing memory model
+does not seem to affect the orbit determination part of the program.</p>
+</div>
+<p>Finally the program can be compiled using the makefile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span>
+</pre></div>
+</div>
+<p>The compiled programs should exist in <code class="docutils literal notranslate"><span class="pre">Orbfit/bin/</span></code>.</p>
+</section>
+<section id="download-jpl-ephemerides-file">
+<h2>Download JPL Ephemerides File<a class="headerlink" href="#download-jpl-ephemerides-file" title="Permalink to this headline"></a></h2>
+<p>The OrbFit package uses the JPL ephemerides file for its calculations, it requires the binary ephemerides files. Current documentation suggests using the 405 ephemerides set, but more updated sets (DE ) also exist. For Linux, precomputed binaries can be found at <a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a> and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
+<p>For DE405:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ssd</span><span class="o">.</span><span class="n">jpl</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">eph</span><span class="o">/</span><span class="n">planets</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">de405</span><span class="o">/</span><span class="n">lnxp1600p2200</span><span class="mf">.405</span>
+</pre></div>
+</div>
+<p>For DE440 (used in this documentation):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ssd</span><span class="o">.</span><span class="n">jpl</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">eph</span><span class="o">/</span><span class="n">planets</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">de440</span><span class="o">/</span><span class="n">linux_p1550p2650</span><span class="mf">.440</span>
+</pre></div>
+</div>
+<p>The downloaded binary ephemerides file must be linked so that the OrbFit program can properly utilize it; using a symbolic link in the <code class="docutils literal notranslate"><span class="pre">Orbfit/lib/</span></code> directory, and assuming the DE440 file was downloaded (the command below should be changed to fit your file):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">lib</span><span class="o">/</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">./../</span><span class="n">linux_p1550p2650</span><span class="mf">.440</span> <span class="n">jpleph</span>
+<span class="c1"># Back to Orbfit/.</span>
+<span class="n">cd</span> <span class="o">..</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-suite">
+<h2>Testing Suite<a class="headerlink" href="#testing-suite" title="Permalink to this headline"></a></h2>
+<p>The software’s test suit can be executed from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">tests</span>
+</pre></div>
+</div>
+<p>This ensures that the program has been installed correctly.</p>
+</section>
+<section id="executable-path-for-configuration-file">
+<h2>Executable Path for Configuration File<a class="headerlink" href="#executable-path-for-configuration-file" title="Permalink to this headline"></a></h2>
+<p>For this program’s executables to be used, the path that they exist in must be known to
+OpihiExarata. Copy the output of the working directory command and add it to the
+configuration file’s entries as noted. The path should be an absolute path; these
+commands should be run in the <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span>
+<span class="n">cd</span> <span class="o">./</span><span class="nb">bin</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span><span class="p">;</span> <span class="n">cd</span> <span class="o">..</span>
+</pre></div>
+</div>
+<p>If your main operating system is Windows and you are installing this via WSL Ubuntu,
+use the following instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd .; echo &quot;ORBFIT_DIRECTORY ==&quot;; echo &quot;\\\\wsl$/Ubuntu&quot;$(pwd)
+cd ./bin; echo &quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;; pwd; cd ..
+</pre></div>
+</div>
+</section>
+<section id="opihiexarata-template-files">
+<h2>OpihiExarata Template Files<a class="headerlink" href="#opihiexarata-template-files" title="Permalink to this headline"></a></h2>
+<p>In order for OpihiExarata to properly use the OrbFit program, files which are used by
+OrbFit must be collected for OpihiExarata to leverage.</p>
+<p>Create and enter the directory (starting from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">exarata</span><span class="p">;</span> <span class="n">cd</span> <span class="n">exarata</span>
+</pre></div>
+</div>
+<p>Within the <code class="docutils literal notranslate"><span class="pre">Orbfit/exarata/</span></code> directory, copy over the asteroid propagation files. This
+contains ephemerides data for asteroids to better propagations. Generally, these files
+can be found in <code class="docutils literal notranslate"><span class="pre">Orbfit/tests/bineph/testout</span></code>. For some reason, the file extensions on
+these files are not in a form which is liked by Orbfit, so they are also changed. Namely,
+the commands below should work:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copying the files...</span>
+<span class="n">cp</span> <span class="o">./../</span><span class="n">tests</span><span class="o">/</span><span class="n">bineph</span><span class="o">/</span><span class="n">testout</span><span class="o">/</span><span class="n">AST17</span><span class="o">.*</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="o">./../</span><span class="n">tests</span><span class="o">/</span><span class="n">bineph</span><span class="o">/</span><span class="n">testout</span><span class="o">/</span><span class="n">CPV</span><span class="o">.*</span> <span class="o">.</span>
+<span class="c1"># Extension changes...</span>
+<span class="n">mv</span> <span class="n">AST17</span><span class="o">.</span><span class="n">bai_431_fcct</span> <span class="n">AST17</span><span class="o">.</span><span class="n">bai</span>
+<span class="n">mv</span> <span class="n">AST17</span><span class="o">.</span><span class="n">bep_431_fcct</span> <span class="n">AST17</span><span class="o">.</span><span class="n">bep</span>
+<span class="n">mv</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bai_431_fcct</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bai</span>
+<span class="n">mv</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bep_431_fcct</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bep</span>
+<span class="n">mv</span> <span class="n">CPV_iter</span><span class="o">.</span><span class="n">bop</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bop</span>
+</pre></div>
+</div>
+<p>Also, create the files which are to be used to input data into Orbfit from OpihiExarata. The main file that needs to be created is <code class="docutils literal notranslate"><span class="pre">exarata.oop</span></code>. Create it with your favorite text editor and fill the file and save it with the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! First object
+object1.
+    .name = exarata        ! Object name
+    .obs_dir = &#39;.&#39;         ! Observations directory
+
+! Elements output
+output.
+    .epoch = CAL 2022/01/01  00:00:00 UTC  ! The epoch time of the orbit
+    .elements = &#39;KEP&#39;                      ! Kepler output elements
+
+! Operations: preliminary orbits, differential corrections, identification
+operations.
+    .init_orbdet = 1    ! Initial orbit determination
+                        ! (0 = no, 1 = yes)
+    .diffcor = 1        ! Differential correction
+                        ! (0 = no, 1 = yes)
+    .ident = 0          ! Orbit identification
+                        ! (0 = no, 1 = yes)
+    .ephem = 0          ! Ephemerides
+                        ! (0 = no, 1 = yes)
+
+! Error model
+error_model.
+    .name=&#39;fcct14&#39;      ! Error model
+
+! Propagation
+propag.
+
+    .iast=17         ! 0=no asteroids with mass, n=no. of massive asteroids (def=0)
+    .filbe=&#39;AST17&#39;   ! name of the asteroid ephemerides file (def=&#39;CPV&#39;)
+    .npoint=600      ! minimum number of data points for a deep close appr (def=100)
+    .dmea=0.2d0      ! min. distance for ctrl. of close-app. to Earth only (def=0.1)
+        .dter=0.05d0    ! min. distance for control of close-app.
+                        ! to terrestrial planets (MVM)(def=0.1)
+
+! Additional options
+IERS.
+    .extrapolation=.T.  ! extrapolation of Earth rotation
+
+reject.
+    .rejopp=.FALSE.     ! reject entire opposition
+</pre></div>
+</div>
+<p>The other two files you can create with the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;exarata&quot;</span> <span class="o">&gt;</span> <span class="n">exarata</span><span class="o">.</span><span class="n">inp</span>
+<span class="n">touch</span> <span class="n">exarata</span><span class="o">.</span><span class="n">obs</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OpihiExarata will check that these three files exist as a check to see that these
+steps have been followed correctly. It is also a way to ensure that the configuration
+paths provided in the configuration are valid and point to the right location.)</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="windows.html" class="btn btn-neutral float-left" title="Optional: Windows Compatibility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../algorithms/index.html" class="btn btn-neutral float-right" title="Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

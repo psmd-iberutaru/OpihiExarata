@@ -3,10 +3,11 @@
 import time
 import astropy.coordinates as ap_coordinates
 
-import opihiexarata.astrometry as astrometry
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
+
+import opihiexarata.astrometry as astrometry
 
 
 class AstrometricSolution(hint.ExarataSolution):
@@ -52,7 +53,7 @@ class AstrometricSolution(hint.ExarataSolution):
     """
 
     def __init__(
-        self, fits_filename: str, solver_engine: type[hint.AstrometryEngine]
+        self, fits_filename: str, solver_engine: hint.AstrometryEngine
     ) -> None:
         """Solving the astrometry via the image provided. The engine class must
         also be provided.
@@ -62,7 +63,7 @@ class AstrometricSolution(hint.ExarataSolution):
         fits_filename : string
             The path of the fits file that contains the data for the astrometric
             solution.
-        solver_engine : AstrometryEngine subclass
+        solver_engine : AstrometryEngine
             The astrometric solver engine class. This is what will act as the
             "behind the scenes" and solve the field, using this middleware to
             translate it into something that is easier.

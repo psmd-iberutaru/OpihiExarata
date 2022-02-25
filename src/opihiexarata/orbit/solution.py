@@ -3,10 +3,12 @@
 import numpy as np
 import scipy.optimize as sp_optimize
 
-import opihiexarata.orbit as orbit
+
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
+
+import opihiexarata.orbit as orbit
 
 
 class OrbitSolution(hint.ExarataSolution):
@@ -52,7 +54,7 @@ class OrbitSolution(hint.ExarataSolution):
     """
 
     def __init__(
-        self, observation_record: list[str], solver_engine: type[hint.OrbitEngine]
+        self, observation_record: list[str], solver_engine: hint.OrbitEngine
     ) -> None:
         """The initialization function. Provided the list of observations,
         solves the orbit for the Keplarian orbits.
@@ -65,7 +67,7 @@ class OrbitSolution(hint.ExarataSolution):
         observation_record : list
             A list of the standard MPC 80-column observation records. Each
             element of the list should be a string representing the observation.
-        solver_engine : OrbitEngine subclass
+        solver_engine : OrbitEngine
             The engine which will be used to complete the orbital elements
             from the observation record.
 
@@ -86,13 +88,13 @@ class OrbitSolution(hint.ExarataSolution):
         else:
             raise error.EngineError(
                 "The provided orbit engine is not a valid engine which can be"
-                " used for astrometric solutions."
+                " used for orbit solutions."
             )
 
         # Derive the orbital elements using the proper vehicle function for
         # the desired engine is that is to be used.
         if issubclass(solver_engine, orbit.OrbfitOrbitDeterminerEngine):
-            # Solve using the API.
+            # Solve using Orbfit.
             raw_orbit_results = _vehicle_orbfit_orbit_determiner(
                 observation_record=observation_record
             )

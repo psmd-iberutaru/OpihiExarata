@@ -10,8 +10,8 @@ import opihiexarata.library.hint as hint
 
 
 def slice_array_boundary(
-    array: hint.ArrayLike, x_min: int, x_max: int, y_min: int, y_max: int
-) -> hint.ArrayLike:
+    array: hint.array, x_min: int, x_max: int, y_min: int, y_max: int
+) -> hint.array:
     """Slice an image array such that it stops at the boundaries and does not
     exceed past it. This function basically handels runtime slicing, but it
     returns a copy.
@@ -54,12 +54,12 @@ def slice_array_boundary(
 
 
 def scale_image_array(
-    array: hint.ArrayLike,
+    array: hint.array,
     minimum: float,
     maximum: float,
     lower_percent_cut: float = 0,
     upper_percent_cut: float = 0,
-) -> hint.ArrayLike:
+) -> hint.array:
     """This function scales the array to the provided minimum and maximum
     ranges after the percentile masks are taken.
 
@@ -118,8 +118,8 @@ def scale_image_array(
 
 
 def create_circular_mask(
-    array: hint.ArrayLike, center_x: int, center_y: int, radius: float
-) -> hint.ArrayLike:
+    array: hint.array, center_x: int, center_y: int, radius: float
+) -> hint.array:
     """Creates an array which is a circular mask of some radius centered at a
     custom index value location. This process is a little intensive so using
     smaller subsets of arrays are preferred.
@@ -158,7 +158,7 @@ def create_circular_mask(
     near_center_y = near_n_cols // 2
     grid_y, grid_x = np.ogrid[:near_n_rows, :near_n_cols]
     dist_sq = (grid_x - near_center_x) ** 2 + (grid_y - near_center_y) ** 2
-    near_mask = dist_sq <= radius ** 2
+    near_mask = dist_sq <= radius**2
 
     # The circular mask is local and should be expanded to the full array's
     # size. Padding is needed in the event that the center pixel is on the
@@ -184,7 +184,7 @@ def create_circular_mask(
 
 
 def save_array_as_png_grayscale(
-    array: hint.ArrayLike, filename: str, overwrite: bool = False
+    array: hint.array, filename: str, overwrite: bool = False
 ) -> None:
     """This converts an array to a grayscale PNG file.
 

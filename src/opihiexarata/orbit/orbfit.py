@@ -530,9 +530,7 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
         # The mean of the parameters. The angles needs to be treated differently as
         # they are circular quantities. See https://en.wikipedia.org/wiki/Circular_mean
         # Wrapper functions make it easy to implement with error propagation.
-        def _average_angle(
-            ang: hint.ArrayLike, err: hint.ArrayLike
-        ) -> tuple[float, float]:
+        def _average_angle(ang: hint.array, err: hint.array) -> tuple[float, float]:
             """Finds the average and the propagated error of angles in degrees."""
             # Numpy trigonometric functions use radians.
             angles_rad = ang * (np.pi / 180)
@@ -547,18 +545,16 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
             # should be positive.
             circ_mean = (circ_mean + 360) % 360
             # Linear errors are used because of a lack of a better method.
-            lin_error = np.sqrt(np.sum(err ** 2)) / err.size
+            lin_error = np.sqrt(np.sum(err**2)) / err.size
             # Done.
             return circ_mean, lin_error
 
-        def _average_linear(
-            data: hint.ArrayLike, err: hint.ArrayLike
-        ) -> tuple[float, float]:
+        def _average_linear(data: hint.array, err: hint.array) -> tuple[float, float]:
             """Finds the average and the propagated error of standard linear points."""
             # Linear median; sometimes orbfit throws out some weird answers.
             lin_mean = np.median(data)
             # Linear error propagation.
-            lin_error = np.sqrt(np.sum(err ** 2)) / err.size
+            lin_error = np.sqrt(np.sum(err**2)) / err.size
             # Done.
             return lin_mean, lin_error
 

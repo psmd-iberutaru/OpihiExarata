@@ -43,7 +43,7 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
 
 def read_fits_image_file(
     filename: str, extension: hint.Union[int, str] = 0
-) -> tuple[hint.Header, hint.ArrayLike]:
+) -> tuple[hint.Header, hint.array]:
     """This reads fits files, assuming that the fits file is an image. It is a
     wrapper function around the astropy functions.
 
@@ -111,7 +111,7 @@ def read_fits_table_file(
 
 
 def write_fits_image_file(
-    filename: str, header: hint.Header, data: hint.ArrayLike, overwrite: bool = False
+    filename: str, header: hint.Header, data: hint.array, overwrite: bool = False
 ) -> None:
     """This writes fits image files to disk. Acting as a wrapper around the
     fits functionality of astropy.

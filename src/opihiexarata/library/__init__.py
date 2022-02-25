@@ -1,6 +1,7 @@
 """Common routines which are important functions of Exarata."""
 
 import opihiexarata.library.config as config
+import opihiexarata.library.conversion as conversion
 import opihiexarata.library.engine as engine
 import opihiexarata.library.error as error
 import opihiexarata.library.fits as fits
