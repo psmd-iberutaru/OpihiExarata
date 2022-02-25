@@ -1,73 +1,122 @@
+"""
+The primary GUI window.
+"""
+
+import PyQt6 as PyQt
+from PyQt6 import QtCore, QtWidgets, QtGui
+
+import sys
+import random
+
+import matplotlib.figure as mpl_figure
+# Using Qt backends.
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+
+
+import opihiexarata.library as library
+import opihiexarata.library.error as error
+import opihiexarata.library.hint as hint
+import opihiexarata.gui as gui
+
+class OpihiPrimaryWindow(QtWidgets.QMainWindow):
+
+    def __init__(self):
+        """The primary GUI window for OpihiExarata. This interacts directly 
+        with the total solution object of Opihi.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Creating the GUI itself using the Qt framework and the converted
+        # Qt designer files.s
+        super(OpihiPrimaryWindow, self).__init__()
+        self.ui = gui.qtui.Ui_PrimaryWindow()
+        self.ui.setupUi(self)
+
+        # Preparing the image area for Opihi sky images.
+        self.__init_opihi_image()
+
+    def __init_opihi_image(self):
+        """Create the image area which will display what Opihi took from the 
+        sky. This takes advantage of a reserved image vertical layout in the 
+        design of the window.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # The figure, canvas, and navigation toolbar of the image plot 
+        # using a Matplotlib Qt widget backend. We will add these to the 
+        # layout later.
+        self._opihi_figure = mpl_figure.Figure()
+        self._opihi_canvas = FigureCanvas(self._opihi_figure)
+        self._opihi_nav_toolbar = NavigationToolbar(self._opihi_canvas, self)
+
+        # Just some button connected to `plot` method
+        self.button = QtWidgets.QPushButton('Plot')
+        self.button.clicked.connect(self.update_opihi_image)
+
+        # Setting the layout, it is likely better to have the toolbar below 
+        # rather than above to avoid conflicts with the reset buttons in the 
+        # event of a misclick.
+        self.ui.image_vertical_layout.addWidget(self._opihi_canvas)
+        self.ui.image_vertical_layout.addWidget(self._opihi_nav_toolbar)
+        self.ui.image_vertical_layout.addWidget(self.button)
+        return None
+
+    def update_opihi_image(self):
+        """Update the Opihi image given that new results may have been added
+        because some solutions were completed. This modifies the GUI in-place.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # random data
+        data = [random.random() for i in range(10)]
+
+        # instead of ax.hold(False)
+        self._opihi_figure.clear()
+
+        # create an axis
+        ax = self._opihi_figure.add_subplot(111)
+
+        # discards the old graph
+        # ax.hold(False) # deprecated, see above
+
+        # plot data
+        ax.plot(data, '*-')
+
+        # A tight layout to improve realestate efficiency.
+        self._opihi_figure.tight_layout()
+        # Update and redraw the image via redrawing the canvas.
+        self._opihi_canvas.draw()
+        return None
+
+
+
+def main():
+    app = QtWidgets.QApplication([])
+
+    application = OpihiPrimaryWindow()
+
+    application.show()
+
+    sys.exit(app.exec())
+
 if __name__ == "__main__":
-    import PySimpleGUIQt as sg
-
-    sg.theme("DarkAmber")  # Add a little color to your windows
-    # All the stuff inside your window. This is the PSG magic code compactor...
-    layout = [
-        [sg.Text("Some text on Row 1")],
-        [sg.Text("Enter something on Row 2"), sg.InputText(key="-input-")],
-        [sg.Button("Dome"), sg.Text("On", key="-dome-"), sg.Button("More")],
-        [sg.Graph((200, 200), (0, 0), (200, 200), enable_events=True, key="-grid-")],
-        [sg.OK(), sg.Cancel()],
-    ]
-
-    # Create the Window
-    window = sg.Window("Window Title", layout, finalize=True)
-
-    graph = window["-grid-"]
-    # graph.bind('<Button-3>', '+RIGHT+')
-
-    dome_state = True
-    true_timeout = None
-    # Event Loop to process "events"
-    while True:
-        event, values = window.read(timeout=1000)
-        print(event, "=", values)
-        if event in (sg.WIN_CLOSED, "Cancel"):
-            break
-        if event in "Dome":
-            dome_state = not dome_state
-            if dome_state:
-                window["-dome-"].update(background_color="blue")
-            else:
-                window["-dome-"].update(background_color="red")
-        if event in "More":
-            sg.popup("Annoy")
-        if event in "-grid-":
-            print(3)
-        print("running")
-
-    window.close()
-
-    import matplotlib.pyplot as plt
-    from matplotlib.patches import Rectangle
-
-    class Annotate(object):
-        def __init__(self):
-            self.ax = plt.gca()
-            self.rect = Rectangle((0, 0), 1, 1)
-            self.x0 = None
-            self.y0 = None
-            self.x1 = None
-            self.y1 = None
-            self.ax.add_patch(self.rect)
-            self.ax.figure.canvas.mpl_connect("button_press_event", self.on_press)
-            self.ax.figure.canvas.mpl_connect("button_release_event", self.on_release)
-
-        def on_press(self, event):
-            print("press")
-            self.x0 = event.xdata
-            self.y0 = event.ydata
-
-        def on_release(self, event):
-            print("release")
-            self.x1 = event.xdata
-            self.y1 = event.ydata
-            self.rect.set_width(self.x1 - self.x0)
-            self.rect.set_height(self.y1 - self.y0)
-            self.rect.set_xy((self.x0, self.y0))
-            self.ax.figure.canvas.draw()
-
-    a = Annotate()
-    plt.show()
-    print(a.x0, a.x1)
+    main()
