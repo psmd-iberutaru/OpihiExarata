@@ -158,7 +158,7 @@ def create_circular_mask(
     near_center_y = near_n_cols // 2
     grid_y, grid_x = np.ogrid[:near_n_rows, :near_n_cols]
     dist_sq = (grid_x - near_center_x) ** 2 + (grid_y - near_center_y) ** 2
-    near_mask = dist_sq <= radius ** 2
+    near_mask = dist_sq <= radius**2
 
     # The circular mask is local and should be expanded to the full array's
     # size. Padding is needed in the event that the center pixel is on the

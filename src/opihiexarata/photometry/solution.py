@@ -284,7 +284,7 @@ class PhotometricSolution(hint.ExarataSolution):
             ra_diff = _sgn_ang_diff(a=ra_astro_row, b=ra_phototable)
             dec_diff = _sgn_ang_diff(a=dec_astro_row, b=dec_phototable)
             # Finding minimum separation.
-            separations = np.sqrt(ra_diff ** 2 + dec_diff ** 2)
+            separations = np.sqrt(ra_diff**2 + dec_diff**2)
             minimum_separation_index = np.nanargmin(separations)
             minimum_separation = separations[minimum_separation_index]
 

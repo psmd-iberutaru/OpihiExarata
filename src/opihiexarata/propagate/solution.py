@@ -302,11 +302,11 @@ def _vehicle_polynomial_propagation(
     ra_velocity = (future_ra[-1] - future_ra[-2]) / delta_time
     ra_acceleration = (
         future_ra[-1] - 2 * future_ra[-2] + future_ra[-3]
-    ) / delta_time ** 2
+    ) / delta_time**2
     dec_velocity = (future_dec[-1] - future_dec[-2]) / delta_time
     dec_acceleration = (
         future_dec[-1] - 2 * future_dec[-2] + future_dec[-3]
-    ) / delta_time ** 2
+    ) / delta_time**2
     # The dictionary that holds the results.
     solution_results = {
         "propagation_function": propagation_function,

@@ -108,7 +108,7 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
             coefficients.
         """
         # Computing the polynomial
-        y = c0 + c1 * x ** 1 + c2 * x ** 2
+        y = c0 + c1 * x**1 + c2 * x**2
         return y
 
     @classmethod

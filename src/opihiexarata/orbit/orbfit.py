@@ -545,7 +545,7 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
             # should be positive.
             circ_mean = (circ_mean + 360) % 360
             # Linear errors are used because of a lack of a better method.
-            lin_error = np.sqrt(np.sum(err ** 2)) / err.size
+            lin_error = np.sqrt(np.sum(err**2)) / err.size
             # Done.
             return circ_mean, lin_error
 
@@ -554,7 +554,7 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
             # Linear median; sometimes orbfit throws out some weird answers.
             lin_mean = np.median(data)
             # Linear error propagation.
-            lin_error = np.sqrt(np.sum(err ** 2)) / err.size
+            lin_error = np.sqrt(np.sum(err**2)) / err.size
             # Done.
             return lin_mean, lin_error
 
