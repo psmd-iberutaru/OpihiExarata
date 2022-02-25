@@ -10,7 +10,7 @@ from PyQt6 import QtCore, QtWidgets, QtGui
 import sys
 import random
 
-import matplotlib.pyplot as plt
+import matplotlib.figure as mpl_figure
 # Using Qt backends.
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -24,11 +24,24 @@ import opihiexarata.gui as gui
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
-        super(MainWindow, self).__init__()
+        """The main GUI window for OpihiExarata. This interacts directly with
+        the total solution object of Opihi.
 
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Creating the GUI itself using the Qt framework and the converted
+        # Qt designer files.s
+        super(MainWindow, self).__init__()
         self.ui = gui.qtui.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()
 
     def __init_opihi_image(self):
@@ -47,7 +60,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # The figure, canvas, and navigation toolbar of the image plot 
         # using a Matplotlib Qt widget backend. We will add these to the 
         # layout later.
-        self._opihi_figure = plt.figure()
+        self._opihi_figure = mpl_figure.Figure()
         self._opihi_canvas = FigureCanvas(self._opihi_figure)
         self._opihi_nav_toolbar = NavigationToolbar(self._opihi_canvas, self)
 
