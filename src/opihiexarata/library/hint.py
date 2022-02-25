@@ -15,10 +15,11 @@ from astropy.table import Table, Row
 from astropy.wcs import WCS
 
 
-# Arrays. This is done because ArrayLike casts a rather larger union 
+# Arrays. This is done because ArrayLike casts a rather larger union
 # documentation.
 from numpy import ndarray
 from numpy.typing import ArrayLike, DTypeLike
+
 array = ndarray
 
 # Importing the engines and the solutions. It is important that all other
@@ -28,5 +29,3 @@ from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
 from opihiexarata.orbit.solution import OrbitSolution
 from opihiexarata.propagate import PropagationSolution
-
-

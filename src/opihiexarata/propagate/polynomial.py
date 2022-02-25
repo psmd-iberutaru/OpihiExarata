@@ -29,9 +29,7 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
             The polynomial fit parameters for the DEC(time) propagation.
     """
 
-    def __init__(
-        self, ra: hint.array, dec: hint.array, obs_time: hint.array
-    ) -> None:
+    def __init__(self, ra: hint.array, dec: hint.array, obs_time: hint.array) -> None:
         """Instantiation of the propagation engine.
 
         Parameters
@@ -143,11 +141,21 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
         try:
             # Most efficient method, but might fail with too few observations.
             fit_param, fit_covar = sp_optimize.curve_fit(
-                polynomial_function, fit_x, fit_y, method="lm", p0=[1, 1, 0], max_nfev=10000
+                polynomial_function,
+                fit_x,
+                fit_y,
+                method="lm",
+                p0=[1, 1, 0],
+                max_nfev=10000,
             )
         except:
             fit_param, fit_covar = sp_optimize.curve_fit(
-                polynomial_function, fit_x, fit_y, method="trf", p0=[1, 1, 0], max_nfev=10000
+                polynomial_function,
+                fit_x,
+                fit_y,
+                method="trf",
+                p0=[1, 1, 0],
+                max_nfev=10000,
             )
         # Error on the fit itself.
         fit_error = np.sqrt(np.diag(fit_covar))
@@ -169,10 +177,10 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
         Returns
         -------
         future_ra : ndarray
-            The set of right ascensions that cooresponds to the future times, 
+            The set of right ascensions that cooresponds to the future times,
             in degrees.
         future_dec : ndarray
-            The set of declinations that cooresponds to the future times, in 
+            The set of declinations that cooresponds to the future times, in
             degrees.
         """
         # Determining the RA and DEC via the polynomial function based on the

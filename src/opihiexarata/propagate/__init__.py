@@ -1,7 +1,6 @@
 """Solution methods and engines for asteroid propagation."""
 
 # Solution.
-import imp
 from opihiexarata.propagate.solution import PropagationSolution
 
 # Engines.

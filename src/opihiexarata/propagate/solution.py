@@ -202,8 +202,8 @@ class PropagationSolution(hint.ExarataSolution):
         # The second difference is acceleration. We use midpoint time
         # differences to determine the time difference between three
         # observations.
-        if (obs_time_array.size > 2):
-            # There are more than two observations, acceleration can be 
+        if obs_time_array.size > 2:
+            # There are more than two observations, acceleration can be
             # calculated.
             delta2_ra = delta_ra[1:] - delta_ra[:-1]
             delta2_dec = delta_dec[1:] - delta_dec[:-1]
@@ -291,13 +291,13 @@ def _vehicle_polynomial_propagation(
         # Most cases there are at least 3 observations.
         future_time = np.linspace(obs_time_array[-3], obs_time_array[-1], 5)
     except IndexError:
-        # It seems that this vehicle is trying to solve with just two 
+        # It seems that this vehicle is trying to solve with just two
         # observations, use the only two measurements avaliable.
         future_time = np.linspace(obs_time_array[-2], obs_time_array[-1], 5)
     # Deriving the future values from the future time.
     delta_time = future_time[-1] - future_time[-2]
     future_ra, future_dec = propagation_function(future_time)
-    # Using finite difference methods: forward difference for first order 
+    # Using finite difference methods: forward difference for first order
     # and central difference for second order.
     ra_velocity = (future_ra[-1] - future_ra[-2]) / delta_time
     ra_acceleration = (
