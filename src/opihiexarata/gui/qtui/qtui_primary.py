@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'main.ui'
+# Form implementation generated from reading ui file 'primary.ui'
 #
 # Created by: PyQt6 UI code generator 6.2.3
 #
@@ -9,17 +9,17 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(639, 689)
+class Ui_PrimaryWindow(object):
+    def setupUi(self, PrimaryWindow):
+        PrimaryWindow.setObjectName("PrimaryWindow")
+        PrimaryWindow.resize(639, 689)
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
-        MainWindow.setFont(font)
-        MainWindow.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
-        MainWindow.setWindowOpacity(1.0)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        PrimaryWindow.setFont(font)
+        PrimaryWindow.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
+        PrimaryWindow.setWindowOpacity(1.0)
+        self.centralwidget = QtWidgets.QWidget(PrimaryWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 310, 621, 331))
@@ -50,29 +50,29 @@ class Ui_MainWindow(object):
         self.tab_all.addTab(self.tab_ephemeris, "")
         self.solution_vertical_layout.addWidget(self.tab_all)
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(9, 9, 621, 291))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 10, 621, 291))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.image_vertical_layout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.image_vertical_layout.setContentsMargins(0, 0, 0, 0)
         self.image_vertical_layout.setObjectName("image_vertical_layout")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        PrimaryWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(PrimaryWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 639, 25))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        PrimaryWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(PrimaryWindow)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        PrimaryWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(PrimaryWindow)
         self.tab_all.setCurrentIndex(4)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(PrimaryWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, PrimaryWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "OpihiExarata"))
-        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_astrometry), _translate("MainWindow", "Astrometry"))
-        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_photometry), _translate("MainWindow", "Photometry"))
-        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_propagate), _translate("MainWindow", "Propagate"))
-        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_orbit), _translate("MainWindow", "Orbit"))
-        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_ephemeris), _translate("MainWindow", "Ephemeris"))
+        PrimaryWindow.setWindowTitle(_translate("PrimaryWindow", "OpihiExarata"))
+        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_astrometry), _translate("PrimaryWindow", "Astrometry"))
+        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_photometry), _translate("PrimaryWindow", "Photometry"))
+        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_propagate), _translate("PrimaryWindow", "Propagate"))
+        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_orbit), _translate("PrimaryWindow", "Orbit"))
+        self.tab_all.setTabText(self.tab_all.indexOf(self.tab_ephemeris), _translate("PrimaryWindow", "Ephemeris"))

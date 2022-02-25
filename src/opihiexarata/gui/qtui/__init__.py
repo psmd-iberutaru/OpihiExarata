@@ -1,3 +1,3 @@
 """All of the QtUI frameworks."""
 
-from opihiexarata.gui.qtui.qtui_main import Ui_MainWindow
+from opihiexarata.gui.qtui.qtui_primary import Ui_PrimaryWindow
