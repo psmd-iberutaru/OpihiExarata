@@ -39,10 +39,31 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui = gui.qtui.Ui_PrimaryWindow()
         self.ui.setupUi(self)
 
+        # Preparing the new file buttons.
+        self.__init_new_file_buttons()
+
         # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()
 
-    def __init_opihi_image(self):
+    def __init_new_file_buttons(self) -> None:
+        """Assign the action bindings for the buttons which get new 
+        file(names).
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None 
+        """
+        # Assigning actions to the buttons.
+        self.ui.button_new_image_automatic.clicked.connect(
+            lambda : self.get_new_image_filename(mode="automatic"))
+        self.ui.button_new_image_manual.clicked.connect(
+            lambda : self.get_new_image_filename(mode="manual"))
+
+    def __init_opihi_image(self) -> None:
         """Create the image area which will display what Opihi took from the 
         sky. This takes advantage of a reserved image vertical layout in the 
         design of the window.
@@ -72,9 +93,15 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.image_vertical_layout.addWidget(self._opihi_canvas)
         self.ui.image_vertical_layout.addWidget(self._opihi_nav_toolbar)
         self.ui.image_vertical_layout.addWidget(self.button)
+        # Remove the dummy spacer otherwise it is just extra unneeded space.
+        self.ui.image_vertical_layout.removeWidget(self.ui.dummy_opihi_image)
+        self.ui.dummy_opihi_image.deleteLater()
+        self.ui.dummy_opihi_image = None
         return None
 
-    def update_opihi_image(self):
+
+
+    def update_opihi_image(self) -> None:
         """Update the Opihi image given that new results may have been added
         because some solutions were completed. This modifies the GUI in-place.
         
@@ -107,6 +134,42 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self._opihi_canvas.draw()
         return None
 
+
+    def get_new_image_filename(self, mode:str="automatic") -> str:
+        """Automatically get the most recent file taken from the area where the 
+        fits files are to be stored.
+
+        Parameters
+        ----------
+        mode : string
+            This function can get the new image filename automatically or 
+            manually.
+
+                - `automatic` : Fetch the most recent image from the 
+                  configured directory automatically.
+                - `manual` : Have the user select the file using a file 
+                  dialog pop up.
+
+        Returns
+        -------
+        new_image_filename : str
+            The absolute path of the new fits file.
+        """
+        # Different methods based on the different modes.
+        mode = mode.casefold()
+        if mode == "automatic":
+            # Find the file name automatically using the most recent image.
+            
+            new_image_filename = "pie"
+        elif mode == "manual":
+            # Use a file dialog box to get the file name. We do not need the 
+            # filter information.
+            new_image_filename, __ = QtWidgets.QFileDialog.getOpenFileName(parent=self, caption="Open Opihi Image", directory="./", filter="FITS Files (*.fits)")
+        else:
+            raise error.InputError("The mode of getting the filename is not supported.")
+        print(new_image_filename)
+        return new_image_filename
+    
 
 
 def main():
