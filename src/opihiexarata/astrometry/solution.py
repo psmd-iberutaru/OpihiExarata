@@ -1,6 +1,7 @@
 """The astrometric solution class."""
 
 import time
+import numpy as np
 import astropy.coordinates as ap_coordinates
 
 import opihiexarata.library as library
@@ -134,6 +135,79 @@ class AstrometricSolution(hint.ExarataSolution):
         )
         # All done.
         return None
+
+    def pixel_to_sky_coordinates(self, x:hint.Union[float, hint.array], y:hint.Union[float, hint.array]) -> tuple[hint.Union[float, hint.array],hint.Union[float, hint.array]]:
+        """Compute the RA and DEC sky coordinates of this image provided 
+        the pixel coordinates. Floating point pixel values are supported.
+
+        This is a wrapper around the WCS-based method.
+        
+        Parameters
+        ----------
+        x : float or array-like
+            The x pixel coordinate in the x-axis direction.
+        y : float or array-like
+            The y pixel coordinate in the y-axis direction.
+
+        Returns
+        -------
+        ra : float or array-like
+            The right ascension of the pixel coordinate, in degrees.
+        dec : float or array-like
+            The declination of the pixel coordinate, in degrees.
+        """
+        # Must be parallel arrays.
+        if (x.shape != y.shape):
+            raise error.InputError("The two pixel coordinate arrays specified should be parallel arrays.")
+        # Convert to arrays.
+        x = np.array(x)
+        y = np.array(y)
+        # Compute the values from the pixel location.
+        ra, dec = self.wcs.pixel_to_world_values(x, y)
+        # If the input parameters were just singular values, then the answer
+        # expected is likely also singular values. Type converting.
+        if x.shape == y.shape == ():
+            ra = ra[0]
+            dec = dec[0]
+        # All done.
+        return ra, dec
+
+    def sky_to_pixel_coordinates(self, ra:hint.Union[float, hint.array], dec:hint.Union[float, hint.array]) -> tuple[hint.Union[float, hint.array],hint.Union[float, hint.array]]:
+        """Compute the x and y pixel coordinates of this image provided 
+        the RA DEC sky coordinates.
+
+        This is a wrapper around the WCS-based method.
+        
+        Parameters
+        ----------
+        ra : float or array-like
+            The right ascension of the pixel coordinate, in degrees.
+        dec : float or array-like
+            The declination of the pixel coordinate, in degrees.
+
+        Returns
+        -------
+        x : float or array-like
+            The x pixel coordinate in the x-axis direction.
+        y : float or array-like
+            The y pixel coordinate in the y-axis direction.
+        """
+        # Must be parallel arrays.
+        if (ra.shape != dec.shape):
+            raise error.InputError("The two sky coordinate arrays specified should be parallel arrays.")
+        # Convert to arrays.
+        ra = np.array(ra)
+        dec = np.array(dec)
+        # Compute the values from the sky location.
+        x, y = self.wcs.world_to_pixel_values(ra, dec)
+        # If the input parameters were just singular values, then the answer
+        # expected is likely also singular values. Type converting.
+        if ra.shape == dec.shape == ():
+            x = x[0]
+            y = y[0]
+        # All done.
+        return x, y
+
 
 
 def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
