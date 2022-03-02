@@ -172,7 +172,7 @@ class PhotometricSolution(hint.ExarataSolution):
         # Determine the average sky contribution per pixel.
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
         self.sky_counts = self.__calculate_sky_counts_value()
-        
+
         # Derive the intersection star table from the photometric results and the
         # astrometric solution. The data table is also used.
         self.intersection_star_table = self.__calculate_intersection_star_table()
@@ -341,7 +341,6 @@ class PhotometricSolution(hint.ExarataSolution):
         """
         # Extracting the needed information from the computed solution values.
         data_array = np.array(self.astrometrics._original_data, dtype=float, copy=True)
-        wcs = self.astrometrics.wcs
         arcsec_pixel_scale = self.astrometrics.pixel_scale
         photo_star_table = self.star_table
         astro_star_table = self.astrometrics.star_table
@@ -352,11 +351,9 @@ class PhotometricSolution(hint.ExarataSolution):
         # likely more accurate and also would theoretically exclude more stars
         # than the astrometric star table. But, there is no harm in using both.
         # The pixel values for the photometric table are derived from the WCS.
-        photo_ra, photo_dec = (
-            photo_star_table["ra_photo"],
-            photo_star_table["dec_photo"],
-        )
-        photo_x, photo_y = wcs.world_to_pixel_values(photo_ra, photo_dec)
+        photo_ra = photo_star_table["ra_photo"]
+        photo_dec = photo_star_table["dec_photo"]
+        photo_x, photo_y = self.astrometrics.sky_to_pixel_coordinates(ra=photo_ra, dec=photo_dec)
         photo_x = np.array(photo_x, dtype=int)
         photo_y = np.array(photo_y, dtype=int)
         astro_x = np.array(astro_star_table["pixel_x"], dtype=int)
@@ -364,27 +361,38 @@ class PhotometricSolution(hint.ExarataSolution):
         # The pixel locations of all detected stars.
         stars_x = np.append(photo_x, astro_x)
         stars_y = np.append(photo_y, astro_y)
+        print(stars_x.shape, stars_y.shape)
         # The length of the masking box region for a star, being generous on
         # the half definition for odd sized boxes.
         STAR_RADIUS_AS = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
         STAR_RADIUS_PIXEL = STAR_RADIUS_AS / arcsec_pixel_scale
-        HALF_BOX_LENGTH = int(2 * STAR_RADIUS_PIXEL) + 2
+        HALF_BOX_LENGTH = int(STAR_RADIUS_PIXEL) + 2
         # Definiting the star mask to mask regions where stars have been
         # detected.
         star_mask = np.zeros_like(data_array, dtype=bool)
         for colindex, rowindex in zip(stars_x, stars_y):
-            star_mask[
-                rowindex - HALF_BOX_LENGTH : rowindex + HALF_BOX_LENGTH,
-                colindex - HALF_BOX_LENGTH : colindex + HALF_BOX_LENGTH,
-            ] = True
+            # Need to take into account that if the pixel values are negative
+            # because of search radius of the photometric cone and the mapping
+            # to pixel coordinates, then it would wrap around from the other 
+            # end and mask out non-stars.
+            if colindex < 0 or rowindex < 0:
+                # These are not in the array and don't really matter for 
+                # masking.
+                continue
+            else:
+                # The points should be valid.
+                star_mask[
+                    rowindex - HALF_BOX_LENGTH : rowindex + HALF_BOX_LENGTH,
+                    colindex - HALF_BOX_LENGTH : colindex + HALF_BOX_LENGTH,
+                ] = True
         # Masking the center region as well as a science object is expected
         # to be there.
         SCIENCE_RADIUS = library.config.PHOTOMETRY_SCIENCE_RADIUS_MASK_PIXELS
-        SCI_WIDTH = int(2 * SCIENCE_RADIUS + 1)
+        SCI_HALF_WIDTH = int(SCIENCE_RADIUS + 1)
         science_mask = np.zeros_like(data_array, dtype=bool)
         science_mask[
-            n_rows // 2 - SCI_WIDTH : n_rows // 2 + SCI_WIDTH,
-            n_cols // 2 - SCI_WIDTH : n_cols // 2 + SCI_WIDTH,
+            n_rows // 2 - SCI_HALF_WIDTH : n_rows // 2 + SCI_HALF_WIDTH,
+            n_cols // 2 - SCI_HALF_WIDTH : n_cols // 2 + SCI_HALF_WIDTH,
         ] = True
         # Mask the edges of the array as often they are spurious and may have
         # bleed over from electronics onto the detector itself. This also is a
