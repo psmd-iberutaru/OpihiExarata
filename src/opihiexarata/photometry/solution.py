@@ -168,13 +168,16 @@ class PhotometricSolution(hint.ExarataSolution):
                 )
         self.star_table = photo_star_table
 
-        # Derive the intersection star table from the photometric results and the
-        # astrometric solution. The data table is also used.
-        self.intersection_star_table = self.__calculate_intersection_star_table()
 
         # Determine the average sky contribution per pixel.
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
         self.sky_counts = self.__calculate_sky_counts_value()
+        
+        # Derive the intersection star table from the photometric results and the
+        # astrometric solution. The data table is also used.
+        self.intersection_star_table = self.__calculate_intersection_star_table()
+
+
 
         # Calculating the zero point of this filter image as it is part of the
         # photometric solution.
