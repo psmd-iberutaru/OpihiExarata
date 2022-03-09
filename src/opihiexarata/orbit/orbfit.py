@@ -461,12 +461,7 @@ class OrbfitOrbitDeterminerEngine(hint.OrbitEngine):
         # next is to split up the observation table.
 
         # Extracting the year of the observations.
-        date_list = observation_table["date"].tolist()
-        year_array = []
-        for datedex in date_list:
-            temp_year, temp_month, temp_day = datedex.strip().split()
-            year_array.append(temp_year)
-        year_array = np.array(year_array, dtype=int)
+        year_array = np.array(observation_table["year"])
         unique_years = set(year_array)
 
         # The data results.
