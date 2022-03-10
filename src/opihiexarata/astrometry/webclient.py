@@ -97,6 +97,7 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
         )
 
         # Use the API key to log in a derive a session key.
+        self.session = None
         session_key = self.__login(apikey=apikey)
         self._apikey = apikey
         self.session = session_key

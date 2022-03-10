@@ -167,7 +167,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             new_image_filename, __ = QtWidgets.QFileDialog.getOpenFileName(parent=self, caption="Open Opihi Image", directory="./", filter="FITS Files (*.fits)")
         else:
             raise error.InputError("The mode of getting the filename is not supported.")
-        print(new_image_filename)
         return new_image_filename
     
 
