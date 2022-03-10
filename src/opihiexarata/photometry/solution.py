@@ -351,9 +351,7 @@ class PhotometricSolution(hint.ExarataSolution):
         # likely more accurate and also would theoretically exclude more stars
         # than the astrometric star table. But, there is no harm in using both.
         # The pixel values for the photometric table are derived from the WCS.
-        photo_ra = photo_star_table["ra_photo"]
-        photo_dec = photo_star_table["dec_photo"]
-        photo_x, photo_y = self.astrometrics.sky_to_pixel_coordinates(ra=photo_ra, dec=photo_dec)
+        photo_x, photo_y = self.astrometrics.sky_to_pixel_coordinates(ra=photo_star_table["ra_photo"], dec=photo_star_table["dec_photo"])
         photo_x = np.array(photo_x, dtype=int)
         photo_y = np.array(photo_y, dtype=int)
         astro_x = np.array(astro_star_table["pixel_x"], dtype=int)
@@ -361,12 +359,11 @@ class PhotometricSolution(hint.ExarataSolution):
         # The pixel locations of all detected stars.
         stars_x = np.append(photo_x, astro_x)
         stars_y = np.append(photo_y, astro_y)
-        print(stars_x.shape, stars_y.shape)
         # The length of the masking box region for a star, being generous on
         # the half definition for odd sized boxes.
         STAR_RADIUS_AS = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
         STAR_RADIUS_PIXEL = STAR_RADIUS_AS / arcsec_pixel_scale
-        HALF_BOX_LENGTH = int(STAR_RADIUS_PIXEL) + 2
+        HALF_BOX_LENGTH = int(STAR_RADIUS_PIXEL) + 1
         # Definiting the star mask to mask regions where stars have been
         # detected.
         star_mask = np.zeros_like(data_array, dtype=bool)

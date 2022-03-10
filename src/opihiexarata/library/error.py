@@ -121,11 +121,17 @@ class IntentionalError(ExarataException):
     generally should always be caught by the code in context."""
 
 
+
+
+
 class ReadOnlyError(ExarataException):
     """An error where variables or files are assumed to be read only, this
     enforces that notion."""
 
-
+class SequentialOrderError(ExarataException):
+    """An error used when something is happening out of the expected required 
+    order. This order being in place for specific publically communicated 
+    reasons."""
 class WebRequestError(ExarataException):
     """An error to be used when a web request to some API fails, either because
     of something from their end, or our end."""
