@@ -2,6 +2,7 @@
 with and acts as the complete solver. There is not engine as it just shuffles
 the solutions."""
 
+import copy
 import numpy as np
 
 import opihiexarata.library as library
@@ -29,11 +30,10 @@ class OpihiSolution(hint.ExarataSolution):
         The filter_name which this image is taken in.
     exposure_time : float
         The exposure time of the image, in seconds.
-    observing_time : 
+    observing_time :
     asteroid_name : str
         The name of the asteroid. This is used to group similar observations
-        and to also retrive data from the MPC. If this is None, then asteroid
-        calculations are disabled as there is no asteroid.
+        and to also retrive data from the MPC.
     asteroid_location : tuple
         The pixel location of the asteroid. (Usually determined by a centroid
         around a user specified location.) If this is None, then asteroid
@@ -55,11 +55,11 @@ class OpihiSolution(hint.ExarataSolution):
         The astrometric solution; if it has not been solved yet, this is None.
     photometrics : PhotometricSolution
         The photometric solution; if it has not been solved yet, this is None.
-    propagative : PropagationSolution
+    propagatives : PropagationSolution
         The propagation solution; if it has not been solved yet, this is None.
-    orbital : OrbitSolution
+    orbitals : OrbitSolution
         The orbit solution; if it has not been solved yet, this is None.
-    ephemeritic : EphemerisSolution
+    ephemeritics : EphemerisSolution
         The ephemeris solution; if it has not been solved yet, this is None.
     """
 
@@ -136,7 +136,10 @@ class OpihiSolution(hint.ExarataSolution):
             self.asteroid_history = None
             self.asteroid_observations = None
         else:
-            raise error.LogicFlowError("The conditions for including or not including asteroid calculations were both not fulfilled. There is not third case.")
+            raise error.LogicFlowError(
+                "The conditions for including or not including asteroid calculations"
+                " were both not fulfilled. There is not third case."
+            )
 
         # Just creating the initial placeholders for the solution.
         self.astrometrics = None
@@ -277,33 +280,56 @@ class OpihiSolution(hint.ExarataSolution):
         asteroid_location = (
             self.asteroid_location if asteroid_location is None else asteroid_location
         )
-        asteroid_x, asteroid_y = asteroid_location
-        # The location of the asteroid needs to be transformed to RA and DEC.
-        asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(x=asteroid_x, y=asteroid_y)
 
-        # Extracting historical information from which to calculate the 
+        # If asteroid information is not provided, then nothing can be solved.
+        # As there is no information.
+        if asteroid_location is None:
+            raise error.InputError(
+                "The propagation of an asteroid cannot be solved as no asteroid"
+                " location parameters have been provided."
+            )
+        else:
+            # Splitting it up is easier notationally.
+            asteroid_x, asteroid_y = asteroid_location
+            # The location of the asteroid needs to be transformed to RA and DEC.
+            asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
+                x=asteroid_x, y=asteroid_y
+            )
+
+        # Extracting historical information from which to calculate the
         # propagation from.
         past_asteroid_ra = self.asteroid_observations["ra"]
         past_asteroid_dec = self.asteroid_observations["dec"]
         # Converting the decimal days to the required unix time. This function
         # seems to be vectorized to handle arrays.
-        past_asteroid_time = library.conversion.decimal_day_to_unix_time(year=self.asteroid_observations["year"], month=self.asteroid_observations["month"], day=self.asteroid_observations["day"])
-        # Propagation only works with really recent observations so we only 
+        past_asteroid_time = library.conversion.decimal_day_to_unix_time(
+            year=self.asteroid_observations["year"],
+            month=self.asteroid_observations["month"],
+            day=self.asteroid_observations["day"],
+        )
+        # Propagation only works with really recent observations so we only
         # include those done within some number of hours.
         EXPIRE_HOURS = library.config.OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS
         EXPIRE_SECONDS = EXPIRE_HOURS * 3600
-        valid_observation_index = np.where((asteroid_time - past_asteroid_time) <= EXPIRE_SECONDS, True, False)
+        valid_observation_index = np.where(
+            (asteroid_time - past_asteroid_time) <= EXPIRE_SECONDS, True, False
+        )
         valid_past_asteroid_ra = past_asteroid_ra[valid_observation_index]
         valid_past_asteroid_dec = past_asteroid_dec[valid_observation_index]
         valid_past_asteroid_time = past_asteroid_time[valid_observation_index]
 
         # Add the current observation to the previous observations.
-        asteroid_ra = np.append(valid_past_asteroid_ra, asteroid_ra)
-        asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec)
-        asteroid_time = np.append(valid_past_asteroid_time, asteroid_time)
+        asteroid_ra = np.append(valid_past_asteroid_ra, asteroid_ra, dtype=float)
+        asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec, dtype=float)
+        asteroid_time = np.append(valid_past_asteroid_time, asteroid_time, dtype=float)
 
         # Computing the propagation solutions.
-        propagative_solution = propagate.PropagationSolution(ra=asteroid_ra, dec=asteroid_dec, obs_time=asteroid_time, solver_engine=solver_engine)
+        propagative_solution = propagate.PropagationSolution(
+            ra=asteroid_ra,
+            dec=asteroid_dec,
+            obs_time=asteroid_time,
+            solver_engine=solver_engine,
+        )
         # See if the current propagation solution should be replaced.
         if overwrite:
             self.propagative = propagative_solution
@@ -311,3 +337,120 @@ class OpihiSolution(hint.ExarataSolution):
             pass
         # All done.
         return propagative_solution
+
+    def solve_orbit(
+        self,
+        solver_engine: hint.OrbitEngine,
+        overwrite: bool = True,
+        asteroid_location: tuple = None,
+    ):
+        """Solve for the orbital elements an asteroid using previous
+        observations.
+
+        Parameters
+        ----------
+        solver_engine : OrbitEngine
+            The orbital engine which the orbit solver will use.
+        overwrite : bool, default = True
+            Overwrite and replace the information of this class with the new
+            values. If False, the returned solution is not also applied.
+        asteroid_location : tuple, default = None
+            The pixel location of the asteroid in the image. Defaults to the
+            value provided at instantiation.
+
+        Returns
+        -------
+        orbital_solution : OrbitEngine
+            The orbit solution for the asteroid and image.
+
+        Warning ..
+            This requires that the astrometry solution be computed before-hand.
+            This will not precompute automatically it without it being called
+            explicitly, but it will instead return an error.
+        """
+        # The propagation solution requires the astrometric solution to be
+        # computed first.
+        if not isinstance(self.astrometrics, astrometry.AstrometricSolution):
+            raise error.SequentialOrderError(
+                "The propagation solution requires an astrometric solution. The"
+                " astrometric solution needs to be called and run first."
+            )
+        # The observation time of this asteroid. The time provided is UNIX time
+        # which needs to be converted to a format the MPC record can take.
+        observing_time = self.observing_time
+        obs_year, obs_month, obs_day = library.conversion.unix_time_to_decimal_day(
+            unix_time=observing_time
+        )
+        # Using the defaults if an overriding value was not provided.
+        asteroid_location = (
+            self.asteroid_location if asteroid_location is None else asteroid_location
+        )
+
+        # If asteroid information is not provided, then nothing can be solved.
+        # As there is no information.
+        if self.asteroid_name is None:
+            raise error.InputError(
+                "The orbit of an asteroid cannot be solved as no asteroid name has been"
+                " provided by which to fill in the MPC record."
+            )
+        else:
+            # Ensuring there is no unintentional modification to the name.
+            asteroid_name = copy.deepcopy(self.asteroid_name)
+        if self.asteroid_history is None:
+            raise error.InputError(
+                "The orbit of an asteroid cannot be solved as no history of the orbit"
+                " of the asteroid has been provided."
+            )
+        else:
+            # Ensuring that the history of the asteroid does not change for
+            # some reason.
+            asteroid_history = copy.deepcopy(self.asteroid_history)
+        if asteroid_location is None:
+            raise error.InputError(
+                "The orbit of an asteroid cannot be solved as no asteroid location"
+                " parameters have been provided."
+            )
+        else:
+            # Splitting it up is easier notationally.
+            asteroid_x, asteroid_y = asteroid_location
+            # The location of the asteroid needs to be transformed to RA and DEC.
+            asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
+                x=asteroid_x, y=asteroid_y
+            )
+
+        # The current observatory.
+        OBSERVATORY_CODE = library.config.OBSERVATORY_MPC_CODE
+
+        # We add our current observational information to the current past
+        # observation. Using the blank table as a template.
+        current_table = library.mpcrecord.minor_planet_blank_table()
+        # Adding data to this table template.
+        current_row_dict = {
+            "minor_planet_number": asteroid_name,
+            "discovery": False,
+            "year": obs_year,
+            "month": obs_month,
+            "day": obs_day,
+            "ra": asteroid_ra,
+            "dec": asteroid_dec,
+            "observatory_code": OBSERVATORY_CODE,
+        }
+        current_table.add_row(current_row_dict)
+        # Convert this entry to a standard MPC record which to add to
+        # historical data.
+        current_mpc_record = library.mpcrecord.minor_planet_table_to_record(
+            table=current_table
+        )
+        asteroid_record = asteroid_history + current_mpc_record
+
+        # Solve for the orbital solution.
+        orbital_solution = orbit.OrbitSolution(
+            observation_record=asteroid_record, solver_engine=solver_engine
+        )
+        # Check if the solution should overwrite the current one.
+        if overwrite:
+            self.orbitals = orbital_solution
+        else:
+            # It should not overrite anything.
+            pass
+        return orbital_solution
