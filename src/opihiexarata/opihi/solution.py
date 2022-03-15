@@ -144,9 +144,9 @@ class OpihiSolution(hint.ExarataSolution):
         # Just creating the initial placeholders for the solution.
         self.astrometrics = None
         self.photometrics = None
-        self.propagative = None
-        self.orbital = None
-        self.ephemeritic = None
+        self.propagatives = None
+        self.orbitals = None
+        self.ephemeritics = None
         return None
 
     def solve_astrometry(
@@ -203,7 +203,7 @@ class OpihiSolution(hint.ExarataSolution):
 
         Returns
         -------
-        photometric_solution : PhotometryEngine
+        photometric_solution : PhotometrySolution
             The photometry solution for the image.
 
         Warning ..
@@ -259,7 +259,7 @@ class OpihiSolution(hint.ExarataSolution):
 
         Returns
         -------
-        propagative_solution : PropagationEngine
+        propagative_solution : PropagationSolution
             The propagation solution for the asteroid and image.
 
         Warning ..
@@ -360,7 +360,7 @@ class OpihiSolution(hint.ExarataSolution):
 
         Returns
         -------
-        orbital_solution : OrbitEngine
+        orbital_solution : OrbitSolution
             The orbit solution for the asteroid and image.
 
         Warning ..
@@ -454,3 +454,45 @@ class OpihiSolution(hint.ExarataSolution):
             # It should not overrite anything.
             pass
         return orbital_solution
+
+
+    def solve_ephemeris(self,solver_engine, overwrite:bool=True):
+        """Solve for the ephemeris solution an asteroid using previous
+        observations and derived orbital elements.
+
+        Parameters
+        ----------
+        solver_engine : EphemerisEngine
+            The ephemeris engine which the ephemeris solver will use.
+        overwrite : bool, default = True
+            Overwrite and replace the information of this class with the new
+            values. If False, the returned solution is not also applied.
+
+        Returns
+        -------
+        ephemeritics_solution : EphemerisSolution
+            The orbit solution for the asteroid and image.
+
+        Warning ..
+            This requires that the orbit solution be computed before-hand.
+            This will not precompute automatically it without it being called
+            explicitly, but it will instead return an error.
+        """
+        # The propagation solution requires the astrometric solution to be
+        # computed first.
+        if not isinstance(self.orbitals, orbit.OrbitSolution):
+            raise error.SequentialOrderError(
+                "The ephemeris solution requires an orbital solution. The"
+                " orbital solution needs to be called and run first."
+            )
+
+        # TODO
+        raise error.DevelopmentError("Not done yet.")
+
+        # Check if the solution should overwrite the current one.
+        if overwrite:
+            self.ephemeritics = ephemeritics_solution
+        else:
+            # It should not overrite anything.
+            pass
+        return ephemeritics_solution
