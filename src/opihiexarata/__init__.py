@@ -3,10 +3,13 @@
 import opihiexarata.library as library
 import opihiexarata.astrometry as astrometry
 import opihiexarata.gui as gui
+import opihiexarata.opihi as opihi
 import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 
+# The primary solution for OpihiExarata.
+from opihiexarata.opihi import OpihiSolution
 
 # Load the default configuration parameters. The user's configurations should
 # overwrite these when supplied.
