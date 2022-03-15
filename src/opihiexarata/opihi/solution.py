@@ -87,8 +87,8 @@ class OpihiSolution(hint.ExarataSolution):
 
         Parameters
         ----------
-        data_array : array-like
-            The image data from Opihi.
+        fits_filename : str
+            The fits filename of which is the image which this solution is solving.
         filter_name : string
             The filter_name of the image which is contained within the data array.
         exposure_time : float
