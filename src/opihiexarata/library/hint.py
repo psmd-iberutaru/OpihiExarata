@@ -14,6 +14,7 @@ from astropy.io.fits import Header, FITS_rec
 from astropy.table import Table, Row
 from astropy.wcs import WCS
 
+from matplotlib.backend_bases import MouseEvent
 
 # Arrays. This is done because ArrayLike casts a rather larger union
 # documentation.
