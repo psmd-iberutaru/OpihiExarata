@@ -8,7 +8,8 @@ import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 
-# The primary solution for OpihiExarata.
+# The primary solutions for OpihiExarata.
+from opihiexarata.opihi import OpihiPreprocessSolution
 from opihiexarata.opihi import OpihiSolution
 
 # Load the default configuration parameters. The user's configurations should

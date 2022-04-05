@@ -566,7 +566,7 @@ class PhotometricSolution(hint.ExarataSolution):
             return zero_point, zero_point_error
         elif filter_name not in ACCEPTED_FILTERS:
             raise error.InputError(
-                "The filter name provided `{f}` is not a filter that is supposed by"
+                "The filter name provided `{f}` is not a filter that is supported by"
                 " OpihiExarata's supported photometric engines and vehicle functions"
                 " and therefore cannot be used to derive a photometric solution."
                 " Accepted filters: {af}".format(f=filter_name, af=ACCEPTED_FILTERS)
