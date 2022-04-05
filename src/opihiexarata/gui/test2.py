@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     class Annotate(object):
         def __init__(self):
-            self.ax = plt.gca()
+            self.figure, self.ax = plt.subplots()
             self.rect = Rectangle((0, 0), 1, 1)
             self.x0 = None
             self.y0 = None
@@ -69,5 +69,5 @@ if __name__ == "__main__":
             self.ax.figure.canvas.draw()
 
     a = Annotate()
-    plt.show()
+    a.figure.show()
     print(a.x0, a.x1)

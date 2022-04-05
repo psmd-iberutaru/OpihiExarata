@@ -9,6 +9,7 @@ import sys
 import random
 
 import matplotlib.figure as mpl_figure
+
 # Using Qt backends.
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -19,10 +20,14 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 import opihiexarata.gui as gui
 
+
 class OpihiPrimaryWindow(QtWidgets.QMainWindow):
+    """
+    """
+
 
     def __init__(self):
-        """The primary GUI window for OpihiExarata. This interacts directly 
+        """The primary GUI window for OpihiExarata. This interacts directly
         with the total solution object of Opihi.
 
         Parameters
@@ -46,26 +51,28 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.__init_opihi_image()
 
     def __init_new_file_buttons(self) -> None:
-        """Assign the action bindings for the buttons which get new 
+        """Assign the action bindings for the buttons which get new
         file(names).
-        
+
         Parameters
         ----------
         None
 
         Returns
         -------
-        None 
+        None
         """
         # Assigning actions to the buttons.
         self.ui.button_new_image_automatic.clicked.connect(
-            lambda : self.get_new_image_filename(mode="automatic"))
+            lambda: self.get_new_fits_image(filename_mode="automatic")
+        )
         self.ui.button_new_image_manual.clicked.connect(
-            lambda : self.get_new_image_filename(mode="manual"))
+            lambda: self.get_new_fits_image(filename_mode="manual")
+        )
 
     def __init_opihi_image(self) -> None:
-        """Create the image area which will display what Opihi took from the 
-        sky. This takes advantage of a reserved image vertical layout in the 
+        """Create the image area which will display what Opihi took from the
+        sky. This takes advantage of a reserved image vertical layout in the
         design of the window.
 
         Parameters
@@ -76,19 +83,19 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # The figure, canvas, and navigation toolbar of the image plot 
-        # using a Matplotlib Qt widget backend. We will add these to the 
+        # The figure, canvas, and navigation toolbar of the image plot
+        # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
         self._opihi_figure = mpl_figure.Figure()
         self._opihi_canvas = FigureCanvas(self._opihi_figure)
         self._opihi_nav_toolbar = NavigationToolbar(self._opihi_canvas, self)
 
         # Just some button connected to `plot` method
-        self.button = QtWidgets.QPushButton('Plot')
-        self.button.clicked.connect(self.update_opihi_image)
+        self.button = QtWidgets.QPushButton("Plot")
+        self.button.clicked.connect(self.redraw_opihi_image)
 
-        # Setting the layout, it is likely better to have the toolbar below 
-        # rather than above to avoid conflicts with the reset buttons in the 
+        # Setting the layout, it is likely better to have the toolbar below
+        # rather than above to avoid conflicts with the reset buttons in the
         # event of a misclick.
         self.ui.image_vertical_layout.addWidget(self._opihi_canvas)
         self.ui.image_vertical_layout.addWidget(self._opihi_nav_toolbar)
@@ -99,12 +106,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.dummy_opihi_image = None
         return None
 
-
-
-    def update_opihi_image(self) -> None:
-        """Update the Opihi image given that new results may have been added
+    def redraw_opihi_image(self) -> None:
+        """Redraw the Opihi image given that new results may have been added
         because some solutions were completed. This modifies the GUI in-place.
-        
+
         Parameters
         ----------
         None
@@ -126,7 +131,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # ax.hold(False) # deprecated, see above
 
         # plot data
-        ax.plot(data, '*-')
+        ax.plot(data, "*-")
 
         # A tight layout to improve realestate efficiency.
         self._opihi_figure.tight_layout()
@@ -134,41 +139,48 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self._opihi_canvas.draw()
         return None
 
-
-    def get_new_image_filename(self, mode:str="automatic") -> str:
-        """Automatically get the most recent file taken from the area where the 
+    def get_new_fits_image(self, filename_mode: str = "automatic") -> str:
+        """Automatically get the most recent file taken from the area where the
         fits files are to be stored.
 
         Parameters
         ----------
-        mode : string
-            This function can get the new image filename automatically or 
+        filename_mode : string
+            This function can get the new image filename automatically or
             manually.
 
-                - `automatic` : Fetch the most recent image from the 
+                - `automatic` : Fetch the most recent image from the
                   configured directory automatically.
-                - `manual` : Have the user select the file using a file 
+                - `manual` : Have the user select the file using a file
                   dialog pop up.
 
         Returns
         -------
-        new_image_filename : str
+        new_image : str
             The absolute path of the new fits file.
         """
-        # Different methods based on the different modes.
-        mode = mode.casefold()
-        if mode == "automatic":
-            # Find the file name automatically using the most recent image.
-            
-            new_image_filename = "pie"
-        elif mode == "manual":
-            # Use a file dialog box to get the file name. We do not need the 
-            # filter information.
-            new_image_filename, __ = QtWidgets.QFileDialog.getOpenFileName(parent=self, caption="Open Opihi Image", directory="./", filter="FITS Files (*.fits)")
-        else:
-            raise error.InputError("The mode of getting the filename is not supported.")
-        return new_image_filename
-    
+
+        def _get_new_fits_filename(mode:str):
+            # Different methods based on the different modes.
+            filename_mode = filename_mode.casefold()
+            if filename_mode == "automatic":
+                # Find the file name automatically using the most recent image.
+                # TODO
+                new_filename = "pie"
+            elif filename_mode == "manual":
+                # Use a file dialog box to get the file name. We do not need the
+                # filter information.
+                new_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
+                    parent=self,
+                    caption="Open Opihi Image",
+                    directory="./",
+                    filter="FITS Files (*.fits)",
+                )
+            else:
+                raise error.InputError(
+                    "The filename mode of getting the filename is not supported."
+                )
+            return new_filename
 
 
 def main():
@@ -179,6 +191,7 @@ def main():
     application.show()
 
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()
