@@ -270,7 +270,6 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
             # No need, there is no current valid location specified.
             pass
 
-        print(self.asteroid_x, self.asteroid_y)
         # A tight layout to save space.
         self.figure.tight_layout()
         # And finally, drawing the image.
@@ -302,7 +301,8 @@ def ask_user_asteroid_selector() -> tuple[float, float]:
     # this to be done.
     asteroid_selector_window.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
     asteroid_selector_window.show()
-    # Using an event loop to wait until the widget closes.
+    # Using an event loop to wait until the widget closes, which is when
+    # the user is done selecting the asteroid location.
     loop = QtCore.QEventLoop()
     asteroid_selector_window.destroyed.connect(loop.quit)
     loop.exec()
