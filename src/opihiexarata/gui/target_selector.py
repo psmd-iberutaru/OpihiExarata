@@ -19,15 +19,17 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class AsteroidSelectorWindow(QtWidgets.QWidget):
+class TargetSelectorWindow(QtWidgets.QWidget):
     def __init__(self, data_array: hint.array = None) -> None:
-        """Create the asteroid selector window.
+        """Create the target selector window. Though often used for asteroids,
+        there is no reason why is should specific to them; so we use a general
+        name.
 
         Parameters
         ----------
         data_array : array
             The data from Opihi which is the image that it took. The user will
-            use this image to select the location of the asteroid.
+            use this image to select the location of the target/asteroid.
 
         Returns
         -------
@@ -45,12 +47,12 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         data_array = (Z1 - Z2) * 2
 
         # The data from which will be shown to the user which they will use
-        # to find the location of the asteroid.
+        # to find the location of the target.
         self.data_array = data_array
-        # The location of the asteroid, the user did not provide it so
+        # The location of the target, the user did not provide it so
         # blank currently.
-        self.asteroid_x = None
-        self.asteroid_y = None
+        self.target_x = None
+        self.target_y = None
         # Making the plot itself.
         self.figure = mpl_figure.Figure()
         self.canvas = FigureCanvas(self.figure)
@@ -62,7 +64,7 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         self.canvas.mpl_connect("button_release_event", self.image_mouse_release)
 
         # Building the window with the matplotlib plot and the done button.
-        self.setWindowTitle("OpihiExarata Asteroid Selector")
+        self.setWindowTitle("OpihiExarata Target Selector")
         # Using a vertical layout style.
         layout = QtWidgets.QVBoxLayout()
 
@@ -92,7 +94,7 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         -------
         None
         """
-        # Assign the potential location of the asteroid to the location
+        # Assign the potential location of the target to the location
         # of the mouse.
         if event.xdata is None or event.ydata is None:
             # The user likely clicked outside of the canvas area. Ignore.
@@ -116,7 +118,7 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         -------
         None
         """
-        # Assign the potential location of the asteroid to the location
+        # Assign the potential location of the target to the location
         # of the mouse.
         if event.xdata is None or event.ydata is None:
             # The user likely clicked outside of the canvas area. Ignore.
@@ -138,8 +140,8 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
             self.search_y0 = lower_y
             self.search_y1 = upper_y
 
-        # Find the asteroid location based on the search area just determined.
-        self.asteroid_x, self.asteroid_y = self.find_asteroid_location(
+        # Find the target location based on the search area just determined.
+        self.target_x, self.target_y = self.find_target_location(
             x0=self.search_x0, x1=self.search_x1, y0=self.search_y0, y1=self.search_y1
         )
 
@@ -147,10 +149,10 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         self.redraw_image()
         return None
 
-    def find_asteroid_location(
+    def find_target_location(
         self, x0: float, x1: float, y0: float, y1: float
     ) -> tuple[float, float]:
-        """Find the location of an asteroid by using a guessed location.
+        """Find the location of a target by using a guessed location.
         The bounds of the search is specified by the rectangle.
 
         Parameters
@@ -170,10 +172,10 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
 
         Returns
         -------
-        asteroid_x : float
-            The location of the asteroid, based on the guess.
-        asteroid_y : float
-            The location of the asteroid, based on the guess.
+        target_x : float
+            The location of the target, based on the guess.
+        target_y : float
+            The location of the target, based on the guess.
         """
 
         # Define the search area by the search radius. Being generous on the
@@ -187,21 +189,21 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
             x0:x1,
         ]
 
-        # Find the location of the asteroid. Using the maximum pixel value as
+        # Find the location of the target. Using the maximum pixel value as
         # it.
         search_y, search_x = np.unravel_index(
             np.nanargmax(search_array), search_array.shape
         )
         # Transform it back into the total array coordinates.
-        asteroid_x = x0 + search_x
-        asteroid_y = y0 + search_y
-        # Define the location of the asteroid as the center of the maximum
+        target_x = x0 + search_x
+        target_y = y0 + search_y
+        # Define the location of the target as the center of the maximum
         # pixel, not its edge.
-        asteroid_x += 0.5
-        asteroid_y += 0.5
+        target_x += 0.5
+        target_y += 0.5
 
         # All done.
-        return asteroid_x, asteroid_y
+        return target_x, target_y
 
     def close_window(self) -> None:
         """Closes the window. Generally called when it is all done.
@@ -241,22 +243,22 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         # Creating the image of the image data.
         self.ax.imshow(self.data_array, zorder=-1)
 
-        # If there is an asteroid location, put it on the map.
-        if isinstance(self.asteroid_x, (int, float)) and isinstance(
-            self.asteroid_y, (int, float)
+        # If there is a specified target location, put it on the map.
+        if isinstance(self.target_x, (int, float)) and isinstance(
+            self.target_y, (int, float)
         ):
             # Represent the marker as an approximation to the search area for
-            # the asteroid. Matplotlib defines the size as the area parameter.
+            # the target. Matplotlib defines the size as the area parameter.
             size = 50
             self.ax.scatter(
-                self.asteroid_x,
-                self.asteroid_y,
+                self.target_x,
+                self.target_y,
                 s=size,
                 marker="^",
                 color="r",
                 facecolors="None",
             )
-            # If there is an asteroid, then the bounding box created must have
+            # If there is a target, then the bounding box created must have
             # also succeeded. It is helpful for the user to also draw it.
             search_rectangle = mpl_patches.Rectangle(
                 xy=(self.search_x0, self.search_y0),
@@ -278,46 +280,46 @@ class AsteroidSelectorWindow(QtWidgets.QWidget):
         return None
 
 
-def ask_user_asteroid_selector() -> tuple[float, float]:
-    """Use the asteroid selector window to have the user provide the
-    information needed to determine the location of the asteroid.
-    
+def ask_user_target_selector_window() -> tuple[float, float]:
+    """Use the target selector window to have the user provide the
+    information needed to determine the location of the target.
+
     Parameters
     ----------
     None
 
     Returns
     -------
-    asteroid_x : float
-        The location of the asteroid in the x axis direction.
-    asteroid_y : float
-        The location of the asteroid in the y axis direction.
+    target_x : float
+        The location of the target in the x axis direction.
+    target_y : float
+        The location of the target in the y axis direction.
     """
-    # Create the asteroid selector viewer window and let the user interact with
+    # Create the target selector viewer window and let the user interact with
     # it until they let the answer be found.
-    asteroid_selector_window = AsteroidSelectorWindow()
-    # Freeze all other processes until the location of the asteroid has been 
+    target_selector_window = TargetSelectorWindow()
+    # Freeze all other processes until the location of the target has been
     # determined. This is a blocking process because everything else requires
     # this to be done.
-    asteroid_selector_window.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
-    asteroid_selector_window.show()
+    target_selector_window.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
+    target_selector_window.show()
     # Using an event loop to wait until the widget closes, which is when
-    # the user is done selecting the asteroid location.
+    # the user is done selecting the target location.
     loop = QtCore.QEventLoop()
-    asteroid_selector_window.destroyed.connect(loop.quit)
+    target_selector_window.destroyed.connect(loop.quit)
     loop.exec()
 
-    # The extracted asteroid pixel location values.
-    asteroid_x = asteroid_selector_window.asteroid_x
-    asteroid_y = asteroid_selector_window.asteroid_y
+    # The extracted target pixel location values.
+    target_x = target_selector_window.target_x
+    target_y = target_selector_window.target_y
     # All done.
-    return asteroid_x, asteroid_y
+    return target_x, target_y
 
 
 if __name__ == "__main__":
+    # This is really just to test the GUI, to actually use the GUI, please use
+    # the proper function.
     application = QtWidgets.QApplication([])
-
-    x, y = ask_user_asteroid_selector()
-    print("res",x,y)
-
+    x, y = ask_user_target_selector_window()
+    print("XY Coordinates: ", x, y)
     sys.exit()
