@@ -58,7 +58,7 @@ def read_fits_image_file(
     -------
     header : Astropy Header
         The header of the fits file.
-    data : array-like
+    data : array
         The data image of the fits file.
     """
     with ap_fits.open(filename) as hdul:
