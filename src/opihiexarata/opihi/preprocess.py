@@ -1,6 +1,7 @@
 """A data wrapper class which takes in raw Opihi data, flats, and darks and 
 produces a valid reduced image.
 """
+import copy
 
 import numpy as np
 
@@ -10,9 +11,13 @@ import opihiexarata.library.hint as hint
 
 
 class OpihiPreprocessSolution:
-    """A class which represents preprocessed reduced Opihi data, having the
+    """A class which represents the reduction process of Opihi data, having the
     raw data corrected using previously and provided derived flats and darks.
     The required parameters (such as exposure time) must also be provided.
+
+    This class does not have an engine as there is only one way to reduce data
+    provided the systematics of the Opihi telescope itself; as such the
+    data is handled straight by this solution class.
 
     Attributes
     ----------
@@ -165,53 +170,53 @@ class OpihiPreprocessSolution:
         Parameters
         ----------
         mask_c_fits_filename : string
-            The filename for the pixel mask in the clear filter stored in a 
+            The filename for the pixel mask in the clear filter stored in a
             fits file.
         mask_g_fits_filename : string
-            The filename for the pixel mask in the g filter stored in a 
+            The filename for the pixel mask in the g filter stored in a
             fits file.
         mask_r_fits_filename : string
-            The filename for the pixel mask in the r filter stored in a 
+            The filename for the pixel mask in the r filter stored in a
             fits file.
         mask_i_fits_filename : string
-            The filename for the pixel mask in the i filter stored in a 
+            The filename for the pixel mask in the i filter stored in a
             fits file.
         mask_z_fits_filename : string
-            The filename for the pixel mask in the z filter stored in a 
+            The filename for the pixel mask in the z filter stored in a
             fits file.
         mask_1_fits_filename : string
-            The filename for the pixel mask in the 1 filter stored in a 
+            The filename for the pixel mask in the 1 filter stored in a
             fits file.
         mask_2_fits_filename : string
-            The filename for the pixel mask in the 2 filter stored in a 
+            The filename for the pixel mask in the 2 filter stored in a
             fits file.
         mask_3_fits_filename : string
-            The filename for the pixel mask in the 3 filter stored in a 
+            The filename for the pixel mask in the 3 filter stored in a
             fits file.
 
         flat_c_fits_filename : string
-            The filename for the flat field in the clear filter stored in a 
+            The filename for the flat field in the clear filter stored in a
             fits file.
         flat_g_fits_filename : string
-            The filename for the flat field in the g filter stored in a 
+            The filename for the flat field in the g filter stored in a
             fits file.
         flat_r_fits_filename : string
-            The filename for the flat field in the r filter stored in a 
+            The filename for the flat field in the r filter stored in a
             fits file.
         flat_i_fits_filename : string
-            The filename for the flat field in the i filter stored in a 
+            The filename for the flat field in the i filter stored in a
             fits file.
         flat_z_fits_filename : string
-            The filename for the flat field in the z filter stored in a 
+            The filename for the flat field in the z filter stored in a
             fits file.
         flat_1_fits_filename : string
-            The filename for the flat field in the 1 filter stored in a 
+            The filename for the flat field in the 1 filter stored in a
             fits file.
         flat_2_fits_filename : string
-            The filename for the flat field in the 2 filter stored in a 
+            The filename for the flat field in the 2 filter stored in a
             fits file.
         flat_3_fits_filename : string
-            The filename for the flat field in the 3 filter stored in a 
+            The filename for the flat field in the 3 filter stored in a
             fits file.
 
 
@@ -253,7 +258,7 @@ class OpihiPreprocessSolution:
         # Dark rate, filter independent.
         self._dark_rate_fits_filename = dark_rate_fits_filename
         # Linearity, filter independent.
-        self._linearity_text_filename = linearity_fits_filename
+        self._linearity_fits_filename = linearity_fits_filename
         # Reading the fits file data.
         self.__read_mask_data()
         self.__read_flat_data()
@@ -301,7 +306,7 @@ class OpihiPreprocessSolution:
         __, mask_3 = library.fits.read_fits_image_file(
             filename=self._mask_3_fits_filename
         )
-        # Adding the masks to this solution so the fits files need not be 
+        # Adding the masks to this solution so the fits files need not be
         # accessed again.
         self.mask_c = mask_c
         self.mask_g = mask_g
@@ -351,7 +356,7 @@ class OpihiPreprocessSolution:
         __, flat_3 = library.fits.read_fits_image_file(
             filename=self._flat_3_fits_filename
         )
-        # Adding the flats to this solution so the fits files need not be 
+        # Adding the flats to this solution so the fits files need not be
         # accessed again.
         self.flat_c = flat_c
         self.flat_g = flat_g
@@ -377,3 +382,95 @@ class OpihiPreprocessSolution:
         -------
         None
         """
+
+    def preprocess_data_image(
+        self, raw_data: hint.array, exposure_time: float
+    ) -> hint.array:
+        """The formal reduction algorithm for data from Opihi. It follows
+        preprocessing instructions for CCDs.
+
+        Parameters
+        ----------
+        data : array-like
+            The raw image data from the Opihi telescope.
+        exposure_time : float
+            The exposure time of the image in seconds.
+
+        Returns
+        -------
+        preprocess_data : array
+            The data, after it has been preprocessed.
+        """
+        # TODO
+        raise error.DevelopmentError
+
+
+
+    def preprocess_fits_file(
+        self, raw_filename: str, out_filename: str = None
+    ) -> tuple[hint.Header, hint.array]:
+        """Preprocess an Opihi image, the provided fits filename is read, the
+        needed information extracted from it, and it is processed using
+        historical archive calibration files created per the documentation and
+        specified by the configuration files.
+
+        Parameters
+        ----------
+        raw_filename : str
+            The filename of the raw fits file image from Opihi.
+        out_filename : str, default = None
+            The filename to save the reduced image as a fits file. Some added
+            entries are added to the header. If this is not provided as
+            defaults to None, no file is saved.
+
+        Returns
+        -------
+        preprocess_header : Astropy Header
+            The header of the fits file after preprocessing. Some added
+            entries are present to document information from preprocessing.
+        preprocess_data : array
+            The data array of the image after the raw image went through the
+            preprocess reduction.
+        """
+        # Read the needed fits information to do the reduction.
+        raw_header, raw_data = library.fits.read_fits_image_file(filename=raw_filename)
+        # The exposure time is needed for reducing the image data. (The fits
+        # file uses integration time as the name.)
+        raw_exposure_time = float(raw_header["itime"])
+
+        # Preprocessing the data.
+        preprocess_data = self.preprocess_data_image(
+            raw_data=raw_data, exposure_time=raw_exposure_time
+        )
+
+        # Adding helpful preprocessing information to the header, just in the
+        # event it may be needed. Using a copy just in case.
+        preprocess_header = copy.deepcopy(raw_header)
+        # TODO.
+        
+
+        # If the user wanted to save the preprocessed data as a file.
+        if isinstance(out_filename, str):
+            # Assume it is a valid path, if it is not, the writing function or
+            # Astropy will likely bark.
+            library.fits.write_fits_image_file(
+                filename=out_filename,
+                header=preprocess_header,
+                data=preprocess_data,
+                overwrite=False,
+            )
+        elif out_filename is not None:
+            # The outgoing filename is entered but it was not an acceptable
+            # path as a string, this is an error (likely on the development
+            # side).
+            raise error.InputError(
+                "The out filename provided is not a string; therefore, it cannot be"
+                " interpreted as a path where which the preprocessed file would be"
+                " saved."
+            )
+        else:
+            # The file is not to be saved.
+            pass
+
+        # All done.
+        return preprocess_header, preprocess_data

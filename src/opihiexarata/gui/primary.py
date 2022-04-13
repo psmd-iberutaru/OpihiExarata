@@ -22,7 +22,9 @@ import opihiexarata.gui as gui
 
 
 class OpihiPrimaryWindow(QtWidgets.QMainWindow):
-    """
+    """The GUI that is responsible for interaction between the user and the
+    two primary Opihi solutions, the image (OpihiPreprocessSolution) and the 
+    results (OpihiSolution).
     """
 
 
