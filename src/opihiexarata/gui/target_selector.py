@@ -38,14 +38,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Initialization of the parent class window.
         super().__init__()
 
-        ##### TESTING
-        delta = 0.025
-        x = y = np.arange(-3.0, 3.0, delta)
-        X, Y = np.meshgrid(x, y)
-        Z1 = np.exp(-(X**2) - Y**2)
-        Z2 = np.exp(-((X - 1) ** 2) - (Y - 1) ** 2)
-        data_array = (Z1 - Z2) * 2
-
         # The data from which will be shown to the user which they will use
         # to find the location of the target.
         self.data_array = data_array
@@ -66,7 +58,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Building the window with the matplotlib plot and the done button.
         self.setWindowTitle("OpihiExarata Target Selector")
         # Using a vertical layout style.
-        layout = QtWidgets.QVBoxLayout()
+        vertical_layout = QtWidgets.QVBoxLayout()
 
         # The done/exit button.
         self.done_button = QtWidgets.QPushButton("Done")
@@ -74,10 +66,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Assembling the different elements of this GUI window.
         # The image for plotting.
-        layout.addWidget(self.canvas)
-        layout.addWidget(self.done_button)
+        vertical_layout.addWidget(self.canvas)
+        vertical_layout.addWidget(self.done_button)
 
-        self.setLayout(layout)
+        self.setLayout(vertical_layout)
         # All done.
         return None
 
@@ -280,13 +272,15 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         return None
 
 
-def ask_user_target_selector_window() -> tuple[float, float]:
+def ask_user_target_selector_window(data_array:hint.array) -> tuple[float, float]:
     """Use the target selector window to have the user provide the
     information needed to determine the location of the target.
 
     Parameters
     ----------
-    None
+    data_array : array-like
+        The image data array which will be displayed to the user to have them
+        find the target.
 
     Returns
     -------
@@ -297,7 +291,8 @@ def ask_user_target_selector_window() -> tuple[float, float]:
     """
     # Create the target selector viewer window and let the user interact with
     # it until they let the answer be found.
-    target_selector_window = TargetSelectorWindow()
+    data_array = np.array(data_array)
+    target_selector_window = TargetSelectorWindow(data_array=data_array)
     # Freeze all other processes until the location of the target has been
     # determined. This is a blocking process because everything else requires
     # this to be done.
@@ -320,6 +315,15 @@ if __name__ == "__main__":
     # This is really just to test the GUI, to actually use the GUI, please use
     # the proper function.
     application = QtWidgets.QApplication([])
-    x, y = ask_user_target_selector_window()
+
+    ##### TESTING
+    delta = 0.025
+    x = y = np.arange(-3.0, 3.0, delta)
+    X, Y = np.meshgrid(x, y)
+    Z1 = np.exp(-(X**2) - Y**2)
+    Z2 = np.exp(-((X - 1) ** 2) - (Y - 1) ** 2)
+    data_array = (Z1 - Z2) * 2
+
+    x, y = ask_user_target_selector_window(data_array=data_array)
     print("XY Coordinates: ", x, y)
     sys.exit()
