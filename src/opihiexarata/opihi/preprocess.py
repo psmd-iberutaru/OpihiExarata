@@ -260,15 +260,15 @@ class OpihiPreprocessSolution:
         # Linearity, filter independent.
         self._linearity_fits_filename = linearity_fits_filename
         # Reading the fits file data.
-        self.__read_mask_data()
+        self.__init_read_mask_data()
         self.__read_flat_data()
         # Reading the linearity data and create the linearity function.
-        self.__read_linearity_data()
+        self.__init_linearity_data()
 
         # All done.
         return None
 
-    def __read_mask_data(self) -> None:
+    def __init_read_mask_data(self) -> None:
         """This function just reads all of the fits file data for the
         filter-dependent pixel masks and puts it where it belongs per the
         documentation.
@@ -318,7 +318,7 @@ class OpihiPreprocessSolution:
         self.mask_3 = mask_3
         return None
 
-    def __read_flat_data(self) -> None:
+    def __init_read_flat_data(self) -> None:
         """This function just reads all of the fits file data for the
         filter-dependent flat fields and puts it where it belongs per the
         documentation.
@@ -367,7 +367,7 @@ class OpihiPreprocessSolution:
         self.flat_2 = flat_2
         self.flat_3 = flat_3
 
-    def __read_linearity_data(self):
+    def __init_read_linearity_data(self):
         """This function reads all of the linearity data and creates a
         function for linearity. First order interpolation is done on this data.
 
