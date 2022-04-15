@@ -114,7 +114,7 @@ class PolynomialPropagationEngine(hint.PropagationEngine):
     @classmethod
     def __fit_polynomial_function(
         cls, fit_x: hint.array, fit_y: hint.array
-    ) -> tuple[hint.array, hint.array]:
+    ) -> tuple[tuple, tuple]:
         """A wrapper class for fitting the defined specific polynomial function.
 
         Parameters

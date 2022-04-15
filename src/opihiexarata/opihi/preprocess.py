@@ -4,6 +4,8 @@ produces a valid reduced image.
 import copy
 
 import numpy as np
+import numpy.ma as np_ma
+import scipy.optimize as sp_optimize
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -138,6 +140,9 @@ class OpihiPreprocessSolution:
         The bias array as determined by the provided fits file.
     dark_rate : array
         The dark rate, per pixel, as determined by the provided fits file.
+    linearity_factors : array
+        The polynomial factors of the linearity function starting from the
+        0th order.
     linearity_function : function
         The linearity function across the whole CCD. It is an average function
         across all of the pixels.
@@ -259,11 +264,18 @@ class OpihiPreprocessSolution:
         self._dark_rate_fits_filename = dark_rate_fits_filename
         # Linearity, filter independent.
         self._linearity_fits_filename = linearity_fits_filename
-        # Reading the fits file data.
+        # Reading the fits file data. There are inner functions for mask and
+        # flats for organizational purposes.
+        self.bias, __ = library.fits.read_fits_image_file(
+            filename=self._bias_fits_filename
+        )
+        self.dark_current, __ = library.fits.read_fits_image_file(
+            filename=self._dark_rate_fits_filename
+        )
         self.__init_read_mask_data()
-        self.__read_flat_data()
+        self.__init_read_flat_data()
         # Reading the linearity data and create the linearity function.
-        self.__init_linearity_data()
+        self.__init_read_linearity_data()
 
         # All done.
         return None
@@ -307,15 +319,16 @@ class OpihiPreprocessSolution:
             filename=self._mask_3_fits_filename
         )
         # Adding the masks to this solution so the fits files need not be
-        # accessed again.
-        self.mask_c = mask_c
-        self.mask_g = mask_g
-        self.mask_r = mask_r
-        self.mask_i = mask_i
-        self.mask_z = mask_z
-        self.mask_1 = mask_1
-        self.mask_2 = mask_2
-        self.mask_3 = mask_3
+        # accessed again. A pixel is considered mask if the value is True.
+        self.mask_c = np.array(mask_c, dtype=bool)
+        self.mask_g = np.array(mask_g, dtype=bool)
+        self.mask_r = np.array(mask_r, dtype=bool)
+        self.mask_i = np.array(mask_i, dtype=bool)
+        self.mask_z = np.array(mask_z, dtype=bool)
+        self.mask_1 = np.array(mask_1, dtype=bool)
+        self.mask_2 = np.array(mask_2, dtype=bool)
+        self.mask_3 = np.array(mask_3, dtype=bool)
+        # All done.
         return None
 
     def __init_read_flat_data(self) -> None:
@@ -358,14 +371,16 @@ class OpihiPreprocessSolution:
         )
         # Adding the flats to this solution so the fits files need not be
         # accessed again.
-        self.flat_c = flat_c
-        self.flat_g = flat_g
-        self.flat_r = flat_r
-        self.flat_i = flat_i
-        self.flat_z = flat_z
-        self.flat_1 = flat_1
-        self.flat_2 = flat_2
-        self.flat_3 = flat_3
+        self.flat_c = np.array(flat_c)
+        self.flat_g = np.array(flat_g)
+        self.flat_r = np.array(flat_r)
+        self.flat_i = np.array(flat_i)
+        self.flat_z = np.array(flat_z)
+        self.flat_1 = np.array(flat_1)
+        self.flat_2 = np.array(flat_2)
+        self.flat_3 = np.array(flat_3)
+        # All done.
+        return None
 
     def __init_read_linearity_data(self):
         """This function reads all of the linearity data and creates a
@@ -382,9 +397,23 @@ class OpihiPreprocessSolution:
         -------
         None
         """
+        time_array = 0
+        avg_signal_array = 0
+        # Using just 2nd order linearity correction to fit the saturation
+        # function.
+        def _polynomial(x, a, b, c):
+            return a + b * x + c * x**2
+
+        # Fitting.
+        param, __ = sp_optimize.curve_fit(_polynomial, time_array, avg_signal_array)
+        self.linearity_factors = param
+        # Using the fitted parameters to derive the linearity curve.
+        self.linearity_function = lambda r: _polynomial(x=r, *self.linearity_factors)
+        # All done.
+        return None
 
     def preprocess_data_image(
-        self, raw_data: hint.array, exposure_time: float
+        self, raw_data: hint.array, exposure_time: float, filter_name: str
     ) -> hint.array:
         """The formal reduction algorithm for data from Opihi. It follows
         preprocessing instructions for CCDs.
@@ -395,16 +424,60 @@ class OpihiPreprocessSolution:
             The raw image data from the Opihi telescope.
         exposure_time : float
             The exposure time of the image in seconds.
+        filter_name : string
+            The name of the filter which the image was taken in, used to
+            select the correct flat and mask file.
 
         Returns
         -------
         preprocess_data : array
             The data, after it has been preprocessed.
         """
-        # TODO
-        raise error.DevelopmentError
+        # Get the needed mask and flat files based on the provided filter.
+        # Being a little clever so a very long if/else statememt is not used.
+        try:
+            mask = self.__dict__.get("mask_{f}".format(f=filter_name), None)
+            flat = self.__dict__.get("flat_{f}".format(f=filter_name), None)
+            if mask is None or flat is None:
+                raise error.IntentionalError
+        except error.IntentionalError:
+            # The filters are not in this class itself as per the structure of
+            # this class and its initialization. Likely, the filter name is
+            # wrong.
+            raise error.InputError(
+                "The filter name {f} is not a filter name that is a part of the"
+                " OpihiExarata system and this class does not a flat or mask for said"
+                " filter for reduction purposes.".format(f=filter_name)
+            )
 
+        # All of the arrays must be the same shape for the Numpy array math
+        # to work out.
+        if (
+            raw_data.shape
+            == self.bias.shape
+            == self.dark_current.shape
+            == flat.shape
+            == mask.shape
+        ):
+            # All good.
+            pass
+        else:
+            raise error.InputError(
+                "The data array does not have the same shape as all of the other data"
+                " reduction arrays."
+            )
 
+        # Reducing it based on the documentation method. Inversing the
+        # linearity and then removing the dark and bias then flat field
+        # correction.
+        unmasked_preprocess_data = (
+            self.linearity_function(raw_data)
+            - self.bias
+            - exposure_time * self.dark_current
+        ) / flat
+        # Adding the mask to the data.
+        preprocess_data = np_ma.array(unmasked_preprocess_data, mask=mask)
+        raise preprocess_data
 
     def preprocess_fits_file(
         self, raw_filename: str, out_filename: str = None
@@ -437,18 +510,26 @@ class OpihiPreprocessSolution:
         # The exposure time is needed for reducing the image data. (The fits
         # file uses integration time as the name.)
         raw_exposure_time = float(raw_header["itime"])
+        # filter_name = str(raw_header[""])
+        filter_name = "g"
 
         # Preprocessing the data.
         preprocess_data = self.preprocess_data_image(
-            raw_data=raw_data, exposure_time=raw_exposure_time
+            raw_data=raw_data, exposure_time=raw_exposure_time, filter_name=filter_name
         )
 
         # Adding helpful preprocessing information to the header, just in the
-        # event it may be needed. Using a copy just in case.
-        preprocess_header = copy.deepcopy(raw_header)
-        # TODO.
-        
-
+        # event it may be needed. Using a copy just in case. It is formatted
+        # this way so it is easy to add extra items if needed.
+        entry_assortment = [
+            # ("OX______", 0, "Filler"),
+        ]
+        # Adding it using the written function.
+        data_enteries = {rowdex[0]: rowdex[1] for rowdex in entry_assortment}
+        comment_enteries = {rowdex[0]: rowdex[1] for rowdex in entry_assortment}
+        preprocess_header = library.fits.update_fits_header(
+            header=raw_header, entries=data_enteries, comments=comment_enteries
+        )
         # If the user wanted to save the preprocessed data as a file.
         if isinstance(out_filename, str):
             # Assume it is a valid path, if it is not, the writing function or
