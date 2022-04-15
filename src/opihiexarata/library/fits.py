@@ -1,5 +1,7 @@
 """Fits file based operations. These are kind of like convince functions."""
 
+import copy
+
 import numpy as np
 import astropy.io.fits as ap_fits
 import astropy.table as ap_table
@@ -38,6 +40,53 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
             "This function is designed to read headers of fits files only, and thus the"
             " data of this fits file or extension is expected to be None, nothing."
         )
+    return header
+
+def update_fits_header(header:hint.Header, entries:dict, comments:dict={}) -> hint.Header:
+    """This appends entries from a dictionary to an Astropy header. 
+    
+    This function is preferred to adding using standard methods as it performs 
+    checks to make sure it only uses header keys reserved for OpihiExarata. 
+    This function raises an error upon attempting to add an entry which does 
+    not conform to fits standards and is not keyed with the "OX######" 
+    template.
+
+    Parameters
+    ----------
+    header : Astropy Header
+        The header which the entries will be added to.
+    entries : dictionary
+        The new entries to the header.
+    comments : dictionary, default = {}
+        If comments are to be added to data entries, then they may be 
+        provided as a dictionary here with keys exactly the same as the 
+        data entries. This is not for comment cards.
+    """
+    # Working on a copy of the header just in case.
+    # Type checking.
+    header = copy.deepcopy(header)
+    entries = entries if isinstance(entries, dict) else dict(entries)
+    # Search through the dictionary provided to check that all of the 
+    # entries are correctly formatted.
+    for keydex, valuedex in entries.items():
+        # Extracting the comment if needed.
+        commentdex = comments.get(keydex, None)
+        # By default, the fits header and Astropy use capital letters. This
+        # must be done after the comments in case they used lower case letters.
+        keydex = str(keydex).upper()
+
+        # Checking the entire slew of checks to make sure that the values are
+        # all correct.
+        # Length check.
+        if len(keydex) > 8:
+            raise error.InputError("The fits header key {k} is longer than the 8 characters as defined by the fits standard.".format(k=keydex))
+        # OpihiExarata namespace check.
+        if keydex[:2] != "OX":
+            raise error.DevelopmentError("The fits header key {k} is not of the OpihiExarata reserved namespace OX######. Please change it.".format(k=keydex))
+        
+        # It seemed to pass validation. Adding.
+        header.set(keyword=keydex, value=valuedex, comment=commentdex)
+    # All done.
     return header
 
 
