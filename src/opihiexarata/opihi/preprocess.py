@@ -76,7 +76,7 @@ class OpihiPreprocessSolution:
     _bias_fits_filename : string
         The filename for the per-pixel bias values of the data,
         stored in a fits file.
-    _dark_rate_fits_filename : string
+    _dark_current_fits_filename : string
         The filename for the per-pixel rate values of the dark data,
         stored in a fits file.
     _linearity_fits_filename : string
@@ -138,7 +138,7 @@ class OpihiPreprocessSolution:
 
     bias : array
         The bias array as determined by the provided fits file.
-    dark_rate : array
+    dark_current : array
         The dark rate, per pixel, as determined by the provided fits file.
     linearity_factors : array
         The polynomial factors of the linearity function starting from the
@@ -167,7 +167,7 @@ class OpihiPreprocessSolution:
         flat_2_fits_filename: str,
         flat_3_fits_filename: str,
         bias_fits_filename: str,
-        dark_rate_fits_filename: str,
+        dark_current_fits_filename: str,
         linearity_fits_filename: str,
     ) -> None:
         """Instantiation of the reduced Opihi data class.
@@ -228,7 +228,7 @@ class OpihiPreprocessSolution:
         bias_fits_filename : string
             The filename for the per-pixel bias values of the data,
             stored in a fits file.
-        dark_rate_fits_filename : string
+        dark_current_fits_filename : string
             The filename for the per-pixel rate values of the dark data,
             stored in a fits file.
         linearity_fits_filename : string
@@ -261,7 +261,7 @@ class OpihiPreprocessSolution:
         # Bias, filter independent.
         self._bias_fits_filename = bias_fits_filename
         # Dark rate, filter independent.
-        self._dark_rate_fits_filename = dark_rate_fits_filename
+        self._dark_current_fits_filename = dark_current_fits_filename
         # Linearity, filter independent.
         self._linearity_fits_filename = linearity_fits_filename
         # Reading the fits file data. There are inner functions for mask and
@@ -270,7 +270,7 @@ class OpihiPreprocessSolution:
             filename=self._bias_fits_filename
         )
         self.dark_current, __ = library.fits.read_fits_image_file(
-            filename=self._dark_rate_fits_filename
+            filename=self._dark_current_fits_filename
         )
         self.__init_read_mask_data()
         self.__init_read_flat_data()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>745</width>
-    <height>834</height>
+    <width>774</width>
+    <height>884</height>
    </rect>
   </property>
   <property name="font">
@@ -40,22 +40,40 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>731</width>
-      <height>771</height>
+      <width>601</width>
+      <height>821</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="window_vertical_layout">
+    <property name="font">
+     <font>
+      <family>Sylfaen</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <layout class="QVBoxLayout" name="vertical_layout_window">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontal_layout_new_files">
        <item>
-        <widget class="QPushButton" name="button_new_image_automatic">
+        <widget class="QPushButton" name="push_button_new_image_automatic">
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Automatic New Image</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="button_new_image_manual">
+        <widget class="QPushButton" name="push_button_new_image_manual">
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Manual New Image</string>
          </property>
@@ -63,13 +81,25 @@
        </item>
        <item>
         <widget class="Line" name="line">
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="button_new_object">
+        <widget class="QPushButton" name="push_button_new_object">
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>New Target</string>
          </property>
@@ -79,20 +109,57 @@
      </item>
      <item>
       <widget class="Line" name="line_file_image">
+       <property name="font">
+        <font>
+         <family>Sylfaen</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QGraphicsView" name="dummy_opihi_image">
+       <property name="minimumSize">
+        <size>
+         <width>400</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Sylfaen</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
      <item>
-      <layout class="QVBoxLayout" name="image_vertical_layout">
-       <item>
-        <widget class="QGraphicsView" name="dummy_opihi_image"/>
-       </item>
-      </layout>
+      <layout class="QVBoxLayout" name="vertical_layout_image"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="push_button_redraw_plot">
+       <property name="text">
+        <string>Refresh</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="Line" name="line_image_solution">
+       <property name="font">
+        <font>
+         <family>Sylfaen</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="frameShadow">
         <enum>QFrame::Sunken</enum>
        </property>
@@ -102,12 +169,13 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="solution_vertical_layout">
+      <layout class="QVBoxLayout" name="vertical_layout_solutions">
        <item>
-        <widget class="QTabWidget" name="tab_all">
+        <widget class="QTabWidget" name="tabs_solutions">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="currentIndex">
@@ -123,26 +191,391 @@
           <attribute name="title">
            <string>Astrometry</string>
           </attribute>
+          <widget class="QWidget" name="verticalLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>571</width>
+             <height>181</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sylfaen</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <layout class="QVBoxLayout" name="vertical_layout_astrometry">
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_solve_astrometry">
+              <item>
+               <widget class="QPushButton" name="push_button_solve_astrometry">
+                <property name="font">
+                 <font>
+                  <family>Sylfaen</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Solve Astrometry</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="grid_layout_astrometry_results">
+              <item row="1" column="2">
+               <widget class="QLabel" name="label_dynamic_target_x">
+                <property name="text">
+                 <string>0000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QLabel" name="label_dynamic_target_y">
+                <property name="text">
+                 <string>0000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_static_target_coordinates">
+                <property name="text">
+                 <string>Target/Asteroid:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5" rowspan="3">
+               <widget class="Line" name="line_9">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="6">
+               <widget class="QLabel" name="label_dynamic_center_ra">
+                <property name="text">
+                 <string>HH:MM:SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_static_center_coordinates">
+                <property name="text">
+                 <string>Opihi Center:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="7">
+               <widget class="QLabel" name="label_dynamic_center_dec">
+                <property name="text">
+                 <string>DD:MM:SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="6">
+               <widget class="QLabel" name="label_dynamic_target_ra">
+                <property name="text">
+                 <string>HH:MM:SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="7">
+               <widget class="QLabel" name="label_dynamic_target_dec">
+                <property name="text">
+                 <string>DD:MM:SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_dynamic_center_y">
+                <property name="text">
+                 <string>0000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_dynamic_center_x">
+                <property name="text">
+                 <string>0000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" rowspan="3">
+               <widget class="Line" name="line_8">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="line_edit_custom_x"/>
+              </item>
+              <item row="2" column="3">
+               <widget class="QLineEdit" name="line_edit_custom_y"/>
+              </item>
+              <item row="2" column="6">
+               <widget class="QLineEdit" name="line_edit_custom_ra"/>
+              </item>
+              <item row="2" column="7">
+               <widget class="QLineEdit" name="line_edit_dec"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="push_button_custom_astrometry_solve">
+                <property name="text">
+                 <string>Custom Solve</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_photometry">
           <attribute name="title">
            <string>Photometry</string>
           </attribute>
+          <widget class="QWidget" name="verticalLayoutWidget_2">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>571</width>
+             <height>251</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sylfaen</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <layout class="QVBoxLayout" name="vertical_layout_photometry">
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_solve_photometry">
+              <item>
+               <widget class="QPushButton" name="push_button_solve_photometry">
+                <property name="font">
+                 <font>
+                  <family>Sylfaen</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Solve Photometry</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizonta_layout_photometry_results"/>
+            </item>
+           </layout>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_propagate">
           <attribute name="title">
            <string>Propagate</string>
           </attribute>
+          <widget class="QWidget" name="verticalLayoutWidget_4">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>571</width>
+             <height>251</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sylfaen</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <layout class="QVBoxLayout" name="vertical_layout_propagate">
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_solve_photometry_2">
+              <item>
+               <widget class="QPushButton" name="push_button_solve_propagation">
+                <property name="font">
+                 <font>
+                  <family>Sylfaen</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Solve Propagation</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_propagate_results"/>
+            </item>
+           </layout>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_orbit">
           <attribute name="title">
            <string>Orbit</string>
           </attribute>
+          <widget class="QWidget" name="verticalLayoutWidget_5">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>571</width>
+             <height>251</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sylfaen</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <layout class="QVBoxLayout" name="vertical_layout_orbit">
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_solve_orbit">
+              <item>
+               <widget class="QPushButton" name="push_button_solve_orbit">
+                <property name="font">
+                 <font>
+                  <family>Sylfaen</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Solve Orbit</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_orbit_results"/>
+            </item>
+           </layout>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_ephemeris">
           <attribute name="title">
            <string>Ephemeris</string>
           </attribute>
+          <widget class="QWidget" name="verticalLayoutWidget_6">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>571</width>
+             <height>251</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sylfaen</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <layout class="QVBoxLayout" name="vertical_layout_ephemeris">
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_solve_ephemeris">
+              <item>
+               <widget class="QPushButton" name="push_button_solve_ephemeris">
+                <property name="font">
+                 <font>
+                  <family>Sylfaen</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Solve Ephemeris</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_ephemeris_results"/>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </widget>
        </item>
@@ -156,8 +589,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>745</width>
-     <height>25</height>
+     <width>774</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

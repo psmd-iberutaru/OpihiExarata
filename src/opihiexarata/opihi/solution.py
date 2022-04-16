@@ -52,6 +52,12 @@ class OpihiSolution(hint.ExarataSolution):
         If this is None, then asteroid calculations are disabled as there is
         no asteroid.
 
+    header : Astropy Header
+        The header of the fits file.
+    data : array
+        The image data of the fits file itself.
+
+
     astrometrics : AstrometricSolution
         The astrometric solution; if it has not been solved yet, this is None.
     photometrics : PhotometricSolution
@@ -109,6 +115,11 @@ class OpihiSolution(hint.ExarataSolution):
         self.filter_name = filter_name
         self.exposure_time = exposure_time
         self.observing_time = observing_time
+
+        # Loading the fits file to record its data.
+        header, data = library.fits.read_fits_image_file(filename=fits_filename)
+        self.header = header
+        self.data = data
 
         # See if asteroids are important for this image and if so, lets
         # process the input data.

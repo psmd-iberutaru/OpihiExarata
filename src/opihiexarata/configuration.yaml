@@ -19,6 +19,12 @@ OBSERVATORY_MPC_CODE : "568"
 ##########     Opihi Preprocess Configuration
 ############################################################
 
+# The bias frame of the image.
+PREPROCESS_BIAS_FITS_FILENAME : ""
+
+# The dark current of the image per pixel per second.
+PREPROCESS_DARK_CURRENT_FITS_FILENAME : ""
+
 # The mask fit filenames for all of the different filters. Where masked, the 
 # value should be True in these arrays.
 PREPROCESS_MASK_C_FITS_FILENAME : ""
@@ -40,6 +46,9 @@ PREPROCESS_FLAT_1_FITS_FILENAME : ""
 PREPROCESS_FLAT_2_FITS_FILENAME : ""
 PREPROCESS_FLAT_3_FITS_FILENAME : ""
 
+# The data which contains the linearity (average counts over time) function 
+# of the array.
+PREPROCESS_LINEARITY_FITS_FILENAME : ""
 
 ############################################################
 ##########     Opihi Solution Configuration
