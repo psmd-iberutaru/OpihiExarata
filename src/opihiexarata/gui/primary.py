@@ -395,6 +395,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # This is a function which allows for the disabling of other axes 
+        # formatting their data values and messing with the formatter class.
+        def empty_string(string:str) -> str:
+            return str()
+
         # Clear the information before replotting, it is easier just to draw
         # it all again.
         self._opihi_axes.clear()
@@ -402,8 +407,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Attempt to plot the image data if it exists.
         if self.opihi_solution is not None:
             image = self._opihi_axes.imshow(self.opihi_solution.data)
-            image.format_cursor_data = lambda s: ""
-
+            image.format_cursor_data = empty_string
 
         # TESTING
         rand = np.random.rand(5)
@@ -411,7 +415,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Make sure the coordinate formatter does not change.
         self._opihi_axes.format_coord = self._opihi_coordinate_formatter
-        self._opihi_axes.format_cursor_data = lambda s: "Poop"
         # Update and redraw the image via redrawing the canvas.
         self._opihi_canvas.draw()
         return None
