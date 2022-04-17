@@ -2,6 +2,7 @@
 
 import astropy.coordinates as ap_coordinates
 import astropy.time as ap_time
+import astropy.units as ap_units
 
 
 def degrees_to_sexagesimal_ra_dec(ra_deg:float, dec_deg:float) -> tuple[str,str]:
@@ -27,6 +28,29 @@ def degrees_to_sexagesimal_ra_dec(ra_deg:float, dec_deg:float) -> tuple[str,str]
     ra_sex, dec_sex = skycoord.to_string("hmsdms", sep=":").split(" ")
     return ra_sex, dec_sex
 
+def sexagesimal_ra_dec_to_degrees(ra_sex:str, dec_sex:str) -> tuple[float,float]:
+    """Convert RA and DEC measurements from the more familiar HMSDMS 
+    sexagesimal format to degrees.
+
+    Parameters
+    ----------
+    ra_sex : str
+        The right ascension in hour:minute:second sexagesimal.
+    dec_sex : str
+        The declination in degree:minute:second sexagesimal.
+
+    Returns
+    -------
+    ra_deg : float
+        The right ascension in degrees.
+    dec_deg : float
+        The declination in degrees.
+    """
+    # Levering Astropy for this.
+    skycoord = ap_coordinates.SkyCoord(ra_sex, dec_sex, frame="icrs", unit=(ap_units.hourangle, ap_units.deg))
+    ra_deg = float(skycoord.ra.degree)
+    dec_deg = float(skycoord.dec.degree)
+    return ra_deg, dec_deg
 
 
 
