@@ -156,19 +156,19 @@ class AstrometricSolution(hint.ExarataSolution):
         dec : float or array-like
             The declination of the pixel coordinate, in degrees.
         """
-        # Must be parallel arrays.
-        if (x.shape != y.shape):
-            raise error.InputError("The two pixel coordinate arrays specified should be parallel arrays.")
         # Convert to arrays.
         x = np.array(x)
         y = np.array(y)
+        # Must be parallel arrays.
+        if (x.shape != y.shape):
+            raise error.InputError("The two pixel coordinate arrays specified should be parallel arrays.")
         # Compute the values from the pixel location.
         ra, dec = self.wcs.pixel_to_world_values(x, y)
         # If the input parameters were just singular values, then the answer
         # expected is likely also singular values. Type converting.
         if x.shape == y.shape == ():
-            ra = ra[0]
-            dec = dec[0]
+            ra = float(ra)
+            dec = float(dec)
         # All done.
         return ra, dec
 
@@ -192,19 +192,19 @@ class AstrometricSolution(hint.ExarataSolution):
         y : float or array-like
             The y pixel coordinate in the y-axis direction.
         """
-        # Must be parallel arrays.
-        if (ra.shape != dec.shape):
-            raise error.InputError("The two sky coordinate arrays specified should be parallel arrays.")
         # Convert to arrays.
         ra = np.array(ra)
         dec = np.array(dec)
+        # Must be parallel arrays.
+        if (ra.shape != dec.shape):
+            raise error.InputError("The two sky coordinate arrays specified should be parallel arrays.")
         # Compute the values from the sky location.
         x, y = self.wcs.world_to_pixel_values(ra, dec)
         # If the input parameters were just singular values, then the answer
         # expected is likely also singular values. Type converting.
         if ra.shape == dec.shape == ():
-            x = x[0]
-            y = y[0]
+            x = float(x)
+            y = float(y)
         # All done.
         return x, y
 
