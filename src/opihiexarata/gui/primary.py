@@ -11,6 +11,8 @@ from PyQt6 import QtCore, QtWidgets, QtGui
 
 import numpy as np
 
+import astropy as ap
+
 import matplotlib.pyplot as plt
 import matplotlib.figure as mpl_figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -20,6 +22,15 @@ import opihiexarata
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
+
+import opihiexarata.astrometry as astrometry
+from opihiexarata.opihi.solution import OpihiSolution
+import opihiexarata.photometry as photometry
+import opihiexarata.propagate as propagate
+import opihiexarata.orbit as orbit
+
+# import opihiexarata.ephemeris as ephemeris
+
 import opihiexarata.gui as gui
 
 
@@ -63,8 +74,8 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.preprocess_solution = None
         self.opihi_solution = None
 
-        # Preparing the new file buttons.
-        self.__init_new_file_buttons()
+        # Preparing the buttons and their functionality.
+        self.__init_push_button_connections()
 
         # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()
@@ -76,7 +87,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __init_new_file_buttons(self) -> None:
+    def __init_push_button_connections(self) -> None:
         """Assign the action bindings for the buttons which get new
         file(names).
 
@@ -88,12 +99,22 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Assigning actions to the buttons.
+        # The new file and new object buttons.
         self.ui.push_button_new_image_automatic.clicked.connect(
-            self.__connect_new_fits_filename_automatic
+            self.__connect_push_button_new_image_automatic
         )
         self.ui.push_button_new_image_manual.clicked.connect(
-            self.__connect_new_fits_filename_manual
+            self.__connect_push_button_new_image_manual
+        )
+
+        # The window and plot refresh button.
+        self.ui.push_button_refresh_window_plot.clicked.connect(
+            self.__connect_push_button_refresh_window_plot
+        )
+
+        # Astrometry-specific buttons.
+        self.ui.push_button_solve_astrometry.clicked.connect(
+            self.__connect_push_button_solve_astrometry
         )
 
     def __init_opihi_image(self) -> None:
@@ -141,24 +162,17 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 coord_string = "Helllo [{x_int:d}, {y_int:d}]".format(
                     x_int=x_index, y_int=y_index
                 )
-                print(coord_string)
                 return coord_string
 
         # Assigning the coordinate formatter derived.
         self._opihi_coordinate_formatter = CoordinateFormatter(self)
         self._opihi_axes.format_coord = self._opihi_coordinate_formatter
-        self._opihi_axes.format_cursor_data = lambda s: "Poop"
-
-        # The push button for redrawing/refreshing the figure.
-        self.push_button_redraw_plot = QtWidgets.QPushButton("Refresh")
-        self.push_button_redraw_plot.clicked.connect(self.redraw_opihi_image)
 
         # Setting the layout, it is likely better to have the toolbar below
         # rather than above to avoid conflicts with the reset buttons in the
         # event of a misclick.
         self.ui.vertical_layout_image.addWidget(self._opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self._opihi_nav_toolbar)
-        self.ui.vertical_layout_image.addWidget(self.push_button_redraw_plot)
         # Remove the dummy spacer otherwise it is just extra unneeded space.
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
         self.ui.dummy_opihi_image.deleteLater()
@@ -212,7 +226,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_new_fits_filename_automatic(self):
+    def __connect_push_button_new_image_automatic(self):
         """The automatic method relying on earliest fits file avaliable in
         the expected directory. This function is a connected function action to
         a button in the GUI.
@@ -245,7 +259,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_new_fits_filename_manual(self):
+    def __connect_push_button_new_image_manual(self):
         """The manual method relying on earliest fits file avaliable in
         the expected directory. This function is a connected function action to
         a button in the GUI.
@@ -280,6 +294,42 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Load up the new file.
         self._load_fits_file(fits_filename=self.raw_fits_filename)
         # All done.
+        return None
+
+    def __connect_push_button_refresh_window_plot(self) -> None:
+        """The function serving to refresh the window and redrawing the plot.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Just redraw the plot and redo the dynamic text.
+        self.redraw_opihi_image()
+        self.refresh_dynamic_label_text()
+        return None
+
+    def __connect_push_button_solve_astrometry(self) -> None:
+        """The button to instruct on the solving of the astrometric solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Determine the engine from user input.
+        engine = astrometry.AstrometryNetWebAPIEngine
+        # Solve.
+        __ = self.opihi_solution.solve_astrometry(solver_engine=engine, overwrite=True)
+        # Update all of the necessary information.
+        self.redraw_opihi_image()
+        self.refresh_dynamic_label_text()
         return None
 
     def _preprocess_fits_file(
@@ -383,15 +433,15 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Because a new image was loaded, the previous values and other
         # information derived from the last image are invalid, reset and replot.
-        self.reset_dynamic_label_text()
+        self.clear_dynamic_label_text()
         self.redraw_opihi_image()
         return None
 
-    def reset_dynamic_label_text(self) -> None:
-        """Reset all of the dynamic label text, this is traditionally done
+    def clear_dynamic_label_text(self) -> None:
+        """Clear all of the dynamic label text, this is traditionally done
         just before a new image is going to be introduced.
 
-        This resets the text back to their defaults.
+        This resets the text back to their defaults as per the GUI builder.
 
         Parameters
         ----------
@@ -401,6 +451,71 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        return None
+
+    def refresh_dynamic_label_text(self) -> None:
+        """Refresh all of the dynamic label text, this fills out the
+        information based on the current solutions avaliable and solved.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+
+        # These values are only to be done if the OpihiSolution actually
+        # exists, otherwise, there is nothing to print.
+        if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            # If the Astrometric solution is completed, add its values.
+            if self.opihi_solution.astrometrics is not None:
+                # The primary pixel locations.
+                cen_x, cen_y = [side / 2 for side in self.opihi_solution.data.shape]
+                trg_x, trg_y = (
+                    self.opihi_solution.asteroid_location
+                    if self.opihi_solution.asteroid_location is not None
+                    else (0, 0)
+                )
+                # ...and converted to RA DEC via the astrometric solution.
+                (
+                    cen_ra,
+                    cen_dec,
+                ) = self.opihi_solution.astrometrics.pixel_to_sky_coordinates(
+                    x=cen_x, y=cen_y
+                )
+                (
+                    trg_ra,
+                    trg_dec,
+                ) = self.opihi_solution.astrometrics.pixel_to_sky_coordinates(
+                    x=trg_x, y=trg_y
+                )
+                # The format really ought to be in HMSDMS hexadecimal-like as it
+                # is more familiar to Astronomers.
+                (
+                    cen_ra_sex,
+                    cen_dec_sex,
+                ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                    ra_deg=cen_ra, dec_deg=cen_dec
+                )
+                (
+                    trg_ra_sex,
+                    trg_dec_sex,
+                ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                    ra_deg=trg_ra, dec_deg=trg_dec
+                )
+                # Replace the text.
+                self.ui.label_dynamic_center_x.setText(str(cen_x))
+                self.ui.label_dynamic_center_y.setText(str(cen_y))
+                self.ui.label_dynamic_center_ra.setText(cen_ra_sex)
+                self.ui.label_dynamic_center_dec.setText(cen_dec_sex)
+                self.ui.label_dynamic_target_x.setText(str(trg_x))
+                self.ui.label_dynamic_target_y.setText(str(trg_y))
+                self.ui.label_dynamic_target_ra.setText(trg_ra_sex)
+                self.ui.label_dynamic_target_dec.setText(trg_dec_sex)
+
+        # All done.
         return None
 
     def redraw_opihi_image(self) -> None:
