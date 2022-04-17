@@ -339,12 +339,32 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # Extracting the header of this fits file to get the observing
+        # metadata from it.
+        header, __ = library.fits.read_fits_image_file(filename=fits_filename)
+
+        # Converting date to UNIX as the solution class requires it.
+        # The YMD and HMS formats in the header file are UTC in a
+        # ISO 8601 like format.
+        yr_s, mh_s, dy_s = header["DATE_OBS"].split("-")
+        hr_s, mn_s, sc_s = header["TIME_OBS"].split(":")
+        # These values are currently strings, they need to be the proper type.
+        yr_i = int(yr_s)
+        mh_i = int(mh_s)
+        dy_i = int(dy_s)
+        hr_i = int(hr_s)
+        mn_i = int(mn_s)
+        sc_f = float(sc_s)
+        # Convert.
+        obs_unix_time = library.conversion.full_date_to_unix_time(
+            year=yr_i, month=mh_i, day=dy_i, hour=hr_i, minute=mn_i, second=sc_f
+        )
 
         # Although the OpihiSolution could derive these values from the
         # header of the filename, the solution class is built to be general.
         filter_name = "g"
-        exposure_time = 10
-        observing_time = 100
+        exposure_time = float(header["ITIME"])
+        observing_time = obs_unix_time
         asteroid_name = None
         asteroid_location = None
         asteroid_history = None
@@ -362,7 +382,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.opihi_solution = opihi_solution
 
         # Because a new image was loaded, the previous values and other
-        # information derived from the last image is invalid, reset and replot.
+        # information derived from the last image are invalid, reset and replot.
         self.reset_dynamic_label_text()
         self.redraw_opihi_image()
         return None
@@ -395,9 +415,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # This is a function which allows for the disabling of other axes 
+        # This is a function which allows for the disabling of other axes
         # formatting their data values and messing with the formatter class.
-        def empty_string(string:str) -> str:
+        def empty_string(string: str) -> str:
             return str()
 
         # Clear the information before replotting, it is easier just to draw
@@ -407,6 +427,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Attempt to plot the image data if it exists.
         if self.opihi_solution is not None:
             image = self._opihi_axes.imshow(self.opihi_solution.data)
+            # Disable their formatting in favor of ours.
             image.format_cursor_data = empty_string
 
         # TESTING
