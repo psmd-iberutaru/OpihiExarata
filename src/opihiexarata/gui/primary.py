@@ -3,7 +3,6 @@ The primary GUI window.
 """
 
 import sys
-import random
 import os
 
 import PyQt6 as PyQt
@@ -11,10 +10,7 @@ from PyQt6 import QtCore, QtWidgets, QtGui
 
 import numpy as np
 
-import astropy as ap
-
 import matplotlib.pyplot as plt
-import matplotlib.figure as mpl_figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
@@ -24,7 +20,6 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 import opihiexarata.astrometry as astrometry
-from opihiexarata.opihi.solution import OpihiSolution
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 import opihiexarata.orbit as orbit
@@ -115,6 +110,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Astrometry-specific buttons.
         self.ui.push_button_solve_astrometry.clicked.connect(
             self.__connect_push_button_solve_astrometry
+        )
+        self.ui.push_button_custom_astrometry_solve.clicked.connect(
+            self.__connect_push_button_custom_astrometry_solve
         )
 
     def __init_opihi_image(self) -> None:
@@ -330,6 +328,92 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Update all of the necessary information.
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
+        return None
+
+    def __connect_push_button_custom_astrometry_solve(self) -> None:
+        """ "The button which uses an astrometric solution to solve for a
+        custom pixel location or RA DEC location depending on entry.
+
+        This prioritizes solving RA DEC from pixel location.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no astrometric solution, nothing can be done. Exit this
+        # early.
+        if not (
+            isinstance(self.opihi_solution, opihiexarata.OpihiSolution)
+            and isinstance(
+                self.opihi_solution.astrometrics, astrometry.AstrometricSolution
+            )
+        ):
+            return None
+
+        # Obtain the current values in the entry field.
+        in_custom_x = self.ui.line_edit_custom_x.text()
+        in_custom_y = self.ui.line_edit_custom_y.text()
+        in_custom_ra = self.ui.line_edit_custom_ra.text()
+        in_custom_dec = self.ui.line_edit_custom_dec.text()
+
+        # Prioritize the presense of the pixel location text.
+        if len(in_custom_x) != 0 and len(in_custom_y) != 0:
+            # Using pixel locations to determine RA DEC.
+            in_custom_x = float(in_custom_x)
+            in_custom_y = float(in_custom_y)
+            # Reformatting the entry.
+            out_custom_x = str(in_custom_x)
+            out_custom_y = str(in_custom_y)
+            # Converting.
+            (
+                out_custom_ra,
+                out_custom_dec,
+            ) = self.opihi_solution.astrometrics.pixel_to_sky_coordinates(
+                x=in_custom_x, y=in_custom_y
+            )
+            (
+                out_custom_ra,
+                out_custom_dec,
+            ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                ra_deg=out_custom_ra, dec_deg=out_custom_dec
+            )
+        elif len(in_custom_ra) != 0 and len(in_custom_dec) != 0:
+            # Using RA DEC to solve for pixel locations.
+            # Reformatting the entry.
+            out_custom_ra = str(in_custom_ra)
+            out_custom_dec = str(in_custom_dec)
+
+            (
+                in_custom_ra_deg,
+                in_custom_dec_deg,
+            ) = library.conversion.sexagesimal_ra_dec_to_degrees(
+                ra_sex=in_custom_ra, dec_sex=in_custom_dec
+            )
+            (
+                out_custom_x,
+                out_custom_y,
+            ) = self.opihi_solution.astrometrics.sky_to_pixel_coordinates(
+                ra=in_custom_ra_deg, dec=in_custom_dec_deg
+            )
+            # Needs to be a string.
+            out_custom_x = str(out_custom_x)
+            out_custom_y = str(out_custom_y)
+        else:
+            # No matching pair has been provided, ignore.
+            out_custom_x = str(in_custom_x)
+            out_custom_y = str(in_custom_y)
+            out_custom_ra = str(in_custom_ra)
+            out_custom_dec = str(in_custom_dec)
+
+        # Finally, set the text on the values.
+        self.ui.line_edit_custom_x.setText(out_custom_x)
+        self.ui.line_edit_custom_y.setText(out_custom_y)
+        self.ui.line_edit_custom_ra.setText(out_custom_ra)
+        self.ui.line_edit_custom_dec.setText(out_custom_dec)
         return None
 
     def _preprocess_fits_file(
