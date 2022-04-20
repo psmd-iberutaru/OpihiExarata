@@ -122,36 +122,28 @@ class OpihiSolution(hint.ExarataSolution):
         self.data = data
 
         # See if asteroids are important for this image and if so, lets
-        # process the input data.
-        if (
-            asteroid_name is not None
-            and asteroid_location is not None
-            and asteroid_history is not None
-        ):
+        # process the input data. Try to process as much as you can.
+        # Formatting the name of the asteroid or target in general.
+        try:
             self.asteroid_name = asteroid_name
+        except Exception:
+            self.asteroid_name = None
+        # Formatting the location of the asteroid or the target in general.
+        try:
             self.asteroid_location = asteroid_location
+        except Exception:
+            self.asteroid_location = None
+        # Formatting the historical locations of the asteroid or the target 
+        # in general.
+        try:
             self.asteroid_history = asteroid_history
-            # From the history, create the observational record table which other
-            # processes use. This is the primary data that will be used.
+            # From the history, try and derive a table of asteroid observations.
             self.asteroid_observations = library.mpcrecord.minor_planet_record_to_table(
                 records=asteroid_history
             )
-        elif (
-            asteroid_name is None
-            or asteroid_location is None
-            or asteroid_history is None
-        ):
-            # The proper asteroid values have not been provided. Asteroid
-            # calculations are disabled.
-            self.asteroid_name = None
-            self.asteroid_location = None
+        except Exception:
             self.asteroid_history = None
             self.asteroid_observations = None
-        else:
-            raise error.LogicFlowError(
-                "The conditions for including or not including asteroid calculations"
-                " were both not fulfilled. There is not third case."
-            )
 
         # Just creating the initial placeholders for the solution.
         self.astrometrics = None

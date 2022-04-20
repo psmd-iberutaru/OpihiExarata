@@ -50,8 +50,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.ax = self.figure.subplots()
-        # A little hack to ensure the default zoom limits saved when redrawing
-        # is not 0-1 in both x and y.
+        # A little hack to ensure the default zoom limits that are saved when 
+        # redrawing the figure is not 0-1 in both x and y but instead the image
+        # itself.
         self.ax.set_xlim(0, self.data_array.shape[1])
         self.ax.set_ylim(0, self.data_array.shape[0])
         # Redrawing the image.
@@ -266,13 +267,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         if isinstance(self.target_x, (int, float)) and isinstance(
             self.target_y, (int, float)
         ):
-            # Represent the marker as an approximation to the search area for
-            # the target. Matplotlib defines the size as the area parameter.
-            size = 50
+            # Represent the marker as the targets location as defined by the 
+            # search box and the target finding function.
+            MARKER_SIZE = float(library.config.SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
             self.ax.scatter(
                 self.target_x,
                 self.target_y,
-                s=size,
+                s=MARKER_SIZE,
                 marker="^",
                 color="r",
                 facecolors="None",

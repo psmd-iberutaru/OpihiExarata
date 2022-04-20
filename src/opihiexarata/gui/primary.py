@@ -475,7 +475,15 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         """
         # Extracting the header of this fits file to get the observing
         # metadata from it.
-        header, __ = library.fits.read_fits_image_file(filename=fits_filename)
+        header, data = library.fits.read_fits_image_file(filename=fits_filename)
+
+        # The filter which image is in, extracted from the fits file,
+        # assuming standard form.
+        filter_name = "g"
+
+        # The exposure time of the image, extracted from the fits file,
+        # assuming standard form.
+        exposure_time = float(header["ITIME"])
 
         # Converting date to UNIX as the solution class requires it.
         # The YMD and HMS formats in the header file are UTC in a
@@ -490,19 +498,28 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         mn_i = int(mn_s)
         sc_f = float(sc_s)
         # Convert.
-        obs_unix_time = library.conversion.full_date_to_unix_time(
+        observing_time = library.conversion.full_date_to_unix_time(
             year=yr_i, month=mh_i, day=dy_i, hour=hr_i, minute=mn_i, second=sc_f
         )
 
+        # For asteroid information, if we are to prompt the user for
+        # information about the asteroid.
+        if library.config.GUI_PROMPT_FOR_ASTEROID_INFORMATION:
+            # Use the target selector GUI for the position of the asteroid.
+            asteroid_name = "Bob"
+            asteroid_location = gui.selector.ask_user_target_selector_window(
+                data_array=data
+            )
+            asteroid_history = None
+        else:
+            asteroid_name = None
+            asteroid_location = None
+            asteroid_history = None
+
+        print(asteroid_location)
+
         # Although the OpihiSolution could derive these values from the
         # header of the filename, the solution class is built to be general.
-        filter_name = "g"
-        exposure_time = float(header["ITIME"])
-        observing_time = obs_unix_time
-        asteroid_name = None
-        asteroid_location = None
-        asteroid_history = None
-
         # Creating the solution from the data.
         opihi_solution = opihiexarata.OpihiSolution(
             fits_filename=fits_filename,
@@ -518,6 +535,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Because a new image was loaded, the previous values and other
         # information derived from the last image are invalid, reset and replot.
         self.clear_dynamic_label_text()
+        self.refresh_dynamic_label_text()
         self.redraw_opihi_image()
         return None
 
@@ -554,51 +572,73 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # These values are only to be done if the OpihiSolution actually
         # exists, otherwise, there is nothing to print.
         if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            # If the Astrometric solution is completed, add its values.
-            if self.opihi_solution.astrometrics is not None:
-                # The primary pixel locations.
-                cen_x, cen_y = [side / 2 for side in self.opihi_solution.data.shape]
-                trg_x, trg_y = (
-                    self.opihi_solution.asteroid_location
-                    if self.opihi_solution.asteroid_location is not None
-                    else (0, 0)
-                )
-                # ...and converted to RA DEC via the astrometric solution.
-                (
-                    cen_ra,
-                    cen_dec,
-                ) = self.opihi_solution.astrometrics.pixel_to_sky_coordinates(
-                    x=cen_x, y=cen_y
-                )
-                (
-                    trg_ra,
-                    trg_dec,
-                ) = self.opihi_solution.astrometrics.pixel_to_sky_coordinates(
-                    x=trg_x, y=trg_y
-                )
-                # The format really ought to be in HMSDMS hexadecimal-like as it
-                # is more familiar to Astronomers.
-                (
-                    cen_ra_sex,
-                    cen_dec_sex,
-                ) = library.conversion.degrees_to_sexagesimal_ra_dec(
-                    ra_deg=cen_ra, dec_deg=cen_dec
-                )
-                (
-                    trg_ra_sex,
-                    trg_dec_sex,
-                ) = library.conversion.degrees_to_sexagesimal_ra_dec(
-                    ra_deg=trg_ra, dec_deg=trg_dec
-                )
-                # Replace the text.
-                self.ui.label_dynamic_center_x.setText(str(cen_x))
-                self.ui.label_dynamic_center_y.setText(str(cen_y))
-                self.ui.label_dynamic_center_ra.setText(cen_ra_sex)
-                self.ui.label_dynamic_center_dec.setText(cen_dec_sex)
-                self.ui.label_dynamic_target_x.setText(str(trg_x))
-                self.ui.label_dynamic_target_y.setText(str(trg_y))
-                self.ui.label_dynamic_target_ra.setText(trg_ra_sex)
-                self.ui.label_dynamic_target_dec.setText(trg_dec_sex)
+            self.__refresh_dynamic_label_text_astrometry()
+
+        # All done.
+        return None
+
+    def __refresh_dynamic_label_text_astrometry(self) -> None:
+        """Refresh all of the dynamic label text for astrometry.
+        This fills out the information based on the current solutions
+        avaliable and solved.
+
+        An astrometric solution must exist.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Everything in this function needs the OpihiSolution, if it does not
+        # exist, then exit early as there is nothing to refresh.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+        else:
+            opihi_solution = self.opihi_solution
+
+        # The pixel center location of the image and the pixel location of
+        # the asteroid does not require the astrometric solution.
+        cen_x, cen_y = [side / 2 for side in opihi_solution.data.shape]
+        trg_x, trg_y = (
+            opihi_solution.asteroid_location
+            if opihi_solution.asteroid_location is not None
+            else (0, 0)
+        )
+        # Replace the text with the new information.
+        self.ui.label_dynamic_center_x.setText(str(cen_x))
+        self.ui.label_dynamic_center_y.setText(str(cen_y))
+        self.ui.label_dynamic_target_x.setText(str(trg_x))
+        self.ui.label_dynamic_target_y.setText(str(trg_y))
+
+        # Everything beyond this point requires an astrometric solution, if
+        # it does not exist, there is no point in continuing, exiting early.
+        if not isinstance(
+            self.opihi_solution.astrometrics, astrometry.AstrometricSolution
+        ):
+            return None
+        else:
+            astrometrics = self.opihi_solution.astrometrics
+
+        # The pixel locations converted to RA DEC via the astrometric solution.
+        cen_ra, cen_dec = astrometrics.pixel_to_sky_coordinates(x=cen_x, y=cen_y)
+        trg_ra, trg_dec = astrometrics.pixel_to_sky_coordinates(x=trg_x, y=trg_y)
+
+        # The format really ought to be in HMSDMS hexadecimal-like as it
+        # is more familiar to Astronomers.
+        cen_ra_sex, cen_dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
+            ra_deg=cen_ra, dec_deg=cen_dec
+        )
+        trg_ra_sex, trg_dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
+            ra_deg=trg_ra, dec_deg=trg_dec
+        )
+        # Replace the text.
+        self.ui.label_dynamic_center_ra.setText(cen_ra_sex)
+        self.ui.label_dynamic_center_dec.setText(cen_dec_sex)
+        self.ui.label_dynamic_target_ra.setText(trg_ra_sex)
+        self.ui.label_dynamic_target_dec.setText(trg_dec_sex)
 
         # All done.
         return None
@@ -629,6 +669,24 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             image = self._opihi_axes.imshow(self.opihi_solution.data)
             # Disable their formatting in favor of ours.
             image.format_cursor_data = empty_string
+
+        # Attempt to plot the location of the specified asteroid.
+        try:
+            print(self.opihi_solution.asteroid_location)
+            target_x, target_y = self.opihi_solution.asteroid_location
+            TARGET_MARKER_SIZE = float(library.config.GUI_IMAGE_PLOT_TARGET_MARKER_SIZE)
+            target_marker = self._opihi_axes.scatter(
+                target_x,
+                target_y,
+                s=TARGET_MARKER_SIZE,
+                marker="^",
+                color="r",
+                facecolors="None",
+            )
+            # Disable their formatting in favor of ours.
+            target_marker.format_cursor_data = empty_string
+        except Exception:
+            pass
 
         # TESTING
         rand = np.random.rand(5)
