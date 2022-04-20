@@ -63,9 +63,28 @@ OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS : 24
 
 
 ############################################################
-##########     Opihi Asteroid Selector Configuration
+##########     Opihi GUI Configuration
 ############################################################
 
+# This instructs the GUI to always prompt for the specifications of the target
+# location using the target selector GUI. If False, images are loaded without 
+# prompt for location, name, or other information. 
+# (This inherently renders the asteroid part of the GUI inoperable.)
+GUI_PROMPT_FOR_ASTEROID_INFORMATION : True
+
+
+# This is the size of the marker which denotes the asteroid/target. This 
+# value is passed right to matplotlib.pyplot.imshow.
+GUI_IMAGE_PLOT_TARGET_MARKER_SIZE : 30
+
+
+############################################################
+##########     Opihi Target Selector Configuration
+############################################################
+
+# This is the size of the marker which denotes the asteroid/target. This 
+# value is passed right to matplotlib.pyplot.imshow.
+SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE : 40
 
 
 ############################################################
