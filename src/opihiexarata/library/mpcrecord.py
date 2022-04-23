@@ -7,23 +7,25 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
-MPC_MINOR_PLANET_TABLE_COLUMN_NAMES = [
-    "minor_planet_number",
-    "provisional_number",
-    "discovery",
-    "publishable_note",
-    "observing_note",
-    "year",
-    "month",
-    "day",
-    "ra",
-    "dec",
-    "blank_1",
-    "magnitude",
-    "bandpass",
-    "blank_2",
-    "observatory_code",
-]
+__MPC_TABLE_NAME_TYPE_PAIR = {
+    "minor_planet_number":str,
+    "provisional_number":str,
+    "discovery":bool,
+    "publishable_note":str,
+    "observing_note":str,
+    "year":int,
+    "month":int,
+    "day":float,
+    "ra":float,
+    "dec":float,
+    "blank_1":str,
+    "magnitude":float,
+    "bandpass":str,
+    "blank_2":str,
+    "observatory_code":str,
+}
+MPC_MINOR_PLANET_TABLE_COLUMN_NAMES = list(__MPC_TABLE_NAME_TYPE_PAIR.keys())
+MPC_MINOR_PLANET_TABLE_COLUMN_TYPES = list(__MPC_TABLE_NAME_TYPE_PAIR.values())
 
 
 def minor_planet_blank_table() -> hint.Table:
@@ -41,7 +43,8 @@ def minor_planet_blank_table() -> hint.Table:
     """
     # The names of the columns
     column_names = MPC_MINOR_PLANET_TABLE_COLUMN_NAMES
-    blank_table = ap_table.Table(names=column_names)
+    data_types = MPC_MINOR_PLANET_TABLE_COLUMN_TYPES
+    blank_table = ap_table.Table(names=column_names, dtype=data_types)
     return blank_table
 
 
@@ -120,7 +123,7 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
         blank_1 = str(raw_blank_1)
         # The magnitude and the bandpass can be split.
         mag_str = str(raw_mag_and_band[:-1]).strip()
-        magnitude = float(mag_str) if len(mag_str) != 0 else "     "
+        magnitude = float(mag_str) if len(mag_str) != 0 else float("nan")
         bandpass = str(raw_mag_and_band[-1])
         # Second blank reservation. This is supposed to be reserved blank space.
         # But, it seems some people use it for whatever. Keeping it to string.
@@ -239,12 +242,12 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         # The minor planet number.
         raw_minor_planet_number = str(row["minor_planet_number"])
         str_minor_planet_number = _construct_string(
-            entry=raw_minor_planet_number, exact_length=5, justify="right"
+            entry=raw_minor_planet_number, exact_length=5, justify="left"
         )
         # The provisional designation.
         raw_provisional_number = str(row["provisional_number"])
         str_provisional_number = _construct_string(
-            entry=raw_provisional_number, exact_length=7, justify="right"
+            entry=raw_provisional_number, exact_length=7, justify="left"
         )
         # The discovery asterisk flag.
         raw_discovery = bool(row["discovery"])
@@ -288,9 +291,12 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         str_blank_1 = _construct_string(
             entry=raw_blank_1, exact_length=9, justify="left"
         )
-        # The magnitude.
+        # The magnitude; this way we can handle both blank strings and numbers.
         raw_magnitude = str(row["magnitude"]).strip()
-        if len(raw_magnitude) != 0:
+        if len(raw_magnitude) == 0 or raw_magnitude.casefold() == "nan":
+            # There is no magnitude data so just have it blank.
+            raw_mag_synth = "     "
+        else:
             # Magnitude value string must be centered on the decimal point.
             raw_mag_whole, raw_mag_frac = raw_magnitude.split(".")
             raw_mag_whole = _construct_string(
@@ -300,8 +306,6 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
                 entry=raw_mag_frac, exact_length=2, justify="left"
             )
             raw_mag_synth = raw_mag_whole + "." + raw_mag_frac
-        else:
-            raw_mag_synth = "     "
         str_magnitude = _construct_string(
             entry=raw_mag_synth, exact_length=5, justify="left"
         )
@@ -319,7 +323,7 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         # The observetory code.
         raw_observatory_code = str(row["observatory_code"])
         str_observatory_code = _construct_string(
-            entry=raw_observatory_code, exact_length=3, justify="right"
+            entry=raw_observatory_code, exact_length=3, justify="left"
         )
         # Done.
         # From the length controlled strings, the record which encodes the

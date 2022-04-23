@@ -48,9 +48,9 @@ class OpihiSolution(hint.ExarataSolution):
     asteroid_observations : table
         The total observational history of the asteroid provided. This includes
         previous observations done by Opihi and processed by OpihiExarata, but
-        does include the current data. This is the table form of a MPC record.
-        If this is None, then asteroid calculations are disabled as there is
-        no asteroid.
+        does not include the current data. This is the table form of a MPC
+        record. If this is None, then asteroid calculations are disabled as
+        there is no asteroid.
 
     header : Astropy Header
         The header of the fits file.
@@ -133,7 +133,7 @@ class OpihiSolution(hint.ExarataSolution):
             self.asteroid_location = asteroid_location
         except Exception:
             self.asteroid_location = None
-        # Formatting the historical locations of the asteroid or the target 
+        # Formatting the historical locations of the asteroid or the target
         # in general.
         try:
             self.asteroid_history = asteroid_history
@@ -351,6 +351,7 @@ class OpihiSolution(hint.ExarataSolution):
         """Solve for the orbital elements an asteroid using previous
         observations.
 
+
         Parameters
         ----------
         solver_engine : OrbitEngine
@@ -372,23 +373,17 @@ class OpihiSolution(hint.ExarataSolution):
             This will not precompute automatically it without it being called
             explicitly, but it will instead return an error.
         """
-        # The propagation solution requires the astrometric solution to be
+        # A lot of this code re-implements of the methods for deriving the
+        # record row; but this is to allow for the submission of a custom
+        # asteroid location.
+
+        # The orbital solution requires the astrometric solution to be
         # computed first.
         if not isinstance(self.astrometrics, astrometry.AstrometricSolution):
             raise error.SequentialOrderError(
-                "The propagation solution requires an astrometric solution. The"
+                "The orbital solution requires an astrometric solution. The"
                 " astrometric solution needs to be called and run first."
             )
-        # The observation time of this asteroid. The time provided is UNIX time
-        # which needs to be converted to a format the MPC record can take.
-        observing_time = self.observing_time
-        obs_year, obs_month, obs_day = library.conversion.unix_time_to_decimal_day(
-            unix_time=observing_time
-        )
-        # Using the defaults if an overriding value was not provided.
-        asteroid_location = (
-            self.asteroid_location if asteroid_location is None else asteroid_location
-        )
 
         # If asteroid information is not provided, then nothing can be solved.
         # As there is no information.
@@ -409,6 +404,11 @@ class OpihiSolution(hint.ExarataSolution):
             # Ensuring that the history of the asteroid does not change for
             # some reason.
             asteroid_history = copy.deepcopy(self.asteroid_history)
+
+        # Using the defaults if an overriding value was not provided.
+        asteroid_location = (
+            self.asteroid_location if asteroid_location is None else asteroid_location
+        )
         if asteroid_location is None:
             raise error.InputError(
                 "The orbit of an asteroid cannot be solved as no asteroid location"
@@ -422,28 +422,17 @@ class OpihiSolution(hint.ExarataSolution):
                 x=asteroid_x, y=asteroid_y
             )
 
-        # The current observatory.
-        OBSERVATORY_CODE = library.config.OBSERVATORY_MPC_CODE
+        # Use the current information to override the observation as specified
+        # by the table just incase.
+        mpc_table_row = self.mpc_table_row()
+        mpc_table_row["minor_planet_number"] = asteroid_name
+        mpc_table_row["ra"] = asteroid_ra
+        mpc_table_row["dec"] = asteroid_dec
 
-        # We add our current observational information to the current past
-        # observation. Using the blank table as a template.
-        current_table = library.mpcrecord.minor_planet_blank_table()
-        # Adding data to this table template.
-        current_row_dict = {
-            "minor_planet_number": asteroid_name,
-            "discovery": False,
-            "year": obs_year,
-            "month": obs_month,
-            "day": obs_day,
-            "ra": asteroid_ra,
-            "dec": asteroid_dec,
-            "observatory_code": OBSERVATORY_CODE,
-        }
-        current_table.add_row(current_row_dict)
         # Convert this entry to a standard MPC record which to add to
         # historical data.
         current_mpc_record = library.mpcrecord.minor_planet_table_to_record(
-            table=current_table
+            table=mpc_table_row
         )
         asteroid_record = asteroid_history + current_mpc_record
 
@@ -459,8 +448,7 @@ class OpihiSolution(hint.ExarataSolution):
             pass
         return orbital_solution
 
-
-    def solve_ephemeris(self,solver_engine, overwrite:bool=True):
+    def solve_ephemeris(self, solver_engine, overwrite: bool = True):
         """Solve for the ephemeris solution an asteroid using previous
         observations and derived orbital elements.
 
@@ -500,3 +488,139 @@ class OpihiSolution(hint.ExarataSolution):
             # It should not overrite anything.
             pass
         return ephemeritics_solution
+
+    def mpc_table_row(self) -> hint.Table:
+        """An MPC table of the current observation with information provided
+        by solved solutions. This routine does not attempt to do any solutions.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        table_row : Astropy Table
+            The MPC table of the information. It is a single row table.
+        """
+        # Using the table is a much cleaner way of doing this as the formatting
+        # is already handled. A dictionary is the better way to establish
+        # parameters and the eventual row.
+        mpc_table = library.mpcrecord.minor_planet_blank_table()
+        current_data = {}
+
+        # Assuming the name is the MPC number.
+        current_data["minor_planet_number"] = (
+            self.asteroid_name if self.asteroid_name is not None else ""
+        )
+
+        # If this system is going to deal with provisional numbers is currently
+        # beyond the design scope. May change in the future.
+        current_data["provisional_number"] = ""
+
+        # It is practically guaranteed that this observation is not the
+        # discovery observation.
+        current_data["discovery"] = False
+
+        # Unknown publishing note, leaving it blank in lew of a better
+        # solution.
+        current_data["publishable_note"] = ""
+        current_data["observing_note"] = ""
+
+        # The data can be extracted from the UNIX time of observation.
+        year, month, day = library.conversion.unix_time_to_decimal_day(
+            unix_time=self.observing_time
+        )
+        current_data["year"] = year
+        current_data["month"] = month
+        current_data["day"] = day
+
+        # RA and DEC are in degrees for both the table and the record so we
+        # can just take it straight if the astrometric solution exists.
+        if isinstance(self.astrometrics, astrometry.AstrometricSolution):
+            if self.asteroid_location is not None:
+                # Splitting it up is easier notationally.
+                asteroid_x, asteroid_y = self.asteroid_location
+            else:
+                raise error.InputError(
+                    "There is no asteroid location provided. An observational entry for"
+                    " an asteroid cannot be made without the location of the asteroid."
+                )
+            # The location of the asteroid needs to be transformed to RA and DEC.
+            asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
+                x=asteroid_x, y=asteroid_y
+            )
+            current_data["ra"] = asteroid_ra
+            current_data["dec"] = asteroid_dec
+        else:
+            # The astrometric solution does not exist. Currently there does not
+            # seem to any obvious reason for why the MPC row is trying to be
+            # created without astrometry.
+            raise error.PracticalityError(
+                "A MPC table row is trying to be derived without an astrometric"
+                " solution being solved first. There is no use for an observation"
+                " without astrometry."
+            )
+
+        # This is a blank region according to the specification. Although it
+        # seems that some use it for something. Sparrow does not know what so
+        # for now we will leave it blank.
+        current_data["blank_1"] = ""
+
+        # If there is photometric data, we can add that to the data record.
+        if isinstance(self.photometrics, photometry.PhotometricSolution):
+            magnitude = 0
+            bandpass = self.photometrics.filter_name
+        else:
+            # There is no photometric solution so we cannot provide photometric
+            # information.
+            magnitude = np.nan
+            bandpass = ""
+        current_data["magnitude"] = magnitude
+        current_data["bandpass"] = bandpass
+
+        # This is another blank region according to the specification. Some
+        # people use it; Sparrow
+        current_data["blank_2"] = ""
+
+        # The MPC observatory code. This is something that is specified in the
+        # configuration file when this whole program is loaded.
+        OBSERVATORY_CODE = library.config.MPC_OBSERVATORY_CODE
+        current_data["observatory_code"] = OBSERVATORY_CODE
+
+        # Adding the information to the MPC table and then compiling it to
+        # a standard 80-character record.
+        mpc_table.add_row(current_data)
+        # Just incase and for documentation purposes.
+        table_row = copy.deepcopy(mpc_table)
+        return table_row
+
+    def mpc_record_row(self) -> str:
+        """Returns an 80-character record describing the observation of this
+        object assuming it is an asteroid. It only uses information
+        that is provided and does not attempt to compute any solutions.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        record_row : str
+            The 80-character record as determined by the MPC specification.
+        """
+        # Converting the current table record row to the standard 80-column
+        # form.
+        mpc_table_row = self.mpc_table_row()
+        mpc_record = library.mpcrecord.minor_planet_table_to_record(
+            table=mpc_table_row
+        )
+        # The string record is more important here, the library encases it in a 
+        # list as if it were a file.
+        mpc_record_row = mpc_record[0]
+
+        # As a sanity check.
+        if len(mpc_record_row) != 80:
+            raise error.DevelopmentError(
+                "For some reason, this MPC record row is not exactly 80-characters."
+            )
+        return mpc_record_row
