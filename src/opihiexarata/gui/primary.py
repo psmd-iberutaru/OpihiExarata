@@ -137,10 +137,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
         fig, ax = plt.subplots(figsize=(edge_size, edge_size), constrained_layout=True)
-        self._opihi_figure = fig
-        self._opihi_axes = ax
-        self._opihi_canvas = FigureCanvas(self._opihi_figure)
-        self._opihi_nav_toolbar = NavigationToolbar(self._opihi_canvas, self)
+        self.opihi_figure = fig
+        self.opihi_axes = ax
+        self.opihi_canvas = FigureCanvas(self.opihi_figure)
+        self.opihi_nav_toolbar = NavigationToolbar(self.opihi_canvas, self)
 
         # For ease of usage, a custom navigation bar coordinate formatter
         # function/class is used.
@@ -164,13 +164,13 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Assigning the coordinate formatter derived.
         self._opihi_coordinate_formatter = CoordinateFormatter(self)
-        self._opihi_axes.format_coord = self._opihi_coordinate_formatter
+        self.opihi_axes.format_coord = self._opihi_coordinate_formatter
 
         # Setting the layout, it is likely better to have the toolbar below
         # rather than above to avoid conflicts with the reset buttons in the
         # event of a misclick.
-        self.ui.vertical_layout_image.addWidget(self._opihi_canvas)
-        self.ui.vertical_layout_image.addWidget(self._opihi_nav_toolbar)
+        self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
+        self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
         # Remove the dummy spacer otherwise it is just extra unneeded space.
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
         self.ui.dummy_opihi_image.deleteLater()
@@ -516,8 +516,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             asteroid_location = None
             asteroid_history = None
 
-        print(asteroid_location)
-
         # Although the OpihiSolution could derive these values from the
         # header of the filename, the solution class is built to be general.
         # Creating the solution from the data.
@@ -570,7 +568,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         """
 
         # These values are only to be done if the OpihiSolution actually
-        # exists, otherwise, there is nothing to print.
+        # exists, otherwise, there is nothing to update in the text.
         if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
             self.__refresh_dynamic_label_text_astrometry()
 
@@ -662,11 +660,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Clear the information before replotting, it is easier just to draw
         # it all again.
-        self._opihi_axes.clear()
+        self.opihi_axes.clear()
 
         # Attempt to plot the image data if it exists.
         if self.opihi_solution is not None:
-            image = self._opihi_axes.imshow(self.opihi_solution.data)
+            image = self.opihi_axes.imshow(self.opihi_solution.data)
             # Disable their formatting in favor of ours.
             image.format_cursor_data = empty_string
 
@@ -675,7 +673,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             print(self.opihi_solution.asteroid_location)
             target_x, target_y = self.opihi_solution.asteroid_location
             TARGET_MARKER_SIZE = float(library.config.GUI_IMAGE_PLOT_TARGET_MARKER_SIZE)
-            target_marker = self._opihi_axes.scatter(
+            target_marker = self.opihi_axes.scatter(
                 target_x,
                 target_y,
                 s=TARGET_MARKER_SIZE,
@@ -690,13 +688,15 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # TESTING
         rand = np.random.rand(5)
-        self._opihi_axes.plot(rand, 1 / rand)
+        self.opihi_axes.plot(rand, 1 / rand)
 
         # Make sure the coordinate formatter does not change.
-        self._opihi_axes.format_coord = self._opihi_coordinate_formatter
+        self.opihi_axes.format_coord = self._opihi_coordinate_formatter
         # Update and redraw the image via redrawing the canvas.
-        self._opihi_canvas.draw()
+        self.opihi_canvas.draw()
         return None
+
+
 
 
 def main():

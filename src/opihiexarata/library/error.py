@@ -46,6 +46,13 @@ class LogicFlowError(ExarataBaseException):
     to the code do not screw up the logical flow of the program."""
 
 
+class PracticalityError(ExarataBaseException):
+    """This is an error to be used when what is trying to be done does not 
+    seem reasonable. Usually warnings are the better vehicle for this but 
+    this error is used when the assumptions for reasonability guided 
+    development and what the user is trying to do is not currently supported
+    by the software."""
+
 class UndiscoveredError(ExarataBaseException):
     """This is an error used in cases where the source of the error has not
     been determined and so a more helpful error message or mitigation strategy
