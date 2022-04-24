@@ -38,6 +38,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
     Attributes
     ----------
+    asteroid_set_name
     raw_fits_filename
     process_fits_filename
     preprocess_solution
@@ -64,6 +65,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         # Establishing the defaults for all of the relevant attributes.
+        self.asteroid_set_name = None
         self.raw_fits_filename = None
         self.process_fits_filename = None
         self.preprocess_solution = None
@@ -294,6 +296,29 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
+    def __connect_push_button_new_target(self) -> None:
+        """The function serving to set the software to be on a new target.
+        A name is prompted from the user.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Find what the new name of the target from the user.
+        previous_set_name = self.asteroid_set_name if self.asteroid_set_name is not None else str()
+        new_set_name = gui.name.ask_user_target_name_window(default=previous_set_name)
+        self.asteroid_set_name = new_set_name
+
+        # Reset the previous text as it is all going to be a new target. 
+        # It is expected after this a new image would be selected.
+        self.clear_dynamic_label_text()
+
+        return None
+
     def __connect_push_button_refresh_window_plot(self) -> None:
         """The function serving to refresh the window and redrawing the plot.
 
@@ -505,8 +530,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # For asteroid information, if we are to prompt the user for
         # information about the asteroid.
         if library.config.GUI_PROMPT_FOR_ASTEROID_INFORMATION:
+            # The name is derived from the current object set that we are on.
+            asteroid_name = self.asteroid_set_name
             # Use the target selector GUI for the position of the asteroid.
-            asteroid_name = "Bob"
             asteroid_location = gui.selector.ask_user_target_selector_window(
                 data_array=data
             )
