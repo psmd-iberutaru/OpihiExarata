@@ -103,6 +103,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.push_button_new_image_manual.clicked.connect(
             self.__connect_push_button_new_image_manual
         )
+        self.ui.push_button_new_target.clicked.connect(
+            self.__connect_push_button_new_target
+        )
 
         # The window and plot refresh button.
         self.ui.push_button_refresh_window_plot.clicked.connect(
@@ -309,11 +312,13 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         None
         """
         # Find what the new name of the target from the user.
-        previous_set_name = self.asteroid_set_name if self.asteroid_set_name is not None else str()
+        previous_set_name = (
+            self.asteroid_set_name if self.asteroid_set_name is not None else str()
+        )
         new_set_name = gui.name.ask_user_target_name_window(default=previous_set_name)
         self.asteroid_set_name = new_set_name
 
-        # Reset the previous text as it is all going to be a new target. 
+        # Reset the previous text as it is all going to be a new target.
         # It is expected after this a new image would be selected.
         self.clear_dynamic_label_text()
 
@@ -721,8 +726,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Update and redraw the image via redrawing the canvas.
         self.opihi_canvas.draw()
         return None
-
-
 
 
 def main():
