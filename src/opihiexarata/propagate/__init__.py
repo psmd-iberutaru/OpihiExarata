@@ -4,4 +4,7 @@
 from opihiexarata.propagate.solution import PropagationSolution
 
 # Engines.
-from opihiexarata.propagate.polynomial import PolynomialPropagationEngine
+from opihiexarata.propagate.polynomial import (
+    LinearPropagationEngine,
+    QuadraticPropagationEngine,
+)
