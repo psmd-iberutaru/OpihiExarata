@@ -311,6 +311,10 @@ class OpihiSolution(hint.ExarataSolution):
             month=self.asteroid_observations["month"],
             day=self.asteroid_observations["day"],
         )
+        # As arrays.
+        past_asteroid_ra = np.asarray(past_asteroid_ra, dtype=float)
+        past_asteroid_dec = np.asarray(past_asteroid_dec, dtype=float)
+        past_asteroid_time = np.asarray(past_asteroid_time, dtype=float)
         # Propagation only works with really recent observations so we only
         # include those done within some number of hours.
         EXPIRE_HOURS = library.config.OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS
@@ -318,14 +322,20 @@ class OpihiSolution(hint.ExarataSolution):
         valid_observation_index = np.where(
             (asteroid_time - past_asteroid_time) <= EXPIRE_SECONDS, True, False
         )
-        valid_past_asteroid_ra = past_asteroid_ra[valid_observation_index]
-        valid_past_asteroid_dec = past_asteroid_dec[valid_observation_index]
-        valid_past_asteroid_time = past_asteroid_time[valid_observation_index]
+        valid_past_asteroid_ra = np.asarray(
+            past_asteroid_ra[valid_observation_index], dtype=float
+        )
+        valid_past_asteroid_dec = np.asarray(
+            past_asteroid_dec[valid_observation_index], dtype=float
+        )
+        valid_past_asteroid_time = np.asarray(
+            past_asteroid_time[valid_observation_index], dtype=float
+        )
 
         # Add the current observation to the previous observations.
-        asteroid_ra = np.append(valid_past_asteroid_ra, asteroid_ra, dtype=float)
-        asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec, dtype=float)
-        asteroid_time = np.append(valid_past_asteroid_time, asteroid_time, dtype=float)
+        asteroid_ra = np.append(valid_past_asteroid_ra, asteroid_ra)
+        asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec)
+        asteroid_time = np.append(valid_past_asteroid_time, asteroid_time)
 
         # Computing the propagation solutions.
         propagative_solution = propagate.PropagationSolution(
@@ -336,7 +346,7 @@ class OpihiSolution(hint.ExarataSolution):
         )
         # See if the current propagation solution should be replaced.
         if overwrite:
-            self.propagative = propagative_solution
+            self.propagatives = propagative_solution
         else:
             pass
         # All done.
@@ -350,7 +360,6 @@ class OpihiSolution(hint.ExarataSolution):
     ):
         """Solve for the orbital elements an asteroid using previous
         observations.
-
 
         Parameters
         ----------
@@ -508,8 +517,8 @@ class OpihiSolution(hint.ExarataSolution):
         mpc_table = library.mpcrecord.minor_planet_blank_table()
         current_data = {}
 
-        # Assuming the name is the MPC number.
-        current_data["minor_planet_number"] = (
+        # Assuming the name is the MPC provisional number as is common.
+        current_data["provisional_number"] = (
             self.asteroid_name if self.asteroid_name is not None else ""
         )
 
@@ -611,10 +620,8 @@ class OpihiSolution(hint.ExarataSolution):
         # Converting the current table record row to the standard 80-column
         # form.
         mpc_table_row = self.mpc_table_row()
-        mpc_record = library.mpcrecord.minor_planet_table_to_record(
-            table=mpc_table_row
-        )
-        # The string record is more important here, the library encases it in a 
+        mpc_record = library.mpcrecord.minor_planet_table_to_record(table=mpc_table_row)
+        # The string record is more important here, the library encases it in a
         # list as if it were a file.
         mpc_record_row = mpc_record[0]
 

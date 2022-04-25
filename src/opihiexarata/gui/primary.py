@@ -40,6 +40,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
     ----------
     asteroid_set_name
     raw_fits_filename
+    raw_record_filename
     process_fits_filename
     preprocess_solution
     opihi_solution
@@ -67,6 +68,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Establishing the defaults for all of the relevant attributes.
         self.asteroid_set_name = None
         self.raw_fits_filename = None
+        self.raw_record_filename = None
         self.process_fits_filename = None
         self.preprocess_solution = None
         self.opihi_solution = None
@@ -108,16 +110,24 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         )
 
         # The window and plot refresh button.
-        self.ui.push_button_refresh_window_plot.clicked.connect(
-            self.__connect_push_button_refresh_window_plot
+        self.ui.push_button_refresh_window.clicked.connect(
+            self.__connect_push_button_refresh_window
         )
 
         # Astrometry-specific buttons.
-        self.ui.push_button_solve_astrometry.clicked.connect(
-            self.__connect_push_button_solve_astrometry
+        self.ui.push_button_astrometry_solve_astrometry.clicked.connect(
+            self.__connect_push_button_astrometry_solve_astrometry
         )
-        self.ui.push_button_custom_astrometry_solve.clicked.connect(
-            self.__connect_push_button_custom_astrometry_solve
+        self.ui.push_button_astrometry_custom_solve.clicked.connect(
+            self.__connect_push_button_astrometry_custom_solve
+        )
+
+        # Propagate-specific buttons.
+        self.ui.push_button_propagate_solve_propagation.clicked.connect(
+            self.__connect_push_button_propagate_solve_propagation
+        )
+        self.ui.push_button_propagate_custom_solve.clicked.connect(
+            self.__connect_push_button_propagate_custom_solve
         )
 
     def __init_opihi_image(self) -> None:
@@ -324,7 +334,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         return None
 
-    def __connect_push_button_refresh_window_plot(self) -> None:
+    def __connect_push_button_refresh_window(self) -> None:
         """The function serving to refresh the window and redrawing the plot.
 
         Parameters
@@ -340,7 +350,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.refresh_dynamic_label_text()
         return None
 
-    def __connect_push_button_solve_astrometry(self) -> None:
+    def __connect_push_button_astrometry_solve_astrometry(self) -> None:
         """The button to instruct on the solving of the astrometric solution.
 
         Parameters
@@ -360,7 +370,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.refresh_dynamic_label_text()
         return None
 
-    def __connect_push_button_custom_astrometry_solve(self) -> None:
+    def __connect_push_button_astrometry_custom_solve(self) -> None:
         """ "The button which uses an astrometric solution to solve for a
         custom pixel location or RA DEC location depending on entry.
 
@@ -385,10 +395,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             return None
 
         # Obtain the current values in the entry field.
-        in_custom_x = self.ui.line_edit_custom_x.text()
-        in_custom_y = self.ui.line_edit_custom_y.text()
-        in_custom_ra = self.ui.line_edit_custom_ra.text()
-        in_custom_dec = self.ui.line_edit_custom_dec.text()
+        in_custom_x = self.ui.line_edit_astrometry_custom_x.text()
+        in_custom_y = self.ui.line_edit_astrometry_custom_y.text()
+        in_custom_ra = self.ui.line_edit_astrometry_custom_ra.text()
+        in_custom_dec = self.ui.line_edit_astrometry_custom_dec.text()
 
         # Prioritize the presense of the pixel location text.
         if len(in_custom_x) != 0 and len(in_custom_y) != 0:
@@ -440,11 +450,116 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             out_custom_dec = str(in_custom_dec)
 
         # Finally, set the text on the values.
-        self.ui.line_edit_custom_x.setText(out_custom_x)
-        self.ui.line_edit_custom_y.setText(out_custom_y)
-        self.ui.line_edit_custom_ra.setText(out_custom_ra)
-        self.ui.line_edit_custom_dec.setText(out_custom_dec)
+        self.ui.line_edit_astrometry_custom_x.setText(out_custom_x)
+        self.ui.line_edit_astrometry_custom_y.setText(out_custom_y)
+        self.ui.line_edit_astrometry_custom_ra.setText(out_custom_ra)
+        self.ui.line_edit_astrometry_custom_dec.setText(out_custom_dec)
         return None
+
+    def __connect_push_button_propagate_solve_propagation(self) -> None:
+        """A routine to use the current observation and historical observations
+        to derive the propagation solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Determine the engine from user input.
+        engine = propagate.PolynomialPropagationEngine
+        # Solve.
+        __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True)
+        # Update all of the necessary information.
+        self.redraw_opihi_image()
+        self.refresh_dynamic_label_text()
+        return None
+
+    def __connect_push_button_propagate_custom_solve(self) -> None:
+        """Solving for the location of the target through propagation based on
+        the time and date provided by the user.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no propagation solution, there is nothing to be done.
+        if not isinstance(
+            self.opihi_solution.propagatives, propagate.PropagationSolution
+        ):
+            return None
+
+        # Get the time and date from the user input.
+        datetime_input = self.ui.date_time_edit_propagate_date_time.dateTime()
+        # Getting the timezone, as the propagation requires UTC/UNIX time, a
+        # conversion is needed. Qt uses IANA timezone IDs so we convert from
+        # the human readable ones to it. We only deal with current timezones.
+        timezone_input = self.ui.combo_box_propagate_timezone.currentText()
+        timezone_input = timezone_input.casefold()
+        if timezone_input == "utc+00:00":
+            qt_timezone_str = "Etc/UTC"
+        elif timezone_input == "hst-10:00":
+            qt_timezone_str = "Pacific/Honolulu"
+        else:
+            error.DevelopmentError(
+                "The timezone dropdown entry provided by the GUI is not implimented and"
+                " has no translation to an IANA timezone ID."
+            )
+
+        # Using Qt's own datetime conversion just because it is already here.
+        qt_timezone_bytearray = QtCore.QByteArray(qt_timezone_str.encode())
+        qt_timezone = QtCore.QTimeZone(qt_timezone_bytearray)
+        datetime_input.setTimeZone(qt_timezone)
+        unix_time_input = datetime_input.toSecsSinceEpoch()
+
+        # Using this unique time provided to solve the propagation.
+        ra_deg, dec_deg = self.opihi_solution.propagatives.forward_propagate(
+            future_time=unix_time_input
+        )
+        ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
+            ra_deg=ra_deg, dec_deg=dec_deg
+        )
+        # Updating the RA and DEC values.
+        self.ui.label_dynamic_propagate_ra.setText(ra_sex)
+        self.ui.label_dynamic_propagate_dec.setText(dec_sex)
+
+        # All done.
+        return None
+
+    def __get_mpc_record_filename(self) -> str:
+        """This is a function which derives the MPC record filename from
+        naming conventions and the current fits file name.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        mpc_record_filename : str
+            The filename of the MPC record for this object/image.
+        """
+        mpc_target_name = self.asteroid_set_name
+        mpc_record_filename = "{an}__exarata_mpcrecord".format(an=mpc_target_name)
+        # Search the same directory as the fits file for this information as
+        # that is currently the expected location.
+        # Preferring the preprocessed filename if it exists, have a fall back.
+        fits_pathname = (
+            self.raw_fits_filename
+            if self.process_fits_filename is None
+            else self.process_fits_filename
+        )
+        fits_directory = library.path.get_directory(pathname=fits_pathname)
+        mpc_record_filename = library.path.merge_pathname(
+            directory=fits_directory, filename=mpc_record_filename, extension="txt"
+        )
+        return mpc_record_filename
 
     def _preprocess_fits_file(
         self, raw_filename: str, process_filename: str = None
@@ -503,6 +618,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # Saving the previous file and other information.
+        self.save_results()
+
         # Extracting the header of this fits file to get the observing
         # metadata from it.
         header, data = library.fits.read_fits_image_file(filename=fits_filename)
@@ -541,7 +659,18 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             asteroid_location = gui.selector.ask_user_target_selector_window(
                 data_array=data
             )
-            asteroid_history = None
+            # If there exists a MPC record of previous observations, use it
+            # for the history. If it does not exist, make one.
+            mpcrecord_filename = self.__get_mpc_record_filename()
+            if not os.path.isfile(mpcrecord_filename):
+                with open(mpcrecord_filename, "w"):
+                    pass
+            # Read the historical data.
+            with open(mpcrecord_filename, "r") as mpcfile:
+                raw_lines = mpcfile.readlines()
+            # The files have new line characters on them, they need to be 
+            # removed to have the normal 80 characters.
+            asteroid_history = [linedex.removesuffix("\n") for linedex in raw_lines]
         else:
             asteroid_name = None
             asteroid_location = None
@@ -637,10 +766,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             else (0, 0)
         )
         # Replace the text with the new information.
-        self.ui.label_dynamic_center_x.setText(str(cen_x))
-        self.ui.label_dynamic_center_y.setText(str(cen_y))
-        self.ui.label_dynamic_target_x.setText(str(trg_x))
-        self.ui.label_dynamic_target_y.setText(str(trg_y))
+        self.ui.label_dynamic_astrometry_center_x.setText(str(cen_x))
+        self.ui.label_dynamic_astrometry_center_y.setText(str(cen_y))
+        self.ui.label_dynamic_astrometry_target_x.setText(str(trg_x))
+        self.ui.label_dynamic_astrometry_target_y.setText(str(trg_y))
 
         # Everything beyond this point requires an astrometric solution, if
         # it does not exist, there is no point in continuing, exiting early.
@@ -664,10 +793,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             ra_deg=trg_ra, dec_deg=trg_dec
         )
         # Replace the text.
-        self.ui.label_dynamic_center_ra.setText(cen_ra_sex)
-        self.ui.label_dynamic_center_dec.setText(cen_dec_sex)
-        self.ui.label_dynamic_target_ra.setText(trg_ra_sex)
-        self.ui.label_dynamic_target_dec.setText(trg_dec_sex)
+        self.ui.label_dynamic_astrometry_center_ra.setText(cen_ra_sex)
+        self.ui.label_dynamic_astrometry_center_dec.setText(cen_dec_sex)
+        self.ui.label_dynamic_astrometry_target_ra.setText(trg_ra_sex)
+        self.ui.label_dynamic_astrometry_target_dec.setText(trg_dec_sex)
 
         # All done.
         return None
@@ -725,6 +854,48 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.opihi_axes.format_coord = self._opihi_coordinate_formatter
         # Update and redraw the image via redrawing the canvas.
         self.opihi_canvas.draw()
+        return None
+
+    def save_results(self) -> None:
+        """Save all of the results of the solutions to date. This is especially
+        done upon selecting a new image, the previous image results are
+        saved.
+
+        If there is no solution class, then there is no results to save either
+        and this function does nothing.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no solution class, there is nothing to save. Exiting
+        # early.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
+        # There are two primary things to save, the image and solution
+        # information and the MPC record as retriveable historical data.
+        def _save_results_fits_image() -> None:
+            """First, doing the image data."""
+
+        def _save_results_mpcrecord() -> None:
+            """Second, the MPC record historical data."""
+            # The current record to add.
+            mpc_record = self.opihi_solution.mpc_record_row()
+            # If the record file already exists, append this information to it.
+            with open(self.__get_mpc_record_filename(), "a") as mpcfile:
+                mpcfile.writelines([mpc_record])
+            # All done.
+            return None
+
+        # Executing the saving functions.
+        _save_results_fits_image()
+        _save_results_mpcrecord()
+        # All done.
         return None
 
 

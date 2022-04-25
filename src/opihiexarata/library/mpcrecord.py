@@ -171,8 +171,10 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
         # Add it to the records.
         table_rows_list.append(temp_record_dict)
 
-    # Construct the Astropy Table.
+    # Construct the Astropy Table. If nothing was provided, still provide a 
+    # blank table as there are still keyword expectations.
     table = ap_table.Table(rows=table_rows_list)
+    table = table if len(table) != 0 else minor_planet_blank_table()
     return table
 
 
@@ -279,7 +281,7 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
             ap_units.hour, sep=":", pad=True, precision=None
         )
         raw_str_dec = skycoord.dec.to_string(
-            ap_units.deg, sep=":", pad=True, precision=None
+            ap_units.deg, sep=":", pad=True, precision=None, alwayssign=True
         )
         # MPC record uses spaces as seperator.
         raw_str_ra = raw_str_ra.replace(":", " ")
