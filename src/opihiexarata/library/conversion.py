@@ -26,7 +26,12 @@ def degrees_to_sexagesimal_ra_dec(ra_deg:float, dec_deg:float) -> tuple[str,str]
     """
     # Levering Astropy for this.
     skycoord = ap_coordinates.SkyCoord(ra_deg, dec_deg, frame="icrs", unit="deg")
-    ra_sex, dec_sex = skycoord.to_string("hmsdms", sep=":").split(" ")
+    ra_sex = skycoord.ra.to_string(
+        ap_units.hour, sep=":", pad=True, precision=None
+    )
+    dec_sex = skycoord.dec.to_string(
+        ap_units.deg, sep=":", pad=True, precision=None, alwayssign=True
+    )
     return ra_sex, dec_sex
 
 def sexagesimal_ra_dec_to_degrees(ra_sex:str, dec_sex:str) -> tuple[float,float]:
