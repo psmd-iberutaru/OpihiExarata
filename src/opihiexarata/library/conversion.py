@@ -1,5 +1,6 @@
 """For miscellaneous conversions."""
 
+import numpy as np
 import astropy.coordinates as ap_coordinates
 import astropy.time as ap_time
 import astropy.units as ap_units
@@ -73,16 +74,17 @@ def decimal_day_to_unix_time(year: int, month: int, day: float):
         The unix time that the date represents.
     """
     # Determining the true year and letting the remainder flow.
-    int_year = int(year)
-    int_month = int(month)
-    int_day = int(day)
+    int_year = np.array(year, dtype=int)
+    int_month = np.array(month, dtype=int)
+    int_day = np.array(day, dtype=int)
+    float_day = np.array(day, dtype=float)
     # Leftover to determine HMS.
-    leftover_hours = (day % 1) * 24
+    leftover_hours = (float_day % 1) * 24
     # Hours
-    int_hour = int(leftover_hours)
+    int_hour = np.array(leftover_hours, dtype=int)
     leftover_minutes = (leftover_hours % 1) * 60
     # Minutes
-    int_minute = int(leftover_minutes)
+    int_minute = np.array(leftover_minutes, dtype=int)
     leftover_seconds = (leftover_minutes % 1) * 60
     # Seconds.
     seconds = leftover_seconds

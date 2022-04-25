@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>623</width>
+    <width>622</width>
     <height>884</height>
    </rect>
   </property>
@@ -146,9 +146,9 @@
       <layout class="QVBoxLayout" name="vertical_layout_image"/>
      </item>
      <item>
-      <widget class="QPushButton" name="push_button_refresh_window_plot">
+      <widget class="QPushButton" name="push_button_refresh_window">
        <property name="text">
-        <string>Refresh</string>
+        <string>Refresh Window</string>
        </property>
       </widget>
      </item>
@@ -215,7 +215,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_astrometry">
               <item>
-               <widget class="QPushButton" name="push_button_solve_astrometry">
+               <widget class="QPushButton" name="push_button_astrometry_solve_astrometry">
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -239,7 +239,7 @@
             <item>
              <layout class="QGridLayout" name="grid_layout_astrometry_results">
               <item row="1" column="2">
-               <widget class="QLabel" name="label_dynamic_target_x">
+               <widget class="QLabel" name="label_dynamic_astrometry_target_x">
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -249,7 +249,7 @@
                </widget>
               </item>
               <item row="1" column="3">
-               <widget class="QLabel" name="label_dynamic_target_y">
+               <widget class="QLabel" name="label_dynamic_astrometry_target_y">
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -259,7 +259,7 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QLabel" name="label_static_target_coordinates">
+               <widget class="QLabel" name="label_static_astrometry_target_coordinates">
                 <property name="text">
                  <string>Target/Asteroid:</string>
                 </property>
@@ -276,7 +276,7 @@
                </widget>
               </item>
               <item row="0" column="6">
-               <widget class="QLabel" name="label_dynamic_center_ra">
+               <widget class="QLabel" name="label_dynamic_astrometry_center_ra">
                 <property name="text">
                  <string>HH:MM:SS.SS</string>
                 </property>
@@ -286,7 +286,7 @@
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLabel" name="label_static_center_coordinates">
+               <widget class="QLabel" name="label_static_astrometry_center_coordinates">
                 <property name="text">
                  <string>Opihi Center:</string>
                 </property>
@@ -296,7 +296,7 @@
                </widget>
               </item>
               <item row="0" column="7">
-               <widget class="QLabel" name="label_dynamic_center_dec">
+               <widget class="QLabel" name="label_dynamic_astrometry_center_dec">
                 <property name="text">
                  <string>+DD:MM:SS.SS</string>
                 </property>
@@ -306,7 +306,7 @@
                </widget>
               </item>
               <item row="1" column="6">
-               <widget class="QLabel" name="label_dynamic_target_ra">
+               <widget class="QLabel" name="label_dynamic_astrometry_target_ra">
                 <property name="text">
                  <string>HH:MM:SS.SS</string>
                 </property>
@@ -316,7 +316,7 @@
                </widget>
               </item>
               <item row="1" column="7">
-               <widget class="QLabel" name="label_dynamic_target_dec">
+               <widget class="QLabel" name="label_dynamic_astrometry_target_dec">
                 <property name="text">
                  <string>+DD:MM:SS.SS</string>
                 </property>
@@ -326,7 +326,7 @@
                </widget>
               </item>
               <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_center_y">
+               <widget class="QLabel" name="label_dynamic_astrometry_center_y">
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -336,7 +336,7 @@
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QLabel" name="label_dynamic_center_x">
+               <widget class="QLabel" name="label_dynamic_astrometry_center_x">
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -359,19 +359,19 @@
                </widget>
               </item>
               <item row="2" column="2">
-               <widget class="QLineEdit" name="line_edit_custom_x"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_x"/>
               </item>
               <item row="2" column="3">
-               <widget class="QLineEdit" name="line_edit_custom_y"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_y"/>
               </item>
               <item row="2" column="6">
-               <widget class="QLineEdit" name="line_edit_custom_ra"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_ra"/>
               </item>
               <item row="2" column="7">
-               <widget class="QLineEdit" name="line_edit_custom_dec"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_dec"/>
               </item>
               <item row="2" column="0">
-               <widget class="QPushButton" name="push_button_custom_astrometry_solve">
+               <widget class="QPushButton" name="push_button_astrometry_custom_solve">
                 <property name="text">
                  <string>Custom Solve</string>
                 </property>
@@ -405,7 +405,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_photometry">
               <item>
-               <widget class="QPushButton" name="push_button_solve_photometry">
+               <widget class="QPushButton" name="push_button_photometry_solve_photometry">
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -455,7 +455,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_orbit">
               <item>
-               <widget class="QPushButton" name="push_button_solve_orbit">
+               <widget class="QPushButton" name="push_button_orbit_solve_orbit">
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -505,7 +505,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_ephemeris">
               <item>
-               <widget class="QPushButton" name="push_button_solve_ephemeris">
+               <widget class="QPushButton" name="push_button_ephemeris_solve_ephemeris">
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -553,9 +553,9 @@
            </property>
            <layout class="QVBoxLayout" name="vertical_layout_propagate">
             <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_solve_photometry_2">
+             <layout class="QHBoxLayout" name="horizontal_layout_solve_propagation">
               <item>
-               <widget class="QPushButton" name="push_button_solve_propagation">
+               <widget class="QPushButton" name="push_button_propagate_solve_propagation">
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -577,7 +577,75 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_propagate_results"/>
+             <layout class="QGridLayout" name="grid_layout_propagate_results">
+              <item row="0" column="4">
+               <widget class="QLabel" name="label_dynamic_propagate_dec">
+                <property name="text">
+                 <string>+DD:MM:SS.SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_dynamic_propagate_ra">
+                <property name="text">
+                 <string>HH:MM:SS.SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="push_button_propagate_custom_solve">
+                <property name="text">
+                 <string>Custom Solve</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="combo_box_propagate_timezone">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="minimumContentsLength">
+                 <number>0</number>
+                </property>
+                <property name="duplicatesEnabled">
+                 <bool>false</bool>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>UTC+00:00</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>HST-10:00</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QDateTimeEdit" name="date_time_edit_propagate_date_time">
+                <property name="displayFormat">
+                 <string>yyyy-MM-dd HH:mm:ss</string>
+                </property>
+                <property name="timeSpec">
+                 <enum>Qt::LocalTime</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -594,7 +662,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>623</width>
+     <width>622</width>
      <height>21</height>
     </rect>
    </property>
