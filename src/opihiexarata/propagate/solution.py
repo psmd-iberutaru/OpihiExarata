@@ -109,9 +109,16 @@ class PropagationSolution(hint.ExarataSolution):
 
         # Derive the propagation values using the proper vehicle function for
         # the desired engine is that is to be used.
-        if issubclass(solver_engine, propagate.PolynomialPropagationEngine):
+        if issubclass(solver_engine, propagate.LinearPropagationEngine):
             # The propagation results.
-            raw_propagate_results = _vehicle_polynomial_propagation(
+            raw_propagate_results = _vehicle_linear_propagation(
+                ra_array=self.ra_array,
+                dec_array=self.dec_array,
+                obs_time_array=self.obs_time_array,
+            )
+        elif issubclass(solver_engine, propagate.QuadraticPropagationEngine):
+            # The propagation results.
+            raw_propagate_results = _vehicle_quadratic_propagation(
                 ra_array=self.ra_array,
                 dec_array=self.dec_array,
                 obs_time_array=self.obs_time_array,
@@ -248,10 +255,10 @@ class PropagationSolution(hint.ExarataSolution):
         return future_ra, future_dec
 
 
-def _vehicle_polynomial_propagation(
+def _vehicle_linear_propagation(
     ra_array: hint.array, dec_array: hint.array, obs_time_array: hint.array
 ) -> dict:
-    """Derive the propagation from polynomial extrapolation methods.
+    """Derive the propagation from 1st order polynomial extrapolation methods.
 
     Parameters
     ----------
@@ -271,14 +278,85 @@ def _vehicle_polynomial_propagation(
         the solution.
     """
     # Instantiate the propagation engine.
-    polyprop = propagate.PolynomialPropagationEngine(
+    polyprop = propagate.LinearPropagationEngine(
+        ra=ra_array, dec=dec_array, obs_time=obs_time_array
+    )
+    # Check that the system uses quadratics, otherwise this section needs to
+    # be double checked.
+    if polyprop.ra_poly_param.shape != (2,) or polyprop.dec_poly_param.shape != (2,):
+        raise error.DevelopmentError(
+            "The polynomial engine does not use quadratics. This engine function needs"
+            " to be revised to ensure that it is returning the correct values."
+        )
+    # The propagation function.
+    propagation_function = lambda t: polyprop.forward_propagate(future_time=t)
+    # This engine cannot derive these values any better than raw computation
+    # based off of the propagation function itself. So we compute the velocity
+    # and acceleration parameters based on just using the propagation.
+    try:
+        # A reasonable guess to use a further back time than the last two.
+        # Most cases there are at least 3 observations.
+        future_time = np.linspace(obs_time_array[-3], obs_time_array[-1], 5)
+    except IndexError:
+        # It seems that this vehicle is trying to solve with just two
+        # observations, use the only two measurements avaliable.
+        future_time = np.linspace(obs_time_array[-2], obs_time_array[-1], 5)
+    # Deriving the future values from the future time.
+    delta_time = future_time[-1] - future_time[-2]
+    future_ra, future_dec = propagation_function(future_time)
+    # Using finite difference methods: forward difference for first order
+    # and central difference for second order.
+    ra_velocity = (future_ra[-1] - future_ra[-2]) / delta_time
+    ra_acceleration = (
+        future_ra[-1] - 2 * future_ra[-2] + future_ra[-3]
+    ) / delta_time**2
+    dec_velocity = (future_dec[-1] - future_dec[-2]) / delta_time
+    dec_acceleration = (
+        future_dec[-1] - 2 * future_dec[-2] + future_dec[-3]
+    ) / delta_time**2
+    # The dictionary that holds the results.
+    solution_results = {
+        "propagation_function": propagation_function,
+        "ra_velocity": ra_velocity,
+        "ra_acceleration": ra_acceleration,
+        "dec_velocity": dec_velocity,
+        "dec_acceleration": dec_acceleration,
+    }
+    # All done.
+    return solution_results
+
+
+def _vehicle_quadratic_propagation(
+    ra_array: hint.array, dec_array: hint.array, obs_time_array: hint.array
+) -> dict:
+    """Derive the propagation from 2nd order polynomial extrapolation methods.
+
+    Parameters
+    ----------
+    ra_array : array-like
+        The array of right ascensions used fit and extrapolate to,
+        in degrees.
+    dec_array : array-like
+        The array of declinations used fit and extrapolate to, in degrees.
+    obs_time_array : array-like
+        An array of observation times which the RA and DEC measurements
+        were taken at. The values are in UNIX time.
+
+    Returns
+    -------
+    solution_results : dictionary
+        The results of the propagation engine which then gets integrated into
+        the solution.
+    """
+    # Instantiate the propagation engine.
+    polyprop = propagate.QuadraticPropagationEngine(
         ra=ra_array, dec=dec_array, obs_time=obs_time_array
     )
     # Check that the system uses quadratics, otherwise this section needs to
     # be double checked.
     if polyprop.ra_poly_param.shape != (3,) or polyprop.dec_poly_param.shape != (3,):
         raise error.DevelopmentError(
-            "The polynomial engine does not use quadratics. This engine function needs"
+            "The quadratic engine does not use quadratics. This engine function needs"
             " to be revised to ensure that it is returning the correct values."
         )
     # The propagation function.

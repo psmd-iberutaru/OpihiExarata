@@ -469,7 +469,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         None
         """
         # Determine the engine from user input.
-        engine = propagate.PolynomialPropagationEngine
+        engine = propagate.LinearPropagationEngine
         # Solve.
         __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True)
         # Update all of the necessary information.
