@@ -886,6 +886,8 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             """Second, the MPC record historical data."""
             # The current record to add.
             mpc_record = self.opihi_solution.mpc_record_row()
+            # Adding the new line character as write lines do not do this.
+            mpc_record = mpc_record + "/n"
             # If the record file already exists, append this information to it.
             with open(self.__get_mpc_record_filename(), "a") as mpcfile:
                 mpcfile.writelines([mpc_record])
