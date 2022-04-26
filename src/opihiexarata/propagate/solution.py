@@ -134,11 +134,6 @@ class PropagationSolution(hint.ExarataSolution):
         try:
             # The original information.
             self._propagation_function = raw_propagate_results["propagation_function"]
-            # The derived properties of proper motion.
-            self.ra_velocity = raw_propagate_results["ra_velocity"]
-            self.ra_acceleration = raw_propagate_results["ra_acceleration"]
-            self.dec_velocity = raw_propagate_results["dec_velocity"]
-            self.dec_acceleration = raw_propagate_results["dec_acceleration"]
         except KeyError:
             raise error.EngineError(
                 "The engine results provided are insufficient for this propagation"
@@ -150,7 +145,7 @@ class PropagationSolution(hint.ExarataSolution):
         # Deriving the rates from the raw data. They should be similar to the
         # propagation but no test shall be done. Here the rates are calculated
         # from the three most recent points.
-        r_ra_v, r_dc_v, r_ra_a, r_dc_a = self._compute_raw_motion(
+        r_ra_v, r_dc_v, r_ra_a, r_dc_a = self.__init_compute_raw_motion(
             ra_array=self.ra_array,
             dec_array=self.dec_array,
             obs_time_array=self.obs_time_array,
@@ -160,7 +155,17 @@ class PropagationSolution(hint.ExarataSolution):
         self.raw_dec_velocity = r_dc_v
         self.raw_dec_acceleration = r_dc_a
 
-    def _compute_raw_motion(
+        # Deriving the rates from the propagation function. 
+        p_ra_v, p_dc_v, p_ra_a, p_dc_a = self.__init_compute_propagation_motion(obs_time_array=self.obs_time_array)
+        self.ra_velocity = p_ra_v
+        self.ra_acceleration = p_ra_a
+        self.dec_velocity = p_dc_v
+        self.dec_acceleration = p_dc_a
+        
+        # All done.
+        return None
+
+    def __init_compute_raw_motion(
         self,
         ra_array: hint.array,
         dec_array: hint.array,
@@ -229,6 +234,74 @@ class PropagationSolution(hint.ExarataSolution):
             raw_dec_acceleration,
         )
 
+    def __init_compute_propagation_motion(
+        self,
+        obs_time_array: hint.array,
+    ) -> tuple[float, float, float, float]:
+        """Compute the raw velocities and accelerations of RA and DEC.
+
+        This function prioritizes calculating the raw motion using the most
+        recent observations only.
+
+        Parameters
+        ----------
+        obs_time_array : array-like
+            An array of observation times which the RA and DEC measurements
+            were taken at. The values are in UNIX time.
+        
+        Returns
+        -------
+        propagate_ra_velocity : float
+            The propagative right ascension angular velocity of the target, in degrees
+            per second.
+        propagate_dec_velocity : float
+            The propagative declination angular velocity of the target, in degrees per
+            second.
+        propagate_ra_acceleration : float
+            The propagative right ascension angular acceleration of the target, in
+            degrees per second squared.
+            propagation engine.
+        propagate_dec_acceleration : float
+            The propagative declination angular acceleration of the target, in
+            degrees per second squared.
+        """
+        # From the propagation methods, calculate the expected locations 
+        # of the target based on propagation. Although this is forward 
+        # propagation, deriving rates from non-present times is not really
+        # helpful.
+        ra_array, dec_array = self.forward_propagate(future_time=obs_time_array)
+
+        # Computing the differences.
+        delta_ra = ra_array[1:] - ra_array[:-1]
+        delta_dec = dec_array[1:] - dec_array[:-1]
+        delta_time = obs_time_array[1:] - obs_time_array[:-1]
+        # First difference is velocity, using the most recent measure to get
+        # the velocity.
+        propagate_ra_velocity = delta_ra[-1] / delta_time[-1]
+        propagate_dec_velocity = delta_dec[-1] / delta_time[-1]
+        # The second difference is acceleration. We use midpoint time
+        # differences to determine the time difference between three
+        # observations.
+        if obs_time_array.size > 2:
+            # There are more than two observations, acceleration can be
+            # calculated.
+            delta2_ra = delta_ra[1:] - delta_ra[:-1]
+            delta2_dec = delta_dec[1:] - delta_dec[:-1]
+            delta2_time = (obs_time_array[2:] - obs_time_array[:-2]) / 2
+            propagate_ra_acceleration = delta2_ra[-1] / delta2_time[-1]
+            propagate_dec_acceleration = delta2_dec[-1] / delta2_time[-1]
+        else:
+            # A true raw acceleration cannot be calculated so we assume zero.
+            propagate_ra_acceleration = 0
+            propagate_dec_acceleration = 0
+        # All done.
+        return (
+            propagate_ra_velocity,
+            propagate_dec_velocity,
+            propagate_ra_acceleration,
+            propagate_dec_acceleration,
+        )
+
     def forward_propagate(
         self, future_time: hint.array
     ) -> tuple[hint.array, hint.array]:
@@ -290,37 +363,10 @@ def _vehicle_linear_propagation(
         )
     # The propagation function.
     propagation_function = lambda t: polyprop.forward_propagate(future_time=t)
-    # This engine cannot derive these values any better than raw computation
-    # based off of the propagation function itself. So we compute the velocity
-    # and acceleration parameters based on just using the propagation.
-    try:
-        # A reasonable guess to use a further back time than the last two.
-        # Most cases there are at least 3 observations.
-        future_time = np.linspace(obs_time_array[-3], obs_time_array[-1], 5)
-    except IndexError:
-        # It seems that this vehicle is trying to solve with just two
-        # observations, use the only two measurements avaliable.
-        future_time = np.linspace(obs_time_array[-2], obs_time_array[-1], 5)
-    # Deriving the future values from the future time.
-    delta_time = future_time[-1] - future_time[-2]
-    future_ra, future_dec = propagation_function(future_time)
-    # Using finite difference methods: forward difference for first order
-    # and central difference for second order.
-    ra_velocity = (future_ra[-1] - future_ra[-2]) / delta_time
-    ra_acceleration = (
-        future_ra[-1] - 2 * future_ra[-2] + future_ra[-3]
-    ) / delta_time**2
-    dec_velocity = (future_dec[-1] - future_dec[-2]) / delta_time
-    dec_acceleration = (
-        future_dec[-1] - 2 * future_dec[-2] + future_dec[-3]
-    ) / delta_time**2
+
     # The dictionary that holds the results.
     solution_results = {
         "propagation_function": propagation_function,
-        "ra_velocity": ra_velocity,
-        "ra_acceleration": ra_acceleration,
-        "dec_velocity": dec_velocity,
-        "dec_acceleration": dec_acceleration,
     }
     # All done.
     return solution_results
@@ -361,37 +407,10 @@ def _vehicle_quadratic_propagation(
         )
     # The propagation function.
     propagation_function = lambda t: polyprop.forward_propagate(future_time=t)
-    # This engine cannot derive these values any better than raw computation
-    # based off of the propagation function itself. So we compute the velocity
-    # and acceleration parameters based on just using the propagation.
-    try:
-        # A reasonable guess to use a further back time than the last two.
-        # Most cases there are at least 3 observations.
-        future_time = np.linspace(obs_time_array[-3], obs_time_array[-1], 5)
-    except IndexError:
-        # It seems that this vehicle is trying to solve with just two
-        # observations, use the only two measurements avaliable.
-        future_time = np.linspace(obs_time_array[-2], obs_time_array[-1], 5)
-    # Deriving the future values from the future time.
-    delta_time = future_time[-1] - future_time[-2]
-    future_ra, future_dec = propagation_function(future_time)
-    # Using finite difference methods: forward difference for first order
-    # and central difference for second order.
-    ra_velocity = (future_ra[-1] - future_ra[-2]) / delta_time
-    ra_acceleration = (
-        future_ra[-1] - 2 * future_ra[-2] + future_ra[-3]
-    ) / delta_time**2
-    dec_velocity = (future_dec[-1] - future_dec[-2]) / delta_time
-    dec_acceleration = (
-        future_dec[-1] - 2 * future_dec[-2] + future_dec[-3]
-    ) / delta_time**2
+
     # The dictionary that holds the results.
     solution_results = {
         "propagation_function": propagation_function,
-        "ra_velocity": ra_velocity,
-        "ra_acceleration": ra_acceleration,
-        "dec_velocity": dec_velocity,
-        "dec_acceleration": dec_acceleration,
     }
     # All done.
     return solution_results

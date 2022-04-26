@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>622</width>
-    <height>884</height>
+    <width>623</width>
+    <height>873</height>
    </rect>
   </property>
   <property name="font">
@@ -41,7 +41,7 @@
       <x>10</x>
       <y>10</y>
       <width>601</width>
-      <height>821</height>
+      <height>831</height>
      </rect>
     </property>
     <property name="font">
@@ -53,6 +53,32 @@
     <layout class="QVBoxLayout" name="vertical_layout_window">
      <item>
       <layout class="QHBoxLayout" name="horizontal_layout_new_files">
+       <item>
+        <widget class="QPushButton" name="push_button_new_target">
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>New Target</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="push_button_new_image_automatic">
          <property name="font">
@@ -79,32 +105,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="push_button_new_target">
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>New Target</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
@@ -120,30 +120,51 @@
        </property>
       </widget>
      </item>
-     <item alignment="Qt::AlignHCenter">
-      <widget class="QGraphicsView" name="dummy_opihi_image">
-       <property name="minimumSize">
-        <size>
-         <width>400</width>
-         <height>400</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>400</width>
-         <height>400</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Sylfaen</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
      <item>
-      <layout class="QVBoxLayout" name="vertical_layout_image"/>
+      <layout class="QVBoxLayout" name="vertical_layout_image">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QGraphicsView" name="dummy_opihi_image">
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>400</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>400</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Sylfaen</family>
+           <pointsize>11</pointsize>
+           <kerning>true</kerning>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="dummy_opihi_navbar">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>DUMMY OPIHI IMAGE NAVIGATION BAR.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="QPushButton" name="push_button_refresh_window">
@@ -202,7 +223,7 @@
              <x>10</x>
              <y>10</y>
              <width>571</width>
-             <height>211</height>
+             <height>241</height>
             </rect>
            </property>
            <property name="font">
@@ -392,7 +413,7 @@
              <x>10</x>
              <y>10</y>
              <width>571</width>
-             <height>251</height>
+             <height>241</height>
             </rect>
            </property>
            <property name="font">
@@ -442,7 +463,7 @@
              <x>10</x>
              <y>10</y>
              <width>571</width>
-             <height>251</height>
+             <height>241</height>
             </rect>
            </property>
            <property name="font">
@@ -492,7 +513,7 @@
              <x>10</x>
              <y>10</y>
              <width>571</width>
-             <height>251</height>
+             <height>241</height>
             </rect>
            </property>
            <property name="font">
@@ -570,6 +591,96 @@
              </layout>
             </item>
             <item>
+             <widget class="Line" name="line_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="grid_layout_propagate_rate_results">
+              <item row="0" column="5">
+               <widget class="Line" name="line_12">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="6">
+               <widget class="QLabel" name="label_dynamic_propagate_ra_acceleration">
+                <property name="text">
+                 <string>+AA.AAA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="7">
+               <widget class="QLabel" name="label_dynamic_propagate_dec_acceleration">
+                <property name="text">
+                 <string>+AA.AAA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="label_dynamic_propagate_dec_velocity">
+                <property name="text">
+                 <string>+VV.VVV</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="Line" name="line_11">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_dynamic_propagate_ra_velocity">
+                <property name="text">
+                 <string>+VV.VVV</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_static_propagate_rate">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Propagate Rate [ &amp;quot;/s | &amp;quot;/s&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="text_browser_propagate_future_results">
+              <property name="html">
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sylfaen'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="Line" name="line_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -577,9 +688,19 @@
              </widget>
             </item>
             <item>
-             <layout class="QGridLayout" name="grid_layout_propagate_results">
+             <layout class="QGridLayout" name="grid_layout_propagate_custom_entry">
+              <item row="0" column="0">
+               <widget class="QDateTimeEdit" name="date_time_edit_propagate_date_time">
+                <property name="displayFormat">
+                 <string>yyyy-MM-dd HH:mm:ss</string>
+                </property>
+                <property name="timeSpec">
+                 <enum>Qt::LocalTime</enum>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="4">
-               <widget class="QLabel" name="label_dynamic_propagate_dec">
+               <widget class="QLabel" name="label_dynamic_propagate_custom_dec">
                 <property name="text">
                  <string>+DD:MM:SS.SS</string>
                 </property>
@@ -589,7 +710,7 @@
                </widget>
               </item>
               <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_propagate_ra">
+               <widget class="QLabel" name="label_dynamic_propagate_custom_ra">
                 <property name="text">
                  <string>HH:MM:SS.SS</string>
                 </property>
@@ -628,24 +749,7 @@
                 </item>
                </widget>
               </item>
-              <item row="0" column="0">
-               <widget class="QDateTimeEdit" name="date_time_edit_propagate_date_time">
-                <property name="displayFormat">
-                 <string>yyyy-MM-dd HH:mm:ss</string>
-                </property>
-                <property name="timeSpec">
-                 <enum>Qt::LocalTime</enum>
-                </property>
-               </widget>
-              </item>
              </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_7">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>
@@ -656,16 +760,6 @@
      </item>
     </layout>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>622</width>
-     <height>21</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
