@@ -263,7 +263,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Creating the image of the image data. Using a log norm scale.
         image_data = self.data_array
-        self.ax.imshow(np.log10(image_data), zorder=-1, cmap="gray")
+        self.ax.imshow(image_data, zorder=-1, cmap="gray")
 
         # If there is a specified target location, put it on the map.
         if isinstance(self.target_x, (int, float)) and isinstance(
