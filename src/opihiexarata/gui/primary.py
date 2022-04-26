@@ -2,6 +2,7 @@
 The primary GUI window.
 """
 
+import time
 import sys
 import os
 
@@ -186,11 +187,15 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # event of a misclick.
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
-        # Remove the dummy spacer otherwise it is just extra unneeded space.
+        # Remove the dummy spacers otherwise it is just extra unneeded space.
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
+        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_navbar)
         self.ui.dummy_opihi_image.deleteLater()
+        self.ui.dummy_opihi_navbar.deleteLater()
         self.ui.dummy_opihi_image = None
+        self.ui.dummy_opihi_navbar = None
         del self.ui.dummy_opihi_image
+        del self.ui.dummy_opihi_navbar
         return None
 
     def __init_preprocess_solution(self):
@@ -419,7 +424,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 out_custom_ra,
                 out_custom_dec,
             ) = library.conversion.degrees_to_sexagesimal_ra_dec(
-                ra_deg=out_custom_ra, dec_deg=out_custom_dec
+                ra_deg=out_custom_ra, dec_deg=out_custom_dec, precision=2
             )
         elif len(in_custom_ra) != 0 and len(in_custom_dec) != 0:
             # Using RA DEC to solve for pixel locations.
@@ -472,6 +477,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         engine = propagate.LinearPropagationEngine
         # Solve.
         __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True)
+
         # Update all of the necessary information.
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
@@ -523,11 +529,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             future_time=unix_time_input
         )
         ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-            ra_deg=ra_deg, dec_deg=dec_deg
+            ra_deg=ra_deg, dec_deg=dec_deg, precision=2
         )
         # Updating the RA and DEC values.
-        self.ui.label_dynamic_propagate_ra.setText(ra_sex)
-        self.ui.label_dynamic_propagate_dec.setText(dec_sex)
+        self.ui.label_dynamic_propagate_custom_ra.setText(ra_sex)
+        self.ui.label_dynamic_propagate_custom_dec.setText(dec_sex)
 
         # All done.
         return None
@@ -668,7 +674,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             # Read the historical data.
             with open(mpcrecord_filename, "r") as mpcfile:
                 raw_lines = mpcfile.readlines()
-            # The files have new line characters on them, they need to be 
+            # The files have new line characters on them, they need to be
             # removed to have the normal 80 characters.
             asteroid_history = [linedex.removesuffix("\n") for linedex in raw_lines]
         else:
@@ -698,8 +704,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         return None
 
     def clear_dynamic_label_text(self) -> None:
-        """Clear all of the dynamic label text, this is traditionally done
-        just before a new image is going to be introduced.
+        """Clear all of the dynamic label text and other related fields,
+        this is traditionally done just before a new image is going to be
+        introduced.
 
         This resets the text back to their defaults as per the GUI builder.
 
@@ -711,7 +718,47 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # TODO
+        ## Resetting Summary information.
+        #####
+
+        ## Resetting Astrometry information.
+        #####
+        self.ui.label_dynamic_astrometry_center_x.setText("0000")
+        self.ui.label_dynamic_astrometry_center_y.setText("0000")
+        self.ui.label_dynamic_astrometry_center_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_center_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_target_x.setText("0000")
+        self.ui.label_dynamic_astrometry_target_y.setText("0000")
+        self.ui.label_dynamic_astrometry_target_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_target_dec.setText("+DD:MM:SS.SS")
+        self.ui.line_edit_astrometry_custom_x.setText("")
+        self.ui.line_edit_astrometry_custom_y.setText("")
+        self.ui.line_edit_astrometry_custom_ra.setText("")
+        self.ui.line_edit_astrometry_custom_dec.setText("")
+
+        ## Resetting Photometric information.
+        #####
+
+        ## Resetting Orbit information.
+        #####
+
+        ## Resetting Ephemeris information.
+        #####
+
+        ## Resetting Propagate information.
+        #####
+        self.ui.label_dynamic_propagate_ra_velocity.setText("+VV.VVV")
+        self.ui.label_dynamic_propagate_dec_velocity.setText("+VV.VVV")
+        self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAA")
+        self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAA")
+        self.ui.text_browser_propagate_future_results.setPlainText(
+            "YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS"
+        )
+        # Keeping the timezone and time information for convenience.
+        self.ui.label_dynamic_propagate_custom_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_propagate_custom_dec.setText("+DD:MM:SS.SS")
+
+        # All done.
         return None
 
     def refresh_dynamic_label_text(self) -> None:
@@ -731,6 +778,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # exists, otherwise, there is nothing to update in the text.
         if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
             self.__refresh_dynamic_label_text_astrometry()
+            self.__refresh_dynamic_label_text_propagate()
 
         # All done.
         return None
@@ -787,16 +835,111 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # The format really ought to be in HMSDMS hexadecimal-like as it
         # is more familiar to Astronomers.
         cen_ra_sex, cen_dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-            ra_deg=cen_ra, dec_deg=cen_dec
+            ra_deg=cen_ra, dec_deg=cen_dec, precision=2
         )
         trg_ra_sex, trg_dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-            ra_deg=trg_ra, dec_deg=trg_dec
+            ra_deg=trg_ra, dec_deg=trg_dec, precision=2
         )
         # Replace the text.
         self.ui.label_dynamic_astrometry_center_ra.setText(cen_ra_sex)
         self.ui.label_dynamic_astrometry_center_dec.setText(cen_dec_sex)
         self.ui.label_dynamic_astrometry_target_ra.setText(trg_ra_sex)
         self.ui.label_dynamic_astrometry_target_dec.setText(trg_dec_sex)
+
+        # All done.
+        return None
+
+    def __refresh_dynamic_label_text_propagate(self) -> None:
+        """Refresh all of the dynamic label text for propagate.
+        This fills out the information based on the current solutions
+        avaliable and solved.
+
+        A propagative solution must exist.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Everything in this function needs the OpihiSolution, if it does not
+        # exist, then exit early as there is nothing to refresh.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+        else:
+            opihi_solution = self.opihi_solution
+
+        # Nothing so far.
+        pass
+
+        # Everything beyond this point requires an astrometric solution, if
+        # it does not exist, there is no point in continuing, exiting early.
+        if not isinstance(
+            self.opihi_solution.propagatives, propagate.PropagationSolution
+        ):
+            return None
+        else:
+            propagatives = self.opihi_solution.propagatives
+
+        # Update the rate text with the velocity terms provided by the
+        # propagation solution. The propagation solution provides rates as
+        # degrees per second.
+        ra_v_deg = propagatives.ra_velocity
+        dec_v_deg = propagatives.dec_velocity
+        # And acceleration, as degrees per second squared.
+        ra_a_deg = propagatives.ra_acceleration
+        dec_a_deg = propagatives.dec_acceleration
+        # Converting to the more familiar arcsec/s. Round after and prepare
+        # to make it a string for the GUI.
+        def deg_to_arcsec_str(degree: float) -> str:
+            return str(round(degree * 3600, 3))
+
+        ra_v_arcsec_str = deg_to_arcsec_str(ra_v_deg)
+        dec_v_arcsec_str = deg_to_arcsec_str(dec_v_deg)
+        ra_a_arcsec_str = deg_to_arcsec_str(ra_a_deg)
+        dec_a_arcsec_str = deg_to_arcsec_str(dec_a_deg)
+        # Update the dynamic text.
+        self.ui.label_dynamic_propagate_ra_velocity.setText(ra_v_arcsec_str)
+        self.ui.label_dynamic_propagate_dec_velocity.setText(dec_v_arcsec_str)
+        self.ui.label_dynamic_propagate_ra_acceleration.setText(ra_a_arcsec_str)
+        self.ui.label_dynamic_propagate_dec_acceleration.setText(dec_a_arcsec_str)
+
+        # Use the current time and date to determine the future positions with
+        # the time interval provided.
+        ENTRY_COUNT = library.config.GUI_PROPAGATE_PRECOMPUTED_FUTURE_ENTRY_COUNT
+        INTERVAL = library.config.GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS
+        current_unix_time = time.time()
+        precomputed_future_text = ""
+        for countdex in range(int(ENTRY_COUNT)):
+            # The unix time for this future.
+            future_unix_time = current_unix_time + INTERVAL * countdex
+            # Converting this to the date and time string for this entry.
+            # As this is UNIX time, the date is in UTC or Zulu time.
+            yr, mh, dy, hr, mn, sc = library.conversion.unix_time_to_full_date(
+                unix_time=future_unix_time
+            )
+            datetime_str = "{yr}-{mh}-{dy}  {hr}:{mn}:{sc}  Z".format(
+                yr=int(yr), mh=int(mh), dy=int(dy), hr=int(hr), mn=int(mn), sc=int(sc)
+            )
+            # Using the unix time to compute the propagated solution for this
+            # time and formatting this as the needed string.
+            ra_deg, dec_deg = propagatives.forward_propagate(
+                future_time=future_unix_time
+            )
+            ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
+                ra_deg=ra_deg, dec_deg=dec_deg, precision=2
+            )
+            ra_dec_str = "{ra}   {dec}".format(ra=ra_sex, dec=dec_sex)
+            # The final format for this line per the GUI specification, just
+            # adding some space and the new line
+            entry_line = "{dt}   |   {rd} \n".format(dt=datetime_str, rd=ra_dec_str)
+            precomputed_future_text = precomputed_future_text + entry_line
+        # Set the text for the set of future solutions.
+        self.ui.text_browser_propagate_future_results.setPlainText(
+            precomputed_future_text
+        )
 
         # All done.
         return None
@@ -824,7 +967,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Attempt to plot the image data if it exists.
         if self.opihi_solution is not None:
-            image = self.opihi_axes.imshow(self.opihi_solution.data)
+            image = self.opihi_axes.imshow(self.opihi_solution.data, cmap="gray")
             # Disable their formatting in favor of ours.
             image.format_cursor_data = empty_string
 

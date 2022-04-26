@@ -5,6 +5,7 @@ import numpy as np
 import PyQt6 as PyQt
 from PyQt6 import QtCore, QtWidgets, QtGui
 
+import matplotlib.colors as mpl_colors
 import matplotlib.figure as mpl_figure
 import matplotlib.patches as mpl_patches
 import matplotlib.pyplot as plt
@@ -50,7 +51,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.ax = self.figure.subplots()
-        # A little hack to ensure the default zoom limits that are saved when 
+        # A little hack to ensure the default zoom limits that are saved when
         # redrawing the figure is not 0-1 in both x and y but instead the image
         # itself.
         self.ax.set_xlim(0, self.data_array.shape[1])
@@ -98,7 +99,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         None
         """
 
-        # A tool on the toolbar is wanting to be used if the mode is non-blank, 
+        # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.toolbar.mode.value != "":
             return None
@@ -128,7 +129,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         None
         """
 
-        # A tool on the toolbar is wanting to be used if the mode is non-blank, 
+        # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.toolbar.mode.value != "":
             return None
@@ -250,7 +251,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         -------
         None
         """
-        # To retain the current zoom and pan, save the limits that the image 
+        # To retain the current zoom and pan, save the limits that the image
         # is currently at before redrawing.
         xmin, xmax = self.ax.get_xlim()
         ymin, ymax = self.ax.get_ylim()
@@ -260,14 +261,15 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # hit to ensure it all works normally.
         self.ax.clear()
 
-        # Creating the image of the image data.
-        self.ax.imshow(self.data_array, zorder=-1)
+        # Creating the image of the image data. Using a log norm scale.
+        image_data = self.data_array
+        self.ax.imshow(np.log10(image_data), zorder=-1, cmap="gray")
 
         # If there is a specified target location, put it on the map.
         if isinstance(self.target_x, (int, float)) and isinstance(
             self.target_y, (int, float)
         ):
-            # Represent the marker as the targets location as defined by the 
+            # Represent the marker as the targets location as defined by the
             # search box and the target finding function.
             MARKER_SIZE = float(library.config.SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
             self.ax.scatter(
@@ -303,7 +305,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         return None
 
 
-def ask_user_target_selector_window(data_array:hint.array) -> tuple[float, float]:
+def ask_user_target_selector_window(data_array: hint.array) -> tuple[float, float]:
     """Use the target selector window to have the user provide the
     information needed to determine the location of the target.
 
