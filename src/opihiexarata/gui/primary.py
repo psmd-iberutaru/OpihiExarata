@@ -973,7 +973,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Attempt to plot the location of the specified asteroid.
         try:
-            print(self.opihi_solution.asteroid_location)
             target_x, target_y = self.opihi_solution.asteroid_location
             TARGET_MARKER_SIZE = float(library.config.GUI_IMAGE_PLOT_TARGET_MARKER_SIZE)
             target_marker = self.opihi_axes.scatter(
