@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '.\primary.ui'
+﻿# Form implementation generated from reading ui file '.\primary.ui'
 #
 # Created by: PyQt6 UI code generator 6.3.0
 #
@@ -381,6 +381,7 @@ class Ui_PrimaryWindow(object):
         self.line_10.setObjectName("line_10")
         self.vertical_layout_propagate.addWidget(self.line_10)
         self.text_browser_propagate_future_results = QtWidgets.QTextBrowser(self.verticalLayoutWidget_4)
+        self.text_browser_propagate_future_results.setAcceptRichText(True)
         self.text_browser_propagate_future_results.setObjectName("text_browser_propagate_future_results")
         self.vertical_layout_propagate.addWidget(self.text_browser_propagate_future_results)
         self.line_4 = QtWidgets.QFrame(self.verticalLayoutWidget_4)
