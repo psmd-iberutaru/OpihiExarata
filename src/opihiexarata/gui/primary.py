@@ -74,11 +74,12 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.preprocess_solution = None
         self.opihi_solution = None
 
-        # Preparing the buttons and their functionality.
-        self.__init_push_button_connections()
 
         # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()
+        
+        # Preparing the buttons, GUI, and other functionality.
+        self.__init_gui_connections()
 
         # Preparing the preprocessing solution so that the raw files loaded
         # into Exarata can be instantly turned into reduced images.
@@ -87,7 +88,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __init_push_button_connections(self) -> None:
+    def __init_gui_connections(self) -> None:
         """Assign the action bindings for the buttons which get new
         file(names).
 

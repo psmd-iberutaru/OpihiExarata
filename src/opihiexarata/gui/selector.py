@@ -1,4 +1,6 @@
 import sys
+import os
+import copy
 
 import numpy as np
 
@@ -19,18 +21,24 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+import opihiexarata.gui as gui
+
 
 class TargetSelectorWindow(QtWidgets.QWidget):
-    def __init__(self, data_array: hint.array = None) -> None:
+    def __init__(self, current_fits_filename:str, reference_fits_filename:str=None) -> None:
         """Create the target selector window. Though often used for asteroids,
         there is no reason why is should specific to them; so we use a general
         name.
 
         Parameters
         ----------
-        data_array : array
-            The data from Opihi which is the image that it took. The user will
-            use this image to select the location of the target/asteroid.
+        current_fits_filename : string
+            The current fits filename which will be used to determine where the 
+            location of the target is.
+        reference_fits_filename : string, default = None
+            The reference fits filename which will be used to compare against the 
+            current fits filename to determine where the location of the target 
+            is. If None, then no image will be loaded until manually specified.
 
         Returns
         -------
@@ -39,52 +47,235 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Initialization of the parent class window.
         super().__init__()
 
+        # Window design parameters, just for show.
+        self.setWindowTitle("OpihiExarata Target Selector")
+
         # The data from which will be shown to the user which they will use
         # to find the location of the target.
-        self.data_array = data_array
+        current_header, current_data = library.fits.read_fits_image_file(filename=current_fits_filename)
+        self.current_filename = current_fits_filename
+        self.current_header = current_header
+        self.current_data = current_data
+        # The reference data, if the fits file has been provided.
+        if os.path.isfile(reference_fits_filename):
+            reference_header, reference_data = library.fits.read_fits_image_file(filename=reference_fits_filename)
+            self.reference_filename = str()
+            self.reference_header = reference_header
+            self.reference_data = reference_data
+        else:
+            # No data has been provided, just using sensible defaults.
+            self.reference_header = current_header.copy()
+            self.reference_data = np.zeros_like(self.current_data)
+
         # The location of the target, the user did not provide it so
         # blank currently.
         self.target_x = None
         self.target_y = None
+
+        # There is currently no subtraction method provided. We assume
+        # no subtraction so that the image can be shown. (Both None the type
+        # and the string is valid as no subtraction. The type just means
+        # that it has not been formally specified using the GUI.)
+        self.subtraction_method = None
+
+        # The data, as it is plotted. This will change with different 
+        # subtraction methodology. But, as the subtraction is defined as None,
+        # the current data is fine.
+        self.plotted_data = np.array(self.current_data)
+
+        # We default the scale to the 1-99 automatic linear scale. It is
+        # just an easier system and it makes the user think of it as a default.
+        low, high = np.percentile(self.current_data, [1, 99])
+        self.colorbar_scale_low = float(low)
+        self.colorbar_scale_high = float(high)
+
         # Making the plot itself.
-        self.figure = mpl_figure.Figure()
-        self.canvas = FigureCanvas(self.figure)
-        self.toolbar = NavigationToolbar(self.canvas, self)
-        self.ax = self.figure.subplots()
-        # A little hack to ensure the default zoom limits that are saved when
-        # redrawing the figure is not 0-1 in both x and y but instead the image
-        # itself.
-        self.ax.set_xlim(0, self.data_array.shape[1])
-        self.ax.set_ylim(0, self.data_array.shape[0])
-        # Redrawing the image.
-        self.redraw_image()
+        self.__init_opihi_image()
 
-        # Setting up the mouse click action for the matplotlib image.
-        self.canvas.mpl_connect("button_press_event", self.image_mouse_press)
-        self.canvas.mpl_connect("button_release_event", self.image_mouse_release)
+        # Adding the GUI connections.
+        self.__init_gui_connections()
 
-        # Building the window with the matplotlib plot and the done button.
-        self.setWindowTitle("OpihiExarata Target Selector")
-        # Using a vertical layout style.
-        vertical_layout = QtWidgets.QVBoxLayout()
-
-        # The done/exit button.
-        self.done_button = QtWidgets.QPushButton("Done")
-        self.done_button.clicked.connect(self.close_window)
-
-        # Assembling the different elements of this GUI window.
-        # The image for plotting.
-        vertical_layout.addWidget(self.canvas)
-        vertical_layout.addWidget(self.toolbar)
-        vertical_layout.addWidget(self.done_button)
-
-        self.setLayout(vertical_layout)
         # All done.
         return None
 
-    def image_mouse_press(self, event: hint.MouseEvent) -> None:
+    def __init_opihi_image(self) -> None:
+        """Create the image area which will display what Opihi took from the
+        sky. This takes advantage of a reserved image vertical layout in the
+        design of the window.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Deriving the size of the image from the filler dummy image. The
+        # figure should be a square. (Height really is the primary concern.)
+        pix_to_in = lambda p: p / plt.rcParams["figure.dpi"]
+        dummy_edge_size = self.ui.dummy_opihi_image.height()
+        edge_size = pix_to_in(dummy_edge_size)
+        # The figure, canvas, and navigation toolbar of the image plot
+        # using a Matplotlib Qt widget backend. We will add these to the
+        # layout later.
+        fig, ax = plt.subplots(figsize=(edge_size, edge_size), constrained_layout=True)
+        self.opihi_figure = fig
+        self.opihi_axes = ax
+        self.opihi_canvas = FigureCanvas(self.opihi_figure)
+        self.opihi_nav_toolbar = NavigationToolbar(self.opihi_canvas, self)
+
+        # For ease of usage, a custom navigation bar coordinate formatter
+        # function/class is used.
+        class CoordinateFormatter:
+            """A simple function class to properly format the navigation bar
+            coordinate text. This assumes the current structure of the GUI."""
+
+            def __init__(self, gui_instance: TargetSelectorWindow) -> None:
+                self.gui_instance = gui_instance
+                return None
+
+            def __call__(self, x, y) -> str:
+                """The coordinate string going to be put onto the navigation
+                bar."""
+                x_index = int(x)
+                y_index = int(y)
+                coord_string = "Helllo [{x_int:d}, {y_int:d}]".format(
+                    x_int=x_index, y_int=y_index
+                )
+                return coord_string
+
+        # Assigning the coordinate formatter derived.
+        self._opihi_coordinate_formatter = CoordinateFormatter(self)
+        self.opihi_axes.format_coord = self._opihi_coordinate_formatter
+
+        # Setting the layout, it is likely better to have the toolbar below
+        # rather than above to avoid conflicts with the reset buttons in the
+        # event of a misclick.
+        self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
+        self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
+        # Remove the dummy spacers otherwise it is just extra unneeded space.
+        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
+        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_navbar)
+        self.ui.dummy_opihi_image.deleteLater()
+        self.ui.dummy_opihi_navbar.deleteLater()
+        self.ui.dummy_opihi_image = None
+        self.ui.dummy_opihi_navbar = None
+        del self.ui.dummy_opihi_image
+        del self.ui.dummy_opihi_navbar
+        # A little hack to ensure the default zoom limits that are saved when
+        # redrawing the figure is not 0-1 in both x and y but instead the image
+        # itself.
+        self.ax.set_xlim(0, self.current_data.shape[1])
+        self.ax.set_ylim(0, self.current_data.shape[0])
+        # Redraw the image.
+        self.refresh_window()
+        return None
+
+    def __init_gui_connections(self):
+        """A initiation set of functions that attach to the buttons on the
+        GUI.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # The connections for the fits file selection.
+        self.ui.push_button_change_current_filename.clicked.connect(self.__connect_push_button_change_current_filename)
+        self.ui.push_button_change_reference_filename.clicked.connect(self.__connect_push_button_change_reference_filename)
+
+        # The figure connections for draging of the search box. The Opihi
+        # image initialization should be done first.
+        self.canvas.mpl_connect(
+            "button_press_event", self.__connect_matplotlib_mouse_press_event
+        )
+        self.canvas.mpl_connect(
+            "button_release_event", self.__connect_matplotlib_mouse_release_event
+        )
+
+        # The subtraction method connections for comparing the current
+        # and release fits images. These buttons really just set the 
+        # subtraction method flag.
+        self.ui.push_button_mode_none.clicked.connect(self.__connect_push_button_mode_none)
+        self.ui.push_button_mode_sidereal.clicked.connect(self.__connect_push_button_mode_sidereal)
+        self.ui.push_button_mode_non_sidereal.clicked.connect(self.__connect_push_button_mode_non_sidereal)
+
+        # The scale and colorbar connections for determining the scale and
+        # color bar information, along with the automatic way.
+        self.ui.line_edit_dynamic_scale_low.textEdited.connect(self.__connect_line_edit_dynamic_scale_low)
+        self.ui.line_edit_dynamic_scale_high.textEdited.connect(self.__connect_line_edit_dynamic_scale_high)
+        self.ui.push_button_autoscale_1_99.clicked.connect(self.__connect_push_button_autoscale_1_99)
+
+        # The pixel location submission button connection.
+        self.ui.push_button_submit_target.clicked.connect(self.__connect_push_button_submit_target)
+
+        return None
+
+    def __connect_push_button_change_current_filename(self) -> None:
+        """This function provides a popup dialog to prompt the user to change
+        the current fits filename.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Use the build-in OS dialog box.
+        new_current_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
+            parent=self,
+            caption="Open New Current Opihi Image",
+            directory="./",
+            filter="FITS Files (*.fits)",
+        )
+        # Extracted the needed information provided this new fits file.
+        current_header, current_data = library.fits.read_fits_image_file(filename=new_current_filename)
+        self.current_filename = new_current_filename
+        self.current_header = current_header
+        self.current_data = current_data
+        
+        # Redraw and refresh the window to use this new updated information.
+        self.refresh_window()
+        return None
+    
+    def __connect_push_button_change_reference_filename(self) -> None:
+        """This function provides a popup dialog to prompt the user to change
+        the reference fits filename.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Use the build-in OS dialog box.
+        new_reference_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
+            parent=self,
+            caption="Open New Reference Opihi Image",
+            directory="./",
+            filter="FITS Files (*.fits)",
+        )
+        # Extracted the needed information provided this new fits file.
+        reference_header, reference_data = library.fits.read_fits_image_file(filename=new_reference_filename)
+        self.reference_filename = new_reference_filename
+        self.reference_header = reference_header
+        self.reference_data = reference_data
+        
+        # Redraw and refresh the window to use this new updated information.
+        self.refresh_window()
+        return None
+
+    def __connect_matplotlib_mouse_press_event(self, event: hint.MouseEvent) -> None:
         """A function to describe what would happen when a mouse press is
-        done on the image.
+        done on the Matplotlib image.
 
         This function defaults to the toolbar functionality when the toolbar
         is considered active.
@@ -111,13 +302,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             pass
         else:
             # One of the bounds of the search rectangle.
-            self.search_x0 = float(event.xdata)
-            self.search_y0 = float(event.ydata)
+            self.box_search_x0 = float(event.xdata)
+            self.box_search_y0 = float(event.ydata)
         return None
 
-    def image_mouse_release(self, event: hint.MouseEvent) -> None:
-        """A function to describe what would happen when a mouse click released
-        on the image.
+    def __connect_matplotlib_mouse_release_event(self, event: hint.MouseEvent) -> None:
+        """A function to describe what would happen when a mouse press is
+        released done on the Matplotlib image.
 
         Parameters
         ----------
@@ -141,29 +332,383 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             pass
         else:
             # One of the bounds of the search rectangle.
-            self.search_x1 = float(event.xdata)
-            self.search_y1 = float(event.ydata)
+            self.box_search_x1 = float(event.xdata)
+            self.box_search_y1 = float(event.ydata)
         # By convention, the x0 <= x1 and vice versa for y. If the user drew
         # a backwards square, then we fix it here.
-        if self.search_x1 < self.search_x0:
-            lower_x = min([self.search_x0, self.search_x1])
-            upper_x = max([self.search_x0, self.search_x1])
-            self.search_x0 = lower_x
-            self.search_x1 = upper_x
-        if self.search_y1 < self.search_y0:
-            lower_y = min([self.search_y0, self.search_y1])
-            upper_y = max([self.search_y0, self.search_y1])
-            self.search_y0 = lower_y
-            self.search_y1 = upper_y
+        if self.box_search_x1 < self.box_search_x0:
+            lower_x = min([self.box_search_x0, self.box_search_x1])
+            upper_x = max([self.box_search_x0, self.box_search_x1])
+            self.box_search_x0 = lower_x
+            self.box_search_x1 = upper_x
+        if self.box_search_y1 < self.box_search_y0:
+            lower_y = min([self.box_search_y0, self.box_search_y1])
+            upper_y = max([self.box_search_y0, self.box_search_y1])
+            self.box_search_y0 = lower_y
+            self.box_search_y1 = upper_y
 
         # Find the target location based on the search area just determined.
         self.target_x, self.target_y = self.find_target_location(
-            x0=self.search_x0, x1=self.search_x1, y0=self.search_y0, y1=self.search_y1
+            x0=self.box_search_x0,
+            x1=self.box_search_x1,
+            y0=self.box_search_y0,
+            y1=self.box_search_y1,
         )
 
         # Redrawing the image to have the location be visible.
-        self.redraw_image()
+        self.refresh_window()
         return None
+
+    def __connect_push_button_mode_none(self) -> None:
+        """This function sets the subtraction method to None, for comparing 
+        the current image from the reference image. 
+
+        Both None the type and the string is valid as no subtraction. The 
+        type just means that it has not been formally specified using the GUI.
+
+        This method has no subtraction and thus no comparison to the reference
+        image.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # As the mode is being set by the GUI, we use the string form.
+        self.subtraction_method = "none"
+        # Refresh the window because the method changed.
+        self.refresh_window()
+        return None
+
+    def __connect_push_button_mode_sidereal(self) -> None:
+        """This function sets the subtraction method to sidereal, for comparing 
+        the current image from the reference image. 
+
+        This method assumes the approximation that both the current and 
+        reference images are pointing to the same point in the sky.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Setting the mode to sidereal.
+        self.subtraction_method = "sidereal"
+        # Refresh the window because the method changed.
+        self.refresh_window()
+        return None
+
+    def __connect_push_button_mode_non_sidereal(self) -> None:
+        """This function sets the subtraction method to non-sidereal, for 
+        comparing the current image from the reference image.
+
+        This method assumes the approximation that the target itself did not
+        move at all compared to both images, but the stars do as they are 
+        moving siderally.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Setting the mode to non-sidereal.
+        self.subtraction_method = "non-sidereal"
+        # Refresh the window because the method changed.
+        self.refresh_window()
+        return None
+
+    def __connect_line_edit_dynamic_scale_low(self) -> None:
+        """A function to operate on the change of the text of the low scale.
+    
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Saving the old lower bound scale value in the event that the text
+        # entered cannot be properly converted.
+        old_low_value = copy.deepcopy(self.colorbar_scale_low)
+
+        # Try to get the new value.
+        try:
+            # Exctracting the value the user provided in the text block.
+            input_text = self.ui.line_edit_dynamic_scale_low.text()
+            new_low_value = float(input_text)
+        except Exception:
+            # Something is wrong, the value entered is a valid entry; reverting
+            # back to the defaults.
+            new_low_value = old_low_value
+        finally:
+            self.colorbar_scale_low = new_low_value
+        
+        # Redraw the image with this new low colorbar. (Refreshing the 
+        # image itself is likely fine too.)
+        self.refresh_window()
+        # All done.
+        return None
+
+    def __connect_line_edit_dynamic_scale_high(self) -> None:
+        """A function to operate on the change of the text of the high scale.
+    
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Saving the old higher bound scale value in the event that the text
+        # entered cannot be properly converted.
+        old_high_value = copy.deepcopy(self.colorbar_scale_high)
+
+        # Try to get the new value.
+        try:
+            # Exctracting the value the user provided in the text block.
+            input_text = self.ui.line_edit_dynamic_scale_high.text()
+            new_high_value = float(input_text)
+        except Exception:
+            # Something is wrong, the value entered is a valid entry; reverting
+            # back to the defaults.
+            new_high_value = old_high_value
+        finally:
+            self.colorbar_scale_high = new_high_value
+        
+        # Redraw the image with this new low colorbar. (Refreshing the 
+        # image itself is likely fine too.)
+        self.refresh_window()
+        # All done.
+        return None
+
+    def __connect_push_button_autoscale_1_99(self) -> None:
+        """A function set the scale automatically to 1-99 within the 
+        region currently displayed on the screen.
+    
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # The subset of the data that is currently displayed on the screen.
+        xmin, xmax = self.ax.get_xlim()
+        ymin, ymax = self.ax.get_ylim()
+        displayed_plotted_image = self.plotted_data[ymin:ymax, xmin:xmax]
+        # Calculate the 1-99 % values from this subarray.
+        low, high = np.percentile(displayed_plotted_image.flatten(), [1, 99])
+        self.colorbar_scale_low = low
+        self.colorbar_scale_high = high
+        # Redraw the image with this new colorbar range. (Refreshing the 
+        # image itself is likely fine too.)
+        self.refresh_window()
+        # All done.
+        return None
+
+    def __connect_push_button_submit_target(self) -> None:
+        """This button submits the current location of the target and closes
+        the window. (The target information is saved within the class 
+        instance.)
+
+        If the text within the line edits differ than what the box selection
+        has selected, then this prioritizes the values as manually defined. 
+        Although this should be rare as any time a box is drawn, the values 
+        and text boxes should be updated.
+
+        If no entry is properly convertable, we default to center of the image.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # The pixel locations as derived from the box mode.
+        box_pixel_x = self.target_x
+        box_pixel_y = self.target_y
+        # The pixel locations as derived from the text entry. If they can 
+        # be converted into actual pixel locations, we prioritize them.
+        
+        try:
+            entry_pixel_x = float(self.ui.line_edit_dynamic_target_x.text())
+            entry_pixel_y = float(self.ui.line_edit_dynamic_target_y.text())
+        except Exception:
+            # The conversion cannot happen, the entry provided is not a valid
+            # entry, going to use the box values instead.
+            using_pixel_x = box_pixel_x
+            using_pixel_y = box_pixel_y
+        else:
+            # Prioritizing the entered values.
+            using_pixel_x = entry_pixel_x
+            using_pixel_y = entry_pixel_y
+        finally:
+            # Type checking the currently assumed pixel values. 
+            if isinstance(using_pixel_x, (int, float)) and isinstance(using_pixel_y, (int, float)):
+                # The pixel values provided either through manual or box entry 
+                # is valid; prioritization has already been done.
+                pass
+            else:
+                # The currently derived values are incorrect. Falling back on
+                # assumption that the center as the target.
+                using_pixel_x = self.current_data.shape[1] / 2
+                using_pixel_y = self.current_data.shape[0] / 2
+        
+        # The target values updated to reflect this prioritization and 
+        # converstion.
+        self.target_x = using_pixel_x
+        self.target_y = using_pixel_y
+        # All done, closing the window as we can now let the primary part of 
+        # the program continue.
+        self.close_window()
+        return None
+
+
+    def _redraw_image(self) -> None:
+        """Redraw and refresh the image, this is mostly used to allow for the
+        program to update where the user selected.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # To retain the current zoom and pan, save the limits that the image
+        # is currently at before redrawing.
+        xmin, xmax = self.ax.get_xlim()
+        ymin, ymax = self.ax.get_ylim()
+
+        # Clearing the axes, starting fresh and anew as this entire function
+        # does a whole redraw. It may not be needed but small performance
+        # hit to ensure it all works normally.
+        self.ax.clear()
+
+        # Creating the image of the image data. Using a log norm scale.
+        image_data = self.current_data
+        self.ax.imshow(image_data, zorder=-1, cmap="gray")
+
+        # If there is a specified target location, put it on the map.
+        if isinstance(self.target_x, (int, float)) and isinstance(
+            self.target_y, (int, float)
+        ):
+            # Represent the marker as the targets location as defined by the
+            # search box and the target finding function.
+            MARKER_SIZE = float(library.config.SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
+            self.ax.scatter(
+                self.target_x,
+                self.target_y,
+                s=MARKER_SIZE,
+                marker="^",
+                color="r",
+                facecolors="None",
+            )
+            # If there is a target, then the bounding box created must have
+            # also succeeded. It is helpful for the user to also draw it.
+            search_rectangle = mpl_patches.Rectangle(
+                xy=(self.box_search_x0, self.box_search_y0),
+                width=self.box_search_x1 - self.box_search_x0,
+                height=self.box_search_y1 - self.box_search_y0,
+                facecolor="None",
+                edgecolor="b",
+            )
+            self.ax.add_patch(search_rectangle)
+        else:
+            # No need, there is no current valid location specified.
+            pass
+
+        # Reinstate the zoom and pan settings via the previous limits.
+        self.ax.set_xlim(xmin, xmax)
+        self.ax.set_ylim(ymin, ymax)
+        # And finally, drawing the image.
+        self.canvas.draw()
+        # All done.
+        return None
+
+    def _rewrite_text(self) -> None:
+        """This function just refreshes the GUI text based on the current 
+        actual values.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Refreshing the current and reference fits filenames. No directory
+        # information.
+        current_bare_filename = library.path.get_filename_with_extension(pathname=self.current_filename)
+        reference_bare_filename = library.path.get_filename_with_extension(pathname=self.reference_filename)
+        self.ui.label_dynamic_current_fits_filename.setText(current_bare_filename)
+        self.ui.label_dynamic_reference_fits_filename.setText(reference_bare_filename)
+
+        # Refreshing the scale value text as set. Formatting the numerical 
+        # values into strings.
+        scale_low_str = str(self.colorbar_scale_low)
+        scale_high_str = str(self.colorbar_scale_high)
+        self.ui.line_edit_dynamic_scale_low.setText(scale_low_str)
+        self.ui.line_edit_dynamic_scale_high.setText(scale_high_str)
+
+        # Refreshing the target pixel location in the manual entry. Formatting 
+        # the numerical values into strings.
+        target_x_str = str(self.target_x)
+        target_y_str = str(self.target_y)
+        self.ui.line_edit_dynamic_target_x.setText(target_x_str)
+        self.ui.line_edit_dynamic_target_y.setText(target_y_str)
+
+        # All done.
+        return None
+
+
+    def refresh_window(self) -> None:
+        """Refresh the text content of the window given new information. 
+        This refreshes both the dynamic label text and redraws the image.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+
+    def close_window(self) -> None:
+        """Closes the window. Generally called when it is all done.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Delete the plot. This ensures that there is not memory leak with
+        # many plots open over time.
+        plt.close(self.figure)
+        # Close the window.
+        self.close()
+        return None
+
 
     def find_target_location(
         self, x0: float, x1: float, y0: float, y1: float
@@ -200,7 +745,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         x1 = int(x1) + 1
         y0 = int(y0)
         y1 = int(y1) + 1
-        search_array = self.data_array[
+        search_array = self.current_data[
             y0:y1,
             x0:x1,
         ]
@@ -221,99 +766,20 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # All done.
         return target_x, target_y
 
-    def close_window(self) -> None:
-        """Closes the window. Generally called when it is all done.
 
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Delete the plot. This ensures that there is not memory leak with
-        # many plots open over time.
-        plt.close(self.figure)
-        # Close the window.
-        self.close()
-        return None
-
-    def redraw_image(self) -> None:
-        """Redraw and refresh the image, this is mostly used to allow for the
-        program to update where the user selected.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # To retain the current zoom and pan, save the limits that the image
-        # is currently at before redrawing.
-        xmin, xmax = self.ax.get_xlim()
-        ymin, ymax = self.ax.get_ylim()
-
-        # Clearing the axes, starting fresh and anew as this entire function
-        # does a whole redraw. It may not be needed but small performance
-        # hit to ensure it all works normally.
-        self.ax.clear()
-
-        # Creating the image of the image data. Using a log norm scale.
-        image_data = self.data_array
-        self.ax.imshow(image_data, zorder=-1, cmap="gray")
-
-        # If there is a specified target location, put it on the map.
-        if isinstance(self.target_x, (int, float)) and isinstance(
-            self.target_y, (int, float)
-        ):
-            # Represent the marker as the targets location as defined by the
-            # search box and the target finding function.
-            MARKER_SIZE = float(library.config.SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
-            self.ax.scatter(
-                self.target_x,
-                self.target_y,
-                s=MARKER_SIZE,
-                marker="^",
-                color="r",
-                facecolors="None",
-            )
-            # If there is a target, then the bounding box created must have
-            # also succeeded. It is helpful for the user to also draw it.
-            search_rectangle = mpl_patches.Rectangle(
-                xy=(self.search_x0, self.search_y0),
-                width=self.search_x1 - self.search_x0,
-                height=self.search_y1 - self.search_y0,
-                facecolor="None",
-                edgecolor="b",
-            )
-            self.ax.add_patch(search_rectangle)
-        else:
-            # No need, there is no current valid location specified.
-            pass
-
-        # Reinstate the zoom and pan settings via the previous limits.
-        self.ax.set_xlim(xmin, xmax)
-        self.ax.set_ylim(ymin, ymax)
-        # A tight layout to save space.
-        self.figure.tight_layout()
-        # And finally, drawing the image.
-        self.canvas.draw()
-        # All done.
-        return None
-
-
-def ask_user_target_selector_window(data_array: hint.array) -> tuple[float, float]:
+def ask_user_target_selector_window(current_fits_filename, reference_fits_filename:str=None) -> tuple[float, float]:
     """Use the target selector window to have the user provide the
     information needed to determine the location of the target.
 
     Parameters
     ----------
-    data_array : array-like
-        The image data array which will be displayed to the user to have them
-        find the target.
+    current_fits_filename : string
+        The current fits filename which will be used to determine where the 
+        location of the target is.
+    reference_fits_filename : string, default = None
+        The reference fits filename which will be used to compare against the 
+        current fits filename to determine where the location of the target 
+        is. If None, then no image will be loaded until manually specified.
 
     Returns
     -------
@@ -324,8 +790,7 @@ def ask_user_target_selector_window(data_array: hint.array) -> tuple[float, floa
     """
     # Create the target selector viewer window and let the user interact with
     # it until they let the answer be found.
-    data_array = np.array(data_array)
-    target_selector_window = TargetSelectorWindow(data_array=data_array)
+    target_selector_window = TargetSelectorWindow(current_fits_filename=current_fits_filename, reference_fits_filename=reference_fits_filename)
     # Freeze all other processes until the location of the target has been
     # determined. This is a blocking process because everything else requires
     # this to be done.
