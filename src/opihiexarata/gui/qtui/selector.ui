@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>623</width>
-    <height>862</height>
+    <height>867</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>602</width>
-     <height>836</height>
+     <width>604</width>
+     <height>838</height>
     </rect>
    </property>
    <property name="font">
@@ -95,30 +95,34 @@
      </widget>
     </item>
     <item>
-     <widget class="QGraphicsView" name="dummy_image_plot">
-      <property name="minimumSize">
-       <size>
-        <width>600</width>
-        <height>600</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>600</width>
-        <height>600</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="dummy_navigation_bar">
-      <property name="text">
-       <string>DUMMY NAVIGATION BAR</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="vertical_layout_image">
+      <item>
+       <widget class="QGraphicsView" name="dummy_opihi_image">
+        <property name="minimumSize">
+         <size>
+          <width>600</width>
+          <height>600</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>600</width>
+          <height>600</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="dummy_opihi_navbar">
+        <property name="text">
+         <string>DUMMY NAVIGATION BAR</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizonta_layout_subtraction_mode">
@@ -251,7 +255,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="push_button_submit_target">
         <property name="font">
          <font>
           <family>Sylfaen</family>

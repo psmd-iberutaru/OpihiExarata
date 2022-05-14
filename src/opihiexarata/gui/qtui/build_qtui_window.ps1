@@ -9,5 +9,5 @@
 
 # Creating the GUI files.
 
-pyuic6 .\primary.ui | Out-File .\qtui_primary.py -Encoding "UTF8"
-pyuic6 .\selector.ui | Out-File .\qtui_selector.py -Encoding "UTF8"
+pyuic6 .\primary.ui | Out-File .\qtui_primary.py -Encoding "utf8"
+pyuic6 .\selector.ui | Out-File .\qtui_selector.py -Encoding "utf8"
