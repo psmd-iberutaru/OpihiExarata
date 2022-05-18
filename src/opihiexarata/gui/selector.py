@@ -3,6 +3,7 @@ import os
 import copy
 
 import numpy as np
+import scipy.ndimage as sp_ndimage
 
 import PyQt6 as PyQt
 from PyQt6 import QtCore, QtWidgets, QtGui
@@ -25,6 +26,14 @@ import opihiexarata.gui as gui
 
 
 class TargetSelectorWindow(QtWidgets.QWidget):
+    """This is the general class for the target selector window. The whole
+    purpose of this class is for the ease of finding an asteroid.
+
+    Attributes
+    ----------
+    
+    """
+
     def __init__(self, current_fits_filename:str, reference_fits_filename:str=None) -> None:
         """Create the target selector window. Though often used for asteroids,
         there is no reason why is should specific to them; so we use a general
@@ -59,13 +68,17 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # The reference data, if the fits file has been provided.
         if os.path.isfile(reference_fits_filename):
             reference_header, reference_data = library.fits.read_fits_image_file(filename=reference_fits_filename)
-            self.reference_filename = str()
+            self.reference_filename = str(reference_fits_filename)
             self.reference_header = reference_header
             self.reference_data = reference_data
         else:
             # No data has been provided, just using sensible defaults.
+            self.reference_filename = None
             self.reference_header = current_header.copy()
             self.reference_data = np.zeros_like(self.current_data)
+        # Precompute the translated image array values to ensure the 
+        # cache speedup and subtraction capability.
+        self._recompute_subtraction_arrays()
 
         # The location of the target, the user did not provide it so
         # blank currently.
@@ -85,7 +98,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # We default the scale to the 1-99 automatic linear scale. It is
         # just an easier system and it makes the user think of it as a default.
-        low, high = np.percentile(self.current_data, [1, 99])
+        low, high = np.percentile(self.plotted_data, [1, 99])
         self.colorbar_scale_low = float(low)
         self.colorbar_scale_high = float(high)
 
@@ -240,6 +253,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.current_header = current_header
         self.current_data = current_data
         
+        # Precompute the translated image array values to ensure the 
+        # cache speedup and subtraction capability.
+        self._recompute_subtraction_arrays()
         # Redraw and refresh the window to use this new updated information.
         self.refresh_window()
         return None
@@ -269,6 +285,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.reference_header = reference_header
         self.reference_data = reference_data
         
+        # Precompute the translated image array values to ensure the 
+        # cache speedup and subtraction capability.
+        self._recompute_subtraction_arrays()
         # Redraw and refresh the window to use this new updated information.
         self.refresh_window()
         return None
@@ -379,6 +398,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         """
         # As the mode is being set by the GUI, we use the string form.
         self.subtraction_method = "none"
+        # Because the subtraction mode changed, the data which is used to plot
+        # should also be changed.
+        self.plotted_data = self.subtract_none
         # Refresh the window because the method changed.
         self.refresh_window()
         return None
@@ -400,6 +422,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         """
         # Setting the mode to sidereal.
         self.subtraction_method = "sidereal"
+        # Because the subtraction mode changed, the data which is used to plot
+        # should also be changed.
+        self.plotted_data = self.subtract_sidereal
         # Refresh the window because the method changed.
         self.refresh_window()
         return None
@@ -422,6 +447,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         """
         # Setting the mode to non-sidereal.
         self.subtraction_method = "non-sidereal"
+        # Because the subtraction mode changed, the data which is used to plot
+        # should also be changed.
+        self.plotted_data = self.subtract_non_sidereal
         # Refresh the window because the method changed.
         self.refresh_window()
         return None
@@ -578,7 +606,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         return None
 
 
-    def _redraw_image(self) -> None:
+    def _refresh_image(self) -> None:
         """Redraw and refresh the image, this is mostly used to allow for the
         program to update where the user selected.
 
@@ -600,9 +628,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # hit to ensure it all works normally.
         self.ax.clear()
 
-        # Creating the image of the image data. Using a log norm scale.
-        image_data = self.current_data
-        self.ax.imshow(image_data, zorder=-1, cmap="gray")
+        # Customizing the colorbar of our plotting image to match what the 
+        # current values are set at.
+        self.ax.imshow(self.plotted_data, cmap="gray", vmin=self.colorbar_scale_low, vmax=self.colorbar_scale_high,zorder=-1)
 
         # If there is a specified target location, put it on the map.
         if isinstance(self.target_x, (int, float)) and isinstance(
@@ -641,7 +669,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # All done.
         return None
 
-    def _rewrite_text(self) -> None:
+    def _refresh_text(self) -> None:
         """This function just refreshes the GUI text based on the current 
         actual values.
         
@@ -677,7 +705,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # All done.
         return None
 
-
     def refresh_window(self) -> None:
         """Refresh the text content of the window given new information. 
         This refreshes both the dynamic label text and redraws the image.
@@ -690,6 +717,12 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         -------
         None
         """
+        # Rewriting the text...
+        self._refresh_image()
+        # ...redrawing the image plot...
+        self._refresh_text()
+        # All done.
+        return None
 
     def close_window(self) -> None:
         """Closes the window. Generally called when it is all done.
@@ -708,6 +741,62 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Close the window.
         self.close()
         return None
+
+
+    def _recompute_subtraction_arrays(self) -> None:
+        """This computes the subtracted arrays for both none, sidereal, and 
+        non-sidereal subtractions. This is done mostly for speed considerations 
+        as the values can be computed and stored during image loading.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Begin with computing no subtraction. This is really just the same 
+        # as the current data.
+        self.subtract_none = self.current_data
+
+        # Subtracting sidereally implies that the center of the two images are
+        # the same, so no translation is needed.
+        self.subtract_sidereal = self.current_data - self.reference_data
+
+        # Subtracting non-sidereally means that the centers are offset based 
+        # on the non-sidereal motion and time difference. We use this 
+        # information to translate in pixel space before subtraction.
+        # TCS rates, in arcsec per second.
+        ra_rate = self.current_header["TCS_NSRA"]
+        dec_rate = self.current_header["TCS_NSDE"]
+        # Deriving the difference in time between the current data and the 
+        # reference data.
+        current_time = library.conversion.modified_julian_day_to_unix_time(mjd=self.current_header["MJD_OBS"])
+        reference_time = library.conversion.modified_julian_day_to_unix_time(mjd=self.reference_header["MJD_OBS"])
+        # We assume the reference image was taken in the past.
+        delta_time = current_time - reference_time
+        
+        # The total RA and DEC change.
+        ra_change = ra_rate * delta_time
+        dec_change = dec_rate * delta_time
+
+        # Pixel scale, in arcsec per pixel.
+        PIXEL_SCALE = library.config.SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL
+        # We assume the image is aligned N/E to Y/X so a simple image 
+        # translation can be used.
+        x_pix_change = ra_change / PIXEL_SCALE
+        y_pix_change = dec_change / PIXEL_SCALE
+
+        # We shift the reference image forward in time as Scipy splines and 
+        # it is best not to interpolate the real data. We do not assume 
+        # anything about the data outside of the images.
+        shifted_reference_data = sp_ndimage.shift(self.reference_data, (y_pix_change, x_pix_change), mode="constant", cval=0)
+        self.subtract_non_sidereal = self.current_data - shifted_reference_data
+
+        # All done.
+        return None
+
 
 
     def find_target_location(

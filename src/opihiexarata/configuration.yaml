@@ -95,6 +95,12 @@ GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS : 60
 # value is passed right to matplotlib.pyplot.imshow.
 SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE : 40
 
+# This is the assumed pixel scale of the Opihi telescope. As the astrometric 
+# solution may take a little bit of time, a historical value is provided 
+# here. This is only used for offsetting the images when non-siderial 
+# subtraction is used. It is in units of arcseconds per pixel.
+SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL : 0.94
+
 
 ############################################################
 ##########     Photometric Solution Configuration
