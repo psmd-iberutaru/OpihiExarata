@@ -107,7 +107,6 @@ def decimal_day_to_unix_time(year: int, month: int, day: float):
     )
     return unix_time
 
-
 def full_date_to_unix_time(
     year: int, month: int, day: int, hour: int = 0, minute: int = 0, second: float = 0
 ) -> float:
@@ -144,6 +143,27 @@ def full_date_to_unix_time(
     time_instance = ap_time.Time(time_param, scale="utc", format="ymdhms")
     unix_time = time_instance.to_value("unix", subfmt="long")
     return unix_time
+
+def modified_julian_day_to_unix_time(mjd:float) -> float:
+    """A function to convert between modified julian days to Unix time.
+    
+    Parameters
+    ----------
+    mjd : float
+        The modified Julian day to be converted.
+
+    Returns
+    -------
+    unix_time : float
+        The time converted to UNIX time.
+    """
+    # This could eventually be replaced with multiplication and addition, but
+    # this is a convenient way of doing it.
+    time_instance = ap_time.Time(mjd, format="mjd")
+    unix_time = time_instance.to_value("unix")
+    return unix_time
+
+
 
 
 def unix_time_to_decimal_day(unix_time:float) -> tuple:
