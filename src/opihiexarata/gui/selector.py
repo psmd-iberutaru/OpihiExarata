@@ -5,8 +5,7 @@ import copy
 import numpy as np
 import scipy.ndimage as sp_ndimage
 
-import PyQt6 as PyQt
-from PyQt6 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 import matplotlib.colors as mpl_colors
 import matplotlib.figure as mpl_figure

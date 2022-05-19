@@ -22,7 +22,7 @@ DEPENDENCIES = [
     "numpy",
     "pyyaml",
     "pillow",
-    "PyQt6",
+    "PySide6",
     "requests",
     "scipy",
     "matplotlib",
