@@ -206,46 +206,7 @@ which they are observing, used when doing new targets.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opihiexarata.gui.name.TargetNameWindow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.name.</span></span><span class="sig-name descname"><span class="pre">TargetNameWindow</span></span><a class="reference internal" href="../_modules/opihiexarata/gui/name.html#TargetNameWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.name.TargetNameWindow" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt6.QtWidgets.QWidget</span></code></p>
-<p>This is the pop up window which will ask for the name of the target.
-Some sanitization of the name also happens here to make sure it is proper.</p>
-<p>Really, this class is a little bit of a wrapper around the InputDialog
-widget.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.gui.name.TargetNameWindow._raw_target_name">
-<span class="sig-name descname"><span class="pre">_raw_target_name</span></span><a class="headerlink" href="#opihiexarata.gui.name.TargetNameWindow._raw_target_name" title="Permalink to this definition"></a></dt>
-<dd><p>The raw string input from the user.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.gui.name.TargetNameWindow.target_name">
-<span class="sig-name descname"><span class="pre">target_name</span></span><a class="headerlink" href="#opihiexarata.gui.name.TargetNameWindow.target_name" title="Permalink to this definition"></a></dt>
-<dd><p>The entered name as specified by the user after input sanitization.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.gui.name.TargetNameWindow.status">
-<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#opihiexarata.gui.name.TargetNameWindow.status" title="Permalink to this definition"></a></dt>
-<dd><p>The status of the entry. If it was exited with a proper input and
-submission, this is true. If it was canceled or closed in any other
-way it is False.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PySide6.QtWidgets.QWidget</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.gui.name.TargetNameWindow.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/name.html#TargetNameWindow.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.name.TargetNameWindow.__init__" title="Permalink to this definition"></a></dt>
@@ -276,6 +237,11 @@ way it is False.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.gui.name.TargetNameWindow.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;PySide6.QtCore.QMetaObject</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#opihiexarata.gui.name.TargetNameWindow.staticMetaObject" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
