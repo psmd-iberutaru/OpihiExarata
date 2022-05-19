@@ -6,8 +6,10 @@ import astropy.time as ap_time
 import astropy.units as ap_units
 
 
-def degrees_to_sexagesimal_ra_dec(ra_deg:float, dec_deg:float, precision:int=2) -> tuple[str,str]:
-    """Convert RA and DEC degree measurements to the more familiar HMSDMS 
+def degrees_to_sexagesimal_ra_dec(
+    ra_deg: float, dec_deg: float, precision: int = 2
+) -> tuple[str, str]:
+    """Convert RA and DEC degree measurements to the more familiar HMSDMS
     sexagesimal format.
 
     Parameters
@@ -37,8 +39,9 @@ def degrees_to_sexagesimal_ra_dec(ra_deg:float, dec_deg:float, precision:int=2) 
     )
     return ra_sex, dec_sex
 
-def sexagesimal_ra_dec_to_degrees(ra_sex:str, dec_sex:str) -> tuple[float,float]:
-    """Convert RA and DEC measurements from the more familiar HMSDMS 
+
+def sexagesimal_ra_dec_to_degrees(ra_sex: str, dec_sex: str) -> tuple[float, float]:
+    """Convert RA and DEC measurements from the more familiar HMSDMS
     sexagesimal format to degrees.
 
     Parameters
@@ -56,11 +59,12 @@ def sexagesimal_ra_dec_to_degrees(ra_sex:str, dec_sex:str) -> tuple[float,float]
         The declination in degrees.
     """
     # Levering Astropy for this.
-    skycoord = ap_coordinates.SkyCoord(ra_sex, dec_sex, frame="icrs", unit=(ap_units.hourangle, ap_units.deg))
+    skycoord = ap_coordinates.SkyCoord(
+        ra_sex, dec_sex, frame="icrs", unit=(ap_units.hourangle, ap_units.deg)
+    )
     ra_deg = float(skycoord.ra.degree)
     dec_deg = float(skycoord.dec.degree)
     return ra_deg, dec_deg
-
 
 
 def decimal_day_to_unix_time(year: int, month: int, day: float):
@@ -107,6 +111,7 @@ def decimal_day_to_unix_time(year: int, month: int, day: float):
     )
     return unix_time
 
+
 def full_date_to_unix_time(
     year: int, month: int, day: int, hour: int = 0, minute: int = 0, second: float = 0
 ) -> float:
@@ -144,9 +149,10 @@ def full_date_to_unix_time(
     unix_time = time_instance.to_value("unix", subfmt="long")
     return unix_time
 
-def modified_julian_day_to_unix_time(mjd:float) -> float:
+
+def modified_julian_day_to_unix_time(mjd: float) -> float:
     """A function to convert between modified julian days to Unix time.
-    
+
     Parameters
     ----------
     mjd : float
@@ -164,9 +170,7 @@ def modified_julian_day_to_unix_time(mjd:float) -> float:
     return unix_time
 
 
-
-
-def unix_time_to_decimal_day(unix_time:float) -> tuple:
+def unix_time_to_decimal_day(unix_time: float) -> tuple:
     """A function to convert UNIX time to the decimal day time.
 
 
@@ -182,18 +186,20 @@ def unix_time_to_decimal_day(unix_time:float) -> tuple:
     month : int
         The month of the UNIX time.
     day : float
-        The day of the the UNIX time, the hours, minute, and seconds are all 
+        The day of the the UNIX time, the hours, minute, and seconds are all
         contained as a decimal.
     """
     # Getting the full date and just converting it from there.
-    year, month, int_day, hour, minute, second = unix_time_to_full_date(unix_time=unix_time)
+    year, month, int_day, hour, minute, second = unix_time_to_full_date(
+        unix_time=unix_time
+    )
     # Calculating the decimal day.
-    day = int_day + hour/24 + minute/1440 + second/86400
+    day = int_day + hour / 24 + minute / 1440 + second / 86400
     # All done.
-    return year, month,day
+    return year, month, day
 
 
-def unix_time_to_full_date(unix_time:float) -> tuple:
+def unix_time_to_full_date(unix_time: float) -> tuple:
     """A function to convert the a whole date format into UNIX time.
 
     Parameters

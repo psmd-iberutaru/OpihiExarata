@@ -88,7 +88,9 @@ class LinearPropagationEngine(hint.PropagationEngine):
 
     @staticmethod
     def __linear_function(
-        x: hint.array, c0: float, c1: float,
+        x: hint.array,
+        c0: float,
+        c1: float,
     ) -> hint.array:
         """The linear polynomial function that will be used.
 

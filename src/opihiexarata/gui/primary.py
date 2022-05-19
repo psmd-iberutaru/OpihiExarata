@@ -74,10 +74,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.preprocess_solution = None
         self.opihi_solution = None
 
-
         # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()
-        
+
         # Preparing the buttons, GUI, and other functionality.
         self.__init_gui_connections()
 

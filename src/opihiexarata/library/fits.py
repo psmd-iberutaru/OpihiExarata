@@ -42,13 +42,16 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
         )
     return header
 
-def update_fits_header(header:hint.Header, entries:dict, comments:dict={}) -> hint.Header:
-    """This appends entries from a dictionary to an Astropy header. 
-    
-    This function is preferred to adding using standard methods as it performs 
-    checks to make sure it only uses header keys reserved for OpihiExarata. 
-    This function raises an error upon attempting to add an entry which does 
-    not conform to fits standards and is not keyed with the "OX######" 
+
+def update_fits_header(
+    header: hint.Header, entries: dict, comments: dict = {}
+) -> hint.Header:
+    """This appends entries from a dictionary to an Astropy header.
+
+    This function is preferred to adding using standard methods as it performs
+    checks to make sure it only uses header keys reserved for OpihiExarata.
+    This function raises an error upon attempting to add an entry which does
+    not conform to fits standards and is not keyed with the "OX######"
     template.
 
     Parameters
@@ -58,15 +61,15 @@ def update_fits_header(header:hint.Header, entries:dict, comments:dict={}) -> hi
     entries : dictionary
         The new entries to the header.
     comments : dictionary, default = {}
-        If comments are to be added to data entries, then they may be 
-        provided as a dictionary here with keys exactly the same as the 
+        If comments are to be added to data entries, then they may be
+        provided as a dictionary here with keys exactly the same as the
         data entries. This is not for comment cards.
     """
     # Working on a copy of the header just in case.
     # Type checking.
     header = copy.deepcopy(header)
     entries = entries if isinstance(entries, dict) else dict(entries)
-    # Search through the dictionary provided to check that all of the 
+    # Search through the dictionary provided to check that all of the
     # entries are correctly formatted.
     for keydex, valuedex in entries.items():
         # Extracting the comment if needed.
@@ -79,11 +82,17 @@ def update_fits_header(header:hint.Header, entries:dict, comments:dict={}) -> hi
         # all correct.
         # Length check.
         if len(keydex) > 8:
-            raise error.InputError("The fits header key {k} is longer than the 8 characters as defined by the fits standard.".format(k=keydex))
+            raise error.InputError(
+                "The fits header key {k} is longer than the 8 characters as defined by"
+                " the fits standard.".format(k=keydex)
+            )
         # OpihiExarata namespace check.
         if keydex[:2] != "OX":
-            raise error.DevelopmentError("The fits header key {k} is not of the OpihiExarata reserved namespace OX######. Please change it.".format(k=keydex))
-        
+            raise error.DevelopmentError(
+                "The fits header key {k} is not of the OpihiExarata reserved namespace"
+                " OX######. Please change it.".format(k=keydex)
+            )
+
         # It seemed to pass validation. Adding.
         header.set(keyword=keydex, value=valuedex, comment=commentdex)
     # All done.

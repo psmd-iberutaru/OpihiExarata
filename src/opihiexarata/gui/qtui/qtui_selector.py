@@ -25,26 +25,62 @@ class Ui_SelectorWindow(object):
         self.vertical_layout_selector.setObjectName("vertical_layout_selector")
         self.grid_layout_file_selection = QtWidgets.QGridLayout()
         self.grid_layout_file_selection.setObjectName("grid_layout_file_selection")
-        self.label_dynamic_current_fits_filename = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_current_fits_filename = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
         self.label_dynamic_current_fits_filename.setMinimumSize(QtCore.QSize(400, 0))
-        self.label_dynamic_current_fits_filename.setObjectName("label_dynamic_current_fits_filename")
-        self.grid_layout_file_selection.addWidget(self.label_dynamic_current_fits_filename, 0, 1, 1, 1)
-        self.label_dynamic_reference_fits_filename = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_current_fits_filename.setObjectName(
+            "label_dynamic_current_fits_filename"
+        )
+        self.grid_layout_file_selection.addWidget(
+            self.label_dynamic_current_fits_filename, 0, 1, 1, 1
+        )
+        self.label_dynamic_reference_fits_filename = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
         self.label_dynamic_reference_fits_filename.setMinimumSize(QtCore.QSize(400, 0))
-        self.label_dynamic_reference_fits_filename.setObjectName("label_dynamic_reference_fits_filename")
-        self.grid_layout_file_selection.addWidget(self.label_dynamic_reference_fits_filename, 1, 1, 1, 1)
-        self.push_button_change_current_filename = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.push_button_change_current_filename.setObjectName("push_button_change_current_filename")
-        self.grid_layout_file_selection.addWidget(self.push_button_change_current_filename, 0, 2, 1, 1)
-        self.push_button_change_reference_filename = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.push_button_change_reference_filename.setObjectName("push_button_change_reference_filename")
-        self.grid_layout_file_selection.addWidget(self.push_button_change_reference_filename, 1, 2, 1, 1)
-        self.label_static_current_fits_filename = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_static_current_fits_filename.setObjectName("label_static_current_fits_filename")
-        self.grid_layout_file_selection.addWidget(self.label_static_current_fits_filename, 0, 0, 1, 1)
-        self.label_static_reference_fits_filename = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_static_reference_fits_filename.setObjectName("label_static_reference_fits_filename")
-        self.grid_layout_file_selection.addWidget(self.label_static_reference_fits_filename, 1, 0, 1, 1)
+        self.label_dynamic_reference_fits_filename.setObjectName(
+            "label_dynamic_reference_fits_filename"
+        )
+        self.grid_layout_file_selection.addWidget(
+            self.label_dynamic_reference_fits_filename, 1, 1, 1, 1
+        )
+        self.push_button_change_current_filename = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
+        self.push_button_change_current_filename.setObjectName(
+            "push_button_change_current_filename"
+        )
+        self.grid_layout_file_selection.addWidget(
+            self.push_button_change_current_filename, 0, 2, 1, 1
+        )
+        self.push_button_change_reference_filename = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
+        self.push_button_change_reference_filename.setObjectName(
+            "push_button_change_reference_filename"
+        )
+        self.grid_layout_file_selection.addWidget(
+            self.push_button_change_reference_filename, 1, 2, 1, 1
+        )
+        self.label_static_current_fits_filename = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_static_current_fits_filename.setObjectName(
+            "label_static_current_fits_filename"
+        )
+        self.grid_layout_file_selection.addWidget(
+            self.label_static_current_fits_filename, 0, 0, 1, 1
+        )
+        self.label_static_reference_fits_filename = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_static_reference_fits_filename.setObjectName(
+            "label_static_reference_fits_filename"
+        )
+        self.grid_layout_file_selection.addWidget(
+            self.label_static_reference_fits_filename, 1, 0, 1, 1
+        )
         self.vertical_layout_selector.addLayout(self.grid_layout_file_selection)
         self.line_2 = QtWidgets.QFrame(self.verticalLayoutWidget)
         self.line_2.setFrameShape(QtWidgets.QFrame.Shape.HLine)
@@ -64,10 +100,16 @@ class Ui_SelectorWindow(object):
         self.vertical_layout_image.addWidget(self.dummy_opihi_navbar)
         self.vertical_layout_selector.addLayout(self.vertical_layout_image)
         self.horizonta_layout_subtraction_mode = QtWidgets.QHBoxLayout()
-        self.horizonta_layout_subtraction_mode.setObjectName("horizonta_layout_subtraction_mode")
+        self.horizonta_layout_subtraction_mode.setObjectName(
+            "horizonta_layout_subtraction_mode"
+        )
         self.label_static_subtraction_mode = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_static_subtraction_mode.setObjectName("label_static_subtraction_mode")
-        self.horizonta_layout_subtraction_mode.addWidget(self.label_static_subtraction_mode)
+        self.label_static_subtraction_mode.setObjectName(
+            "label_static_subtraction_mode"
+        )
+        self.horizonta_layout_subtraction_mode.addWidget(
+            self.label_static_subtraction_mode
+        )
         self.line_3 = QtWidgets.QFrame(self.verticalLayoutWidget)
         self.line_3.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
@@ -76,27 +118,49 @@ class Ui_SelectorWindow(object):
         self.push_button_mode_none = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.push_button_mode_none.setObjectName("push_button_mode_none")
         self.horizonta_layout_subtraction_mode.addWidget(self.push_button_mode_none)
-        self.push_button_mode_reference = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.push_button_mode_reference = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
         self.push_button_mode_reference.setObjectName("push_button_mode_reference")
-        self.horizonta_layout_subtraction_mode.addWidget(self.push_button_mode_reference)
-        self.push_button_mode_sidereal = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.horizonta_layout_subtraction_mode.addWidget(
+            self.push_button_mode_reference
+        )
+        self.push_button_mode_sidereal = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
         self.push_button_mode_sidereal.setObjectName("push_button_mode_sidereal")
         self.horizonta_layout_subtraction_mode.addWidget(self.push_button_mode_sidereal)
-        self.push_button_mode_non_sidereal = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.push_button_mode_non_sidereal.setObjectName("push_button_mode_non_sidereal")
-        self.horizonta_layout_subtraction_mode.addWidget(self.push_button_mode_non_sidereal)
+        self.push_button_mode_non_sidereal = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
+        self.push_button_mode_non_sidereal.setObjectName(
+            "push_button_mode_non_sidereal"
+        )
+        self.horizonta_layout_subtraction_mode.addWidget(
+            self.push_button_mode_non_sidereal
+        )
         self.vertical_layout_selector.addLayout(self.horizonta_layout_subtraction_mode)
         self.horizontal_layout_colorbar_scale = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_colorbar_scale.setObjectName("horizontal_layout_colorbar_scale")
+        self.horizontal_layout_colorbar_scale.setObjectName(
+            "horizontal_layout_colorbar_scale"
+        )
         self.label_static_scale = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_static_scale.setObjectName("label_static_scale")
         self.horizontal_layout_colorbar_scale.addWidget(self.label_static_scale)
-        self.line_edit_dynamic_scale_low = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.line_edit_dynamic_scale_low = QtWidgets.QLineEdit(
+            self.verticalLayoutWidget
+        )
         self.line_edit_dynamic_scale_low.setObjectName("line_edit_dynamic_scale_low")
-        self.horizontal_layout_colorbar_scale.addWidget(self.line_edit_dynamic_scale_low)
-        self.line_edit_dynamic_scale_high = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.horizontal_layout_colorbar_scale.addWidget(
+            self.line_edit_dynamic_scale_low
+        )
+        self.line_edit_dynamic_scale_high = QtWidgets.QLineEdit(
+            self.verticalLayoutWidget
+        )
         self.line_edit_dynamic_scale_high.setObjectName("line_edit_dynamic_scale_high")
-        self.horizontal_layout_colorbar_scale.addWidget(self.line_edit_dynamic_scale_high)
+        self.horizontal_layout_colorbar_scale.addWidget(
+            self.line_edit_dynamic_scale_high
+        )
         self.push_button_scale_1_99 = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.push_button_scale_1_99.setObjectName("push_button_scale_1_99")
         self.horizontal_layout_colorbar_scale.addWidget(self.push_button_scale_1_99)
@@ -114,7 +178,9 @@ class Ui_SelectorWindow(object):
         self.line.setObjectName("line")
         self.vertical_layout_selector.addWidget(self.line)
         self.horizontal_layout_target_pixel_entry = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_target_pixel_entry.setObjectName("horizontal_layout_target_pixel_entry")
+        self.horizontal_layout_target_pixel_entry.setObjectName(
+            "horizontal_layout_target_pixel_entry"
+        )
         self.label_static_target_x = QtWidgets.QLabel(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
@@ -128,7 +194,9 @@ class Ui_SelectorWindow(object):
         font.setPointSize(12)
         self.line_edit_dynamic_target_x.setFont(font)
         self.line_edit_dynamic_target_x.setObjectName("line_edit_dynamic_target_x")
-        self.horizontal_layout_target_pixel_entry.addWidget(self.line_edit_dynamic_target_x)
+        self.horizontal_layout_target_pixel_entry.addWidget(
+            self.line_edit_dynamic_target_x
+        )
         self.label_static_target_y = QtWidgets.QLabel(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
@@ -142,35 +210,67 @@ class Ui_SelectorWindow(object):
         font.setPointSize(12)
         self.line_edit_dynamic_target_y.setFont(font)
         self.line_edit_dynamic_target_y.setObjectName("line_edit_dynamic_target_y")
-        self.horizontal_layout_target_pixel_entry.addWidget(self.line_edit_dynamic_target_y)
-        self.push_button_submit_target = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.horizontal_layout_target_pixel_entry.addWidget(
+            self.line_edit_dynamic_target_y
+        )
+        self.push_button_submit_target = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(12)
         self.push_button_submit_target.setFont(font)
         self.push_button_submit_target.setObjectName("push_button_submit_target")
-        self.horizontal_layout_target_pixel_entry.addWidget(self.push_button_submit_target)
-        self.vertical_layout_selector.addLayout(self.horizontal_layout_target_pixel_entry)
+        self.horizontal_layout_target_pixel_entry.addWidget(
+            self.push_button_submit_target
+        )
+        self.vertical_layout_selector.addLayout(
+            self.horizontal_layout_target_pixel_entry
+        )
 
         self.retranslateUi(SelectorWindow)
         QtCore.QMetaObject.connectSlotsByName(SelectorWindow)
 
     def retranslateUi(self, SelectorWindow):
         _translate = QtCore.QCoreApplication.translate
-        SelectorWindow.setWindowTitle(_translate("SelectorWindow", "OpihiExarata Target Selector"))
-        self.label_dynamic_current_fits_filename.setText(_translate("SelectorWindow", "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"))
-        self.label_dynamic_reference_fits_filename.setText(_translate("SelectorWindow", "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits"))
-        self.push_button_change_current_filename.setText(_translate("SelectorWindow", "Change"))
-        self.push_button_change_reference_filename.setText(_translate("SelectorWindow", "Change"))
-        self.label_static_current_fits_filename.setText(_translate("SelectorWindow", "Current:"))
-        self.label_static_reference_fits_filename.setText(_translate("SelectorWindow", "Reference:"))
-        self.dummy_opihi_navbar.setText(_translate("SelectorWindow", "DUMMY NAVIGATION BAR"))
-        self.label_static_subtraction_mode.setText(_translate("SelectorWindow", "Subtraction Method"))
+        SelectorWindow.setWindowTitle(
+            _translate("SelectorWindow", "OpihiExarata Target Selector")
+        )
+        self.label_dynamic_current_fits_filename.setText(
+            _translate("SelectorWindow", "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits")
+        )
+        self.label_dynamic_reference_fits_filename.setText(
+            _translate("SelectorWindow", "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits")
+        )
+        self.push_button_change_current_filename.setText(
+            _translate("SelectorWindow", "Change")
+        )
+        self.push_button_change_reference_filename.setText(
+            _translate("SelectorWindow", "Change")
+        )
+        self.label_static_current_fits_filename.setText(
+            _translate("SelectorWindow", "Current:")
+        )
+        self.label_static_reference_fits_filename.setText(
+            _translate("SelectorWindow", "Reference:")
+        )
+        self.dummy_opihi_navbar.setText(
+            _translate("SelectorWindow", "DUMMY NAVIGATION BAR")
+        )
+        self.label_static_subtraction_mode.setText(
+            _translate("SelectorWindow", "Subtraction Method")
+        )
         self.push_button_mode_none.setText(_translate("SelectorWindow", "None"))
-        self.push_button_mode_reference.setText(_translate("SelectorWindow", "Reference"))
+        self.push_button_mode_reference.setText(
+            _translate("SelectorWindow", "Reference")
+        )
         self.push_button_mode_sidereal.setText(_translate("SelectorWindow", "Sidereal"))
-        self.push_button_mode_non_sidereal.setText(_translate("SelectorWindow", "Non-sidereal"))
-        self.label_static_scale.setText(_translate("SelectorWindow", "Scale [Low High]"))
+        self.push_button_mode_non_sidereal.setText(
+            _translate("SelectorWindow", "Non-sidereal")
+        )
+        self.label_static_scale.setText(
+            _translate("SelectorWindow", "Scale [Low High]")
+        )
         self.push_button_scale_1_99.setText(_translate("SelectorWindow", "1 - 99 %"))
         self.check_box_autoscale_1_99.setText(_translate("SelectorWindow", "Auto"))
         self.label_static_target_x.setText(_translate("SelectorWindow", "Target X:"))

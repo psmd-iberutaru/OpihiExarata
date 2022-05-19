@@ -155,13 +155,15 @@ class PropagationSolution(hint.ExarataSolution):
         self.raw_dec_velocity = r_dc_v
         self.raw_dec_acceleration = r_dc_a
 
-        # Deriving the rates from the propagation function. 
-        p_ra_v, p_dc_v, p_ra_a, p_dc_a = self.__init_compute_propagation_motion(obs_time_array=self.obs_time_array)
+        # Deriving the rates from the propagation function.
+        p_ra_v, p_dc_v, p_ra_a, p_dc_a = self.__init_compute_propagation_motion(
+            obs_time_array=self.obs_time_array
+        )
         self.ra_velocity = p_ra_v
         self.ra_acceleration = p_ra_a
         self.dec_velocity = p_dc_v
         self.dec_acceleration = p_dc_a
-        
+
         # All done.
         return None
 
@@ -248,7 +250,7 @@ class PropagationSolution(hint.ExarataSolution):
         obs_time_array : array-like
             An array of observation times which the RA and DEC measurements
             were taken at. The values are in UNIX time.
-        
+
         Returns
         -------
         propagate_ra_velocity : float
@@ -265,8 +267,8 @@ class PropagationSolution(hint.ExarataSolution):
             The propagative declination angular acceleration of the target, in
             degrees per second squared.
         """
-        # From the propagation methods, calculate the expected locations 
-        # of the target based on propagation. Although this is forward 
+        # From the propagation methods, calculate the expected locations
+        # of the target based on propagation. Although this is forward
         # propagation, deriving rates from non-present times is not really
         # helpful.
         ra_array, dec_array = self.forward_propagate(future_time=obs_time_array)

@@ -47,11 +47,12 @@ class LogicFlowError(ExarataBaseException):
 
 
 class PracticalityError(ExarataBaseException):
-    """This is an error to be used when what is trying to be done does not 
-    seem reasonable. Usually warnings are the better vehicle for this but 
-    this error is used when the assumptions for reasonability guided 
+    """This is an error to be used when what is trying to be done does not
+    seem reasonable. Usually warnings are the better vehicle for this but
+    this error is used when the assumptions for reasonability guided
     development and what the user is trying to do is not currently supported
     by the software."""
+
 
 class UndiscoveredError(ExarataBaseException):
     """This is an error used in cases where the source of the error has not
@@ -128,17 +129,17 @@ class IntentionalError(ExarataException):
     generally should always be caught by the code in context."""
 
 
-
-
-
 class ReadOnlyError(ExarataException):
     """An error where variables or files are assumed to be read only, this
     enforces that notion."""
 
+
 class SequentialOrderError(ExarataException):
-    """An error used when something is happening out of the expected required 
-    order. This order being in place for specific publically communicated 
+    """An error used when something is happening out of the expected required
+    order. This order being in place for specific publically communicated
     reasons."""
+
+
 class WebRequestError(ExarataException):
     """An error to be used when a web request to some API fails, either because
     of something from their end, or our end."""

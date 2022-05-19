@@ -8,21 +8,21 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 __MPC_TABLE_NAME_TYPE_PAIR = {
-    "minor_planet_number":str,
-    "provisional_number":str,
-    "discovery":bool,
-    "publishable_note":str,
-    "observing_note":str,
-    "year":int,
-    "month":int,
-    "day":float,
-    "ra":float,
-    "dec":float,
-    "blank_1":str,
-    "magnitude":float,
-    "bandpass":str,
-    "blank_2":str,
-    "observatory_code":str,
+    "minor_planet_number": str,
+    "provisional_number": str,
+    "discovery": bool,
+    "publishable_note": str,
+    "observing_note": str,
+    "year": int,
+    "month": int,
+    "day": float,
+    "ra": float,
+    "dec": float,
+    "blank_1": str,
+    "magnitude": float,
+    "bandpass": str,
+    "blank_2": str,
+    "observatory_code": str,
 }
 MPC_MINOR_PLANET_TABLE_COLUMN_NAMES = list(__MPC_TABLE_NAME_TYPE_PAIR.keys())
 MPC_MINOR_PLANET_TABLE_COLUMN_TYPES = list(__MPC_TABLE_NAME_TYPE_PAIR.values())
@@ -171,7 +171,7 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
         # Add it to the records.
         table_rows_list.append(temp_record_dict)
 
-    # Construct the Astropy Table. If nothing was provided, still provide a 
+    # Construct the Astropy Table. If nothing was provided, still provide a
     # blank table as there are still keyword expectations.
     table = ap_table.Table(rows=table_rows_list)
     table = table if len(table) != 0 else minor_planet_blank_table()
