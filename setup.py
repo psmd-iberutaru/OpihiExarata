@@ -25,6 +25,7 @@ DEPENDENCIES = [
     "PyQt6",
     "requests",
     "scipy",
+    "matplotlib",
 ]
 
 
