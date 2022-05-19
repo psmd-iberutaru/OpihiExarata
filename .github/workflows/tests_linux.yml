@@ -24,7 +24,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt upgrade
-        sudo apt install -y python3-opencv libgl1-mesa-glx
+        sudo apt install -y python3-opencv libgl1-mesa-dev
         python -m pip install --upgrade opencv-python
         python -m pip install --upgrade pip
         python -m pip install --upgrade build
