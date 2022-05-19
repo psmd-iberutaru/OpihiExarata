@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -115,6 +115,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -129,6 +132,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -136,6 +140,11 @@
 <li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -241,11 +250,8 @@ caught and should bring everything to a halt.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>string</em>) – The message of the error message.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -267,11 +273,8 @@ managed.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>string</em>) – The message of the error message.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -329,11 +332,31 @@ to the code do not screw up the logical flow of the program.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.PracticalityError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">PracticalityError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#PracticalityError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.PracticalityError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataBaseException</span></code></a></p>
+<p>This is an error to be used when what is trying to be done does not
+seem reasonable. Usually warnings are the better vehicle for this but
+this error is used when the assumptions for reasonability guided
+development and what the user is trying to do is not currently supported
+by the software.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.ReadOnlyError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#ReadOnlyError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.ReadOnlyError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
 <p>An error where variables or files are assumed to be read only, this
 enforces that notion.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.SequentialOrderError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">SequentialOrderError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#SequentialOrderError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.SequentialOrderError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<p>An error used when something is happening out of the expected required
+order. This order being in place for specific publically communicated
+reasons.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -366,11 +389,8 @@ of something from their end, or our end.</p>
 <li><p><strong>stacklevel</strong> (<em>integer</em><em>, </em><em>default = 2</em>) – The location in the stack that the warning call will highlight.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

@@ -2,9 +2,7 @@
 
 import os
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+import opihiexarata
 
 
 def test_download_file_from_url() -> None:
@@ -24,7 +22,9 @@ def test_download_file_from_url() -> None:
     save_path = "./cisa_seal.svg"
     # Try to download the image.
     try:
-        library.http.download_file_from_url(url=image_url, filename=save_path)
+        opihiexarata.library.http.download_file_from_url(
+            url=image_url, filename=save_path
+        )
     except:
         assert_message = "Could not download the file from the test link."
         assert False, assert_message

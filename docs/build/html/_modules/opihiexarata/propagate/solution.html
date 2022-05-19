@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -295,9 +304,16 @@
 
         <span class="c1"># Derive the propagation values using the proper vehicle function for</span>
         <span class="c1"># the desired engine is that is to be used.</span>
-        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PolynomialPropagationEngine</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">LinearPropagationEngine</span><span class="p">):</span>
             <span class="c1"># The propagation results.</span>
-            <span class="n">raw_propagate_results</span> <span class="o">=</span> <span class="n">_vehicle_polynomial_propagation</span><span class="p">(</span>
+            <span class="n">raw_propagate_results</span> <span class="o">=</span> <span class="n">_vehicle_linear_propagation</span><span class="p">(</span>
+                <span class="n">ra_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span><span class="p">,</span>
+                <span class="n">dec_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span><span class="p">,</span>
+                <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">QuadraticPropagationEngine</span><span class="p">):</span>
+            <span class="c1"># The propagation results.</span>
+            <span class="n">raw_propagate_results</span> <span class="o">=</span> <span class="n">_vehicle_quadratic_propagation</span><span class="p">(</span>
                 <span class="n">ra_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span><span class="p">,</span>
                 <span class="n">dec_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span><span class="p">,</span>
                 <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span><span class="p">,</span>
@@ -313,11 +329,6 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># The original information.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_propagation_function</span> <span class="o">=</span> <span class="n">raw_propagate_results</span><span class="p">[</span><span class="s2">&quot;propagation_function&quot;</span><span class="p">]</span>
-            <span class="c1"># The derived properties of proper motion.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">raw_propagate_results</span><span class="p">[</span><span class="s2">&quot;ra_velocity&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">raw_propagate_results</span><span class="p">[</span><span class="s2">&quot;ra_acceleration&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">raw_propagate_results</span><span class="p">[</span><span class="s2">&quot;dec_velocity&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">raw_propagate_results</span><span class="p">[</span><span class="s2">&quot;dec_acceleration&quot;</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
                 <span class="s2">&quot;The engine results provided are insufficient for this propagation&quot;</span>
@@ -329,7 +340,7 @@
         <span class="c1"># Deriving the rates from the raw data. They should be similar to the</span>
         <span class="c1"># propagation but no test shall be done. Here the rates are calculated</span>
         <span class="c1"># from the three most recent points.</span>
-        <span class="n">r_ra_v</span><span class="p">,</span> <span class="n">r_dc_v</span><span class="p">,</span> <span class="n">r_ra_a</span><span class="p">,</span> <span class="n">r_dc_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_raw_motion</span><span class="p">(</span>
+        <span class="n">r_ra_v</span><span class="p">,</span> <span class="n">r_dc_v</span><span class="p">,</span> <span class="n">r_ra_a</span><span class="p">,</span> <span class="n">r_dc_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__init_compute_raw_motion</span><span class="p">(</span>
             <span class="n">ra_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span><span class="p">,</span>
             <span class="n">dec_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span><span class="p">,</span>
             <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span><span class="p">,</span>
@@ -337,9 +348,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_ra_velocity</span> <span class="o">=</span> <span class="n">r_ra_v</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="n">r_ra_a</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_dec_velocity</span> <span class="o">=</span> <span class="n">r_dc_v</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">r_dc_a</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">r_dc_a</span>
 
-<div class="viewcode-block" id="PropagationSolution._compute_raw_motion"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution._compute_raw_motion">[docs]</a>    <span class="k">def</span> <span class="nf">_compute_raw_motion</span><span class="p">(</span>
+        <span class="c1"># Deriving the rates from the propagation function.</span>
+        <span class="n">p_ra_v</span><span class="p">,</span> <span class="n">p_dc_v</span><span class="p">,</span> <span class="n">p_ra_a</span><span class="p">,</span> <span class="n">p_dc_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__init_compute_propagation_motion</span><span class="p">(</span>
+            <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">p_ra_v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">p_ra_a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">p_dc_v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">p_dc_a</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__init_compute_raw_motion</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
         <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
@@ -388,18 +411,93 @@
         <span class="c1"># The second difference is acceleration. We use midpoint time</span>
         <span class="c1"># differences to determine the time difference between three</span>
         <span class="c1"># observations.</span>
-        <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">mid_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">delta_time</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">delta_time</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">delta2_time</span> <span class="o">=</span> <span class="n">mid_time</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">mid_time</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># There are more than two observations, acceleration can be</span>
+            <span class="c1"># calculated.</span>
+            <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># A true raw acceleration cannot be calculated so we assume zero.</span>
+            <span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="n">raw_ra_velocity</span><span class="p">,</span>
             <span class="n">raw_dec_velocity</span><span class="p">,</span>
             <span class="n">raw_ra_acceleration</span><span class="p">,</span>
             <span class="n">raw_dec_acceleration</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init_compute_propagation_motion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Compute the raw velocities and accelerations of RA and DEC.</span>
+
+<span class="sd">        This function prioritizes calculating the raw motion using the most</span>
+<span class="sd">        recent observations only.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obs_time_array : array-like</span>
+<span class="sd">            An array of observation times which the RA and DEC measurements</span>
+<span class="sd">            were taken at. The values are in UNIX time.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        propagate_ra_velocity : float</span>
+<span class="sd">            The propagative right ascension angular velocity of the target, in degrees</span>
+<span class="sd">            per second.</span>
+<span class="sd">        propagate_dec_velocity : float</span>
+<span class="sd">            The propagative declination angular velocity of the target, in degrees per</span>
+<span class="sd">            second.</span>
+<span class="sd">        propagate_ra_acceleration : float</span>
+<span class="sd">            The propagative right ascension angular acceleration of the target, in</span>
+<span class="sd">            degrees per second squared.</span>
+<span class="sd">            propagation engine.</span>
+<span class="sd">        propagate_dec_acceleration : float</span>
+<span class="sd">            The propagative declination angular acceleration of the target, in</span>
+<span class="sd">            degrees per second squared.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># From the propagation methods, calculate the expected locations</span>
+        <span class="c1"># of the target based on propagation. Although this is forward</span>
+        <span class="c1"># propagation, deriving rates from non-present times is not really</span>
+        <span class="c1"># helpful.</span>
+        <span class="n">ra_array</span><span class="p">,</span> <span class="n">dec_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">obs_time_array</span><span class="p">)</span>
+
+        <span class="c1"># Computing the differences.</span>
+        <span class="n">delta_ra</span> <span class="o">=</span> <span class="n">ra_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ra_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_dec</span> <span class="o">=</span> <span class="n">dec_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">dec_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># First difference is velocity, using the most recent measure to get</span>
+        <span class="c1"># the velocity.</span>
+        <span class="n">propagate_ra_velocity</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">propagate_dec_velocity</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># The second difference is acceleration. We use midpoint time</span>
+        <span class="c1"># differences to determine the time difference between three</span>
+        <span class="c1"># observations.</span>
+        <span class="k">if</span> <span class="n">obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># There are more than two observations, acceleration can be</span>
+            <span class="c1"># calculated.</span>
+            <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">propagate_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">propagate_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># A true raw acceleration cannot be calculated so we assume zero.</span>
+            <span class="n">propagate_ra_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">propagate_dec_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">propagate_ra_velocity</span><span class="p">,</span>
+            <span class="n">propagate_dec_velocity</span><span class="p">,</span>
+            <span class="n">propagate_ra_acceleration</span><span class="p">,</span>
+            <span class="n">propagate_dec_acceleration</span><span class="p">,</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="PropagationSolution.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
@@ -427,10 +525,10 @@
         <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span></div></div>
 
 
-<div class="viewcode-block" id="_vehicle_polynomial_propagation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution._vehicle_polynomial_propagation">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_polynomial_propagation</span><span class="p">(</span>
+<div class="viewcode-block" id="_vehicle_linear_propagation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution._vehicle_linear_propagation">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_linear_propagation</span><span class="p">(</span>
     <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Derive the propagation from polynomial extrapolation methods.</span>
+    <span class="sd">&quot;&quot;&quot;Derive the propagation from 1st order polynomial extrapolation methods.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -450,40 +548,66 @@
 <span class="sd">        the solution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Instantiate the propagation engine.</span>
-    <span class="n">polyprop</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PolynomialPropagationEngine</span><span class="p">(</span>
+    <span class="n">polyprop</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">LinearPropagationEngine</span><span class="p">(</span>
         <span class="n">ra</span><span class="o">=</span><span class="n">ra_array</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_array</span><span class="p">,</span> <span class="n">obs_time</span><span class="o">=</span><span class="n">obs_time_array</span>
     <span class="p">)</span>
     <span class="c1"># Check that the system uses quadratics, otherwise this section needs to</span>
     <span class="c1"># be double checked.</span>
-    <span class="k">if</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+    <span class="k">if</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,):</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
             <span class="s2">&quot;The polynomial engine does not use quadratics. This engine function needs&quot;</span>
             <span class="s2">&quot; to be revised to ensure that it is returning the correct values.&quot;</span>
         <span class="p">)</span>
     <span class="c1"># The propagation function.</span>
     <span class="n">propagation_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
-    <span class="c1"># This engine cannot derive these values any better than raw computation</span>
-    <span class="c1"># based off of the propagation function itself. So we compute the velocity</span>
-    <span class="c1"># and acceleration parameters based on just using the propagation.</span>
-    <span class="n">future_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">obs_time_array</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">obs_time_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">delta_time</span> <span class="o">=</span> <span class="n">future_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">future_time</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span> <span class="o">=</span> <span class="n">propagation_function</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span>
-    <span class="c1"># Using finite difference methods; central second order.</span>
-    <span class="n">ra_velocity</span> <span class="o">=</span> <span class="p">(</span><span class="n">future_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">future_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">delta_time</span>
-    <span class="n">ra_acceleration</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">future_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">future_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">future_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">/</span> <span class="n">delta_time</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="n">dec_velocity</span> <span class="o">=</span> <span class="p">(</span><span class="n">future_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">future_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">delta_time</span>
-    <span class="n">dec_acceleration</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">future_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">future_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">future_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">/</span> <span class="n">delta_time</span> <span class="o">**</span> <span class="mi">2</span>
+
     <span class="c1"># The dictionary that holds the results.</span>
     <span class="n">solution_results</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;propagation_function&quot;</span><span class="p">:</span> <span class="n">propagation_function</span><span class="p">,</span>
-        <span class="s2">&quot;ra_velocity&quot;</span><span class="p">:</span> <span class="n">ra_velocity</span><span class="p">,</span>
-        <span class="s2">&quot;ra_acceleration&quot;</span><span class="p">:</span> <span class="n">ra_acceleration</span><span class="p">,</span>
-        <span class="s2">&quot;dec_velocity&quot;</span><span class="p">:</span> <span class="n">dec_velocity</span><span class="p">,</span>
-        <span class="s2">&quot;dec_acceleration&quot;</span><span class="p">:</span> <span class="n">dec_acceleration</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">solution_results</span></div>
+
+
+<div class="viewcode-block" id="_vehicle_quadratic_propagation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution._vehicle_quadratic_propagation">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_quadratic_propagation</span><span class="p">(</span>
+    <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Derive the propagation from 2nd order polynomial extrapolation methods.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra_array : array-like</span>
+<span class="sd">        The array of right ascensions used fit and extrapolate to,</span>
+<span class="sd">        in degrees.</span>
+<span class="sd">    dec_array : array-like</span>
+<span class="sd">        The array of declinations used fit and extrapolate to, in degrees.</span>
+<span class="sd">    obs_time_array : array-like</span>
+<span class="sd">        An array of observation times which the RA and DEC measurements</span>
+<span class="sd">        were taken at. The values are in UNIX time.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    solution_results : dictionary</span>
+<span class="sd">        The results of the propagation engine which then gets integrated into</span>
+<span class="sd">        the solution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Instantiate the propagation engine.</span>
+    <span class="n">polyprop</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">QuadraticPropagationEngine</span><span class="p">(</span>
+        <span class="n">ra</span><span class="o">=</span><span class="n">ra_array</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_array</span><span class="p">,</span> <span class="n">obs_time</span><span class="o">=</span><span class="n">obs_time_array</span>
+    <span class="p">)</span>
+    <span class="c1"># Check that the system uses quadratics, otherwise this section needs to</span>
+    <span class="c1"># be double checked.</span>
+    <span class="k">if</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+            <span class="s2">&quot;The quadratic engine does not use quadratics. This engine function needs&quot;</span>
+            <span class="s2">&quot; to be revised to ensure that it is returning the correct values.&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># The propagation function.</span>
+    <span class="n">propagation_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="c1"># The dictionary that holds the results.</span>
+    <span class="n">solution_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;propagation_function&quot;</span><span class="p">:</span> <span class="n">propagation_function</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">solution_results</span></div>

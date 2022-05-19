@@ -1,9 +1,7 @@
 """Tests which do not really match any given function but instead apply 
 globally."""
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+import opihiexarata
 
 
 def test_true() -> None:

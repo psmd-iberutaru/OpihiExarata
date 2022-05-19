@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -647,12 +656,7 @@
         <span class="c1"># next is to split up the observation table.</span>
 
         <span class="c1"># Extracting the year of the observations.</span>
-        <span class="n">date_list</span> <span class="o">=</span> <span class="n">observation_table</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">year_array</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">datedex</span> <span class="ow">in</span> <span class="n">date_list</span><span class="p">:</span>
-            <span class="n">temp_year</span><span class="p">,</span> <span class="n">temp_month</span><span class="p">,</span> <span class="n">temp_day</span> <span class="o">=</span> <span class="n">datedex</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-            <span class="n">year_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_year</span><span class="p">)</span>
-        <span class="n">year_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">year_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">year_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">observation_table</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">])</span>
         <span class="n">unique_years</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">year_array</span><span class="p">)</span>
 
         <span class="c1"># The data results.</span>
@@ -716,9 +720,7 @@
         <span class="c1"># The mean of the parameters. The angles needs to be treated differently as</span>
         <span class="c1"># they are circular quantities. See https://en.wikipedia.org/wiki/Circular_mean</span>
         <span class="c1"># Wrapper functions make it easy to implement with error propagation.</span>
-        <span class="k">def</span> <span class="nf">_average_angle</span><span class="p">(</span>
-            <span class="n">ang</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
-        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">_average_angle</span><span class="p">(</span><span class="n">ang</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of angles in degrees.&quot;&quot;&quot;</span>
             <span class="c1"># Numpy trigonometric functions use radians.</span>
             <span class="n">angles_rad</span> <span class="o">=</span> <span class="n">ang</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
@@ -733,18 +735,16 @@
             <span class="c1"># should be positive.</span>
             <span class="n">circ_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">circ_mean</span> <span class="o">+</span> <span class="mi">360</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
             <span class="c1"># Linear errors are used because of a lack of a better method.</span>
-            <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
+            <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
             <span class="c1"># Done.</span>
             <span class="k">return</span> <span class="n">circ_mean</span><span class="p">,</span> <span class="n">lin_error</span>
 
-        <span class="k">def</span> <span class="nf">_average_linear</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
-        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">_average_linear</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of standard linear points.&quot;&quot;&quot;</span>
             <span class="c1"># Linear median; sometimes orbfit throws out some weird answers.</span>
             <span class="n">lin_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="c1"># Linear error propagation.</span>
-            <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
+            <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
             <span class="c1"># Done.</span>
             <span class="k">return</span> <span class="n">lin_mean</span><span class="p">,</span> <span class="n">lin_error</span>
 

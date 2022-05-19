@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.solution module &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.propagate.solution module &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -114,6 +114,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -128,6 +131,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -135,6 +139,11 @@
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -352,44 +361,8 @@ were taken at. Must be UNIX time.</p></li>
 the propagation solution.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.propagate.solution.PropagationSolution._compute_raw_motion">
-<span class="sig-name descname"><span class="pre">_compute_raw_motion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/solution.html#PropagationSolution._compute_raw_motion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.solution.PropagationSolution._compute_raw_motion" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the raw velocities and accelerations of RA and DEC.</p>
-<p>This function prioritizes calculating the raw motion using the most
-recent observations only.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ra_array</strong> (<em>array-like</em>) – The array of right ascensions used fit and extrapolate to,
-in degrees.</p></li>
-<li><p><strong>dec_array</strong> (<em>array-like</em>) – The array of declinations used fit and extrapolate to, in degrees.</p></li>
-<li><p><strong>obs_time_array</strong> (<em>array-like</em>) – An array of observation times which the RA and DEC measurements
-were taken at. The values are in UNIX time.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>raw_ra_velocity</strong> (<em>float</em>) – The raw right ascension angular velocity of the target, in degrees
-per second.</p></li>
-<li><p><strong>raw_dec_velocity</strong> (<em>float</em>) – The raw declination angular velocity of the target, in degrees per
-second.</p></li>
-<li><p><strong>raw_ra_acceleration</strong> (<em>float</em>) – The raw right ascension angular acceleration of the target, in
-degrees per second squared.
-propagation engine.</p></li>
-<li><p><strong>raw_dec_acceleration</strong> (<em>float</em>) – The raw declination angular acceleration of the target, in
-degrees per second squared.</p></li>
-</ul>
-</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -420,9 +393,33 @@ degrees.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="opihiexarata.propagate.solution._vehicle_polynomial_propagation">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.propagate.solution.</span></span><span class="sig-name descname"><span class="pre">_vehicle_polynomial_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/solution.html#_vehicle_polynomial_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.solution._vehicle_polynomial_propagation" title="Permalink to this definition"></a></dt>
-<dd><p>Derive the propagation from polynomial extrapolation methods.</p>
+<dt class="sig sig-object py" id="opihiexarata.propagate.solution._vehicle_linear_propagation">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.propagate.solution.</span></span><span class="sig-name descname"><span class="pre">_vehicle_linear_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/solution.html#_vehicle_linear_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.solution._vehicle_linear_propagation" title="Permalink to this definition"></a></dt>
+<dd><p>Derive the propagation from 1st order polynomial extrapolation methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra_array</strong> (<em>array-like</em>) – The array of right ascensions used fit and extrapolate to,
+in degrees.</p></li>
+<li><p><strong>dec_array</strong> (<em>array-like</em>) – The array of declinations used fit and extrapolate to, in degrees.</p></li>
+<li><p><strong>obs_time_array</strong> (<em>array-like</em>) – An array of observation times which the RA and DEC measurements
+were taken at. The values are in UNIX time.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>solution_results</strong> – The results of the propagation engine which then gets integrated into
+the solution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.propagate.solution._vehicle_quadratic_propagation">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.propagate.solution.</span></span><span class="sig-name descname"><span class="pre">_vehicle_quadratic_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/solution.html#_vehicle_quadratic_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.solution._vehicle_quadratic_propagation" title="Permalink to this definition"></a></dt>
+<dd><p>Derive the propagation from 2nd order polynomial extrapolation methods.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

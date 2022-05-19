@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -354,13 +363,13 @@
                 <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">star_table</span> <span class="o">=</span> <span class="n">photo_star_table</span>
 
-        <span class="c1"># Derive the intersection star table from the photometric results and the</span>
-        <span class="c1"># astrometric solution. The data table is also used.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">intersection_star_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_intersection_star_table</span><span class="p">()</span>
-
         <span class="c1"># Determine the average sky contribution per pixel.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sky_counts_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_sky_counts_mask</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sky_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_sky_counts_value</span><span class="p">()</span>
+
+        <span class="c1"># Derive the intersection star table from the photometric results and the</span>
+        <span class="c1"># astrometric solution. The data table is also used.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intersection_star_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_intersection_star_table</span><span class="p">()</span>
 
         <span class="c1"># Calculating the zero point of this filter image as it is part of the</span>
         <span class="c1"># photometric solution.</span>
@@ -470,7 +479,7 @@
             <span class="n">ra_diff</span> <span class="o">=</span> <span class="n">_sgn_ang_diff</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ra_astro_row</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">ra_phototable</span><span class="p">)</span>
             <span class="n">dec_diff</span> <span class="o">=</span> <span class="n">_sgn_ang_diff</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">dec_astro_row</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">dec_phototable</span><span class="p">)</span>
             <span class="c1"># Finding minimum separation.</span>
-            <span class="n">separations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ra_diff</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dec_diff</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">separations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ra_diff</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dec_diff</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">minimum_separation_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">separations</span><span class="p">)</span>
             <span class="n">minimum_separation</span> <span class="o">=</span> <span class="n">separations</span><span class="p">[</span><span class="n">minimum_separation_index</span><span class="p">]</span>
 
@@ -524,7 +533,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Extracting the needed information from the computed solution values.</span>
         <span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">_original_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">wcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">wcs</span>
         <span class="n">arcsec_pixel_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">pixel_scale</span>
         <span class="n">photo_star_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">star_table</span>
         <span class="n">astro_star_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">star_table</span>
@@ -535,11 +543,9 @@
         <span class="c1"># likely more accurate and also would theoretically exclude more stars</span>
         <span class="c1"># than the astrometric star table. But, there is no harm in using both.</span>
         <span class="c1"># The pixel values for the photometric table are derived from the WCS.</span>
-        <span class="n">photo_ra</span><span class="p">,</span> <span class="n">photo_dec</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">photo_star_table</span><span class="p">[</span><span class="s2">&quot;ra_photo&quot;</span><span class="p">],</span>
-            <span class="n">photo_star_table</span><span class="p">[</span><span class="s2">&quot;dec_photo&quot;</span><span class="p">],</span>
+        <span class="n">photo_x</span><span class="p">,</span> <span class="n">photo_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">sky_to_pixel_coordinates</span><span class="p">(</span>
+            <span class="n">ra</span><span class="o">=</span><span class="n">photo_star_table</span><span class="p">[</span><span class="s2">&quot;ra_photo&quot;</span><span class="p">],</span> <span class="n">dec</span><span class="o">=</span><span class="n">photo_star_table</span><span class="p">[</span><span class="s2">&quot;dec_photo&quot;</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="n">photo_x</span><span class="p">,</span> <span class="n">photo_y</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">world_to_pixel_values</span><span class="p">(</span><span class="n">photo_ra</span><span class="p">,</span> <span class="n">photo_dec</span><span class="p">)</span>
         <span class="n">photo_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">photo_x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="n">photo_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">photo_y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="n">astro_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">astro_star_table</span><span class="p">[</span><span class="s2">&quot;pixel_x&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -551,23 +557,33 @@
         <span class="c1"># the half definition for odd sized boxes.</span>
         <span class="n">STAR_RADIUS_AS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_STAR_RADIUS_ARCSECOND</span>
         <span class="n">STAR_RADIUS_PIXEL</span> <span class="o">=</span> <span class="n">STAR_RADIUS_AS</span> <span class="o">/</span> <span class="n">arcsec_pixel_scale</span>
-        <span class="n">HALF_BOX_LENGTH</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">STAR_RADIUS_PIXEL</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">HALF_BOX_LENGTH</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">STAR_RADIUS_PIXEL</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="c1"># Definiting the star mask to mask regions where stars have been</span>
         <span class="c1"># detected.</span>
         <span class="n">star_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">colindex</span><span class="p">,</span> <span class="n">rowindex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stars_x</span><span class="p">,</span> <span class="n">stars_y</span><span class="p">):</span>
-            <span class="n">star_mask</span><span class="p">[</span>
-                <span class="n">rowindex</span> <span class="o">-</span> <span class="n">HALF_BOX_LENGTH</span> <span class="p">:</span> <span class="n">rowindex</span> <span class="o">+</span> <span class="n">HALF_BOX_LENGTH</span><span class="p">,</span>
-                <span class="n">colindex</span> <span class="o">-</span> <span class="n">HALF_BOX_LENGTH</span> <span class="p">:</span> <span class="n">colindex</span> <span class="o">+</span> <span class="n">HALF_BOX_LENGTH</span><span class="p">,</span>
-            <span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1"># Need to take into account that if the pixel values are negative</span>
+            <span class="c1"># because of search radius of the photometric cone and the mapping</span>
+            <span class="c1"># to pixel coordinates, then it would wrap around from the other</span>
+            <span class="c1"># end and mask out non-stars.</span>
+            <span class="k">if</span> <span class="n">colindex</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">rowindex</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># These are not in the array and don&#39;t really matter for</span>
+                <span class="c1"># masking.</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># The points should be valid.</span>
+                <span class="n">star_mask</span><span class="p">[</span>
+                    <span class="n">rowindex</span> <span class="o">-</span> <span class="n">HALF_BOX_LENGTH</span> <span class="p">:</span> <span class="n">rowindex</span> <span class="o">+</span> <span class="n">HALF_BOX_LENGTH</span><span class="p">,</span>
+                    <span class="n">colindex</span> <span class="o">-</span> <span class="n">HALF_BOX_LENGTH</span> <span class="p">:</span> <span class="n">colindex</span> <span class="o">+</span> <span class="n">HALF_BOX_LENGTH</span><span class="p">,</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># Masking the center region as well as a science object is expected</span>
         <span class="c1"># to be there.</span>
         <span class="n">SCIENCE_RADIUS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_SCIENCE_RADIUS_MASK_PIXELS</span>
-        <span class="n">SCI_WIDTH</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">SCIENCE_RADIUS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">SCI_HALF_WIDTH</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">SCIENCE_RADIUS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">science_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="n">science_mask</span><span class="p">[</span>
-            <span class="n">n_rows</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">SCI_WIDTH</span> <span class="p">:</span> <span class="n">n_rows</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">SCI_WIDTH</span><span class="p">,</span>
-            <span class="n">n_cols</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">SCI_WIDTH</span> <span class="p">:</span> <span class="n">n_cols</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">SCI_WIDTH</span><span class="p">,</span>
+            <span class="n">n_rows</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">SCI_HALF_WIDTH</span> <span class="p">:</span> <span class="n">n_rows</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">SCI_HALF_WIDTH</span><span class="p">,</span>
+            <span class="n">n_cols</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">SCI_HALF_WIDTH</span> <span class="p">:</span> <span class="n">n_cols</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">SCI_HALF_WIDTH</span><span class="p">,</span>
         <span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># Mask the edges of the array as often they are spurious and may have</span>
         <span class="c1"># bleed over from electronics onto the detector itself. This also is a</span>
@@ -744,7 +760,7 @@
             <span class="k">return</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_error</span>
         <span class="k">elif</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ACCEPTED_FILTERS</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
-                <span class="s2">&quot;The filter name provided `</span><span class="si">{f}</span><span class="s2">` is not a filter that is supposed by&quot;</span>
+                <span class="s2">&quot;The filter name provided `</span><span class="si">{f}</span><span class="s2">` is not a filter that is supported by&quot;</span>
                 <span class="s2">&quot; OpihiExarata&#39;s supported photometric engines and vehicle functions&quot;</span>
                 <span class="s2">&quot; and therefore cannot be used to derive a photometric solution.&quot;</span>
                 <span class="s2">&quot; Accepted filters: </span><span class="si">{af}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="n">ACCEPTED_FILTERS</span><span class="p">)</span>

@@ -10,6 +10,7 @@ Subpackages
    opihiexarata.astrometry
    opihiexarata.gui
    opihiexarata.library
+   opihiexarata.opihi
    opihiexarata.orbit
    opihiexarata.photometry
    opihiexarata.propagate

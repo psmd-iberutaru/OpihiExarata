@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.fits module &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.library.fits module &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -115,6 +115,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -129,6 +132,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -136,6 +140,11 @@
 <li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -230,7 +239,7 @@ wrapper function around the astropy functions.</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>header</strong> (<em>Astropy Header</em>) – The header of the fits file.</p></li>
-<li><p><strong>data</strong> (<em>array-like</em>) – The data image of the fits file.</p></li>
+<li><p><strong>data</strong> (<em>array</em>) – The data image of the fits file.</p></li>
 </ul>
 </p>
 </dd>
@@ -260,6 +269,28 @@ It is a wrapper function around the astropy functions.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.fits.update_fits_header">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.fits.</span></span><span class="sig-name descname"><span class="pre">update_fits_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">astropy.io.fits.header.Header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.io.fits.header.Header</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/fits.html#update_fits_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.fits.update_fits_header" title="Permalink to this definition"></a></dt>
+<dd><p>This appends entries from a dictionary to an Astropy header.</p>
+<p>This function is preferred to adding using standard methods as it performs
+checks to make sure it only uses header keys reserved for OpihiExarata.
+This function raises an error upon attempting to add an entry which does
+not conform to fits standards and is not keyed with the “OX######”
+template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>Astropy Header</em>) – The header which the entries will be added to.</p></li>
+<li><p><strong>entries</strong> (<em>dictionary</em>) – The new entries to the header.</p></li>
+<li><p><strong>comments</strong> (<em>dictionary</em><em>, </em><em>default = {}</em>) – If comments are to be added to data entries, then they may be
+provided as a dictionary here with keys exactly the same as the
+data entries. This is not for comment cards.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.fits.write_fits_image_file">
 <span class="sig-prename descclassname"><span class="pre">opihiexarata.library.fits.</span></span><span class="sig-name descname"><span class="pre">write_fits_image_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">astropy.io.fits.header.Header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/fits.html#write_fits_image_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.fits.write_fits_image_file" title="Permalink to this definition"></a></dt>
 <dd><p>This writes fits image files to disk. Acting as a wrapper around the
@@ -273,11 +304,8 @@ fits functionality of astropy.</p>
 <li><p><strong>overwrite</strong> (<em>boolean</em><em>, </em><em>default = False</em>) – Decides if to overwrite the file if it already exists.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -296,11 +324,8 @@ fits functionality of astropy.</p>
 <li><p><strong>overwrite</strong> (<em>boolean</em><em>, </em><em>default = False</em>) – Decides if to overwrite the file if it already exists.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

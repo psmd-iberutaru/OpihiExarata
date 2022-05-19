@@ -1,9 +1,7 @@
 """Tests pathname manipulations."""
 import sys
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+import opihiexarata
 
 # The operating system that is running, if it is Windows, the tests for
 # pathnames are different.
@@ -29,7 +27,9 @@ def test_get_directory() -> None:
             R" Explorers\Dialga's Fight to the Finish!.flac"
         )
         # Getting the directory.
-        directory = library.path.get_directory(pathname=example_windows_pathname)
+        directory = opihiexarata.library.path.get_directory(
+            pathname=example_windows_pathname
+        )
         expected_dir = (
             R"A:\Kalos\Music\Pokémon\Official Tracks\Mystery Dungeon\PMD Explorers"
         )
@@ -44,7 +44,9 @@ def test_get_directory() -> None:
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
-        directory = library.path.get_directory(pathname=example_linux_pathname)
+        directory = opihiexarata.library.path.get_directory(
+            pathname=example_linux_pathname
+        )
         expected_dir = R"/home/sparrow/Kirby"
         # Asserting.
         assert_message = "Linux based pathnames fail."
@@ -72,7 +74,7 @@ def test_get_filename_without_extension() -> None:
             R" Explorers\Dialga's Fight to the Finish!.flac"
         )
         # Getting the directory.
-        filename = library.path.get_filename_without_extension(
+        filename = opihiexarata.library.path.get_filename_without_extension(
             pathname=example_windows_pathname
         )
         expected_filename = R"Dialga's Fight to the Finish!"
@@ -87,7 +89,7 @@ def test_get_filename_without_extension() -> None:
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
-        filename = library.path.get_filename_without_extension(
+        filename = opihiexarata.library.path.get_filename_without_extension(
             pathname=example_linux_pathname
         )
         expected_filename = (
@@ -119,7 +121,7 @@ def test_get_filename_with_extension() -> None:
             R" Explorers\Dialga's Fight to the Finish!.flac"
         )
         # Getting the directory.
-        filename = library.path.get_filename_with_extension(
+        filename = opihiexarata.library.path.get_filename_with_extension(
             pathname=example_windows_pathname
         )
         expected_filename = R"Dialga's Fight to the Finish!.flac"
@@ -134,7 +136,7 @@ def test_get_filename_with_extension() -> None:
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
-        filename = library.path.get_filename_with_extension(
+        filename = opihiexarata.library.path.get_filename_with_extension(
             pathname=example_linux_pathname
         )
         expected_filename = (
@@ -166,7 +168,9 @@ def test_get_file_extension() -> None:
             R" Explorers\Dialga's Fight to the Finish!.flac"
         )
         # Getting the directory.
-        extension = library.path.get_file_extension(pathname=example_windows_pathname)
+        extension = opihiexarata.library.path.get_file_extension(
+            pathname=example_windows_pathname
+        )
         expected_extension = R"flac"
         # Asserting.
         assert_message = "Windows based pathnames fail."
@@ -179,7 +183,9 @@ def test_get_file_extension() -> None:
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
-        extension = library.path.get_file_extension(pathname=example_linux_pathname)
+        extension = opihiexarata.library.path.get_file_extension(
+            pathname=example_linux_pathname
+        )
         expected_extension = R"mkv"
         # Asserting.
         assert_message = "Linux based pathnames fail."
@@ -204,7 +210,7 @@ def test_merge_pathname() -> None:
         windows_filename = R"Space Battle Ship USS Arizona"
         windows_extension = R"jpg"
         # Merging.
-        windows_pathname = library.path.merge_pathname(
+        windows_pathname = opihiexarata.library.path.merge_pathname(
             directory=windows_directory,
             filename=windows_filename,
             extension=windows_extension,
@@ -221,7 +227,7 @@ def test_merge_pathname() -> None:
         linux_filename = R"docker-compose"
         linux_extension = R"yml"
         # Merging.
-        linux_pathname = library.path.merge_pathname(
+        linux_pathname = opihiexarata.library.path.merge_pathname(
             directory=linux_directory,
             filename=linux_filename,
             extension=linux_extension,
@@ -254,7 +260,7 @@ def test_split_pathname() -> None:
             windows_directory,
             windows_filename,
             windows_extension,
-        ) = library.path.split_pathname(pathname=windows_pathname)
+        ) = opihiexarata.library.path.split_pathname(pathname=windows_pathname)
         expected_windows_directory = R"A:\Kalos\Pictures\Space Battleship Yamato"
         expected_windows_filename = R"Space Battle Ship USS Arizona"
         expected_windows_extension = R"jpg"
@@ -273,7 +279,7 @@ def test_split_pathname() -> None:
             linux_directory,
             linux_filename,
             linux_extension,
-        ) = library.path.split_pathname(pathname=linux_pathname)
+        ) = opihiexarata.library.path.split_pathname(pathname=linux_pathname)
         expected_linux_directory = R"/home/sparrow/test/wiki"
         expected_linux_filename = R"docker-compose"
         expected_linux_extension = R"yml"

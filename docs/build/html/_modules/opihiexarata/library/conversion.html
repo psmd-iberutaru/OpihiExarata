@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -186,7 +195,71 @@
   <h1>Source code for opihiexarata.library.conversion</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;For miscellaneous conversions.&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">ap_coordinates</span>
 <span class="kn">import</span> <span class="nn">astropy.time</span> <span class="k">as</span> <span class="nn">ap_time</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">ap_units</span>
+
+
+<div class="viewcode-block" id="degrees_to_sexagesimal_ra_dec"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec">[docs]</a><span class="k">def</span> <span class="nf">degrees_to_sexagesimal_ra_dec</span><span class="p">(</span>
+    <span class="n">ra_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dec_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">precision</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Convert RA and DEC degree measurements to the more familiar HMSDMS</span>
+<span class="sd">    sexagesimal format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra_deg : float</span>
+<span class="sd">        The right ascension in degrees.</span>
+<span class="sd">    dec_deg : float</span>
+<span class="sd">        The declination in degrees.</span>
+<span class="sd">    precision : int</span>
+<span class="sd">        The precision of the conversion&#39;s seconds term, i.e. how many numbers</span>
+<span class="sd">        are used.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ra_sex : str</span>
+<span class="sd">        The right ascension in hour:minute:second sexagesimal.</span>
+<span class="sd">    dec_sex : str</span>
+<span class="sd">        The declination in degree:minute:second sexagesimal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Levering Astropy for this.</span>
+    <span class="n">skycoord</span> <span class="o">=</span> <span class="n">ap_coordinates</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;deg&quot;</span><span class="p">)</span>
+    <span class="n">ra_sex</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span>
+        <span class="n">ap_units</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="n">precision</span>
+    <span class="p">)</span>
+    <span class="n">dec_sex</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span>
+        <span class="n">ap_units</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">alwayssign</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span></div>
+
+
+<div class="viewcode-block" id="sexagesimal_ra_dec_to_degrees"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.sexagesimal_ra_dec_to_degrees">[docs]</a><span class="k">def</span> <span class="nf">sexagesimal_ra_dec_to_degrees</span><span class="p">(</span><span class="n">ra_sex</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dec_sex</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Convert RA and DEC measurements from the more familiar HMSDMS</span>
+<span class="sd">    sexagesimal format to degrees.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra_sex : str</span>
+<span class="sd">        The right ascension in hour:minute:second sexagesimal.</span>
+<span class="sd">    dec_sex : str</span>
+<span class="sd">        The declination in degree:minute:second sexagesimal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ra_deg : float</span>
+<span class="sd">        The right ascension in degrees.</span>
+<span class="sd">    dec_deg : float</span>
+<span class="sd">        The declination in degrees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Levering Astropy for this.</span>
+    <span class="n">skycoord</span> <span class="o">=</span> <span class="n">ap_coordinates</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span>
+        <span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="n">ap_units</span><span class="o">.</span><span class="n">hourangle</span><span class="p">,</span> <span class="n">ap_units</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">ra_deg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">skycoord</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+    <span class="n">dec_deg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">skycoord</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span></div>
 
 
 <div class="viewcode-block" id="decimal_day_to_unix_time"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.decimal_day_to_unix_time">[docs]</a><span class="k">def</span> <span class="nf">decimal_day_to_unix_time</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
@@ -208,16 +281,17 @@
 <span class="sd">        The unix time that the date represents.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Determining the true year and letting the remainder flow.</span>
-    <span class="n">int_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
-    <span class="n">int_month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
-    <span class="n">int_day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
+    <span class="n">int_year</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">int_month</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">int_day</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">float_day</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="c1"># Leftover to determine HMS.</span>
-    <span class="n">leftover_hours</span> <span class="o">=</span> <span class="p">(</span><span class="n">day</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">24</span>
+    <span class="n">leftover_hours</span> <span class="o">=</span> <span class="p">(</span><span class="n">float_day</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">24</span>
     <span class="c1"># Hours</span>
-    <span class="n">int_hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">leftover_hours</span><span class="p">)</span>
+    <span class="n">int_hour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">leftover_hours</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">leftover_minutes</span> <span class="o">=</span> <span class="p">(</span><span class="n">leftover_hours</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
     <span class="c1"># Minutes</span>
-    <span class="n">int_minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">leftover_minutes</span><span class="p">)</span>
+    <span class="n">int_minute</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">leftover_minutes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">leftover_seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">leftover_minutes</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
     <span class="c1"># Seconds.</span>
     <span class="n">seconds</span> <span class="o">=</span> <span class="n">leftover_seconds</span>
@@ -252,6 +326,11 @@
 <span class="sd">        The minute of the time stamp to be converted.</span>
 <span class="sd">    second : float</span>
 <span class="sd">        The second of the time stamp to be converted.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unix_time : float</span>
+<span class="sd">        The time input converted into UNIX time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">time_param</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
@@ -262,8 +341,85 @@
         <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="n">second</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">time_param</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;utc&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ymdhms&quot;</span><span class="p">)</span>
-    <span class="n">unix_time</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;unix&quot;</span><span class="p">,</span> <span class="n">subfmt</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="n">unix_time</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;unix&quot;</span><span class="p">,</span> <span class="n">subfmt</span><span class="o">=</span><span class="s2">&quot;long&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">unix_time</span></div>
+
+
+<div class="viewcode-block" id="modified_julian_day_to_unix_time"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.modified_julian_day_to_unix_time">[docs]</a><span class="k">def</span> <span class="nf">modified_julian_day_to_unix_time</span><span class="p">(</span><span class="n">mjd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert between modified julian days to Unix time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mjd : float</span>
+<span class="sd">        The modified Julian day to be converted.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unix_time : float</span>
+<span class="sd">        The time converted to UNIX time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># This could eventually be replaced with multiplication and addition, but</span>
+    <span class="c1"># this is a convenient way of doing it.</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">mjd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;mjd&quot;</span><span class="p">)</span>
+    <span class="n">unix_time</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;unix&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">unix_time</span></div>
+
+
+<div class="viewcode-block" id="unix_time_to_decimal_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.unix_time_to_decimal_day">[docs]</a><span class="k">def</span> <span class="nf">unix_time_to_decimal_day</span><span class="p">(</span><span class="n">unix_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert UNIX time to the decimal day time.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    unix_time : float</span>
+<span class="sd">        The unix time that is going to be converted.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    year : int</span>
+<span class="sd">        The year of the UNIX time.</span>
+<span class="sd">    month : int</span>
+<span class="sd">        The month of the UNIX time.</span>
+<span class="sd">    day : float</span>
+<span class="sd">        The day of the the UNIX time, the hours, minute, and seconds are all</span>
+<span class="sd">        contained as a decimal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Getting the full date and just converting it from there.</span>
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">int_day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">unix_time_to_full_date</span><span class="p">(</span>
+        <span class="n">unix_time</span><span class="o">=</span><span class="n">unix_time</span>
+    <span class="p">)</span>
+    <span class="c1"># Calculating the decimal day.</span>
+    <span class="n">day</span> <span class="o">=</span> <span class="n">int_day</span> <span class="o">+</span> <span class="n">hour</span> <span class="o">/</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">minute</span> <span class="o">/</span> <span class="mi">1440</span> <span class="o">+</span> <span class="n">second</span> <span class="o">/</span> <span class="mi">86400</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span></div>
+
+
+<div class="viewcode-block" id="unix_time_to_full_date"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.unix_time_to_full_date">[docs]</a><span class="k">def</span> <span class="nf">unix_time_to_full_date</span><span class="p">(</span><span class="n">unix_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert the a whole date format into UNIX time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    unix_time : float</span>
+<span class="sd">        The UNIX time which is subject to be input.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    year : int</span>
+<span class="sd">        The year of the UNIX time provided.</span>
+<span class="sd">    month : int</span>
+<span class="sd">        The month of the UNIX time provided.</span>
+<span class="sd">    day : int</span>
+<span class="sd">        The day of the UNIX time provided.</span>
+<span class="sd">    hour : int</span>
+<span class="sd">        The hour of the UNIX time provided.</span>
+<span class="sd">    minute : int</span>
+<span class="sd">        The minute of the UNIX time provided.</span>
+<span class="sd">    second : float</span>
+<span class="sd">        The second of the UNIX time provided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">unix_time</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;unix&quot;</span><span class="p">)</span>
+    <span class="c1"># It is faster to not unpack, even though it would be less readable.</span>
+    <span class="k">return</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;ymdhms&quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
