@@ -102,7 +102,7 @@ $gitignore_files = Get-ChildItem -Path ./ -Filter ".gitignore" `
 foreach ($filedex in $gitignore_files) {
     if ($filedex -ceq ".gitignore") {
         # We do not want to remove the root gitignore directory.
-        Write-Output "Skipping root directory .gitignore:   $filedex"
+        Write-Output "Skipping root directory .gitignore file:   $filedex"
         continue
     }
     else {
