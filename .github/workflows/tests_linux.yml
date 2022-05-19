@@ -23,7 +23,9 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
+        sudo apt upgrade
         sudo apt install -y python3-opencv
+        python -m pip install --upgrade opencv-python
         python -m pip install --upgrade pip
         python -m pip install --upgrade build
         pip install pytest setuptools
