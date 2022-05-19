@@ -1,8 +1,7 @@
 """The image that was taken from Opihi. Information can be added to it as 
 needed."""
 
-import PyQt6 as PyQt
-from PyQt6 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 import matplotlib as mpl
 

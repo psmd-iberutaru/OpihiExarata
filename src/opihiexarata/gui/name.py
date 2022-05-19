@@ -8,8 +8,7 @@ import sys
 
 import numpy as np
 
-import PyQt6 as PyQt
-from PyQt6 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 
 import opihiexarata.library as library
