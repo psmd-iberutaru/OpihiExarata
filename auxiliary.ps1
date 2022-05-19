@@ -6,6 +6,7 @@
 #   - Collect and build documentation using html Sphinx.
 #   - Formats the python code according to the Black specification.
 #   - Tests the code using pytest and provides code coverage using coverage.py.
+#   - Cleans up .gitignore files. What is ignored should be explicit.
 
 
 ###############################################################################
@@ -66,8 +67,9 @@ Write-Output "=========================================="
 Write-Output "===== Code Testing; pytest, coverage ====="
 Write-Output "=========================================="
 Write-Output ""
-# Running pytest.
+# Running pytest, we can dump the historical cache as it is not needed.
 $pytest_cache_dir = "./.pytest/"
+Remove-Item $pytest_cache_dir -Recurse -Force
 pytest . -o cache_dir=$pytest_cache_dir
 
 # Running code coverage. We do not need another copy of pytest information 
@@ -79,8 +81,33 @@ coverage run --source=$src_ox --data-file=$cov_result -m pytest . `
 
 # The result of the code coverage. We offload it to the documentation 
 # directory because why not. The XML version is not really for human 
-# consumption.
-$cov_html_outdir = $doc_bld_dscd + ".coverage/"
-$cov_xml_outfile = $pytest_cache_dir + "coverage/results.xml"
+# consumption but it is needed for the badge and if parsing is needed.
+$cov_html_outdir = $doc_bld_dscd + "coverage/"
+$cov_xml_outfile = $doc_bld_dscd + "coverage/results.xml"
 coverage html --data-file=$cov_result --directory=$cov_html_outdir
 coverage xml -o $cov_xml_outfile --data-file=$cov_result --quiet
+
+
+
+##### Cleaning up stray gitignores..
+Write-Output ""
+Write-Output "=========================================="
+Write-Output "===== Clearing Non-Root .gitignores ======"
+Write-Output "=========================================="
+Write-Output ""
+# Collect all of the gitignores in this directory.
+$gitignore_files = Get-ChildItem -Path ./ -Filter ".gitignore" `
+-Recurse -ErrorAction SilentlyContinue -Force -Name
+# Removing them.
+foreach ($filedex in $gitignore_files) {
+    if ($filedex -ceq ".gitignore") {
+        # We do not want to remove the root gitignore directory.
+        Write-Output "Skipping root directory .gitignore:   $filedex"
+        continue
+    }
+    else {
+        # Removing the other files which are not desires.
+        Write-Output "Removing file .gitignore file:   $filedex"
+        Remove-Item $filedex -Force
+    }
+}
