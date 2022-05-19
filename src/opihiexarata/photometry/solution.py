@@ -168,7 +168,6 @@ class PhotometricSolution(hint.ExarataSolution):
                 )
         self.star_table = photo_star_table
 
-
         # Determine the average sky contribution per pixel.
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
         self.sky_counts = self.__calculate_sky_counts_value()
@@ -176,8 +175,6 @@ class PhotometricSolution(hint.ExarataSolution):
         # Derive the intersection star table from the photometric results and the
         # astrometric solution. The data table is also used.
         self.intersection_star_table = self.__calculate_intersection_star_table()
-
-
 
         # Calculating the zero point of this filter image as it is part of the
         # photometric solution.
@@ -351,7 +348,9 @@ class PhotometricSolution(hint.ExarataSolution):
         # likely more accurate and also would theoretically exclude more stars
         # than the astrometric star table. But, there is no harm in using both.
         # The pixel values for the photometric table are derived from the WCS.
-        photo_x, photo_y = self.astrometrics.sky_to_pixel_coordinates(ra=photo_star_table["ra_photo"], dec=photo_star_table["dec_photo"])
+        photo_x, photo_y = self.astrometrics.sky_to_pixel_coordinates(
+            ra=photo_star_table["ra_photo"], dec=photo_star_table["dec_photo"]
+        )
         photo_x = np.array(photo_x, dtype=int)
         photo_y = np.array(photo_y, dtype=int)
         astro_x = np.array(astro_star_table["pixel_x"], dtype=int)
@@ -370,10 +369,10 @@ class PhotometricSolution(hint.ExarataSolution):
         for colindex, rowindex in zip(stars_x, stars_y):
             # Need to take into account that if the pixel values are negative
             # because of search radius of the photometric cone and the mapping
-            # to pixel coordinates, then it would wrap around from the other 
+            # to pixel coordinates, then it would wrap around from the other
             # end and mask out non-stars.
             if colindex < 0 or rowindex < 0:
-                # These are not in the array and don't really matter for 
+                # These are not in the array and don't really matter for
                 # masking.
                 continue
             else:

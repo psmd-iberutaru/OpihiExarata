@@ -136,12 +136,14 @@ class AstrometricSolution(hint.ExarataSolution):
         # All done.
         return None
 
-    def pixel_to_sky_coordinates(self, x:hint.Union[float, hint.array], y:hint.Union[float, hint.array]) -> tuple[hint.Union[float, hint.array],hint.Union[float, hint.array]]:
-        """Compute the RA and DEC sky coordinates of this image provided 
+    def pixel_to_sky_coordinates(
+        self, x: hint.Union[float, hint.array], y: hint.Union[float, hint.array]
+    ) -> tuple[hint.Union[float, hint.array], hint.Union[float, hint.array]]:
+        """Compute the RA and DEC sky coordinates of this image provided
         the pixel coordinates. Floating point pixel values are supported.
 
         This is a wrapper around the WCS-based method.
-        
+
         Parameters
         ----------
         x : float or array-like
@@ -160,8 +162,10 @@ class AstrometricSolution(hint.ExarataSolution):
         x = np.array(x)
         y = np.array(y)
         # Must be parallel arrays.
-        if (x.shape != y.shape):
-            raise error.InputError("The two pixel coordinate arrays specified should be parallel arrays.")
+        if x.shape != y.shape:
+            raise error.InputError(
+                "The two pixel coordinate arrays specified should be parallel arrays."
+            )
         # Compute the values from the pixel location.
         ra, dec = self.wcs.pixel_to_world_values(x, y)
         # If the input parameters were just singular values, then the answer
@@ -172,12 +176,14 @@ class AstrometricSolution(hint.ExarataSolution):
         # All done.
         return ra, dec
 
-    def sky_to_pixel_coordinates(self, ra:hint.Union[float, hint.array], dec:hint.Union[float, hint.array]) -> tuple[hint.Union[float, hint.array],hint.Union[float, hint.array]]:
-        """Compute the x and y pixel coordinates of this image provided 
+    def sky_to_pixel_coordinates(
+        self, ra: hint.Union[float, hint.array], dec: hint.Union[float, hint.array]
+    ) -> tuple[hint.Union[float, hint.array], hint.Union[float, hint.array]]:
+        """Compute the x and y pixel coordinates of this image provided
         the RA DEC sky coordinates.
 
         This is a wrapper around the WCS-based method.
-        
+
         Parameters
         ----------
         ra : float or array-like
@@ -196,8 +202,10 @@ class AstrometricSolution(hint.ExarataSolution):
         ra = np.array(ra)
         dec = np.array(dec)
         # Must be parallel arrays.
-        if (ra.shape != dec.shape):
-            raise error.InputError("The two sky coordinate arrays specified should be parallel arrays.")
+        if ra.shape != dec.shape:
+            raise error.InputError(
+                "The two sky coordinate arrays specified should be parallel arrays."
+            )
         # Compute the values from the sky location.
         x, y = self.wcs.world_to_pixel_values(ra, dec)
         # If the input parameters were just singular values, then the answer
@@ -207,7 +215,6 @@ class AstrometricSolution(hint.ExarataSolution):
             y = float(y)
         # All done.
         return x, y
-
 
 
 def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:

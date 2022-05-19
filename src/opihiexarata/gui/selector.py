@@ -573,7 +573,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         finally:
             self.colorbar_scale_low = new_low_value
 
-        # If maximum value is less than the minimum value, it is likely the 
+        # If maximum value is less than the minimum value, it is likely the
         # user swapped them by mistake. We correct for the swapping here.
         if self.colorbar_scale_high <= self.colorbar_scale_low:
             # Storing to swap...
@@ -582,7 +582,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             # ...and swap.
             self.colorbar_scale_low = raw_high
             self.colorbar_scale_high = raw_low
-
 
         # Redraw the image with this new low colorbar. (Refreshing the
         # image itself is likely fine too.)
@@ -617,7 +616,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         finally:
             self.colorbar_scale_high = new_high_value
 
-        # If maximum value is less than the minimum value, it is likely the 
+        # If maximum value is less than the minimum value, it is likely the
         # user swapped them by mistake. We correct for the swapping here.
         if self.colorbar_scale_high <= self.colorbar_scale_low:
             # Storing to swap...

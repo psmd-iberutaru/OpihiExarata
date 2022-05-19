@@ -21,10 +21,15 @@ class Ui_PrimaryWindow(object):
         PrimaryWindow.setWindowOpacity(1.0)
         self.centralwidget = QtWidgets.QWidget(PrimaryWindow)
         self.centralwidget.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Preferred,
+            QtWidgets.QSizePolicy.Policy.Preferred,
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.centralwidget.sizePolicy().hasHeightForWidth()
+        )
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget_3 = QtWidgets.QWidget(self.centralwidget)
@@ -55,14 +60,20 @@ class Ui_PrimaryWindow(object):
         self.line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line.setObjectName("line")
         self.horizontal_layout_new_files.addWidget(self.line)
-        self.push_button_new_image_automatic = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.push_button_new_image_automatic = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_3
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
         self.push_button_new_image_automatic.setFont(font)
-        self.push_button_new_image_automatic.setObjectName("push_button_new_image_automatic")
+        self.push_button_new_image_automatic.setObjectName(
+            "push_button_new_image_automatic"
+        )
         self.horizontal_layout_new_files.addWidget(self.push_button_new_image_automatic)
-        self.push_button_new_image_manual = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.push_button_new_image_manual = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_3
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
@@ -98,7 +109,9 @@ class Ui_PrimaryWindow(object):
         self.dummy_opihi_navbar.setObjectName("dummy_opihi_navbar")
         self.vertical_layout_image.addWidget(self.dummy_opihi_navbar)
         self.vertical_layout_window.addLayout(self.vertical_layout_image)
-        self.push_button_refresh_window = QtWidgets.QPushButton(self.verticalLayoutWidget_3)
+        self.push_button_refresh_window = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_3
+        )
         self.push_button_refresh_window.setObjectName("push_button_refresh_window")
         self.vertical_layout_window.addWidget(self.push_button_refresh_window)
         self.line_image_solution = QtWidgets.QFrame(self.verticalLayoutWidget_3)
@@ -131,73 +144,173 @@ class Ui_PrimaryWindow(object):
         font.setPointSize(11)
         self.verticalLayoutWidget.setFont(font)
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.vertical_layout_astrometry = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.vertical_layout_astrometry = QtWidgets.QVBoxLayout(
+            self.verticalLayoutWidget
+        )
         self.vertical_layout_astrometry.setContentsMargins(0, 0, 0, 0)
         self.vertical_layout_astrometry.setObjectName("vertical_layout_astrometry")
         self.horizontal_layout_solve_astrometry = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_solve_astrometry.setObjectName("horizontal_layout_solve_astrometry")
-        self.push_button_astrometry_solve_astrometry = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.horizontal_layout_solve_astrometry.setObjectName(
+            "horizontal_layout_solve_astrometry"
+        )
+        self.push_button_astrometry_solve_astrometry = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
         self.push_button_astrometry_solve_astrometry.setFont(font)
-        self.push_button_astrometry_solve_astrometry.setObjectName("push_button_astrometry_solve_astrometry")
-        self.horizontal_layout_solve_astrometry.addWidget(self.push_button_astrometry_solve_astrometry)
-        self.vertical_layout_astrometry.addLayout(self.horizontal_layout_solve_astrometry)
+        self.push_button_astrometry_solve_astrometry.setObjectName(
+            "push_button_astrometry_solve_astrometry"
+        )
+        self.horizontal_layout_solve_astrometry.addWidget(
+            self.push_button_astrometry_solve_astrometry
+        )
+        self.vertical_layout_astrometry.addLayout(
+            self.horizontal_layout_solve_astrometry
+        )
         self.line_2 = QtWidgets.QFrame(self.verticalLayoutWidget)
         self.line_2.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_2.setObjectName("line_2")
         self.vertical_layout_astrometry.addWidget(self.line_2)
         self.grid_layout_astrometry_results = QtWidgets.QGridLayout()
-        self.grid_layout_astrometry_results.setObjectName("grid_layout_astrometry_results")
-        self.label_dynamic_astrometry_target_x = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_target_x.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_target_x.setObjectName("label_dynamic_astrometry_target_x")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_target_x, 1, 2, 1, 1)
-        self.label_dynamic_astrometry_target_y = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_target_y.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_target_y.setObjectName("label_dynamic_astrometry_target_y")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_target_y, 1, 3, 1, 1)
-        self.label_static_astrometry_target_coordinates = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_static_astrometry_target_coordinates.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
-        self.label_static_astrometry_target_coordinates.setObjectName("label_static_astrometry_target_coordinates")
-        self.grid_layout_astrometry_results.addWidget(self.label_static_astrometry_target_coordinates, 1, 0, 1, 1)
+        self.grid_layout_astrometry_results.setObjectName(
+            "grid_layout_astrometry_results"
+        )
+        self.label_dynamic_astrometry_target_x = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_target_x.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_target_x.setObjectName(
+            "label_dynamic_astrometry_target_x"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_target_x, 1, 2, 1, 1
+        )
+        self.label_dynamic_astrometry_target_y = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_target_y.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_target_y.setObjectName(
+            "label_dynamic_astrometry_target_y"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_target_y, 1, 3, 1, 1
+        )
+        self.label_static_astrometry_target_coordinates = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_static_astrometry_target_coordinates.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignRight
+            | QtCore.Qt.AlignmentFlag.AlignTrailing
+            | QtCore.Qt.AlignmentFlag.AlignVCenter
+        )
+        self.label_static_astrometry_target_coordinates.setObjectName(
+            "label_static_astrometry_target_coordinates"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_static_astrometry_target_coordinates, 1, 0, 1, 1
+        )
         self.line_9 = QtWidgets.QFrame(self.verticalLayoutWidget)
         self.line_9.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.line_9.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_9.setObjectName("line_9")
         self.grid_layout_astrometry_results.addWidget(self.line_9, 0, 5, 3, 1)
-        self.label_dynamic_astrometry_center_ra = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_center_ra.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_center_ra.setObjectName("label_dynamic_astrometry_center_ra")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_center_ra, 0, 6, 1, 1)
-        self.label_static_astrometry_center_coordinates = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_static_astrometry_center_coordinates.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
-        self.label_static_astrometry_center_coordinates.setObjectName("label_static_astrometry_center_coordinates")
-        self.grid_layout_astrometry_results.addWidget(self.label_static_astrometry_center_coordinates, 0, 0, 1, 1)
-        self.label_dynamic_astrometry_center_dec = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_center_dec.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_center_dec.setObjectName("label_dynamic_astrometry_center_dec")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_center_dec, 0, 7, 1, 1)
-        self.label_dynamic_astrometry_target_ra = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_target_ra.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_target_ra.setObjectName("label_dynamic_astrometry_target_ra")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_target_ra, 1, 6, 1, 1)
-        self.label_dynamic_astrometry_target_dec = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_target_dec.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_target_dec.setObjectName("label_dynamic_astrometry_target_dec")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_target_dec, 1, 7, 1, 1)
-        self.label_dynamic_astrometry_center_y = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_center_y.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_center_y.setObjectName("label_dynamic_astrometry_center_y")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_center_y, 0, 3, 1, 1)
-        self.label_dynamic_astrometry_center_x = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_astrometry_center_x.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_astrometry_center_x.setObjectName("label_dynamic_astrometry_center_x")
-        self.grid_layout_astrometry_results.addWidget(self.label_dynamic_astrometry_center_x, 0, 2, 1, 1)
+        self.label_dynamic_astrometry_center_ra = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_center_ra.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_center_ra.setObjectName(
+            "label_dynamic_astrometry_center_ra"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_center_ra, 0, 6, 1, 1
+        )
+        self.label_static_astrometry_center_coordinates = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_static_astrometry_center_coordinates.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignRight
+            | QtCore.Qt.AlignmentFlag.AlignTrailing
+            | QtCore.Qt.AlignmentFlag.AlignVCenter
+        )
+        self.label_static_astrometry_center_coordinates.setObjectName(
+            "label_static_astrometry_center_coordinates"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_static_astrometry_center_coordinates, 0, 0, 1, 1
+        )
+        self.label_dynamic_astrometry_center_dec = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_center_dec.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_center_dec.setObjectName(
+            "label_dynamic_astrometry_center_dec"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_center_dec, 0, 7, 1, 1
+        )
+        self.label_dynamic_astrometry_target_ra = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_target_ra.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_target_ra.setObjectName(
+            "label_dynamic_astrometry_target_ra"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_target_ra, 1, 6, 1, 1
+        )
+        self.label_dynamic_astrometry_target_dec = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_target_dec.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_target_dec.setObjectName(
+            "label_dynamic_astrometry_target_dec"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_target_dec, 1, 7, 1, 1
+        )
+        self.label_dynamic_astrometry_center_y = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_center_y.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_center_y.setObjectName(
+            "label_dynamic_astrometry_center_y"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_center_y, 0, 3, 1, 1
+        )
+        self.label_dynamic_astrometry_center_x = QtWidgets.QLabel(
+            self.verticalLayoutWidget
+        )
+        self.label_dynamic_astrometry_center_x.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_astrometry_center_x.setObjectName(
+            "label_dynamic_astrometry_center_x"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.label_dynamic_astrometry_center_x, 0, 2, 1, 1
+        )
         self.line_8 = QtWidgets.QFrame(self.verticalLayoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.line_8.sizePolicy().hasHeightForWidth())
@@ -206,21 +319,51 @@ class Ui_PrimaryWindow(object):
         self.line_8.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_8.setObjectName("line_8")
         self.grid_layout_astrometry_results.addWidget(self.line_8, 0, 1, 3, 1)
-        self.line_edit_astrometry_custom_x = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_astrometry_custom_x.setObjectName("line_edit_astrometry_custom_x")
-        self.grid_layout_astrometry_results.addWidget(self.line_edit_astrometry_custom_x, 2, 2, 1, 1)
-        self.line_edit_astrometry_custom_y = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_astrometry_custom_y.setObjectName("line_edit_astrometry_custom_y")
-        self.grid_layout_astrometry_results.addWidget(self.line_edit_astrometry_custom_y, 2, 3, 1, 1)
-        self.line_edit_astrometry_custom_ra = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_astrometry_custom_ra.setObjectName("line_edit_astrometry_custom_ra")
-        self.grid_layout_astrometry_results.addWidget(self.line_edit_astrometry_custom_ra, 2, 6, 1, 1)
-        self.line_edit_astrometry_custom_dec = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_astrometry_custom_dec.setObjectName("line_edit_astrometry_custom_dec")
-        self.grid_layout_astrometry_results.addWidget(self.line_edit_astrometry_custom_dec, 2, 7, 1, 1)
-        self.push_button_astrometry_custom_solve = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.push_button_astrometry_custom_solve.setObjectName("push_button_astrometry_custom_solve")
-        self.grid_layout_astrometry_results.addWidget(self.push_button_astrometry_custom_solve, 2, 0, 1, 1)
+        self.line_edit_astrometry_custom_x = QtWidgets.QLineEdit(
+            self.verticalLayoutWidget
+        )
+        self.line_edit_astrometry_custom_x.setObjectName(
+            "line_edit_astrometry_custom_x"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.line_edit_astrometry_custom_x, 2, 2, 1, 1
+        )
+        self.line_edit_astrometry_custom_y = QtWidgets.QLineEdit(
+            self.verticalLayoutWidget
+        )
+        self.line_edit_astrometry_custom_y.setObjectName(
+            "line_edit_astrometry_custom_y"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.line_edit_astrometry_custom_y, 2, 3, 1, 1
+        )
+        self.line_edit_astrometry_custom_ra = QtWidgets.QLineEdit(
+            self.verticalLayoutWidget
+        )
+        self.line_edit_astrometry_custom_ra.setObjectName(
+            "line_edit_astrometry_custom_ra"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.line_edit_astrometry_custom_ra, 2, 6, 1, 1
+        )
+        self.line_edit_astrometry_custom_dec = QtWidgets.QLineEdit(
+            self.verticalLayoutWidget
+        )
+        self.line_edit_astrometry_custom_dec.setObjectName(
+            "line_edit_astrometry_custom_dec"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.line_edit_astrometry_custom_dec, 2, 7, 1, 1
+        )
+        self.push_button_astrometry_custom_solve = QtWidgets.QPushButton(
+            self.verticalLayoutWidget
+        )
+        self.push_button_astrometry_custom_solve.setObjectName(
+            "push_button_astrometry_custom_solve"
+        )
+        self.grid_layout_astrometry_results.addWidget(
+            self.push_button_astrometry_custom_solve, 2, 0, 1, 1
+        )
         self.vertical_layout_astrometry.addLayout(self.grid_layout_astrometry_results)
         self.tabs_solutions.addTab(self.tab_astrometry, "")
         self.tab_photometry = QtWidgets.QWidget()
@@ -232,27 +375,43 @@ class Ui_PrimaryWindow(object):
         font.setPointSize(11)
         self.verticalLayoutWidget_2.setFont(font)
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.vertical_layout_photometry = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.vertical_layout_photometry = QtWidgets.QVBoxLayout(
+            self.verticalLayoutWidget_2
+        )
         self.vertical_layout_photometry.setContentsMargins(0, 0, 0, 0)
         self.vertical_layout_photometry.setObjectName("vertical_layout_photometry")
         self.horizontal_layout_solve_photometry = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_solve_photometry.setObjectName("horizontal_layout_solve_photometry")
-        self.push_button_photometry_solve_photometry = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
+        self.horizontal_layout_solve_photometry.setObjectName(
+            "horizontal_layout_solve_photometry"
+        )
+        self.push_button_photometry_solve_photometry = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_2
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
         self.push_button_photometry_solve_photometry.setFont(font)
-        self.push_button_photometry_solve_photometry.setObjectName("push_button_photometry_solve_photometry")
-        self.horizontal_layout_solve_photometry.addWidget(self.push_button_photometry_solve_photometry)
-        self.vertical_layout_photometry.addLayout(self.horizontal_layout_solve_photometry)
+        self.push_button_photometry_solve_photometry.setObjectName(
+            "push_button_photometry_solve_photometry"
+        )
+        self.horizontal_layout_solve_photometry.addWidget(
+            self.push_button_photometry_solve_photometry
+        )
+        self.vertical_layout_photometry.addLayout(
+            self.horizontal_layout_solve_photometry
+        )
         self.line_3 = QtWidgets.QFrame(self.verticalLayoutWidget_2)
         self.line_3.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_3.setObjectName("line_3")
         self.vertical_layout_photometry.addWidget(self.line_3)
         self.horizonta_layout_photometry_results = QtWidgets.QHBoxLayout()
-        self.horizonta_layout_photometry_results.setObjectName("horizonta_layout_photometry_results")
-        self.vertical_layout_photometry.addLayout(self.horizonta_layout_photometry_results)
+        self.horizonta_layout_photometry_results.setObjectName(
+            "horizonta_layout_photometry_results"
+        )
+        self.vertical_layout_photometry.addLayout(
+            self.horizonta_layout_photometry_results
+        )
         self.tabs_solutions.addTab(self.tab_photometry, "")
         self.tab_orbit = QtWidgets.QWidget()
         self.tab_orbit.setObjectName("tab_orbit")
@@ -267,13 +426,19 @@ class Ui_PrimaryWindow(object):
         self.vertical_layout_orbit.setContentsMargins(0, 0, 0, 0)
         self.vertical_layout_orbit.setObjectName("vertical_layout_orbit")
         self.horizontal_layout_solve_orbit = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_solve_orbit.setObjectName("horizontal_layout_solve_orbit")
-        self.push_button_orbit_solve_orbit = QtWidgets.QPushButton(self.verticalLayoutWidget_5)
+        self.horizontal_layout_solve_orbit.setObjectName(
+            "horizontal_layout_solve_orbit"
+        )
+        self.push_button_orbit_solve_orbit = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_5
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
         self.push_button_orbit_solve_orbit.setFont(font)
-        self.push_button_orbit_solve_orbit.setObjectName("push_button_orbit_solve_orbit")
+        self.push_button_orbit_solve_orbit.setObjectName(
+            "push_button_orbit_solve_orbit"
+        )
         self.horizontal_layout_solve_orbit.addWidget(self.push_button_orbit_solve_orbit)
         self.vertical_layout_orbit.addLayout(self.horizontal_layout_solve_orbit)
         self.line_5 = QtWidgets.QFrame(self.verticalLayoutWidget_5)
@@ -282,7 +447,9 @@ class Ui_PrimaryWindow(object):
         self.line_5.setObjectName("line_5")
         self.vertical_layout_orbit.addWidget(self.line_5)
         self.horizontal_layout_orbit_results = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_orbit_results.setObjectName("horizontal_layout_orbit_results")
+        self.horizontal_layout_orbit_results.setObjectName(
+            "horizontal_layout_orbit_results"
+        )
         self.vertical_layout_orbit.addLayout(self.horizontal_layout_orbit_results)
         self.tabs_solutions.addTab(self.tab_orbit, "")
         self.tab_ephemeris = QtWidgets.QWidget()
@@ -294,18 +461,28 @@ class Ui_PrimaryWindow(object):
         font.setPointSize(11)
         self.verticalLayoutWidget_6.setFont(font)
         self.verticalLayoutWidget_6.setObjectName("verticalLayoutWidget_6")
-        self.vertical_layout_ephemeris = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_6)
+        self.vertical_layout_ephemeris = QtWidgets.QVBoxLayout(
+            self.verticalLayoutWidget_6
+        )
         self.vertical_layout_ephemeris.setContentsMargins(0, 0, 0, 0)
         self.vertical_layout_ephemeris.setObjectName("vertical_layout_ephemeris")
         self.horizontal_layout_solve_ephemeris = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_solve_ephemeris.setObjectName("horizontal_layout_solve_ephemeris")
-        self.push_button_ephemeris_solve_ephemeris = QtWidgets.QPushButton(self.verticalLayoutWidget_6)
+        self.horizontal_layout_solve_ephemeris.setObjectName(
+            "horizontal_layout_solve_ephemeris"
+        )
+        self.push_button_ephemeris_solve_ephemeris = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_6
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
         self.push_button_ephemeris_solve_ephemeris.setFont(font)
-        self.push_button_ephemeris_solve_ephemeris.setObjectName("push_button_ephemeris_solve_ephemeris")
-        self.horizontal_layout_solve_ephemeris.addWidget(self.push_button_ephemeris_solve_ephemeris)
+        self.push_button_ephemeris_solve_ephemeris.setObjectName(
+            "push_button_ephemeris_solve_ephemeris"
+        )
+        self.horizontal_layout_solve_ephemeris.addWidget(
+            self.push_button_ephemeris_solve_ephemeris
+        )
         self.vertical_layout_ephemeris.addLayout(self.horizontal_layout_solve_ephemeris)
         self.line_6 = QtWidgets.QFrame(self.verticalLayoutWidget_6)
         self.line_6.setFrameShape(QtWidgets.QFrame.Shape.HLine)
@@ -313,8 +490,12 @@ class Ui_PrimaryWindow(object):
         self.line_6.setObjectName("line_6")
         self.vertical_layout_ephemeris.addWidget(self.line_6)
         self.horizontal_layout_ephemeris_results = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_ephemeris_results.setObjectName("horizontal_layout_ephemeris_results")
-        self.vertical_layout_ephemeris.addLayout(self.horizontal_layout_ephemeris_results)
+        self.horizontal_layout_ephemeris_results.setObjectName(
+            "horizontal_layout_ephemeris_results"
+        )
+        self.vertical_layout_ephemeris.addLayout(
+            self.horizontal_layout_ephemeris_results
+        )
         self.tabs_solutions.addTab(self.tab_ephemeris, "")
         self.tab_propagate = QtWidgets.QWidget()
         self.tab_propagate.setObjectName("tab_propagate")
@@ -325,96 +506,192 @@ class Ui_PrimaryWindow(object):
         font.setPointSize(11)
         self.verticalLayoutWidget_4.setFont(font)
         self.verticalLayoutWidget_4.setObjectName("verticalLayoutWidget_4")
-        self.vertical_layout_propagate = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_4)
+        self.vertical_layout_propagate = QtWidgets.QVBoxLayout(
+            self.verticalLayoutWidget_4
+        )
         self.vertical_layout_propagate.setContentsMargins(0, 0, 0, 0)
         self.vertical_layout_propagate.setObjectName("vertical_layout_propagate")
         self.horizontal_layout_solve_propagation = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_solve_propagation.setObjectName("horizontal_layout_solve_propagation")
-        self.push_button_propagate_solve_propagation = QtWidgets.QPushButton(self.verticalLayoutWidget_4)
+        self.horizontal_layout_solve_propagation.setObjectName(
+            "horizontal_layout_solve_propagation"
+        )
+        self.push_button_propagate_solve_propagation = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_4
+        )
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
         font.setPointSize(11)
         self.push_button_propagate_solve_propagation.setFont(font)
-        self.push_button_propagate_solve_propagation.setObjectName("push_button_propagate_solve_propagation")
-        self.horizontal_layout_solve_propagation.addWidget(self.push_button_propagate_solve_propagation)
-        self.vertical_layout_propagate.addLayout(self.horizontal_layout_solve_propagation)
+        self.push_button_propagate_solve_propagation.setObjectName(
+            "push_button_propagate_solve_propagation"
+        )
+        self.horizontal_layout_solve_propagation.addWidget(
+            self.push_button_propagate_solve_propagation
+        )
+        self.vertical_layout_propagate.addLayout(
+            self.horizontal_layout_solve_propagation
+        )
         self.line_7 = QtWidgets.QFrame(self.verticalLayoutWidget_4)
         self.line_7.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_7.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_7.setObjectName("line_7")
         self.vertical_layout_propagate.addWidget(self.line_7)
         self.grid_layout_propagate_rate_results = QtWidgets.QGridLayout()
-        self.grid_layout_propagate_rate_results.setObjectName("grid_layout_propagate_rate_results")
+        self.grid_layout_propagate_rate_results.setObjectName(
+            "grid_layout_propagate_rate_results"
+        )
         self.line_12 = QtWidgets.QFrame(self.verticalLayoutWidget_4)
         self.line_12.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.line_12.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_12.setObjectName("line_12")
         self.grid_layout_propagate_rate_results.addWidget(self.line_12, 0, 5, 1, 1)
-        self.label_dynamic_propagate_ra_acceleration = QtWidgets.QLabel(self.verticalLayoutWidget_4)
-        self.label_dynamic_propagate_ra_acceleration.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_propagate_ra_acceleration.setObjectName("label_dynamic_propagate_ra_acceleration")
-        self.grid_layout_propagate_rate_results.addWidget(self.label_dynamic_propagate_ra_acceleration, 0, 6, 1, 1)
-        self.label_dynamic_propagate_dec_acceleration = QtWidgets.QLabel(self.verticalLayoutWidget_4)
-        self.label_dynamic_propagate_dec_acceleration.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_propagate_dec_acceleration.setObjectName("label_dynamic_propagate_dec_acceleration")
-        self.grid_layout_propagate_rate_results.addWidget(self.label_dynamic_propagate_dec_acceleration, 0, 7, 1, 1)
-        self.label_dynamic_propagate_dec_velocity = QtWidgets.QLabel(self.verticalLayoutWidget_4)
-        self.label_dynamic_propagate_dec_velocity.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_propagate_dec_velocity.setObjectName("label_dynamic_propagate_dec_velocity")
-        self.grid_layout_propagate_rate_results.addWidget(self.label_dynamic_propagate_dec_velocity, 0, 4, 1, 1)
+        self.label_dynamic_propagate_ra_acceleration = QtWidgets.QLabel(
+            self.verticalLayoutWidget_4
+        )
+        self.label_dynamic_propagate_ra_acceleration.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_propagate_ra_acceleration.setObjectName(
+            "label_dynamic_propagate_ra_acceleration"
+        )
+        self.grid_layout_propagate_rate_results.addWidget(
+            self.label_dynamic_propagate_ra_acceleration, 0, 6, 1, 1
+        )
+        self.label_dynamic_propagate_dec_acceleration = QtWidgets.QLabel(
+            self.verticalLayoutWidget_4
+        )
+        self.label_dynamic_propagate_dec_acceleration.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_propagate_dec_acceleration.setObjectName(
+            "label_dynamic_propagate_dec_acceleration"
+        )
+        self.grid_layout_propagate_rate_results.addWidget(
+            self.label_dynamic_propagate_dec_acceleration, 0, 7, 1, 1
+        )
+        self.label_dynamic_propagate_dec_velocity = QtWidgets.QLabel(
+            self.verticalLayoutWidget_4
+        )
+        self.label_dynamic_propagate_dec_velocity.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_propagate_dec_velocity.setObjectName(
+            "label_dynamic_propagate_dec_velocity"
+        )
+        self.grid_layout_propagate_rate_results.addWidget(
+            self.label_dynamic_propagate_dec_velocity, 0, 4, 1, 1
+        )
         self.line_11 = QtWidgets.QFrame(self.verticalLayoutWidget_4)
         self.line_11.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.line_11.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_11.setObjectName("line_11")
         self.grid_layout_propagate_rate_results.addWidget(self.line_11, 0, 2, 1, 1)
-        self.label_dynamic_propagate_ra_velocity = QtWidgets.QLabel(self.verticalLayoutWidget_4)
-        self.label_dynamic_propagate_ra_velocity.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_propagate_ra_velocity.setObjectName("label_dynamic_propagate_ra_velocity")
-        self.grid_layout_propagate_rate_results.addWidget(self.label_dynamic_propagate_ra_velocity, 0, 3, 1, 1)
+        self.label_dynamic_propagate_ra_velocity = QtWidgets.QLabel(
+            self.verticalLayoutWidget_4
+        )
+        self.label_dynamic_propagate_ra_velocity.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_propagate_ra_velocity.setObjectName(
+            "label_dynamic_propagate_ra_velocity"
+        )
+        self.grid_layout_propagate_rate_results.addWidget(
+            self.label_dynamic_propagate_ra_velocity, 0, 3, 1, 1
+        )
         self.label_static_propagate_rate = QtWidgets.QLabel(self.verticalLayoutWidget_4)
         self.label_static_propagate_rate.setObjectName("label_static_propagate_rate")
-        self.grid_layout_propagate_rate_results.addWidget(self.label_static_propagate_rate, 0, 0, 1, 1)
-        self.vertical_layout_propagate.addLayout(self.grid_layout_propagate_rate_results)
+        self.grid_layout_propagate_rate_results.addWidget(
+            self.label_static_propagate_rate, 0, 0, 1, 1
+        )
+        self.vertical_layout_propagate.addLayout(
+            self.grid_layout_propagate_rate_results
+        )
         self.line_10 = QtWidgets.QFrame(self.verticalLayoutWidget_4)
         self.line_10.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_10.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_10.setObjectName("line_10")
         self.vertical_layout_propagate.addWidget(self.line_10)
-        self.text_browser_propagate_future_results = QtWidgets.QTextBrowser(self.verticalLayoutWidget_4)
+        self.text_browser_propagate_future_results = QtWidgets.QTextBrowser(
+            self.verticalLayoutWidget_4
+        )
         self.text_browser_propagate_future_results.setAcceptRichText(True)
-        self.text_browser_propagate_future_results.setObjectName("text_browser_propagate_future_results")
-        self.vertical_layout_propagate.addWidget(self.text_browser_propagate_future_results)
+        self.text_browser_propagate_future_results.setObjectName(
+            "text_browser_propagate_future_results"
+        )
+        self.vertical_layout_propagate.addWidget(
+            self.text_browser_propagate_future_results
+        )
         self.line_4 = QtWidgets.QFrame(self.verticalLayoutWidget_4)
         self.line_4.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_4.setObjectName("line_4")
         self.vertical_layout_propagate.addWidget(self.line_4)
         self.grid_layout_propagate_custom_entry = QtWidgets.QGridLayout()
-        self.grid_layout_propagate_custom_entry.setObjectName("grid_layout_propagate_custom_entry")
-        self.date_time_edit_propagate_date_time = QtWidgets.QDateTimeEdit(self.verticalLayoutWidget_4)
-        self.date_time_edit_propagate_date_time.setTimeSpec(QtCore.Qt.TimeSpec.LocalTime)
-        self.date_time_edit_propagate_date_time.setObjectName("date_time_edit_propagate_date_time")
-        self.grid_layout_propagate_custom_entry.addWidget(self.date_time_edit_propagate_date_time, 0, 0, 1, 1)
-        self.label_dynamic_propagate_custom_dec = QtWidgets.QLabel(self.verticalLayoutWidget_4)
-        self.label_dynamic_propagate_custom_dec.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_propagate_custom_dec.setObjectName("label_dynamic_propagate_custom_dec")
-        self.grid_layout_propagate_custom_entry.addWidget(self.label_dynamic_propagate_custom_dec, 0, 4, 1, 1)
-        self.label_dynamic_propagate_custom_ra = QtWidgets.QLabel(self.verticalLayoutWidget_4)
-        self.label_dynamic_propagate_custom_ra.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_dynamic_propagate_custom_ra.setObjectName("label_dynamic_propagate_custom_ra")
-        self.grid_layout_propagate_custom_entry.addWidget(self.label_dynamic_propagate_custom_ra, 0, 3, 1, 1)
-        self.push_button_propagate_custom_solve = QtWidgets.QPushButton(self.verticalLayoutWidget_4)
-        self.push_button_propagate_custom_solve.setObjectName("push_button_propagate_custom_solve")
-        self.grid_layout_propagate_custom_entry.addWidget(self.push_button_propagate_custom_solve, 0, 2, 1, 1)
-        self.combo_box_propagate_timezone = QtWidgets.QComboBox(self.verticalLayoutWidget_4)
-        self.combo_box_propagate_timezone.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.grid_layout_propagate_custom_entry.setObjectName(
+            "grid_layout_propagate_custom_entry"
+        )
+        self.date_time_edit_propagate_date_time = QtWidgets.QDateTimeEdit(
+            self.verticalLayoutWidget_4
+        )
+        self.date_time_edit_propagate_date_time.setTimeSpec(
+            QtCore.Qt.TimeSpec.LocalTime
+        )
+        self.date_time_edit_propagate_date_time.setObjectName(
+            "date_time_edit_propagate_date_time"
+        )
+        self.grid_layout_propagate_custom_entry.addWidget(
+            self.date_time_edit_propagate_date_time, 0, 0, 1, 1
+        )
+        self.label_dynamic_propagate_custom_dec = QtWidgets.QLabel(
+            self.verticalLayoutWidget_4
+        )
+        self.label_dynamic_propagate_custom_dec.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_propagate_custom_dec.setObjectName(
+            "label_dynamic_propagate_custom_dec"
+        )
+        self.grid_layout_propagate_custom_entry.addWidget(
+            self.label_dynamic_propagate_custom_dec, 0, 4, 1, 1
+        )
+        self.label_dynamic_propagate_custom_ra = QtWidgets.QLabel(
+            self.verticalLayoutWidget_4
+        )
+        self.label_dynamic_propagate_custom_ra.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter
+        )
+        self.label_dynamic_propagate_custom_ra.setObjectName(
+            "label_dynamic_propagate_custom_ra"
+        )
+        self.grid_layout_propagate_custom_entry.addWidget(
+            self.label_dynamic_propagate_custom_ra, 0, 3, 1, 1
+        )
+        self.push_button_propagate_custom_solve = QtWidgets.QPushButton(
+            self.verticalLayoutWidget_4
+        )
+        self.push_button_propagate_custom_solve.setObjectName(
+            "push_button_propagate_custom_solve"
+        )
+        self.grid_layout_propagate_custom_entry.addWidget(
+            self.push_button_propagate_custom_solve, 0, 2, 1, 1
+        )
+        self.combo_box_propagate_timezone = QtWidgets.QComboBox(
+            self.verticalLayoutWidget_4
+        )
+        self.combo_box_propagate_timezone.setLayoutDirection(
+            QtCore.Qt.LayoutDirection.LeftToRight
+        )
         self.combo_box_propagate_timezone.setMinimumContentsLength(0)
         self.combo_box_propagate_timezone.setDuplicatesEnabled(False)
         self.combo_box_propagate_timezone.setObjectName("combo_box_propagate_timezone")
         self.combo_box_propagate_timezone.addItem("")
         self.combo_box_propagate_timezone.addItem("")
-        self.grid_layout_propagate_custom_entry.addWidget(self.combo_box_propagate_timezone, 0, 1, 1, 1)
-        self.vertical_layout_propagate.addLayout(self.grid_layout_propagate_custom_entry)
+        self.grid_layout_propagate_custom_entry.addWidget(
+            self.combo_box_propagate_timezone, 0, 1, 1, 1
+        )
+        self.vertical_layout_propagate.addLayout(
+            self.grid_layout_propagate_custom_entry
+        )
         self.tabs_solutions.addTab(self.tab_propagate, "")
         self.vertical_layout_solutions.addWidget(self.tabs_solutions)
         self.vertical_layout_window.addLayout(self.vertical_layout_solutions)
@@ -431,45 +708,138 @@ class Ui_PrimaryWindow(object):
         _translate = QtCore.QCoreApplication.translate
         PrimaryWindow.setWindowTitle(_translate("PrimaryWindow", "OpihiExarata"))
         self.push_button_new_target.setText(_translate("PrimaryWindow", "New Target"))
-        self.push_button_new_image_automatic.setText(_translate("PrimaryWindow", "Automatic New Image"))
-        self.push_button_new_image_manual.setText(_translate("PrimaryWindow", "Manual New Image"))
-        self.dummy_opihi_navbar.setText(_translate("PrimaryWindow", "DUMMY OPIHI IMAGE NAVIGATION BAR."))
-        self.push_button_refresh_window.setText(_translate("PrimaryWindow", "Refresh Window"))
-        self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_summary), _translate("PrimaryWindow", "Summary"))
-        self.push_button_astrometry_solve_astrometry.setText(_translate("PrimaryWindow", "Solve Astrometry"))
-        self.label_dynamic_astrometry_target_x.setText(_translate("PrimaryWindow", "0000"))
-        self.label_dynamic_astrometry_target_y.setText(_translate("PrimaryWindow", "0000"))
-        self.label_static_astrometry_target_coordinates.setText(_translate("PrimaryWindow", "Target/Asteroid:"))
-        self.label_dynamic_astrometry_center_ra.setText(_translate("PrimaryWindow", "HH:MM:SS.SS"))
-        self.label_static_astrometry_center_coordinates.setText(_translate("PrimaryWindow", "Opihi Center:"))
-        self.label_dynamic_astrometry_center_dec.setText(_translate("PrimaryWindow", "+DD:MM:SS.SS"))
-        self.label_dynamic_astrometry_target_ra.setText(_translate("PrimaryWindow", "HH:MM:SS.SS"))
-        self.label_dynamic_astrometry_target_dec.setText(_translate("PrimaryWindow", "+DD:MM:SS.SS"))
-        self.label_dynamic_astrometry_center_y.setText(_translate("PrimaryWindow", "0000"))
-        self.label_dynamic_astrometry_center_x.setText(_translate("PrimaryWindow", "0000"))
-        self.push_button_astrometry_custom_solve.setText(_translate("PrimaryWindow", "Custom Solve"))
-        self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_astrometry), _translate("PrimaryWindow", "Astrometry"))
-        self.push_button_photometry_solve_photometry.setText(_translate("PrimaryWindow", "Solve Photometry"))
-        self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_photometry), _translate("PrimaryWindow", "Photometry"))
-        self.push_button_orbit_solve_orbit.setText(_translate("PrimaryWindow", "Solve Orbit"))
-        self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_orbit), _translate("PrimaryWindow", "Orbit"))
-        self.push_button_ephemeris_solve_ephemeris.setText(_translate("PrimaryWindow", "Solve Ephemeris"))
-        self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_ephemeris), _translate("PrimaryWindow", "Ephemeris"))
-        self.push_button_propagate_solve_propagation.setText(_translate("PrimaryWindow", "Solve Propagation"))
-        self.label_dynamic_propagate_ra_acceleration.setText(_translate("PrimaryWindow", "+AA.AAA"))
-        self.label_dynamic_propagate_dec_acceleration.setText(_translate("PrimaryWindow", "+AA.AAA"))
-        self.label_dynamic_propagate_dec_velocity.setText(_translate("PrimaryWindow", "+VV.VVV"))
-        self.label_dynamic_propagate_ra_velocity.setText(_translate("PrimaryWindow", "+VV.VVV"))
-        self.label_static_propagate_rate.setText(_translate("PrimaryWindow", "<html><head/><body><p>Propagate Rate [ &quot;/s | &quot;/s<span style=\" vertical-align:super;\">2</span> ]</p></body></html>"))
-        self.text_browser_propagate_future_results.setHtml(_translate("PrimaryWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Sylfaen\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS</p></body></html>"))
-        self.date_time_edit_propagate_date_time.setDisplayFormat(_translate("PrimaryWindow", "yyyy-MM-dd HH:mm:ss"))
-        self.label_dynamic_propagate_custom_dec.setText(_translate("PrimaryWindow", "+DD:MM:SS.SS"))
-        self.label_dynamic_propagate_custom_ra.setText(_translate("PrimaryWindow", "HH:MM:SS.SS"))
-        self.push_button_propagate_custom_solve.setText(_translate("PrimaryWindow", "Custom Solve"))
-        self.combo_box_propagate_timezone.setItemText(0, _translate("PrimaryWindow", "UTC+00:00"))
-        self.combo_box_propagate_timezone.setItemText(1, _translate("PrimaryWindow", "HST-10:00"))
-        self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_propagate), _translate("PrimaryWindow", "Propagate"))
+        self.push_button_new_image_automatic.setText(
+            _translate("PrimaryWindow", "Automatic New Image")
+        )
+        self.push_button_new_image_manual.setText(
+            _translate("PrimaryWindow", "Manual New Image")
+        )
+        self.dummy_opihi_navbar.setText(
+            _translate("PrimaryWindow", "DUMMY OPIHI IMAGE NAVIGATION BAR.")
+        )
+        self.push_button_refresh_window.setText(
+            _translate("PrimaryWindow", "Refresh Window")
+        )
+        self.tabs_solutions.setTabText(
+            self.tabs_solutions.indexOf(self.tab_summary),
+            _translate("PrimaryWindow", "Summary"),
+        )
+        self.push_button_astrometry_solve_astrometry.setText(
+            _translate("PrimaryWindow", "Solve Astrometry")
+        )
+        self.label_dynamic_astrometry_target_x.setText(
+            _translate("PrimaryWindow", "0000")
+        )
+        self.label_dynamic_astrometry_target_y.setText(
+            _translate("PrimaryWindow", "0000")
+        )
+        self.label_static_astrometry_target_coordinates.setText(
+            _translate("PrimaryWindow", "Target/Asteroid:")
+        )
+        self.label_dynamic_astrometry_center_ra.setText(
+            _translate("PrimaryWindow", "HH:MM:SS.SS")
+        )
+        self.label_static_astrometry_center_coordinates.setText(
+            _translate("PrimaryWindow", "Opihi Center:")
+        )
+        self.label_dynamic_astrometry_center_dec.setText(
+            _translate("PrimaryWindow", "+DD:MM:SS.SS")
+        )
+        self.label_dynamic_astrometry_target_ra.setText(
+            _translate("PrimaryWindow", "HH:MM:SS.SS")
+        )
+        self.label_dynamic_astrometry_target_dec.setText(
+            _translate("PrimaryWindow", "+DD:MM:SS.SS")
+        )
+        self.label_dynamic_astrometry_center_y.setText(
+            _translate("PrimaryWindow", "0000")
+        )
+        self.label_dynamic_astrometry_center_x.setText(
+            _translate("PrimaryWindow", "0000")
+        )
+        self.push_button_astrometry_custom_solve.setText(
+            _translate("PrimaryWindow", "Custom Solve")
+        )
+        self.tabs_solutions.setTabText(
+            self.tabs_solutions.indexOf(self.tab_astrometry),
+            _translate("PrimaryWindow", "Astrometry"),
+        )
+        self.push_button_photometry_solve_photometry.setText(
+            _translate("PrimaryWindow", "Solve Photometry")
+        )
+        self.tabs_solutions.setTabText(
+            self.tabs_solutions.indexOf(self.tab_photometry),
+            _translate("PrimaryWindow", "Photometry"),
+        )
+        self.push_button_orbit_solve_orbit.setText(
+            _translate("PrimaryWindow", "Solve Orbit")
+        )
+        self.tabs_solutions.setTabText(
+            self.tabs_solutions.indexOf(self.tab_orbit),
+            _translate("PrimaryWindow", "Orbit"),
+        )
+        self.push_button_ephemeris_solve_ephemeris.setText(
+            _translate("PrimaryWindow", "Solve Ephemeris")
+        )
+        self.tabs_solutions.setTabText(
+            self.tabs_solutions.indexOf(self.tab_ephemeris),
+            _translate("PrimaryWindow", "Ephemeris"),
+        )
+        self.push_button_propagate_solve_propagation.setText(
+            _translate("PrimaryWindow", "Solve Propagation")
+        )
+        self.label_dynamic_propagate_ra_acceleration.setText(
+            _translate("PrimaryWindow", "+AA.AAA")
+        )
+        self.label_dynamic_propagate_dec_acceleration.setText(
+            _translate("PrimaryWindow", "+AA.AAA")
+        )
+        self.label_dynamic_propagate_dec_velocity.setText(
+            _translate("PrimaryWindow", "+VV.VVV")
+        )
+        self.label_dynamic_propagate_ra_velocity.setText(
+            _translate("PrimaryWindow", "+VV.VVV")
+        )
+        self.label_static_propagate_rate.setText(
+            _translate(
+                "PrimaryWindow",
+                "<html><head/><body><p>Propagate Rate [ &quot;/s | &quot;/s<span"
+                ' style=" vertical-align:super;">2</span> ]</p></body></html>',
+            )
+        )
+        self.text_browser_propagate_future_results.setHtml(
+            _translate(
+                "PrimaryWindow",
+                '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"'
+                ' "http://www.w3.org/TR/REC-html40/strict.dtd">\n<html><head><meta'
+                ' name="qrichtext" content="1" /><style type="text/css">\np, li {'
+                ' white-space: pre-wrap; }\n</style></head><body style="'
+                " font-family:'Sylfaen'; font-size:11pt; font-weight:400;"
+                ' font-style:normal;">\n<p style=" margin-top:0px; margin-bottom:0px;'
+                " margin-left:0px; margin-right:0px; -qt-block-indent:0;"
+                ' text-indent:0px;">YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS   '
+                " +DD:MM:SS.SS</p></body></html>",
+            )
+        )
+        self.date_time_edit_propagate_date_time.setDisplayFormat(
+            _translate("PrimaryWindow", "yyyy-MM-dd HH:mm:ss")
+        )
+        self.label_dynamic_propagate_custom_dec.setText(
+            _translate("PrimaryWindow", "+DD:MM:SS.SS")
+        )
+        self.label_dynamic_propagate_custom_ra.setText(
+            _translate("PrimaryWindow", "HH:MM:SS.SS")
+        )
+        self.push_button_propagate_custom_solve.setText(
+            _translate("PrimaryWindow", "Custom Solve")
+        )
+        self.combo_box_propagate_timezone.setItemText(
+            0, _translate("PrimaryWindow", "UTC+00:00")
+        )
+        self.combo_box_propagate_timezone.setItemText(
+            1, _translate("PrimaryWindow", "HST-10:00")
+        )
+        self.tabs_solutions.setTabText(
+            self.tabs_solutions.indexOf(self.tab_propagate),
+            _translate("PrimaryWindow", "Propagate"),
+        )
