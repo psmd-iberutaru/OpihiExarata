@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.image &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.library.image &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -344,7 +353,7 @@
     <span class="n">near_center_y</span> <span class="o">=</span> <span class="n">near_n_cols</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="n">grid_y</span><span class="p">,</span> <span class="n">grid_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[:</span><span class="n">near_n_rows</span><span class="p">,</span> <span class="p">:</span><span class="n">near_n_cols</span><span class="p">]</span>
     <span class="n">dist_sq</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid_x</span> <span class="o">-</span> <span class="n">near_center_x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">grid_y</span> <span class="o">-</span> <span class="n">near_center_y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="n">near_mask</span> <span class="o">=</span> <span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">near_mask</span> <span class="o">=</span> <span class="n">dist_sq</span> <span class="o">&lt;=</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span>
 
     <span class="c1"># The circular mask is local and should be expanded to the full array&#39;s</span>
     <span class="c1"># size. Padding is needed in the event that the center pixel is on the</span>

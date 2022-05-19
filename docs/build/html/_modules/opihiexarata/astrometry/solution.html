@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.solution &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.astrometry.solution &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -187,6 +196,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;The astrometric solution class.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">ap_coordinates</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
@@ -194,6 +204,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata.astrometry</span> <span class="k">as</span> <span class="nn">astrometry</span>
+
 
 <div class="viewcode-block" id="AstrometricSolution"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution">[docs]</a><span class="k">class</span> <span class="nc">AstrometricSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The primary class describing an astrometric solution, based on an image</span>
@@ -318,7 +329,87 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ra</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;deg&quot;</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="AstrometricSolution.pixel_to_sky_coordinates"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.pixel_to_sky_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">pixel_to_sky_coordinates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Compute the RA and DEC sky coordinates of this image provided</span>
+<span class="sd">        the pixel coordinates. Floating point pixel values are supported.</span>
+
+<span class="sd">        This is a wrapper around the WCS-based method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : float or array-like</span>
+<span class="sd">            The x pixel coordinate in the x-axis direction.</span>
+<span class="sd">        y : float or array-like</span>
+<span class="sd">            The y pixel coordinate in the y-axis direction.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ra : float or array-like</span>
+<span class="sd">            The right ascension of the pixel coordinate, in degrees.</span>
+<span class="sd">        dec : float or array-like</span>
+<span class="sd">            The declination of the pixel coordinate, in degrees.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Convert to arrays.</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># Must be parallel arrays.</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The two pixel coordinate arrays specified should be parallel arrays.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Compute the values from the pixel location.</span>
+        <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">pixel_to_world_values</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="c1"># If the input parameters were just singular values, then the answer</span>
+        <span class="c1"># expected is likely also singular values. Type converting.</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+            <span class="n">ra</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span>
+            <span class="n">dec</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span></div>
+
+<div class="viewcode-block" id="AstrometricSolution.sky_to_pixel_coordinates"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.sky_to_pixel_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">sky_to_pixel_coordinates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Compute the x and y pixel coordinates of this image provided</span>
+<span class="sd">        the RA DEC sky coordinates.</span>
+
+<span class="sd">        This is a wrapper around the WCS-based method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ra : float or array-like</span>
+<span class="sd">            The right ascension of the pixel coordinate, in degrees.</span>
+<span class="sd">        dec : float or array-like</span>
+<span class="sd">            The declination of the pixel coordinate, in degrees.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        x : float or array-like</span>
+<span class="sd">            The x pixel coordinate in the x-axis direction.</span>
+<span class="sd">        y : float or array-like</span>
+<span class="sd">            The y pixel coordinate in the y-axis direction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Convert to arrays.</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+        <span class="c1"># Must be parallel arrays.</span>
+        <span class="k">if</span> <span class="n">ra</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">dec</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The two sky coordinate arrays specified should be parallel arrays.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Compute the values from the sky location.</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">world_to_pixel_values</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+        <span class="c1"># If the input parameters were just singular values, then the answer</span>
+        <span class="c1"># expected is likely also singular values. Type converting.</span>
+        <span class="k">if</span> <span class="n">ra</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">dec</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span></div></div>
 
 
 <div class="viewcode-block" id="_vehicle_astrometrynet_web_api"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution._vehicle_astrometrynet_web_api">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_astrometrynet_web_api</span><span class="p">(</span><span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>

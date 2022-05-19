@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -115,6 +115,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -129,6 +132,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -136,6 +140,11 @@
 <li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -215,6 +224,30 @@ values are just passed down.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">degrees_to_sexagesimal_ra_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#degrees_to_sexagesimal_ra_dec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec" title="Permalink to this definition"></a></dt>
+<dd><p>Convert RA and DEC degree measurements to the more familiar HMSDMS
+sexagesimal format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra_deg</strong> (<em>float</em>) – The right ascension in degrees.</p></li>
+<li><p><strong>dec_deg</strong> (<em>float</em>) – The declination in degrees.</p></li>
+<li><p><strong>precision</strong> (<em>int</em>) – The precision of the conversion’s seconds term, i.e. how many numbers
+are used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>ra_sex</strong> (<em>str</em>) – The right ascension in hour:minute:second sexagesimal.</p></li>
+<li><p><strong>dec_sex</strong> (<em>str</em>) – The declination in degree:minute:second sexagesimal.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.conversion.full_date_to_unix_time">
 <span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">full_date_to_unix_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#full_date_to_unix_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.full_date_to_unix_time" title="Permalink to this definition"></a></dt>
 <dd><p>A function to convert the a whole date format into UNIX time.</p>
@@ -228,6 +261,93 @@ values are just passed down.</p></li>
 <li><p><strong>minute</strong> (<em>int</em>) – The minute of the time stamp to be converted.</p></li>
 <li><p><strong>second</strong> (<em>float</em>) – The second of the time stamp to be converted.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>unix_time</strong> – The time input converted into UNIX time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.modified_julian_day_to_unix_time">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">modified_julian_day_to_unix_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mjd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#modified_julian_day_to_unix_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.modified_julian_day_to_unix_time" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert between modified julian days to Unix time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mjd</strong> (<em>float</em>) – The modified Julian day to be converted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>unix_time</strong> – The time converted to UNIX time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.sexagesimal_ra_dec_to_degrees">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">sexagesimal_ra_dec_to_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_sex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_sex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#sexagesimal_ra_dec_to_degrees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.sexagesimal_ra_dec_to_degrees" title="Permalink to this definition"></a></dt>
+<dd><p>Convert RA and DEC measurements from the more familiar HMSDMS
+sexagesimal format to degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra_sex</strong> (<em>str</em>) – The right ascension in hour:minute:second sexagesimal.</p></li>
+<li><p><strong>dec_sex</strong> (<em>str</em>) – The declination in degree:minute:second sexagesimal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>ra_deg</strong> (<em>float</em>) – The right ascension in degrees.</p></li>
+<li><p><strong>dec_deg</strong> (<em>float</em>) – The declination in degrees.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.unix_time_to_decimal_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">unix_time_to_decimal_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unix_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#unix_time_to_decimal_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.unix_time_to_decimal_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert UNIX time to the decimal day time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>unix_time</strong> (<em>float</em>) – The unix time that is going to be converted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the UNIX time.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the UNIX time.</p></li>
+<li><p><strong>day</strong> (<em>float</em>) – The day of the the UNIX time, the hours, minute, and seconds are all
+contained as a decimal.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.unix_time_to_full_date">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">unix_time_to_full_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unix_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#unix_time_to_full_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.unix_time_to_full_date" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert the a whole date format into UNIX time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>unix_time</strong> (<em>float</em>) – The UNIX time which is subject to be input.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the UNIX time provided.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the UNIX time provided.</p></li>
+<li><p><strong>day</strong> (<em>int</em>) – The day of the UNIX time provided.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the UNIX time provided.</p></li>
+<li><p><strong>minute</strong> (<em>int</em>) – The minute of the UNIX time provided.</p></li>
+<li><p><strong>second</strong> (<em>float</em>) – The second of the UNIX time provided.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>

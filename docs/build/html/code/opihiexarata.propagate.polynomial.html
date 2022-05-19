@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.polynomial module &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.propagate.polynomial module &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -115,6 +115,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -129,6 +132,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -136,6 +140,11 @@
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -191,17 +200,21 @@
              
   <section id="module-opihiexarata.propagate.polynomial">
 <span id="opihiexarata-propagate-polynomial-module"></span><h1>opihiexarata.propagate.polynomial module<a class="headerlink" href="#module-opihiexarata.propagate.polynomial" title="Permalink to this headline"></a></h1>
-<p>For polynomial fitting propagation, using approximations of 2nd order
+<p>For polynomial fitting propagation, using approximations of 1st or 2nd order
 terms but ignoring some spherical effects.</p>
+<p>Although this could be easily implimented in a better method using subclassing
+rather than having two classes, as having a 3rd order is not really feasible,
+and for the sake of readability and stability, two separate copy-like classes
+are written.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.propagate.polynomial.</span></span><span class="sig-name descname"><span class="pre">PolynomialPropagationEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#PolynomialPropagationEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.propagate.polynomial.</span></span><span class="sig-name descname"><span class="pre">LinearPropagationEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#LinearPropagationEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PropagationEngine" title="opihiexarata.library.engine.PropagationEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.PropagationEngine</span></code></a></p>
-<p>A simple propagation engine which uses 2nd order extrapolation of
+<p>A simple propagation engine which uses 1st order extrapolation of
 RA DEC points independently to determine future location.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.ra_array">
-<span class="sig-name descname"><span class="pre">ra_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.ra_array" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_array">
+<span class="sig-name descname"><span class="pre">ra_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_array" title="Permalink to this definition"></a></dt>
 <dd><p>The array of right ascension measurements to extrapolate to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -211,8 +224,8 @@ RA DEC points independently to determine future location.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.dec_array">
-<span class="sig-name descname"><span class="pre">dec_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.dec_array" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.dec_array">
+<span class="sig-name descname"><span class="pre">dec_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.dec_array" title="Permalink to this definition"></a></dt>
 <dd><p>The array of declinations measurements to extrapolate to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -222,8 +235,8 @@ RA DEC points independently to determine future location.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.obs_time_array">
-<span class="sig-name descname"><span class="pre">obs_time_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.obs_time_array" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.obs_time_array">
+<span class="sig-name descname"><span class="pre">obs_time_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.obs_time_array" title="Permalink to this definition"></a></dt>
 <dd><p>The array of observation times which the RA and DEC measurements were
 taken at. The values are in UNIX time.</p>
 <dl class="field-list simple">
@@ -234,8 +247,8 @@ taken at. The values are in UNIX time.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.ra_poly_param">
-<span class="sig-name descname"><span class="pre">ra_poly_param</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.ra_poly_param" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_poly_param">
+<span class="sig-name descname"><span class="pre">ra_poly_param</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_poly_param" title="Permalink to this definition"></a></dt>
 <dd><p>The polynomial fit parameters for the RA(time) propagation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -245,8 +258,8 @@ taken at. The values are in UNIX time.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.dec_poly_param">
-<span class="sig-name descname"><span class="pre">dec_poly_param</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.dec_poly_param" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.dec_poly_param">
+<span class="sig-name descname"><span class="pre">dec_poly_param</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.dec_poly_param" title="Permalink to this definition"></a></dt>
 <dd><p>The polynomial fit parameters for the DEC(time) propagation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -256,8 +269,8 @@ taken at. The values are in UNIX time.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#PolynomialPropagationEngine.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.__init__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#LinearPropagationEngine.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Instantiation of the propagation engine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -270,18 +283,122 @@ degrees.</p></li>
 were taken at. This should be in UNIX time.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.PolynomialPropagationEngine.forward_propagate">
-<span class="sig-name descname"><span class="pre">forward_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">future_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#PolynomialPropagationEngine.forward_propagate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.PolynomialPropagationEngine.forward_propagate" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.forward_propagate">
+<span class="sig-name descname"><span class="pre">forward_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">future_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#LinearPropagationEngine.forward_propagate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.forward_propagate" title="Permalink to this definition"></a></dt>
+<dd><p>Determine a new location(s) based on the polynomial propagation,
+providing new times to locate in the future.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>future_time</strong> (<em>array-like</em>) – The set of future times which to derive new RA and DEC coordinates.
+The time must be in UNIX time.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>future_ra</strong> (<em>ndarray</em>) – The set of right ascensions that cooresponds to the future times,
+in degrees.</p></li>
+<li><p><strong>future_dec</strong> (<em>ndarray</em>) – The set of declinations that cooresponds to the future times, in
+degrees.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.propagate.polynomial.</span></span><span class="sig-name descname"><span class="pre">QuadraticPropagationEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#QuadraticPropagationEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PropagationEngine" title="opihiexarata.library.engine.PropagationEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.PropagationEngine</span></code></a></p>
+<p>A simple propagation engine which uses 2nd order extrapolation of
+RA DEC points independently to determine future location.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.ra_array">
+<span class="sig-name descname"><span class="pre">ra_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.ra_array" title="Permalink to this definition"></a></dt>
+<dd><p>The array of right ascension measurements to extrapolate to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.dec_array">
+<span class="sig-name descname"><span class="pre">dec_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.dec_array" title="Permalink to this definition"></a></dt>
+<dd><p>The array of declinations measurements to extrapolate to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.obs_time_array">
+<span class="sig-name descname"><span class="pre">obs_time_array</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.obs_time_array" title="Permalink to this definition"></a></dt>
+<dd><p>The array of observation times which the RA and DEC measurements were
+taken at. The values are in UNIX time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.ra_poly_param">
+<span class="sig-name descname"><span class="pre">ra_poly_param</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.ra_poly_param" title="Permalink to this definition"></a></dt>
+<dd><p>The polynomial fit parameters for the RA(time) propagation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.dec_poly_param">
+<span class="sig-name descname"><span class="pre">dec_poly_param</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.dec_poly_param" title="Permalink to this definition"></a></dt>
+<dd><p>The polynomial fit parameters for the DEC(time) propagation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#QuadraticPropagationEngine.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Instantiation of the propagation engine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>array-like</em>) – An array of right ascensions to fit and extrapolate to, must be in
+degrees.</p></li>
+<li><p><strong>dec</strong> (<em>array-like</em>) – An array of declinations to fit and extrapolate to, must be in
+degrees.</p></li>
+<li><p><strong>obs_time</strong> (<em>array-like</em>) – An array of observation times which the RA and DEC measurements
+were taken at. This should be in UNIX time.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine.forward_propagate">
+<span class="sig-name descname"><span class="pre">forward_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">future_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#QuadraticPropagationEngine.forward_propagate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.forward_propagate" title="Permalink to this definition"></a></dt>
 <dd><p>Determine a new location(s) based on the polynomial propagation,
 providing new times to locate in the future.</p>
 <dl class="field-list simple">

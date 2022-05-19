@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.gui.name &mdash; OpihiExarata 2022.5.18 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.gui.name</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.gui.name</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This window is for allowing the user to fill out the name of the object</span>
+<span class="sd">which they are observing, used when doing new targets.</span>
+
+<span class="sd">This is just a simple input dialog.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">PyQt6</span> <span class="k">as</span> <span class="nn">PyQt</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
+
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+
+<div class="viewcode-block" id="TargetNameWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow">[docs]</a><span class="k">class</span> <span class="nc">TargetNameWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the pop up window which will ask for the name of the target.</span>
+<span class="sd">    Some sanitization of the name also happens here to make sure it is proper.</span>
+
+<span class="sd">    Really, this class is a little bit of a wrapper around the InputDialog</span>
+<span class="sd">    widget.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _raw_target_name : string</span>
+<span class="sd">        The raw string input from the user.</span>
+<span class="sd">    target_name : string</span>
+<span class="sd">        The entered name as specified by the user after input sanitization.</span>
+<span class="sd">    status : bool</span>
+<span class="sd">        The status of the entry. If it was exited with a proper input and</span>
+<span class="sd">        submission, this is true. If it was canceled or closed in any other</span>
+<span class="sd">        way it is False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TargetNameWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Setting up the window for the user prompt.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialization of the parent class window.</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Preparing the input dialog which we wrap around.</span>
+        <span class="n">input_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QInputDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">input_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;OpihiExarata Target Name Entry&quot;</span><span class="p">)</span>
+        <span class="n">input_dialog</span><span class="o">.</span><span class="n">setLabelText</span><span class="p">(</span><span class="s2">&quot;Enter New Target Name: &quot;</span><span class="p">)</span>
+        <span class="n">input_dialog</span><span class="o">.</span><span class="n">setOkButtonText</span><span class="p">(</span><span class="s2">&quot;Submit&quot;</span><span class="p">)</span>
+        <span class="n">input_dialog</span><span class="o">.</span><span class="n">setCancelButtonText</span><span class="p">(</span><span class="s2">&quot;Cancel&quot;</span><span class="p">)</span>
+        <span class="c1"># Run the input dialog.</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">input_dialog</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_target_name</span> <span class="o">=</span> <span class="n">input_dialog</span><span class="o">.</span><span class="n">textValue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span><span class="n">raw_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_target_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetNameWindow._sanitize_input"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow._sanitize_input">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_sanitize_input</span><span class="p">(</span><span class="n">raw_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sanitization of the raw input to the proper input.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        raw_input : string</span>
+<span class="sd">            The raw input to be sanitized.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sanitized_input : string</span>
+<span class="sd">            The sanitized input.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Nothing for now, something that needs to be done.</span>
+        <span class="n">sanitized_input</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">raw_input</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sanitized_input</span></div></div>
+
+
+<div class="viewcode-block" id="ask_user_target_name_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.ask_user_target_name_window">[docs]</a><span class="k">def</span> <span class="nf">ask_user_target_name_window</span><span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Use the target name window to prompt the user for the name of the</span>
+<span class="sd">    object that they are studying.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    default : string</span>
+<span class="sd">        The default name to provide should the user interact with the dialog</span>
+<span class="sd">        box to submit a name. (That is, they cancel or close it.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    target_name : string</span>
+<span class="sd">        The target name as specified (or the default if something went amiss.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Use the input dialog class to ask the user.</span>
+    <span class="n">target_name_window</span> <span class="o">=</span> <span class="n">TargetNameWindow</span><span class="p">()</span>
+    <span class="c1"># Derive the results from the input.</span>
+    <span class="n">input_name</span> <span class="o">=</span> <span class="n">target_name_window</span><span class="o">.</span><span class="n">target_name</span>
+    <span class="n">submit_status</span> <span class="o">=</span> <span class="n">target_name_window</span><span class="o">.</span><span class="n">status</span>
+
+    <span class="c1"># If the name was provided correctly, then give them the proper name.</span>
+    <span class="c1"># Otherwise return the default name if it exists; otherwise, we give</span>
+    <span class="c1"># difference to the user&#39;s submission and hope it does not break</span>
+    <span class="c1"># anything.</span>
+    <span class="n">target_name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">submit_status</span><span class="p">:</span>
+        <span class="n">target_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_name</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_name</span><span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">target_name</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># This is really just to test the GUI, to actually use the GUI, please use</span>
+    <span class="c1"># the proper function.</span>
+    <span class="n">application</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+
+    <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">ask_user_target_name_window</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test target name: &quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

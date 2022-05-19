@@ -12,3 +12,4 @@ Hello
 
    installation/index
    algorithms/index
+   preprocessing/index

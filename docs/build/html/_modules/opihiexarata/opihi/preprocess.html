@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.opihi.preprocess &mdash; OpihiExarata 2022.5.18 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.opihi.preprocess</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.opihi.preprocess</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A data wrapper class which takes in raw Opihi data, flats, and darks and </span>
+<span class="sd">produces a valid reduced image.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.ma</span> <span class="k">as</span> <span class="nn">np_ma</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">sp_optimize</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+
+<div class="viewcode-block" id="OpihiPreprocessSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiPreprocessSolution</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class which represents the reduction process of Opihi data, having the</span>
+<span class="sd">    raw data corrected using previously and provided derived flats and darks.</span>
+<span class="sd">    The required parameters (such as exposure time) must also be provided.</span>
+
+<span class="sd">    This class does not have an engine as there is only one way to reduce data</span>
+<span class="sd">    provided the systematics of the Opihi telescope itself; as such the</span>
+<span class="sd">    data is handled straight by this solution class.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _mask_c_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the clear filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_g_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the g filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_r_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the r filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_i_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the i filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_z_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the z filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_1_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the 1 filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_2_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the 2 filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _mask_3_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the 3 filter stored in a</span>
+<span class="sd">        fits file.</span>
+
+<span class="sd">    _flat_c_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the clear filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_g_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the g filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_r_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the r filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_i_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the i filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_z_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the z filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_1_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the 1 filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_2_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the 2 filter stored in a</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    _flat_3_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the 3 filter stored in a</span>
+<span class="sd">        fits file.</span>
+
+<span class="sd">    _bias_fits_filename : string</span>
+<span class="sd">        The filename for the per-pixel bias values of the data,</span>
+<span class="sd">        stored in a fits file.</span>
+<span class="sd">    _dark_current_fits_filename : string</span>
+<span class="sd">        The filename for the per-pixel rate values of the dark data,</span>
+<span class="sd">        stored in a fits file.</span>
+<span class="sd">    _linearity_fits_filename : string</span>
+<span class="sd">        The filename for the linearity responce of the CCD. This should be a</span>
+<span class="sd">        1D fits file detailing counts as a function of time for the saturation</span>
+<span class="sd">        curve of the CCD.</span>
+
+
+<span class="sd">    mask_c : array</span>
+<span class="sd">        The pixel mask for the clear filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_g : array</span>
+<span class="sd">        The pixel mask for the g filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_r : array</span>
+<span class="sd">        The pixel mask for the r filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_i : array</span>
+<span class="sd">        The pixel mask for the i filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_z : array</span>
+<span class="sd">        The pixel mask for the z filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_1 : array</span>
+<span class="sd">        The pixel mask for the 1 filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_2 : array</span>
+<span class="sd">        The pixel mask for the 2 filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    mask_3 : array</span>
+<span class="sd">        The pixel mask for the 3 filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+
+<span class="sd">    flat_c : array</span>
+<span class="sd">        The flat field for the clear filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_g : array</span>
+<span class="sd">        The flat field for the g filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_r : array</span>
+<span class="sd">        The flat field for the r filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_i : array</span>
+<span class="sd">        The flat field for the i filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_z : array</span>
+<span class="sd">        The flat field for the z filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_1 : array</span>
+<span class="sd">        The flat field for the 1 filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_2 : array</span>
+<span class="sd">        The flat field for the 2 filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+<span class="sd">    flat_3 : array</span>
+<span class="sd">        The flat field for the 3 filter as determined by the provided</span>
+<span class="sd">        fits file.</span>
+
+
+<span class="sd">    bias : array</span>
+<span class="sd">        The bias array as determined by the provided fits file.</span>
+<span class="sd">    dark_current : array</span>
+<span class="sd">        The dark rate, per pixel, as determined by the provided fits file.</span>
+<span class="sd">    linearity_factors : array</span>
+<span class="sd">        The polynomial factors of the linearity function starting from the</span>
+<span class="sd">        0th order.</span>
+<span class="sd">    linearity_function : function</span>
+<span class="sd">        The linearity function across the whole CCD. It is an average function</span>
+<span class="sd">        across all of the pixels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpihiPreprocessSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mask_c_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_g_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_r_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_i_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_z_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_1_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_2_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_3_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_c_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_g_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_r_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_i_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_z_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_1_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_2_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_3_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">bias_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">dark_current_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">linearity_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Instantiation of the reduced Opihi data class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mask_c_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the clear filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_g_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the g filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_r_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the r filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_i_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the i filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_z_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the z filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_1_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the 1 filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_2_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the 2 filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        mask_3_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the 3 filter stored in a</span>
+<span class="sd">            fits file.</span>
+
+<span class="sd">        flat_c_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the clear filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_g_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the g filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_r_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the r filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_i_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the i filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_z_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the z filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_1_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the 1 filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_2_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the 2 filter stored in a</span>
+<span class="sd">            fits file.</span>
+<span class="sd">        flat_3_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the 3 filter stored in a</span>
+<span class="sd">            fits file.</span>
+
+
+<span class="sd">        bias_fits_filename : string</span>
+<span class="sd">            The filename for the per-pixel bias values of the data,</span>
+<span class="sd">            stored in a fits file.</span>
+<span class="sd">        dark_current_fits_filename : string</span>
+<span class="sd">            The filename for the per-pixel rate values of the dark data,</span>
+<span class="sd">            stored in a fits file.</span>
+<span class="sd">        linearity_fits_filename : string</span>
+<span class="sd">            The filename for the linearity responce of the CCD, stored as a</span>
+<span class="sd">            text file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Adding the raw inputs as they may be needed later for some reason.</span>
+        <span class="c1"># Mask files, per filter.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_c_fits_filename</span> <span class="o">=</span> <span class="n">mask_c_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_g_fits_filename</span> <span class="o">=</span> <span class="n">mask_g_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_r_fits_filename</span> <span class="o">=</span> <span class="n">mask_r_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_i_fits_filename</span> <span class="o">=</span> <span class="n">mask_i_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_z_fits_filename</span> <span class="o">=</span> <span class="n">mask_z_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_1_fits_filename</span> <span class="o">=</span> <span class="n">mask_1_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_2_fits_filename</span> <span class="o">=</span> <span class="n">mask_2_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_3_fits_filename</span> <span class="o">=</span> <span class="n">mask_3_fits_filename</span>
+        <span class="c1"># Flat files, per filter.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_c_fits_filename</span> <span class="o">=</span> <span class="n">flat_c_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_g_fits_filename</span> <span class="o">=</span> <span class="n">flat_g_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_r_fits_filename</span> <span class="o">=</span> <span class="n">flat_r_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_i_fits_filename</span> <span class="o">=</span> <span class="n">flat_i_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_z_fits_filename</span> <span class="o">=</span> <span class="n">flat_z_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_1_fits_filename</span> <span class="o">=</span> <span class="n">flat_1_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_2_fits_filename</span> <span class="o">=</span> <span class="n">flat_2_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_3_fits_filename</span> <span class="o">=</span> <span class="n">flat_3_fits_filename</span>
+        <span class="c1"># Bias, filter independent.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bias_fits_filename</span> <span class="o">=</span> <span class="n">bias_fits_filename</span>
+        <span class="c1"># Dark rate, filter independent.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dark_current_fits_filename</span> <span class="o">=</span> <span class="n">dark_current_fits_filename</span>
+        <span class="c1"># Linearity, filter independent.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_linearity_fits_filename</span> <span class="o">=</span> <span class="n">linearity_fits_filename</span>
+        <span class="c1"># Reading the fits file data. There are inner functions for mask and</span>
+        <span class="c1"># flats for organizational purposes.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bias_fits_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dark_current</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dark_current_fits_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_read_mask_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_read_flat_data</span><span class="p">()</span>
+        <span class="c1"># Reading the linearity data and create the linearity function.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_read_linearity_data</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__init_read_mask_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function just reads all of the fits file data for the</span>
+<span class="sd">        filter-dependent pixel masks and puts it where it belongs per the</span>
+<span class="sd">        documentation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Reading all of the mask files.</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_c</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_c_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_g</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_g_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_r</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_r_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_i</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_i_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_z</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_z_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_1</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_1_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_2</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_2_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_3</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_3_fits_filename</span>
+        <span class="p">)</span>
+        <span class="c1"># Adding the masks to this solution so the fits files need not be</span>
+        <span class="c1"># accessed again. A pixel is considered mask if the value is True.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_c</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_g</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_r</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_i</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init_read_flat_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function just reads all of the fits file data for the</span>
+<span class="sd">        filter-dependent flat fields and puts it where it belongs per the</span>
+<span class="sd">        documentation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Reading all of the flat files.</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_c</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_c_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_g</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_g_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_r</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_r_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_i</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_i_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_z</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_z_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_1</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_1_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_2</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_2_fits_filename</span>
+        <span class="p">)</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_3</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_3_fits_filename</span>
+        <span class="p">)</span>
+        <span class="c1"># Adding the flats to this solution so the fits files need not be</span>
+        <span class="c1"># accessed again.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_c</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_g</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_r</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_i</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_z</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_3</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init_read_linearity_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This function reads all of the linearity data and creates a</span>
+<span class="sd">        function for linearity. First order interpolation is done on this data.</span>
+
+<span class="sd">        It is expected that the data from the linearity filename is of high</span>
+<span class="sd">        enough resolution that first order interpolation is good enough.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time_array</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">avg_signal_array</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Using just 2nd order linearity correction to fit the saturation</span>
+        <span class="c1"># function.</span>
+        <span class="k">def</span> <span class="nf">_polynomial</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Fitting.</span>
+        <span class="n">param</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">sp_optimize</span><span class="o">.</span><span class="n">curve_fit</span><span class="p">(</span><span class="n">_polynomial</span><span class="p">,</span> <span class="n">time_array</span><span class="p">,</span> <span class="n">avg_signal_array</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linearity_factors</span> <span class="o">=</span> <span class="n">param</span>
+        <span class="c1"># Using the fitted parameters to derive the linearity curve.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linearity_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">_polynomial</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">linearity_factors</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OpihiPreprocessSolution.preprocess_data_image"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_data_image">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data_image</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The formal reduction algorithm for data from Opihi. It follows</span>
+<span class="sd">        preprocessing instructions for CCDs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : array-like</span>
+<span class="sd">            The raw image data from the Opihi telescope.</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            The exposure time of the image in seconds.</span>
+<span class="sd">        filter_name : string</span>
+<span class="sd">            The name of the filter which the image was taken in, used to</span>
+<span class="sd">            select the correct flat and mask file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        preprocess_data : array</span>
+<span class="sd">            The data, after it has been preprocessed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the needed mask and flat files based on the provided filter.</span>
+        <span class="c1"># Being a little clever so a very long if/else statememt is not used.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mask_</span><span class="si">{f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">flat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flat_</span><span class="si">{f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">flat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">IntentionalError</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">IntentionalError</span><span class="p">:</span>
+            <span class="c1"># The filters are not in this class itself as per the structure of</span>
+            <span class="c1"># this class and its initialization. Likely, the filter name is</span>
+            <span class="c1"># wrong.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The filter name </span><span class="si">{f}</span><span class="s2"> is not a filter name that is a part of the&quot;</span>
+                <span class="s2">&quot; OpihiExarata system and this class does not a flat or mask for said&quot;</span>
+                <span class="s2">&quot; filter for reduction purposes.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># All of the arrays must be the same shape for the Numpy array math</span>
+        <span class="c1"># to work out.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span>
+            <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">shape</span>
+            <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dark_current</span><span class="o">.</span><span class="n">shape</span>
+            <span class="o">==</span> <span class="n">flat</span><span class="o">.</span><span class="n">shape</span>
+            <span class="o">==</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span>
+        <span class="p">):</span>
+            <span class="c1"># All good.</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The data array does not have the same shape as all of the other data&quot;</span>
+                <span class="s2">&quot; reduction arrays.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Reducing it based on the documentation method. Inversing the</span>
+        <span class="c1"># linearity and then removing the dark and bias then flat field</span>
+        <span class="c1"># correction.</span>
+        <span class="n">unmasked_preprocess_data</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">linearity_function</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+            <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
+            <span class="o">-</span> <span class="n">exposure_time</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dark_current</span>
+        <span class="p">)</span> <span class="o">/</span> <span class="n">flat</span>
+        <span class="c1"># Adding the mask to the data.</span>
+        <span class="n">preprocess_data</span> <span class="o">=</span> <span class="n">np_ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unmasked_preprocess_data</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">preprocess_data</span></div>
+
+<div class="viewcode-block" id="OpihiPreprocessSolution.preprocess_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_fits_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">raw_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Preprocess an Opihi image, the provided fits filename is read, the</span>
+<span class="sd">        needed information extracted from it, and it is processed using</span>
+<span class="sd">        historical archive calibration files created per the documentation and</span>
+<span class="sd">        specified by the configuration files.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        raw_filename : str</span>
+<span class="sd">            The filename of the raw fits file image from Opihi.</span>
+<span class="sd">        out_filename : str, default = None</span>
+<span class="sd">            The filename to save the reduced image as a fits file. Some added</span>
+<span class="sd">            entries are added to the header. If this is not provided as</span>
+<span class="sd">            defaults to None, no file is saved.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        preprocess_header : Astropy Header</span>
+<span class="sd">            The header of the fits file after preprocessing. Some added</span>
+<span class="sd">            entries are present to document information from preprocessing.</span>
+<span class="sd">        preprocess_data : array</span>
+<span class="sd">            The data array of the image after the raw image went through the</span>
+<span class="sd">            preprocess reduction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the needed fits information to do the reduction.</span>
+        <span class="n">raw_header</span><span class="p">,</span> <span class="n">raw_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">raw_filename</span><span class="p">)</span>
+        <span class="c1"># The exposure time is needed for reducing the image data. (The fits</span>
+        <span class="c1"># file uses integration time as the name.)</span>
+        <span class="n">raw_exposure_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">raw_header</span><span class="p">[</span><span class="s2">&quot;itime&quot;</span><span class="p">])</span>
+        <span class="c1"># filter_name = str(raw_header[&quot;&quot;])</span>
+        <span class="n">filter_name</span> <span class="o">=</span> <span class="s2">&quot;g&quot;</span>
+
+        <span class="c1"># Preprocessing the data.</span>
+        <span class="n">preprocess_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_data_image</span><span class="p">(</span>
+            <span class="n">raw_data</span><span class="o">=</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">exposure_time</span><span class="o">=</span><span class="n">raw_exposure_time</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Adding helpful preprocessing information to the header, just in the</span>
+        <span class="c1"># event it may be needed. Using a copy just in case. It is formatted</span>
+        <span class="c1"># this way so it is easy to add extra items if needed.</span>
+        <span class="n">entry_assortment</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># (&quot;OX______&quot;, 0, &quot;Filler&quot;),</span>
+        <span class="p">]</span>
+        <span class="c1"># Adding it using the written function.</span>
+        <span class="n">data_enteries</span> <span class="o">=</span> <span class="p">{</span><span class="n">rowdex</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">rowdex</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">rowdex</span> <span class="ow">in</span> <span class="n">entry_assortment</span><span class="p">}</span>
+        <span class="n">comment_enteries</span> <span class="o">=</span> <span class="p">{</span><span class="n">rowdex</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">rowdex</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">rowdex</span> <span class="ow">in</span> <span class="n">entry_assortment</span><span class="p">}</span>
+        <span class="n">preprocess_header</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">update_fits_header</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">raw_header</span><span class="p">,</span> <span class="n">entries</span><span class="o">=</span><span class="n">data_enteries</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="n">comment_enteries</span>
+        <span class="p">)</span>
+        <span class="c1"># If the user wanted to save the preprocessed data as a file.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># Assume it is a valid path, if it is not, the writing function or</span>
+            <span class="c1"># Astropy will likely bark.</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">write_fits_image_file</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">out_filename</span><span class="p">,</span>
+                <span class="n">header</span><span class="o">=</span><span class="n">preprocess_header</span><span class="p">,</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">,</span>
+                <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">out_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># The outgoing filename is entered but it was not an acceptable</span>
+            <span class="c1"># path as a string, this is an error (likely on the development</span>
+            <span class="c1"># side).</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The out filename provided is not a string; therefore, it cannot be&quot;</span>
+                <span class="s2">&quot; interpreted as a path where which the preprocessed file would be&quot;</span>
+                <span class="s2">&quot; saved.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The file is not to be saved.</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">preprocess_header</span><span class="p">,</span> <span class="n">preprocess_data</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

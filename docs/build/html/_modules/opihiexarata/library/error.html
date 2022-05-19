@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error &mdash; OpihiExarata 2022.2.9 documentation</title>
+  <title>opihiexarata.library.error &mdash; OpihiExarata 2022.5.18 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -112,6 +112,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
@@ -133,6 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
@@ -232,6 +241,14 @@
 <span class="sd">    to the code do not screw up the logical flow of the program.&quot;&quot;&quot;</span></div>
 
 
+<div class="viewcode-block" id="PracticalityError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.PracticalityError">[docs]</a><span class="k">class</span> <span class="nc">PracticalityError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error to be used when what is trying to be done does not</span>
+<span class="sd">    seem reasonable. Usually warnings are the better vehicle for this but</span>
+<span class="sd">    this error is used when the assumptions for reasonability guided</span>
+<span class="sd">    development and what the user is trying to do is not currently supported</span>
+<span class="sd">    by the software.&quot;&quot;&quot;</span></div>
+
+
 <div class="viewcode-block" id="UndiscoveredError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.UndiscoveredError">[docs]</a><span class="k">class</span> <span class="nc">UndiscoveredError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is an error used in cases where the source of the error has not</span>
 <span class="sd">    been determined and so a more helpful error message or mitigation strategy</span>
@@ -310,6 +327,12 @@
 <div class="viewcode-block" id="ReadOnlyError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ReadOnlyError">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An error where variables or files are assumed to be read only, this</span>
 <span class="sd">    enforces that notion.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SequentialOrderError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.SequentialOrderError">[docs]</a><span class="k">class</span> <span class="nc">SequentialOrderError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error used when something is happening out of the expected required</span>
+<span class="sd">    order. This order being in place for specific publically communicated</span>
+<span class="sd">    reasons.&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="WebRequestError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.WebRequestError">[docs]</a><span class="k">class</span> <span class="nc">WebRequestError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
