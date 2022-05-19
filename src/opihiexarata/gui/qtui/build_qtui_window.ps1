@@ -1,4 +1,4 @@
-# #requires -PSEdition Core
+#requires -PSEdition Core
 
 # Powershell script to build the Python GUI files from the Qt Designer UI 
 # files.
