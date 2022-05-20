@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for src\opihiexarata\photometry\solution.py: 10%</title>
+    <title>Coverage for src\opihiexarata\photometry\solution.py: 0%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="coverage_html.js" defer></script>
@@ -13,7 +13,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>src\opihiexarata\photometry\solution.py</b>:
-            <span class="pc_cov">10%</span>
+            <span class="pc_cov">0%</span>
         </h1>
         <div id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -44,8 +44,8 @@
         </div>
         <h2>
             <span class="text">162 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">16<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">146<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">0<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">162<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <div style="display: none;">
@@ -59,18 +59,18 @@
 <main id="source">
     <p class="pln"><span class="n"><a id="t1" href="#t1">1</a></span><span class="t"><span class="str">"""The general photometric solver."""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t2" href="#t2">2</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t3" href="#t3">3</a></span><span class="t"><span class="key">import</span> <span class="nam">astropy</span><span class="op">.</span><span class="nam">table</span> <span class="key">as</span> <span class="nam">ap_table</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t4" href="#t4">4</a></span><span class="t"><span class="key">import</span> <span class="nam">numpy</span> <span class="key">as</span> <span class="nam">np</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t3" href="#t3">3</a></span><span class="t"><span class="key">import</span> <span class="nam">astropy</span><span class="op">.</span><span class="nam">table</span> <span class="key">as</span> <span class="nam">ap_table</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t4" href="#t4">4</a></span><span class="t"><span class="key">import</span> <span class="nam">numpy</span> <span class="key">as</span> <span class="nam">np</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t5" href="#t5">5</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t6" href="#t6">6</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">library</span> <span class="key">as</span> <span class="nam">library</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">library</span><span class="op">.</span><span class="nam">error</span> <span class="key">as</span> <span class="nam">error</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">library</span><span class="op">.</span><span class="nam">hint</span> <span class="key">as</span> <span class="nam">hint</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t6" href="#t6">6</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">library</span> <span class="key">as</span> <span class="nam">library</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">library</span><span class="op">.</span><span class="nam">error</span> <span class="key">as</span> <span class="nam">error</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">library</span><span class="op">.</span><span class="nam">hint</span> <span class="key">as</span> <span class="nam">hint</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">astrometry</span> <span class="key">as</span> <span class="nam">astrometry</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">photometry</span> <span class="key">as</span> <span class="nam">photometry</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">astrometry</span> <span class="key">as</span> <span class="nam">astrometry</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">photometry</span> <span class="key">as</span> <span class="nam">photometry</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t"><span class="key">class</span> <span class="nam">PhotometricSolution</span><span class="op">(</span><span class="nam">hint</span><span class="op">.</span><span class="nam">ExarataSolution</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t"><span class="key">class</span> <span class="nam">PhotometricSolution</span><span class="op">(</span><span class="nam">hint</span><span class="op">.</span><span class="nam">ExarataSolution</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">    <span class="str">"""The primary class describing an photometric solution, based on an image</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t16" href="#t16">16</a></span><span class="t"><span class="str">    provided and catalog data provided from the photometric engine.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t17" href="#t17">17</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -113,7 +113,7 @@
     <p class="pln"><span class="n"><a id="t54" href="#t54">54</a></span><span class="t"><span class="str">        many stars.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t"><span class="str">    """</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t">    <span class="key">def</span> <span class="nam">__init__</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t">    <span class="key">def</span> <span class="nam">__init__</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t58" href="#t58">58</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t59" href="#t59">59</a></span><span class="t">        <span class="nam">fits_filename</span><span class="op">:</span> <span class="nam">str</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t60" href="#t60">60</a></span><span class="t">        <span class="nam">solver_engine</span><span class="op">:</span> <span class="nam">hint</span><span class="op">.</span><span class="nam">PhotometryEngine</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -255,7 +255,7 @@
     <p class="pln"><span class="n"><a id="t196" href="#t196">196</a></span><span class="t">        <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t197" href="#t197">197</a></span><span class="t">        <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t198" href="#t198">198</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t199" href="#t199">199</a></span><span class="t">    <span class="key">def</span> <span class="nam">__calculate_intersection_star_table</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">Table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t199" href="#t199">199</a></span><span class="t">    <span class="key">def</span> <span class="nam">__calculate_intersection_star_table</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">Table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t200" href="#t200">200</a></span><span class="t">        <span class="str">"""This function determines the intersection star table.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t201" href="#t201">201</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t202" href="#t202">202</a></span><span class="t"><span class="str">        Basically this function matches the entries in the astrometric star</span>&nbsp;</span><span class="r"></span></p>
@@ -377,7 +377,7 @@
     <p class="pln"><span class="n"><a id="t318" href="#t318">318</a></span><span class="t">        <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t319" href="#t319">319</a></span><span class="t">        <span class="key">return</span> <span class="nam">intersection_table</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t320" href="#t320">320</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t321" href="#t321">321</a></span><span class="t">    <span class="key">def</span> <span class="nam">__calculate_sky_counts_mask</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">array</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t321" href="#t321">321</a></span><span class="t">    <span class="key">def</span> <span class="nam">__calculate_sky_counts_mask</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">array</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t322" href="#t322">322</a></span><span class="t">        <span class="str">"""Calculate a mask which blocks out all but the sky for sky counts</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t323" href="#t323">323</a></span><span class="t"><span class="str">        determination.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t324" href="#t324">324</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -464,7 +464,7 @@
     <p class="mis show_mis"><span class="n"><a id="t405" href="#t405">405</a></span><span class="t">        <span class="nam">sky_counts_mask</span> <span class="op">=</span> <span class="nam">star_mask</span> <span class="op">|</span> <span class="nam">science_mask</span> <span class="op">|</span> <span class="nam">edge_mask</span> <span class="op">|</span> <span class="nam">nan_mask</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t406" href="#t406">406</a></span><span class="t">        <span class="key">return</span> <span class="nam">sky_counts_mask</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t407" href="#t407">407</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t408" href="#t408">408</a></span><span class="t">    <span class="key">def</span> <span class="nam">__calculate_sky_counts_value</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t408" href="#t408">408</a></span><span class="t">    <span class="key">def</span> <span class="nam">__calculate_sky_counts_value</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t409" href="#t409">409</a></span><span class="t">        <span class="str">"""Calculate the background sky value, in counts, from the image.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t410" href="#t410">410</a></span><span class="t"><span class="str">        Obviously needed for photometric calibrations.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t411" href="#t411">411</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -498,7 +498,7 @@
     <p class="mis show_mis"><span class="n"><a id="t439" href="#t439">439</a></span><span class="t">        <span class="nam">sky_counts</span> <span class="op">=</span> <span class="nam">np</span><span class="op">.</span><span class="nam">ma</span><span class="op">.</span><span class="nam">median</span><span class="op">(</span><span class="nam">sky_data_values</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t440" href="#t440">440</a></span><span class="t">        <span class="key">return</span> <span class="nam">sky_counts</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t441" href="#t441">441</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t442" href="#t442">442</a></span><span class="t">    <span class="key">def</span> <span class="nam">_calculate_star_photon_counts_coordinate</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t442" href="#t442">442</a></span><span class="t">    <span class="key">def</span> <span class="nam">_calculate_star_photon_counts_coordinate</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t443" href="#t443">443</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span> <span class="nam">ra</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">dec</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">radius</span><span class="op">:</span> <span class="nam">float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t444" href="#t444">444</a></span><span class="t">    <span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t445" href="#t445">445</a></span><span class="t">        <span class="str">"""Calculate the total number of photometric counts at an RA DEC. The</span>&nbsp;</span><span class="r"></span></p>
@@ -540,7 +540,7 @@
     <p class="pln"><span class="n"><a id="t481" href="#t481">481</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t482" href="#t482">482</a></span><span class="t">        <span class="key">return</span> <span class="nam">photon_counts</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t483" href="#t483">483</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t484" href="#t484">484</a></span><span class="t">    <span class="key">def</span> <span class="nam">_calculate_star_photon_counts_pixel</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t484" href="#t484">484</a></span><span class="t">    <span class="key">def</span> <span class="nam">_calculate_star_photon_counts_pixel</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t485" href="#t485">485</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span> <span class="nam">pixel_x</span><span class="op">:</span> <span class="nam">int</span><span class="op">,</span> <span class="nam">pixel_y</span><span class="op">:</span> <span class="nam">int</span><span class="op">,</span> <span class="nam">radius</span><span class="op">:</span> <span class="nam">float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t486" href="#t486">486</a></span><span class="t">    <span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t487" href="#t487">487</a></span><span class="t">        <span class="str">"""Calculate the total number of photometric counts at a pixel</span>&nbsp;</span><span class="r"></span></p>
@@ -581,7 +581,7 @@
     <p class="mis show_mis"><span class="n"><a id="t522" href="#t522">522</a></span><span class="t">        <span class="nam">photon_counts</span> <span class="op">=</span> <span class="nam">np</span><span class="op">.</span><span class="nam">nansum</span><span class="op">(</span><span class="nam">star_array_nosky</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t523" href="#t523">523</a></span><span class="t">        <span class="key">return</span> <span class="nam">photon_counts</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t524" href="#t524">524</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t525" href="#t525">525</a></span><span class="t">    <span class="key">def</span> <span class="nam">_calculate_zero_point</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t525" href="#t525">525</a></span><span class="t">    <span class="key">def</span> <span class="nam">_calculate_zero_point</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t526" href="#t526">526</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span> <span class="nam">exposure_time</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">filter_name</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t527" href="#t527">527</a></span><span class="t">    <span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t528" href="#t528">528</a></span><span class="t">        <span class="str">"""This function calculates the photometric zero-point of the image</span>&nbsp;</span><span class="r"></span></p>
@@ -648,7 +648,7 @@
     <p class="mis show_mis"><span class="n"><a id="t589" href="#t589">589</a></span><span class="t">        <span class="key">return</span> <span class="nam">zero_point</span><span class="op">,</span> <span class="nam">zero_point_error</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t590" href="#t590">590</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t591" href="#t591">591</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t592" href="#t592">592</a></span><span class="t"><span class="key">def</span> <span class="nam">_vehicle_panstarrs_mast_web_api</span><span class="op">(</span><span class="nam">ra</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">dec</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">radius</span><span class="op">:</span> <span class="nam">float</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">Table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t592" href="#t592">592</a></span><span class="t"><span class="key">def</span> <span class="nam">_vehicle_panstarrs_mast_web_api</span><span class="op">(</span><span class="nam">ra</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">dec</span><span class="op">:</span> <span class="nam">float</span><span class="op">,</span> <span class="nam">radius</span><span class="op">:</span> <span class="nam">float</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">Table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t593" href="#t593">593</a></span><span class="t">    <span class="str">"""A vehicle function for photometric solutions. Extract photometric</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t594" href="#t594">594</a></span><span class="t"><span class="str">    data using the PanSTARRS database accessed via the MAST API.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t595" href="#t595">595</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -722,7 +722,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.3</a>,
-            created at 2022-05-18 23:51 -1000
+            created at 2022-05-19 18:57 -1000
         </p>
     </div>
 </footer>

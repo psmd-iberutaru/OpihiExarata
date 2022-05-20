@@ -183,16 +183,16 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Setting the layout, it is likely better to have the toolbar below
         # rather than above to avoid conflicts with the reset buttons in the
-        # event of a misclick.
+        # event of a mis-click.
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
         # Remove the dummy spacers otherwise it is just extra unneeded space.
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_navbar)
+        self.ui.dummy_opihi_image.hide()
+        self.ui.dummy_opihi_navbar.hide()
         self.ui.dummy_opihi_image.deleteLater()
         self.ui.dummy_opihi_navbar.deleteLater()
-        self.ui.dummy_opihi_image = None
-        self.ui.dummy_opihi_navbar = None
         del self.ui.dummy_opihi_image
         del self.ui.dummy_opihi_navbar
         return None
@@ -244,7 +244,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         return None
 
     def __connect_push_button_new_image_automatic(self):
-        """The automatic method relying on earliest fits file avaliable in
+        """The automatic method relying on earliest fits file available in
         the expected directory. This function is a connected function action to
         a button in the GUI.
 
@@ -277,7 +277,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         return None
 
     def __connect_push_button_new_image_manual(self):
-        """The manual method relying on earliest fits file avaliable in
+        """The manual method relying on earliest fits file available in
         the expected directory. This function is a connected function action to
         a button in the GUI.
 
@@ -293,7 +293,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         new_fits_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
             parent=self,
             caption="Open Opihi Image",
-            directory="./",
+            dir="./",
             filter="FITS Files (*.fits)",
         )
         # If the user did not provide a file to enter, there is nothing to be
@@ -404,7 +404,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         in_custom_ra = self.ui.line_edit_astrometry_custom_ra.text()
         in_custom_dec = self.ui.line_edit_astrometry_custom_dec.text()
 
-        # Prioritize the presense of the pixel location text.
+        # Prioritize the presence of the pixel location text.
         if len(in_custom_x) != 0 and len(in_custom_y) != 0:
             # Using pixel locations to determine RA DEC.
             in_custom_x = float(in_custom_x)
@@ -513,7 +513,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             qt_timezone_str = "Pacific/Honolulu"
         else:
             error.DevelopmentError(
-                "The timezone dropdown entry provided by the GUI is not implimented and"
+                "The timezone dropdown entry provided by the GUI is not implemented and"
                 " has no translation to an IANA timezone ID."
             )
 
@@ -628,7 +628,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Extracting the header of this fits file to get the observing
         # metadata from it.
-        header, data = library.fits.read_fits_image_file(filename=fits_filename)
+        header, __ = library.fits.read_fits_image_file(filename=fits_filename)
 
         # The filter which image is in, extracted from the fits file,
         # assuming standard form.
@@ -662,7 +662,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             asteroid_name = self.asteroid_set_name
             # Use the target selector GUI for the position of the asteroid.
             asteroid_location = gui.selector.ask_user_target_selector_window(
-                data_array=data
+                current_fits_filename=fits_filename
             )
             # If there exists a MPC record of previous observations, use it
             # for the history. If it does not exist, make one.
@@ -762,7 +762,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
     def refresh_dynamic_label_text(self) -> None:
         """Refresh all of the dynamic label text, this fills out the
-        information based on the current solutions avaliable and solved.
+        information based on the current solutions available and solved.
 
         Parameters
         ----------
@@ -785,7 +785,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
     def __refresh_dynamic_label_text_astrometry(self) -> None:
         """Refresh all of the dynamic label text for astrometry.
         This fills out the information based on the current solutions
-        avaliable and solved.
+        available and solved.
 
         An astrometric solution must exist.
 
@@ -851,7 +851,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
     def __refresh_dynamic_label_text_propagate(self) -> None:
         """Refresh all of the dynamic label text for propagate.
         This fills out the information based on the current solutions
-        avaliable and solved.
+        available and solved.
 
         A propagative solution must exist.
 
@@ -955,18 +955,26 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # The data that will be plotted.
+        plotting_data = self.opihi_solution.data
+
         # This is a function which allows for the disabling of other axes
         # formatting their data values and messing with the formatter class.
         def empty_string(string: str) -> str:
             return str()
 
-        # Clear the information before replotting, it is easier just to draw
+        # We set the bounds of the colorbar based on the 1-99 % bounds.
+        colorbar_low, colorbar_high = np.nanpercentile(plotting_data, [1, 99])
+
+        # Clear the information before re-plotting, it is easier just to draw
         # it all again.
         self.opihi_axes.clear()
 
         # Attempt to plot the image data if it exists.
         if self.opihi_solution is not None:
-            image = self.opihi_axes.imshow(self.opihi_solution.data, cmap="gray")
+            image = self.opihi_axes.imshow(
+                plotting_data, cmap="gray", vmin=colorbar_low, vmax=colorbar_high
+            )
             # Disable their formatting in favor of ours.
             image.format_cursor_data = empty_string
 
@@ -1019,7 +1027,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             return None
 
         # There are two primary things to save, the image and solution
-        # information and the MPC record as retriveable historical data.
+        # information and the MPC record as retrievable historical data.
         def _save_results_fits_image() -> None:
             """First, doing the image data."""
 
