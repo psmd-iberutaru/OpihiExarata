@@ -12,7 +12,7 @@
 # These parts is OS dependent.
 if ($isLinux) {
     # Linux installation.
-    sudo yum install libgl1-mesa-dev
+    constellation install libgl1-mesa-dev
 }
 elseif ($isWindows) {
     # Windows installation.
