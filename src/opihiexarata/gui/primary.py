@@ -122,6 +122,16 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             self.__connect_push_button_astrometry_custom_solve
         )
 
+        # Photometry-specific buttons.
+        self.ui.push_button_photometry_solve_photometry.clicked.connect(
+            self.__connect_push_button_photometry_solve_photometry
+        )
+
+        # Orbit-specific buttons.
+        self.ui.push_button_orbit_solve_orbit.clicked.connect(
+            self.__connect_push_button_orbit_solve_orbit
+        )
+
         # Propagate-specific buttons.
         self.ui.push_button_propagate_solve_propagation.clicked.connect(
             self.__connect_push_button_propagate_solve_propagation
@@ -172,8 +182,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 bar."""
                 x_index = int(x)
                 y_index = int(y)
-                coord_string = "Helllo [{x_int:d}, {y_int:d}]".format(
-                    x_int=x_index, y_int=y_index
+                z_float = self.gui_instance.opihi_solution.data[y_index, x_index]
+                coord_string = "[{x_int:d}, {y_int:d}] = {z_flt:.2f}".format(
+                    x_int=x_index, y_int=y_index, z_flt=z_float
                 )
                 return coord_string
 
@@ -365,9 +376,22 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Determine the engine from user input.
-        engine = astrometry.AstrometryNetWebAPIEngine
-        # Solve.
+        # Determine the engine from user input via the drop down menu. The
+        # recognizing text ought to be case insensitive, makes life easier.
+        input_engine_name = self.ui.combo_box_astrometry_solve_engine.currentText()
+        input_engine_name = input_engine_name.casefold()
+        # Search programed engines for the one specified.
+        if input_engine_name == "astrometry.net nova":
+            engine = astrometry.AstrometryNetWebAPIEngine
+        else:
+            raise error.DevelopmentError(
+                "The provided input engine name `{in_eng}` is not implemented and"
+                " cannot be matched to an implemented astrometric engine.".format(
+                    in_eng=str(input_engine_name)
+                )
+            )
+
+        # Solve the field using the provided engine.
         __ = self.opihi_solution.solve_astrometry(solver_engine=engine, overwrite=True)
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -460,6 +484,73 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.line_edit_astrometry_custom_dec.setText(out_custom_dec)
         return None
 
+    def __connect_push_button_photometry_solve_photometry(self) -> None:
+        """A routine to use the current observation and historical observations
+        to derive the propagation solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Determine the engine from user input via the drop down menu. The
+        # recognizing text ought to be case insensitive, makes life easier.
+        input_engine_name = self.ui.combo_box_photometry_solve_engine.currentText()
+        input_engine_name = input_engine_name.casefold()
+        # Search programed engines for the one specified.
+        if input_engine_name == "pan-starrs 3pi dr2 mast":
+            engine = photometry.PanstarrsMastWebAPIEngine
+        else:
+            raise error.DevelopmentError(
+                "The provided input engine name `{in_eng}` is not implemented and"
+                " cannot be matched to an implemented photometric engine.".format(
+                    in_eng=str(input_engine_name)
+                )
+            )
+        # Solve.
+        __ = self.opihi_solution.solve_photometry(solver_engine=engine, overwrite=True)
+
+        # Update all of the necessary information.
+        self.redraw_opihi_image()
+        self.refresh_dynamic_label_text()
+        return None
+
+    def __connect_push_button_orbit_solve_orbit(self) -> None:
+        """A routine to use the current observation and historical observations
+        to derive the orbit solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Determine the engine from user input via the drop down menu. The
+        # recognizing text ought to be case insensitive, makes life easier.
+        input_engine_name = self.ui.combo_box_orbit_solve_engine.currentText()
+        input_engine_name = input_engine_name.casefold()
+        # Search programed engines for the one specified.
+        if input_engine_name == "orbfit":
+            engine = orbit.OrbfitOrbitDeterminerEngine
+        else:
+            raise error.DevelopmentError(
+                "The provided input engine name `{in_eng}` is not implemented and"
+                " cannot be matched to an implemented orbital engine.".format(
+                    in_eng=str(input_engine_name)
+                )
+            )
+        # Solve.
+        __ = self.opihi_solution.solve_orbit(solver_engine=engine, overwrite=True)
+
+        # Update all of the necessary information.
+        self.redraw_opihi_image()
+        self.refresh_dynamic_label_text()
+
     def __connect_push_button_propagate_solve_propagation(self) -> None:
         """A routine to use the current observation and historical observations
         to derive the propagation solution.
@@ -472,8 +563,22 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Determine the engine from user input.
-        engine = propagate.LinearPropagationEngine
+        # Determine the engine from user input via the drop down menu. The
+        # recognizing text ought to be case insensitive, makes life easier.
+        input_engine_name = self.ui.combo_box_propagate_solve_engine.currentText()
+        input_engine_name = input_engine_name.casefold()
+        # Search programed engines for the one specified.
+        if input_engine_name == "linear":
+            engine = propagate.LinearPropagationEngine
+        elif input_engine_name == "quadratic":
+            engine = propagate.QuadraticPropagationEngine
+        else:
+            raise error.DevelopmentError(
+                "The provided input engine name `{in_eng}` is not implemented and"
+                " cannot be matched to an implemented propagative engine.".format(
+                    in_eng=str(input_engine_name)
+                )
+            )
         # Solve.
         __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True)
 
@@ -709,6 +814,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         This resets the text back to their defaults as per the GUI builder.
 
+        The selections on the engines do not need to be reset as they are
+        just a selection criteria and do not actually provide any information.
+
         Parameters
         ----------
         None
@@ -737,6 +845,8 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         ## Resetting Photometric information.
         #####
+        self.ui.label_dynamic_photometry_filter_name.setText("FF")
+        self.ui.label_dynamic_photometry_zero_point_value.setText("ZZ.ZZ + E.EEE")
 
         ## Resetting Orbit information.
         #####
@@ -777,6 +887,8 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # exists, otherwise, there is nothing to update in the text.
         if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
             self.__refresh_dynamic_label_text_astrometry()
+            self.__refresh_dynamic_label_text_photometry()
+            self.__refresh_dynamic_label_text_orbit()
             self.__refresh_dynamic_label_text_propagate()
 
         # All done.
@@ -845,6 +957,135 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_astrometry_target_ra.setText(trg_ra_sex)
         self.ui.label_dynamic_astrometry_target_dec.setText(trg_dec_sex)
 
+        # All done.
+        return None
+
+    def __refresh_dynamic_label_text_photometry(self) -> None:
+        """Refresh all of the dynamic label text for photometry.
+        This fills out the information based on the current solutions
+        available and solved.
+
+        A photometric solution must exist.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+
+        # Everything in this function needs the OpihiSolution, if it does not
+        # exist, then exit early as there is nothing to refresh.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+        else:
+            opihi_solution = self.opihi_solution
+
+        # The filter is provided by the image's header, a solution is not
+        # required for displaying this information.
+        filter_name = str(opihi_solution.filter_name)
+        self.ui.label_dynamic_photometry_filter_name.setText(filter_name)
+
+        # Everything beyond this point requires an astrometric solution, if
+        # it does not exist, there is no point in continuing, exiting early.
+        if not isinstance(
+            self.opihi_solution.photometrics, photometry.PhotometricSolution
+        ):
+            return None
+        else:
+            photometrics = self.opihi_solution.photometrics
+
+        # Obtaining the computed zero point of the image. Some rounding is
+        # needed so it can properly fit in the GUI.
+        zero_point = round(photometrics.zero_point, 2)
+        zero_point_error = round(photometrics.zero_point_error, 3)
+        # Building the string for display and updating the text.
+        pm_sym = "\u00B1"
+        zero_point_str = "{zp} {pm} {err}".format(
+            zp=zero_point, pm=pm_sym, err=zero_point_error
+        )
+        self.ui.label_dynamic_photometry_zero_point_value.setText(zero_point_str)
+
+        # All done.
+        return None
+
+    def __refresh_dynamic_label_text_orbit(self) -> None:
+        """Refresh all of the dynamic label text for orbit.
+        This fills out the information based on the current solutions
+        available and solved.
+
+        An orbital solution must exist.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Everything in this function needs the OpihiSolution, if it does not
+        # exist, then exit early as there is nothing to refresh.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+        else:
+            opihi_solution = self.opihi_solution
+
+        # Nothing so far.
+        pass
+
+        # Everything beyond this point requires an orbital solution, if
+        # it does not exist, there is no point in continuing, exiting early.
+        if not isinstance(self.opihi_solution.orbitals, orbit.OrbitSolution):
+            return None
+        else:
+            orbitals = self.opihi_solution.orbitals
+
+        # Refreshing the values of the Keplerian orbital elements.
+        # The orbital elements' values and errors should be reported. We define
+        # the string formatting here.
+        def orb_str_conv(val: float, err: float) -> str:
+            """Unified string formatting for orbital element values and errors."""
+            # Rounding values to sensible values.
+            val = round(val, 3)
+            err = round(err, 3)
+            # Building the string, allowing for the usage of the plus minus
+            # symbol to demark the error.
+            pm_sym = "\u00B1"
+            ele_string = "{v} {pm} {e}".format(v=val, pm=pm_sym, e=err)
+            return ele_string
+
+        # Using the above function to derive the display strings for all of the
+        # elements.
+        eccentricity_string = orb_str_conv(
+            val=orbitals.eccentricity, err=orbitals.eccentricity_error
+        )
+        semimajor_axis_string = orb_str_conv(
+            val=orbitals.semimajor_axis, err=orbitals.semimajor_axis_error
+        )
+        inclination_string = orb_str_conv(
+            val=orbitals.inclination, err=orbitals.inclination_error
+        )
+        ascending_node_string = orb_str_conv(
+            val=orbitals.longitude_ascending_node,
+            err=orbitals.longitude_ascending_node_error,
+        )
+        perihelion_string = orb_str_conv(
+            val=orbitals.argument_perihelion, err=orbitals.argument_perihelion_error
+        )
+        true_anomaly_string = orb_str_conv(
+            val=orbitals.true_anomaly, err=orbitals.true_anomaly_error
+        )
+        # Changing the text using the derived strings.
+        self.ui.line_edit_orbit_eccentricity.setText(eccentricity_string)
+        self.ui.line_edit_orbit_semimajor_axis.setText(semimajor_axis_string)
+        self.ui.line_edit_orbit_inclination.setText(inclination_string)
+        self.ui.line_edit_orbit_ascending_node.setText(ascending_node_string)
+        self.ui.line_edit_orbit_perihelion.setText(perihelion_string)
+        self.ui.line_edit_orbit_true_anomaly.setText(true_anomaly_string)
+        
         # All done.
         return None
 

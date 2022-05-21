@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>623</width>
+    <width>633</width>
     <height>873</height>
    </rect>
   </property>
@@ -40,7 +40,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>601</width>
+      <width>611</width>
       <height>831</height>
      </rect>
     </property>
@@ -200,7 +200,7 @@
           </font>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>3</number>
          </property>
          <property name="iconSize">
           <size>
@@ -222,7 +222,7 @@
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>571</width>
+             <width>581</width>
              <height>241</height>
             </rect>
            </property>
@@ -235,6 +235,20 @@
            <layout class="QVBoxLayout" name="vertical_layout_astrometry">
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_astrometry">
+              <item>
+               <widget class="QComboBox" name="combo_box_astrometry_solve_engine">
+                <item>
+                 <property name="text">
+                  <string>Astrometry.net Nova</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Astrometry.net Host</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="push_button_astrometry_solve_astrometry">
                 <property name="font">
@@ -412,7 +426,7 @@
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>571</width>
+             <width>581</width>
              <height>241</height>
             </rect>
            </property>
@@ -425,6 +439,15 @@
            <layout class="QVBoxLayout" name="vertical_layout_photometry">
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_photometry">
+              <item>
+               <widget class="QComboBox" name="combo_box_photometry_solve_engine">
+                <item>
+                 <property name="text">
+                  <string>Pan-STARRS 3pi DR2 MAST</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="push_button_photometry_solve_photometry">
                 <property name="font">
@@ -448,7 +471,50 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizonta_layout_photometry_results"/>
+             <layout class="QHBoxLayout" name="horizonta_layout_photometry_results">
+              <item>
+               <widget class="QLabel" name="label_static_photometry_filter_label">
+                <property name="text">
+                 <string>Filter</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_dynamic_photometry_filter_name">
+                <property name="text">
+                 <string>FF</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_13">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_static_photometry_zero_point_label">
+                <property name="text">
+                 <string>Zero Point </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_dynamic_photometry_zero_point_value">
+                <property name="text">
+                 <string>ZZ.ZZ + E.EEE</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -462,7 +528,7 @@
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>571</width>
+             <width>581</width>
              <height>241</height>
             </rect>
            </property>
@@ -475,6 +541,15 @@
            <layout class="QVBoxLayout" name="vertical_layout_orbit">
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_orbit">
+              <item>
+               <widget class="QComboBox" name="combo_box_orbit_solve_engine">
+                <item>
+                 <property name="text">
+                  <string>Orbfit</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="push_button_orbit_solve_orbit">
                 <property name="font">
@@ -498,6 +573,140 @@
              </widget>
             </item>
             <item>
+             <layout class="QGridLayout" name="grid_layout_orbit_elements">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_static_orbit_eccentricity">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Ecc.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="line_edit_orbit_eccentricity">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_static_orbit_inclination">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Incli.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="3">
+               <widget class="QLabel" name="label_static_orbit_true_anomaly">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>T-Anom.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="line_edit_orbit_perihelion">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="5">
+               <widget class="QLineEdit" name="line_edit_orbit_true_anomaly">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_static_orbit_perihelion">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Peri.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="line_edit_orbit_inclination">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QLabel" name="label_static_orbit_ascending_node">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>As-Node</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_static_orbit_semimajor_axis">
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>SM-Axis</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="5">
+               <widget class="QLineEdit" name="line_edit_orbit_ascending_node">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QLineEdit" name="line_edit_orbit_semimajor_axis">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" rowspan="5">
+               <widget class="Line" name="line_16">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
              <layout class="QHBoxLayout" name="horizontal_layout_orbit_results"/>
             </item>
            </layout>
@@ -512,7 +721,7 @@
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>571</width>
+             <width>581</width>
              <height>241</height>
             </rect>
            </property>
@@ -525,6 +734,9 @@
            <layout class="QVBoxLayout" name="vertical_layout_ephemeris">
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_ephemeris">
+              <item>
+               <widget class="QComboBox" name="combo_box_ephemeris_solve_engine"/>
+              </item>
               <item>
                <widget class="QPushButton" name="push_button_ephemeris_solve_ephemeris">
                 <property name="font">
@@ -562,7 +774,7 @@
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>571</width>
+             <width>581</width>
              <height>251</height>
             </rect>
            </property>
@@ -575,6 +787,20 @@
            <layout class="QVBoxLayout" name="vertical_layout_propagate">
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_propagation">
+              <item>
+               <widget class="QComboBox" name="combo_box_propagate_solve_engine">
+                <item>
+                 <property name="text">
+                  <string>Linear</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Quadratic</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="push_button_propagate_solve_propagation">
                 <property name="font">

@@ -25,7 +25,7 @@ class Ui_PrimaryWindow(object):
     def setupUi(self, PrimaryWindow):
         if not PrimaryWindow.objectName():
             PrimaryWindow.setObjectName(u"PrimaryWindow")
-        PrimaryWindow.resize(623, 873)
+        PrimaryWindow.resize(633, 873)
         font = QFont()
         font.setFamilies([u"Sylfaen"])
         font.setPointSize(11)
@@ -42,7 +42,7 @@ class Ui_PrimaryWindow(object):
         self.centralwidget.setSizePolicy(sizePolicy)
         self.verticalLayoutWidget_3 = QWidget(self.centralwidget)
         self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
-        self.verticalLayoutWidget_3.setGeometry(QRect(10, 10, 601, 831))
+        self.verticalLayoutWidget_3.setGeometry(QRect(10, 10, 611, 831))
         self.verticalLayoutWidget_3.setFont(font)
         self.vertical_layout_window = QVBoxLayout(self.verticalLayoutWidget_3)
         self.vertical_layout_window.setObjectName(u"vertical_layout_window")
@@ -137,13 +137,20 @@ class Ui_PrimaryWindow(object):
         self.tab_astrometry.setObjectName(u"tab_astrometry")
         self.verticalLayoutWidget = QWidget(self.tab_astrometry)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 571, 241))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 581, 241))
         self.verticalLayoutWidget.setFont(font)
         self.vertical_layout_astrometry = QVBoxLayout(self.verticalLayoutWidget)
         self.vertical_layout_astrometry.setObjectName(u"vertical_layout_astrometry")
         self.vertical_layout_astrometry.setContentsMargins(0, 0, 0, 0)
         self.horizontal_layout_solve_astrometry = QHBoxLayout()
         self.horizontal_layout_solve_astrometry.setObjectName(u"horizontal_layout_solve_astrometry")
+        self.combo_box_astrometry_solve_engine = QComboBox(self.verticalLayoutWidget)
+        self.combo_box_astrometry_solve_engine.addItem("")
+        self.combo_box_astrometry_solve_engine.addItem("")
+        self.combo_box_astrometry_solve_engine.setObjectName(u"combo_box_astrometry_solve_engine")
+
+        self.horizontal_layout_solve_astrometry.addWidget(self.combo_box_astrometry_solve_engine)
+
         self.push_button_astrometry_solve_astrometry = QPushButton(self.verticalLayoutWidget)
         self.push_button_astrometry_solve_astrometry.setObjectName(u"push_button_astrometry_solve_astrometry")
         self.push_button_astrometry_solve_astrometry.setFont(font)
@@ -274,13 +281,19 @@ class Ui_PrimaryWindow(object):
         self.tab_photometry.setObjectName(u"tab_photometry")
         self.verticalLayoutWidget_2 = QWidget(self.tab_photometry)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(10, 10, 571, 241))
+        self.verticalLayoutWidget_2.setGeometry(QRect(10, 10, 581, 241))
         self.verticalLayoutWidget_2.setFont(font)
         self.vertical_layout_photometry = QVBoxLayout(self.verticalLayoutWidget_2)
         self.vertical_layout_photometry.setObjectName(u"vertical_layout_photometry")
         self.vertical_layout_photometry.setContentsMargins(0, 0, 0, 0)
         self.horizontal_layout_solve_photometry = QHBoxLayout()
         self.horizontal_layout_solve_photometry.setObjectName(u"horizontal_layout_solve_photometry")
+        self.combo_box_photometry_solve_engine = QComboBox(self.verticalLayoutWidget_2)
+        self.combo_box_photometry_solve_engine.addItem("")
+        self.combo_box_photometry_solve_engine.setObjectName(u"combo_box_photometry_solve_engine")
+
+        self.horizontal_layout_solve_photometry.addWidget(self.combo_box_photometry_solve_engine)
+
         self.push_button_photometry_solve_photometry = QPushButton(self.verticalLayoutWidget_2)
         self.push_button_photometry_solve_photometry.setObjectName(u"push_button_photometry_solve_photometry")
         self.push_button_photometry_solve_photometry.setFont(font)
@@ -299,21 +312,61 @@ class Ui_PrimaryWindow(object):
 
         self.horizonta_layout_photometry_results = QHBoxLayout()
         self.horizonta_layout_photometry_results.setObjectName(u"horizonta_layout_photometry_results")
+        self.label_static_photometry_filter_label = QLabel(self.verticalLayoutWidget_2)
+        self.label_static_photometry_filter_label.setObjectName(u"label_static_photometry_filter_label")
+
+        self.horizonta_layout_photometry_results.addWidget(self.label_static_photometry_filter_label)
+
+        self.label_dynamic_photometry_filter_name = QLabel(self.verticalLayoutWidget_2)
+        self.label_dynamic_photometry_filter_name.setObjectName(u"label_dynamic_photometry_filter_name")
+
+        self.horizonta_layout_photometry_results.addWidget(self.label_dynamic_photometry_filter_name)
+
+        self.line_13 = QFrame(self.verticalLayoutWidget_2)
+        self.line_13.setObjectName(u"line_13")
+        self.line_13.setFrameShape(QFrame.VLine)
+        self.line_13.setFrameShadow(QFrame.Sunken)
+
+        self.horizonta_layout_photometry_results.addWidget(self.line_13)
+
+        self.label_static_photometry_zero_point_label = QLabel(self.verticalLayoutWidget_2)
+        self.label_static_photometry_zero_point_label.setObjectName(u"label_static_photometry_zero_point_label")
+
+        self.horizonta_layout_photometry_results.addWidget(self.label_static_photometry_zero_point_label)
+
+        self.label_dynamic_photometry_zero_point_value = QLabel(self.verticalLayoutWidget_2)
+        self.label_dynamic_photometry_zero_point_value.setObjectName(u"label_dynamic_photometry_zero_point_value")
+
+        self.horizonta_layout_photometry_results.addWidget(self.label_dynamic_photometry_zero_point_value)
+
 
         self.vertical_layout_photometry.addLayout(self.horizonta_layout_photometry_results)
+
+        self.line_14 = QFrame(self.verticalLayoutWidget_2)
+        self.line_14.setObjectName(u"line_14")
+        self.line_14.setFrameShape(QFrame.HLine)
+        self.line_14.setFrameShadow(QFrame.Sunken)
+
+        self.vertical_layout_photometry.addWidget(self.line_14)
 
         self.tabs_solutions.addTab(self.tab_photometry, "")
         self.tab_orbit = QWidget()
         self.tab_orbit.setObjectName(u"tab_orbit")
         self.verticalLayoutWidget_5 = QWidget(self.tab_orbit)
         self.verticalLayoutWidget_5.setObjectName(u"verticalLayoutWidget_5")
-        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 571, 241))
+        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 581, 241))
         self.verticalLayoutWidget_5.setFont(font)
         self.vertical_layout_orbit = QVBoxLayout(self.verticalLayoutWidget_5)
         self.vertical_layout_orbit.setObjectName(u"vertical_layout_orbit")
         self.vertical_layout_orbit.setContentsMargins(0, 0, 0, 0)
         self.horizontal_layout_solve_orbit = QHBoxLayout()
         self.horizontal_layout_solve_orbit.setObjectName(u"horizontal_layout_solve_orbit")
+        self.combo_box_orbit_solve_engine = QComboBox(self.verticalLayoutWidget_5)
+        self.combo_box_orbit_solve_engine.addItem("")
+        self.combo_box_orbit_solve_engine.setObjectName(u"combo_box_orbit_solve_engine")
+
+        self.horizontal_layout_solve_orbit.addWidget(self.combo_box_orbit_solve_engine)
+
         self.push_button_orbit_solve_orbit = QPushButton(self.verticalLayoutWidget_5)
         self.push_button_orbit_solve_orbit.setObjectName(u"push_button_orbit_solve_orbit")
         self.push_button_orbit_solve_orbit.setFont(font)
@@ -330,6 +383,96 @@ class Ui_PrimaryWindow(object):
 
         self.vertical_layout_orbit.addWidget(self.line_5)
 
+        self.grid_layout_orbit_elements = QGridLayout()
+        self.grid_layout_orbit_elements.setObjectName(u"grid_layout_orbit_elements")
+        self.label_static_orbit_eccentricity = QLabel(self.verticalLayoutWidget_5)
+        self.label_static_orbit_eccentricity.setObjectName(u"label_static_orbit_eccentricity")
+        font2 = QFont()
+        font2.setItalic(False)
+        self.label_static_orbit_eccentricity.setFont(font2)
+
+        self.grid_layout_orbit_elements.addWidget(self.label_static_orbit_eccentricity, 0, 0, 1, 1)
+
+        self.line_edit_orbit_eccentricity = QLineEdit(self.verticalLayoutWidget_5)
+        self.line_edit_orbit_eccentricity.setObjectName(u"line_edit_orbit_eccentricity")
+
+        self.grid_layout_orbit_elements.addWidget(self.line_edit_orbit_eccentricity, 0, 1, 1, 1)
+
+        self.label_static_orbit_inclination = QLabel(self.verticalLayoutWidget_5)
+        self.label_static_orbit_inclination.setObjectName(u"label_static_orbit_inclination")
+        self.label_static_orbit_inclination.setFont(font2)
+
+        self.grid_layout_orbit_elements.addWidget(self.label_static_orbit_inclination, 1, 0, 1, 1)
+
+        self.label_static_orbit_true_anomaly = QLabel(self.verticalLayoutWidget_5)
+        self.label_static_orbit_true_anomaly.setObjectName(u"label_static_orbit_true_anomaly")
+        self.label_static_orbit_true_anomaly.setFont(font2)
+
+        self.grid_layout_orbit_elements.addWidget(self.label_static_orbit_true_anomaly, 4, 3, 1, 1)
+
+        self.line_edit_orbit_perihelion = QLineEdit(self.verticalLayoutWidget_5)
+        self.line_edit_orbit_perihelion.setObjectName(u"line_edit_orbit_perihelion")
+
+        self.grid_layout_orbit_elements.addWidget(self.line_edit_orbit_perihelion, 4, 1, 1, 1)
+
+        self.line_edit_orbit_true_anomaly = QLineEdit(self.verticalLayoutWidget_5)
+        self.line_edit_orbit_true_anomaly.setObjectName(u"line_edit_orbit_true_anomaly")
+
+        self.grid_layout_orbit_elements.addWidget(self.line_edit_orbit_true_anomaly, 4, 5, 1, 1)
+
+        self.label_static_orbit_perihelion = QLabel(self.verticalLayoutWidget_5)
+        self.label_static_orbit_perihelion.setObjectName(u"label_static_orbit_perihelion")
+        self.label_static_orbit_perihelion.setFont(font2)
+
+        self.grid_layout_orbit_elements.addWidget(self.label_static_orbit_perihelion, 4, 0, 1, 1)
+
+        self.line_edit_orbit_inclination = QLineEdit(self.verticalLayoutWidget_5)
+        self.line_edit_orbit_inclination.setObjectName(u"line_edit_orbit_inclination")
+
+        self.grid_layout_orbit_elements.addWidget(self.line_edit_orbit_inclination, 1, 1, 1, 1)
+
+        self.label_static_orbit_ascending_node = QLabel(self.verticalLayoutWidget_5)
+        self.label_static_orbit_ascending_node.setObjectName(u"label_static_orbit_ascending_node")
+        self.label_static_orbit_ascending_node.setFont(font2)
+
+        self.grid_layout_orbit_elements.addWidget(self.label_static_orbit_ascending_node, 1, 3, 1, 1)
+
+        self.label_static_orbit_semimajor_axis = QLabel(self.verticalLayoutWidget_5)
+        self.label_static_orbit_semimajor_axis.setObjectName(u"label_static_orbit_semimajor_axis")
+        font3 = QFont()
+        font3.setBold(False)
+        font3.setItalic(False)
+        self.label_static_orbit_semimajor_axis.setFont(font3)
+
+        self.grid_layout_orbit_elements.addWidget(self.label_static_orbit_semimajor_axis, 0, 3, 1, 1)
+
+        self.line_edit_orbit_ascending_node = QLineEdit(self.verticalLayoutWidget_5)
+        self.line_edit_orbit_ascending_node.setObjectName(u"line_edit_orbit_ascending_node")
+
+        self.grid_layout_orbit_elements.addWidget(self.line_edit_orbit_ascending_node, 1, 5, 1, 1)
+
+        self.line_edit_orbit_semimajor_axis = QLineEdit(self.verticalLayoutWidget_5)
+        self.line_edit_orbit_semimajor_axis.setObjectName(u"line_edit_orbit_semimajor_axis")
+
+        self.grid_layout_orbit_elements.addWidget(self.line_edit_orbit_semimajor_axis, 0, 5, 1, 1)
+
+        self.line_16 = QFrame(self.verticalLayoutWidget_5)
+        self.line_16.setObjectName(u"line_16")
+        self.line_16.setFrameShape(QFrame.VLine)
+        self.line_16.setFrameShadow(QFrame.Sunken)
+
+        self.grid_layout_orbit_elements.addWidget(self.line_16, 0, 2, 5, 1)
+
+
+        self.vertical_layout_orbit.addLayout(self.grid_layout_orbit_elements)
+
+        self.line_15 = QFrame(self.verticalLayoutWidget_5)
+        self.line_15.setObjectName(u"line_15")
+        self.line_15.setFrameShape(QFrame.HLine)
+        self.line_15.setFrameShadow(QFrame.Sunken)
+
+        self.vertical_layout_orbit.addWidget(self.line_15)
+
         self.horizontal_layout_orbit_results = QHBoxLayout()
         self.horizontal_layout_orbit_results.setObjectName(u"horizontal_layout_orbit_results")
 
@@ -340,13 +483,18 @@ class Ui_PrimaryWindow(object):
         self.tab_ephemeris.setObjectName(u"tab_ephemeris")
         self.verticalLayoutWidget_6 = QWidget(self.tab_ephemeris)
         self.verticalLayoutWidget_6.setObjectName(u"verticalLayoutWidget_6")
-        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 571, 241))
+        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 581, 241))
         self.verticalLayoutWidget_6.setFont(font)
         self.vertical_layout_ephemeris = QVBoxLayout(self.verticalLayoutWidget_6)
         self.vertical_layout_ephemeris.setObjectName(u"vertical_layout_ephemeris")
         self.vertical_layout_ephemeris.setContentsMargins(0, 0, 0, 0)
         self.horizontal_layout_solve_ephemeris = QHBoxLayout()
         self.horizontal_layout_solve_ephemeris.setObjectName(u"horizontal_layout_solve_ephemeris")
+        self.combo_box_ephemeris_solve_engine = QComboBox(self.verticalLayoutWidget_6)
+        self.combo_box_ephemeris_solve_engine.setObjectName(u"combo_box_ephemeris_solve_engine")
+
+        self.horizontal_layout_solve_ephemeris.addWidget(self.combo_box_ephemeris_solve_engine)
+
         self.push_button_ephemeris_solve_ephemeris = QPushButton(self.verticalLayoutWidget_6)
         self.push_button_ephemeris_solve_ephemeris.setObjectName(u"push_button_ephemeris_solve_ephemeris")
         self.push_button_ephemeris_solve_ephemeris.setFont(font)
@@ -373,13 +521,20 @@ class Ui_PrimaryWindow(object):
         self.tab_propagate.setObjectName(u"tab_propagate")
         self.verticalLayoutWidget_4 = QWidget(self.tab_propagate)
         self.verticalLayoutWidget_4.setObjectName(u"verticalLayoutWidget_4")
-        self.verticalLayoutWidget_4.setGeometry(QRect(10, 10, 571, 251))
+        self.verticalLayoutWidget_4.setGeometry(QRect(10, 10, 581, 251))
         self.verticalLayoutWidget_4.setFont(font)
         self.vertical_layout_propagate = QVBoxLayout(self.verticalLayoutWidget_4)
         self.vertical_layout_propagate.setObjectName(u"vertical_layout_propagate")
         self.vertical_layout_propagate.setContentsMargins(0, 0, 0, 0)
         self.horizontal_layout_solve_propagation = QHBoxLayout()
         self.horizontal_layout_solve_propagation.setObjectName(u"horizontal_layout_solve_propagation")
+        self.combo_box_propagate_solve_engine = QComboBox(self.verticalLayoutWidget_4)
+        self.combo_box_propagate_solve_engine.addItem("")
+        self.combo_box_propagate_solve_engine.addItem("")
+        self.combo_box_propagate_solve_engine.setObjectName(u"combo_box_propagate_solve_engine")
+
+        self.horizontal_layout_solve_propagation.addWidget(self.combo_box_propagate_solve_engine)
+
         self.push_button_propagate_solve_propagation = QPushButton(self.verticalLayoutWidget_4)
         self.push_button_propagate_solve_propagation.setObjectName(u"push_button_propagate_solve_propagation")
         self.push_button_propagate_solve_propagation.setFont(font)
@@ -516,7 +671,7 @@ class Ui_PrimaryWindow(object):
 
         self.retranslateUi(PrimaryWindow)
 
-        self.tabs_solutions.setCurrentIndex(5)
+        self.tabs_solutions.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(PrimaryWindow)
@@ -530,6 +685,9 @@ class Ui_PrimaryWindow(object):
         self.dummy_opihi_navbar.setText(QCoreApplication.translate("PrimaryWindow", u"DUMMY OPIHI IMAGE NAVIGATION BAR.", None))
         self.push_button_refresh_window.setText(QCoreApplication.translate("PrimaryWindow", u"Refresh Window", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_summary), QCoreApplication.translate("PrimaryWindow", u"Summary", None))
+        self.combo_box_astrometry_solve_engine.setItemText(0, QCoreApplication.translate("PrimaryWindow", u"Astrometry.net Nova", None))
+        self.combo_box_astrometry_solve_engine.setItemText(1, QCoreApplication.translate("PrimaryWindow", u"Astrometry.net Host", None))
+
         self.push_button_astrometry_solve_astrometry.setText(QCoreApplication.translate("PrimaryWindow", u"Solve Astrometry", None))
         self.label_dynamic_astrometry_target_x.setText(QCoreApplication.translate("PrimaryWindow", u"0000", None))
         self.label_dynamic_astrometry_target_y.setText(QCoreApplication.translate("PrimaryWindow", u"0000", None))
@@ -543,12 +701,35 @@ class Ui_PrimaryWindow(object):
         self.label_dynamic_astrometry_center_x.setText(QCoreApplication.translate("PrimaryWindow", u"0000", None))
         self.push_button_astrometry_custom_solve.setText(QCoreApplication.translate("PrimaryWindow", u"Custom Solve", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_astrometry), QCoreApplication.translate("PrimaryWindow", u"Astrometry", None))
+        self.combo_box_photometry_solve_engine.setItemText(0, QCoreApplication.translate("PrimaryWindow", u"Pan-STARRS 3pi DR2 MAST", None))
+
         self.push_button_photometry_solve_photometry.setText(QCoreApplication.translate("PrimaryWindow", u"Solve Photometry", None))
+        self.label_static_photometry_filter_label.setText(QCoreApplication.translate("PrimaryWindow", u"Filter", None))
+        self.label_dynamic_photometry_filter_name.setText(QCoreApplication.translate("PrimaryWindow", u"FF", None))
+        self.label_static_photometry_zero_point_label.setText(QCoreApplication.translate("PrimaryWindow", u"Zero Point ", None))
+        self.label_dynamic_photometry_zero_point_value.setText(QCoreApplication.translate("PrimaryWindow", u"ZZ.ZZ + E.EEE", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_photometry), QCoreApplication.translate("PrimaryWindow", u"Photometry", None))
+        self.combo_box_orbit_solve_engine.setItemText(0, QCoreApplication.translate("PrimaryWindow", u"Orbfit", None))
+
         self.push_button_orbit_solve_orbit.setText(QCoreApplication.translate("PrimaryWindow", u"Solve Orbit", None))
+        self.label_static_orbit_eccentricity.setText(QCoreApplication.translate("PrimaryWindow", u"Ecc.", None))
+        self.line_edit_orbit_eccentricity.setText(QCoreApplication.translate("PrimaryWindow", u"VV.VVV + EE.EEE", None))
+        self.label_static_orbit_inclination.setText(QCoreApplication.translate("PrimaryWindow", u"Incli.", None))
+        self.label_static_orbit_true_anomaly.setText(QCoreApplication.translate("PrimaryWindow", u"T-Anom.", None))
+        self.line_edit_orbit_perihelion.setText(QCoreApplication.translate("PrimaryWindow", u"VV.VVV + EE.EEE", None))
+        self.line_edit_orbit_true_anomaly.setText(QCoreApplication.translate("PrimaryWindow", u"VV.VVV + EE.EEE", None))
+        self.label_static_orbit_perihelion.setText(QCoreApplication.translate("PrimaryWindow", u"Peri.", None))
+        self.line_edit_orbit_inclination.setText(QCoreApplication.translate("PrimaryWindow", u"VV.VVV + EE.EEE", None))
+        self.label_static_orbit_ascending_node.setText(QCoreApplication.translate("PrimaryWindow", u"As-Node", None))
+        self.label_static_orbit_semimajor_axis.setText(QCoreApplication.translate("PrimaryWindow", u"SM-Axis", None))
+        self.line_edit_orbit_ascending_node.setText(QCoreApplication.translate("PrimaryWindow", u"VV.VVV + EE.EEE", None))
+        self.line_edit_orbit_semimajor_axis.setText(QCoreApplication.translate("PrimaryWindow", u"VV.VVV + EE.EEE", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_orbit), QCoreApplication.translate("PrimaryWindow", u"Orbit", None))
         self.push_button_ephemeris_solve_ephemeris.setText(QCoreApplication.translate("PrimaryWindow", u"Solve Ephemeris", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_ephemeris), QCoreApplication.translate("PrimaryWindow", u"Ephemeris", None))
+        self.combo_box_propagate_solve_engine.setItemText(0, QCoreApplication.translate("PrimaryWindow", u"Linear", None))
+        self.combo_box_propagate_solve_engine.setItemText(1, QCoreApplication.translate("PrimaryWindow", u"Quadratic", None))
+
         self.push_button_propagate_solve_propagation.setText(QCoreApplication.translate("PrimaryWindow", u"Solve Propagation", None))
         self.label_dynamic_propagate_ra_acceleration.setText(QCoreApplication.translate("PrimaryWindow", u"+AA.AAA", None))
         self.label_dynamic_propagate_dec_acceleration.setText(QCoreApplication.translate("PrimaryWindow", u"+AA.AAA", None))
