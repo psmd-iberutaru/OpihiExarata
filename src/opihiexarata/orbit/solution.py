@@ -19,9 +19,9 @@ class OrbitSolution(hint.ExarataSolution):
     Attributes
     ----------
     semimajor_axis : float
-        The semimajor axis of the orbit solved, in AU.
+        The semi-major axis of the orbit solved, in AU.
     semimajor_axis_error : float
-        The error on the semimajor axis of the orbit solved, in AU.
+        The error on the semi-major axis of the orbit solved, in AU.
     eccentricity : float
         The eccentricity of the orbit solved.
     eccentricity_error : float

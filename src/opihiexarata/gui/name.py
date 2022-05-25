@@ -6,8 +6,6 @@ This is just a simple input dialog.
 
 import sys
 
-import numpy as np
-
 from PySide6 import QtCore, QtWidgets, QtGui
 
 

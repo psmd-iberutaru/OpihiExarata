@@ -34,6 +34,9 @@ class AstrometryEngine(ExarataEngine):
     """The base class where the Astrometry engines are derived from. Should
     not be used other than for type hinting and subclassing."""
 
+class EphemerisEngine(ExarataEngine):
+    """The base class for all of the Ephemeris determination engines. Should not
+    be used other than for type hinting and subclassing."""
 
 class OrbitEngine(ExarataEngine):
     """The base class for all of the Orbit determination engines. Should not
