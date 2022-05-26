@@ -5,6 +5,9 @@ import astropy.coordinates as ap_coordinates
 import astropy.time as ap_time
 import astropy.units as ap_units
 
+import opihiexarata.library as library
+import opihiexarata.library.error as error
+import opihiexarata.library.hint as hint
 
 def degrees_to_sexagesimal_ra_dec(
     ra_deg: float, dec_deg: float, precision: int = 2
@@ -113,7 +116,7 @@ def decimal_day_to_unix_time(year: int, month: int, day: float):
 
 
 def full_date_to_unix_time(
-    year: int, month: int, day: int, hour: int = 0, minute: int = 0, second: float = 0
+    year: int, month: int, day: int, hour: int, minute: int, second: float
 ) -> float:
     """A function to convert the a whole date format into UNIX time.
 
@@ -150,13 +153,13 @@ def full_date_to_unix_time(
     return unix_time
 
 
-def modified_julian_day_to_unix_time(mjd: float) -> float:
-    """A function to convert between modified julian days to Unix time.
+def julian_day_to_unix_time(jd: float) -> float:
+    """A function to convert between julian days to Unix time.
 
     Parameters
     ----------
-    mjd : float
-        The modified Julian day to be converted.
+    jd : float
+        The Julian day to be converted.
 
     Returns
     -------
@@ -165,7 +168,7 @@ def modified_julian_day_to_unix_time(mjd: float) -> float:
     """
     # This could eventually be replaced with multiplication and addition, but
     # this is a convenient way of doing it.
-    time_instance = ap_time.Time(mjd, format="mjd")
+    time_instance = ap_time.Time(jd, format="jd")
     unix_time = time_instance.to_value("unix")
     return unix_time
 
@@ -225,3 +228,48 @@ def unix_time_to_full_date(unix_time: float) -> tuple:
     time_instance = ap_time.Time(unix_time, format="unix")
     # It is faster to not unpack, even though it would be less readable.
     return time_instance.to_value("ymdhms")
+
+
+def current_time_to_julian_day() -> float:
+    """
+    
+    """
+    raise error.DevelopmentError("Not done.")
+
+def full_date_to_julian_day(year: int, month: int, day: int, hour: int, minute: int, second: float) -> float:
+    """
+    """
+    raise error.DevelopmentError("Not done.")
+
+def string_month_to_number(month_str: str) -> int:
+    """A function to convert from the name of a month to the month number.
+
+    Parameters
+    ----------
+    month_str : string
+        The month name.
+
+    Returns
+    -------
+    month_int : int
+        The month number integer.
+    """
+    # Capitalization does not matter.
+    month_str = month_str.casefold()
+    # There is no real need to import a new package.
+    month_dict = {
+        "january": 1,
+        "february": 2,
+        "march": 3,
+        "april": 4,
+        "may": 5,
+        "june": 6,
+        "july": 7,
+        "august": 8,
+        "september": 9,
+        "october": 10,
+        "november": 11,
+        "december": 12,
+    }
+    month_int = month_dict[month_str]
+    return month_int

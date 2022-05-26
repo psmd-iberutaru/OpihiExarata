@@ -320,10 +320,10 @@ class PropagationSolution(hint.ExarataSolution):
         Returns
         -------
         future_ra : ndarray
-            The set of right ascensions that cooresponds to the future times,
+            The set of right ascensions that corresponds to the future times,
             in degrees.
         future_dec : ndarray
-            The set of declinations that cooresponds to the future times, in
+            The set of declinations that corresponds to the future times, in
             degrees.
         """
         future_ra, future_dec = self._propagation_function(future_time)
