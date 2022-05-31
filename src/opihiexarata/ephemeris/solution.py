@@ -14,7 +14,7 @@ class EphemeriticSolution(hint.ExarataSolution):
 
     Attributes
     ----------
-    orbital : OrbitalSolution
+    orbitals : OrbitalSolution
         The orbital solution from which the orbital elements will be taken from
         to determine the orbit of the target.
     ra_velocity : float
@@ -25,12 +25,12 @@ class EphemeriticSolution(hint.ExarataSolution):
         second.
     """
 
-    def __init__(self, orbital: hint.OrbitalSolution, solver_engine: hint.EphemerisEngine,) -> None:
+    def __init__(self, orbitals: hint.OrbitalSolution, solver_engine: hint.EphemerisEngine,) -> None:
         """Instantiating the solution class.
 
         Parameters
         ----------
-        orbital : OrbitalSolution
+        orbitals : OrbitalSolution
             The orbital solution from which the orbital elements will be taken 
             from to determine the orbit of the target.
         solver_engine : EphemerisEngine
@@ -59,21 +59,21 @@ class EphemeriticSolution(hint.ExarataSolution):
             )
 
         # Check that the astrometric solution is a valid solution.
-        if not isinstance(orbital, orbit.OrbitalSolution):
+        if not isinstance(orbitals, orbit.OrbitalSolution):
             raise error.InputError(
                 "A precomputed orbital solution is required for the computation of"
                 " the ephemeritic solution. It must be an OrbitalSolution class"
                 " from OpihiExarata."
             )
         else:
-            self.orbital = orbital
+            self.orbitals = orbitals
 
         # Derive the propagation values using the proper vehicle function for
         # the desired engine is that is to be used.
         if issubclass(solver_engine, ephemeris.JPLHorizonsWebAPIEngine):
             # The propagation results.
             raw_ephemeris_results = _vehicle_jpl_horizons_web_api(
-                orbital=self.orbital
+                orbitals=self.orbitals
             )
         else:
             # There is no vehicle function, the engine is not supported.
@@ -126,12 +126,12 @@ class EphemeriticSolution(hint.ExarataSolution):
         return future_ra, future_dec
 
 
-def _vehicle_jpl_horizons_web_api(orbital:hint.OrbitalSolution):
+def _vehicle_jpl_horizons_web_api(orbitals:hint.OrbitalSolution):
     """This uses the JPL Horizons web URL API service to derive the ephemeris.
     
     Parameters
     ----------
-    orbital : OrbitalSolution
+    orbitals : OrbitalSolution
         The orbital solution to use to get the orbital elements to send off to
         the JPL Horizons API.
 
@@ -146,13 +146,13 @@ def _vehicle_jpl_horizons_web_api(orbital:hint.OrbitalSolution):
 
     # Extracting the six orbital elements from the orbital solutions. The 
     # JPL horizon page does not accept errors.
-    sa = orbital.semimajor_axis
-    ec = orbital.eccentricity
-    ic = orbital.inclination
-    la = orbital.longitude_ascending_node
-    ph = orbital.argument_perihelion
-    ma = orbital.mean_anomaly
-    ep = orbital.epoch_julian_day
+    sa = orbitals.semimajor_axis
+    ec = orbitals.eccentricity
+    ic = orbitals.inclination
+    la = orbitals.longitude_ascending_node
+    ph = orbitals.argument_perihelion
+    ma = orbitals.mean_anomaly
+    ep = orbitals.epoch_julian_day
     
     # Creating the JPL horizons instance.
     jpl_horizons = ephemeris.JPLHorizonsWebAPIEngine(semimajor_axis=sa,eccentricity=ec,inclination=ic,longitude_ascending_node=la,argument_perihelion=ph,mean_anomaly=ma,epoch=ep)

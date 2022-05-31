@@ -457,7 +457,7 @@ class OpihiSolution(hint.ExarataSolution):
             pass
         return orbital_solution
 
-    def solve_ephemeris(self, solver_engine, overwrite: bool = True):
+    def solve_ephemeris(self, solver_engine:hint.EphemerisEngine, overwrite: bool = True):
         """Solve for the ephemeris solution an asteroid using previous
         observations and derived orbital elements.
 
@@ -487,8 +487,9 @@ class OpihiSolution(hint.ExarataSolution):
                 " orbital solution needs to be called and run first."
             )
 
-        # TODO
-        raise error.DevelopmentError("Not done yet.")
+        # Computing the ephemeris solution provided the engine that the 
+        # user wants to use.
+        ephemeritics_solution = ephemeris.EphemeriticSolution(orbitals=self.orbitals, solver_engine=solver_engine)
 
         # Check if the solution should overwrite the current one.
         if overwrite:

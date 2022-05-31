@@ -22,8 +22,7 @@ import opihiexarata.astrometry as astrometry
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 import opihiexarata.orbit as orbit
-
-# import opihiexarata.ephemeris as ephemeris
+import opihiexarata.ephemeris as ephemeris
 
 import opihiexarata.gui as gui
 
