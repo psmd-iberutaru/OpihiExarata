@@ -18,7 +18,6 @@ Submodules
    opihiexarata.gui.name
    opihiexarata.gui.opihi_image
    opihiexarata.gui.primary
-   opihiexarata.gui.qt
    opihiexarata.gui.selector
    opihiexarata.gui.theme_viewer
 

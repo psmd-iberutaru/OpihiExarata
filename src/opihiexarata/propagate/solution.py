@@ -205,10 +205,12 @@ class PropagativeSolution(hint.ExarataSolution):
             The raw declination angular acceleration of the target, in
             degrees per second squared.
         """
-        # As the observing time is in Julian days, but as our rates are going 
-        # to be in seconds, it is easier to just transform our units to 
+        # As the observing time is in Julian days, but as our rates are going
+        # to be in seconds, it is easier to just transform our units to
         # seconds via UNIX time.
-        unix_obs_time_array = library.conversion.julian_day_to_unix_time(jd=obs_time_array)
+        unix_obs_time_array = library.conversion.julian_day_to_unix_time(
+            jd=obs_time_array
+        )
 
         # Computing the differences.
         delta_ra = ra_array[1:] - ra_array[:-1]
@@ -278,10 +280,12 @@ class PropagativeSolution(hint.ExarataSolution):
         # helpful.
         ra_array, dec_array = self.forward_propagate(future_time=obs_time_array)
 
-        # As the observing time is in Julian days, but as our rates are going 
-        # to be in seconds, it is easier to just transform our units to 
+        # As the observing time is in Julian days, but as our rates are going
+        # to be in seconds, it is easier to just transform our units to
         # seconds via UNIX time.
-        unix_obs_time_array = library.conversion.julian_day_to_unix_time(jd=obs_time_array)
+        unix_obs_time_array = library.conversion.julian_day_to_unix_time(
+            jd=obs_time_array
+        )
 
         # Computing the differences.
         delta_ra = ra_array[1:] - ra_array[:-1]

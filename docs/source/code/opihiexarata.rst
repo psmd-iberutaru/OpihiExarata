@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    opihiexarata.astrometry
+   opihiexarata.ephemeris
    opihiexarata.gui
    opihiexarata.library
    opihiexarata.opihi

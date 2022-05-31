@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2022.5.19 documentation</title>
+  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2022.5.30 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,6 +15,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -199,12 +205,30 @@
            <div itemprop="articleBody">
              
   <section id="module-opihiexarata.library.conversion">
-<span id="opihiexarata-library-conversion-module"></span><h1>opihiexarata.library.conversion module<a class="headerlink" href="#module-opihiexarata.library.conversion" title="Permalink to this headline"></a></h1>
+<span id="opihiexarata-library-conversion-module"></span><h1>opihiexarata.library.conversion module<a class="headerlink" href="#module-opihiexarata.library.conversion" title="Permalink to this heading"></a></h1>
 <p>For miscellaneous conversions.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="opihiexarata.library.conversion.decimal_day_to_unix_time">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">decimal_day_to_unix_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#decimal_day_to_unix_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.decimal_day_to_unix_time" title="Permalink to this definition"></a></dt>
-<dd><p>A function to convert decimal day time formats to UNIX time.</p>
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.current_utc_to_julian_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">current_utc_to_julian_day</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#current_utc_to_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.current_utc_to_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>Return the current UTC time when this function is called as a Julian day
+time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>current_jd</strong> – The current time in Julian date format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.decimal_day_to_julian_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">decimal_day_to_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#decimal_day_to_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.decimal_day_to_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert decimal day time formats to the Julian day.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -215,7 +239,7 @@ values are just passed down.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>unix_time</strong> – The unix time that the date represents.</p>
+<dd class="field-even"><p><strong>julian_day</strong> – The Julian day of the date provided.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
@@ -248,9 +272,9 @@ are used.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="opihiexarata.library.conversion.full_date_to_unix_time">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">full_date_to_unix_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#full_date_to_unix_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.full_date_to_unix_time" title="Permalink to this definition"></a></dt>
-<dd><p>A function to convert the a whole date format into UNIX time.</p>
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.full_date_to_julian_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">full_date_to_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#full_date_to_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.full_date_to_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert the a whole date format into the Julian day time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -263,7 +287,7 @@ are used.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>unix_time</strong> – The time input converted into UNIX time.</p>
+<dd class="field-even"><p><strong>julian_day</strong> – The time input converted into the Julian day.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
@@ -272,15 +296,91 @@ are used.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="opihiexarata.library.conversion.modified_julian_day_to_unix_time">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">modified_julian_day_to_unix_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mjd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#modified_julian_day_to_unix_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.modified_julian_day_to_unix_time" title="Permalink to this definition"></a></dt>
-<dd><p>A function to convert between modified julian days to Unix time.</p>
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.julian_day_to_decimal_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">julian_day_to_decimal_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#julian_day_to_decimal_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.julian_day_to_decimal_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert the Julian day time to the decimal day time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mjd</strong> (<em>float</em>) – The modified Julian day to be converted.</p>
+<dd class="field-odd"><p><strong>jd</strong> (<em>float</em>) – The Julian day time that is going to be converted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the Julian day time.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the Julian day time.</p></li>
+<li><p><strong>day</strong> (<em>float</em>) – The day of the the Julian day time, the hours, minute, and seconds are all
+contained as a decimal.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.julian_day_to_full_date">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">julian_day_to_full_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#julian_day_to_full_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.julian_day_to_full_date" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert the Julian day to a full date time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>jd</strong> (<em>float</em>) – The Julian day time that is going to be converted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the Julian day provided.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the Julian day provided.</p></li>
+<li><p><strong>day</strong> (<em>int</em>) – The day of the Julian day provided.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the Julian day provided.</p></li>
+<li><p><strong>minute</strong> (<em>int</em>) – The minute of the Julian day provided.</p></li>
+<li><p><strong>second</strong> (<em>float</em>) – The second of the Julian day provided.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.julian_day_to_modified_julian_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">julian_day_to_modified_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#julian_day_to_modified_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.julian_day_to_modified_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert Julian days to  modified Julian days.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>jd</strong> (<em>float</em>) – The Julian day to be converted to a modified Julian day.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>mjd</strong> – The modified Julian day value after conversion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.julian_day_to_unix_time">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">julian_day_to_unix_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#julian_day_to_unix_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.julian_day_to_unix_time" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert between Julian days to UNIX time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>jd</strong> (<em>float</em>) – The Julian day to be converted.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>unix_time</strong> – The time converted to UNIX time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.modified_julian_day_to_julian_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">modified_julian_day_to_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mjd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#modified_julian_day_to_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.modified_julian_day_to_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert modified Julian days to Julian days.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mjd</strong> (<em>float</em>) – The modified Julian day to be converted to a Julian day.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>jd</strong> – The Julian day value after conversion.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
@@ -311,43 +411,37 @@ sexagesimal format to degrees.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="opihiexarata.library.conversion.unix_time_to_decimal_day">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">unix_time_to_decimal_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unix_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#unix_time_to_decimal_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.unix_time_to_decimal_day" title="Permalink to this definition"></a></dt>
-<dd><p>A function to convert UNIX time to the decimal day time.</p>
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.string_month_to_number">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">string_month_to_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">month_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#string_month_to_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.string_month_to_number" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert from the name of a month to the month number.
+This is just because it is easy to have here and to add a package import
+for something like this is silly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>unix_time</strong> (<em>float</em>) – The unix time that is going to be converted.</p>
+<dd class="field-odd"><p><strong>month_str</strong> (<em>string</em>) – The month name.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>year</strong> (<em>int</em>) – The year of the UNIX time.</p></li>
-<li><p><strong>month</strong> (<em>int</em>) – The month of the UNIX time.</p></li>
-<li><p><strong>day</strong> (<em>float</em>) – The day of the the UNIX time, the hours, minute, and seconds are all
-contained as a decimal.</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>month_int</strong> – The month number integer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="opihiexarata.library.conversion.unix_time_to_full_date">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">unix_time_to_full_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unix_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#unix_time_to_full_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.unix_time_to_full_date" title="Permalink to this definition"></a></dt>
-<dd><p>A function to convert the a whole date format into UNIX time.</p>
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.unix_time_to_julian_day">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">unix_time_to_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unix_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#unix_time_to_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.unix_time_to_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>A function to convert between julian days to Unix time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>unix_time</strong> (<em>float</em>) – The UNIX time which is subject to be input.</p>
+<dd class="field-odd"><p><strong>unix_time</strong> (<em>float</em>) – The UNIX time to be converted to a Julian day.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>year</strong> (<em>int</em>) – The year of the UNIX time provided.</p></li>
-<li><p><strong>month</strong> (<em>int</em>) – The month of the UNIX time provided.</p></li>
-<li><p><strong>day</strong> (<em>int</em>) – The day of the UNIX time provided.</p></li>
-<li><p><strong>hour</strong> (<em>int</em>) – The hour of the UNIX time provided.</p></li>
-<li><p><strong>minute</strong> (<em>int</em>) – The minute of the UNIX time provided.</p></li>
-<li><p><strong>second</strong> (<em>float</em>) – The second of the UNIX time provided.</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>jd</strong> – The Julian day value as converted.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>

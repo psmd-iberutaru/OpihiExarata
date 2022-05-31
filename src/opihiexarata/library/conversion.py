@@ -10,6 +10,7 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+
 def degrees_to_sexagesimal_ra_dec(
     ra_deg: float, dec_deg: float, precision: int = 2
 ) -> tuple[str, str]:
@@ -69,6 +70,7 @@ def sexagesimal_ra_dec_to_degrees(ra_sex: str, dec_sex: str) -> tuple[float, flo
     ra_deg = float(skycoord.ra.degree)
     dec_deg = float(skycoord.dec.degree)
     return ra_deg, dec_deg
+
 
 def decimal_day_to_julian_day(year: int, month: int, day: float):
     """A function to convert decimal day time formats to the Julian day.
@@ -153,9 +155,9 @@ def full_date_to_julian_day(
     return julian_day
 
 
-def modified_julian_day_to_julian_day(mjd:float) -> float:
+def modified_julian_day_to_julian_day(mjd: float) -> float:
     """A function to convert modified Julian days to Julian days.
-    
+
     Parameters
     ----------
     mjd : float
@@ -170,9 +172,10 @@ def modified_julian_day_to_julian_day(mjd:float) -> float:
     jd = time_instance.to_value("jd", subfmt="long")
     return jd
 
-def julian_day_to_modified_julian_day(jd:float) -> float:
+
+def julian_day_to_modified_julian_day(jd: float) -> float:
     """A function to convert Julian days to  modified Julian days.
-    
+
     Parameters
     ----------
     jd : float
@@ -248,9 +251,7 @@ def julian_day_to_decimal_day(jd: float) -> tuple:
         contained as a decimal.
     """
     # Getting the full date and just converting it from there.
-    year, month, int_day, hour, minute, second = julian_day_to_full_date(
-        jd=jd
-    )
+    year, month, int_day, hour, minute, second = julian_day_to_full_date(jd=jd)
     # Calculating the decimal day.
     day = int_day + hour / 24 + minute / 1440 + second / 86400
     # All done.
@@ -303,9 +304,10 @@ def current_utc_to_julian_day() -> float:
     current_jd = unix_time_to_julian_day(unix_time=current_unix_time)
     raise current_jd
 
+
 def string_month_to_number(month_str: str) -> int:
     """A function to convert from the name of a month to the month number.
-    This is just because it is easy to have here and to add a package import 
+    This is just because it is easy to have here and to add a package import
     for something like this is silly.
 
     Parameters

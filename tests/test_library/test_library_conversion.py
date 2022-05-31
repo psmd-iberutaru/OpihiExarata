@@ -1,6 +1,4 @@
 import numpy as np
-import os
-
 
 import opihiexarata
 
@@ -24,6 +22,7 @@ def test_decimal_day_to_julian_day() -> None:
     assert np.isclose(tower_julian_day, test_tower_julian_day), assert_message
 
     return None
+
 
 def test_full_date_to_julian_day() -> None:
     """Test the conversion from a full date to Julian days."""

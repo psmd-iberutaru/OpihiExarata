@@ -626,7 +626,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         datetime_input.setTimeZone(qt_timezone)
         unix_time_input = datetime_input.toSecsSinceEpoch()
         # As a Julian day as that is the standard time system.
-        julian_day_input = library.conversion.unix_time_to_julian_day(unix_time=unix_time_input)
+        julian_day_input = library.conversion.unix_time_to_julian_day(
+            unix_time=unix_time_input
+        )
 
         # Using this unique time provided to solve the propagation.
         ra_deg, dec_deg = self.opihi_solution.propagatives.forward_propagate(
@@ -745,7 +747,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Converting date to Julian day as the solution class requires it.
         # We use the modified Julian day from the header file.
-        observing_time = library.conversion.modified_julian_day_to_julian_day(mjd=header["MJD_OBS"])
+        observing_time = library.conversion.modified_julian_day_to_julian_day(
+            mjd=header["MJD_OBS"]
+        )
 
         # For asteroid information, if we are to prompt the user for
         # information about the asteroid.
@@ -1072,7 +1076,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.line_edit_orbit_ascending_node.setText(ascending_node_string)
         self.ui.line_edit_orbit_perihelion.setText(perihelion_string)
         self.ui.line_edit_orbit_true_anomaly.setText(true_anomaly_string)
-        
+
         # All done.
         return None
 
@@ -1152,7 +1156,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             datetime_str = "{yr}-{mh}-{dy}  {hr}:{mn}:{sc}  Z".format(
                 yr=int(yr), mh=int(mh), dy=int(dy), hr=int(hr), mn=int(mn), sc=int(sc)
             )
-            # Using the Julian day time to compute the propagated solution for 
+            # Using the Julian day time to compute the propagated solution for
             # this time and formatting this as the needed string.
             ra_deg, dec_deg = propagatives.forward_propagate(
                 future_time=future_julian_day

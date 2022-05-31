@@ -18,8 +18,7 @@ Write-Output "===== Installing Auxiliary Packages ======"
 Write-Output "=========================================="
 Write-Output ""
 # Making sure the needed packages are installed.
-pip install --upgrade --force-reinstall --quiet --quiet `
-black pytest coverage sphinx sphinx_rtd_theme 
+pip install --upgrade black pytest coverage sphinx sphinx_rtd_theme 
 
 
 

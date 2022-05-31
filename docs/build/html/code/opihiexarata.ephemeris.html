@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.qt module &mdash; OpihiExarata 2022.5.19 documentation</title>
+  <title>opihiexarata.ephemeris package &mdash; OpihiExarata 2022.5.30 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,12 +15,13 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="opihiexarata.gui.selector module" href="opihiexarata.gui.selector.html" />
-    <link rel="prev" title="opihiexarata.gui.primary module" href="opihiexarata.gui.primary.html" /> 
+    <link rel="next" title="opihiexarata.ephemeris.jplhorizons module" href="opihiexarata.ephemeris.jplhorizons.html" />
+    <link rel="prev" title="opihiexarata.astrometry.webclient module" href="opihiexarata.astrometry.webclient.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -131,9 +132,14 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
-<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
 </ul>
 </li>
@@ -187,10 +193,9 @@
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="modules.html">opihiexarata</a> &raquo;</li>
           <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
-          <li><a href="opihiexarata.gui.html">opihiexarata.gui package</a> &raquo;</li>
-      <li>opihiexarata.gui.qt module</li>
+      <li>opihiexarata.ephemeris package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/code/opihiexarata.gui.qt.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/code/opihiexarata.ephemeris.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -198,16 +203,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-opihiexarata.gui.qt">
-<span id="opihiexarata-gui-qt-module"></span><h1>opihiexarata.gui.qt module<a class="headerlink" href="#module-opihiexarata.gui.qt" title="Permalink to this headline"></a></h1>
+  <section id="opihiexarata-ephemeris-package">
+<h1>opihiexarata.ephemeris package<a class="headerlink" href="#opihiexarata-ephemeris-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="opihiexarata.ephemeris.jplhorizons.html">opihiexarata.ephemeris.jplhorizons module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opihiexarata.ephemeris.solution.html">opihiexarata.ephemeris.solution module</a></li>
+</ul>
+</div>
+</section>
+<section id="module-opihiexarata.ephemeris">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opihiexarata.ephemeris" title="Permalink to this heading"></a></h2>
+<p>This is the module for all of the ephemeris calculations, provided
+orbital elements.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opihiexarata.gui.primary.html" class="btn btn-neutral float-left" title="opihiexarata.gui.primary module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="opihiexarata.gui.selector.html" class="btn btn-neutral float-right" title="opihiexarata.gui.selector module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="opihiexarata.astrometry.webclient.html" class="btn btn-neutral float-left" title="opihiexarata.astrometry.webclient module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.ephemeris.jplhorizons.html" class="btn btn-neutral float-right" title="opihiexarata.ephemeris.jplhorizons module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optional: Documentation &mdash; OpihiExarata 2022.5.19 documentation</title>
+  <title>Optional: Documentation &mdash; OpihiExarata 2022.5.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -15,6 +15,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -198,12 +204,12 @@
            <div itemprop="articleBody">
              
   <section id="optional-documentation">
-<h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this headline"></a></h1>
+<h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this heading"></a></h1>
 <p>Building the documentation is relatively simple as we leverage Sphinx to build it.</p>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
 <section id="sphinx">
-<h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline"></a></h3>
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this heading"></a></h3>
 <p>To build the Sphinx documentation, Python needs to be installed (the Python version
 installed in this installation procedure can be used).</p>
 <p>The following packages must be installed:</p>
@@ -212,20 +218,20 @@ installed in this installation procedure can be used).</p>
 </div>
 </section>
 <section id="latex">
-<h3>LaTeX<a class="headerlink" href="#latex" title="Permalink to this headline"></a></h3>
+<h3>LaTeX<a class="headerlink" href="#latex" title="Permalink to this heading"></a></h3>
 <p>If a PDF version of the documentation is desired, Sphinx can build it via LaTeX. LaTeX
 must be installed. We suggest installing the <a class="reference external" href="https://tug.org/texlive/">TeX Live distribution</a> and installing the
 full install. Instructions on how to install TeX Live is beyond the scope of this
 documentation.</p>
 </section>
 <section id="directory">
-<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this headline"></a></h3>
+<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h3>
 <p>Change your directory to the <code class="docutils literal notranslate"><span class="pre">OpihiExarata/docs</span></code> directory, run all of the commands
 while within this directory.</p>
 </section>
 </section>
 <section id="build">
-<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h2>
+<h2>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h2>
 <p><strong>First</strong>, the Python docstrings need to be processed into documentation. This
 can be done via running the script file: <code class="docutils literal notranslate"><span class="pre">./docstring.cmd</span></code></p>
 <p><strong>Second</strong>, it is helpful to removed the cached versions of the documentation files,

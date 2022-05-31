@@ -7,9 +7,10 @@ import opihiexarata.library.hint as hint
 import opihiexarata.ephemeris as ephemeris
 import opihiexarata.orbit as orbit
 
+
 class EphemeriticSolution(hint.ExarataSolution):
-    """This obtains the ephemeris of an asteroid using an ephemeris engine 
-    provided the Keplerian orbital elements of the asteroid as determined 
+    """This obtains the ephemeris of an asteroid using an ephemeris engine
+    provided the Keplerian orbital elements of the asteroid as determined
     by orbital solutions.
 
     Attributes
@@ -25,13 +26,17 @@ class EphemeriticSolution(hint.ExarataSolution):
         second.
     """
 
-    def __init__(self, orbitals: hint.OrbitalSolution, solver_engine: hint.EphemerisEngine,) -> None:
+    def __init__(
+        self,
+        orbitals: hint.OrbitalSolution,
+        solver_engine: hint.EphemerisEngine,
+    ) -> None:
         """Instantiating the solution class.
 
         Parameters
         ----------
         orbitals : OrbitalSolution
-            The orbital solution from which the orbital elements will be taken 
+            The orbital solution from which the orbital elements will be taken
             from to determine the orbit of the target.
         solver_engine : EphemerisEngine
             The ephemeris solver engine class. This is what will act as the
@@ -81,7 +86,7 @@ class EphemeriticSolution(hint.ExarataSolution):
                 "The provided ephemeris engine `{eng}` is not supported, there is no"
                 " associated vehicle function for it.".format(eng=str(solver_engine))
             )
-        
+
         # Get the results of the solution. If the engine did not provide all of
         # the needed values, then the engine is deficient.
         try:
@@ -99,7 +104,7 @@ class EphemeriticSolution(hint.ExarataSolution):
 
         # All done.
         return None
-    
+
     def forward_ephemeris(
         self, future_time: hint.array
     ) -> tuple[hint.array, hint.array]:
@@ -126,9 +131,9 @@ class EphemeriticSolution(hint.ExarataSolution):
         return future_ra, future_dec
 
 
-def _vehicle_jpl_horizons_web_api(orbitals:hint.OrbitalSolution):
+def _vehicle_jpl_horizons_web_api(orbitals: hint.OrbitalSolution):
     """This uses the JPL Horizons web URL API service to derive the ephemeris.
-    
+
     Parameters
     ----------
     orbitals : OrbitalSolution
@@ -144,7 +149,7 @@ def _vehicle_jpl_horizons_web_api(orbitals:hint.OrbitalSolution):
     # The results dictionary.
     ephemeris_results = {}
 
-    # Extracting the six orbital elements from the orbital solutions. The 
+    # Extracting the six orbital elements from the orbital solutions. The
     # JPL horizon page does not accept errors.
     sa = orbitals.semimajor_axis
     ec = orbitals.eccentricity
@@ -153,9 +158,17 @@ def _vehicle_jpl_horizons_web_api(orbitals:hint.OrbitalSolution):
     ph = orbitals.argument_perihelion
     ma = orbitals.mean_anomaly
     ep = orbitals.epoch_julian_day
-    
+
     # Creating the JPL horizons instance.
-    jpl_horizons = ephemeris.JPLHorizonsWebAPIEngine(semimajor_axis=sa,eccentricity=ec,inclination=ic,longitude_ascending_node=la,argument_perihelion=ph,mean_anomaly=ma,epoch=ep)
+    jpl_horizons = ephemeris.JPLHorizonsWebAPIEngine(
+        semimajor_axis=sa,
+        eccentricity=ec,
+        inclination=ic,
+        longitude_ascending_node=la,
+        argument_perihelion=ph,
+        mean_anomaly=ma,
+        epoch=ep,
+    )
 
     # The future ephemeris function to determine the location of the orbit
     # in the future. The time already requires Julian days.
@@ -168,8 +181,8 @@ def _vehicle_jpl_horizons_web_api(orbitals:hint.OrbitalSolution):
     # Constructing the solution dictionary.
     ephemeris_results = {
         "ephemeris_function": ephemeris_function,
-        "ra_velocity":ra_velocity,
-        "dec_velocity":dec_velocity,
+        "ra_velocity": ra_velocity,
+        "dec_velocity": dec_velocity,
     }
     # All done.
     return ephemeris_results

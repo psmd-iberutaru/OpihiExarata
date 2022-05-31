@@ -937,7 +937,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             mjd=self.reference_header["MJD_OBS"]
         )
         # We assume the reference image was taken in the past. As Julian days
-        # are in days, and we want seconds, 
+        # are in days, and we want seconds,
         delta_days = current_jd - reference_jd
         delta_time = delta_days * 86400
 

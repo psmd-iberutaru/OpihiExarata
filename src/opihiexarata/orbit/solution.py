@@ -49,7 +49,7 @@ class OrbitalSolution(hint.ExarataSolution):
         The error on the true anomaly of the orbit solved, in degrees. This
         value is calculated from the error on the mean anomaly.
     epoch_julian_day : float
-        The epoch where for these osculating orbital elements. This value is 
+        The epoch where for these osculating orbital elements. This value is
         in Julian days.
     """
 
@@ -360,7 +360,9 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
 
     # As the Orbfit engine returns the epoch as a MJD but the overall solution
     # requires it as a Julian date, we convert here.
-    epoch_julian_day = library.conversion.modified_julian_day_to_julian_day(mjd=mjd_epoch)
+    epoch_julian_day = library.conversion.modified_julian_day_to_julian_day(
+        mjd=mjd_epoch
+    )
 
     # Converting the the results from this engine to the standard output
     # expected by the vehicle functions for orbit solving.

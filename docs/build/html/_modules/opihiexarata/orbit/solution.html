@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.5.19 documentation</title>
+  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.5.30 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -206,7 +212,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
 
 
-<div class="viewcode-block" id="OrbitSolution"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitSolution">[docs]</a><span class="k">class</span> <span class="nc">OrbitSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OrbitalSolution"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution">[docs]</a><span class="k">class</span> <span class="nc">OrbitalSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the class which solves a record of observations to derive the</span>
 <span class="sd">    orbital parameters of asteroids or objects in general. A record of</span>
 <span class="sd">    observations must be provided.</span>
@@ -214,9 +220,9 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    semimajor_axis : float</span>
-<span class="sd">        The semimajor axis of the orbit solved, in AU.</span>
+<span class="sd">        The semi-major axis of the orbit solved, in AU.</span>
 <span class="sd">    semimajor_axis_error : float</span>
-<span class="sd">        The error on the semimajor axis of the orbit solved, in AU.</span>
+<span class="sd">        The error on the semi-major axis of the orbit solved, in AU.</span>
 <span class="sd">    eccentricity : float</span>
 <span class="sd">        The eccentricity of the orbit solved.</span>
 <span class="sd">    eccentricity_error : float</span>
@@ -243,12 +249,12 @@
 <span class="sd">    true_anomaly_error : float</span>
 <span class="sd">        The error on the true anomaly of the orbit solved, in degrees. This</span>
 <span class="sd">        value is calculated from the error on the mean anomaly.</span>
-<span class="sd">    modified_julian_date : float</span>
-<span class="sd">        The modified Julian date used by the engine to calculate the osculating</span>
-<span class="sd">        orbital elements.</span>
+<span class="sd">    epoch_julian_day : float</span>
+<span class="sd">        The epoch where for these osculating orbital elements. This value is</span>
+<span class="sd">        in Julian days.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OrbitSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="OrbitalSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The initialization function. Provided the list of observations,</span>
@@ -310,7 +316,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Quick type checking; everything should be float or at the least</span>
-            <span class="c1"># float-convertable. This may be unneeded but it does not hurt.</span>
+            <span class="c1"># float-convertible. This may be unneeded but it does not hurt.</span>
             <span class="n">orbit_results</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">keydex</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">valuedex</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">raw_orbit_results</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -339,7 +345,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">]</span>
             <span class="c1"># MJD</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;modified_julian_date&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epoch_julian_day</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
                 <span class="s2">&quot;The engine results provided are insufficient for this orbit&quot;</span>
@@ -533,7 +539,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    orbit_results : dict</span>
 <span class="sd">        The results of the orbit computation using the Orbfit engine. Namely,</span>
-<span class="sd">        this returns the 6 classical Kepler elements, using mean anamonly.</span>
+<span class="sd">        this returns the 6 classical Kepler elements, using mean anomaly.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Creating the Orbfit class. It does an correct installation check. If</span>
     <span class="c1"># the installation is wrong, it is mentioned. Catching it should it fail</span>
@@ -549,8 +555,14 @@
 
     <span class="c1"># Solving for the orbit. This engine has a record-based solution function</span>
     <span class="c1"># so just using it.</span>
-    <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">mjd</span> <span class="o">=</span> <span class="n">orbfit</span><span class="o">.</span><span class="n">solve_orbit_via_record</span><span class="p">(</span>
+    <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">mjd_epoch</span> <span class="o">=</span> <span class="n">orbfit</span><span class="o">.</span><span class="n">solve_orbit_via_record</span><span class="p">(</span>
         <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span>
+    <span class="p">)</span>
+
+    <span class="c1"># As the Orbfit engine returns the epoch as a MJD but the overall solution</span>
+    <span class="c1"># requires it as a Julian date, we convert here.</span>
+    <span class="n">epoch_julian_day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">modified_julian_day_to_julian_day</span><span class="p">(</span>
+        <span class="n">mjd</span><span class="o">=</span><span class="n">mjd_epoch</span>
     <span class="p">)</span>
 
     <span class="c1"># Converting the the results from this engine to the standard output</span>
@@ -570,7 +582,7 @@
         <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">],</span>
         <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">],</span>
         <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;modified_julian_date&quot;</span><span class="p">:</span> <span class="n">mjd</span><span class="p">,</span>
+        <span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">:</span> <span class="n">epoch_julian_day</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">orbit_results</span></div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.5.19 documentation</title>
+  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.5.30 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -196,7 +202,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;For polynomial fitting propagation, using approximations of 1st or 2nd order</span>
 <span class="sd">terms but ignoring some spherical effects.</span>
 
-<span class="sd">Although this could be easily implimented in a better method using subclassing</span>
+<span class="sd">Although this could be easily implemented in a better method using subclassing</span>
 <span class="sd">rather than having two classes, as having a 3rd order is not really feasible, </span>
 <span class="sd">and for the sake of readability and stability, two separate copy-like classes</span>
 <span class="sd">are written.</span>
@@ -223,7 +229,7 @@
 <span class="sd">        The array of declinations measurements to extrapolate to.</span>
 <span class="sd">    obs_time_array : ndarray</span>
 <span class="sd">        The array of observation times which the RA and DEC measurements were</span>
-<span class="sd">        taken at. The values are in UNIX time.</span>
+<span class="sd">        taken at. The values are in Julian days.</span>
 <span class="sd">    ra_poly_param : tuple</span>
 <span class="sd">            The polynomial fit parameters for the RA(time) propagation.</span>
 <span class="sd">    dec_poly_param : tuple</span>
@@ -243,7 +249,7 @@
 <span class="sd">            degrees.</span>
 <span class="sd">        obs_time : array-like</span>
 <span class="sd">            An array of observation times which the RA and DEC measurements</span>
-<span class="sd">            were taken at. This should be in UNIX time.</span>
+<span class="sd">            were taken at. This should be in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -372,15 +378,15 @@
 <span class="sd">        ----------</span>
 <span class="sd">        future_time : array-like</span>
 <span class="sd">            The set of future times which to derive new RA and DEC coordinates.</span>
-<span class="sd">            The time must be in UNIX time.</span>
+<span class="sd">            The time must be in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        future_ra : ndarray</span>
-<span class="sd">            The set of right ascensions that cooresponds to the future times,</span>
+<span class="sd">            The set of right ascensions that corresponds to the future times,</span>
 <span class="sd">            in degrees.</span>
 <span class="sd">        future_dec : ndarray</span>
-<span class="sd">            The set of declinations that cooresponds to the future times, in</span>
+<span class="sd">            The set of declinations that corresponds to the future times, in</span>
 <span class="sd">            degrees.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Determining the RA and DEC via the polynomial function based on the</span>
@@ -405,7 +411,7 @@
 <span class="sd">        The array of declinations measurements to extrapolate to.</span>
 <span class="sd">    obs_time_array : ndarray</span>
 <span class="sd">        The array of observation times which the RA and DEC measurements were</span>
-<span class="sd">        taken at. The values are in UNIX time.</span>
+<span class="sd">        taken at. The values are in Julian days.</span>
 <span class="sd">    ra_poly_param : tuple</span>
 <span class="sd">            The polynomial fit parameters for the RA(time) propagation.</span>
 <span class="sd">    dec_poly_param : tuple</span>
@@ -425,7 +431,7 @@
 <span class="sd">            degrees.</span>
 <span class="sd">        obs_time : array-like</span>
 <span class="sd">            An array of observation times which the RA and DEC measurements</span>
-<span class="sd">            were taken at. This should be in UNIX time.</span>
+<span class="sd">            were taken at. This should be in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -554,15 +560,15 @@
 <span class="sd">        ----------</span>
 <span class="sd">        future_time : array-like</span>
 <span class="sd">            The set of future times which to derive new RA and DEC coordinates.</span>
-<span class="sd">            The time must be in UNIX time.</span>
+<span class="sd">            The time must be in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        future_ra : ndarray</span>
-<span class="sd">            The set of right ascensions that cooresponds to the future times,</span>
+<span class="sd">            The set of right ascensions that corresponds to the future times,</span>
 <span class="sd">            in degrees.</span>
 <span class="sd">        future_dec : ndarray</span>
-<span class="sd">            The set of declinations that cooresponds to the future times, in</span>
+<span class="sd">            The set of declinations that corresponds to the future times, in</span>
 <span class="sd">            degrees.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Determining the RA and DEC via the polynomial function based on the</span>

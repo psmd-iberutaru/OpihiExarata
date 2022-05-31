@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
     <title>Coverage for src\opihiexarata\orbit\solution.py: 0%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -15,45 +14,69 @@
             <span class="text">Coverage for </span><b>src\opihiexarata\orbit\solution.py</b>:
             <span class="pc_cov">0%</span>
         </h1>
-        <div id="help_panel_wrapper">
+        <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
                 <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts" />
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
-                <div>
-                    <p class="keyhelp">
+                <div class="keyhelp">
+                    <p>
                         <kbd>r</kbd>
                         <kbd>m</kbd>
                         <kbd>x</kbd>
                         &nbsp; toggle line displays
                     </p>
-                    <p class="keyhelp">
+                    <p>
                         <kbd>j</kbd>
-                        <kbd>k</kbd> &nbsp; next/prev highlighted chunk
+                        <kbd>k</kbd>
+                        &nbsp; next/prev highlighted chunk
                     </p>
-                    <p class="keyhelp">
+                    <p>
                         <kbd>0</kbd> &nbsp; (zero) top of page
                     </p>
-                    <p class="keyhelp">
+                    <p>
                         <kbd>1</kbd> &nbsp; (one) first highlighted chunk
+                    </p>
+                    <p>
+                        <kbd>[</kbd>
+                        <kbd>]</kbd>
+                        &nbsp; prev/next file
+                    </p>
+                    <p>
+                        <kbd>u</kbd> &nbsp; up to the index
+                    </p>
+                    <p>
+                        <kbd>?</kbd> &nbsp; show/hide this help
                     </p>
                 </div>
             </div>
-        </div>
+        </aside>
         <h2>
-            <span class="text">89 statements &nbsp;</span>
+            <span class="text">90 statements &nbsp;</span>
             <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">0<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">89<span class="text"> missing</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">90<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
-        <div style="display: none;">
-            <button type="button" class="button_next_chunk" data-shortcut="j">Next highlighted chunk</button>
-            <button type="button" class="button_prev_chunk" data-shortcut="k">Previous highlighted chunk</button>
-            <button type="button" class="button_top_of_page" data-shortcut="0">Goto top of page</button>
-            <button type="button" class="button_first_chunk" data-shortcut="1">Goto first highlighted chunk</button>
-        </div>
+        <p class="text">
+            <a id="prevFileLink" class="nav" href="d_bd1fdfd449848f3d_orbfit_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
+            <a id="nextFileLink" class="nav" href="d_3f5a46931229f499___init___py.html">&#xbb; next</a>
+            &nbsp; &nbsp; &nbsp;
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4</a>,
+            created at 2022-05-30 19:52 -1000
+        </p>
+        <aside class="hidden">
+            <button type="button" class="button_next_chunk" data-shortcut="j"/>
+            <button type="button" class="button_prev_chunk" data-shortcut="k"/>
+            <button type="button" class="button_top_of_page" data-shortcut="0"/>
+            <button type="button" class="button_first_chunk" data-shortcut="1"/>
+            <button type="button" class="button_prev_file" data-shortcut="["/>
+            <button type="button" class="button_next_file" data-shortcut="]"/>
+            <button type="button" class="button_to_index" data-shortcut="u"/>
+            <button type="button" class="button_show_hide_help" data-shortcut="?"/>
+        </aside>
     </div>
 </header>
 <main id="source">
@@ -70,7 +93,7 @@
     <p class="mis show_mis"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">import</span> <span class="nam">opihiexarata</span><span class="op">.</span><span class="nam">orbit</span> <span class="key">as</span> <span class="nam">orbit</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t"><span class="key">class</span> <span class="nam">OrbitSolution</span><span class="op">(</span><span class="nam">hint</span><span class="op">.</span><span class="nam">ExarataSolution</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t"><span class="key">class</span> <span class="nam">OrbitalSolution</span><span class="op">(</span><span class="nam">hint</span><span class="op">.</span><span class="nam">ExarataSolution</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">    <span class="str">"""This is the class which solves a record of observations to derive the</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t16" href="#t16">16</a></span><span class="t"><span class="str">    orbital parameters of asteroids or objects in general. A record of</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t17" href="#t17">17</a></span><span class="t"><span class="str">    observations must be provided.</span>&nbsp;</span><span class="r"></span></p>
@@ -78,9 +101,9 @@
     <p class="pln"><span class="n"><a id="t19" href="#t19">19</a></span><span class="t"><span class="str">    Attributes</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t20" href="#t20">20</a></span><span class="t"><span class="str">    ----------</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t21" href="#t21">21</a></span><span class="t"><span class="str">    semimajor_axis : float</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t22" href="#t22">22</a></span><span class="t"><span class="str">        The semimajor axis of the orbit solved, in AU.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t22" href="#t22">22</a></span><span class="t"><span class="str">        The semi-major axis of the orbit solved, in AU.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t23" href="#t23">23</a></span><span class="t"><span class="str">    semimajor_axis_error : float</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t24" href="#t24">24</a></span><span class="t"><span class="str">        The error on the semimajor axis of the orbit solved, in AU.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t24" href="#t24">24</a></span><span class="t"><span class="str">        The error on the semi-major axis of the orbit solved, in AU.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t25" href="#t25">25</a></span><span class="t"><span class="str">    eccentricity : float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t26" href="#t26">26</a></span><span class="t"><span class="str">        The eccentricity of the orbit solved.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t27" href="#t27">27</a></span><span class="t"><span class="str">    eccentricity_error : float</span>&nbsp;</span><span class="r"></span></p>
@@ -107,9 +130,9 @@
     <p class="pln"><span class="n"><a id="t48" href="#t48">48</a></span><span class="t"><span class="str">    true_anomaly_error : float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t49" href="#t49">49</a></span><span class="t"><span class="str">        The error on the true anomaly of the orbit solved, in degrees. This</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t50" href="#t50">50</a></span><span class="t"><span class="str">        value is calculated from the error on the mean anomaly.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t51" href="#t51">51</a></span><span class="t"><span class="str">    modified_julian_date : float</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t52" href="#t52">52</a></span><span class="t"><span class="str">        The modified Julian date used by the engine to calculate the osculating</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t53" href="#t53">53</a></span><span class="t"><span class="str">        orbital elements.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t51" href="#t51">51</a></span><span class="t"><span class="str">    epoch_julian_day : float</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t52" href="#t52">52</a></span><span class="t"><span class="str">        The epoch where for these osculating orbital elements. This value is</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t53" href="#t53">53</a></span><span class="t"><span class="str">        in Julian days.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t54" href="#t54">54</a></span><span class="t"><span class="str">    """</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t">    <span class="key">def</span> <span class="nam">__init__</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -174,7 +197,7 @@
     <p class="pln"><span class="n"><a id="t115" href="#t115">115</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t116" href="#t116">116</a></span><span class="t">        <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t117" href="#t117">117</a></span><span class="t">            <span class="com"># Quick type checking; everything should be float or at the least</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">            <span class="com"># float-convertable. This may be unneeded but it does not hurt.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">            <span class="com"># float-convertible. This may be unneeded but it does not hurt.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t119" href="#t119">119</a></span><span class="t">            <span class="nam">orbit_results</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t120" href="#t120">120</a></span><span class="t">                <span class="nam">keydex</span><span class="op">:</span> <span class="nam">float</span><span class="op">(</span><span class="nam">valuedex</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t121" href="#t121">121</a></span><span class="t">                <span class="key">for</span> <span class="nam">keydex</span><span class="op">,</span> <span class="nam">valuedex</span> <span class="key">in</span> <span class="nam">raw_orbit_results</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -203,7 +226,7 @@
     <p class="mis show_mis"><span class="n"><a id="t144" href="#t144">144</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">mean_anomaly</span> <span class="op">=</span> <span class="nam">orbit_results</span><span class="op">[</span><span class="str">"mean_anomaly"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t145" href="#t145">145</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">mean_anomaly_error</span> <span class="op">=</span> <span class="nam">orbit_results</span><span class="op">[</span><span class="str">"mean_anomaly_error"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t146" href="#t146">146</a></span><span class="t">            <span class="com"># MJD</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t147" href="#t147">147</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">modified_julian_date</span> <span class="op">=</span> <span class="nam">orbit_results</span><span class="op">[</span><span class="str">"modified_julian_date"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t147" href="#t147">147</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">epoch_julian_day</span> <span class="op">=</span> <span class="nam">orbit_results</span><span class="op">[</span><span class="str">"epoch_julian_day"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t148" href="#t148">148</a></span><span class="t">        <span class="key">except</span> <span class="nam">KeyError</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t149" href="#t149">149</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">EngineError</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t150" href="#t150">150</a></span><span class="t">                <span class="str">"The engine results provided are insufficient for this orbit"</span>&nbsp;</span><span class="r"></span></p>
@@ -397,7 +420,7 @@
     <p class="pln"><span class="n"><a id="t338" href="#t338">338</a></span><span class="t"><span class="str">    -------</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t339" href="#t339">339</a></span><span class="t"><span class="str">    orbit_results : dict</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t340" href="#t340">340</a></span><span class="t"><span class="str">        The results of the orbit computation using the Orbfit engine. Namely,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t341" href="#t341">341</a></span><span class="t"><span class="str">        this returns the 6 classical Kepler elements, using mean anamonly.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t341" href="#t341">341</a></span><span class="t"><span class="str">        this returns the 6 classical Kepler elements, using mean anomaly.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t342" href="#t342">342</a></span><span class="t"><span class="str">    """</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t343" href="#t343">343</a></span><span class="t">    <span class="com"># Creating the Orbfit class. It does an correct installation check. If</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t344" href="#t344">344</a></span><span class="t">    <span class="com"># the installation is wrong, it is mentioned. Catching it should it fail</span>&nbsp;</span><span class="r"></span></p>
@@ -413,37 +436,47 @@
     <p class="pln"><span class="n"><a id="t354" href="#t354">354</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t355" href="#t355">355</a></span><span class="t">    <span class="com"># Solving for the orbit. This engine has a record-based solution function</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t356" href="#t356">356</a></span><span class="t">    <span class="com"># so just using it.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t357" href="#t357">357</a></span><span class="t">    <span class="nam">kepler_elements</span><span class="op">,</span> <span class="nam">kepler_error</span><span class="op">,</span> <span class="nam">mjd</span> <span class="op">=</span> <span class="nam">orbfit</span><span class="op">.</span><span class="nam">solve_orbit_via_record</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t357" href="#t357">357</a></span><span class="t">    <span class="nam">kepler_elements</span><span class="op">,</span> <span class="nam">kepler_error</span><span class="op">,</span> <span class="nam">mjd_epoch</span> <span class="op">=</span> <span class="nam">orbfit</span><span class="op">.</span><span class="nam">solve_orbit_via_record</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t358" href="#t358">358</a></span><span class="t">        <span class="nam">observation_record</span><span class="op">=</span><span class="nam">observation_record</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t359" href="#t359">359</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t360" href="#t360">360</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t361" href="#t361">361</a></span><span class="t">    <span class="com"># Converting the the results from this engine to the standard output</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t362" href="#t362">362</a></span><span class="t">    <span class="com"># expected by the vehicle functions for orbit solving.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t363" href="#t363">363</a></span><span class="t">    <span class="nam">orbit_results</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t364" href="#t364">364</a></span><span class="t">        <span class="str">"semimajor_axis"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"semimajor_axis"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t365" href="#t365">365</a></span><span class="t">        <span class="str">"semimajor_axis_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"semimajor_axis_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t366" href="#t366">366</a></span><span class="t">        <span class="str">"eccentricity"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"eccentricity"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t367" href="#t367">367</a></span><span class="t">        <span class="str">"eccentricity_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"eccentricity_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t368" href="#t368">368</a></span><span class="t">        <span class="str">"inclination"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"inclination"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t369" href="#t369">369</a></span><span class="t">        <span class="str">"inclination_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"inclination_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t370" href="#t370">370</a></span><span class="t">        <span class="str">"longitude_ascending_node"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"longitude_ascending_node"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t371" href="#t371">371</a></span><span class="t">        <span class="str">"longitude_ascending_node_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t372" href="#t372">372</a></span><span class="t">            <span class="str">"longitude_ascending_node_error"</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t373" href="#t373">373</a></span><span class="t">        <span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t374" href="#t374">374</a></span><span class="t">        <span class="str">"argument_perihelion"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"argument_perihelion"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t375" href="#t375">375</a></span><span class="t">        <span class="str">"argument_perihelion_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"argument_perihelion_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t376" href="#t376">376</a></span><span class="t">        <span class="str">"mean_anomaly"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"mean_anomaly"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t377" href="#t377">377</a></span><span class="t">        <span class="str">"mean_anomaly_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"mean_anomaly_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t378" href="#t378">378</a></span><span class="t">        <span class="str">"modified_julian_date"</span><span class="op">:</span> <span class="nam">mjd</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t379" href="#t379">379</a></span><span class="t">    <span class="op">}</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t380" href="#t380">380</a></span><span class="t">    <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t381" href="#t381">381</a></span><span class="t">    <span class="key">return</span> <span class="nam">orbit_results</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t361" href="#t361">361</a></span><span class="t">    <span class="com"># As the Orbfit engine returns the epoch as a MJD but the overall solution</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t362" href="#t362">362</a></span><span class="t">    <span class="com"># requires it as a Julian date, we convert here.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t363" href="#t363">363</a></span><span class="t">    <span class="nam">epoch_julian_day</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">conversion</span><span class="op">.</span><span class="nam">modified_julian_day_to_julian_day</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t364" href="#t364">364</a></span><span class="t">        <span class="nam">mjd</span><span class="op">=</span><span class="nam">mjd_epoch</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t365" href="#t365">365</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t366" href="#t366">366</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t367" href="#t367">367</a></span><span class="t">    <span class="com"># Converting the the results from this engine to the standard output</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t368" href="#t368">368</a></span><span class="t">    <span class="com"># expected by the vehicle functions for orbit solving.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t369" href="#t369">369</a></span><span class="t">    <span class="nam">orbit_results</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t370" href="#t370">370</a></span><span class="t">        <span class="str">"semimajor_axis"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"semimajor_axis"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t371" href="#t371">371</a></span><span class="t">        <span class="str">"semimajor_axis_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"semimajor_axis_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t372" href="#t372">372</a></span><span class="t">        <span class="str">"eccentricity"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"eccentricity"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t373" href="#t373">373</a></span><span class="t">        <span class="str">"eccentricity_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"eccentricity_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t374" href="#t374">374</a></span><span class="t">        <span class="str">"inclination"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"inclination"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t375" href="#t375">375</a></span><span class="t">        <span class="str">"inclination_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"inclination_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t376" href="#t376">376</a></span><span class="t">        <span class="str">"longitude_ascending_node"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"longitude_ascending_node"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t377" href="#t377">377</a></span><span class="t">        <span class="str">"longitude_ascending_node_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t378" href="#t378">378</a></span><span class="t">            <span class="str">"longitude_ascending_node_error"</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t379" href="#t379">379</a></span><span class="t">        <span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t380" href="#t380">380</a></span><span class="t">        <span class="str">"argument_perihelion"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"argument_perihelion"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t381" href="#t381">381</a></span><span class="t">        <span class="str">"argument_perihelion_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"argument_perihelion_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t382" href="#t382">382</a></span><span class="t">        <span class="str">"mean_anomaly"</span><span class="op">:</span> <span class="nam">kepler_elements</span><span class="op">[</span><span class="str">"mean_anomaly"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t383" href="#t383">383</a></span><span class="t">        <span class="str">"mean_anomaly_error"</span><span class="op">:</span> <span class="nam">kepler_error</span><span class="op">[</span><span class="str">"mean_anomaly_error"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t384" href="#t384">384</a></span><span class="t">        <span class="str">"epoch_julian_day"</span><span class="op">:</span> <span class="nam">epoch_julian_day</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t385" href="#t385">385</a></span><span class="t">    <span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t386" href="#t386">386</a></span><span class="t">    <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t387" href="#t387">387</a></span><span class="t">    <span class="key">return</span> <span class="nam">orbit_results</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.3</a>,
-            created at 2022-05-19 18:57 -1000
+            <a id="prevFileLink" class="nav" href="d_bd1fdfd449848f3d_orbfit_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
+            <a id="nextFileLink" class="nav" href="d_3f5a46931229f499___init___py.html">&#xbb; next</a>
+            &nbsp; &nbsp; &nbsp;
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4</a>,
+            created at 2022-05-30 19:52 -1000
         </p>
     </div>
 </footer>

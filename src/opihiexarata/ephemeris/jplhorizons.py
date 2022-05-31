@@ -31,9 +31,6 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
         The mean anomaly of the orbit, in degrees.
     epoch : float
         The modified Julian date epoch of the osculating orbital elements.
-    forward_ephemeris : function
-        Calculates a ephemeris position on the sky at a given time provided
-        the orbital elements.
     ra_velocity : float
         The right ascension angular velocity of the target, in degrees per
         second.
@@ -97,7 +94,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
             start_time=self.start_time, stop_time=self.stop_time
         )
 
-        # The rates of the asteroid. We care only about the rates most 
+        # The rates of the asteroid. We care only about the rates most
         # accurate to the current time and so we can use the rates calculated
         # from the close by default time.
         ra_rate = np.nanmean(self.ephemeris_table["ra_rate"])
@@ -262,7 +259,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
             time_step=self.time_step,
         )
         self.ephemeris_table = ephemeris_table
-        
+
         # All done.
         return None
 
@@ -348,7 +345,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
         ephemeris_table = self.__parse_jpl_horizons_output(response_text=result)
         return ephemeris_table
 
-    def forward_ephemeris(self, future_time: float) -> tuple[float,float]:
+    def forward_ephemeris(self, future_time: float) -> tuple[float, float]:
         """This allows the computation of future positions at a future time
         using the derived ephemeris.
 

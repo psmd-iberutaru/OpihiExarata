@@ -303,7 +303,7 @@ class OpihiSolution(hint.ExarataSolution):
         # propagation from.
         past_asteroid_ra = self.asteroid_observations["ra"]
         past_asteroid_dec = self.asteroid_observations["dec"]
-        # Converting the decimal days to the required Julian day time. This 
+        # Converting the decimal days to the required Julian day time. This
         # function seems to be vectorized to handle arrays.
         past_asteroid_time = library.conversion.decimal_day_to_julian_day(
             year=self.asteroid_observations["year"],
@@ -457,7 +457,9 @@ class OpihiSolution(hint.ExarataSolution):
             pass
         return orbital_solution
 
-    def solve_ephemeris(self, solver_engine:hint.EphemerisEngine, overwrite: bool = True):
+    def solve_ephemeris(
+        self, solver_engine: hint.EphemerisEngine, overwrite: bool = True
+    ):
         """Solve for the ephemeris solution an asteroid using previous
         observations and derived orbital elements.
 
@@ -487,9 +489,11 @@ class OpihiSolution(hint.ExarataSolution):
                 " orbital solution needs to be called and run first."
             )
 
-        # Computing the ephemeris solution provided the engine that the 
+        # Computing the ephemeris solution provided the engine that the
         # user wants to use.
-        ephemeritics_solution = ephemeris.EphemeriticSolution(orbitals=self.orbitals, solver_engine=solver_engine)
+        ephemeritics_solution = ephemeris.EphemeriticSolution(
+            orbitals=self.orbitals, solver_engine=solver_engine
+        )
 
         # Check if the solution should overwrite the current one.
         if overwrite:

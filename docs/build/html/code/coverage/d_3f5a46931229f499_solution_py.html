@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
     <title>Coverage for src\opihiexarata\photometry\solution.py: 0%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -15,45 +14,69 @@
             <span class="text">Coverage for </span><b>src\opihiexarata\photometry\solution.py</b>:
             <span class="pc_cov">0%</span>
         </h1>
-        <div id="help_panel_wrapper">
+        <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
                 <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts" />
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
-                <div>
-                    <p class="keyhelp">
+                <div class="keyhelp">
+                    <p>
                         <kbd>r</kbd>
                         <kbd>m</kbd>
                         <kbd>x</kbd>
                         &nbsp; toggle line displays
                     </p>
-                    <p class="keyhelp">
+                    <p>
                         <kbd>j</kbd>
-                        <kbd>k</kbd> &nbsp; next/prev highlighted chunk
+                        <kbd>k</kbd>
+                        &nbsp; next/prev highlighted chunk
                     </p>
-                    <p class="keyhelp">
+                    <p>
                         <kbd>0</kbd> &nbsp; (zero) top of page
                     </p>
-                    <p class="keyhelp">
+                    <p>
                         <kbd>1</kbd> &nbsp; (one) first highlighted chunk
+                    </p>
+                    <p>
+                        <kbd>[</kbd>
+                        <kbd>]</kbd>
+                        &nbsp; prev/next file
+                    </p>
+                    <p>
+                        <kbd>u</kbd> &nbsp; up to the index
+                    </p>
+                    <p>
+                        <kbd>?</kbd> &nbsp; show/hide this help
                     </p>
                 </div>
             </div>
-        </div>
+        </aside>
         <h2>
             <span class="text">162 statements &nbsp;</span>
             <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">0<span class="text"> run</span></button>
             <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">162<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
-        <div style="display: none;">
-            <button type="button" class="button_next_chunk" data-shortcut="j">Next highlighted chunk</button>
-            <button type="button" class="button_prev_chunk" data-shortcut="k">Previous highlighted chunk</button>
-            <button type="button" class="button_top_of_page" data-shortcut="0">Goto top of page</button>
-            <button type="button" class="button_first_chunk" data-shortcut="1">Goto first highlighted chunk</button>
-        </div>
+        <p class="text">
+            <a id="prevFileLink" class="nav" href="d_3f5a46931229f499_panstarrs_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
+            <a id="nextFileLink" class="nav" href="d_db397f88549168d3___init___py.html">&#xbb; next</a>
+            &nbsp; &nbsp; &nbsp;
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4</a>,
+            created at 2022-05-30 19:52 -1000
+        </p>
+        <aside class="hidden">
+            <button type="button" class="button_next_chunk" data-shortcut="j"/>
+            <button type="button" class="button_prev_chunk" data-shortcut="k"/>
+            <button type="button" class="button_top_of_page" data-shortcut="0"/>
+            <button type="button" class="button_first_chunk" data-shortcut="1"/>
+            <button type="button" class="button_prev_file" data-shortcut="["/>
+            <button type="button" class="button_next_file" data-shortcut="]"/>
+            <button type="button" class="button_to_index" data-shortcut="u"/>
+            <button type="button" class="button_show_hide_help" data-shortcut="?"/>
+        </aside>
     </div>
 </header>
 <main id="source">
@@ -99,7 +122,7 @@
     <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t"><span class="str">        A table of stars with both the astrometric and photometric RA and DEC</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t"><span class="str">        coordinates found by the astrometric solution and the photometric</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t"><span class="str">        engine. The filter magnitudes of these stars are also provided. It is</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t"><span class="str">        gauranteed that the stars within this table are correlated.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t"><span class="str">        guaranteed that the stars within this table are correlated.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t"><span class="str">    exposure_time : float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t45" href="#t45">45</a></span><span class="t"><span class="str">        How long, in seconds, the image in question was exposed for.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t46" href="#t46">46</a></span><span class="t"><span class="str">    filter_name : string</span>&nbsp;</span><span class="r"></span></p>
@@ -260,7 +283,7 @@
     <p class="pln"><span class="n"><a id="t201" href="#t201">201</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t202" href="#t202">202</a></span><span class="t"><span class="str">        Basically this function matches the entries in the astrometric star</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t203" href="#t203">203</a></span><span class="t"><span class="str">        table with the photometric star table. This function accomplishes that</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t204" href="#t204">204</a></span><span class="t"><span class="str">        by simpily associating the closest entires as the same star. The</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t204" href="#t204">204</a></span><span class="t"><span class="str">        by simply associating the closest entires as the same star. The</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t205" href="#t205">205</a></span><span class="t"><span class="str">        distance function assumes a tangent sky projection.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t206" href="#t206">206</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t207" href="#t207">207</a></span><span class="t"><span class="str">        Parameters</span>&nbsp;</span><span class="r"></span></p>
@@ -271,7 +294,7 @@
     <p class="pln"><span class="n"><a id="t212" href="#t212">212</a></span><span class="t"><span class="str">        -------</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t213" href="#t213">213</a></span><span class="t"><span class="str">        intersection_table : Table</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t214" href="#t214">214</a></span><span class="t"><span class="str">            The intersection of the astrometric and photometric star tables</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t215" href="#t215">215</a></span><span class="t"><span class="str">            giving the correleated star entries between them.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t215" href="#t215">215</a></span><span class="t"><span class="str">            giving the correlated star entries between them.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t216" href="#t216">216</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t217" href="#t217">217</a></span><span class="t">        <span class="com"># The astrometric and photometric tables to be worked with. This</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t218" href="#t218">218</a></span><span class="t">        <span class="com"># functions should be called after they exist so this is fine. This</span>&nbsp;</span><span class="r"></span></p>
@@ -320,7 +343,7 @@
     <p class="pln"><span class="n"><a id="t261" href="#t261">261</a></span><span class="t">            <span class="str">"""Find the signed difference between two angles. Assumes degrees."""</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t262" href="#t262">262</a></span><span class="t">            <span class="key">return</span> <span class="num">180</span> <span class="op">-</span> <span class="op">(</span><span class="num">180</span> <span class="op">-</span> <span class="nam">a</span> <span class="op">+</span> <span class="nam">b</span><span class="op">)</span> <span class="op">%</span> <span class="num">360</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t263" href="#t263">263</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t264" href="#t264">264</a></span><span class="t">        <span class="com"># The maximum that two entries can be seperated while still being the</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t264" href="#t264">264</a></span><span class="t">        <span class="com"># The maximum that two entries can be separated while still being the</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t265" href="#t265">265</a></span><span class="t">        <span class="com"># same target. The configuration file's units is arcseconds, convert to</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t266" href="#t266">266</a></span><span class="t">        <span class="com"># degrees.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t267" href="#t267">267</a></span><span class="t">        <span class="nam">MAX_SEP_AECSEC</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION</span>&nbsp;</span><span class="r"></span></p>
@@ -392,7 +415,7 @@
     <p class="pln"><span class="n"><a id="t333" href="#t333">333</a></span><span class="t"><span class="str">        Returns</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t334" href="#t334">334</a></span><span class="t"><span class="str">        -------</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t335" href="#t335">335</a></span><span class="t"><span class="str">        sky_counts_mask : float</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t336" href="#t336">336</a></span><span class="t"><span class="str">            The mask which masks out which is not intresting regarding sky</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t336" href="#t336">336</a></span><span class="t"><span class="str">            The mask which masks out which is not interesting regarding sky</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t337" href="#t337">337</a></span><span class="t"><span class="str">            count calculations.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t338" href="#t338">338</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t339" href="#t339">339</a></span><span class="t">        <span class="com"># Extracting the needed information from the computed solution values.</span>&nbsp;</span><span class="r"></span></p>
@@ -422,7 +445,7 @@
     <p class="mis show_mis"><span class="n"><a id="t363" href="#t363">363</a></span><span class="t">        <span class="nam">STAR_RADIUS_AS</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">PHOTOMETRY_STAR_RADIUS_ARCSECOND</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t364" href="#t364">364</a></span><span class="t">        <span class="nam">STAR_RADIUS_PIXEL</span> <span class="op">=</span> <span class="nam">STAR_RADIUS_AS</span> <span class="op">/</span> <span class="nam">arcsec_pixel_scale</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t365" href="#t365">365</a></span><span class="t">        <span class="nam">HALF_BOX_LENGTH</span> <span class="op">=</span> <span class="nam">int</span><span class="op">(</span><span class="nam">STAR_RADIUS_PIXEL</span><span class="op">)</span> <span class="op">+</span> <span class="num">1</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t366" href="#t366">366</a></span><span class="t">        <span class="com"># Definiting the star mask to mask regions where stars have been</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t366" href="#t366">366</a></span><span class="t">        <span class="com"># Defining the star mask to mask regions where stars have been</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t367" href="#t367">367</a></span><span class="t">        <span class="com"># detected.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t368" href="#t368">368</a></span><span class="t">        <span class="nam">star_mask</span> <span class="op">=</span> <span class="nam">np</span><span class="op">.</span><span class="nam">zeros_like</span><span class="op">(</span><span class="nam">data_array</span><span class="op">,</span> <span class="nam">dtype</span><span class="op">=</span><span class="nam">bool</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t369" href="#t369">369</a></span><span class="t">        <span class="key">for</span> <span class="nam">colindex</span><span class="op">,</span> <span class="nam">rowindex</span> <span class="key">in</span> <span class="nam">zip</span><span class="op">(</span><span class="nam">stars_x</span><span class="op">,</span> <span class="nam">stars_y</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -551,9 +574,9 @@
     <p class="pln"><span class="n"><a id="t492" href="#t492">492</a></span><span class="t"><span class="str">        Parameters</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t493" href="#t493">493</a></span><span class="t"><span class="str">        ----------</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t494" href="#t494">494</a></span><span class="t"><span class="str">        pixel_x : int</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t495" href="#t495">495</a></span><span class="t"><span class="str">            The x cordinate of the center pixel.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t495" href="#t495">495</a></span><span class="t"><span class="str">            The x coordinate of the center pixel.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t496" href="#t496">496</a></span><span class="t"><span class="str">        pixel_y : int</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t497" href="#t497">497</a></span><span class="t"><span class="str">            The y cordinate of the center pixel.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t497" href="#t497">497</a></span><span class="t"><span class="str">            The y coordinate of the center pixel.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t498" href="#t498">498</a></span><span class="t"><span class="str">        radius : float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t499" href="#t499">499</a></span><span class="t"><span class="str">            The radius of the circular aperture to be considered in pixel</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t500" href="#t500">500</a></span><span class="t"><span class="str">            counts.</span>&nbsp;</span><span class="r"></span></p>
@@ -655,7 +678,7 @@
     <p class="pln"><span class="n"><a id="t596" href="#t596">596</a></span><span class="t"><span class="str">    Parameters</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t597" href="#t597">597</a></span><span class="t"><span class="str">    ----------</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t598" href="#t598">598</a></span><span class="t"><span class="str">    ra : float</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t599" href="#t599">599</a></span><span class="t"><span class="str">        The right accension of the center of the area to extract from,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t599" href="#t599">599</a></span><span class="t"><span class="str">        The right ascension of the center of the area to extract from,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t600" href="#t600">600</a></span><span class="t"><span class="str">        in degrees.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t601" href="#t601">601</a></span><span class="t"><span class="str">    dec : float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t602" href="#t602">602</a></span><span class="t"><span class="str">        The declination of the center of the area to extract from,</span>&nbsp;</span><span class="r"></span></p>
@@ -721,8 +744,12 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.3</a>,
-            created at 2022-05-19 18:57 -1000
+            <a id="prevFileLink" class="nav" href="d_3f5a46931229f499_panstarrs_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
+            <a id="nextFileLink" class="nav" href="d_db397f88549168d3___init___py.html">&#xbb; next</a>
+            &nbsp; &nbsp; &nbsp;
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4</a>,
+            created at 2022-05-30 19:52 -1000
         </p>
     </div>
 </footer>

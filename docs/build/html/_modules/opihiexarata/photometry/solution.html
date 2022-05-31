@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.5.19 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.5.30 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -235,7 +241,7 @@
 <span class="sd">        A table of stars with both the astrometric and photometric RA and DEC</span>
 <span class="sd">        coordinates found by the astrometric solution and the photometric</span>
 <span class="sd">        engine. The filter magnitudes of these stars are also provided. It is</span>
-<span class="sd">        gauranteed that the stars within this table are correlated.</span>
+<span class="sd">        guaranteed that the stars within this table are correlated.</span>
 <span class="sd">    exposure_time : float</span>
 <span class="sd">        How long, in seconds, the image in question was exposed for.</span>
 <span class="sd">    filter_name : string</span>
@@ -396,7 +402,7 @@
 
 <span class="sd">        Basically this function matches the entries in the astrometric star</span>
 <span class="sd">        table with the photometric star table. This function accomplishes that</span>
-<span class="sd">        by simpily associating the closest entires as the same star. The</span>
+<span class="sd">        by simply associating the closest entires as the same star. The</span>
 <span class="sd">        distance function assumes a tangent sky projection.</span>
 
 <span class="sd">        Parameters</span>
@@ -407,7 +413,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        intersection_table : Table</span>
 <span class="sd">            The intersection of the astrometric and photometric star tables</span>
-<span class="sd">            giving the correleated star entries between them.</span>
+<span class="sd">            giving the correlated star entries between them.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># The astrometric and photometric tables to be worked with. This</span>
         <span class="c1"># functions should be called after they exist so this is fine. This</span>
@@ -456,7 +462,7 @@
             <span class="sd">&quot;&quot;&quot;Find the signed difference between two angles. Assumes degrees.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="mi">180</span> <span class="o">-</span> <span class="p">(</span><span class="mi">180</span> <span class="o">-</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
 
-        <span class="c1"># The maximum that two entries can be seperated while still being the</span>
+        <span class="c1"># The maximum that two entries can be separated while still being the</span>
         <span class="c1"># same target. The configuration file&#39;s units is arcseconds, convert to</span>
         <span class="c1"># degrees.</span>
         <span class="n">MAX_SEP_AECSEC</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION</span>
@@ -528,7 +534,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        sky_counts_mask : float</span>
-<span class="sd">            The mask which masks out which is not intresting regarding sky</span>
+<span class="sd">            The mask which masks out which is not interesting regarding sky</span>
 <span class="sd">            count calculations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Extracting the needed information from the computed solution values.</span>
@@ -558,7 +564,7 @@
         <span class="n">STAR_RADIUS_AS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_STAR_RADIUS_ARCSECOND</span>
         <span class="n">STAR_RADIUS_PIXEL</span> <span class="o">=</span> <span class="n">STAR_RADIUS_AS</span> <span class="o">/</span> <span class="n">arcsec_pixel_scale</span>
         <span class="n">HALF_BOX_LENGTH</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">STAR_RADIUS_PIXEL</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="c1"># Definiting the star mask to mask regions where stars have been</span>
+        <span class="c1"># Defining the star mask to mask regions where stars have been</span>
         <span class="c1"># detected.</span>
         <span class="n">star_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">colindex</span><span class="p">,</span> <span class="n">rowindex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stars_x</span><span class="p">,</span> <span class="n">stars_y</span><span class="p">):</span>
@@ -687,9 +693,9 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        pixel_x : int</span>
-<span class="sd">            The x cordinate of the center pixel.</span>
+<span class="sd">            The x coordinate of the center pixel.</span>
 <span class="sd">        pixel_y : int</span>
-<span class="sd">            The y cordinate of the center pixel.</span>
+<span class="sd">            The y coordinate of the center pixel.</span>
 <span class="sd">        radius : float</span>
 <span class="sd">            The radius of the circular aperture to be considered in pixel</span>
 <span class="sd">            counts.</span>
@@ -791,7 +797,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    ra : float</span>
-<span class="sd">        The right accension of the center of the area to extract from,</span>
+<span class="sd">        The right ascension of the center of the area to extract from,</span>
 <span class="sd">        in degrees.</span>
 <span class="sd">    dec : float</span>
 <span class="sd">        The declination of the center of the area to extract from,</span>

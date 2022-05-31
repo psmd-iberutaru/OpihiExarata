@@ -6,4 +6,3 @@ from opihiexarata.ephemeris.solution import EphemeriticSolution
 
 # The available engines.
 from opihiexarata.ephemeris.jplhorizons import JPLHorizonsWebAPIEngine
-
