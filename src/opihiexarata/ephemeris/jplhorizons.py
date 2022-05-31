@@ -34,6 +34,12 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
     forward_ephemeris : function
         Calculates a ephemeris position on the sky at a given time provided
         the orbital elements.
+    ra_velocity : float
+        The right ascension angular velocity of the target, in degrees per
+        second.
+    dec_velocity : float
+        The declination angular velocity of the target, in degrees per
+        second.
     """
 
     def __init__(
@@ -80,9 +86,9 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
 
         # We adapt the internal time for accurate ephemeris, this is done so
         # we do not request too much data. Using sensible defaults.
-        current_time = library.conversion.current_time_to_julian_day()
-        self.start_time = current_time - (0.25 / 24)
-        self.stop_time = current_time + (1 / 24)
+        current_time = library.conversion.current_utc_to_julian_day()
+        self.start_time = current_time - ((15 / 60) / 24)
+        self.stop_time = current_time + ((30 / 60) / 24)
         self.time_step = 60
 
         # Extracting the first pass ephemeris table. The ephemeris function
@@ -90,6 +96,17 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
         __ = self._refresh_ephemeris(
             start_time=self.start_time, stop_time=self.stop_time
         )
+
+        # The rates of the asteroid. We care only about the rates most 
+        # accurate to the current time and so we can use the rates calculated
+        # from the close by default time.
+        ra_rate = np.nanmean(self.ephemeris_table["ra_rate"])
+        dec_rate = np.nanmean(self.ephemeris_table["dec_rate"])
+        # The rates from JPL are in arcseconds per hour. Convention for this
+        # software is degrees per second, converting.
+        as_hr_to_dg_s = lambda ashr: ashr / (3600 * 3600)
+        self.ra_velocity = as_hr_to_dg_s(ra_rate)
+        self.dec_velocity = as_hr_to_dg_s(dec_rate)
 
         # All done.
         return None
@@ -245,6 +262,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
             time_step=self.time_step,
         )
         self.ephemeris_table = ephemeris_table
+        
         # All done.
         return None
 

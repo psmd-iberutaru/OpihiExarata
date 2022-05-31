@@ -930,14 +930,16 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         dec_rate = self.current_header["TCS_NSDE"]
         # Deriving the difference in time between the current data and the
         # reference data.
-        current_time = library.conversion.modified_julian_day_to_unix_time(
+        current_jd = library.conversion.modified_julian_day_to_julian_day(
             mjd=self.current_header["MJD_OBS"]
         )
-        reference_time = library.conversion.modified_julian_day_to_unix_time(
+        reference_jd = library.conversion.modified_julian_day_to_julian_day(
             mjd=self.reference_header["MJD_OBS"]
         )
-        # We assume the reference image was taken in the past.
-        delta_time = current_time - reference_time
+        # We assume the reference image was taken in the past. As Julian days
+        # are in days, and we want seconds, 
+        delta_days = current_jd - reference_jd
+        delta_time = delta_days * 86400
 
         # The total RA and DEC change.
         ra_change = ra_rate * delta_time

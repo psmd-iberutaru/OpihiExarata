@@ -28,7 +28,7 @@ class LinearPropagationEngine(hint.PropagationEngine):
         The array of declinations measurements to extrapolate to.
     obs_time_array : ndarray
         The array of observation times which the RA and DEC measurements were
-        taken at. The values are in UNIX time.
+        taken at. The values are in Julian days.
     ra_poly_param : tuple
             The polynomial fit parameters for the RA(time) propagation.
     dec_poly_param : tuple
@@ -48,7 +48,7 @@ class LinearPropagationEngine(hint.PropagationEngine):
             degrees.
         obs_time : array-like
             An array of observation times which the RA and DEC measurements
-            were taken at. This should be in UNIX time.
+            were taken at. This should be in Julian days.
 
         Returns
         -------
@@ -177,15 +177,15 @@ class LinearPropagationEngine(hint.PropagationEngine):
         ----------
         future_time : array-like
             The set of future times which to derive new RA and DEC coordinates.
-            The time must be in UNIX time.
+            The time must be in Julian days.
 
         Returns
         -------
         future_ra : ndarray
-            The set of right ascensions that cooresponds to the future times,
+            The set of right ascensions that corresponds to the future times,
             in degrees.
         future_dec : ndarray
-            The set of declinations that cooresponds to the future times, in
+            The set of declinations that corresponds to the future times, in
             degrees.
         """
         # Determining the RA and DEC via the polynomial function based on the
@@ -210,7 +210,7 @@ class QuadraticPropagationEngine(hint.PropagationEngine):
         The array of declinations measurements to extrapolate to.
     obs_time_array : ndarray
         The array of observation times which the RA and DEC measurements were
-        taken at. The values are in UNIX time.
+        taken at. The values are in Julian days.
     ra_poly_param : tuple
             The polynomial fit parameters for the RA(time) propagation.
     dec_poly_param : tuple
@@ -230,7 +230,7 @@ class QuadraticPropagationEngine(hint.PropagationEngine):
             degrees.
         obs_time : array-like
             An array of observation times which the RA and DEC measurements
-            were taken at. This should be in UNIX time.
+            were taken at. This should be in Julian days.
 
         Returns
         -------
@@ -359,15 +359,15 @@ class QuadraticPropagationEngine(hint.PropagationEngine):
         ----------
         future_time : array-like
             The set of future times which to derive new RA and DEC coordinates.
-            The time must be in UNIX time.
+            The time must be in Julian days.
 
         Returns
         -------
         future_ra : ndarray
-            The set of right ascensions that cooresponds to the future times,
+            The set of right ascensions that corresponds to the future times,
             in degrees.
         future_dec : ndarray
-            The set of declinations that cooresponds to the future times, in
+            The set of declinations that corresponds to the future times, in
             degrees.
         """
         # Determining the RA and DEC via the polynomial function based on the

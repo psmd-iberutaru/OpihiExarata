@@ -31,7 +31,7 @@ class OpihiSolution(hint.ExarataSolution):
     exposure_time : float
         The exposure time of the image, in seconds.
     observing_time : float
-        The time of observation, this must be a UNIX time.
+        The time of observation, this must be a Julian day time.
     asteroid_name : str
         The name of the asteroid. This is used to group similar observations
         and to also retrive data from the MPC.
@@ -101,7 +101,7 @@ class OpihiSolution(hint.ExarataSolution):
         exposure_time : float
             The exposure time of the image, in seconds.
         observing_time : float
-            The time of observation, this must be a UNIX time.
+            The time of observation, this time must in Julian day.
         asteroid_name : str, default = None
             The name of the asteroid.
         asteroid_location : tuple, default = None
@@ -293,7 +293,7 @@ class OpihiSolution(hint.ExarataSolution):
                 " location parameters have been provided."
             )
         else:
-            # Splitting it up is easier notationally.
+            # Splitting it up is easier notionally.
             asteroid_x, asteroid_y = asteroid_location
             # The location of the asteroid needs to be transformed to RA and DEC.
             asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
@@ -304,9 +304,9 @@ class OpihiSolution(hint.ExarataSolution):
         # propagation from.
         past_asteroid_ra = self.asteroid_observations["ra"]
         past_asteroid_dec = self.asteroid_observations["dec"]
-        # Converting the decimal days to the required unix time. This function
-        # seems to be vectorized to handle arrays.
-        past_asteroid_time = library.conversion.decimal_day_to_unix_time(
+        # Converting the decimal days to the required Julian day time. This 
+        # function seems to be vectorized to handle arrays.
+        past_asteroid_time = library.conversion.decimal_day_to_julian_day(
             year=self.asteroid_observations["year"],
             month=self.asteroid_observations["month"],
             day=self.asteroid_observations["day"],
@@ -316,11 +316,12 @@ class OpihiSolution(hint.ExarataSolution):
         past_asteroid_dec = np.asarray(past_asteroid_dec, dtype=float)
         past_asteroid_time = np.asarray(past_asteroid_time, dtype=float)
         # Propagation only works with really recent observations so we only
-        # include those done within some number of hours.
+        # include those done within some number of hours. The Julian day system
+        # is in days.
         EXPIRE_HOURS = library.config.OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS
-        EXPIRE_SECONDS = EXPIRE_HOURS * 3600
+        EXPIRE_DAYS = EXPIRE_HOURS / 24
         valid_observation_index = np.where(
-            (asteroid_time - past_asteroid_time) <= EXPIRE_SECONDS, True, False
+            (asteroid_time - past_asteroid_time) <= EXPIRE_DAYS, True, False
         )
         valid_past_asteroid_ra = np.asarray(
             past_asteroid_ra[valid_observation_index], dtype=float
@@ -535,9 +536,9 @@ class OpihiSolution(hint.ExarataSolution):
         current_data["publishable_note"] = ""
         current_data["observing_note"] = ""
 
-        # The data can be extracted from the UNIX time of observation.
-        year, month, day = library.conversion.unix_time_to_decimal_day(
-            unix_time=self.observing_time
+        # The data can be extracted from the Julian day time of observation.
+        year, month, day = library.conversion.julian_day_to_decimal_day(
+            jd=self.observing_time
         )
         current_data["year"] = year
         current_data["month"] = month
