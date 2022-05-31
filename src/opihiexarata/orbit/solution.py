@@ -48,9 +48,9 @@ class OrbitalSolution(hint.ExarataSolution):
     true_anomaly_error : float
         The error on the true anomaly of the orbit solved, in degrees. This
         value is calculated from the error on the mean anomaly.
-    modified_julian_date : float
-        The modified Julian date used by the engine to calculate the osculating
-        orbital elements.
+    epoch_julian_day : float
+        The epoch where for these osculating orbital elements. This value is 
+        in Julian days.
     """
 
     def __init__(
@@ -144,7 +144,7 @@ class OrbitalSolution(hint.ExarataSolution):
             self.mean_anomaly = orbit_results["mean_anomaly"]
             self.mean_anomaly_error = orbit_results["mean_anomaly_error"]
             # MJD
-            self.modified_julian_date = orbit_results["modified_julian_date"]
+            self.epoch_julian_day = orbit_results["epoch_julian_day"]
         except KeyError:
             raise error.EngineError(
                 "The engine results provided are insufficient for this orbit"
@@ -354,9 +354,13 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
 
     # Solving for the orbit. This engine has a record-based solution function
     # so just using it.
-    kepler_elements, kepler_error, mjd = orbfit.solve_orbit_via_record(
+    kepler_elements, kepler_error, mjd_epoch = orbfit.solve_orbit_via_record(
         observation_record=observation_record
     )
+
+    # As the Orbfit engine returns the epoch as a MJD but the overall solution
+    # requires it as a Julian date, we convert here.
+    epoch_julian_day = library.conversion.modified_julian_day_to_julian_day(mjd=mjd_epoch)
 
     # Converting the the results from this engine to the standard output
     # expected by the vehicle functions for orbit solving.
@@ -375,7 +379,7 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
         "argument_perihelion_error": kepler_error["argument_perihelion_error"],
         "mean_anomaly": kepler_elements["mean_anomaly"],
         "mean_anomaly_error": kepler_error["mean_anomaly_error"],
-        "modified_julian_date": mjd,
+        "epoch_julian_day": epoch_julian_day,
     }
     # All done.
     return orbit_results

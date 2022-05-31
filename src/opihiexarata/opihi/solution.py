@@ -13,8 +13,7 @@ import opihiexarata.astrometry as astrometry
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 import opihiexarata.orbit as orbit
-
-# from opihiexarata.ephemeris import EphemeriticSolution
+import opihiexarata.ephemeris as ephemeris
 
 
 class OpihiSolution(hint.ExarataSolution):

@@ -112,7 +112,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
         return None
 
     @staticmethod
-    def __parse_jpl_horizons_output(response_text: str) -> tuple[str]:
+    def __parse_jpl_horizons_output(response_text: str) -> hint.Table:
         """This function serves to parse the output from the JPL horizons. It
         is a text output that is human readable but some parsing is needed.
         We do that here, assuming the quantities in the original request.
@@ -348,7 +348,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
         ephemeris_table = self.__parse_jpl_horizons_output(response_text=result)
         return ephemeris_table
 
-    def forward_ephemeris(self, future_time: float):
+    def forward_ephemeris(self, future_time: float) -> tuple[float,float]:
         """This allows the computation of future positions at a future time
         using the derived ephemeris.
 
