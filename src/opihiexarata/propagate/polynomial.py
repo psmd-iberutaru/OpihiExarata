@@ -1,7 +1,7 @@
 """For polynomial fitting propagation, using approximations of 1st or 2nd order
 terms but ignoring some spherical effects.
 
-Although this could be easily implimented in a better method using subclassing
+Although this could be easily implemented in a better method using subclassing
 rather than having two classes, as having a 3rd order is not really feasible, 
 and for the sake of readability and stability, two separate copy-like classes
 are written.

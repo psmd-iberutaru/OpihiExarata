@@ -40,7 +40,7 @@ class PhotometricSolution(hint.ExarataSolution):
         A table of stars with both the astrometric and photometric RA and DEC
         coordinates found by the astrometric solution and the photometric
         engine. The filter magnitudes of these stars are also provided. It is
-        gauranteed that the stars within this table are correlated.
+        guaranteed that the stars within this table are correlated.
     exposure_time : float
         How long, in seconds, the image in question was exposed for.
     filter_name : string
@@ -201,7 +201,7 @@ class PhotometricSolution(hint.ExarataSolution):
 
         Basically this function matches the entries in the astrometric star
         table with the photometric star table. This function accomplishes that
-        by simpily associating the closest entires as the same star. The
+        by simply associating the closest entires as the same star. The
         distance function assumes a tangent sky projection.
 
         Parameters
@@ -212,7 +212,7 @@ class PhotometricSolution(hint.ExarataSolution):
         -------
         intersection_table : Table
             The intersection of the astrometric and photometric star tables
-            giving the correleated star entries between them.
+            giving the correlated star entries between them.
         """
         # The astrometric and photometric tables to be worked with. This
         # functions should be called after they exist so this is fine. This
@@ -261,7 +261,7 @@ class PhotometricSolution(hint.ExarataSolution):
             """Find the signed difference between two angles. Assumes degrees."""
             return 180 - (180 - a + b) % 360
 
-        # The maximum that two entries can be seperated while still being the
+        # The maximum that two entries can be separated while still being the
         # same target. The configuration file's units is arcseconds, convert to
         # degrees.
         MAX_SEP_AECSEC = library.config.PHOTOMETRY_MAXIMUM_INTERSECTION_SEPARATION
@@ -333,7 +333,7 @@ class PhotometricSolution(hint.ExarataSolution):
         Returns
         -------
         sky_counts_mask : float
-            The mask which masks out which is not intresting regarding sky
+            The mask which masks out which is not interesting regarding sky
             count calculations.
         """
         # Extracting the needed information from the computed solution values.
@@ -363,7 +363,7 @@ class PhotometricSolution(hint.ExarataSolution):
         STAR_RADIUS_AS = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
         STAR_RADIUS_PIXEL = STAR_RADIUS_AS / arcsec_pixel_scale
         HALF_BOX_LENGTH = int(STAR_RADIUS_PIXEL) + 1
-        # Definiting the star mask to mask regions where stars have been
+        # Defining the star mask to mask regions where stars have been
         # detected.
         star_mask = np.zeros_like(data_array, dtype=bool)
         for colindex, rowindex in zip(stars_x, stars_y):
@@ -492,9 +492,9 @@ class PhotometricSolution(hint.ExarataSolution):
         Parameters
         ----------
         pixel_x : int
-            The x cordinate of the center pixel.
+            The x coordinate of the center pixel.
         pixel_y : int
-            The y cordinate of the center pixel.
+            The y coordinate of the center pixel.
         radius : float
             The radius of the circular aperture to be considered in pixel
             counts.
@@ -596,7 +596,7 @@ def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hin
     Parameters
     ----------
     ra : float
-        The right accension of the center of the area to extract from,
+        The right ascension of the center of the area to extract from,
         in degrees.
     dec : float
         The declination of the center of the area to extract from,

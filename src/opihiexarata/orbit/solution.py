@@ -11,7 +11,7 @@ import opihiexarata.library.hint as hint
 import opihiexarata.orbit as orbit
 
 
-class OrbitSolution(hint.ExarataSolution):
+class OrbitalSolution(hint.ExarataSolution):
     """This is the class which solves a record of observations to derive the
     orbital parameters of asteroids or objects in general. A record of
     observations must be provided.
@@ -115,7 +115,7 @@ class OrbitSolution(hint.ExarataSolution):
             )
         else:
             # Quick type checking; everything should be float or at the least
-            # float-convertable. This may be unneeded but it does not hurt.
+            # float-convertible. This may be unneeded but it does not hurt.
             orbit_results = {
                 keydex: float(valuedex)
                 for keydex, valuedex in raw_orbit_results.items()
@@ -338,7 +338,7 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
     -------
     orbit_results : dict
         The results of the orbit computation using the Orbfit engine. Namely,
-        this returns the 6 classical Kepler elements, using mean anamonly.
+        this returns the 6 classical Kepler elements, using mean anomaly.
     """
     # Creating the Orbfit class. It does an correct installation check. If
     # the installation is wrong, it is mentioned. Catching it should it fail

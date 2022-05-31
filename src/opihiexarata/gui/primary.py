@@ -600,7 +600,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         """
         # If there is no propagation solution, there is nothing to be done.
         if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagationSolution
+            self.opihi_solution.propagatives, propagate.PropagativeSolution
         ):
             return None
 
@@ -747,7 +747,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Converting date to Julian day as the solution class requires it.
         # We use the modified Julian day from the header file.
         observing_time = library.conversion.modified_julian_day_to_julian_day(mjd=header["MJD_OBS"])
-        
+
         # For asteroid information, if we are to prompt the user for
         # information about the asteroid.
         if library.config.GUI_PROMPT_FOR_ASTEROID_INFORMATION:
@@ -1026,7 +1026,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Everything beyond this point requires an orbital solution, if
         # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(self.opihi_solution.orbitals, orbit.OrbitSolution):
+        if not isinstance(self.opihi_solution.orbitals, orbit.OrbitalSolution):
             return None
         else:
             orbitals = self.opihi_solution.orbitals
@@ -1105,7 +1105,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Everything beyond this point requires an astrometric solution, if
         # it does not exist, there is no point in continuing, exiting early.
         if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagationSolution
+            self.opihi_solution.propagatives, propagate.PropagativeSolution
         ):
             return None
         else:

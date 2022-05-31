@@ -10,12 +10,12 @@ import opihiexarata.library.hint as hint
 import opihiexarata.propagate as propagate
 
 
-class PropagationSolution(hint.ExarataSolution):
+class PropagativeSolution(hint.ExarataSolution):
     """The general solution class for asteroid propagation.
 
     This uses the recent past location of asteroids to determine their
     future location. For determination based on orbital elements and
-    ephemerids, use the OrbitSolution and EphemerisSolution classes
+    ephemerids, use the OrbitalSolution and EphemeriticSolution classes
     respectively.
 
     Attributes
