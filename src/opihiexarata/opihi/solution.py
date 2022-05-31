@@ -13,8 +13,7 @@ import opihiexarata.astrometry as astrometry
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 import opihiexarata.orbit as orbit
-
-# from opihiexarata.ephemeris import EphemerisSolution
+import opihiexarata.ephemeris as ephemeris
 
 
 class OpihiSolution(hint.ExarataSolution):
@@ -31,10 +30,10 @@ class OpihiSolution(hint.ExarataSolution):
     exposure_time : float
         The exposure time of the image, in seconds.
     observing_time : float
-        The time of observation, this must be a UNIX time.
+        The time of observation, this must be a Julian day time.
     asteroid_name : str
         The name of the asteroid. This is used to group similar observations
-        and to also retrive data from the MPC.
+        and to also retrieve data from the MPC.
     asteroid_location : tuple
         The pixel location of the asteroid. (Usually determined by a centroid
         around a user specified location.) If this is None, then asteroid
@@ -62,11 +61,11 @@ class OpihiSolution(hint.ExarataSolution):
         The astrometric solution; if it has not been solved yet, this is None.
     photometrics : PhotometricSolution
         The photometric solution; if it has not been solved yet, this is None.
-    propagatives : PropagationSolution
+    propagatives : PropagativeSolution
         The propagation solution; if it has not been solved yet, this is None.
-    orbitals : OrbitSolution
+    orbitals : OrbitalSolution
         The orbit solution; if it has not been solved yet, this is None.
-    ephemeritics : EphemerisSolution
+    ephemeritics : EphemeriticSolution
         The ephemeris solution; if it has not been solved yet, this is None.
     """
 
@@ -101,7 +100,7 @@ class OpihiSolution(hint.ExarataSolution):
         exposure_time : float
             The exposure time of the image, in seconds.
         observing_time : float
-            The time of observation, this must be a UNIX time.
+            The time of observation, this time must in Julian day.
         asteroid_name : str, default = None
             The name of the asteroid.
         asteroid_location : tuple, default = None
@@ -238,7 +237,7 @@ class OpihiSolution(hint.ExarataSolution):
         if overwrite:
             self.photometrics = photometric_solution
         else:
-            # It should not overrite anything.
+            # It should not overwrite anything.
             pass
         return photometric_solution
 
@@ -247,13 +246,13 @@ class OpihiSolution(hint.ExarataSolution):
         solver_engine: hint.PropagationEngine,
         overwrite=True,
         asteroid_location: tuple[float, float] = None,
-    ) -> hint.PropagationSolution:
+    ) -> hint.PropagativeSolution:
         """Solve for the location of an asteroid using a method of propagation.
 
         Parameters
         ----------
         solver_engine : PropagationEngine
-            The propagative engine which the propgation solver will use.
+            The propagative engine which the propagation solver will use.
         overwrite : bool, default = True
             Overwrite and replace the information of this class with the new
             values. If False, the returned solution is not also applied.
@@ -263,7 +262,7 @@ class OpihiSolution(hint.ExarataSolution):
 
         Returns
         -------
-        propagative_solution : PropagationSolution
+        propagative_solution : PropagativeSolution
             The propagation solution for the asteroid and image.
 
         Warning ..
@@ -293,7 +292,7 @@ class OpihiSolution(hint.ExarataSolution):
                 " location parameters have been provided."
             )
         else:
-            # Splitting it up is easier notationally.
+            # Splitting it up is easier notionally.
             asteroid_x, asteroid_y = asteroid_location
             # The location of the asteroid needs to be transformed to RA and DEC.
             asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
@@ -304,9 +303,9 @@ class OpihiSolution(hint.ExarataSolution):
         # propagation from.
         past_asteroid_ra = self.asteroid_observations["ra"]
         past_asteroid_dec = self.asteroid_observations["dec"]
-        # Converting the decimal days to the required unix time. This function
-        # seems to be vectorized to handle arrays.
-        past_asteroid_time = library.conversion.decimal_day_to_unix_time(
+        # Converting the decimal days to the required Julian day time. This 
+        # function seems to be vectorized to handle arrays.
+        past_asteroid_time = library.conversion.decimal_day_to_julian_day(
             year=self.asteroid_observations["year"],
             month=self.asteroid_observations["month"],
             day=self.asteroid_observations["day"],
@@ -316,11 +315,12 @@ class OpihiSolution(hint.ExarataSolution):
         past_asteroid_dec = np.asarray(past_asteroid_dec, dtype=float)
         past_asteroid_time = np.asarray(past_asteroid_time, dtype=float)
         # Propagation only works with really recent observations so we only
-        # include those done within some number of hours.
+        # include those done within some number of hours. The Julian day system
+        # is in days.
         EXPIRE_HOURS = library.config.OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS
-        EXPIRE_SECONDS = EXPIRE_HOURS * 3600
+        EXPIRE_DAYS = EXPIRE_HOURS / 24
         valid_observation_index = np.where(
-            (asteroid_time - past_asteroid_time) <= EXPIRE_SECONDS, True, False
+            (asteroid_time - past_asteroid_time) <= EXPIRE_DAYS, True, False
         )
         valid_past_asteroid_ra = np.asarray(
             past_asteroid_ra[valid_observation_index], dtype=float
@@ -338,7 +338,7 @@ class OpihiSolution(hint.ExarataSolution):
         asteroid_time = np.append(valid_past_asteroid_time, asteroid_time)
 
         # Computing the propagation solutions.
-        propagative_solution = propagate.PropagationSolution(
+        propagative_solution = propagate.PropagativeSolution(
             ra=asteroid_ra,
             dec=asteroid_dec,
             obs_time=asteroid_time,
@@ -374,7 +374,7 @@ class OpihiSolution(hint.ExarataSolution):
 
         Returns
         -------
-        orbital_solution : OrbitSolution
+        orbital_solution : OrbitalSolution
             The orbit solution for the asteroid and image.
 
         Warning ..
@@ -424,7 +424,7 @@ class OpihiSolution(hint.ExarataSolution):
                 " parameters have been provided."
             )
         else:
-            # Splitting it up is easier notationally.
+            # Splitting is nicer on the notational.
             asteroid_x, asteroid_y = asteroid_location
             # The location of the asteroid needs to be transformed to RA and DEC.
             asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
@@ -446,18 +446,18 @@ class OpihiSolution(hint.ExarataSolution):
         asteroid_record = asteroid_history + current_mpc_record
 
         # Solve for the orbital solution.
-        orbital_solution = orbit.OrbitSolution(
+        orbital_solution = orbit.OrbitalSolution(
             observation_record=asteroid_record, solver_engine=solver_engine
         )
         # Check if the solution should overwrite the current one.
         if overwrite:
             self.orbitals = orbital_solution
         else:
-            # It should not overrite anything.
+            # It should not overwrite anything.
             pass
         return orbital_solution
 
-    def solve_ephemeris(self, solver_engine, overwrite: bool = True):
+    def solve_ephemeris(self, solver_engine:hint.EphemerisEngine, overwrite: bool = True):
         """Solve for the ephemeris solution an asteroid using previous
         observations and derived orbital elements.
 
@@ -471,7 +471,7 @@ class OpihiSolution(hint.ExarataSolution):
 
         Returns
         -------
-        ephemeritics_solution : EphemerisSolution
+        ephemeritics_solution : EphemeriticSolution
             The orbit solution for the asteroid and image.
 
         Warning ..
@@ -481,20 +481,21 @@ class OpihiSolution(hint.ExarataSolution):
         """
         # The propagation solution requires the astrometric solution to be
         # computed first.
-        if not isinstance(self.orbitals, orbit.OrbitSolution):
+        if not isinstance(self.orbitals, orbit.OrbitalSolution):
             raise error.SequentialOrderError(
                 "The ephemeris solution requires an orbital solution. The"
                 " orbital solution needs to be called and run first."
             )
 
-        # TODO
-        raise error.DevelopmentError("Not done yet.")
+        # Computing the ephemeris solution provided the engine that the 
+        # user wants to use.
+        ephemeritics_solution = ephemeris.EphemeriticSolution(orbitals=self.orbitals, solver_engine=solver_engine)
 
         # Check if the solution should overwrite the current one.
         if overwrite:
             self.ephemeritics = ephemeritics_solution
         else:
-            # It should not overrite anything.
+            # It should not overwrite anything.
             pass
         return ephemeritics_solution
 
@@ -535,9 +536,9 @@ class OpihiSolution(hint.ExarataSolution):
         current_data["publishable_note"] = ""
         current_data["observing_note"] = ""
 
-        # The data can be extracted from the UNIX time of observation.
-        year, month, day = library.conversion.unix_time_to_decimal_day(
-            unix_time=self.observing_time
+        # The data can be extracted from the Julian day time of observation.
+        year, month, day = library.conversion.julian_day_to_decimal_day(
+            jd=self.observing_time
         )
         current_data["year"] = year
         current_data["month"] = month
@@ -547,7 +548,7 @@ class OpihiSolution(hint.ExarataSolution):
         # can just take it straight if the astrometric solution exists.
         if isinstance(self.astrometrics, astrometry.AstrometricSolution):
             if self.asteroid_location is not None:
-                # Splitting it up is easier notationally.
+                # Splitting it up is easier on the notation.
                 asteroid_x, asteroid_y = self.asteroid_location
             else:
                 raise error.InputError(

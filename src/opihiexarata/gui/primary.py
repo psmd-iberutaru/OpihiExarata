@@ -2,7 +2,6 @@
 The primary GUI window.
 """
 
-import time
 import sys
 import os
 
@@ -23,8 +22,7 @@ import opihiexarata.astrometry as astrometry
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 import opihiexarata.orbit as orbit
-
-# import opihiexarata.ephemeris as ephemeris
+import opihiexarata.ephemeris as ephemeris
 
 import opihiexarata.gui as gui
 
@@ -601,13 +599,13 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         """
         # If there is no propagation solution, there is nothing to be done.
         if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagationSolution
+            self.opihi_solution.propagatives, propagate.PropagativeSolution
         ):
             return None
 
         # Get the time and date from the user input.
         datetime_input = self.ui.date_time_edit_propagate_date_time.dateTime()
-        # Getting the timezone, as the propagation requires UTC/UNIX time, a
+        # Getting the timezone, as the propagation requires UTC/JD time, a
         # conversion is needed. Qt uses IANA timezone IDs so we convert from
         # the human readable ones to it. We only deal with current timezones.
         timezone_input = self.ui.combo_box_propagate_timezone.currentText()
@@ -627,10 +625,12 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         qt_timezone = QtCore.QTimeZone(qt_timezone_bytearray)
         datetime_input.setTimeZone(qt_timezone)
         unix_time_input = datetime_input.toSecsSinceEpoch()
+        # As a Julian day as that is the standard time system.
+        julian_day_input = library.conversion.unix_time_to_julian_day(unix_time=unix_time_input)
 
         # Using this unique time provided to solve the propagation.
         ra_deg, dec_deg = self.opihi_solution.propagatives.forward_propagate(
-            future_time=unix_time_input
+            future_time=julian_day_input
         )
         ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
             ra_deg=ra_deg, dec_deg=dec_deg, precision=2
@@ -743,22 +743,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # assuming standard form.
         exposure_time = float(header["ITIME"])
 
-        # Converting date to UNIX as the solution class requires it.
-        # The YMD and HMS formats in the header file are UTC in a
-        # ISO 8601 like format.
-        yr_s, mh_s, dy_s = header["DATE_OBS"].split("-")
-        hr_s, mn_s, sc_s = header["TIME_OBS"].split(":")
-        # These values are currently strings, they need to be the proper type.
-        yr_i = int(yr_s)
-        mh_i = int(mh_s)
-        dy_i = int(dy_s)
-        hr_i = int(hr_s)
-        mn_i = int(mn_s)
-        sc_f = float(sc_s)
-        # Convert.
-        observing_time = library.conversion.full_date_to_unix_time(
-            year=yr_i, month=mh_i, day=dy_i, hour=hr_i, minute=mn_i, second=sc_f
-        )
+        # Converting date to Julian day as the solution class requires it.
+        # We use the modified Julian day from the header file.
+        observing_time = library.conversion.modified_julian_day_to_julian_day(mjd=header["MJD_OBS"])
 
         # For asteroid information, if we are to prompt the user for
         # information about the asteroid.
@@ -1038,7 +1025,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Everything beyond this point requires an orbital solution, if
         # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(self.opihi_solution.orbitals, orbit.OrbitSolution):
+        if not isinstance(self.opihi_solution.orbitals, orbit.OrbitalSolution):
             return None
         else:
             orbitals = self.opihi_solution.orbitals
@@ -1117,7 +1104,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Everything beyond this point requires an astrometric solution, if
         # it does not exist, there is no point in continuing, exiting early.
         if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagationSolution
+            self.opihi_solution.propagatives, propagate.PropagativeSolution
         ):
             return None
         else:
@@ -1150,23 +1137,25 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # the time interval provided.
         ENTRY_COUNT = library.config.GUI_PROPAGATE_PRECOMPUTED_FUTURE_ENTRY_COUNT
         INTERVAL = library.config.GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS
-        current_unix_time = time.time()
+        INTERVAL_DAYS = INTERVAL / 86400
+        current_julian_day = library.conversion.current_utc_to_julian_day()
         precomputed_future_text = ""
         for countdex in range(int(ENTRY_COUNT)):
-            # The unix time for this future.
-            future_unix_time = current_unix_time + INTERVAL * countdex
+            # The future Julian day time for this future, as the Julian time
+            # scale is in days.
+            future_julian_day = current_julian_day + INTERVAL_DAYS * countdex
             # Converting this to the date and time string for this entry.
             # As this is UNIX time, the date is in UTC or Zulu time.
-            yr, mh, dy, hr, mn, sc = library.conversion.unix_time_to_full_date(
-                unix_time=future_unix_time
+            yr, mh, dy, hr, mn, sc = library.conversion.julian_day_to_full_date(
+                jd=future_julian_day
             )
             datetime_str = "{yr}-{mh}-{dy}  {hr}:{mn}:{sc}  Z".format(
                 yr=int(yr), mh=int(mh), dy=int(dy), hr=int(hr), mn=int(mn), sc=int(sc)
             )
-            # Using the unix time to compute the propagated solution for this
-            # time and formatting this as the needed string.
+            # Using the Julian day time to compute the propagated solution for 
+            # this time and formatting this as the needed string.
             ra_deg, dec_deg = propagatives.forward_propagate(
-                future_time=future_unix_time
+                future_time=future_julian_day
             )
             ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
                 ra_deg=ra_deg, dec_deg=dec_deg, precision=2

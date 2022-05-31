@@ -1,12 +1,15 @@
-"""Test"""
+"""All of the subparts of the OpihiExarata software."""
 
-import opihiexarata.library as library
+
 import opihiexarata.astrometry as astrometry
-import opihiexarata.gui as gui
+import opihiexarata.ephemeris as ephemeris
 import opihiexarata.opihi as opihi
 import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
+
+import opihiexarata.library as library
+import opihiexarata.gui as gui
 
 # The primary solutions for OpihiExarata.
 from opihiexarata.opihi import OpihiPreprocessSolution

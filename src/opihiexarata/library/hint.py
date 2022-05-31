@@ -28,5 +28,5 @@ array = ndarray
 from opihiexarata.library.engine import *
 from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
-from opihiexarata.orbit.solution import OrbitSolution
-from opihiexarata.propagate import PropagationSolution
+from opihiexarata.orbit.solution import OrbitalSolution
+from opihiexarata.propagate.solution import PropagativeSolution

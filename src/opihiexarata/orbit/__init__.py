@@ -1,5 +1,7 @@
+
+
 # The orbit solver itself.
-from opihiexarata.orbit.solution import OrbitSolution
+from opihiexarata.orbit.solution import OrbitalSolution
 
 # The orbit solver engines.
 from opihiexarata.orbit.orbfit import OrbfitOrbitDeterminerEngine
