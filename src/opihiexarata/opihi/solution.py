@@ -153,7 +153,10 @@ class OpihiSolution(hint.ExarataSolution):
         return None
 
     def solve_astrometry(
-        self, solver_engine: hint.AstrometryEngine, overwrite=True
+        self,
+        solver_engine: hint.AstrometryEngine,
+        overwrite=True,
+        vehicle_args: dict = {},
     ) -> hint.AstrometricSolution:
         """Solve the image astrometry by using an astrometric engine.
 
@@ -164,6 +167,10 @@ class OpihiSolution(hint.ExarataSolution):
         overwrite : bool, default = True
             Overwrite and replace the information of this class with the new
             values. If False, the returned solution is not also applied.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------
@@ -171,7 +178,9 @@ class OpihiSolution(hint.ExarataSolution):
             The astrometry solution for the image.
         """
         astrometry_solution = astrometry.AstrometricSolution(
-            fits_filename=self.fits_filename, solver_engine=solver_engine
+            fits_filename=self.fits_filename,
+            solver_engine=solver_engine,
+            vehicle_args=vehicle_args,
         )
         # Check if the solution should overwrite the current one.
         if overwrite:
@@ -187,6 +196,7 @@ class OpihiSolution(hint.ExarataSolution):
         overwrite=True,
         filter_name=None,
         exposure_time=None,
+        vehicle_args: dict = {},
     ) -> hint.PhotometricSolution:
         """Solve the image photometry by using a photometric engine.
 
@@ -203,6 +213,10 @@ class OpihiSolution(hint.ExarataSolution):
         exposure_time : float, default = None
             The exposure time of the image, in seconds. Defaults to the value
             provided at instantiation.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------
@@ -232,6 +246,7 @@ class OpihiSolution(hint.ExarataSolution):
             astrometrics=self.astrometrics,
             filter_name=filter_name,
             exposure_time=exposure_time,
+            vehicle_args=vehicle_args,
         )
         # Check if the solution should overwrite the current one.
         if overwrite:
@@ -246,6 +261,7 @@ class OpihiSolution(hint.ExarataSolution):
         solver_engine: hint.PropagationEngine,
         overwrite=True,
         asteroid_location: tuple[float, float] = None,
+        vehicle_args: dict = {},
     ) -> hint.PropagativeSolution:
         """Solve for the location of an asteroid using a method of propagation.
 
@@ -259,6 +275,10 @@ class OpihiSolution(hint.ExarataSolution):
         asteroid_location : tuple, default = None
             The pixel location of the asteroid in the image. Defaults to the
             value provided at instantiation.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------
@@ -343,6 +363,7 @@ class OpihiSolution(hint.ExarataSolution):
             dec=asteroid_dec,
             obs_time=asteroid_time,
             solver_engine=solver_engine,
+            vehicle_args=vehicle_args,
         )
         # See if the current propagation solution should be replaced.
         if overwrite:
@@ -357,6 +378,7 @@ class OpihiSolution(hint.ExarataSolution):
         solver_engine: hint.OrbitEngine,
         overwrite: bool = True,
         asteroid_location: tuple = None,
+        vehicle_args: dict = {},
     ):
         """Solve for the orbital elements an asteroid using previous
         observations.
@@ -371,6 +393,10 @@ class OpihiSolution(hint.ExarataSolution):
         asteroid_location : tuple, default = None
             The pixel location of the asteroid in the image. Defaults to the
             value provided at instantiation.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------
@@ -447,7 +473,9 @@ class OpihiSolution(hint.ExarataSolution):
 
         # Solve for the orbital solution.
         orbital_solution = orbit.OrbitalSolution(
-            observation_record=asteroid_record, solver_engine=solver_engine
+            observation_record=asteroid_record,
+            solver_engine=solver_engine,
+            vehicle_args=vehicle_args,
         )
         # Check if the solution should overwrite the current one.
         if overwrite:
@@ -458,7 +486,10 @@ class OpihiSolution(hint.ExarataSolution):
         return orbital_solution
 
     def solve_ephemeris(
-        self, solver_engine: hint.EphemerisEngine, overwrite: bool = True
+        self,
+        solver_engine: hint.EphemerisEngine,
+        overwrite: bool = True,
+        vehicle_args: dict = {},
     ):
         """Solve for the ephemeris solution an asteroid using previous
         observations and derived orbital elements.
@@ -470,6 +501,10 @@ class OpihiSolution(hint.ExarataSolution):
         overwrite : bool, default = True
             Overwrite and replace the information of this class with the new
             values. If False, the returned solution is not also applied.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here. s
 
         Returns
         -------
@@ -492,7 +527,9 @@ class OpihiSolution(hint.ExarataSolution):
         # Computing the ephemeris solution provided the engine that the
         # user wants to use.
         ephemeritics_solution = ephemeris.EphemeriticSolution(
-            orbitals=self.orbitals, solver_engine=solver_engine
+            orbitals=self.orbitals,
+            solver_engine=solver_engine,
+            vehicle_args=vehicle_args,
         )
 
         # Check if the solution should overwrite the current one.

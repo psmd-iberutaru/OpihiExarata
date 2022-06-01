@@ -54,7 +54,7 @@ class AstrometricSolution(hint.ExarataSolution):
     """
 
     def __init__(
-        self, fits_filename: str, solver_engine: hint.AstrometryEngine
+        self, fits_filename: str, solver_engine: hint.AstrometryEngine, vehicle_args:dict={}
     ) -> None:
         """Solving the astrometry via the image provided. The engine class must
         also be provided.
@@ -68,6 +68,10 @@ class AstrometricSolution(hint.ExarataSolution):
             The astrometric solver engine class. This is what will act as the
             "behind the scenes" and solve the field, using this middleware to
             translate it into something that is easier.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs 
+            extra parameters not otherwise provided by the standard input, 
+            they are given here. 
 
         Returns
         -------

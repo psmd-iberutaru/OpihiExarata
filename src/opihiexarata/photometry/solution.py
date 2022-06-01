@@ -61,6 +61,7 @@ class PhotometricSolution(hint.ExarataSolution):
         astrometrics: hint.AstrometricSolution,
         exposure_time: float = None,
         filter_name: str = None,
+        vehicle_args:dict={}
     ) -> None:
         """Initialization of the photometric solution.
 
@@ -82,6 +83,10 @@ class PhotometricSolution(hint.ExarataSolution):
             A single character string describing the name of the filter band that
             this image was taken in. Currently, it assumes the MKO/SDSS visual
             filters. If it is None, calculation of the zero-point is skipped.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs 
+            extra parameters not otherwise provided by the standard input, 
+            they are given here. 
 
         Returns
         -------

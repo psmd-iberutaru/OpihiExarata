@@ -35,7 +35,7 @@ class EphemeriticSolution(hint.ExarataSolution):
     def __init__(
         self,
         orbitals: hint.OrbitalSolution,
-        solver_engine: hint.EphemerisEngine,
+        solver_engine: hint.EphemerisEngine,vehicle_args:dict={}
     ) -> None:
         """Instantiating the solution class.
 
@@ -48,6 +48,10 @@ class EphemeriticSolution(hint.ExarataSolution):
             The ephemeris solver engine class. This is what will act as the
             "behind the scenes" and solve the orbit, using this middleware to
             translate it into something that is easier to read.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs 
+            extra parameters not otherwise provided by the standard input, 
+            they are given here. 
 
         Returns
         -------

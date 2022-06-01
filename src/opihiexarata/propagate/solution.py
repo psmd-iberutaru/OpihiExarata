@@ -64,6 +64,7 @@ class PropagativeSolution(hint.ExarataSolution):
         dec: hint.array,
         obs_time: list,
         solver_engine: hint.PropagationEngine,
+        vehicle_args:dict={}
     ):
         """The instantiation of the propagation solution.
 
@@ -81,6 +82,10 @@ class PropagativeSolution(hint.ExarataSolution):
         solver_engine : PropagationEngine
             The propagation solver engine class that will be used to compute
             the propagation solution.
+        vehicle_args : dictionary
+            If the vehicle function for the provided solver engine needs 
+            extra parameters not otherwise provided by the standard input, 
+            they are given here. 
 
         Returns
         -------
