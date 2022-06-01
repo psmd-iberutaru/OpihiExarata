@@ -37,6 +37,12 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
     dec_velocity : float
         The declination angular velocity of the target, in degrees per
         second.
+    ra_acceleration : float
+        The right ascension angular acceleration of the target, in degrees per
+        second squared.
+    dec_acceleration : float
+        The declination angular acceleration of the target, in degrees per
+        second squared.
     """
 
     def __init__(
@@ -97,13 +103,89 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
         # The rates of the asteroid. We care only about the rates most
         # accurate to the current time and so we can use the rates calculated
         # from the close by default time.
-        ra_rate = np.nanmean(self.ephemeris_table["ra_rate"])
-        dec_rate = np.nanmean(self.ephemeris_table["dec_rate"])
+        jpl_time = np.array(self.ephemeris_table["julian_day"])
+        jpl_ra_rate = np.array(self.ephemeris_table["ra_rate"])
+        jpl_dec_rate = np.array(self.ephemeris_table["dec_rate"])
+        # Converting the Julian day time to seconds as it is just easier for
+        # the differentials. Using UNIX time as it is easy.
+        unix_time = library.conversion.julian_day_to_unix_time(jd=jpl_time)
         # The rates from JPL are in arcseconds per hour. Convention for this
         # software is degrees per second, converting.
         as_hr_to_dg_s = lambda ashr: ashr / (3600 * 3600)
-        self.ra_velocity = as_hr_to_dg_s(ra_rate)
-        self.dec_velocity = as_hr_to_dg_s(dec_rate)
+        ra_rate = as_hr_to_dg_s(jpl_ra_rate)
+        dec_rate = as_hr_to_dg_s(jpl_dec_rate)
+
+        # We derive the current velocity rates by the observations closest to
+        # the current time to remove as much second order effects as we can.
+        nearby_delta = (5 / 60) / 24
+        nearby_records = np.where(
+            np.logical_and(
+                (current_time - nearby_delta) < jpl_time,
+                jpl_time < (current_time + nearby_delta),
+            ),
+            True,
+            False,
+        )
+        # Using averages to combine the nearby observations.
+        self.ra_velocity = np.nanmean(ra_rate[nearby_records])
+        self.dec_velocity = np.nanmean(dec_rate[nearby_records])
+
+        # We derive the current acceleration rates by assuming constant
+        # acceleration across the sky (ignoring 3rd order differential
+        # effects).
+        def _determining_average_acceleration(
+            time: hint.array, velocity: hint.array
+        ) -> float:
+            """We just use a function here to better group processes and
+            local variable names. We use central difference to 4th order
+            error. We can afford the number of points needed."""
+            # Spacing, though we assume uniform, we want to make sure.
+            uniform_spacing = np.mean(time[1:] - time[:-1])
+            # Splitting up into the different subsets of V_{n-2} ... V_{n+2}.
+            # We do not need V_{n+0} for this method.
+            vel_m2 = velocity[:-4]
+            vel_m1 = velocity[1:-3]
+            vel_p1 = velocity[3:-1]
+            vel_p2 = velocity[4:]
+            # Finding the derivative.
+            def derivative_function(
+                x_m2: float, x_m1: float, x_p1: float, x_p2: float, h: float
+            ) -> float:
+                """The constants for this function is well known for higher
+                order finite difference methods. Here is the 4th order form.
+                Arrays are also accepted."""
+                d_dv = (
+                    (1 / 12) * x_m2
+                    + (-2 / 3) * x_m1
+                    + (2 / 3) * x_p1
+                    + (-1 / 12) * x_p2
+                ) / (h)
+                return d_dv
+
+            # Determining the acceleration.
+            accel_array = np.array(
+                derivative_function(
+                    x_m2=vel_m2,
+                    x_m1=vel_m1,
+                    x_p1=vel_p1,
+                    x_p2=vel_p2,
+                    h=uniform_spacing,
+                )
+            )
+            # Assuming constant acceleration. There may be spikes that we do
+            # not want to deal with so a median is fine. There will also likely
+            # be a slope because the jerk that we otherwise are ignoring.
+            return np.median(accel_array)
+
+        # Determining the acceleration rates from the entire velocity records.
+        # We are assuming constant acceleration, and our time span is not that
+        # large so this should be okay.
+        self.ra_acceleration = _determining_average_acceleration(
+            time=unix_time, velocity=ra_rate
+        )
+        self.dec_acceleration = _determining_average_acceleration(
+            time=unix_time, velocity=dec_rate
+        )
 
         # All done.
         return None
@@ -173,10 +255,11 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
                 ra_sex=ra_sex, dec_sex=dec_sex
             )
             # The RA and DEC rates; these values are in arcsec/hr, but convention in this
-            # software is arcsec/sec so convert. The flat planar conversion is already
+            # software is deg/sec so convert. The flat planar conversion is already
             # done by Horizon.
-            ra_rate = float(line_split[8]) / 3600
-            dec_rate = float(line_split[9]) / 3600
+            as_hr_to_dg_s = lambda ashr: ashr / (3600 * 3600)
+            ra_rate = as_hr_to_dg_s(float(line_split[8]))
+            dec_rate = as_hr_to_dg_s(float(line_split[9]))
             # The true anomaly.
             true_anomaly = float(line_split[10])
             # The exact usage of these parameters are really not know yet but they seem

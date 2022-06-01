@@ -24,6 +24,12 @@ class EphemeriticSolution(hint.ExarataSolution):
     dec_velocity : float
         The declination angular velocity of the target, in degrees per
         second.
+    ra_acceleration : float
+        The right ascension angular acceleration of the target, in degrees per
+        second squared.
+    dec_acceleration : float
+        The declination angular acceleration of the target, in degrees per
+        second squared.
     """
 
     def __init__(
@@ -177,12 +183,16 @@ def _vehicle_jpl_horizons_web_api(orbitals: hint.OrbitalSolution):
     # The on sky rates as derived from the orbital elements.
     ra_velocity = float(jpl_horizons.ra_velocity)
     dec_velocity = float(jpl_horizons.dec_velocity)
+    ra_acceleration = float(jpl_horizons.ra_acceleration)
+    dec_acceleration = float(jpl_horizons.dec_acceleration)
 
     # Constructing the solution dictionary.
     ephemeris_results = {
         "ephemeris_function": ephemeris_function,
         "ra_velocity": ra_velocity,
         "dec_velocity": dec_velocity,
+        "ra_acceleration": ra_acceleration,
+        "dec_acceleration": dec_acceleration,
     }
     # All done.
     return ephemeris_results

@@ -130,6 +130,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             self.__connect_push_button_orbit_solve_orbit
         )
 
+        # Ephemeris-specific buttons.
+        self.ui.push_button_ephemeris_solve_ephemeris.clicked.connect(self.__connect_push_button_orbit_solve_ephemeris)
+
         # Propagate-specific buttons.
         self.ui.push_button_propagate_solve_propagation.clicked.connect(
             self.__connect_push_button_propagate_solve_propagation
@@ -548,6 +551,104 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Update all of the necessary information.
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
+        # All done.
+        return None
+
+    def __connect_push_button_orbit_solve_ephemeris(self) -> None:
+        """A routine to use the current observation and historical observations
+        to derive the orbit solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Determine the engine from user input via the drop down menu. The
+        # recognizing text ought to be case insensitive, makes life easier.
+        input_engine_name = self.ui.combo_box_ephemeris_solve_engine.currentText()
+        input_engine_name = input_engine_name.casefold()
+        # Search programed engines for the one specified.
+        if input_engine_name == "jpl horizons":
+            engine = ephemeris.JPLHorizonsWebAPIEngine
+        else:
+            raise error.DevelopmentError(
+                "The provided input engine name `{in_eng}` is not implemented and"
+                " cannot be matched to an implemented ephemeritic engine.".format(
+                    in_eng=str(input_engine_name)
+                )
+            )
+        # Solve.
+        __ = self.opihi_solution.solve_ephemeris(solver_engine=engine, overwrite=True)
+
+        # Update all of the necessary information.
+        self.redraw_opihi_image()
+        self.refresh_dynamic_label_text()
+        # All done.
+        return None
+
+    def __connect_push_button_propagate_custom_solve(self) -> None:
+        """Solving for the location of the target through the ephemeris based 
+        on the time and date provided by the user.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no propagation solution, there is nothing to be done.
+        if not isinstance(
+            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        ):
+            return None
+
+        # Get the time and date from the user input.
+        datetime_input = self.ui.date_time_edit_ephemeris_date_time.dateTime()
+        # Getting the timezone, as the propagation requires UTC/JD time, a
+        # conversion is needed. Qt uses IANA timezone IDs so we convert from
+        # the human readable ones to it. We only deal with current timezones.
+        timezone_input = self.ui.combo_box_ephemeris_timezone.currentText()
+        timezone_input = timezone_input.casefold()
+        if timezone_input == "utc+00:00":
+            qt_timezone_str = "Etc/UTC"
+        elif timezone_input == "hst-10:00":
+            qt_timezone_str = "Pacific/Honolulu"
+        else:
+            error.DevelopmentError(
+                "The timezone dropdown entry provided by the GUI is not implemented and"
+                " has no translation to an IANA timezone ID."
+            )
+
+        # Using Qt's own datetime conversion just because it is already here.
+        qt_timezone_bytearray = QtCore.QByteArray(qt_timezone_str.encode())
+        qt_timezone = QtCore.QTimeZone(qt_timezone_bytearray)
+        datetime_input.setTimeZone(qt_timezone)
+        unix_time_input = datetime_input.toSecsSinceEpoch()
+        # As a Julian day as that is the standard time system.
+        julian_day_input = library.conversion.unix_time_to_julian_day(
+            unix_time=unix_time_input
+        )
+
+        # Using this unique time provided to solve the propagation.
+        ra_deg, dec_deg = self.opihi_solution.ephemeritics.forward_ephemeris(
+            future_time=julian_day_input
+        )
+        ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
+            ra_deg=ra_deg, dec_deg=dec_deg, precision=2
+        )
+        # Updating the RA and DEC values.
+        self.ui.label_dynamic_ephemeris_custom_ra.setText(ra_sex)
+        self.ui.label_dynamic_ephemeris_custom_dec.setText(dec_sex)
+
+        # All done.
+        return None
+
+
 
     def __connect_push_button_propagate_solve_propagation(self) -> None:
         """A routine to use the current observation and historical observations
@@ -643,6 +744,8 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
+
+
 
     def __get_mpc_record_filename(self) -> str:
         """This is a function which derives the MPC record filename from
@@ -880,6 +983,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             self.__refresh_dynamic_label_text_astrometry()
             self.__refresh_dynamic_label_text_photometry()
             self.__refresh_dynamic_label_text_orbit()
+            self.__refresh_dynamic_label_text_ephemeris()
             self.__refresh_dynamic_label_text_propagate()
 
         # All done.
@@ -1076,6 +1180,64 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.ui.line_edit_orbit_ascending_node.setText(ascending_node_string)
         self.ui.line_edit_orbit_perihelion.setText(perihelion_string)
         self.ui.line_edit_orbit_true_anomaly.setText(true_anomaly_string)
+
+        # All done.
+        return None
+
+    def __refresh_dynamic_label_text_ephemeris(self) -> None:
+        """Refresh all of the dynamic label text for ephemerides.
+        This fills out the information based on the current solutions
+        available and solved.
+
+        An ephemeritic solution must exist.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Everything in this function needs the OpihiSolution, if it does not
+        # exist, then exit early as there is nothing to refresh.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+        else:
+            opihi_solution = self.opihi_solution
+
+        # Nothing so far.
+        pass
+
+        # Everything beyond this point requires an orbital solution, if
+        # it does not exist, there is no point in continuing, exiting early.
+        if not isinstance(self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution):
+            return None
+        else:
+            ephemeritics = self.opihi_solution.ephemeritics
+
+        # Update the rate text with the velocity terms provided by the
+        # propagation solution. The propagation solution provides rates as
+        # degrees per second.
+        ra_v_deg = ephemeritics.ra_velocity
+        dec_v_deg = ephemeritics.dec_velocity
+        # And acceleration, as degrees per second squared.
+        ra_a_deg = ephemeritics.ra_acceleration
+        dec_a_deg = ephemeritics.dec_acceleration
+        # Converting to the more familiar arcsec/s. Round after and prepare
+        # to make it a string for the GUI.
+        def deg_to_arcsec_str(degree: float) -> str:
+            return str(round(degree * 3600, 3))
+
+        ra_v_arcsec_str = deg_to_arcsec_str(ra_v_deg)
+        dec_v_arcsec_str = deg_to_arcsec_str(dec_v_deg)
+        ra_a_arcsec_str = deg_to_arcsec_str(ra_a_deg)
+        dec_a_arcsec_str = deg_to_arcsec_str(dec_a_deg)
+        # Update the dynamic text.
+        self.ui.label_dynamic_ephemeris_ra_velocity.setText(ra_v_arcsec_str)
+        self.ui.label_dynamic_ephemeris_dec_velocity.setText(dec_v_arcsec_str)
+        self.ui.label_dynamic_ephemeris_ra_acceleration.setText(ra_a_arcsec_str)
+        self.ui.label_dynamic_ephemeris_dec_acceleration.setText(dec_a_arcsec_str)
 
         # All done.
         return None

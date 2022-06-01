@@ -735,7 +735,13 @@
             <item>
              <layout class="QHBoxLayout" name="horizontal_layout_solve_ephemeris">
               <item>
-               <widget class="QComboBox" name="combo_box_ephemeris_solve_engine"/>
+               <widget class="QComboBox" name="combo_box_ephemeris_solve_engine">
+                <item>
+                 <property name="text">
+                  <string>JPL Horizons</string>
+                 </property>
+                </item>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="push_button_ephemeris_solve_ephemeris">
@@ -753,6 +759,78 @@
              </layout>
             </item>
             <item>
+             <widget class="Line" name="line_19">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="grid_layout_ephemeris_rate_results">
+              <item row="0" column="5">
+               <widget class="Line" name="line_17">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="6">
+               <widget class="QLabel" name="label_dynamic_ephemeris_ra_acceleration">
+                <property name="text">
+                 <string>+AA.AAA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="7">
+               <widget class="QLabel" name="label_dynamic_ephemeris_dec_acceleration">
+                <property name="text">
+                 <string>+AA.AAA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="label_dynamic_ephemeris_dec_velocity">
+                <property name="text">
+                 <string>+VV.VVV</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="Line" name="line_18">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_dynamic_ephemeris_ra_velocity">
+                <property name="text">
+                 <string>+VV.VVV</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_static_ephemeris_rate">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ephemeris Rate [ &amp;quot;/s | &amp;quot;/s&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
              <widget class="Line" name="line_6">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -760,7 +838,68 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_ephemeris_results"/>
+             <layout class="QGridLayout" name="grid_layout_ephemeris_custom_entry">
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_dynamic_ephemeris_custom_ra">
+                <property name="text">
+                 <string>HH:MM:SS.SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QDateTimeEdit" name="date_time_edit_ephemeris_date_time">
+                <property name="displayFormat">
+                 <string>yyyy-MM-dd HH:mm:ss</string>
+                </property>
+                <property name="timeSpec">
+                 <enum>Qt::LocalTime</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="label_dynamic_ephemeris_custom_dec">
+                <property name="text">
+                 <string>+DD:MM:SS.SS</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="combo_box_ephemeris_timezone">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="minimumContentsLength">
+                 <number>0</number>
+                </property>
+                <property name="duplicatesEnabled">
+                 <bool>false</bool>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>UTC+00:00</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>HST-10:00</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="push_button_ephemeris_custom_solve">
+                <property name="text">
+                 <string>Custom Solve</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
