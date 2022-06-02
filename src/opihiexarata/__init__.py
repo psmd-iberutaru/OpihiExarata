@@ -1,6 +1,7 @@
 """All of the subparts of the OpihiExarata software."""
 
 # The library must be imported first as all other parts depend on it.
+# Otherwise, a circular loop may occur in the imports.
 import opihiexarata.library as library
 
 # The main parts of the package themselves.
@@ -10,8 +11,11 @@ import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 
+
 # The section for the user interface.
 import opihiexarata.gui as gui
+# The section for command line interface and scripting.
+from opihiexarata import command
 
 
 # The primary collective solutions for OpihiExarata.
