@@ -102,6 +102,12 @@ class OrbitalSolution(hint.ExarataSolution):
             raw_orbit_results = _vehicle_orbfit_orbit_determiner(
                 observation_record=observation_record
             )
+        elif issubclass(solver_engine, orbit.CustomOrbitEngine):
+            # A custom orbit has been desired, the vehicle function arguments
+            # contain the values needed.
+            raw_orbit_results = _vehicle_custom_orbit(
+                observation_record=observation_record, vehicle_args=vehicle_args
+            )
         else:
             # There is no vehicle function, the engine is not supported.
             raise error.EngineError(
@@ -386,6 +392,58 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
         "mean_anomaly": kepler_elements["mean_anomaly"],
         "mean_anomaly_error": kepler_error["mean_anomaly_error"],
         "epoch_julian_day": epoch_julian_day,
+    }
+    # All done.
+    return orbit_results
+
+
+def _vehicle_custom_orbit(observation_record: list[str], vehicle_args: dict) -> dict:
+    """This is the vehicle function for the specification of a custom orbit.
+
+    A check is done for the extra vehicle arguments to ensure that the orbital
+    elements desired are within the arguments. The observation record is
+    not of concern for this vehicle.
+
+    Parameters
+    ----------
+    observation_record : list
+        The MPC standard 80-column record for observations of the asteroid
+        by which the orbit shall be computed from.
+    vehicle_args : dict
+        The arguments to be passed to the Engine class to help its creation
+        and solving abilities. In this case, it is just the orbital elements
+        as defined.
+    """
+    # We do not care about the observation record.
+    __ = observation_record
+
+    # Attempt to create the engine; if some of the values are not in the
+    # vehicle, then raise an error back.
+    try:
+        custom_orbit = orbit.CustomOrbitEngine(**vehicle_args)
+    except TypeError:
+        raise error.EngineError(
+            "The custom orbit engine cannot be created as the required orbital"
+            " parameters have not been passed down through the vehicle arguments."
+        )
+
+    # Converting the the results from this engine to the standard output
+    # expected by the vehicle functions for orbit solving. Of course, we are
+    # just passing the information back up.
+    orbit_results = {
+        "semimajor_axis": custom_orbit.semimajor_axis,
+        "semimajor_axis_error": custom_orbit.semimajor_axis_error,
+        "eccentricity": custom_orbit.eccentricity,
+        "eccentricity_error": custom_orbit.eccentricity_error,
+        "inclination": custom_orbit.inclination,
+        "inclination_error": custom_orbit.inclination_error,
+        "longitude_ascending_node": custom_orbit.longitude_ascending_node,
+        "longitude_ascending_node_error": custom_orbit.longitude_ascending_node_error,
+        "argument_perihelion": custom_orbit.argument_perihelion,
+        "argument_perihelion_error": custom_orbit.argument_perihelion_error,
+        "mean_anomaly": custom_orbit.mean_anomaly,
+        "mean_anomaly_error": custom_orbit.mean_anomaly_error,
+        "epoch_julian_day": custom_orbit.epoch_julian_day,
     }
     # All done.
     return orbit_results

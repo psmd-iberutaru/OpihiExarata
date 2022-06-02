@@ -386,6 +386,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Search programed engines for the one specified.
         if input_engine_name == "astrometry.net nova":
             engine = astrometry.AstrometryNetWebAPIEngine
+            vehicle_args = {}
         else:
             raise error.DevelopmentError(
                 "The provided input engine name `{in_eng}` is not implemented and"
@@ -395,7 +396,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             )
 
         # Solve the field using the provided engine.
-        __ = self.opihi_solution.solve_astrometry(solver_engine=engine, overwrite=True)
+        __ = self.opihi_solution.solve_astrometry(solver_engine=engine, overwrite=True,vehicle_args=vehicle_args)
         # Update all of the necessary information.
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
@@ -506,6 +507,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Search programed engines for the one specified.
         if input_engine_name == "pan-starrs 3pi dr2 mast":
             engine = photometry.PanstarrsMastWebAPIEngine
+            vehicle_args = {}
         else:
             raise error.DevelopmentError(
                 "The provided input engine name `{in_eng}` is not implemented and"
@@ -514,7 +516,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_photometry(solver_engine=engine, overwrite=True)
+        __ = self.opihi_solution.solve_photometry(solver_engine=engine, overwrite=True, vehicle_args=vehicle_args)
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -540,6 +542,13 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Search programed engines for the one specified.
         if input_engine_name == "orbfit":
             engine = orbit.OrbfitOrbitDeterminerEngine
+            vehicle_args = {}
+        elif input_engine_name == "custom":
+            engine = orbit.CustomOrbitEngine
+            # The custom orbit requires than an orbit be specified, we 
+            # commandeer the orbital element reporting window.
+            custom_orbit_elements = self._parse_custom_orbital_elements()
+            vehicle_args=custom_orbit_elements
         else:
             raise error.DevelopmentError(
                 "The provided input engine name `{in_eng}` is not implemented and"
@@ -548,7 +557,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_orbit(solver_engine=engine, overwrite=True)
+        __ = self.opihi_solution.solve_orbit(solver_engine=engine, overwrite=True, vehicle_args=vehicle_args)
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -575,6 +584,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Search programed engines for the one specified.
         if input_engine_name == "jpl horizons":
             engine = ephemeris.JPLHorizonsWebAPIEngine
+            vehicle_args = {}
         else:
             raise error.DevelopmentError(
                 "The provided input engine name `{in_eng}` is not implemented and"
@@ -583,7 +593,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_ephemeris(solver_engine=engine, overwrite=True)
+        __ = self.opihi_solution.solve_ephemeris(solver_engine=engine, overwrite=True, vehicle_args=vehicle_args)
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -669,8 +679,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         # Search programed engines for the one specified.
         if input_engine_name == "linear":
             engine = propagate.LinearPropagationEngine
+            vehicle_args = {}
         elif input_engine_name == "quadratic":
             engine = propagate.QuadraticPropagationEngine
+            vehicle_args = {}
         else:
             raise error.DevelopmentError(
                 "The provided input engine name `{in_eng}` is not implemented and"
@@ -679,7 +691,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True)
+        __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True,vehicle_args=vehicle_args)
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -898,6 +910,108 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         self.refresh_dynamic_label_text()
         self.redraw_opihi_image()
         return None
+
+    def _parse_custom_orbital_elements(self) -> dict:
+        """This function takes the textual form of the orbital elements as 
+        entered and tries to parse it into a set of orbital elements and errors.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        orbital_elements : dictionary
+            A dictionary of the orbital elements and their errors, if they 
+            exist.
+        """
+        # Extracting all of the values from the text.
+        sm_axis_str = self.ui.line_edit_orbit_semimajor_axis.text().strip()
+        ecc_str = self.ui.line_edit_orbit_eccentricity.text().strip()
+        incli_str = self.ui.line_edit_orbit_inclination.text().strip()
+        as_node_str = self.ui.line_edit_orbit_ascending_node.text().strip()
+        peri_str = self.ui.line_edit_orbit_perihelion.text().strip()
+        m_anom_str = self.ui.line_edit_orbit_mean_anomaly.text().strip()
+        epoch_str = self.ui.line_edit_orbit_epoch.text().strip()
+
+        # Parse if there is an error bar or not. Writing a function because
+        # this is going to be happening a lot.
+        def error_bar_parse(entry_string:str) -> tuple[float,float]:
+            """The deliminator for an error bar is any non numeric or decimal
+            marker."""
+            entry_string = entry_string.strip()
+            non_demlim_marks = tuple("1234567890.,")
+            # In the event there are more than one character acting as 
+            # a deliminator.
+            lower_delim_index = None
+            upper_delim_index = None
+            for index, chardex in enumerate(entry_string):
+                if chardex not in non_demlim_marks:
+                    # This character is a deliminator, mark it.
+                    if lower_delim_index is None:
+                        # This is the first time a deliminator character has 
+                        # been encountered.
+                        lower_delim_index = index
+                    else:
+                        # Other deliminator characters have been encountered so
+                        # this is the last known deliminator.
+                        upper_delim_index = index
+            # Split the string based on the deliminator for the value and 
+            # error segment.
+            if lower_delim_index is None and upper_delim_index is None:
+                # There was never a deliminator, there is only one value and
+                # no error bars.
+                value_number = float(entry_string)
+                error_number = np.nan
+            elif lower_delim_index is not None and upper_delim_index is None:
+                # There is only one deliminator character, use this to split
+                # the string.
+                value_string = entry_string[:lower_delim_index].strip()
+                error_string = entry_string[lower_delim_index:].strip()
+                # Converting to values.
+                value_number = float(value_string)
+                error_number = float(error_string)
+            elif lower_delim_index is not None and upper_delim_index is not None:
+                # There are more than one characters for the deliminator.
+                value_string = entry_string[:lower_delim_index].strip()
+                error_string = entry_string[upper_delim_index:].strip()
+                # Converting to values.
+                value_number = float(value_string)
+                error_number = float(error_string)
+            # All done.
+            return value_number, error_number
+
+        # Parsing the strings.
+        sm_axis_val, sm_axis_err = error_bar_parse(sm_axis_str)
+        ecc_val, ecc_err = error_bar_parse(ecc_str)
+        incli_val, incli_err = error_bar_parse(incli_str)
+        as_node_val, as_node_err = error_bar_parse(as_node_str)
+        peri_val, peri_err = error_bar_parse(peri_str)
+        m_anom_val, m_anom_err = error_bar_parse(m_anom_str)
+        epoch_val, epoch_err = error_bar_parse(epoch_str)
+        # The Epoch should not have an error.
+        if epoch_err != np.nan:
+            raise error.InputError("The Epoch value is detecting that it is specified with an error term with a non-numeric deliminator. However, the Epoch should not have an error specified.")
+        # The orbital element dictionary which would be used for a custom 
+        # orbit.
+        orbital_elements = {
+"semimajor_axis": sm_axis_val  ,
+"semimajor_axis_error":  sm_axis_err ,
+"eccentricity":ecc_val   ,
+"eccentricity_error": ecc_err  ,
+"inclination":  incli_val ,
+"inclination_error": incli_err  ,
+"longitude_ascending_node":  as_node_val ,
+"longitude_ascending_node_error": as_node_err  ,
+"argument_perihelion":  peri_val ,
+"argument_perihelion_error": peri_err  ,
+"mean_anomaly":  m_anom_val ,
+"mean_anomaly_error": m_anom_err  ,
+"epoch_julian_day":  epoch_val ,
+        }
+        # All done.
+        return orbital_elements
+
 
     def clear_dynamic_label_text(self) -> None:
         """Clear all of the dynamic label text and other related fields,
@@ -1152,11 +1266,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Using the above function to derive the display strings for all of the
         # elements.
-        eccentricity_string = orb_str_conv(
-            val=orbitals.eccentricity, err=orbitals.eccentricity_error
-        )
         semimajor_axis_string = orb_str_conv(
             val=orbitals.semimajor_axis, err=orbitals.semimajor_axis_error
+        )
+        eccentricity_string = orb_str_conv(
+            val=orbitals.eccentricity, err=orbitals.eccentricity_error
         )
         inclination_string = orb_str_conv(
             val=orbitals.inclination, err=orbitals.inclination_error
@@ -1168,16 +1282,20 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         perihelion_string = orb_str_conv(
             val=orbitals.argument_perihelion, err=orbitals.argument_perihelion_error
         )
-        true_anomaly_string = orb_str_conv(
-            val=orbitals.true_anomaly, err=orbitals.true_anomaly_error
+        mean_anomaly_string = orb_str_conv(
+            val=orbitals.mean_anomaly, err=orbitals.mean_anomaly_error
         )
         # Changing the text using the derived strings.
-        self.ui.line_edit_orbit_eccentricity.setText(eccentricity_string)
         self.ui.line_edit_orbit_semimajor_axis.setText(semimajor_axis_string)
+        self.ui.line_edit_orbit_eccentricity.setText(eccentricity_string)
         self.ui.line_edit_orbit_inclination.setText(inclination_string)
         self.ui.line_edit_orbit_ascending_node.setText(ascending_node_string)
         self.ui.line_edit_orbit_perihelion.setText(perihelion_string)
-        self.ui.line_edit_orbit_true_anomaly.setText(true_anomaly_string)
+        self.ui.line_edit_orbit_mean_anomaly.setText(mean_anomaly_string)
+
+        # Maximum precision on the epoch Julian day is desired however.
+        julian_day_string = str(orbitals.epoch_julian_day)
+        self.ui.line_edit_orbit_epoch.setText(julian_day_string)
 
         # All done.
         return None

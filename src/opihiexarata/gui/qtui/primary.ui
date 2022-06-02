@@ -200,7 +200,7 @@
           </font>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>3</number>
          </property>
          <property name="iconSize">
           <size>
@@ -548,6 +548,11 @@
                   <string>Orbfit</string>
                  </property>
                 </item>
+                <item>
+                 <property name="text">
+                  <string>Custom</string>
+                 </property>
+                </item>
                </widget>
               </item>
               <item>
@@ -574,25 +579,6 @@
             </item>
             <item>
              <layout class="QGridLayout" name="grid_layout_orbit_elements">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_static_orbit_eccentricity">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Ecc.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="line_edit_orbit_eccentricity">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_static_orbit_inclination">
                 <property name="font">
@@ -605,27 +591,8 @@
                 </property>
                </widget>
               </item>
-              <item row="4" column="3">
-               <widget class="QLabel" name="label_static_orbit_true_anomaly">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>T-Anom.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QLineEdit" name="line_edit_orbit_perihelion">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
               <item row="4" column="5">
-               <widget class="QLineEdit" name="line_edit_orbit_true_anomaly">
+               <widget class="QLineEdit" name="line_edit_orbit_mean_anomaly">
                 <property name="text">
                  <string>VV.VVV + EE.EEE</string>
                 </property>
@@ -643,8 +610,41 @@
                 </property>
                </widget>
               </item>
+              <item row="4" column="3">
+               <widget class="QLabel" name="label_static_orbit_mean_anomaly">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>M-Anom.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="line_edit_orbit_perihelion">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
               <item row="1" column="1">
                <widget class="QLineEdit" name="line_edit_orbit_inclination">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" rowspan="5">
+               <widget class="Line" name="line_16">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="5">
+               <widget class="QLineEdit" name="line_edit_orbit_ascending_node">
                 <property name="text">
                  <string>VV.VVV + EE.EEE</string>
                 </property>
@@ -662,7 +662,21 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="3">
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_static_orbit_epoch">
+                <property name="text">
+                 <string>Epoch</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLineEdit" name="line_edit_orbit_epoch">
+                <property name="text">
+                 <string>EEEEEEE.EEEEE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
                <widget class="QLabel" name="label_static_orbit_semimajor_axis">
                 <property name="font">
                  <font>
@@ -676,24 +690,29 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="5">
-               <widget class="QLineEdit" name="line_edit_orbit_ascending_node">
+              <item row="0" column="3">
+               <widget class="QLabel" name="label_static_orbit_eccentricity">
+                <property name="font">
+                 <font>
+                  <italic>false</italic>
+                 </font>
+                </property>
                 <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
+                 <string>Ecc.</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="5">
+              <item row="0" column="1">
                <widget class="QLineEdit" name="line_edit_orbit_semimajor_axis">
                 <property name="text">
                  <string>VV.VVV + EE.EEE</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="2" rowspan="5">
-               <widget class="Line" name="line_16">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
+              <item row="0" column="5">
+               <widget class="QLineEdit" name="line_edit_orbit_eccentricity">
+                <property name="text">
+                 <string>VV.VVV + EE.EEE</string>
                 </property>
                </widget>
               </item>
