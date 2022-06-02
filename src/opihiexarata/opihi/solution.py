@@ -556,7 +556,7 @@ class OpihiSolution(hint.ExarataSolution):
         # Using the table is a much cleaner way of doing this as the formatting
         # is already handled. A dictionary is the better way to establish
         # parameters and the eventual row.
-        mpc_table = library.mpcrecord.minor_planet_blank_table()
+        mpc_table = library.mpcrecord.blank_minor_planet_table()
         current_data = {}
 
         # Assuming the name is the MPC provisional number as is common.

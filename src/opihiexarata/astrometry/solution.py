@@ -54,7 +54,10 @@ class AstrometricSolution(hint.ExarataSolution):
     """
 
     def __init__(
-        self, fits_filename: str, solver_engine: hint.AstrometryEngine, vehicle_args:dict={}
+        self,
+        fits_filename: str,
+        solver_engine: hint.AstrometryEngine,
+        vehicle_args: dict = {},
     ) -> None:
         """Solving the astrometry via the image provided. The engine class must
         also be provided.
@@ -69,9 +72,9 @@ class AstrometricSolution(hint.ExarataSolution):
             "behind the scenes" and solve the field, using this middleware to
             translate it into something that is easier.
         vehicle_args : dictionary
-            If the vehicle function for the provided solver engine needs 
-            extra parameters not otherwise provided by the standard input, 
-            they are given here. 
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------
@@ -100,7 +103,7 @@ class AstrometricSolution(hint.ExarataSolution):
         # vehicle functions to run the engines and provide the data needed.
         if issubclass(solver_engine, astrometry.AstrometryNetWebAPIEngine):
             # Solve using the API.
-            solution_results = _vehicle_astrometrynet_web_api(
+            astrometry_results = _vehicle_astrometrynet_web_api(
                 fits_filename=fits_filename
             )
         else:
@@ -118,14 +121,14 @@ class AstrometricSolution(hint.ExarataSolution):
             self._original_header = header
             self._original_data = data
             # The base astrometric properties of the image.
-            self.ra = solution_results["ra"]
-            self.dec = solution_results["dec"]
-            self.orientation = solution_results["orientation"]
-            self.radius = solution_results["radius"]
-            self.pixel_scale = solution_results["pixscale"]
-            self.wcs = solution_results["wcs"]
+            self.ra = astrometry_results["ra"]
+            self.dec = astrometry_results["dec"]
+            self.orientation = astrometry_results["orientation"]
+            self.radius = astrometry_results["radius"]
+            self.pixel_scale = astrometry_results["pixscale"]
+            self.wcs = astrometry_results["wcs"]
             # The stars within the region.
-            self.star_table = solution_results["star_table"]
+            self.star_table = astrometry_results["star_table"]
         except KeyError:
             raise error.EngineError(
                 "The engine results provided are insufficient for this astrometric"
@@ -233,11 +236,11 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
 
     Returns
     -------
-    solution_results : dict
+    astrometry_results : dict
         A dictionary containing the results of the astrometric solution.
     """
     # The results of the solve.
-    solution_results = {}
+    astrometry_results = {}
     # Create an instance of the web API to work with.
     PRIVATE_KEY = library.config.SECRET_ASTROMETRYNET_WEB_API_KEY
     # The connection may fail the first time, so it is advised to repeat it a
@@ -364,12 +367,12 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     star_corr_subset.rename_columns(column_key, pref_name)
 
     # Extracting the data
-    solution_results["ra"] = job_results["calibration"]["ra"]
-    solution_results["dec"] = job_results["calibration"]["dec"]
-    solution_results["orientation"] = job_results["calibration"]["orientation"]
-    solution_results["radius"] = job_results["calibration"]["radius"]
-    solution_results["pixscale"] = job_results["calibration"]["pixscale"]
-    solution_results["wcs"] = wcs
-    solution_results["star_table"] = star_corr_subset
+    astrometry_results["ra"] = job_results["calibration"]["ra"]
+    astrometry_results["dec"] = job_results["calibration"]["dec"]
+    astrometry_results["orientation"] = job_results["calibration"]["orientation"]
+    astrometry_results["radius"] = job_results["calibration"]["radius"]
+    astrometry_results["pixscale"] = job_results["calibration"]["pixscale"]
+    astrometry_results["wcs"] = wcs
+    astrometry_results["star_table"] = star_corr_subset
 
-    return solution_results
+    return astrometry_results

@@ -1,6 +1,7 @@
 """The general photometric solver."""
 
 import astropy.table as ap_table
+from matplotlib.style import available
 import numpy as np
 
 import opihiexarata.library as library
@@ -47,6 +48,9 @@ class PhotometricSolution(hint.ExarataSolution):
         A single character string describing the name of the filter band that
         this image was taken in. Currently, it assumes the MKO/SDSS visual
         filters.
+    available_filters : tuple
+        The list of filter names which the star table currently covers and has
+        data for.
     zero_point : float
         The zero point of the image.
     zero_point_error : float
@@ -61,7 +65,7 @@ class PhotometricSolution(hint.ExarataSolution):
         astrometrics: hint.AstrometricSolution,
         exposure_time: float = None,
         filter_name: str = None,
-        vehicle_args:dict={}
+        vehicle_args: dict = {},
     ) -> None:
         """Initialization of the photometric solution.
 
@@ -84,9 +88,9 @@ class PhotometricSolution(hint.ExarataSolution):
             this image was taken in. Currently, it assumes the MKO/SDSS visual
             filters. If it is None, calculation of the zero-point is skipped.
         vehicle_args : dictionary
-            If the vehicle function for the provided solver engine needs 
-            extra parameters not otherwise provided by the standard input, 
-            they are given here. 
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------
@@ -136,7 +140,7 @@ class PhotometricSolution(hint.ExarataSolution):
         # Derive the photometric star table.
         if issubclass(solver_engine, photometry.PanstarrsMastWebAPIEngine):
             # Solve using the API.
-            photo_star_table = _vehicle_panstarrs_mast_web_api(
+            photometry_results = _vehicle_panstarrs_mast_web_api(
                 ra=self.astrometrics.ra,
                 dec=self.astrometrics.dec,
                 radius=self.astrometrics.radius,
@@ -147,31 +151,33 @@ class PhotometricSolution(hint.ExarataSolution):
                 "The provided astrometric engine `{eng}` is not supported, there is no"
                 " associated vehicle function for it.".format(eng=str(solver_engine))
             )
+
+        # Get the results of the solution. If the engine did not provide all of
+        # the needed values, then the engine is deficient.
+        try:
+            self.star_table = photometry_results["star_table"]
+            self.available_filters = tuple(photometry_results["available_filters"])
+        except KeyError:
+            raise error.EngineError(
+                "The engine results provided are insufficient for this photometric"
+                " solver. Either the engine cannot be used because it cannot provide"
+                " the needed results, or the vehicle function does not pull the"
+                " required results from the engine."
+            )
+
         # Double check that the photometric star table has the proper columns
         # and conforms to the expectations of the photometric vehicle functions.
         # The order of the columns do not matter, if it has extra columns as
         # well, it does not matter.
-        expected_colnames = (
-            "ra_photo",
-            "dec_photo",
-            "g_mag",
-            "g_err",
-            "r_mag",
-            "r_err",
-            "i_mag",
-            "i_err",
-            "z_mag",
-            "z_err",
-        )
+        expected_colnames = library.phototable.PHOTOMETRY_TABLE_COLUMN_NAMES
         for colnamedex in expected_colnames:
-            if colnamedex not in photo_star_table.colnames:
+            if colnamedex not in self.star_table.colnames:
                 raise error.EngineError(
                     "The photometric engine does not generate a star table which has"
                     " the correct expected magnitude columns. The engine or the vehicle"
                     " may not be sufficient. The star table's columns may also have"
                     " incorrect names."
                 )
-        self.star_table = photo_star_table
 
         # Determine the average sky contribution per pixel.
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
@@ -228,30 +234,12 @@ class PhotometricSolution(hint.ExarataSolution):
         # The intersection table. The columns are just both tables joined.
         # The first entries are just hard-coded to be first because they are
         # the basic required columns.
-        base_columns = [
-            "ra_astro",
-            "dec_astro",
-            "ra_photo",
-            "dec_photo",
-            "pixel_x",
-            "pixel_y",
-            "separation",
-            "g_mag",
-            "g_err",
-            "r_mag",
-            "r_err",
-            "i_mag",
-            "i_err",
-            "z_mag",
-            "z_err",
-            "counts",
-        ]
+        base_columns = library.phototable.INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES
         # This sorting method relies on dictionaries preserving insertion
         # order.
         intersection_colnames = (
             base_columns + astrometric_table.colnames + photometric_table.colnames
         )
-        intersection_colnames = list(dict.fromkeys(intersection_colnames))
         # Making the table.
         intersection_table = ap_table.Table(masked=True, names=intersection_colnames)
 
@@ -408,6 +396,7 @@ class PhotometricSolution(hint.ExarataSolution):
 
         # Adding all of the masks.
         sky_counts_mask = star_mask | science_mask | edge_mask | nan_mask
+        sky_counts_mask = np.array(sky_counts_mask, dtype=bool)
         return sky_counts_mask
 
     def __calculate_sky_counts_value(self) -> float:
@@ -575,6 +564,15 @@ class PhotometricSolution(hint.ExarataSolution):
                 " and therefore cannot be used to derive a photometric solution."
                 " Accepted filters: {af}".format(f=filter_name, af=ACCEPTED_FILTERS)
             )
+        elif filter_name not in self.available_filters:
+            raise error.InputError(
+                "The filter name provided `{f}` is not a filter with photometry data"
+                " available from the given photometry engine and vehicle. There is no"
+                " data from the photometric database(s) to derive a photometric"
+                " solution. Available filters: {af}".format(
+                    f=filter_name, af=self.available_filters
+                )
+            )
         else:
             self.filter_name = str(filter_name)
 
@@ -594,7 +592,7 @@ class PhotometricSolution(hint.ExarataSolution):
         return zero_point, zero_point_error
 
 
-def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hint.Table:
+def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> dict:
     """A vehicle function for photometric solutions. Extract photometric
     data using the PanSTARRS database accessed via the MAST API.
 
@@ -611,9 +609,11 @@ def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hin
 
     Returns
     -------
-    photo_star_table : Table
-        The photometric star table as found from the query.
+    photometry_results : dictionary
+        The results of the photometry engine.
     """
+    # The results of the solve.
+    photometry_results = {}
     # Instance of the PanSTARRS web api client, there does not need to be
     # an API key so far. Sometimes SSL issues arise though.
     SSL_VERIFY = library.config.API_CONNECTION_ENABLE_SSL_CHECKS
@@ -660,6 +660,17 @@ def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> hin
     current_column_names = list(map(lambda s: s.casefold(), using_columns.values()))
     expected_column_names = list(using_columns.keys())
     masked_star_table.rename_columns(current_column_names, expected_column_names)
-    # Renaming for documentation purposes.
-    photo_star_table = masked_star_table
-    return photo_star_table
+
+    # This photometry table is only a partial one, we pad it to be a standard
+    # table here.
+    photo_star_table = library.phototable.fill_incomplete_photometry_table(
+        partial_table=masked_star_table
+    )
+    # Only these filters are available from the PanSTARRS database.
+    available_filters = ("g", "r", "i", "z")
+
+    # Collecting the solution information.
+    photometry_results["star_table"] = photo_star_table
+    photometry_results["available_filters"] = available_filters
+    # All done.
+    return photometry_results

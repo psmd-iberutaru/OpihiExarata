@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.solution module &mdash; OpihiExarata 2022.5.30 documentation</title>
+  <title>opihiexarata.ephemeris.solution module &mdash; OpihiExarata 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -209,7 +209,7 @@
 <p>The ephemeris solution class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opihiexarata.ephemeris.solution.EphemeriticSolution">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.ephemeris.solution.</span></span><span class="sig-name descname"><span class="pre">EphemeriticSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orbitals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution" title="opihiexarata.orbit.solution.OrbitalSolution"><span class="pre">OrbitalSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><span class="pre">EphemerisEngine</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/ephemeris/solution.html#EphemeriticSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.ephemeris.solution.EphemeriticSolution" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.ephemeris.solution.</span></span><span class="sig-name descname"><span class="pre">EphemeriticSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orbitals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution" title="opihiexarata.orbit.solution.OrbitalSolution"><span class="pre">OrbitalSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><span class="pre">EphemerisEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/ephemeris/solution.html#EphemeriticSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.ephemeris.solution.EphemeriticSolution" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution" title="opihiexarata.library.engine.ExarataSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataSolution</span></code></a></p>
 <p>This obtains the ephemeris of an asteroid using an ephemeris engine
 provided the Keplerian orbital elements of the asteroid as determined
@@ -250,9 +250,33 @@ second.</p>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.ephemeris.solution.EphemeriticSolution.ra_acceleration">
+<span class="sig-name descname"><span class="pre">ra_acceleration</span></span><a class="headerlink" href="#opihiexarata.ephemeris.solution.EphemeriticSolution.ra_acceleration" title="Permalink to this definition"></a></dt>
+<dd><p>The right ascension angular acceleration of the target, in degrees per
+second squared.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.ephemeris.solution.EphemeriticSolution.dec_acceleration">
+<span class="sig-name descname"><span class="pre">dec_acceleration</span></span><a class="headerlink" href="#opihiexarata.ephemeris.solution.EphemeriticSolution.dec_acceleration" title="Permalink to this definition"></a></dt>
+<dd><p>The declination angular acceleration of the target, in degrees per
+second squared.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.ephemeris.solution.EphemeriticSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orbitals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution" title="opihiexarata.orbit.solution.OrbitalSolution"><span class="pre">OrbitalSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><span class="pre">EphemerisEngine</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/ephemeris/solution.html#EphemeriticSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.ephemeris.solution.EphemeriticSolution.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orbitals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution" title="opihiexarata.orbit.solution.OrbitalSolution"><span class="pre">OrbitalSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><span class="pre">EphemerisEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/ephemeris/solution.html#EphemeriticSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.ephemeris.solution.EphemeriticSolution.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Instantiating the solution class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -262,6 +286,9 @@ from to determine the orbit of the target.</p></li>
 <li><p><strong>solver_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><em>EphemerisEngine</em></a>) – The ephemeris solver engine class. This is what will act as the
 “behind the scenes” and solve the orbit, using this middleware to
 translate it into something that is easier to read.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+extra parameters not otherwise provided by the standard input,
+they are given here.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>

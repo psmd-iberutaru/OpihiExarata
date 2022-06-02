@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.5.30 documentation</title>
+  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -238,6 +238,12 @@
 <span class="sd">    dec_velocity : float</span>
 <span class="sd">        The declination angular velocity of the target, in degrees per</span>
 <span class="sd">        second.</span>
+<span class="sd">    ra_acceleration : float</span>
+<span class="sd">        The right ascension angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared.</span>
+<span class="sd">    dec_acceleration : float</span>
+<span class="sd">        The declination angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="JPLHorizonsWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -298,13 +304,89 @@
         <span class="c1"># The rates of the asteroid. We care only about the rates most</span>
         <span class="c1"># accurate to the current time and so we can use the rates calculated</span>
         <span class="c1"># from the close by default time.</span>
-        <span class="n">ra_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;ra_rate&quot;</span><span class="p">])</span>
-        <span class="n">dec_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;dec_rate&quot;</span><span class="p">])</span>
+        <span class="n">jpl_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;julian_day&quot;</span><span class="p">])</span>
+        <span class="n">jpl_ra_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;ra_rate&quot;</span><span class="p">])</span>
+        <span class="n">jpl_dec_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;dec_rate&quot;</span><span class="p">])</span>
+        <span class="c1"># Converting the Julian day time to seconds as it is just easier for</span>
+        <span class="c1"># the differentials. Using UNIX time as it is easy.</span>
+        <span class="n">unix_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">jpl_time</span><span class="p">)</span>
         <span class="c1"># The rates from JPL are in arcseconds per hour. Convention for this</span>
         <span class="c1"># software is degrees per second, converting.</span>
         <span class="n">as_hr_to_dg_s</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ashr</span><span class="p">:</span> <span class="n">ashr</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="n">ra_rate</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="n">dec_rate</span><span class="p">)</span>
+        <span class="n">ra_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="n">jpl_ra_rate</span><span class="p">)</span>
+        <span class="n">dec_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="n">jpl_dec_rate</span><span class="p">)</span>
+
+        <span class="c1"># We derive the current velocity rates by the observations closest to</span>
+        <span class="c1"># the current time to remove as much second order effects as we can.</span>
+        <span class="n">nearby_delta</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="mi">24</span>
+        <span class="n">nearby_records</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">current_time</span> <span class="o">-</span> <span class="n">nearby_delta</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">jpl_time</span><span class="p">,</span>
+                <span class="n">jpl_time</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">current_time</span> <span class="o">+</span> <span class="n">nearby_delta</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Using averages to combine the nearby observations.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ra_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">dec_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
+
+        <span class="c1"># We derive the current acceleration rates by assuming constant</span>
+        <span class="c1"># acceleration across the sky (ignoring 3rd order differential</span>
+        <span class="c1"># effects).</span>
+        <span class="k">def</span> <span class="nf">_determining_average_acceleration</span><span class="p">(</span>
+            <span class="n">time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">velocity</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;We just use a function here to better group processes and</span>
+<span class="sd">            local variable names. We use central difference to 4th order</span>
+<span class="sd">            error. We can afford the number of points needed.&quot;&quot;&quot;</span>
+            <span class="c1"># Spacing, though we assume uniform, we want to make sure.</span>
+            <span class="n">uniform_spacing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">time</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># Splitting up into the different subsets of V_{n-2} ... V_{n+2}.</span>
+            <span class="c1"># We do not need V_{n+0} for this method.</span>
+            <span class="n">vel_m2</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">vel_m1</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">vel_p1</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">vel_p2</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+            <span class="c1"># Finding the derivative.</span>
+            <span class="k">def</span> <span class="nf">derivative_function</span><span class="p">(</span>
+                <span class="n">x_m2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_m1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_p1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_p2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">float</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="sd">&quot;&quot;&quot;The constants for this function is well known for higher</span>
+<span class="sd">                order finite difference methods. Here is the 4th order form.</span>
+<span class="sd">                Arrays are also accepted.&quot;&quot;&quot;</span>
+                <span class="n">d_dv</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_m2</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_m1</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_p1</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_p2</span>
+                <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">h</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">d_dv</span>
+
+            <span class="c1"># Determining the acceleration.</span>
+            <span class="n">accel_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="n">derivative_function</span><span class="p">(</span>
+                    <span class="n">x_m2</span><span class="o">=</span><span class="n">vel_m2</span><span class="p">,</span>
+                    <span class="n">x_m1</span><span class="o">=</span><span class="n">vel_m1</span><span class="p">,</span>
+                    <span class="n">x_p1</span><span class="o">=</span><span class="n">vel_p1</span><span class="p">,</span>
+                    <span class="n">x_p2</span><span class="o">=</span><span class="n">vel_p2</span><span class="p">,</span>
+                    <span class="n">h</span><span class="o">=</span><span class="n">uniform_spacing</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># Assuming constant acceleration. There may be spikes that we do</span>
+            <span class="c1"># not want to deal with so a median is fine. There will also likely</span>
+            <span class="c1"># be a slope because the jerk that we otherwise are ignoring.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">accel_array</span><span class="p">)</span>
+
+        <span class="c1"># Determining the acceleration rates from the entire velocity records.</span>
+        <span class="c1"># We are assuming constant acceleration, and our time span is not that</span>
+        <span class="c1"># large so this should be okay.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">_determining_average_acceleration</span><span class="p">(</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">ra_rate</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">_determining_average_acceleration</span><span class="p">(</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">dec_rate</span>
+        <span class="p">)</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
@@ -374,10 +456,11 @@
                 <span class="n">ra_sex</span><span class="o">=</span><span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span><span class="o">=</span><span class="n">dec_sex</span>
             <span class="p">)</span>
             <span class="c1"># The RA and DEC rates; these values are in arcsec/hr, but convention in this</span>
-            <span class="c1"># software is arcsec/sec so convert. The flat planar conversion is already</span>
+            <span class="c1"># software is deg/sec so convert. The flat planar conversion is already</span>
             <span class="c1"># done by Horizon.</span>
-            <span class="n">ra_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3600</span>
-            <span class="n">dec_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3600</span>
+            <span class="n">as_hr_to_dg_s</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ashr</span><span class="p">:</span> <span class="n">ashr</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
+            <span class="n">ra_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span>
+            <span class="n">dec_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
             <span class="c1"># The true anomaly.</span>
             <span class="n">true_anomaly</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
             <span class="c1"># The exact usage of these parameters are really not know yet but they seem</span>

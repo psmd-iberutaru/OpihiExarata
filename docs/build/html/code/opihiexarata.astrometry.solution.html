@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.solution module &mdash; OpihiExarata 2022.5.30 documentation</title>
+  <title>opihiexarata.astrometry.solution module &mdash; OpihiExarata 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -209,7 +209,7 @@
 <p>The astrometric solution class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opihiexarata.astrometry.solution.AstrometricSolution">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.astrometry.solution.</span></span><span class="sig-name descname"><span class="pre">AstrometricSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/astrometry/solution.html#AstrometricSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.solution.AstrometricSolution" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.astrometry.solution.</span></span><span class="sig-name descname"><span class="pre">AstrometricSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/astrometry/solution.html#AstrometricSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.solution.AstrometricSolution" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution" title="opihiexarata.library.engine.ExarataSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataSolution</span></code></a></p>
 <p>The primary class describing an astrometric solution, based on an image
 provided.</p>
@@ -344,7 +344,7 @@ celestial space.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.astrometry.solution.AstrometricSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/solution.html#AstrometricSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.solution.AstrometricSolution.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/solution.html#AstrometricSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.solution.AstrometricSolution.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Solving the astrometry via the image provided. The engine class must
 also be provided.</p>
 <dl class="field-list simple">
@@ -355,6 +355,9 @@ solution.</p></li>
 <li><p><strong>solver_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><em>AstrometryEngine</em></a>) – The astrometric solver engine class. This is what will act as the
 “behind the scenes” and solve the field, using this middleware to
 translate it into something that is easier.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+extra parameters not otherwise provided by the standard input,
+they are given here.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -422,7 +425,7 @@ astrometry using the astrometry.net nova web API.</p>
 solution.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>solution_results</strong> – A dictionary containing the results of the astrometric solution.</p>
+<dd class="field-even"><p><strong>astrometry_results</strong> – A dictionary containing the results of the astrometric solution.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>dict</p>

@@ -54,7 +54,10 @@ class OrbitalSolution(hint.ExarataSolution):
     """
 
     def __init__(
-        self, observation_record: list[str], solver_engine: hint.OrbitEngine, vehicle_args:dict={}
+        self,
+        observation_record: list[str],
+        solver_engine: hint.OrbitEngine,
+        vehicle_args: dict = {},
     ) -> None:
         """The initialization function. Provided the list of observations,
         solves the orbit for the Keplarian orbits.
@@ -68,9 +71,9 @@ class OrbitalSolution(hint.ExarataSolution):
             The engine which will be used to complete the orbital elements
             from the observation record.
         vehicle_args : dictionary
-            If the vehicle function for the provided solver engine needs 
-            extra arguments not otherwise provided by the standard input, 
-            they are given here. 
+            If the vehicle function for the provided solver engine needs
+            extra arguments not otherwise provided by the standard input,
+            they are given here.
 
         Returns
         -------

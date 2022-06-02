@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_e1053b6f05eca838_path_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4</a>,
-            created at 2022-05-30 19:52 -1000
+            created at 2022-06-01 17:35 -1000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -110,7 +110,7 @@
     <p class="mis show_mis"><span class="n"><a id="t28" href="#t28">28</a></span><span class="t"><span class="nam">MPC_MINOR_PLANET_TABLE_COLUMN_TYPES</span> <span class="op">=</span> <span class="nam">list</span><span class="op">(</span><span class="nam">__MPC_TABLE_NAME_TYPE_PAIR</span><span class="op">.</span><span class="nam">values</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t29" href="#t29">29</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t30" href="#t30">30</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t"><span class="key">def</span> <span class="nam">minor_planet_blank_table</span><span class="op">(</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">Table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t"><span class="key">def</span> <span class="nam">blank_minor_planet_table</span><span class="op">(</span><span class="op">)</span> <span class="op">-></span> <span class="nam">hint</span><span class="op">.</span><span class="nam">Table</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t">    <span class="str">"""Creates a blank table which contains the columns which are recognized by</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t33" href="#t33">33</a></span><span class="t"><span class="str">    the MPC standard 80-column record format.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -256,7 +256,7 @@
     <p class="pln"><span class="n"><a id="t174" href="#t174">174</a></span><span class="t">    <span class="com"># Construct the Astropy Table. If nothing was provided, still provide a</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t175" href="#t175">175</a></span><span class="t">    <span class="com"># blank table as there are still keyword expectations.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t176" href="#t176">176</a></span><span class="t">    <span class="nam">table</span> <span class="op">=</span> <span class="nam">ap_table</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">rows</span><span class="op">=</span><span class="nam">table_rows_list</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t177" href="#t177">177</a></span><span class="t">    <span class="nam">table</span> <span class="op">=</span> <span class="nam">table</span> <span class="key">if</span> <span class="nam">len</span><span class="op">(</span><span class="nam">table</span><span class="op">)</span> <span class="op">!=</span> <span class="num">0</span> <span class="key">else</span> <span class="nam">minor_planet_blank_table</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t177" href="#t177">177</a></span><span class="t">    <span class="nam">table</span> <span class="op">=</span> <span class="nam">table</span> <span class="key">if</span> <span class="nam">len</span><span class="op">(</span><span class="nam">table</span><span class="op">)</span> <span class="op">!=</span> <span class="num">0</span> <span class="key">else</span> <span class="nam">blank_minor_planet_table</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t178" href="#t178">178</a></span><span class="t">    <span class="key">return</span> <span class="nam">table</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t179" href="#t179">179</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t180" href="#t180">180</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -457,7 +457,7 @@
             <a id="nextFileLink" class="nav" href="d_e1053b6f05eca838_path_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4</a>,
-            created at 2022-05-30 19:52 -1000
+            created at 2022-06-01 17:35 -1000
         </p>
     </div>
 </footer>

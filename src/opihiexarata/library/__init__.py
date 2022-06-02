@@ -11,4 +11,5 @@ import opihiexarata.library.image as image
 import opihiexarata.library.json as json
 import opihiexarata.library.mpcrecord as mpcrecord
 import opihiexarata.library.path as path
+import opihiexarata.library.phototable as phototable
 import opihiexarata.library.temporary as temporary

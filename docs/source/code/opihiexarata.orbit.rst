@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   opihiexarata.orbit.custom
    opihiexarata.orbit.orbfit
    opihiexarata.orbit.solution
 

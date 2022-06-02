@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.solution &mdash; OpihiExarata 2022.5.30 documentation</title>
+  <title>opihiexarata.ephemeris.solution &mdash; OpihiExarata 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -225,12 +225,18 @@
 <span class="sd">    dec_velocity : float</span>
 <span class="sd">        The declination angular velocity of the target, in degrees per</span>
 <span class="sd">        second.</span>
+<span class="sd">    ra_acceleration : float</span>
+<span class="sd">        The right ascension angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared.</span>
+<span class="sd">    dec_acceleration : float</span>
+<span class="sd">        The declination angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="EphemeriticSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.solution.html#opihiexarata.ephemeris.solution.EphemeriticSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">orbitals</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitalSolution</span><span class="p">,</span>
-        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">,</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">,</span><span class="n">vehicle_args</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{}</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Instantiating the solution class.</span>
 
@@ -243,6 +249,10 @@
 <span class="sd">            The ephemeris solver engine class. This is what will act as the</span>
 <span class="sd">            &quot;behind the scenes&quot; and solve the orbit, using this middleware to</span>
 <span class="sd">            translate it into something that is easier to read.</span>
+<span class="sd">        vehicle_args : dictionary</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs </span>
+<span class="sd">            extra parameters not otherwise provided by the standard input, </span>
+<span class="sd">            they are given here. </span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -378,12 +388,16 @@
     <span class="c1"># The on sky rates as derived from the orbital elements.</span>
     <span class="n">ra_velocity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jpl_horizons</span><span class="o">.</span><span class="n">ra_velocity</span><span class="p">)</span>
     <span class="n">dec_velocity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jpl_horizons</span><span class="o">.</span><span class="n">dec_velocity</span><span class="p">)</span>
+    <span class="n">ra_acceleration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jpl_horizons</span><span class="o">.</span><span class="n">ra_acceleration</span><span class="p">)</span>
+    <span class="n">dec_acceleration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jpl_horizons</span><span class="o">.</span><span class="n">dec_acceleration</span><span class="p">)</span>
 
     <span class="c1"># Constructing the solution dictionary.</span>
     <span class="n">ephemeris_results</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;ephemeris_function&quot;</span><span class="p">:</span> <span class="n">ephemeris_function</span><span class="p">,</span>
         <span class="s2">&quot;ra_velocity&quot;</span><span class="p">:</span> <span class="n">ra_velocity</span><span class="p">,</span>
         <span class="s2">&quot;dec_velocity&quot;</span><span class="p">:</span> <span class="n">dec_velocity</span><span class="p">,</span>
+        <span class="s2">&quot;ra_acceleration&quot;</span><span class="p">:</span> <span class="n">ra_acceleration</span><span class="p">,</span>
+        <span class="s2">&quot;dec_acceleration&quot;</span><span class="p">:</span> <span class="n">dec_acceleration</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">ephemeris_results</span></div>

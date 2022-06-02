@@ -131,7 +131,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         )
 
         # Ephemeris-specific buttons.
-        self.ui.push_button_ephemeris_solve_ephemeris.clicked.connect(self.__connect_push_button_orbit_solve_ephemeris)
+        self.ui.push_button_ephemeris_solve_ephemeris.clicked.connect(
+            self.__connect_push_button_orbit_solve_ephemeris
+        )
 
         # Propagate-specific buttons.
         self.ui.push_button_propagate_solve_propagation.clicked.connect(
@@ -590,7 +592,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         return None
 
     def __connect_push_button_propagate_custom_solve(self) -> None:
-        """Solving for the location of the target through the ephemeris based 
+        """Solving for the location of the target through the ephemeris based
         on the time and date provided by the user.
 
         Parameters
@@ -647,8 +649,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
-
-
 
     def __connect_push_button_propagate_solve_propagation(self) -> None:
         """A routine to use the current observation and historical observations
@@ -744,8 +744,6 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
-
-
 
     def __get_mpc_record_filename(self) -> str:
         """This is a function which derives the MPC record filename from
@@ -1211,7 +1209,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Everything beyond this point requires an orbital solution, if
         # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution):
+        if not isinstance(
+            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        ):
             return None
         else:
             ephemeritics = self.opihi_solution.ephemeritics
