@@ -6,17 +6,22 @@
 #   - Build the OpihiExarata package, clearing out previously built packages.
 #   - Install the package.
 
+Write-Output "=========================================="
+Write-Output "===== Python Part ========================"
+Write-Output "=========================================="
 
 # Installing required packages which are needed for the installation of the 
 # Python segment.
 # These parts is OS dependent.
-if ($isLinux) {
-    # Linux installation.
-    constellation install libgl1-mesa-dev
+
+if ($isCentOS) {
+    sudo yum install libgl1-mesa-dev
 }
-elseif ($isWindows) {
-    # Windows installation.
+elseif ($isUbuntu) {
+    sudo apt install libgl1-mesa-dev
 }
+
+
 # Python packages required.
 pip install build setuptools wheel
 
@@ -43,4 +48,4 @@ $build_path = $build_dir + $build_file
 Write-Output "Installing OpihiExarata package:   $build_path"
 # The optimized mode is in the event it is being build on a network drive or 
 # something.
-python -O -m pip install $build_path --force-reinstall
+python -O -m pip install $build_path
