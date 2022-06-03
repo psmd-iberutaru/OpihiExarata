@@ -8,7 +8,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class CustomOrbitEngine(hint.OrbitEngine):
+class CustomOrbitEngine(library.engine.OrbitEngine):
     """This engine is just a wrapper for when a custom orbit is desired to be
     specified.
 

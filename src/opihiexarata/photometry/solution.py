@@ -12,7 +12,7 @@ import opihiexarata.astrometry as astrometry
 import opihiexarata.photometry as photometry
 
 
-class PhotometricSolution(hint.ExarataSolution):
+class PhotometricSolution(library.engine.ExarataSolution):
     """The primary class describing an photometric solution, based on an image
     provided and catalog data provided from the photometric engine.
 
@@ -235,11 +235,10 @@ class PhotometricSolution(hint.ExarataSolution):
         # The first entries are just hard-coded to be first because they are
         # the basic required columns.
         base_columns = library.phototable.INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES
-        # This sorting method relies on dictionaries preserving insertion
-        # order.
-        intersection_colnames = (
+        # 
+        intersection_colnames = tuple(set(
             base_columns + astrometric_table.colnames + photometric_table.colnames
-        )
+        ))
         # Making the table.
         intersection_table = ap_table.Table(masked=True, names=intersection_colnames)
 

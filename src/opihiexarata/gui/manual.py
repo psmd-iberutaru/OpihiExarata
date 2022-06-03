@@ -1,5 +1,5 @@
 """
-The primary GUI window.
+The manual GUI window.
 """
 
 import sys
@@ -27,9 +27,9 @@ import opihiexarata.ephemeris as ephemeris
 import opihiexarata.gui as gui
 
 
-class OpihiPrimaryWindow(QtWidgets.QMainWindow):
+class OpihiManualWindow(QtWidgets.QMainWindow):
     """The GUI that is responsible for interaction between the user and the
-    two primary Opihi solutions, the image (OpihiPreprocessSolution) and the
+    two Opihi solutions, the image (OpihiPreprocessSolution) and the
     results (OpihiSolution).
 
     Only non-GUI attributes are listed here.
@@ -46,7 +46,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
     """
 
     def __init__(self) -> None:
-        """The primary GUI window for OpihiExarata. This interacts directly
+        """The manual GUI window for OpihiExarata. This interacts directly
         with the total solution object of Opihi.
 
         Parameters
@@ -59,8 +59,8 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         """
         # Creating the GUI itself using the Qt framework and the converted
         # Qt designer files.
-        super(OpihiPrimaryWindow, self).__init__()
-        self.ui = gui.qtui.Ui_PrimaryWindow()
+        super(OpihiManualWindow, self).__init__()
+        self.ui = gui.qtui.Ui_ManualWindow()
         self.ui.setupUi(self)
 
         # Establishing the defaults for all of the relevant attributes.
@@ -176,18 +176,31 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             """A simple function class to properly format the navigation bar
             coordinate text. This assumes the current structure of the GUI."""
 
-            def __init__(self, gui_instance: OpihiPrimaryWindow) -> None:
+            def __init__(self, gui_instance: OpihiManualWindow) -> None:
                 self.gui_instance = gui_instance
                 return None
 
             def __call__(self, x, y) -> str:
                 """The coordinate string going to be put onto the navigation
                 bar."""
+                # The pixel locations.
                 x_index = int(x)
                 y_index = int(y)
-                z_float = self.gui_instance.opihi_solution.data[y_index, x_index]
-                coord_string = "[{x_int:d}, {y_int:d}] = {z_flt:.2f}".format(
-                    x_int=x_index, y_int=y_index, z_flt=z_float
+                x_coord_string = "{x_int:d}".format(x_int=x_index)
+                y_coord_string = "{y_int:d}".format(y_int=y_index)
+                # Extracting the data.
+                try:
+                    z_float = self.gui_instance.opihi_solution.data[y_index, x_index]
+                except AttributeError:
+                    # There is no data to index.
+                    z_coord_string = "NaN"
+                else:
+                    # Parse the string from the number provided.
+                    z_coord_string = "{z_flt:.2f}".format(z_flt=z_float)
+
+                # Compiling it all together.
+                coord_string = "[{x_str}, {y_str}] = {z_str}".format(
+                    x_str=x_coord_string, y_str=y_coord_string, z_str=z_coord_string
                 )
                 return coord_string
 
@@ -379,6 +392,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
         input_engine_name = self.ui.combo_box_astrometry_solve_engine.currentText()
@@ -396,7 +414,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             )
 
         # Solve the field using the provided engine.
-        __ = self.opihi_solution.solve_astrometry(solver_engine=engine, overwrite=True,vehicle_args=vehicle_args)
+        __ = self.opihi_solution.solve_astrometry(
+            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+        )
         # Update all of the necessary information.
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
@@ -500,6 +520,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
         input_engine_name = self.ui.combo_box_photometry_solve_engine.currentText()
@@ -516,7 +541,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_photometry(solver_engine=engine, overwrite=True, vehicle_args=vehicle_args)
+        __ = self.opihi_solution.solve_photometry(
+            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+        )
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -535,6 +562,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
         input_engine_name = self.ui.combo_box_orbit_solve_engine.currentText()
@@ -545,10 +577,10 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
             vehicle_args = {}
         elif input_engine_name == "custom":
             engine = orbit.CustomOrbitEngine
-            # The custom orbit requires than an orbit be specified, we 
+            # The custom orbit requires than an orbit be specified, we
             # commandeer the orbital element reporting window.
             custom_orbit_elements = self._parse_custom_orbital_elements()
-            vehicle_args=custom_orbit_elements
+            vehicle_args = custom_orbit_elements
         else:
             raise error.DevelopmentError(
                 "The provided input engine name `{in_eng}` is not implemented and"
@@ -557,7 +589,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_orbit(solver_engine=engine, overwrite=True, vehicle_args=vehicle_args)
+        __ = self.opihi_solution.solve_orbit(
+            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+        )
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -577,6 +611,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
         input_engine_name = self.ui.combo_box_ephemeris_solve_engine.currentText()
@@ -593,7 +632,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_ephemeris(solver_engine=engine, overwrite=True, vehicle_args=vehicle_args)
+        __ = self.opihi_solution.solve_ephemeris(
+            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+        )
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -672,6 +713,11 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+        
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
         input_engine_name = self.ui.combo_box_propagate_solve_engine.currentText()
@@ -691,7 +737,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 )
             )
         # Solve.
-        __ = self.opihi_solution.solve_propagate(solver_engine=engine, overwrite=True,vehicle_args=vehicle_args)
+        __ = self.opihi_solution.solve_propagate(
+            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+        )
 
         # Update all of the necessary information.
         self.redraw_opihi_image()
@@ -912,9 +960,9 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         return None
 
     def _parse_custom_orbital_elements(self) -> dict:
-        """This function takes the textual form of the orbital elements as 
+        """This function takes the textual form of the orbital elements as
         entered and tries to parse it into a set of orbital elements and errors.
-        
+
         Parameters
         ----------
         None
@@ -922,7 +970,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         Returns
         -------
         orbital_elements : dictionary
-            A dictionary of the orbital elements and their errors, if they 
+            A dictionary of the orbital elements and their errors, if they
             exist.
         """
         # Extracting all of the values from the text.
@@ -936,12 +984,12 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
 
         # Parse if there is an error bar or not. Writing a function because
         # this is going to be happening a lot.
-        def error_bar_parse(entry_string:str) -> tuple[float,float]:
+        def error_bar_parse(entry_string: str) -> tuple[float, float]:
             """The deliminator for an error bar is any non numeric or decimal
             marker."""
             entry_string = entry_string.strip()
             non_demlim_marks = tuple("1234567890.,")
-            # In the event there are more than one character acting as 
+            # In the event there are more than one character acting as
             # a deliminator.
             lower_delim_index = None
             upper_delim_index = None
@@ -949,14 +997,14 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
                 if chardex not in non_demlim_marks:
                     # This character is a deliminator, mark it.
                     if lower_delim_index is None:
-                        # This is the first time a deliminator character has 
+                        # This is the first time a deliminator character has
                         # been encountered.
                         lower_delim_index = index
                     else:
                         # Other deliminator characters have been encountered so
                         # this is the last known deliminator.
                         upper_delim_index = index
-            # Split the string based on the deliminator for the value and 
+            # Split the string based on the deliminator for the value and
             # error segment.
             if lower_delim_index is None and upper_delim_index is None:
                 # There was never a deliminator, there is only one value and
@@ -990,28 +1038,31 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         m_anom_val, m_anom_err = error_bar_parse(m_anom_str)
         epoch_val, epoch_err = error_bar_parse(epoch_str)
         # The Epoch should not have an error.
-        if epoch_err != np.nan:
-            raise error.InputError("The Epoch value is detecting that it is specified with an error term with a non-numeric deliminator. However, the Epoch should not have an error specified.")
-        # The orbital element dictionary which would be used for a custom 
+        if not np.isnan(epoch_err):
+            raise error.InputError(
+                "The Epoch value is detecting that it is specified with an error term"
+                " with a non-numeric deliminator. However, the Epoch should not have an"
+                " error specified."
+            )
+        # The orbital element dictionary which would be used for a custom
         # orbit.
         orbital_elements = {
-"semimajor_axis": sm_axis_val  ,
-"semimajor_axis_error":  sm_axis_err ,
-"eccentricity":ecc_val   ,
-"eccentricity_error": ecc_err  ,
-"inclination":  incli_val ,
-"inclination_error": incli_err  ,
-"longitude_ascending_node":  as_node_val ,
-"longitude_ascending_node_error": as_node_err  ,
-"argument_perihelion":  peri_val ,
-"argument_perihelion_error": peri_err  ,
-"mean_anomaly":  m_anom_val ,
-"mean_anomaly_error": m_anom_err  ,
-"epoch_julian_day":  epoch_val ,
+            "semimajor_axis": sm_axis_val,
+            "semimajor_axis_error": sm_axis_err,
+            "eccentricity": ecc_val,
+            "eccentricity_error": ecc_err,
+            "inclination": incli_val,
+            "inclination_error": incli_err,
+            "longitude_ascending_node": as_node_val,
+            "longitude_ascending_node_error": as_node_err,
+            "argument_perihelion": peri_val,
+            "argument_perihelion_error": peri_err,
+            "mean_anomaly": m_anom_val,
+            "mean_anomaly_error": m_anom_err,
+            "epoch_julian_day": epoch_val,
         }
         # All done.
         return orbital_elements
-
 
     def clear_dynamic_label_text(self) -> None:
         """Clear all of the dynamic label text and other related fields,
@@ -1256,7 +1307,7 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         def orb_str_conv(val: float, err: float) -> str:
             """Unified string formatting for orbital element values and errors."""
             # Rounding values to sensible values.
-            val = round(val, 3)
+            val = round(val, 5)
             err = round(err, 3)
             # Building the string, allowing for the usage of the plus minus
             # symbol to demark the error.
@@ -1564,15 +1615,27 @@ class OpihiPrimaryWindow(QtWidgets.QMainWindow):
         return None
 
 
-def main():
+def start_manual_window() -> None:
+    """This is the function to create the manual window for usage.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
+    # Creating the application and its infrastructure.
     app = QtWidgets.QApplication([])
-
-    application = OpihiPrimaryWindow()
-
-    application.show()
-
+    # The manual GUI window.
+    manual_window = OpihiManualWindow()
+    manual_window.show()
+    # Closing out of the window.
     sys.exit(app.exec())
+    # All done.
+    return None
 
 
 if __name__ == "__main__":
-    main()
+    start_manual_window()

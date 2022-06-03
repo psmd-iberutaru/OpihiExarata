@@ -302,7 +302,7 @@ def current_utc_to_julian_day() -> float:
     # We can just derive it from the system UNIX time.
     current_unix_time = time.time()
     current_jd = unix_time_to_julian_day(unix_time=current_unix_time)
-    raise current_jd
+    return current_jd
 
 
 def string_month_to_number(month_str: str) -> int:
@@ -337,5 +337,24 @@ def string_month_to_number(month_str: str) -> int:
         "november": 11,
         "december": 12,
     }
-    month_int = month_dict[month_str]
+    # It could also be a 3 letter month abbreviation.
+    three_letter_month_dict = {
+        "jan": 1,
+        "feb": 2,
+        "mar": 3,
+        "apr": 4,
+        "may": 5,
+        "jun": 6,
+        "jul": 7,
+        "aug": 8,
+        "sep": 9,
+        "oct": 10,
+        "nov": 11,
+        "dec": 12,
+    }
+    if len(month_str) == 3:
+        # It is likely a 3 letter month abbreviation, or May.
+        month_int = three_letter_month_dict[month_str]
+    else:
+        month_int = month_dict[month_str]
     return month_int

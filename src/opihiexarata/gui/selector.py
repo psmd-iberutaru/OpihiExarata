@@ -189,12 +189,24 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             def __call__(self, x, y) -> str:
                 """The coordinate string going to be put onto the navigation
                 bar."""
+                # The pixel locations.
                 x_index = int(x)
                 y_index = int(y)
-                coord_string = "[{x_int:d}, {y_int:d}] = {z_flt:.2f}".format(
-                    x_int=x_index,
-                    y_int=y_index,
-                    z_flt=self.gui_instance.plotted_data[y_index, x_index],
+                x_coord_string = "{x_int:d}".format(x_int=x_index)
+                y_coord_string = "{y_int:d}".format(y_int=y_index)
+                # Extracting the data.
+                try:
+                    z_float = self.gui_instance.plotted_data[y_index, x_index]
+                except AttributeError:
+                    # There is no data to index.
+                    z_coord_string = "NaN"
+                else:
+                    # Parse the string from the number provided.
+                    z_coord_string = "{z_flt:.2f}".format(z_flt=z_float)
+
+                # Compiling it all together.
+                coord_string = "[{x_str}, {y_str}] = {z_str}".format(
+                    x_str=x_coord_string, y_str=y_coord_string, z_str=z_coord_string
                 )
                 return coord_string
 

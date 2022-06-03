@@ -16,7 +16,7 @@ import opihiexarata.orbit as orbit
 import opihiexarata.ephemeris as ephemeris
 
 
-class OpihiSolution(hint.ExarataSolution):
+class OpihiSolution(library.engine.ExarataSolution):
     """This is the main class which acts as a collection container of
     solution classes. It facilitates the interaction between the solution
     classes and the GUI.
@@ -420,25 +420,28 @@ class OpihiSolution(hint.ExarataSolution):
                 " astrometric solution needs to be called and run first."
             )
 
+        # Check that the proper asteroid information has been provided. If 
+        # the orbit defined is custom however, these checks should be skipped.
+        if issubclass(solver_engine, orbit.CustomOrbitEngine):
+            asteroid_name = "custom"
+            asteroid_history = []
+        else:
+            # Ensuring there is no unintentional modification to the name
+            # or history.
+            asteroid_name = copy.deepcopy(self.asteroid_name)
+            asteroid_history = copy.deepcopy(self.asteroid_history)
         # If asteroid information is not provided, then nothing can be solved.
         # As there is no information.
-        if self.asteroid_name is None:
+        if asteroid_name is None:
             raise error.InputError(
                 "The orbit of an asteroid cannot be solved as no asteroid name has been"
                 " provided by which to fill in the MPC record."
             )
-        else:
-            # Ensuring there is no unintentional modification to the name.
-            asteroid_name = copy.deepcopy(self.asteroid_name)
-        if self.asteroid_history is None:
+        if asteroid_history is None:
             raise error.InputError(
                 "The orbit of an asteroid cannot be solved as no history of the orbit"
                 " of the asteroid has been provided."
             )
-        else:
-            # Ensuring that the history of the asteroid does not change for
-            # some reason.
-            asteroid_history = copy.deepcopy(self.asteroid_history)
 
         # Using the defaults if an overriding value was not provided.
         asteroid_location = (
@@ -450,7 +453,7 @@ class OpihiSolution(hint.ExarataSolution):
                 " parameters have been provided."
             )
         else:
-            # Splitting is nicer on the notational.
+            # Splitting is nicer on the notational side.
             asteroid_x, asteroid_y = asteroid_location
             # The location of the asteroid needs to be transformed to RA and DEC.
             asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
@@ -559,14 +562,14 @@ class OpihiSolution(hint.ExarataSolution):
         mpc_table = library.mpcrecord.blank_minor_planet_table()
         current_data = {}
 
+        # If this system is going to deal with provisional numbers is currently
+        # beyond the design scope. May change in the future.
+        current_data["minor_planet_number"] = ""
+
         # Assuming the name is the MPC provisional number as is common.
         current_data["provisional_number"] = (
             self.asteroid_name if self.asteroid_name is not None else ""
         )
-
-        # If this system is going to deal with provisional numbers is currently
-        # beyond the design scope. May change in the future.
-        current_data["provisional_number"] = ""
 
         # It is practically guaranteed that this observation is not the
         # discovery observation.

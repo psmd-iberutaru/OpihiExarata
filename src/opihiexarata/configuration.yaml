@@ -1,12 +1,14 @@
 # These are configurable parameters for running Exarata. This file should
-# not be edited by the user, it acts as a template and defaults.
+# not be edited by the user unless copied, it acts as a template and defaults.
 # You should pass your own configuration.yaml file when running this software.
 
 
 # These is the directory which can be used to store temporary files when using
 # this program. This directory should not be used by or relied on by other 
-# programs.
+# programs. If required to be unique, if the directory already exists during
+# creation, the program will halt.
 TEMPORARY_DIRECTORY : ".exarata_temp"
+TEMPORARY_DIRECTORY_REQUIRE_UNIQUE : False
 
 
 # With regards to the Minor Planet Center, this is the observatory code of
@@ -65,8 +67,12 @@ OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS : 24
 
 
 ############################################################
-##########     Opihi GUI Configuration
+##########     Opihi Manual GUI Configuration
 ############################################################
+
+# This is the directory for where the automatic image finder should look for 
+# the new images. It works best if this is an absolute directory.
+GUI_INITAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
 
 # This instructs the GUI to always prompt for the specifications of the target
 # location using the target selector GUI. If False, images are loaded without 

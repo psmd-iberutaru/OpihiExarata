@@ -8,7 +8,7 @@ import opihiexarata.ephemeris as ephemeris
 import opihiexarata.orbit as orbit
 
 
-class EphemeriticSolution(hint.ExarataSolution):
+class EphemeriticSolution(library.engine.ExarataSolution):
     """This obtains the ephemeris of an asteroid using an ephemeris engine
     provided the Keplerian orbital elements of the asteroid as determined
     by orbital solutions.
@@ -65,7 +65,7 @@ class EphemeriticSolution(hint.ExarataSolution):
                 "The ephemeris solver engine provided should be the engine class"
                 " itself, not an instance thereof."
             )
-        elif issubclass(solver_engine, library.engine.OrbitEngine):
+        elif issubclass(solver_engine, library.engine.EphemerisEngine):
             # It is fine, the user submitted a valid orbit engine.
             pass
         else:
@@ -105,6 +105,8 @@ class EphemeriticSolution(hint.ExarataSolution):
             self._ephemeris_function = raw_ephemeris_results["ephemeris_function"]
             self.ra_velocity = raw_ephemeris_results["ra_velocity"]
             self.dec_velocity = raw_ephemeris_results["dec_velocity"]
+            self.ra_acceleration = raw_ephemeris_results["ra_acceleration"]
+            self.dec_acceleration = raw_ephemeris_results["dec_acceleration"]
         except KeyError:
             raise error.EngineError(
                 "The engine results provided are insufficient for this ephemeris"

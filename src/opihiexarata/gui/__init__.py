@@ -3,7 +3,7 @@
 
 # The relevant GUIs which are to be used when interfacing with the outside
 # world.
-import opihiexarata.gui.primary as primary
+import opihiexarata.gui.manual as manual
 import opihiexarata.gui.selector as selector
 import opihiexarata.gui.name as name
 

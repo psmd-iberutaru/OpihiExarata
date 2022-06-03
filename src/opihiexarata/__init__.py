@@ -14,9 +14,6 @@ import opihiexarata.propagate as propagate
 
 # The section for the user interface.
 import opihiexarata.gui as gui
-# The section for command line interface and scripting.
-from opihiexarata import command
-
 
 # The primary collective solutions for OpihiExarata.
 import opihiexarata.opihi as opihi

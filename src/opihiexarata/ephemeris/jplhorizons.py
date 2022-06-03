@@ -10,7 +10,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
+class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
     """This obtains the ephemeris of an asteroid using JPL horizons provided
     the Keplerian orbital elements of the asteroid as determined by orbital
     solutions.
@@ -217,6 +217,9 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
                 eoe_index = index
             else:
                 continue
+        # Something happened, the demarcations were not found.
+        if soe_index is None or eoe_index is None:
+            raise error.WebRequestError("The demarcations for the ephemeris were not found, it is likely that the web request sent was incorrect. The responce from the API: \n {r}".format(r=response_text))
         # Using the demarcations to extract the ephemeris section of the query lines.
         # We do not need the demarcations themselves though.
         ephemeris_lines = response_lines[soe_index + 1 : eoe_index]
@@ -407,7 +410,7 @@ class JPLHorizonsWebAPIEngine(hint.EphemerisEngine):
             # https://ssd.jpl.nasa.gov/horizons/manual.html#output
             # We want the ephemeris (1), the on-sky rates (3), with optionally
             # the true anomaly (41), and vector-form sky motion (47).
-            "QUANTITIES": "1,3,41,47",
+            "QUANTITIES": "'1,3,41,47'",
             # The output of the time should include seconds, just in case given
             # the current parser assumes hardcoded column positions.
             "TIME_DIGITS": "seconds",

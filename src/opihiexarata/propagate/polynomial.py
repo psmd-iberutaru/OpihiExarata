@@ -16,7 +16,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class LinearPropagationEngine(hint.PropagationEngine):
+class LinearPropagationEngine(library.engine.PropagationEngine):
     """A simple propagation engine which uses 1st order extrapolation of
     RA DEC points independently to determine future location.
 
@@ -198,7 +198,7 @@ class LinearPropagationEngine(hint.PropagationEngine):
         return future_ra, future_dec
 
 
-class QuadraticPropagationEngine(hint.PropagationEngine):
+class QuadraticPropagationEngine(library.engine.PropagationEngine):
     """A simple propagation engine which uses 2nd order extrapolation of
     RA DEC points independently to determine future location.
 
