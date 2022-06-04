@@ -1110,13 +1110,17 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         ## Resetting Ephemeris information.
         #####
+        self.ui.label_dynamic_ephemeris_ra_velocity.setText("+VV.VVV")
+        self.ui.label_dynamic_ephemeris_dec_velocity.setText("+VV.VVV")
+        self.ui.label_dynamic_ephemeris_ra_acceleration.setText("+AA.AAAeXX")
+        self.ui.label_dynamic_ephemeris_dec_acceleration.setText("+AA.AAAeXX")
 
         ## Resetting Propagate information.
         #####
         self.ui.label_dynamic_propagate_ra_velocity.setText("+VV.VVV")
         self.ui.label_dynamic_propagate_dec_velocity.setText("+VV.VVV")
-        self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAA")
-        self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAA")
+        self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAAeXX")
+        self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAAeXX")
         self.ui.text_browser_propagate_future_results.setPlainText(
             "YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS"
         )
@@ -1393,15 +1397,20 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # And acceleration, as degrees per second squared.
         ra_a_deg = ephemeritics.ra_acceleration
         dec_a_deg = ephemeritics.dec_acceleration
-        # Converting to the more familiar arcsec/s. Round after and prepare
-        # to make it a string for the GUI.
-        def deg_to_arcsec_str(degree: float) -> str:
-            return str(round(degree * 3600, 3))
+        # Converting to the more familiar arcsec/s from deg/s along with 
+        # arcsec/s/s from deg/s/s. Round after and prepare to make it a 
+        # string for the GUI.
+        def vel_deg_to_arcsec_str(degree: float) -> str:
+            return str(round(degree * 3600, 5))
+        def accl_deg_to_arcsec_str(degree: float) -> str:
+            # Accelerations are usually a lot less and thus should get their
+            # own method of manipulation.
+            return str("{acc:2.3e}".format(acc=degree))
 
-        ra_v_arcsec_str = deg_to_arcsec_str(ra_v_deg)
-        dec_v_arcsec_str = deg_to_arcsec_str(dec_v_deg)
-        ra_a_arcsec_str = deg_to_arcsec_str(ra_a_deg)
-        dec_a_arcsec_str = deg_to_arcsec_str(dec_a_deg)
+        ra_v_arcsec_str = vel_deg_to_arcsec_str(ra_v_deg)
+        dec_v_arcsec_str = vel_deg_to_arcsec_str(dec_v_deg)
+        ra_a_arcsec_str = accl_deg_to_arcsec_str(ra_a_deg)
+        dec_a_arcsec_str = accl_deg_to_arcsec_str(dec_a_deg)
         # Update the dynamic text.
         self.ui.label_dynamic_ephemeris_ra_velocity.setText(ra_v_arcsec_str)
         self.ui.label_dynamic_ephemeris_dec_velocity.setText(dec_v_arcsec_str)
@@ -1453,15 +1462,20 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # And acceleration, as degrees per second squared.
         ra_a_deg = propagatives.ra_acceleration
         dec_a_deg = propagatives.dec_acceleration
-        # Converting to the more familiar arcsec/s. Round after and prepare
-        # to make it a string for the GUI.
-        def deg_to_arcsec_str(degree: float) -> str:
-            return str(round(degree * 3600, 3))
+        # Converting to the more familiar arcsec/s from deg/s along with 
+        # arcsec/s/s from deg/s/s. Round after and prepare to make it a 
+        # string for the GUI.
+        def vel_deg_to_arcsec_str(degree: float) -> str:
+            return str(round(degree * 3600, 5))
+        def accl_deg_to_arcsec_str(degree: float) -> str:
+            # Accelerations are usually a lot less and thus should get their
+            # own method of manipulation.
+            return str("{acc:2.3e}".format(acc=degree))
 
-        ra_v_arcsec_str = deg_to_arcsec_str(ra_v_deg)
-        dec_v_arcsec_str = deg_to_arcsec_str(dec_v_deg)
-        ra_a_arcsec_str = deg_to_arcsec_str(ra_a_deg)
-        dec_a_arcsec_str = deg_to_arcsec_str(dec_a_deg)
+        ra_v_arcsec_str = vel_deg_to_arcsec_str(ra_v_deg)
+        dec_v_arcsec_str = vel_deg_to_arcsec_str(dec_v_deg)
+        ra_a_arcsec_str = accl_deg_to_arcsec_str(ra_a_deg)
+        dec_a_arcsec_str = accl_deg_to_arcsec_str(dec_a_deg)
         # Update the dynamic text.
         self.ui.label_dynamic_propagate_ra_velocity.setText(ra_v_arcsec_str)
         self.ui.label_dynamic_propagate_dec_velocity.setText(dec_v_arcsec_str)

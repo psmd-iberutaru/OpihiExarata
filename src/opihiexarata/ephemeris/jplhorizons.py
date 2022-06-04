@@ -109,11 +109,6 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # Converting the Julian day time to seconds as it is just easier for
         # the differentials. Using UNIX time as it is easy.
         unix_time = library.conversion.julian_day_to_unix_time(jd=jpl_time)
-        # The rates from JPL are in arcseconds per hour. Convention for this
-        # software is degrees per second, converting.
-        as_hr_to_dg_s = lambda ashr: ashr / (3600 * 3600)
-        ra_rate = as_hr_to_dg_s(jpl_ra_rate)
-        dec_rate = as_hr_to_dg_s(jpl_dec_rate)
 
         # We derive the current velocity rates by the observations closest to
         # the current time to remove as much second order effects as we can.
@@ -126,9 +121,11 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             True,
             False,
         )
-        # Using averages to combine the nearby observations.
-        self.ra_velocity = np.nanmean(ra_rate[nearby_records])
-        self.dec_velocity = np.nanmean(dec_rate[nearby_records])
+        # The rates from JPL are in arcseconds per hour, but the ephemeris 
+        # parsing already handled the unit conversion. The average should be 
+        # fine for this case.
+        self.ra_velocity = np.nanmean(jpl_ra_rate[nearby_records])
+        self.dec_velocity = np.nanmean(jpl_dec_rate[nearby_records])
 
         # We derive the current acceleration rates by assuming constant
         # acceleration across the sky (ignoring 3rd order differential
@@ -181,10 +178,10 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # We are assuming constant acceleration, and our time span is not that
         # large so this should be okay.
         self.ra_acceleration = _determining_average_acceleration(
-            time=unix_time, velocity=ra_rate
+            time=unix_time, velocity=jpl_ra_rate
         )
         self.dec_acceleration = _determining_average_acceleration(
-            time=unix_time, velocity=dec_rate
+            time=unix_time, velocity=jpl_dec_rate
         )
 
         # All done.
@@ -206,8 +203,8 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         """
         # Using lines is a lot easier to manage.
         response_lines = response_text.split("\n")
-        # The ephemeris lines are demarked by $$SOE and $$EOE tags, extracting the
-        # ephemeris only as that is what we care about.
+        # The ephemeris lines are demarked by $$SOE and $$EOE tags, extracting
+        # the ephemeris only as that is what we care about.
         soe_index = None
         eoe_index = None
         for index, linedex in enumerate(response_lines):
@@ -219,9 +216,13 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
                 continue
         # Something happened, the demarcations were not found.
         if soe_index is None or eoe_index is None:
-            raise error.WebRequestError("The demarcations for the ephemeris were not found, it is likely that the web request sent was incorrect. The responce from the API: \n {r}".format(r=response_text))
-        # Using the demarcations to extract the ephemeris section of the query lines.
-        # We do not need the demarcations themselves though.
+            raise error.WebRequestError(
+                "The demarcations for the ephemeris were not found, it is likely that"
+                " the web request sent was incorrect. The response from the API: \n {r}"
+                .format(r=response_text)
+            )
+        # Using the demarcations to extract the ephemeris section of the
+        # query lines. We do not need the demarcations themselves though.
         ephemeris_lines = response_lines[soe_index + 1 : eoe_index]
 
         # Parsing the lines individually.
@@ -229,16 +230,24 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             """We parse the line into the known parts based on the query."""
             # Removing extra spaces which might cause issues.
             line = line.strip()
-            # The solar presence is not really relevant and because of its formatting,
-            # screws up with the delimitation as "nighttime" is denoted by a space
-            # character. We remove it here.
-            line_nosun = line[:25] + "    " + line[29:]
+            # The solar presence is not really relevant and because of its
+            # formatting, screws up with the delimitation as "nighttime" is
+            # denoted by a space character. We remove it here.
+            if len(line.split())  == 15:
+                # There exists the state of the Sun, we do not need it.
+                line_sun_split = line.split()
+                line_split = line_sun_split[:2] + line_sun_split[3:]
+            elif len(line.split())  == 14:
+                # The sun information is hidden as consecutive spaces. 
+                line_split = line.split()
+            else:
+                raise error.UndiscoveredError(
+                    "The JPL response has more entries than accountable for."
+                )
 
-            # Splitting it into different parts.
-            line_split = line_nosun.split()
             # ...and dealing with the parts.
-            # The date of the observation location, the month is in text form but
-            # it is easier to deal with numbers.
+            # The date of the observation location, the month is in text
+            # form but it is easier to deal with numbers.
             date = line_split[0]
             year, month_name, day = date.split("-")
             year = int(year)
@@ -246,27 +255,32 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             day = int(day)
             # The time of the observation location.
             time = line_split[1]
-            hour, minute, second = time.split(":")
+            try:
+                hour, minute, second = time.split(":")
+            except ValueError:
+                # Sometimes they omit the seconds even though we want them.
+                hour, minute = time.split(":")
+                second = 0
             hour = int(hour)
             minute = int(minute)
             second = float(second)
-            # The RA and DEC strings are split because of the deliminator being spaces.
-            # combine them back to HMS and DMS.
+            # The RA and DEC strings are split because of the deliminator
+            # being spaces, combine them back to HMS and DMS.
             ra_sex = line_split[2] + ":" + line_split[3] + ":" + line_split[4]
             dec_sex = line_split[5] + ":" + line_split[6] + ":" + line_split[7]
             ra_deg, dec_deg = library.conversion.sexagesimal_ra_dec_to_degrees(
                 ra_sex=ra_sex, dec_sex=dec_sex
             )
-            # The RA and DEC rates; these values are in arcsec/hr, but convention in this
-            # software is deg/sec so convert. The flat planar conversion is already
-            # done by Horizon.
+            # The RA and DEC rates; these values are in arcsec/hr, but
+            # convention in this software is deg/sec so convert. The flat
+            # planar conversion is already done by Horizon.
             as_hr_to_dg_s = lambda ashr: ashr / (3600 * 3600)
             ra_rate = as_hr_to_dg_s(float(line_split[8]))
             dec_rate = as_hr_to_dg_s(float(line_split[9]))
             # The true anomaly.
             true_anomaly = float(line_split[10])
-            # The exact usage of these parameters are really not know yet but they seem
-            # useful; not using any of that.
+            # The exact usage of these parameters are really not know yet
+            # but they seem useful; not using any of that.
             sky_motion = float(line_split[11])
             sky_position_angle = float(line_split[12])
             sky_velocity_angle = float(line_split[13])
@@ -413,7 +427,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             "QUANTITIES": "'1,3,41,47'",
             # The output of the time should include seconds, just in case given
             # the current parser assumes hardcoded column positions.
-            "TIME_DIGITS": "seconds",
+            "TIME_DIGITS": "FRACSEC",
             # The format that the output will be specified in. There is little
             # difference between JSON and text as it is all just text.
             "format": "text",

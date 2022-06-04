@@ -771,7 +771,7 @@ class Ui_ManualWindow(object):
 
         self.retranslateUi(ManualWindow)
 
-        self.tabs_solutions.setCurrentIndex(3)
+        self.tabs_solutions.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(ManualWindow)
@@ -831,8 +831,8 @@ class Ui_ManualWindow(object):
         self.combo_box_ephemeris_solve_engine.setItemText(0, QCoreApplication.translate("ManualWindow", u"JPL Horizons", None))
 
         self.push_button_ephemeris_solve_ephemeris.setText(QCoreApplication.translate("ManualWindow", u"Solve Ephemeris", None))
-        self.label_dynamic_ephemeris_ra_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAA", None))
-        self.label_dynamic_ephemeris_dec_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAA", None))
+        self.label_dynamic_ephemeris_ra_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAAeXX", None))
+        self.label_dynamic_ephemeris_dec_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAAeXX", None))
         self.label_dynamic_ephemeris_dec_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_dynamic_ephemeris_ra_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_static_ephemeris_rate.setText(QCoreApplication.translate("ManualWindow", u"<html><head/><body><p>Ephemeris Rate [ &quot;/s | &quot;/s<span style=\" vertical-align:super;\">2</span> ]</p></body></html>", None))
@@ -848,8 +848,8 @@ class Ui_ManualWindow(object):
         self.combo_box_propagate_solve_engine.setItemText(1, QCoreApplication.translate("ManualWindow", u"Quadratic", None))
 
         self.push_button_propagate_solve_propagation.setText(QCoreApplication.translate("ManualWindow", u"Solve Propagation", None))
-        self.label_dynamic_propagate_ra_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAA", None))
-        self.label_dynamic_propagate_dec_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAA", None))
+        self.label_dynamic_propagate_ra_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAAeXX", None))
+        self.label_dynamic_propagate_dec_acceleration.setText(QCoreApplication.translate("ManualWindow", u"+AA.AAAeXX", None))
         self.label_dynamic_propagate_dec_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_dynamic_propagate_ra_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_static_propagate_rate.setText(QCoreApplication.translate("ManualWindow", u"<html><head/><body><p>Propagate Rate [ &quot;/s | &quot;/s<span style=\" vertical-align:super;\">2</span> ]</p></body></html>", None))
