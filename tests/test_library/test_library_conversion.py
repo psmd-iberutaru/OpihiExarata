@@ -6,9 +6,9 @@ import opihiexarata
 def test_decimal_day_to_julian_day() -> None:
     """Test the conversion from decimal day to Julian days."""
     # A defining definition of Julian days.
-    origin_julian_day = 2400000
+    origin_julian_day = 2451544.5
     test_origin_julian = opihiexarata.library.conversion.decimal_day_to_julian_day(
-        year=1858, month=11, day=16.5
+        year=2000, month=1, day=1
     )
     assert_message = "The definition Julian day conversion is not correct."
     assert np.isclose(origin_julian_day, test_origin_julian), assert_message
@@ -27,9 +27,9 @@ def test_decimal_day_to_julian_day() -> None:
 def test_full_date_to_julian_day() -> None:
     """Test the conversion from a full date to Julian days."""
     # A defining definition of Julian time.
-    origin_julian_day = 2400000
+    origin_julian_day = 2451545
     test_origin_julian_day = opihiexarata.library.conversion.full_date_to_julian_day(
-        year=1858, month=11, day=16, hour=12, minute=0, second=0
+        year=2000, month=1, day=1, hour=12, minute=0, second=0
     )
     assert_message = "The definition Julian day conversion is not correct."
     assert np.isclose(origin_julian_day, test_origin_julian_day), assert_message

@@ -57,12 +57,13 @@ Write-Output "=========================================="
 #   - Install the package.
 
 # Installing required packages which are needed for the installation of the 
-# Python segment. These parts is OS dependent.
+# Python segment. These parts is OS dependent as this is for Qt.
 if ($isCentOS) {
-    
+    sudo yum groupinstall "C Development Tools and Libraries"
+    sudo yum install mesa-libGL-devel
 }
 elseif ($isUbuntu) {
-    sudo apt install libgl1-mesa-dev
+    sudo apt install build-essential libgl1-mesa-dev
 }
 
 # Python packages required.
