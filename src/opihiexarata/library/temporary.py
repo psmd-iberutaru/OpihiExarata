@@ -63,25 +63,27 @@ def delete_temporary_directory() -> None:
     -------
     None
     """
-    temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
+    temporary_directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     # Determine if the directory is empty of all useful files.
     try:
-        with os.scandir(temp_dir) as temp_dir:
-            for entry in temp_dir:
+        with os.scandir(temporary_directory) as scandir:
+            for entry in scandir:
                 if entry.is_file():
                     raise error.DirectoryError(
                         "Cannot delete the temporary directory, it contains files."
                         " Purge the temporary directory before deleting it. Directory:"
-                        " {dir}".format(dir=temp_dir)
+                        " {dir}".format(dir=temporary_directory)
                     )
     except FileNotFoundError:
         raise error.DirectoryError(
             "The directory cannot be found. The temporary directory cannot be scanned"
-            " for deletion if it does not exist. Directory: {dir}".format(dir=temp_dir)
+            " for deletion if it does not exist. Directory: {dir}".format(
+                dir=temporary_directory
+            )
         )
     # Otherwise, delete the directory.
-    if os.path.isdir(temp_dir):
-        os.removedirs(temp_dir)
+    if os.path.isdir(temporary_directory):
+        os.removedirs(temporary_directory)
     else:
         # The directory does not exist, or it is not actually a directory.
         pass
