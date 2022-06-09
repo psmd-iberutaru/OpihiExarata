@@ -10,6 +10,11 @@ Param (
 # This is the master script for installing the entire OpihiExarata suite.
 # The avaliable configurations are listed here.
 
+# Each operating systems has their own unique way to determining how to
+# enter the Python shell. For ease, please set it here so that the alias
+# can be applied uniformly.
+Set-Alias -Name pyox -Value python
+
 # For Linux installations different flavors have different package managers.
 # as such, the package manager installation command is different and is alised 
 # here. We only support a few flavors. Fill in the prefix per your operating

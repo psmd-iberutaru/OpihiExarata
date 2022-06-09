@@ -23,7 +23,7 @@ elseif ($isUbuntu) {
 
 
 # Python packages required.
-pip install build setuptools wheel
+pyox -m pip install build setuptools wheel
 
 
 # The default directory where we will build OpihiExarata. Note that the actual 
@@ -35,17 +35,17 @@ $build_dir = "./dist/"
 Remove-Item $build_dir -Recurse -Force
 
 # Build the package.
-python -m build
+pyox -m build
 
 # Install the newly built package and wheel.
 $build_file = Get-ChildItem $build_dir -Recurse -Name -Filter "OpihiExarata-*.whl"
 
 # We also uninstall any previous versions.
-python -m pip uninstall -y OpihiExarata
+pyox -m pip uninstall -y OpihiExarata
 
 # We assume the only wheel file that was built is the same one to be installed.
 $build_path = $build_dir + $build_file
 Write-Output "Installing OpihiExarata package:   $build_path"
 # The optimized mode is in the event it is being build on a network drive or 
 # something.
-python -O -m pip install $build_path
+pyox -O -m pip install $build_path
