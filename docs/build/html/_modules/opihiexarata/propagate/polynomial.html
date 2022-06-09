@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -217,7 +217,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-<div class="viewcode-block" id="LinearPropagationEngine"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine">[docs]</a><span class="k">class</span> <span class="nc">LinearPropagationEngine</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="LinearPropagationEngine"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine">[docs]</a><span class="k">class</span> <span class="nc">LinearPropagationEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A simple propagation engine which uses 1st order extrapolation of</span>
 <span class="sd">    RA DEC points independently to determine future location.</span>
 
@@ -399,7 +399,7 @@
         <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span></div></div>
 
 
-<div class="viewcode-block" id="QuadraticPropagationEngine"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine">[docs]</a><span class="k">class</span> <span class="nc">QuadraticPropagationEngine</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="QuadraticPropagationEngine"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine">[docs]</a><span class="k">class</span> <span class="nc">QuadraticPropagationEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A simple propagation engine which uses 2nd order extrapolation of</span>
 <span class="sd">    RA DEC points independently to determine future location.</span>
 

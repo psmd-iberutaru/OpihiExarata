@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -503,7 +503,7 @@
     <span class="c1"># We can just derive it from the system UNIX time.</span>
     <span class="n">current_unix_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="n">current_jd</span> <span class="o">=</span> <span class="n">unix_time_to_julian_day</span><span class="p">(</span><span class="n">unix_time</span><span class="o">=</span><span class="n">current_unix_time</span><span class="p">)</span>
-    <span class="k">raise</span> <span class="n">current_jd</span></div>
+    <span class="k">return</span> <span class="n">current_jd</span></div>
 
 
 <div class="viewcode-block" id="string_month_to_number"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.string_month_to_number">[docs]</a><span class="k">def</span> <span class="nf">string_month_to_number</span><span class="p">(</span><span class="n">month_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -538,7 +538,26 @@
         <span class="s2">&quot;november&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
         <span class="s2">&quot;december&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="n">month_int</span> <span class="o">=</span> <span class="n">month_dict</span><span class="p">[</span><span class="n">month_str</span><span class="p">]</span>
+    <span class="c1"># It could also be a 3 letter month abbreviation.</span>
+    <span class="n">three_letter_month_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;jan&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;feb&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;mar&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;apr&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">&quot;may&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;jun&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s2">&quot;jul&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s2">&quot;aug&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">&quot;sep&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;oct&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;nov&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+        <span class="s2">&quot;dec&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">month_str</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># It is likely a 3 letter month abbreviation, or May.</span>
+        <span class="n">month_int</span> <span class="o">=</span> <span class="n">three_letter_month_dict</span><span class="p">[</span><span class="n">month_str</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">month_int</span> <span class="o">=</span> <span class="n">month_dict</span><span class="p">[</span><span class="n">month_str</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">month_int</span></div>
 </pre></div>
 

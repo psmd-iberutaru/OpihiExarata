@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.custom module &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.orbit.custom module &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -207,7 +207,194 @@
   <section id="module-opihiexarata.orbit.custom">
 <span id="opihiexarata-orbit-custom-module"></span><h1>opihiexarata.orbit.custom module<a class="headerlink" href="#module-opihiexarata.orbit.custom" title="Permalink to this heading"></a></h1>
 <p>This is a class which defines a custom orbit. A user supplies the orbital
-elements to this engine and</p>
+elements to this engine and the vehicle function.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.orbit.custom.</span></span><span class="sig-name descname"><span class="pre">CustomOrbitEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">semimajor_axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_ascending_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_perihelion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_anomaly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_julian_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">semimajor_axis_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclination_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_ascending_node_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_perihelion_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_anomaly_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/orbit/custom.html#CustomOrbitEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine" title="opihiexarata.library.engine.OrbitEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrbitEngine</span></code></a></p>
+<p>This engine is just a wrapper for when a custom orbit is desired to be
+specified.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.semimajor_axis">
+<span class="sig-name descname"><span class="pre">semimajor_axis</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.semimajor_axis" title="Permalink to this definition"></a></dt>
+<dd><p>The semi-major axis of the orbit provided, in AU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.semimajor_axis_error">
+<span class="sig-name descname"><span class="pre">semimajor_axis_error</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.semimajor_axis_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the semi-major axis of the orbit provided, in AU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.eccentricity">
+<span class="sig-name descname"><span class="pre">eccentricity</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.eccentricity" title="Permalink to this definition"></a></dt>
+<dd><p>The eccentricity of the orbit provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.eccentricity_error">
+<span class="sig-name descname"><span class="pre">eccentricity_error</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.eccentricity_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the eccentricity of the orbit provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.inclination">
+<span class="sig-name descname"><span class="pre">inclination</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.inclination" title="Permalink to this definition"></a></dt>
+<dd><p>The angle of inclination of the orbit provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.inclination_error">
+<span class="sig-name descname"><span class="pre">inclination_error</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.inclination_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the angle of inclination of the orbit provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.longitude_ascending_node">
+<span class="sig-name descname"><span class="pre">longitude_ascending_node</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.longitude_ascending_node" title="Permalink to this definition"></a></dt>
+<dd><p>The longitude of the ascending node of the orbit provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.longitude_ascending_node_error">
+<span class="sig-name descname"><span class="pre">longitude_ascending_node_error</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.longitude_ascending_node_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the longitude of the ascending node of the orbit
+provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.argument_perihelion">
+<span class="sig-name descname"><span class="pre">argument_perihelion</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.argument_perihelion" title="Permalink to this definition"></a></dt>
+<dd><p>The argument of perihelion of the orbit provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.argument_perihelion_error">
+<span class="sig-name descname"><span class="pre">argument_perihelion_error</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.argument_perihelion_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the argument of perihelion of the orbit
+provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.mean_anomaly">
+<span class="sig-name descname"><span class="pre">mean_anomaly</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.mean_anomaly" title="Permalink to this definition"></a></dt>
+<dd><p>The mean anomaly of the orbit provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.mean_anomaly_error">
+<span class="sig-name descname"><span class="pre">mean_anomaly_error</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.mean_anomaly_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the mean anomaly of the orbit provided, in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.epoch_julian_day">
+<span class="sig-name descname"><span class="pre">epoch_julian_day</span></span><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.epoch_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>The epoch where for these osculating orbital elements. This value is
+in Julian days.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.orbit.custom.CustomOrbitEngine.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">semimajor_axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_ascending_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_perihelion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_anomaly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_julian_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">semimajor_axis_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclination_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_ascending_node_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_perihelion_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_anomaly_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/orbit/custom.html#CustomOrbitEngine.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.custom.CustomOrbitEngine.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>The orbital elements are already provided for this custom
+solution. If errors may optionally be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>semimajor_axis</strong> (<em>float</em>) – The semi-major axis of the orbit provided, in AU.</p></li>
+<li><p><strong>eccentricity</strong> (<em>float</em>) – The eccentricity of the orbit provided.</p></li>
+<li><p><strong>inclination</strong> (<em>float</em>) – The angle of inclination of the orbit provided, in degrees.</p></li>
+<li><p><strong>longitude_ascending_node</strong> (<em>float</em>) – The longitude of the ascending node of the orbit
+provided, in degrees.</p></li>
+<li><p><strong>argument_perihelion</strong> (<em>float</em>) – The argument of perihelion of the orbit provided, in degrees.</p></li>
+<li><p><strong>mean_anomaly</strong> (<em>float</em>) – The mean anomaly of the orbit provided, in degrees.</p></li>
+<li><p><strong>epoch_julian_day</strong> (<em>float</em>) – The epoch where for these osculating orbital elements. This value is
+in Julian days.</p></li>
+<li><p><strong>semimajor_axis_error</strong> (<em>float</em><em>, </em><em>default = None</em>) – The error on the semi-major axis of the orbit provided, in AU.</p></li>
+<li><p><strong>eccentricity_error</strong> (<em>float</em><em>, </em><em>default = None</em>) – The error on the eccentricity of the orbit provided.</p></li>
+<li><p><strong>inclination_error</strong> (<em>float</em><em>, </em><em>default = None</em>) – The error on the angle of inclination of the orbit provided, in degrees.</p></li>
+<li><p><strong>longitude_ascending_node_error</strong> (<em>float</em><em>, </em><em>default = None</em>) – The error on the longitude of the ascending node of the orbit
+provided, in degrees.</p></li>
+<li><p><strong>argument_perihelion_error</strong> (<em>float</em><em>, </em><em>default = None</em>) – The error on the argument of perihelion of the orbit
+provided, in degrees.</p></li>
+<li><p><strong>mean_anomaly_error</strong> (<em>float</em><em>, </em><em>default = None</em>) – The error on the mean anomaly of the orbit provided, in degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

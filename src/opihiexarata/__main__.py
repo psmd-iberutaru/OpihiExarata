@@ -123,7 +123,8 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         default=False,
         required=False,
         help=(
-            "If provided, the temporary directory created is not purged and is instead kept. This is really something that should only be done for debugging."
+            "If provided, the temporary directory created is not purged and is instead"
+            " kept. This is really something that should only be done for debugging."
         ),
     )
     parser.add_argument(
@@ -167,20 +168,20 @@ def __main_execute_arguments(
     # them so that it is easier for the actions to use them later.
     standard_config_dir = arguments_dict.get("config", None)
     secrets_config_dir = arguments_dict.get("secret", None)
-    if (standard_config_dir is not None):
+    if standard_config_dir is not None:
         # A configuration file path has been supplied, attempting to load it
         # otherwise the action is likely generate.
         standard_config_dir = os.path.abspath(standard_config_dir)
         if os.path.isfile(standard_config_dir):
             library.config.load_then_apply_configuration(filename=standard_config_dir)
-    if (secrets_config_dir is not None):
+    if secrets_config_dir is not None:
         # A secrets file path has been supplied, attempting to load it
         # otherwise the action is likely generate.
         secrets_config_dir = os.path.abspath(secrets_config_dir)
         if os.path.isfile(secrets_config_dir):
             library.config.load_then_apply_configuration(filename=secrets_config_dir)
 
-    # A lot of the actions require the temporary directory for file handling 
+    # A lot of the actions require the temporary directory for file handling
     # and other things. We create it here; it is later purged and destroyed
     # unless otherwise flagged.
     __ = library.temporary.create_temporary_directory()

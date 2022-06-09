@@ -12,15 +12,15 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-def create_temporary_directory(unique:bool=None) -> None:
+def create_temporary_directory(unique: bool = None) -> None:
     """Make the temporary directory.
 
     Parameters
     ----------
     unique : bool, default = None
-        Require a check on the creation of the directory to require it to be 
-        unique. If True, this will raise if the directory already exists 
-        otherwise it does not care. Will defer to the configuration file 
+        Require a check on the creation of the directory to require it to be
+        unique. If True, this will raise if the directory already exists
+        otherwise it does not care. Will defer to the configuration file
         if None.
 
     Returns
@@ -34,7 +34,7 @@ def create_temporary_directory(unique:bool=None) -> None:
     else:
         # The user provided instructions explicitly, so we use that.
         unique_check = bool(unique)
-    
+
     # Create the directory as provided by the configuration file.
     directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     if os.path.isdir(directory) and unique_check:

@@ -717,7 +717,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # to do.
         if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
             return None
-        
+
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
         input_engine_name = self.ui.combo_box_propagate_solve_engine.currentText()
@@ -1397,11 +1397,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # And acceleration, as degrees per second squared.
         ra_a_deg = ephemeritics.ra_acceleration
         dec_a_deg = ephemeritics.dec_acceleration
-        # Converting to the more familiar arcsec/s from deg/s along with 
-        # arcsec/s/s from deg/s/s. Round after and prepare to make it a 
+        # Converting to the more familiar arcsec/s from deg/s along with
+        # arcsec/s/s from deg/s/s. Round after and prepare to make it a
         # string for the GUI.
         def vel_deg_to_arcsec_str(degree: float) -> str:
             return str(round(degree * 3600, 5))
+
         def accl_deg_to_arcsec_str(degree: float) -> str:
             # Accelerations are usually a lot less and thus should get their
             # own method of manipulation.
@@ -1462,11 +1463,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # And acceleration, as degrees per second squared.
         ra_a_deg = propagatives.ra_acceleration
         dec_a_deg = propagatives.dec_acceleration
-        # Converting to the more familiar arcsec/s from deg/s along with 
-        # arcsec/s/s from deg/s/s. Round after and prepare to make it a 
+        # Converting to the more familiar arcsec/s from deg/s along with
+        # arcsec/s/s from deg/s/s. Round after and prepare to make it a
         # string for the GUI.
         def vel_deg_to_arcsec_str(degree: float) -> str:
             return str(round(degree * 3600, 5))
+
         def accl_deg_to_arcsec_str(degree: float) -> str:
             # Accelerations are usually a lot less and thus should get their
             # own method of manipulation.

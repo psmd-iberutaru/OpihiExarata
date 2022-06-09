@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.phototable &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.library.phototable &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -235,7 +235,7 @@
 <span class="n">PHOTOMETRY_TABLE_COLUMN_NAMES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">__PHOTOMETRY_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 <span class="n">PHOTOMETRY_TABLE_COLUMN_TYPES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">__PHOTOMETRY_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
-<span class="c1"># The general template of the photometric table. Honestly, this is just a </span>
+<span class="c1"># The general template of the photometric table. Honestly, this is just a</span>
 <span class="c1"># sorting thing and may actually not even be needed in the future. However,</span>
 <span class="c1"># we have it here just in case.</span>
 <span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span> <span class="o">=</span> <span class="p">{</span>
@@ -245,7 +245,7 @@
     <span class="s2">&quot;dec_photo&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;pixel_x&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;pixel_y&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="s2">&quot;separation&quot;</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;separation&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;c_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;c_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;g_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -262,11 +262,14 @@
     <span class="s2">&quot;2_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;3_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="s2">&quot;3_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="s2">&quot;counts&quot;</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;counts&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_TYPES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-
+<span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_TYPES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="blank_photometry_table"><a class="viewcode-back" href="../../../code/opihiexarata.library.phototable.html#opihiexarata.library.phototable.blank_photometry_table">[docs]</a><span class="k">def</span> <span class="nf">blank_photometry_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>

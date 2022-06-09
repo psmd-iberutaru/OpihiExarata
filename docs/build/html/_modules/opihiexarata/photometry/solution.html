@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -213,7 +213,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.photometry</span> <span class="k">as</span> <span class="nn">photometry</span>
 
 
-<div class="viewcode-block" id="PhotometricSolution"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution">[docs]</a><span class="k">class</span> <span class="nc">PhotometricSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="PhotometricSolution"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution">[docs]</a><span class="k">class</span> <span class="nc">PhotometricSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The primary class describing an photometric solution, based on an image</span>
 <span class="sd">    provided and catalog data provided from the photometric engine.</span>
 
@@ -436,10 +436,9 @@
         <span class="c1"># The first entries are just hard-coded to be first because they are</span>
         <span class="c1"># the basic required columns.</span>
         <span class="n">base_columns</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">phototable</span><span class="o">.</span><span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES</span>
-        <span class="c1"># This sorting method relies on dictionaries preserving insertion</span>
-        <span class="c1"># order.</span>
-        <span class="n">intersection_colnames</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">base_columns</span> <span class="o">+</span> <span class="n">astrometric_table</span><span class="o">.</span><span class="n">colnames</span> <span class="o">+</span> <span class="n">photometric_table</span><span class="o">.</span><span class="n">colnames</span>
+        <span class="c1">#</span>
+        <span class="n">intersection_colnames</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span><span class="n">base_columns</span> <span class="o">+</span> <span class="n">astrometric_table</span><span class="o">.</span><span class="n">colnames</span> <span class="o">+</span> <span class="n">photometric_table</span><span class="o">.</span><span class="n">colnames</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="c1"># Making the table.</span>
         <span class="n">intersection_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">intersection_colnames</span><span class="p">)</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.solution &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.ephemeris.solution &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -209,7 +209,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
 
 
-<div class="viewcode-block" id="EphemeriticSolution"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.solution.html#opihiexarata.ephemeris.solution.EphemeriticSolution">[docs]</a><span class="k">class</span> <span class="nc">EphemeriticSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="EphemeriticSolution"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.solution.html#opihiexarata.ephemeris.solution.EphemeriticSolution">[docs]</a><span class="k">class</span> <span class="nc">EphemeriticSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This obtains the ephemeris of an asteroid using an ephemeris engine</span>
 <span class="sd">    provided the Keplerian orbital elements of the asteroid as determined</span>
 <span class="sd">    by orbital solutions.</span>
@@ -236,7 +236,8 @@
 <div class="viewcode-block" id="EphemeriticSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.solution.html#opihiexarata.ephemeris.solution.EphemeriticSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">orbitals</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitalSolution</span><span class="p">,</span>
-        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">,</span><span class="n">vehicle_args</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Instantiating the solution class.</span>
 
@@ -250,9 +251,9 @@
 <span class="sd">            &quot;behind the scenes&quot; and solve the orbit, using this middleware to</span>
 <span class="sd">            translate it into something that is easier to read.</span>
 <span class="sd">        vehicle_args : dictionary</span>
-<span class="sd">            If the vehicle function for the provided solver engine needs </span>
-<span class="sd">            extra parameters not otherwise provided by the standard input, </span>
-<span class="sd">            they are given here. </span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -265,7 +266,7 @@
                 <span class="s2">&quot;The ephemeris solver engine provided should be the engine class&quot;</span>
                 <span class="s2">&quot; itself, not an instance thereof.&quot;</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">):</span>
             <span class="c1"># It is fine, the user submitted a valid orbit engine.</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
@@ -305,6 +306,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_ephemeris_function</span> <span class="o">=</span> <span class="n">raw_ephemeris_results</span><span class="p">[</span><span class="s2">&quot;ephemeris_function&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">raw_ephemeris_results</span><span class="p">[</span><span class="s2">&quot;ra_velocity&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">raw_ephemeris_results</span><span class="p">[</span><span class="s2">&quot;dec_velocity&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">raw_ephemeris_results</span><span class="p">[</span><span class="s2">&quot;ra_acceleration&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">raw_ephemeris_results</span><span class="p">[</span><span class="s2">&quot;dec_acceleration&quot;</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
                 <span class="s2">&quot;The engine results provided are insufficient for this ephemeris&quot;</span>

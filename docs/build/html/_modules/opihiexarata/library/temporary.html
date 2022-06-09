@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.temporary &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.library.temporary &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -213,19 +213,32 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-<div class="viewcode-block" id="create_temporary_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.create_temporary_directory">[docs]</a><span class="k">def</span> <span class="nf">create_temporary_directory</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Make the temporary directory. Fails if the directory already exists.</span>
+<div class="viewcode-block" id="create_temporary_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.create_temporary_directory">[docs]</a><span class="k">def</span> <span class="nf">create_temporary_directory</span><span class="p">(</span><span class="n">unique</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Make the temporary directory.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    None</span>
+<span class="sd">    unique : bool, default = None</span>
+<span class="sd">        Require a check on the creation of the directory to require it to be</span>
+<span class="sd">        unique. If True, this will raise if the directory already exists</span>
+<span class="sd">        otherwise it does not care. Will defer to the configuration file</span>
+<span class="sd">        if None.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if a stink should be made if the directory already exists.</span>
+    <span class="k">if</span> <span class="n">unique</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># We defer to the configuration file on how to handle this.</span>
+        <span class="n">unique_check</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY_REQUIRE_UNIQUE</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># The user provided instructions explicitly, so we use that.</span>
+        <span class="n">unique_check</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">unique</span><span class="p">)</span>
+
+    <span class="c1"># Create the directory as provided by the configuration file.</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="ow">and</span> <span class="n">unique_check</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
             <span class="s2">&quot;The directory path provided for the temporary directory already exists. A&quot;</span>
             <span class="s2">&quot; temporary directory cannot be made. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -233,7 +246,8 @@
             <span class="p">)</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="ow">not</span> <span class="n">unique_check</span><span class="p">)</span>
+    <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
@@ -258,13 +272,13 @@
                 <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
                     <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
                         <span class="s2">&quot;Cannot delete the temporary directory, it contains files.&quot;</span>
-                        <span class="s2">&quot; Purge the temporary directory before deleteing it. Directory:&quot;</span>
+                        <span class="s2">&quot; Purge the temporary directory before deleting it. Directory:&quot;</span>
                         <span class="s2">&quot; </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
                     <span class="p">)</span>
     <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
-            <span class="s2">&quot;The directory cannot be found. The temporary directory cannot be deleted&quot;</span>
-            <span class="s2">&quot; if it does not exist. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
+            <span class="s2">&quot;The directory cannot be found. The temporary directory cannot be scanned&quot;</span>
+            <span class="s2">&quot; for deletion if it does not exist. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="c1"># Otherwise, delete the directory.</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">):</span>

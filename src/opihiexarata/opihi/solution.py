@@ -420,7 +420,7 @@ class OpihiSolution(library.engine.ExarataSolution):
                 " astrometric solution needs to be called and run first."
             )
 
-        # Check that the proper asteroid information has been provided. If 
+        # Check that the proper asteroid information has been provided. If
         # the orbit defined is custom however, these checks should be skipped.
         if issubclass(solver_engine, orbit.CustomOrbitEngine):
             asteroid_name = "custom"

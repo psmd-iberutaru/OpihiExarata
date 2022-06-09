@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -390,12 +390,24 @@
             <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;The coordinate string going to be put onto the navigation</span>
 <span class="sd">                bar.&quot;&quot;&quot;</span>
+                <span class="c1"># The pixel locations.</span>
                 <span class="n">x_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
                 <span class="n">y_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-                <span class="n">coord_string</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{x_int:d}</span><span class="s2">, </span><span class="si">{y_int:d}</span><span class="s2">] = </span><span class="si">{z_flt:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">x_int</span><span class="o">=</span><span class="n">x_index</span><span class="p">,</span>
-                    <span class="n">y_int</span><span class="o">=</span><span class="n">y_index</span><span class="p">,</span>
-                    <span class="n">z_flt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span><span class="o">.</span><span class="n">plotted_data</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span> <span class="n">x_index</span><span class="p">],</span>
+                <span class="n">x_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{x_int:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_int</span><span class="o">=</span><span class="n">x_index</span><span class="p">)</span>
+                <span class="n">y_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{y_int:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_int</span><span class="o">=</span><span class="n">y_index</span><span class="p">)</span>
+                <span class="c1"># Extracting the data.</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">z_float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span><span class="o">.</span><span class="n">plotted_data</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span> <span class="n">x_index</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="c1"># There is no data to index.</span>
+                    <span class="n">z_coord_string</span> <span class="o">=</span> <span class="s2">&quot;NaN&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Parse the string from the number provided.</span>
+                    <span class="n">z_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{z_flt:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z_flt</span><span class="o">=</span><span class="n">z_float</span><span class="p">)</span>
+
+                <span class="c1"># Compiling it all together.</span>
+                <span class="n">coord_string</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{x_str}</span><span class="s2">, </span><span class="si">{y_str}</span><span class="s2">] = </span><span class="si">{z_str}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">x_str</span><span class="o">=</span><span class="n">x_coord_string</span><span class="p">,</span> <span class="n">y_str</span><span class="o">=</span><span class="n">y_coord_string</span><span class="p">,</span> <span class="n">z_str</span><span class="o">=</span><span class="n">z_coord_string</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="n">coord_string</span>
 

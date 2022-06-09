@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.solution module &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.orbit.solution module &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -439,6 +439,26 @@ of an orbit.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.orbit.solution._vehicle_custom_orbit">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.orbit.solution.</span></span><span class="sig-name descname"><span class="pre">_vehicle_custom_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/orbit/solution.html#_vehicle_custom_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.solution._vehicle_custom_orbit" title="Permalink to this definition"></a></dt>
+<dd><p>This is the vehicle function for the specification of a custom orbit.</p>
+<p>A check is done for the extra vehicle arguments to ensure that the orbital
+elements desired are within the arguments. The observation record is
+not of concern for this vehicle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observation_record</strong> (<em>list</em>) – The MPC standard 80-column record for observations of the asteroid
+by which the orbit shall be computed from.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dict</em>) – The arguments to be passed to the Engine class to help its creation
+and solving abilities. In this case, it is just the orbital elements
+as defined.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

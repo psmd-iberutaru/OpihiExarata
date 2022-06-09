@@ -121,8 +121,8 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             True,
             False,
         )
-        # The rates from JPL are in arcseconds per hour, but the ephemeris 
-        # parsing already handled the unit conversion. The average should be 
+        # The rates from JPL are in arcseconds per hour, but the ephemeris
+        # parsing already handled the unit conversion. The average should be
         # fine for this case.
         self.ra_velocity = np.nanmean(jpl_ra_rate[nearby_records])
         self.dec_velocity = np.nanmean(jpl_dec_rate[nearby_records])
@@ -218,8 +218,9 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         if soe_index is None or eoe_index is None:
             raise error.WebRequestError(
                 "The demarcations for the ephemeris were not found, it is likely that"
-                " the web request sent was incorrect. The response from the API: \n {r}"
-                .format(r=response_text)
+                " the web request sent was incorrect. The response from the API: \n {r}".format(
+                    r=response_text
+                )
             )
         # Using the demarcations to extract the ephemeris section of the
         # query lines. We do not need the demarcations themselves though.
@@ -233,12 +234,12 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             # The solar presence is not really relevant and because of its
             # formatting, screws up with the delimitation as "nighttime" is
             # denoted by a space character. We remove it here.
-            if len(line.split())  == 15:
+            if len(line.split()) == 15:
                 # There exists the state of the Sun, we do not need it.
                 line_sun_split = line.split()
                 line_split = line_sun_split[:2] + line_sun_split[3:]
-            elif len(line.split())  == 14:
-                # The sun information is hidden as consecutive spaces. 
+            elif len(line.split()) == 14:
+                # The sun information is hidden as consecutive spaces.
                 line_split = line.split()
             else:
                 raise error.UndiscoveredError(

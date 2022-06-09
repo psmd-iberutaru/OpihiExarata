@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -217,7 +217,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.ephemeris</span> <span class="k">as</span> <span class="nn">ephemeris</span>
 
 
-<div class="viewcode-block" id="OpihiSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the main class which acts as a collection container of</span>
 <span class="sd">    solution classes. It facilitates the interaction between the solution</span>
 <span class="sd">    classes and the GUI.</span>
@@ -621,25 +621,28 @@
                 <span class="s2">&quot; astrometric solution needs to be called and run first.&quot;</span>
             <span class="p">)</span>
 
+        <span class="c1"># Check that the proper asteroid information has been provided. If</span>
+        <span class="c1"># the orbit defined is custom however, these checks should be skipped.</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">):</span>
+            <span class="n">asteroid_name</span> <span class="o">=</span> <span class="s2">&quot;custom&quot;</span>
+            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Ensuring there is no unintentional modification to the name</span>
+            <span class="c1"># or history.</span>
+            <span class="n">asteroid_name</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span><span class="p">)</span>
+            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_history</span><span class="p">)</span>
         <span class="c1"># If asteroid information is not provided, then nothing can be solved.</span>
         <span class="c1"># As there is no information.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">asteroid_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
                 <span class="s2">&quot;The orbit of an asteroid cannot be solved as no asteroid name has been&quot;</span>
                 <span class="s2">&quot; provided by which to fill in the MPC record.&quot;</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Ensuring there is no unintentional modification to the name.</span>
-            <span class="n">asteroid_name</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_history</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">asteroid_history</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
                 <span class="s2">&quot;The orbit of an asteroid cannot be solved as no history of the orbit&quot;</span>
                 <span class="s2">&quot; of the asteroid has been provided.&quot;</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Ensuring that the history of the asteroid does not change for</span>
-            <span class="c1"># some reason.</span>
-            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_history</span><span class="p">)</span>
 
         <span class="c1"># Using the defaults if an overriding value was not provided.</span>
         <span class="n">asteroid_location</span> <span class="o">=</span> <span class="p">(</span>
@@ -651,7 +654,7 @@
                 <span class="s2">&quot; parameters have been provided.&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Splitting is nicer on the notational.</span>
+            <span class="c1"># Splitting is nicer on the notational side.</span>
             <span class="n">asteroid_x</span><span class="p">,</span> <span class="n">asteroid_y</span> <span class="o">=</span> <span class="n">asteroid_location</span>
             <span class="c1"># The location of the asteroid needs to be transformed to RA and DEC.</span>
             <span class="n">asteroid_ra</span><span class="p">,</span> <span class="n">asteroid_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">pixel_to_sky_coordinates</span><span class="p">(</span>
@@ -760,14 +763,14 @@
         <span class="n">mpc_table</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">mpcrecord</span><span class="o">.</span><span class="n">blank_minor_planet_table</span><span class="p">()</span>
         <span class="n">current_data</span> <span class="o">=</span> <span class="p">{}</span>
 
+        <span class="c1"># If this system is going to deal with provisional numbers is currently</span>
+        <span class="c1"># beyond the design scope. May change in the future.</span>
+        <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;minor_planet_number&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
         <span class="c1"># Assuming the name is the MPC provisional number as is common.</span>
         <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;provisional_number&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
         <span class="p">)</span>
-
-        <span class="c1"># If this system is going to deal with provisional numbers is currently</span>
-        <span class="c1"># beyond the design scope. May change in the future.</span>
-        <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;provisional_number&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># It is practically guaranteed that this observation is not the</span>
         <span class="c1"># discovery observation.</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -212,7 +212,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
 
 
-<div class="viewcode-block" id="OrbitalSolution"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution">[docs]</a><span class="k">class</span> <span class="nc">OrbitalSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OrbitalSolution"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution">[docs]</a><span class="k">class</span> <span class="nc">OrbitalSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the class which solves a record of observations to derive the</span>
 <span class="sd">    orbital parameters of asteroids or objects in general. A record of</span>
 <span class="sd">    observations must be provided.</span>
@@ -255,7 +255,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="OrbitalSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{}</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The initialization function. Provided the list of observations,</span>
 <span class="sd">        solves the orbit for the Keplarian orbits.</span>
@@ -269,9 +272,9 @@
 <span class="sd">            The engine which will be used to complete the orbital elements</span>
 <span class="sd">            from the observation record.</span>
 <span class="sd">        vehicle_args : dictionary</span>
-<span class="sd">            If the vehicle function for the provided solver engine needs </span>
-<span class="sd">            extra arguments not otherwise provided by the standard input, </span>
-<span class="sd">            they are given here. </span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra arguments not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -299,6 +302,12 @@
             <span class="c1"># Solve using Orbfit.</span>
             <span class="n">raw_orbit_results</span> <span class="o">=</span> <span class="n">_vehicle_orbfit_orbit_determiner</span><span class="p">(</span>
                 <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">):</span>
+            <span class="c1"># A custom orbit has been desired, the vehicle function arguments</span>
+            <span class="c1"># contain the values needed.</span>
+            <span class="n">raw_orbit_results</span> <span class="o">=</span> <span class="n">_vehicle_custom_orbit</span><span class="p">(</span>
+                <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># There is no vehicle function, the engine is not supported.</span>
@@ -584,6 +593,58 @@
         <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">],</span>
         <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">],</span>
         <span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">:</span> <span class="n">epoch_julian_day</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">orbit_results</span></div>
+
+
+<div class="viewcode-block" id="_vehicle_custom_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution._vehicle_custom_orbit">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_custom_orbit</span><span class="p">(</span><span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is the vehicle function for the specification of a custom orbit.</span>
+
+<span class="sd">    A check is done for the extra vehicle arguments to ensure that the orbital</span>
+<span class="sd">    elements desired are within the arguments. The observation record is</span>
+<span class="sd">    not of concern for this vehicle.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    observation_record : list</span>
+<span class="sd">        The MPC standard 80-column record for observations of the asteroid</span>
+<span class="sd">        by which the orbit shall be computed from.</span>
+<span class="sd">    vehicle_args : dict</span>
+<span class="sd">        The arguments to be passed to the Engine class to help its creation</span>
+<span class="sd">        and solving abilities. In this case, it is just the orbital elements</span>
+<span class="sd">        as defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We do not care about the observation record.</span>
+    <span class="n">__</span> <span class="o">=</span> <span class="n">observation_record</span>
+
+    <span class="c1"># Attempt to create the engine; if some of the values are not in the</span>
+    <span class="c1"># vehicle, then raise an error back.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">custom_orbit</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">(</span><span class="o">**</span><span class="n">vehicle_args</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+            <span class="s2">&quot;The custom orbit engine cannot be created as the required orbital&quot;</span>
+            <span class="s2">&quot; parameters have not been passed down through the vehicle arguments.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Converting the the results from this engine to the standard output</span>
+    <span class="c1"># expected by the vehicle functions for orbit solving. Of course, we are</span>
+    <span class="c1"># just passing the information back up.</span>
+    <span class="n">orbit_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;semimajor_axis&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">,</span>
+        <span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">semimajor_axis_error</span><span class="p">,</span>
+        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span>
+        <span class="s2">&quot;eccentricity_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">eccentricity_error</span><span class="p">,</span>
+        <span class="s2">&quot;inclination&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">inclination</span><span class="p">,</span>
+        <span class="s2">&quot;inclination_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">inclination_error</span><span class="p">,</span>
+        <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">,</span>
+        <span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">longitude_ascending_node_error</span><span class="p">,</span>
+        <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">argument_perihelion</span><span class="p">,</span>
+        <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">argument_perihelion_error</span><span class="p">,</span>
+        <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">mean_anomaly</span><span class="p">,</span>
+        <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">mean_anomaly_error</span><span class="p">,</span>
+        <span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">epoch_julian_day</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">orbit_results</span></div>

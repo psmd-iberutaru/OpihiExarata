@@ -7,7 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   opihiexarata.gui.qtui.qtui_primary
+   opihiexarata.gui.qtui.qtui_manual
    opihiexarata.gui.qtui.qtui_selector
 
 Module contents

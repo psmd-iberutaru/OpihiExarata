@@ -235,10 +235,10 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # The first entries are just hard-coded to be first because they are
         # the basic required columns.
         base_columns = library.phototable.INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES
-        # 
-        intersection_colnames = tuple(set(
-            base_columns + astrometric_table.colnames + photometric_table.colnames
-        ))
+        #
+        intersection_colnames = tuple(
+            set(base_columns + astrometric_table.colnames + photometric_table.colnames)
+        )
         # Making the table.
         intersection_table = ap_table.Table(masked=True, names=intersection_colnames)
 

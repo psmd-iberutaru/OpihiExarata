@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -211,7 +211,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.propagate</span> <span class="k">as</span> <span class="nn">propagate</span>
 
 
-<div class="viewcode-block" id="PropagativeSolution"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution">[docs]</a><span class="k">class</span> <span class="nc">PropagativeSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="PropagativeSolution"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution">[docs]</a><span class="k">class</span> <span class="nc">PropagativeSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The general solution class for asteroid propagation.</span>
 
 <span class="sd">    This uses the recent past location of asteroids to determine their</span>
@@ -265,7 +265,7 @@
         <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
         <span class="n">obs_time</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">,</span>
-        <span class="n">vehicle_args</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The instantiation of the propagation solution.</span>
 
@@ -284,9 +284,9 @@
 <span class="sd">            The propagation solver engine class that will be used to compute</span>
 <span class="sd">            the propagation solution.</span>
 <span class="sd">        vehicle_args : dictionary</span>
-<span class="sd">            If the vehicle function for the provided solver engine needs </span>
-<span class="sd">            extra parameters not otherwise provided by the standard input, </span>
-<span class="sd">            they are given here. </span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

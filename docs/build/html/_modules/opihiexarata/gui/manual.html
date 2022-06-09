@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.primary &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -189,7 +189,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>opihiexarata.gui.primary</li>
+      <li>opihiexarata.gui.manual</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -198,9 +198,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for opihiexarata.gui.primary</h1><div class="highlight"><pre>
+  <h1>Source code for opihiexarata.gui.manual</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">The primary GUI window.</span>
+<span class="sd">The manual GUI window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -228,9 +228,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
 
 
-<div class="viewcode-block" id="OpihiPrimaryWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow">[docs]</a><span class="k">class</span> <span class="nc">OpihiPrimaryWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiManualWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow">[docs]</a><span class="k">class</span> <span class="nc">OpihiManualWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The GUI that is responsible for interaction between the user and the</span>
-<span class="sd">    two primary Opihi solutions, the image (OpihiPreprocessSolution) and the</span>
+<span class="sd">    two Opihi solutions, the image (OpihiPreprocessSolution) and the</span>
 <span class="sd">    results (OpihiSolution).</span>
 
 <span class="sd">    Only non-GUI attributes are listed here.</span>
@@ -246,8 +246,8 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The primary GUI window for OpihiExarata. This interacts directly</span>
+<div class="viewcode-block" id="OpihiManualWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The manual GUI window for OpihiExarata. This interacts directly</span>
 <span class="sd">        with the total solution object of Opihi.</span>
 
 <span class="sd">        Parameters</span>
@@ -260,8 +260,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Creating the GUI itself using the Qt framework and the converted</span>
         <span class="c1"># Qt designer files.</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">OpihiPrimaryWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">qtui</span><span class="o">.</span><span class="n">Ui_PrimaryWindow</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OpihiManualWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">qtui</span><span class="o">.</span><span class="n">Ui_ManualWindow</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># Establishing the defaults for all of the relevant attributes.</span>
@@ -332,7 +332,9 @@
         <span class="p">)</span>
 
         <span class="c1"># Ephemeris-specific buttons.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_ephemeris_solve_ephemeris</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_orbit_solve_ephemeris</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_ephemeris_solve_ephemeris</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_orbit_solve_ephemeris</span>
+        <span class="p">)</span>
 
         <span class="c1"># Propagate-specific buttons.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_propagate_solve_propagation</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -375,18 +377,31 @@
             <span class="sd">&quot;&quot;&quot;A simple function class to properly format the navigation bar</span>
 <span class="sd">            coordinate text. This assumes the current structure of the GUI.&quot;&quot;&quot;</span>
 
-            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui_instance</span><span class="p">:</span> <span class="n">OpihiPrimaryWindow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui_instance</span><span class="p">:</span> <span class="n">OpihiManualWindow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span> <span class="o">=</span> <span class="n">gui_instance</span>
                 <span class="k">return</span> <span class="kc">None</span>
 
             <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;The coordinate string going to be put onto the navigation</span>
 <span class="sd">                bar.&quot;&quot;&quot;</span>
+                <span class="c1"># The pixel locations.</span>
                 <span class="n">x_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
                 <span class="n">y_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-                <span class="n">z_float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span> <span class="n">x_index</span><span class="p">]</span>
-                <span class="n">coord_string</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{x_int:d}</span><span class="s2">, </span><span class="si">{y_int:d}</span><span class="s2">] = </span><span class="si">{z_flt:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">x_int</span><span class="o">=</span><span class="n">x_index</span><span class="p">,</span> <span class="n">y_int</span><span class="o">=</span><span class="n">y_index</span><span class="p">,</span> <span class="n">z_flt</span><span class="o">=</span><span class="n">z_float</span>
+                <span class="n">x_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{x_int:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_int</span><span class="o">=</span><span class="n">x_index</span><span class="p">)</span>
+                <span class="n">y_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{y_int:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_int</span><span class="o">=</span><span class="n">y_index</span><span class="p">)</span>
+                <span class="c1"># Extracting the data.</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">z_float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span> <span class="n">x_index</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="c1"># There is no data to index.</span>
+                    <span class="n">z_coord_string</span> <span class="o">=</span> <span class="s2">&quot;NaN&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Parse the string from the number provided.</span>
+                    <span class="n">z_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{z_flt:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z_flt</span><span class="o">=</span><span class="n">z_float</span><span class="p">)</span>
+
+                <span class="c1"># Compiling it all together.</span>
+                <span class="n">coord_string</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{x_str}</span><span class="s2">, </span><span class="si">{y_str}</span><span class="s2">] = </span><span class="si">{z_str}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">x_str</span><span class="o">=</span><span class="n">x_coord_string</span><span class="p">,</span> <span class="n">y_str</span><span class="o">=</span><span class="n">y_coord_string</span><span class="p">,</span> <span class="n">z_str</span><span class="o">=</span><span class="n">z_coord_string</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="n">coord_string</span>
 
@@ -578,6 +593,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no image (and thus no solution class), there is nothing</span>
+        <span class="c1"># to do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># Determine the engine from user input via the drop down menu. The</span>
         <span class="c1"># recognizing text ought to be case insensitive, makes life easier.</span>
         <span class="n">input_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_astrometry_solve_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -585,6 +605,7 @@
         <span class="c1"># Search programed engines for the one specified.</span>
         <span class="k">if</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;astrometry.net nova&quot;</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometryNetWebAPIEngine</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
                 <span class="s2">&quot;The provided input engine name `</span><span class="si">{in_eng}</span><span class="s2">` is not implemented and&quot;</span>
@@ -594,7 +615,9 @@
             <span class="p">)</span>
 
         <span class="c1"># Solve the field using the provided engine.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_astrometry</span><span class="p">(</span><span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_astrometry</span><span class="p">(</span>
+            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+        <span class="p">)</span>
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
@@ -698,6 +721,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no image (and thus no solution class), there is nothing</span>
+        <span class="c1"># to do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># Determine the engine from user input via the drop down menu. The</span>
         <span class="c1"># recognizing text ought to be case insensitive, makes life easier.</span>
         <span class="n">input_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_photometry_solve_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -705,6 +733,7 @@
         <span class="c1"># Search programed engines for the one specified.</span>
         <span class="k">if</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;pan-starrs 3pi dr2 mast&quot;</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PanstarrsMastWebAPIEngine</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
                 <span class="s2">&quot;The provided input engine name `</span><span class="si">{in_eng}</span><span class="s2">` is not implemented and&quot;</span>
@@ -713,7 +742,9 @@
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_photometry</span><span class="p">(</span><span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_photometry</span><span class="p">(</span>
+            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+        <span class="p">)</span>
 
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
@@ -732,6 +763,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no image (and thus no solution class), there is nothing</span>
+        <span class="c1"># to do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># Determine the engine from user input via the drop down menu. The</span>
         <span class="c1"># recognizing text ought to be case insensitive, makes life easier.</span>
         <span class="n">input_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_orbit_solve_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -739,6 +775,13 @@
         <span class="c1"># Search programed engines for the one specified.</span>
         <span class="k">if</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;orbfit&quot;</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbfitOrbitDeterminerEngine</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+            <span class="n">engine</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span>
+            <span class="c1"># The custom orbit requires than an orbit be specified, we</span>
+            <span class="c1"># commandeer the orbital element reporting window.</span>
+            <span class="n">custom_orbit_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_custom_orbital_elements</span><span class="p">()</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="n">custom_orbit_elements</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
                 <span class="s2">&quot;The provided input engine name `</span><span class="si">{in_eng}</span><span class="s2">` is not implemented and&quot;</span>
@@ -747,7 +790,9 @@
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_orbit</span><span class="p">(</span><span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_orbit</span><span class="p">(</span>
+            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+        <span class="p">)</span>
 
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
@@ -767,6 +812,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no image (and thus no solution class), there is nothing</span>
+        <span class="c1"># to do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># Determine the engine from user input via the drop down menu. The</span>
         <span class="c1"># recognizing text ought to be case insensitive, makes life easier.</span>
         <span class="n">input_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_ephemeris_solve_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -774,6 +824,7 @@
         <span class="c1"># Search programed engines for the one specified.</span>
         <span class="k">if</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;jpl horizons&quot;</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">JPLHorizonsWebAPIEngine</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
                 <span class="s2">&quot;The provided input engine name `</span><span class="si">{in_eng}</span><span class="s2">` is not implemented and&quot;</span>
@@ -782,7 +833,9 @@
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_ephemeris</span><span class="p">(</span><span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_ephemeris</span><span class="p">(</span>
+            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+        <span class="p">)</span>
 
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
@@ -791,7 +844,7 @@
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_propagate_custom_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Solving for the location of the target through the ephemeris based </span>
+        <span class="sd">&quot;&quot;&quot;Solving for the location of the target through the ephemeris based</span>
 <span class="sd">        on the time and date provided by the user.</span>
 
 <span class="sd">        Parameters</span>
@@ -849,8 +902,6 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-
-
     <span class="k">def</span> <span class="nf">__connect_push_button_propagate_solve_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;A routine to use the current observation and historical observations</span>
 <span class="sd">        to derive the propagation solution.</span>
@@ -863,6 +914,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no image (and thus no solution class), there is nothing</span>
+        <span class="c1"># to do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># Determine the engine from user input via the drop down menu. The</span>
         <span class="c1"># recognizing text ought to be case insensitive, makes life easier.</span>
         <span class="n">input_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_propagate_solve_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -870,8 +926,10 @@
         <span class="c1"># Search programed engines for the one specified.</span>
         <span class="k">if</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">LinearPropagationEngine</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">elif</span> <span class="n">input_engine_name</span> <span class="o">==</span> <span class="s2">&quot;quadratic&quot;</span><span class="p">:</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">QuadraticPropagationEngine</span>
+            <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
                 <span class="s2">&quot;The provided input engine name `</span><span class="si">{in_eng}</span><span class="s2">` is not implemented and&quot;</span>
@@ -880,7 +938,9 @@
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_propagate</span><span class="p">(</span><span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_propagate</span><span class="p">(</span>
+            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+        <span class="p">)</span>
 
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
@@ -946,8 +1006,6 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-
-
     <span class="k">def</span> <span class="nf">__get_mpc_record_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This is a function which derives the MPC record filename from</span>
 <span class="sd">        naming conventions and the current fits file name.</span>
@@ -977,7 +1035,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">mpc_record_filename</span>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow._preprocess_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow._preprocess_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">_preprocess_fits_file</span><span class="p">(</span>
+<div class="viewcode-block" id="OpihiManualWindow._preprocess_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._preprocess_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">_preprocess_fits_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">raw_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">process_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Using the provided filename, preprocess the fits file listed.</span>
@@ -1019,7 +1077,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">process_filename</span></div>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow._load_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow._load_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">_load_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow._load_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._load_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">_load_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Load a fits file into the GUI to derive all of the solutions needed.</span>
 
 <span class="sd">        This loads the fits file into an OpihiSolution class for which this</span>
@@ -1102,7 +1160,112 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow.clear_dynamic_label_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow.clear_dynamic_label_text">[docs]</a>    <span class="k">def</span> <span class="nf">clear_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow._parse_custom_orbital_elements"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._parse_custom_orbital_elements">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_custom_orbital_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function takes the textual form of the orbital elements as</span>
+<span class="sd">        entered and tries to parse it into a set of orbital elements and errors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        orbital_elements : dictionary</span>
+<span class="sd">            A dictionary of the orbital elements and their errors, if they</span>
+<span class="sd">            exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Extracting all of the values from the text.</span>
+        <span class="n">sm_axis_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_semimajor_axis</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">ecc_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_eccentricity</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">incli_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_inclination</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">as_node_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_ascending_node</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">peri_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_perihelion</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">m_anom_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_mean_anomaly</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">epoch_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_epoch</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># Parse if there is an error bar or not. Writing a function because</span>
+        <span class="c1"># this is going to be happening a lot.</span>
+        <span class="k">def</span> <span class="nf">error_bar_parse</span><span class="p">(</span><span class="n">entry_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;The deliminator for an error bar is any non numeric or decimal</span>
+<span class="sd">            marker.&quot;&quot;&quot;</span>
+            <span class="n">entry_string</span> <span class="o">=</span> <span class="n">entry_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">non_demlim_marks</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="s2">&quot;1234567890.,&quot;</span><span class="p">)</span>
+            <span class="c1"># In the event there are more than one character acting as</span>
+            <span class="c1"># a deliminator.</span>
+            <span class="n">lower_delim_index</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">upper_delim_index</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">chardex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">entry_string</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">chardex</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_demlim_marks</span><span class="p">:</span>
+                    <span class="c1"># This character is a deliminator, mark it.</span>
+                    <span class="k">if</span> <span class="n">lower_delim_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># This is the first time a deliminator character has</span>
+                        <span class="c1"># been encountered.</span>
+                        <span class="n">lower_delim_index</span> <span class="o">=</span> <span class="n">index</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Other deliminator characters have been encountered so</span>
+                        <span class="c1"># this is the last known deliminator.</span>
+                        <span class="n">upper_delim_index</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="c1"># Split the string based on the deliminator for the value and</span>
+            <span class="c1"># error segment.</span>
+            <span class="k">if</span> <span class="n">lower_delim_index</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upper_delim_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># There was never a deliminator, there is only one value and</span>
+                <span class="c1"># no error bars.</span>
+                <span class="n">value_number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">entry_string</span><span class="p">)</span>
+                <span class="n">error_number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">elif</span> <span class="n">lower_delim_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upper_delim_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># There is only one deliminator character, use this to split</span>
+                <span class="c1"># the string.</span>
+                <span class="n">value_string</span> <span class="o">=</span> <span class="n">entry_string</span><span class="p">[:</span><span class="n">lower_delim_index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">error_string</span> <span class="o">=</span> <span class="n">entry_string</span><span class="p">[</span><span class="n">lower_delim_index</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="c1"># Converting to values.</span>
+                <span class="n">value_number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_string</span><span class="p">)</span>
+                <span class="n">error_number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">lower_delim_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upper_delim_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># There are more than one characters for the deliminator.</span>
+                <span class="n">value_string</span> <span class="o">=</span> <span class="n">entry_string</span><span class="p">[:</span><span class="n">lower_delim_index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">error_string</span> <span class="o">=</span> <span class="n">entry_string</span><span class="p">[</span><span class="n">upper_delim_index</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="c1"># Converting to values.</span>
+                <span class="n">value_number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_string</span><span class="p">)</span>
+                <span class="n">error_number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+            <span class="c1"># All done.</span>
+            <span class="k">return</span> <span class="n">value_number</span><span class="p">,</span> <span class="n">error_number</span>
+
+        <span class="c1"># Parsing the strings.</span>
+        <span class="n">sm_axis_val</span><span class="p">,</span> <span class="n">sm_axis_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">sm_axis_str</span><span class="p">)</span>
+        <span class="n">ecc_val</span><span class="p">,</span> <span class="n">ecc_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">ecc_str</span><span class="p">)</span>
+        <span class="n">incli_val</span><span class="p">,</span> <span class="n">incli_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">incli_str</span><span class="p">)</span>
+        <span class="n">as_node_val</span><span class="p">,</span> <span class="n">as_node_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">as_node_str</span><span class="p">)</span>
+        <span class="n">peri_val</span><span class="p">,</span> <span class="n">peri_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">peri_str</span><span class="p">)</span>
+        <span class="n">m_anom_val</span><span class="p">,</span> <span class="n">m_anom_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">m_anom_str</span><span class="p">)</span>
+        <span class="n">epoch_val</span><span class="p">,</span> <span class="n">epoch_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">epoch_str</span><span class="p">)</span>
+        <span class="c1"># The Epoch should not have an error.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">epoch_err</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The Epoch value is detecting that it is specified with an error term&quot;</span>
+                <span class="s2">&quot; with a non-numeric deliminator. However, the Epoch should not have an&quot;</span>
+                <span class="s2">&quot; error specified.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># The orbital element dictionary which would be used for a custom</span>
+        <span class="c1"># orbit.</span>
+        <span class="n">orbital_elements</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;semimajor_axis&quot;</span><span class="p">:</span> <span class="n">sm_axis_val</span><span class="p">,</span>
+            <span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">:</span> <span class="n">sm_axis_err</span><span class="p">,</span>
+            <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">ecc_val</span><span class="p">,</span>
+            <span class="s2">&quot;eccentricity_error&quot;</span><span class="p">:</span> <span class="n">ecc_err</span><span class="p">,</span>
+            <span class="s2">&quot;inclination&quot;</span><span class="p">:</span> <span class="n">incli_val</span><span class="p">,</span>
+            <span class="s2">&quot;inclination_error&quot;</span><span class="p">:</span> <span class="n">incli_err</span><span class="p">,</span>
+            <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">:</span> <span class="n">as_node_val</span><span class="p">,</span>
+            <span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">:</span> <span class="n">as_node_err</span><span class="p">,</span>
+            <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">:</span> <span class="n">peri_val</span><span class="p">,</span>
+            <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">peri_err</span><span class="p">,</span>
+            <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">m_anom_val</span><span class="p">,</span>
+            <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">m_anom_err</span><span class="p">,</span>
+            <span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">:</span> <span class="n">epoch_val</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">orbital_elements</span></div>
+
+<div class="viewcode-block" id="OpihiManualWindow.clear_dynamic_label_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.clear_dynamic_label_text">[docs]</a>    <span class="k">def</span> <span class="nf">clear_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Clear all of the dynamic label text and other related fields,</span>
 <span class="sd">        this is traditionally done just before a new image is going to be</span>
 <span class="sd">        introduced.</span>
@@ -1148,13 +1311,17 @@
 
         <span class="c1">## Resetting Ephemeris information.</span>
         <span class="c1">#####</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_ra_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+VV.VVV&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_dec_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+VV.VVV&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_ra_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAAeXX&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_dec_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAAeXX&quot;</span><span class="p">)</span>
 
         <span class="c1">## Resetting Propagate information.</span>
         <span class="c1">#####</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_ra_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+VV.VVV&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+VV.VVV&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_ra_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAA&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAA&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_ra_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAAeXX&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAAeXX&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span>
             <span class="s2">&quot;YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS&quot;</span>
         <span class="p">)</span>
@@ -1165,7 +1332,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow.refresh_dynamic_label_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow.refresh_dynamic_label_text">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow.refresh_dynamic_label_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.refresh_dynamic_label_text">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Refresh all of the dynamic label text, this fills out the</span>
 <span class="sd">        information based on the current solutions available and solved.</span>
 
@@ -1345,7 +1512,7 @@
         <span class="k">def</span> <span class="nf">orb_str_conv</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
             <span class="sd">&quot;&quot;&quot;Unified string formatting for orbital element values and errors.&quot;&quot;&quot;</span>
             <span class="c1"># Rounding values to sensible values.</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
             <span class="n">err</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
             <span class="c1"># Building the string, allowing for the usage of the plus minus</span>
             <span class="c1"># symbol to demark the error.</span>
@@ -1355,11 +1522,11 @@
 
         <span class="c1"># Using the above function to derive the display strings for all of the</span>
         <span class="c1"># elements.</span>
-        <span class="n">eccentricity_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
-            <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">eccentricity_error</span>
-        <span class="p">)</span>
         <span class="n">semimajor_axis_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
             <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">semimajor_axis_error</span>
+        <span class="p">)</span>
+        <span class="n">eccentricity_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
+            <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">eccentricity_error</span>
         <span class="p">)</span>
         <span class="n">inclination_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
             <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">inclination</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">inclination_error</span>
@@ -1371,16 +1538,20 @@
         <span class="n">perihelion_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
             <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">argument_perihelion</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">argument_perihelion_error</span>
         <span class="p">)</span>
-        <span class="n">true_anomaly_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
-            <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">true_anomaly</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">true_anomaly_error</span>
+        <span class="n">mean_anomaly_string</span> <span class="o">=</span> <span class="n">orb_str_conv</span><span class="p">(</span>
+            <span class="n">val</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">orbitals</span><span class="o">.</span><span class="n">mean_anomaly_error</span>
         <span class="p">)</span>
         <span class="c1"># Changing the text using the derived strings.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_eccentricity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">eccentricity_string</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_semimajor_axis</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">semimajor_axis_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_eccentricity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">eccentricity_string</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_inclination</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">inclination_string</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_ascending_node</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">ascending_node_string</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_perihelion</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">perihelion_string</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_true_anomaly</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">true_anomaly_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_mean_anomaly</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mean_anomaly_string</span><span class="p">)</span>
+
+        <span class="c1"># Maximum precision on the epoch Julian day is desired however.</span>
+        <span class="n">julian_day_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">orbitals</span><span class="o">.</span><span class="n">epoch_julian_day</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_orbit_epoch</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">julian_day_string</span><span class="p">)</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -1412,7 +1583,9 @@
 
         <span class="c1"># Everything beyond this point requires an orbital solution, if</span>
         <span class="c1"># it does not exist, there is no point in continuing, exiting early.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="p">,</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="p">,</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span>
+        <span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ephemeritics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span>
@@ -1425,15 +1598,21 @@
         <span class="c1"># And acceleration, as degrees per second squared.</span>
         <span class="n">ra_a_deg</span> <span class="o">=</span> <span class="n">ephemeritics</span><span class="o">.</span><span class="n">ra_acceleration</span>
         <span class="n">dec_a_deg</span> <span class="o">=</span> <span class="n">ephemeritics</span><span class="o">.</span><span class="n">dec_acceleration</span>
-        <span class="c1"># Converting to the more familiar arcsec/s. Round after and prepare</span>
-        <span class="c1"># to make it a string for the GUI.</span>
-        <span class="k">def</span> <span class="nf">deg_to_arcsec_str</span><span class="p">(</span><span class="n">degree</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">degree</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="c1"># Converting to the more familiar arcsec/s from deg/s along with</span>
+        <span class="c1"># arcsec/s/s from deg/s/s. Round after and prepare to make it a</span>
+        <span class="c1"># string for the GUI.</span>
+        <span class="k">def</span> <span class="nf">vel_deg_to_arcsec_str</span><span class="p">(</span><span class="n">degree</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">degree</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-        <span class="n">ra_v_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_v_deg</span><span class="p">)</span>
-        <span class="n">dec_v_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_v_deg</span><span class="p">)</span>
-        <span class="n">ra_a_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_a_deg</span><span class="p">)</span>
-        <span class="n">dec_a_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_a_deg</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">accl_deg_to_arcsec_str</span><span class="p">(</span><span class="n">degree</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="c1"># Accelerations are usually a lot less and thus should get their</span>
+            <span class="c1"># own method of manipulation.</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{acc:2.3e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="o">=</span><span class="n">degree</span><span class="p">))</span>
+
+        <span class="n">ra_v_arcsec_str</span> <span class="o">=</span> <span class="n">vel_deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_v_deg</span><span class="p">)</span>
+        <span class="n">dec_v_arcsec_str</span> <span class="o">=</span> <span class="n">vel_deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_v_deg</span><span class="p">)</span>
+        <span class="n">ra_a_arcsec_str</span> <span class="o">=</span> <span class="n">accl_deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_a_deg</span><span class="p">)</span>
+        <span class="n">dec_a_arcsec_str</span> <span class="o">=</span> <span class="n">accl_deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_a_deg</span><span class="p">)</span>
         <span class="c1"># Update the dynamic text.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_ra_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">ra_v_arcsec_str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_dec_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dec_v_arcsec_str</span><span class="p">)</span>
@@ -1485,15 +1664,21 @@
         <span class="c1"># And acceleration, as degrees per second squared.</span>
         <span class="n">ra_a_deg</span> <span class="o">=</span> <span class="n">propagatives</span><span class="o">.</span><span class="n">ra_acceleration</span>
         <span class="n">dec_a_deg</span> <span class="o">=</span> <span class="n">propagatives</span><span class="o">.</span><span class="n">dec_acceleration</span>
-        <span class="c1"># Converting to the more familiar arcsec/s. Round after and prepare</span>
-        <span class="c1"># to make it a string for the GUI.</span>
-        <span class="k">def</span> <span class="nf">deg_to_arcsec_str</span><span class="p">(</span><span class="n">degree</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">degree</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="c1"># Converting to the more familiar arcsec/s from deg/s along with</span>
+        <span class="c1"># arcsec/s/s from deg/s/s. Round after and prepare to make it a</span>
+        <span class="c1"># string for the GUI.</span>
+        <span class="k">def</span> <span class="nf">vel_deg_to_arcsec_str</span><span class="p">(</span><span class="n">degree</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">degree</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-        <span class="n">ra_v_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_v_deg</span><span class="p">)</span>
-        <span class="n">dec_v_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_v_deg</span><span class="p">)</span>
-        <span class="n">ra_a_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_a_deg</span><span class="p">)</span>
-        <span class="n">dec_a_arcsec_str</span> <span class="o">=</span> <span class="n">deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_a_deg</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">accl_deg_to_arcsec_str</span><span class="p">(</span><span class="n">degree</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="c1"># Accelerations are usually a lot less and thus should get their</span>
+            <span class="c1"># own method of manipulation.</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{acc:2.3e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="o">=</span><span class="n">degree</span><span class="p">))</span>
+
+        <span class="n">ra_v_arcsec_str</span> <span class="o">=</span> <span class="n">vel_deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_v_deg</span><span class="p">)</span>
+        <span class="n">dec_v_arcsec_str</span> <span class="o">=</span> <span class="n">vel_deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_v_deg</span><span class="p">)</span>
+        <span class="n">ra_a_arcsec_str</span> <span class="o">=</span> <span class="n">accl_deg_to_arcsec_str</span><span class="p">(</span><span class="n">ra_a_deg</span><span class="p">)</span>
+        <span class="n">dec_a_arcsec_str</span> <span class="o">=</span> <span class="n">accl_deg_to_arcsec_str</span><span class="p">(</span><span class="n">dec_a_deg</span><span class="p">)</span>
         <span class="c1"># Update the dynamic text.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_ra_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">ra_v_arcsec_str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dec_v_arcsec_str</span><span class="p">)</span>
@@ -1540,7 +1725,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow.redraw_opihi_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow.redraw_opihi_image">[docs]</a>    <span class="k">def</span> <span class="nf">redraw_opihi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow.redraw_opihi_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.redraw_opihi_image">[docs]</a>    <span class="k">def</span> <span class="nf">redraw_opihi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Redraw the Opihi image given that new results may have been added</span>
 <span class="sd">        because some solutions were completed. This modifies the GUI in-place.</span>
 
@@ -1602,7 +1787,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiPrimaryWindow.save_results"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.OpihiPrimaryWindow.save_results">[docs]</a>    <span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow.save_results"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_results">[docs]</a>    <span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Save all of the results of the solutions to date. This is especially</span>
 <span class="sd">        done upon selecting a new image, the previous image results are</span>
 <span class="sd">        saved.</span>
@@ -1647,18 +1832,30 @@
         <span class="k">return</span> <span class="kc">None</span></div></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/opihiexarata.gui.primary.html#opihiexarata.gui.primary.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="start_manual_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.start_manual_window">[docs]</a><span class="k">def</span> <span class="nf">start_manual_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is the function to create the manual window for usage.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Creating the application and its infrastructure.</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
-
-    <span class="n">application</span> <span class="o">=</span> <span class="n">OpihiPrimaryWindow</span><span class="p">()</span>
-
-    <span class="n">application</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span></div>
+    <span class="c1"># The manual GUI window.</span>
+    <span class="n">manual_window</span> <span class="o">=</span> <span class="n">OpihiManualWindow</span><span class="p">()</span>
+    <span class="n">manual_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="c1"># Closing out of the window.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+    <span class="n">start_manual_window</span><span class="p">()</span>
 </pre></div>
 
            </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.6.1 documentation</title>
+  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.6.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -211,7 +211,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-<div class="viewcode-block" id="JPLHorizonsWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">JPLHorizonsWebAPIEngine</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">JPLHorizonsWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This obtains the ephemeris of an asteroid using JPL horizons provided</span>
 <span class="sd">    the Keplerian orbital elements of the asteroid as determined by orbital</span>
 <span class="sd">    solutions.</span>
@@ -310,11 +310,6 @@
         <span class="c1"># Converting the Julian day time to seconds as it is just easier for</span>
         <span class="c1"># the differentials. Using UNIX time as it is easy.</span>
         <span class="n">unix_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">jpl_time</span><span class="p">)</span>
-        <span class="c1"># The rates from JPL are in arcseconds per hour. Convention for this</span>
-        <span class="c1"># software is degrees per second, converting.</span>
-        <span class="n">as_hr_to_dg_s</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ashr</span><span class="p">:</span> <span class="n">ashr</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
-        <span class="n">ra_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="n">jpl_ra_rate</span><span class="p">)</span>
-        <span class="n">dec_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="n">jpl_dec_rate</span><span class="p">)</span>
 
         <span class="c1"># We derive the current velocity rates by the observations closest to</span>
         <span class="c1"># the current time to remove as much second order effects as we can.</span>
@@ -327,9 +322,11 @@
             <span class="kc">True</span><span class="p">,</span>
             <span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="c1"># Using averages to combine the nearby observations.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ra_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">dec_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
+        <span class="c1"># The rates from JPL are in arcseconds per hour, but the ephemeris</span>
+        <span class="c1"># parsing already handled the unit conversion. The average should be</span>
+        <span class="c1"># fine for this case.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">jpl_ra_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">jpl_dec_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
 
         <span class="c1"># We derive the current acceleration rates by assuming constant</span>
         <span class="c1"># acceleration across the sky (ignoring 3rd order differential</span>
@@ -382,10 +379,10 @@
         <span class="c1"># We are assuming constant acceleration, and our time span is not that</span>
         <span class="c1"># large so this should be okay.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">_determining_average_acceleration</span><span class="p">(</span>
-            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">ra_rate</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">jpl_ra_rate</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">_determining_average_acceleration</span><span class="p">(</span>
-            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">dec_rate</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">jpl_dec_rate</span>
         <span class="p">)</span>
 
         <span class="c1"># All done.</span>
@@ -407,8 +404,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Using lines is a lot easier to manage.</span>
         <span class="n">response_lines</span> <span class="o">=</span> <span class="n">response_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="c1"># The ephemeris lines are demarked by $$SOE and $$EOE tags, extracting the</span>
-        <span class="c1"># ephemeris only as that is what we care about.</span>
+        <span class="c1"># The ephemeris lines are demarked by $$SOE and $$EOE tags, extracting</span>
+        <span class="c1"># the ephemeris only as that is what we care about.</span>
         <span class="n">soe_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">eoe_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">response_lines</span><span class="p">):</span>
@@ -418,8 +415,15 @@
                 <span class="n">eoe_index</span> <span class="o">=</span> <span class="n">index</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">continue</span>
-        <span class="c1"># Using the demarcations to extract the ephemeris section of the query lines.</span>
-        <span class="c1"># We do not need the demarcations themselves though.</span>
+        <span class="c1"># Something happened, the demarcations were not found.</span>
+        <span class="k">if</span> <span class="n">soe_index</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">eoe_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The demarcations for the ephemeris were not found, it is likely that&quot;</span>
+                <span class="s2">&quot; the web request sent was incorrect. The response from the API: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{r}</span><span class="s2">&quot;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">response_text</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="c1"># Using the demarcations to extract the ephemeris section of the</span>
+        <span class="c1"># query lines. We do not need the demarcations themselves though.</span>
         <span class="n">ephemeris_lines</span> <span class="o">=</span> <span class="n">response_lines</span><span class="p">[</span><span class="n">soe_index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">eoe_index</span><span class="p">]</span>
 
         <span class="c1"># Parsing the lines individually.</span>
@@ -427,16 +431,24 @@
             <span class="sd">&quot;&quot;&quot;We parse the line into the known parts based on the query.&quot;&quot;&quot;</span>
             <span class="c1"># Removing extra spaces which might cause issues.</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="c1"># The solar presence is not really relevant and because of its formatting,</span>
-            <span class="c1"># screws up with the delimitation as &quot;nighttime&quot; is denoted by a space</span>
-            <span class="c1"># character. We remove it here.</span>
-            <span class="n">line_nosun</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;    &quot;</span> <span class="o">+</span> <span class="n">line</span><span class="p">[</span><span class="mi">29</span><span class="p">:]</span>
+            <span class="c1"># The solar presence is not really relevant and because of its</span>
+            <span class="c1"># formatting, screws up with the delimitation as &quot;nighttime&quot; is</span>
+            <span class="c1"># denoted by a space character. We remove it here.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">15</span><span class="p">:</span>
+                <span class="c1"># There exists the state of the Sun, we do not need it.</span>
+                <span class="n">line_sun_split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">line_split</span> <span class="o">=</span> <span class="n">line_sun_split</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">line_sun_split</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">14</span><span class="p">:</span>
+                <span class="c1"># The sun information is hidden as consecutive spaces.</span>
+                <span class="n">line_split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span><span class="p">(</span>
+                    <span class="s2">&quot;The JPL response has more entries than accountable for.&quot;</span>
+                <span class="p">)</span>
 
-            <span class="c1"># Splitting it into different parts.</span>
-            <span class="n">line_split</span> <span class="o">=</span> <span class="n">line_nosun</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
             <span class="c1"># ...and dealing with the parts.</span>
-            <span class="c1"># The date of the observation location, the month is in text form but</span>
-            <span class="c1"># it is easier to deal with numbers.</span>
+            <span class="c1"># The date of the observation location, the month is in text</span>
+            <span class="c1"># form but it is easier to deal with numbers.</span>
             <span class="n">date</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">year</span><span class="p">,</span> <span class="n">month_name</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
             <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
@@ -444,27 +456,32 @@
             <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
             <span class="c1"># The time of the observation location.</span>
             <span class="n">time</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># Sometimes they omit the seconds even though we want them.</span>
+                <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+                <span class="n">second</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour</span><span class="p">)</span>
             <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute</span><span class="p">)</span>
             <span class="n">second</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">second</span><span class="p">)</span>
-            <span class="c1"># The RA and DEC strings are split because of the deliminator being spaces.</span>
-            <span class="c1"># combine them back to HMS and DMS.</span>
+            <span class="c1"># The RA and DEC strings are split because of the deliminator</span>
+            <span class="c1"># being spaces, combine them back to HMS and DMS.</span>
             <span class="n">ra_sex</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
             <span class="n">dec_sex</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
             <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">sexagesimal_ra_dec_to_degrees</span><span class="p">(</span>
                 <span class="n">ra_sex</span><span class="o">=</span><span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span><span class="o">=</span><span class="n">dec_sex</span>
             <span class="p">)</span>
-            <span class="c1"># The RA and DEC rates; these values are in arcsec/hr, but convention in this</span>
-            <span class="c1"># software is deg/sec so convert. The flat planar conversion is already</span>
-            <span class="c1"># done by Horizon.</span>
+            <span class="c1"># The RA and DEC rates; these values are in arcsec/hr, but</span>
+            <span class="c1"># convention in this software is deg/sec so convert. The flat</span>
+            <span class="c1"># planar conversion is already done by Horizon.</span>
             <span class="n">as_hr_to_dg_s</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ashr</span><span class="p">:</span> <span class="n">ashr</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
             <span class="n">ra_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span>
             <span class="n">dec_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
             <span class="c1"># The true anomaly.</span>
             <span class="n">true_anomaly</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
-            <span class="c1"># The exact usage of these parameters are really not know yet but they seem</span>
-            <span class="c1"># useful; not using any of that.</span>
+            <span class="c1"># The exact usage of these parameters are really not know yet</span>
+            <span class="c1"># but they seem useful; not using any of that.</span>
             <span class="n">sky_motion</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
             <span class="n">sky_position_angle</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
             <span class="n">sky_velocity_angle</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
@@ -608,10 +625,10 @@
             <span class="c1"># https://ssd.jpl.nasa.gov/horizons/manual.html#output</span>
             <span class="c1"># We want the ephemeris (1), the on-sky rates (3), with optionally</span>
             <span class="c1"># the true anomaly (41), and vector-form sky motion (47).</span>
-            <span class="s2">&quot;QUANTITIES&quot;</span><span class="p">:</span> <span class="s2">&quot;1,3,41,47&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;QUANTITIES&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;1,3,41,47&#39;&quot;</span><span class="p">,</span>
             <span class="c1"># The output of the time should include seconds, just in case given</span>
             <span class="c1"># the current parser assumes hardcoded column positions.</span>
-            <span class="s2">&quot;TIME_DIGITS&quot;</span><span class="p">:</span> <span class="s2">&quot;seconds&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TIME_DIGITS&quot;</span><span class="p">:</span> <span class="s2">&quot;FRACSEC&quot;</span><span class="p">,</span>
             <span class="c1"># The format that the output will be specified in. There is little</span>
             <span class="c1"># difference between JSON and text as it is all just text.</span>
             <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
