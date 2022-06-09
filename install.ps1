@@ -59,7 +59,7 @@ Write-Output "=========================================="
 # Installing required packages which are needed for the installation of the 
 # Python segment. These parts is OS dependent.
 if ($isCentOS) {
-    sudo yum install libgl1-mesa-dev
+    
 }
 elseif ($isUbuntu) {
     sudo apt install libgl1-mesa-dev
