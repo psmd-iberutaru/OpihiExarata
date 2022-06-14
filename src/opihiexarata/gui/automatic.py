@@ -4,8 +4,7 @@ import sys
 import os
 import copy
 import threading
-from tokenize import triple_quoted
-from tracemalloc import stop
+import time
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -141,9 +140,10 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # Assign the new fits filename.
             self.fits_fetch_directory = os.path.abspath(new_fetch_directory)
         else:
-            # Exit!
-            return None
-        
+            # Nothing to do.
+            pass
+        # Refresh the GUI information.
+        self.refresh_window()
         # All done.
         return None
         
@@ -202,8 +202,30 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         return None
 
     def automatic_triggering(self) -> None:
-        """This function continuously runs, triggering the next image solve
-        until the the system is flagged to stop.
+        """This function executes the continuous running automatic mode loop.
+
+        All of the stops are checked before a new trigger is executed.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # In order for the infinite loop from the automatic triggering to not
+        # also freeze the GUI (as to disallow the user to stop the loop), it
+        # should be executed in a separate thread.
+        infinite_solving_thread = threading.Thread(target=self._automatic_triggering_infinite_loop)
+        # Starting the infinite loop.
+        infinite_solving_thread.start()
+
+        # All done.
+        return None
+
+    def _automatic_triggering_infinite_loop(self) -> None:
+        """This is where the actual infinite loop is done.
 
         All of the stops are checked before a new trigger is executed.
         
@@ -227,24 +249,20 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             if stop_check:
                 # There is an instruction to stop, we do so.
                 break
-
-            # We process the trigger. However, to prevent the process of 
-            # solving the image, we thread it out, allowing for GUI 
-            # interrupts.
-            solving_thread = threading.Thread(target=self.trigger_test)
-            solving_thread.start()
-            # The solving thread needs to finish before we try and repeat the 
-            # process.
-            solving_thread.join()
-
+            else:
+                # Continuing to executing the next trigger.
+                self.trigger_test()
+                # We take a little break to ensure that, in the case of no new 
+                # file from the trigger, we are not hammering the disk too hard.
+                time.sleep(1.0)
+            
         # The loop has been broken and likely this is because the stop check
         # signified to stop. Either way, the automatic loop is no longer 
         # active.
         self.active_status = not stop_check
-
+        self.refresh_window()
         # All done.
         return None
-
 
     def _automatic_triggering_check_stops(self) -> bool:
         """This function checks for the stops to stop the automatic triggering
@@ -299,10 +317,15 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             the automatic fetching directory.
         """
         # We are looking for only fits files.
-        fits_extension = "fits"
-        raw_fetched_filename = library.path.get_most_recent_filename_in_directory(directory=self.fits_fetch_directory, extension=fits_extension)
-        # Absolute paths are generally much easier to work with.
-        fetched_filename = os.path.abspath(raw_fetched_filename)
+        try:
+            fits_extension = "fits"
+            fetched_filename = library.path.get_most_recent_filename_in_directory(directory=self.fits_fetch_directory, extension=fits_extension)
+        except ValueError:
+            # There is likely no actual matching file in the directory.
+            fetched_filename = None
+        else:
+            # Absolute paths are generally much easier to work with.
+            fetched_filename = os.path.abspath(fetched_filename)
         return fetched_filename
 
 
@@ -405,11 +428,33 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # A new image is to be solved. We fetch the new image.
         fetched_filename = self.fetch_new_filename()
-        if (fetched_filename == self.results_fits_filename) or os.path.samefile(fetched_filename, self.results_fits_filename):
+        # Test to see if we have already processed this file and currently
+        # have information about it. This prevents doing too much work.
+        def _is_same_file(file_1:str, file_2:str)-> bool:
+            """A small inner function to see if two files are the same
+            for the purposes of fetching files."""
+            # Assume false, they are not the same file.
+            file_1 = file_1 if isinstance(file_1, str) else ""
+            file_2 = file_2 if isinstance(file_2, str) else ""
+            # If they are the same...
+            if file_1 == file_2:
+                return True
+            # If neither exists...
+            if not (os.path.exists(file_1) and os.path.exists(file_2)):
+                return True
+            # If they are the same file...
+            try:
+                return bool(os.path.samefile(file_1, file_2))
+            except FileNotFoundError:
+                pass
+            # All done.
+            return False
+        # Checking if the files are the same...
+        if _is_same_file(file_1=fetched_filename, file_2=self.results_fits_filename):
             # The new fetched file is the same one that is already solved. It
             # would be silly to solve it again, there is no point in continuing.
             return None
-        elif (fetched_filename == self.working_fits_filename) or os.path.samefile(fetched_filename, self.working_fits_filename):
+        elif _is_same_file(file_1=fetched_filename, file_2=self.working_fits_filename):
             # Same principle, this new file is the same as the working file. 
             # We need to be patient.
             return None
@@ -449,8 +494,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
 
     def trigger_test(self) -> None:
-        import time
         print("Drifting!")
+        self.refresh_window()
         time.sleep(2)
         return None
 
@@ -486,33 +531,53 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_fits_directory.setText(self.fits_fetch_directory)
 
         # Refreshing the filename text, we do not need the directory part.
-        working_basename = library.path.get_filename_with_extension(pathname=self.working_fits_filename)
-        results_basename = library.path.get_filename_with_extension(pathname=self.results_fits_filename)
-        self.ui.label_dynamic_working_filename.setText(working_basename)
-        self.ui.label_dynamic_results_filename.setText(results_basename)
+        # If the filenames have not been provided, then we just highlight that
+        # they have not been provided (which is different from the default 
+        # filler names).
+        if isinstance(self.working_fits_filename, str):
+            working_basename = library.path.get_filename_with_extension(pathname=self.working_fits_filename)
+            self.ui.label_dynamic_working_filename.setText(working_basename)
+        else:
+            self.ui.label_dynamic_working_filename.setText("None")
+        if isinstance(self.results_fits_filename, str):
+            results_basename = library.path.get_filename_with_extension(pathname=self.results_fits_filename)
+            self.ui.label_dynamic_results_filename.setText(results_basename)
+        else:
+            self.ui.label_dynamic_results_filename.setText("None")
 
         # If there is no resulting Opihi solution, then there is no data to be 
         # extracted for results.
         if isinstance(self.results_opihi_solution, opihiexarata.OpihiSolution):
-            return None
+            # Obtaining the observing time.
+            observing_time_jd = self.results_opihi_solution.observing_time
+            year_int, moth_int, days_int, hour_int, mint_int, secs_float = library.conversion.julian_day_to_full_date(jd=observing_time_jd)
+            date_string = "{y}-{m}-{d}".format(y=str(year_int), m=str(moth_int), d=str(days_int))
+            time_string = "{h}:{m}:{s}".format(h=str(hour_int), m=str(mint_int), s=str(round(secs_float, 1)))
+            self.ui.label_dynamic_date.setText(date_string)
+            self.ui.label_dynamic_time.setText(time_string)
 
-        # Refreshing the astrometry results.
-        ra_deg = self.results_opihi_solution.astrometrics.ra
-        dec_deg = self.results_opihi_solution.astrometrics.dec
-        # To sexagesimal as it is easier to read, the results provided are
-        # in degrees.
-        ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(ra_deg=ra_deg, dec_deg=dec_deg, precision=3)
-        self.ui.label_dynamic_ra.setText(ra_sex)
-        self.ui.label_dynamic_dec.setText(dec_sex)
+            # Refreshing the astrometry results.
+            ra_deg = self.results_opihi_solution.astrometrics.ra
+            dec_deg = self.results_opihi_solution.astrometrics.dec
+            # To sexagesimal as it is easier to read, the results provided are
+            # in degrees.
+            ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(ra_deg=ra_deg, dec_deg=dec_deg, precision=3)
+            self.ui.label_dynamic_ra.setText(ra_sex)
+            self.ui.label_dynamic_dec.setText(dec_sex)
 
-        # Refreshing photometry results.
-        zero_point = self.results_opihi_solution.photometrics.zero_point
-        filter_name = self.results_opihi_solution.photometrics.filter_name
-        # Formatting the information as a string.
-        zero_point_str = "{zp:.3f}".format(zp=zero_point)
-        filter_name = str(filter_name)
-        self.ui.label_dynamic_zero_point.setText(zero_point_str)
-        self.ui.label_dynamic_filter.setText(filter_name)
+            # Refreshing photometry results.
+            zero_point = self.results_opihi_solution.photometrics.zero_point
+            filter_name = self.results_opihi_solution.photometrics.filter_name
+            # Formatting the information as a string.
+            zero_point_str = "{zp:.3f}".format(zp=zero_point)
+            filter_name = str(filter_name)
+            self.ui.label_dynamic_zero_point.setText(zero_point_str)
+            self.ui.label_dynamic_filter.setText(filter_name)
+        else:
+            # There is no OpihiSolution to pull information from.
+            pass
+            # For testing.
+            self.ui.label_dynamic_time.setText(str(library.conversion.current_utc_to_julian_day()))
 
         # Refreshing the operational status.
         operational_status_flag = self.operational_status_flag.casefold()

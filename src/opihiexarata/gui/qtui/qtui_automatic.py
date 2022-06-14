@@ -135,6 +135,28 @@ class Ui_AutomaticWindow(object):
 
         self.vertical_layout_automatic.addLayout(self.grid_layout_fits_filenames)
 
+        self.horizontal_layout_date_time = QHBoxLayout()
+        self.horizontal_layout_date_time.setObjectName(u"horizontal_layout_date_time")
+        self.label_static_date_time = QLabel(self.verticalLayoutWidget)
+        self.label_static_date_time.setObjectName(u"label_static_date_time")
+
+        self.horizontal_layout_date_time.addWidget(self.label_static_date_time)
+
+        self.label_dynamic_date = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_date.setObjectName(u"label_dynamic_date")
+        self.label_dynamic_date.setAlignment(Qt.AlignCenter)
+
+        self.horizontal_layout_date_time.addWidget(self.label_dynamic_date)
+
+        self.label_dynamic_time = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_time.setObjectName(u"label_dynamic_time")
+        self.label_dynamic_time.setAlignment(Qt.AlignCenter)
+
+        self.horizontal_layout_date_time.addWidget(self.label_dynamic_time)
+
+
+        self.vertical_layout_automatic.addLayout(self.horizontal_layout_date_time)
+
         self.horizontal_layout_astrometry_results = QHBoxLayout()
         self.horizontal_layout_astrometry_results.setObjectName(u"horizontal_layout_astrometry_results")
         self.label_static_ra_dec = QLabel(self.verticalLayoutWidget)
@@ -262,6 +284,9 @@ class Ui_AutomaticWindow(object):
         self.label_static_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Results:", None))
         self.label_dynamic_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits", None))
         self.label_static_working_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Working:", None))
+        self.label_static_date_time.setText(QCoreApplication.translate("AutomaticWindow", u"Observed At (UTC)", None))
+        self.label_dynamic_date.setText(QCoreApplication.translate("AutomaticWindow", u"YYYY-MM-DD", None))
+        self.label_dynamic_time.setText(QCoreApplication.translate("AutomaticWindow", u"HH:MM:SS.S", None))
         self.label_static_ra_dec.setText(QCoreApplication.translate("AutomaticWindow", u"Center Coordinates", None))
         self.label_dynamic_ra.setText(QCoreApplication.translate("AutomaticWindow", u"RR:RR:RR.RRR", None))
         self.label_dynamic_dec.setText(QCoreApplication.translate("AutomaticWindow", u"+DD:DD:DD.DDD", None))
