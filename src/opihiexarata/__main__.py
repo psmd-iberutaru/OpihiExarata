@@ -166,20 +166,20 @@ def __main_execute_arguments(
 
     # The configurations to be applied, if they exist that is. We structure
     # them so that it is easier for the actions to use them later.
-    standard_config_dir = arguments_dict.get("config", None)
-    secrets_config_dir = arguments_dict.get("secret", None)
-    if standard_config_dir is not None:
+    standard_config_path = arguments_dict.get("config", None)
+    secrets_config_path = arguments_dict.get("secret", None)
+    if standard_config_path is not None:
         # A configuration file path has been supplied, attempting to load it
         # otherwise the action is likely generate.
-        standard_config_dir = os.path.abspath(standard_config_dir)
-        if os.path.isfile(standard_config_dir):
-            library.config.load_then_apply_configuration(filename=standard_config_dir)
-    if secrets_config_dir is not None:
+        standard_config_path = os.path.abspath(standard_config_path)
+        if os.path.isfile(standard_config_path):
+            library.config.load_then_apply_configuration(filename=standard_config_path)
+    if secrets_config_path is not None:
         # A secrets file path has been supplied, attempting to load it
         # otherwise the action is likely generate.
-        secrets_config_dir = os.path.abspath(secrets_config_dir)
-        if os.path.isfile(secrets_config_dir):
-            library.config.load_then_apply_configuration(filename=secrets_config_dir)
+        secrets_config_path = os.path.abspath(secrets_config_path)
+        if os.path.isfile(secrets_config_path):
+            library.config.load_then_apply_configuration(filename=secrets_config_path)
 
     # A lot of the actions require the temporary directory for file handling
     # and other things. We create it here; it is later purged and destroyed
@@ -212,13 +212,13 @@ def __main_execute_arguments(
         # secret file generation. We generate the files, if the paths provided
         # are properly defined.
         overwrite = arguments_dict.get("overwrite", False)
-        if standard_config_dir is not None:
+        if standard_config_path is not None:
             library.config.generate_configuration_file_copy(
-                filename=standard_config_dir, overwrite=overwrite
+                filename=standard_config_path, overwrite=overwrite
             )
-        if secrets_config_dir is not None:
+        if secrets_config_path is not None:
             library.config.generate_secrets_file_copy(
-                filename=secrets_config_dir, overwrite=overwrite
+                filename=secrets_config_path, overwrite=overwrite
             )
     elif action in ("h", "help"):
         # We just print the help screen, an action is required but none seems
@@ -243,4 +243,5 @@ def __main_execute_arguments(
 
 
 if __name__ == "__main__":
+    # Executing the actual functionality of this file.
     main()
