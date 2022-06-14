@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.hint module &mdash; OpihiExarata 2022.6.8 documentation</title>
+  <title>opihiexarata.library.hint module &mdash; OpihiExarata 2022.6.13 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -211,6 +211,9 @@ is for just uniform hinting types.</p>
 <p>This should only be used for types which are otherwise not native and would
 require an import, including the typing module. The whole point of this is to
 be a central collection of types for the purpose of type hinting.</p>
+<p>This module should never be used for anything other than hinting. Use proper
+imports to access these classes. Otherwise, you will likely get circular
+imports and other nasty things.</p>
 </section>
 
 

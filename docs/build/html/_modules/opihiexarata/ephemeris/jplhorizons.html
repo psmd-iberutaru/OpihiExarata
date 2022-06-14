@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.6.8 documentation</title>
+  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.6.13 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -419,8 +419,9 @@
         <span class="k">if</span> <span class="n">soe_index</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">eoe_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
                 <span class="s2">&quot;The demarcations for the ephemeris were not found, it is likely that&quot;</span>
-                <span class="s2">&quot; the web request sent was incorrect. The response from the API: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{r}</span><span class="s2">&quot;</span>
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">response_text</span><span class="p">)</span>
+                <span class="s2">&quot; the web request sent was incorrect. The response from the API: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">r</span><span class="o">=</span><span class="n">response_text</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="c1"># Using the demarcations to extract the ephemeris section of the</span>
         <span class="c1"># query lines. We do not need the demarcations themselves though.</span>

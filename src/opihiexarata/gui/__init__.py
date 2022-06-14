@@ -5,6 +5,7 @@
 # world.
 # Automatic mode related GUIs.
 import opihiexarata.gui.automatic as automatic
+
 # Manual mode related GUIs.
 import opihiexarata.gui.manual as manual
 import opihiexarata.gui.selector as selector

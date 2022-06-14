@@ -39,20 +39,20 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
     asteroid_set_name : string
         The current asteroid name provided by the user.
     raw_fits_filename : string
-        The raw input filename. This file is usually preprocessed before 
+        The raw input filename. This file is usually preprocessed before
         analysis.
     raw_record_filename : string
-        The raw MPC record filename. This contains historical asteroid 
+        The raw MPC record filename. This contains historical asteroid
         information collected (with the unique identifier being the name).
     process_fits_filename : string
-        The filename of the preprocessed image, this is generally generated 
-        automatically by the preprocess solution. This file is generally used 
+        The filename of the preprocessed image, this is generally generated
+        automatically by the preprocess solution. This file is generally used
         for analysis.
     preprocess_solution : OpihiPreprocessSolution
-        The preprocessing solution which is used to convert raw images to 
+        The preprocessing solution which is used to convert raw images to
         preprocessed files.
     opihi_solution : OpihiSolution
-        The general OpihiExarata solution, the collection class of all other 
+        The general OpihiExarata solution, the collection class of all other
         solutions.
     """
 

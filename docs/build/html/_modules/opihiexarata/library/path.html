@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.path &mdash; OpihiExarata 2022.6.8 documentation</title>
+  <title>opihiexarata.library.path &mdash; OpihiExarata 2022.6.13 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -203,6 +203,7 @@
 <span class="sd">As Exarata is going to be cross platform, this is a nice abstraction.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
@@ -224,6 +225,58 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">directory</span></div>
+
+
+<div class="viewcode-block" id="get_most_recent_filename_in_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_most_recent_filename_in_directory">[docs]</a><span class="k">def</span> <span class="nf">get_most_recent_filename_in_directory</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">list</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This gets the most recent filename from a directory.</span>
+<span class="sd">    </span>
+<span class="sd">    Because of issues with different operating systems having differing </span>
+<span class="sd">    issues with storing the creation time of a file, this function sorts based</span>
+<span class="sd">    off of modification time. The most recent modified file is thus </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    directory : string</span>
+<span class="sd">        The directory by which the most recent file will be derived from.</span>
+<span class="sd">    extension : string or list</span>
+<span class="sd">        The extension by which to filter for. It is often the case that some </span>
+<span class="sd">        files are created but the most recent file of some type is desired. </span>
+<span class="sd">        Only files which match the included extensions will be considered.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    recent_filename : string</span>
+<span class="sd">        The filename of the most recent file, by modification time, in the </span>
+<span class="sd">        directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the directory provided actually exists.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span><span class="s2">&quot;The directory provided `</span><span class="si">{d}</span><span class="s2">` does not exist. A most recent file cannot be obtained.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">directory</span><span class="p">)))</span>
+    
+    <span class="c1"># We need to check all of the files matching the provided extension. If</span>
+    <span class="c1"># none was provided, we use all.</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="k">if</span> <span class="n">extension</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">extension</span>
+    <span class="n">extension_list</span> <span class="o">=</span> <span class="p">(</span><span class="n">extension</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+    <span class="n">matching_filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">extensiondex</span> <span class="ow">in</span> <span class="n">extension_list</span><span class="p">:</span>
+        <span class="c1"># If the extension has a leading dot, then we remove it as it </span>
+        <span class="c1"># is already assumed.</span>
+        <span class="k">if</span> <span class="n">extensiondex</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+            <span class="n">extensiondex</span> <span class="o">=</span> <span class="n">extensiondex</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="c1"># Fetch all of the matching files within the directory. We only want </span>
+        <span class="c1"># files within the directory, not above or below.</span>
+        <span class="n">pathname_glob_filter</span> <span class="o">=</span> <span class="n">merge_pathname</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extensiondex</span><span class="p">)</span>
+        <span class="n">extension_matching_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pathname_glob_filter</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">matching_filenames</span> <span class="o">+=</span> <span class="n">extension_matching_files</span>
+    
+    <span class="c1"># For all of the matching filenames, we need to find the most recent via</span>
+    <span class="c1"># the modification time. Given that the modification times are a UNIX time,</span>
+    <span class="c1"># the largest is the most recent.</span>
+    <span class="n">recent_filename</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">matching_filenames</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    <span class="c1"># Just a quick check to make sure the file exists.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">recent_filename</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span><span class="s2">&quot;For some reason, the detected most recent file is not actually a file. Something is wrong.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">recent_filename</span></div>
 
 
 <div class="viewcode-block" id="get_filename_without_extension"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_without_extension">[docs]</a><span class="k">def</span> <span class="nf">get_filename_without_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

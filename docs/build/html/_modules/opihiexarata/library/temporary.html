@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.temporary &mdash; OpihiExarata 2022.6.8 documentation</title>
+  <title>opihiexarata.library.temporary &mdash; OpihiExarata 2022.6.13 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -264,25 +264,27 @@
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
+    <span class="n">temporary_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">)</span>
     <span class="c1"># Determine if the directory is empty of all useful files.</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_dir</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">temp_dir</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span> <span class="k">as</span> <span class="n">scandir</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">scandir</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
                     <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
                         <span class="s2">&quot;Cannot delete the temporary directory, it contains files.&quot;</span>
                         <span class="s2">&quot; Purge the temporary directory before deleting it. Directory:&quot;</span>
-                        <span class="s2">&quot; </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
+                        <span class="s2">&quot; </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temporary_directory</span><span class="p">)</span>
                     <span class="p">)</span>
     <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
             <span class="s2">&quot;The directory cannot be found. The temporary directory cannot be scanned&quot;</span>
-            <span class="s2">&quot; for deletion if it does not exist. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">)</span>
+            <span class="s2">&quot; for deletion if it does not exist. Directory: </span><span class="si">{dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">dir</span><span class="o">=</span><span class="n">temporary_directory</span>
+            <span class="p">)</span>
         <span class="p">)</span>
     <span class="c1"># Otherwise, delete the directory.</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">):</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">removedirs</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">removedirs</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># The directory does not exist, or it is not actually a directory.</span>
         <span class="k">pass</span>

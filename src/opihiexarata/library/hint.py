@@ -36,6 +36,7 @@ from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
 from opihiexarata.orbit.solution import OrbitalSolution
 from opihiexarata.propagate.solution import PropagativeSolution
+
 # And the solutions themselves.
 from opihiexarata.opihi.preprocess import OpihiPreprocessSolution
 from opihiexarata.opihi.solution import OpihiSolution
