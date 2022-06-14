@@ -570,5 +570,27 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         return None
 
 
+def start_automatic_window() -> None:
+    """This is the function to create the automatic window for usage.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
+    # Creating the application and its infrastructure.
+    app = QtWidgets.QApplication([])
+    # The automatic GUI window.
+    automatic_window = OpihiAutomaticWindow()
+    automatic_window.show()
+    # Closing out of the window.
+    sys.exit(app.exec())
+    # All done.
+    return None
 
 
+if __name__ == "__main__":
+    start_automatic_window()

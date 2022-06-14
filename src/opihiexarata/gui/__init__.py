@@ -3,6 +3,9 @@
 
 # The relevant GUIs which are to be used when interfacing with the outside
 # world.
+# Automatic mode related GUIs.
+import opihiexarata.gui.automatic as automatic
+# Manual mode related GUIs.
 import opihiexarata.gui.manual as manual
 import opihiexarata.gui.selector as selector
 import opihiexarata.gui.name as name

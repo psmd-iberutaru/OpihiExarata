@@ -206,7 +206,7 @@ def __main_execute_arguments(
         # The automatic GUI should be created. Because this it the primary
         # action, it happens on the main thread.
         # Load the window.
-        pass
+        __ = opihiexarata.gui.automatic.start_automatic_window()
     elif action in ("g", "generate"):
         # Files should be generated, this is normally for configuration and
         # secret file generation. We generate the files, if the paths provided
