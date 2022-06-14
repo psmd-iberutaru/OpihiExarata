@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>380</height>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -147,7 +147,7 @@
        <item row="1" column="2">
         <widget class="QLabel" name="label_dynamic_results_filename">
          <property name="text">
-          <string>opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits</string>
+          <string>opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits</string>
          </property>
         </widget>
        </item>
@@ -204,7 +204,7 @@
        <item>
         <widget class="QLabel" name="label_dynamic_zero_point">
          <property name="text">
-          <string>ZZ.ZZZ</string>
+          <string>ZZZ.ZZZ</string>
          </property>
         </widget>
        </item>
@@ -247,9 +247,16 @@
      <item>
       <layout class="QHBoxLayout" name="horizontal_layout_start_stop">
        <item>
-        <widget class="QLabel" name="label_dynamic_active_status">
+        <widget class="QLabel" name="label_static_operational_status">
          <property name="text">
           <string>Status</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_dynamic_operational_status">
+         <property name="text">
+          <string>Default</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -296,7 +303,6 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

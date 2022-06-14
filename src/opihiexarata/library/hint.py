@@ -4,6 +4,10 @@ is for just uniform hinting types.
 This should only be used for types which are otherwise not native and would
 require an import, including the typing module. The whole point of this is to
 be a central collection of types for the purpose of type hinting.
+
+This module should never be used for anything other than hinting. Use proper
+imports to access these classes. Otherwise, you will likely get circular 
+imports and other nasty things.
 """
 
 from typing import *
@@ -32,3 +36,6 @@ from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
 from opihiexarata.orbit.solution import OrbitalSolution
 from opihiexarata.propagate.solution import PropagativeSolution
+# And the solutions themselves.
+from opihiexarata.opihi.preprocess import OpihiPreprocessSolution
+from opihiexarata.opihi.solution import OpihiSolution

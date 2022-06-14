@@ -197,6 +197,19 @@ class Ui_AutomaticWindow(object):
 
         self.horizontal_layout_start_stop = QHBoxLayout()
         self.horizontal_layout_start_stop.setObjectName(u"horizontal_layout_start_stop")
+        self.label_dynamic_active_status = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_active_status.setObjectName(u"label_dynamic_active_status")
+        self.label_dynamic_active_status.setAlignment(Qt.AlignCenter)
+
+        self.horizontal_layout_start_stop.addWidget(self.label_dynamic_active_status)
+
+        self.line_8 = QFrame(self.verticalLayoutWidget)
+        self.line_8.setObjectName(u"line_8")
+        self.line_8.setFrameShape(QFrame.VLine)
+        self.line_8.setFrameShadow(QFrame.Sunken)
+
+        self.horizontal_layout_start_stop.addWidget(self.line_8)
+
         self.push_button_start = QPushButton(self.verticalLayoutWidget)
         self.push_button_start.setObjectName(u"push_button_start")
 
@@ -254,6 +267,7 @@ class Ui_AutomaticWindow(object):
         self.label_dynamic_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"ZZ.ZZZ", None))
         self.label_static_filter.setText(QCoreApplication.translate("AutomaticWindow", u"Filter", None))
         self.label_dynamic_filter.setText(QCoreApplication.translate("AutomaticWindow", u"FF", None))
+        self.label_dynamic_active_status.setText(QCoreApplication.translate("AutomaticWindow", u"Status", None))
         self.push_button_start.setText(QCoreApplication.translate("AutomaticWindow", u"Start", None))
         self.push_button_stop.setText(QCoreApplication.translate("AutomaticWindow", u"Stop", None))
         self.push_button_trigger.setText(QCoreApplication.translate("AutomaticWindow", u"Trigger", None))

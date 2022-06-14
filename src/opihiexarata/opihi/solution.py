@@ -155,7 +155,7 @@ class OpihiSolution(library.engine.ExarataSolution):
     def solve_astrometry(
         self,
         solver_engine: hint.AstrometryEngine,
-        overwrite=True,
+        overwrite:bool=True,
         vehicle_args: dict = {},
     ) -> hint.AstrometricSolution:
         """Solve the image astrometry by using an astrometric engine.
@@ -193,9 +193,9 @@ class OpihiSolution(library.engine.ExarataSolution):
     def solve_photometry(
         self,
         solver_engine: hint.PhotometryEngine,
-        overwrite=True,
-        filter_name=None,
-        exposure_time=None,
+        overwrite:bool=True,
+        filter_name:str=None,
+        exposure_time:float=None,
         vehicle_args: dict = {},
     ) -> hint.PhotometricSolution:
         """Solve the image photometry by using a photometric engine.
@@ -259,7 +259,7 @@ class OpihiSolution(library.engine.ExarataSolution):
     def solve_propagate(
         self,
         solver_engine: hint.PropagationEngine,
-        overwrite=True,
+        overwrite:bool=True,
         asteroid_location: tuple[float, float] = None,
         vehicle_args: dict = {},
     ) -> hint.PropagativeSolution:
