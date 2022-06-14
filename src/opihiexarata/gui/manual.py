@@ -48,6 +48,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         The filename of the preprocessed image, this is generally generated
         automatically by the preprocess solution. This file is generally used
         for analysis.
+    automatic_fetch_directory : string
+        The directory where fits files are to be automatically fetched from. 
+        Getting a file using the manual method updates this to the directory
+        of the manual file.
     preprocess_solution : OpihiPreprocessSolution
         The preprocessing solution which is used to convert raw images to
         preprocessed files.
@@ -79,8 +83,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.raw_fits_filename = None
         self.raw_record_filename = None
         self.process_fits_filename = None
+        self.automatic_fetch_directory = None
         self.preprocess_solution = None
         self.opihi_solution = None
+
+        # The automatic fetching directory default is stored in the 
+        # configuration file.
+        AF_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
+        self.automatic_fetch_directory = AF_DIR
 
         # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()
@@ -294,8 +304,13 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # TODO
-        new_fits_filename = "pie"
+        # Fetch a file from the directory where files are to be fetched.
+        try:
+            new_fits_filename = library.path.get_most_recent_filename_in_directory(self.automatic_fetch_directory, "fits")
+        except Exception:
+            # Something happened and a new fits file cannot be properly 
+            # derived.
+            new_fits_filename = ""
 
         # If the user did not provide a file to enter, there is nothing to be
         # changed.
@@ -342,6 +357,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         else:
             # Exit!
             return None
+
+        # We update the automatic fetching directory with the path from this
+        # manual file. It is usually the case that the user expects updates
+        # from their same directory.
+        new_fits_directory = library.path.get_directory(pathname=self.raw_fits_filename)
+        self.automatic_fetch_directory = new_fits_directory
 
         # Process the file first so that what the user sees is closer to
         # what it really is.
@@ -925,7 +946,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # For asteroid information, if we are to prompt the user for
         # information about the asteroid.
-        if library.config.GUI_PROMPT_FOR_ASTEROID_INFORMATION:
+        if library.config.GUI_MANUAL_PROMPT_FOR_ASTEROID_INFORMATION:
             # The name is derived from the current object set that we are on.
             asteroid_name = self.asteroid_set_name
             # Use the target selector GUI for the position of the asteroid.
@@ -1497,8 +1518,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # Use the current time and date to determine the future positions with
         # the time interval provided.
-        ENTRY_COUNT = library.config.GUI_PROPAGATE_PRECOMPUTED_FUTURE_ENTRY_COUNT
-        INTERVAL = library.config.GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS
+        ENTRY_COUNT = library.config.GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT
+        INTERVAL = library.config.GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS
         INTERVAL_DAYS = INTERVAL / 86400
         current_julian_day = library.conversion.current_utc_to_julian_day()
         precomputed_future_text = ""
@@ -1573,7 +1594,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Attempt to plot the location of the specified asteroid.
         try:
             target_x, target_y = self.opihi_solution.asteroid_location
-            TARGET_MARKER_SIZE = float(library.config.GUI_IMAGE_PLOT_TARGET_MARKER_SIZE)
+            TARGET_MARKER_SIZE = float(
+                library.config.GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE
+            )
             target_marker = self.opihi_axes.scatter(
                 target_x,
                 target_y,

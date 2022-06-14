@@ -65,6 +65,18 @@ PREPROCESS_LINEARITY_FITS_FILENAME : ""
 OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS : 24
 
 
+############################################################
+##########     Opihi Automatic GUI Configuration
+############################################################
+
+# This is the directory for where the automatic image finder should look for 
+# the new images. It works best if this is an absolute directory.
+GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
+
+# This is the cooldown time of the automatic loop; it is the time delay (in
+# seconds) that a loop will take in between checking for solves. This is done
+# so that we are not constantly hammering the disk when looking for a new file.
+GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS : 0.42
 
 ############################################################
 ##########     Opihi Manual GUI Configuration
@@ -72,26 +84,26 @@ OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS : 24
 
 # This is the directory for where the automatic image finder should look for 
 # the new images. It works best if this is an absolute directory.
-GUI_INITAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
+GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
 
 # This instructs the GUI to always prompt for the specifications of the target
 # location using the target selector GUI. If False, images are loaded without 
 # prompt for location, name, or other information. 
 # (This inherently renders the asteroid part of the GUI inoperable.)
-GUI_PROMPT_FOR_ASTEROID_INFORMATION : True
+GUI_MANUAL_PROMPT_FOR_ASTEROID_INFORMATION : True
 
 
 # This is the size of the marker which denotes the asteroid/target. This 
 # value is passed right to matplotlib.pyplot.imshow.
-GUI_IMAGE_PLOT_TARGET_MARKER_SIZE : 30
+GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE : 30
 
 
 # For propagation, when displaying the precomputed results in the text 
 # scroll area, this sets the timestep of the enteries (starting from the 
 # current time of refresh), in seconds. Also, the total number of enteries
 # to be done.
-GUI_PROPAGATE_PRECOMPUTED_FUTURE_ENTRY_COUNT : 10
-GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS : 60
+GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT : 10
+GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS : 60
 
 ############################################################
 ##########     Opihi Target Selector Configuration
@@ -99,13 +111,13 @@ GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS : 60
 
 # This is the size of the marker which denotes the asteroid/target. This 
 # value is passed right to matplotlib.pyplot.imshow.
-SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE : 40
+GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE : 40
 
 # This is the assumed pixel scale of the Opihi telescope. As the astrometric 
 # solution may take a little bit of time, a historical value is provided 
 # here. This is only used for offsetting the images when non-siderial 
 # subtraction is used. It is in units of arcseconds per pixel.
-SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL : 0.94
+GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL : 0.94
 
 
 ############################################################
