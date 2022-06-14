@@ -17,13 +17,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QMainWindow, QPushButton,
-    QSizePolicy, QStatusBar, QVBoxLayout, QWidget)
+    QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_AutomaticWindow(object):
     def setupUi(self, AutomaticWindow):
         if not AutomaticWindow.objectName():
             AutomaticWindow.setObjectName(u"AutomaticWindow")
-        AutomaticWindow.resize(600, 380)
+        AutomaticWindow.resize(600, 360)
         self.centralwidget = QWidget(AutomaticWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayoutWidget = QWidget(self.centralwidget)
@@ -197,11 +197,16 @@ class Ui_AutomaticWindow(object):
 
         self.horizontal_layout_start_stop = QHBoxLayout()
         self.horizontal_layout_start_stop.setObjectName(u"horizontal_layout_start_stop")
-        self.label_dynamic_active_status = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_active_status.setObjectName(u"label_dynamic_active_status")
-        self.label_dynamic_active_status.setAlignment(Qt.AlignCenter)
+        self.label_static_operational_status = QLabel(self.verticalLayoutWidget)
+        self.label_static_operational_status.setObjectName(u"label_static_operational_status")
 
-        self.horizontal_layout_start_stop.addWidget(self.label_dynamic_active_status)
+        self.horizontal_layout_start_stop.addWidget(self.label_static_operational_status)
+
+        self.label_dynamic_operational_status = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_operational_status.setObjectName(u"label_dynamic_operational_status")
+        self.label_dynamic_operational_status.setAlignment(Qt.AlignCenter)
+
+        self.horizontal_layout_start_stop.addWidget(self.label_dynamic_operational_status)
 
         self.line_8 = QFrame(self.verticalLayoutWidget)
         self.line_8.setObjectName(u"line_8")
@@ -236,9 +241,6 @@ class Ui_AutomaticWindow(object):
         self.vertical_layout_automatic.addLayout(self.horizontal_layout_start_stop)
 
         AutomaticWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(AutomaticWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        AutomaticWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(AutomaticWindow)
 
@@ -258,16 +260,17 @@ class Ui_AutomaticWindow(object):
 
         self.label_dynamic_working_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None))
         self.label_static_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Results:", None))
-        self.label_dynamic_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None))
+        self.label_dynamic_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits", None))
         self.label_static_working_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Working:", None))
         self.label_static_ra_dec.setText(QCoreApplication.translate("AutomaticWindow", u"Center Coordinates", None))
         self.label_dynamic_ra.setText(QCoreApplication.translate("AutomaticWindow", u"RR:RR:RR.RRR", None))
         self.label_dynamic_dec.setText(QCoreApplication.translate("AutomaticWindow", u"+DD:DD:DD.DDD", None))
         self.label_static_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"Zero Point", None))
-        self.label_dynamic_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"ZZ.ZZZ", None))
+        self.label_dynamic_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"ZZZ.ZZZ", None))
         self.label_static_filter.setText(QCoreApplication.translate("AutomaticWindow", u"Filter", None))
         self.label_dynamic_filter.setText(QCoreApplication.translate("AutomaticWindow", u"FF", None))
-        self.label_dynamic_active_status.setText(QCoreApplication.translate("AutomaticWindow", u"Status", None))
+        self.label_static_operational_status.setText(QCoreApplication.translate("AutomaticWindow", u"Status", None))
+        self.label_dynamic_operational_status.setText(QCoreApplication.translate("AutomaticWindow", u"Default", None))
         self.push_button_start.setText(QCoreApplication.translate("AutomaticWindow", u"Start", None))
         self.push_button_stop.setText(QCoreApplication.translate("AutomaticWindow", u"Stop", None))
         self.push_button_trigger.setText(QCoreApplication.translate("AutomaticWindow", u"Trigger", None))
