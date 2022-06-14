@@ -8,7 +8,7 @@ import opihiexarata.library.hint as hint
 # The solution classes.
 class ExarataSolution:
     """The base class for all of the solution classes which use engines to
-    solve particar problems."""
+    solve particular problems."""
 
     def __init__(self):
         raise error.DevelopmentError(
