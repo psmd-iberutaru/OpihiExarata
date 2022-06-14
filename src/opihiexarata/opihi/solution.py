@@ -67,6 +67,26 @@ class OpihiSolution(library.engine.ExarataSolution):
         The orbit solution; if it has not been solved yet, this is None.
     ephemeritics : EphemeriticSolution
         The ephemeris solution; if it has not been solved yet, this is None.
+    astrometrics_status : bool, None
+        The status of the solving of the astrometric solution. It is True or 
+        False based on the success of the solve, None if a solve has not 
+        been attempted.
+    photometrics_status : bool, None
+        The status of the solving of the photometric solution. It is True or 
+        False based on the success of the solve, None if a solve has not 
+        been attempted.
+    propagatives_status : bool, None
+        The status of the solving of the propagative solution. It is True or 
+        False based on the success of the solve, None if a solve has not 
+        been attempted.
+    orbitals_status : bool, None
+        The status of the solving of the orbital solution. It is True or 
+        False based on the success of the solve, None if a solve has not 
+        been attempted.
+    ephemeritics_status : bool, None
+        The status of the solving of the ephemeris solution. It is True or 
+        False based on the success of the solve, None if a solve has not 
+        been attempted.
     """
 
     # https://www.adsabs.harvard.edu/full/1895PA......3...17S
@@ -150,6 +170,11 @@ class OpihiSolution(library.engine.ExarataSolution):
         self.propagatives = None
         self.orbitals = None
         self.ephemeritics = None
+        self.astrometrics_status = None
+        self.photometrics_status = None
+        self.propagatives_status = None
+        self.orbitals_status = None
+        self.ephemeritics_status = None
         return None
 
     def solve_astrometry(
@@ -176,19 +201,28 @@ class OpihiSolution(library.engine.ExarataSolution):
         -------
         astrometric_solution : AstrometricSolution
             The astrometry solution for the image.
+        solve_status : bool
+            The status of the solve. If True, the solving was successful.
         """
-        astrometry_solution = astrometry.AstrometricSolution(
-            fits_filename=self.fits_filename,
-            solver_engine=solver_engine,
-            vehicle_args=vehicle_args,
-        )
-        # Check if the solution should overwrite the current one.
-        if overwrite:
-            self.astrometrics = astrometry_solution
+        try:
+            astrometry_solution = astrometry.AstrometricSolution(
+                fits_filename=self.fits_filename,
+                solver_engine=solver_engine,
+                vehicle_args=vehicle_args,
+            )
+        except Exception:
+            # The solving failed.
+            astrometry_solution = None
+            solve_status = False
         else:
-            # It should not overwrite anything.
-            pass
-        return astrometry_solution
+            # The solving passed.
+            solve_status = True
+        finally:
+            # Check if the solution should overwrite the current one.
+            if overwrite:
+                self.astrometrics = astrometry_solution
+                self.astrometrics_status = solve_status
+        return astrometry_solution, solve_status
 
     def solve_photometry(
         self,
@@ -222,11 +256,13 @@ class OpihiSolution(library.engine.ExarataSolution):
         -------
         photometric_solution : PhotometrySolution
             The photometry solution for the image.
+        solve_status : bool
+            The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the astrometry solution be computed before-hand.
-            This will not precompute automatically it without it being called
-            explicitly, but it will instead return an error.
+            This requires that the astrometric solution be computed 
+            before-hand. It will not be precomputed automatically; without it
+            being called explicitly, this will instead raise an error.
         """
         # The photometric solution requires the astrometric solution to be
         # computed first.
@@ -240,21 +276,28 @@ class OpihiSolution(library.engine.ExarataSolution):
         exposure_time = self.exposure_time if exposure_time is None else exposure_time
 
         # Solving the photometric solution.
-        photometric_solution = photometry.PhotometricSolution(
-            fits_filename=self.fits_filename,
-            solver_engine=solver_engine,
-            astrometrics=self.astrometrics,
-            filter_name=filter_name,
-            exposure_time=exposure_time,
-            vehicle_args=vehicle_args,
-        )
-        # Check if the solution should overwrite the current one.
-        if overwrite:
-            self.photometrics = photometric_solution
+        try:
+            photometric_solution = photometry.PhotometricSolution(
+                fits_filename=self.fits_filename,
+                solver_engine=solver_engine,
+                astrometrics=self.astrometrics,
+                filter_name=filter_name,
+                exposure_time=exposure_time,
+                vehicle_args=vehicle_args,
+            )
+        except Exception:
+            # The solving failed.
+            photometric_solution = None
+            solve_status = False
         else:
-            # It should not overwrite anything.
-            pass
-        return photometric_solution
+            # The solving passed.
+            solve_status = True
+        finally:
+            # Check if the solution should overwrite the current one.
+            if overwrite:
+                self.photometrics = photometric_solution
+                self.photometrics_status = solve_status
+        return photometric_solution, solve_status
 
     def solve_propagate(
         self,
@@ -284,11 +327,13 @@ class OpihiSolution(library.engine.ExarataSolution):
         -------
         propagative_solution : PropagativeSolution
             The propagation solution for the asteroid and image.
+        solve_status : bool
+            The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the astrometry solution be computed before-hand.
-            This will not precompute automatically it without it being called
-            explicitly, but it will instead return an error.
+            This requires that the astrometric solution be computed 
+            before-hand. It will not be precomputed automatically; without it
+            being called explicitly, this will instead raise an error.
         """
         # The propagation solution requires the astrometric solution to be
         # computed first.
@@ -357,21 +402,29 @@ class OpihiSolution(library.engine.ExarataSolution):
         asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec)
         asteroid_time = np.append(valid_past_asteroid_time, asteroid_time)
 
-        # Computing the propagation solutions.
-        propagative_solution = propagate.PropagativeSolution(
-            ra=asteroid_ra,
-            dec=asteroid_dec,
-            obs_time=asteroid_time,
-            solver_engine=solver_engine,
-            vehicle_args=vehicle_args,
-        )
-        # See if the current propagation solution should be replaced.
-        if overwrite:
-            self.propagatives = propagative_solution
+        # Computing the propagation solution.
+        try:
+            propagative_solution = propagate.PropagativeSolution(
+                ra=asteroid_ra,
+                dec=asteroid_dec,
+                obs_time=asteroid_time,
+                solver_engine=solver_engine,
+                vehicle_args=vehicle_args,
+            )
+        except Exception:
+            # The solving failed.
+            propagative_solution = None
+            solve_status = False
         else:
-            pass
+            # The solving was completed.
+            solve_status = True
+        finally:
+            # See if the current propagation solution should be replaced.
+            if overwrite:
+                self.propagatives = propagative_solution
+                self.propagatives_status = solve_status
         # All done.
-        return propagative_solution
+        return propagative_solution, solve_status
 
     def solve_orbit(
         self,
@@ -402,11 +455,13 @@ class OpihiSolution(library.engine.ExarataSolution):
         -------
         orbital_solution : OrbitalSolution
             The orbit solution for the asteroid and image.
+        solve_status : bool
+            The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the astrometry solution be computed before-hand.
-            This will not precompute automatically it without it being called
-            explicitly, but it will instead return an error.
+            This requires that the astrometric solution be computed 
+            before-hand. It will not be precomputed automatically; without it
+            being called explicitly, this will instead raise an error.
         """
         # A lot of this code re-implements of the methods for deriving the
         # record row; but this is to allow for the submission of a custom
@@ -475,18 +530,25 @@ class OpihiSolution(library.engine.ExarataSolution):
         asteroid_record = asteroid_history + current_mpc_record
 
         # Solve for the orbital solution.
-        orbital_solution = orbit.OrbitalSolution(
-            observation_record=asteroid_record,
-            solver_engine=solver_engine,
-            vehicle_args=vehicle_args,
-        )
-        # Check if the solution should overwrite the current one.
-        if overwrite:
-            self.orbitals = orbital_solution
+        try:
+            orbital_solution = orbit.OrbitalSolution(
+                observation_record=asteroid_record,
+                solver_engine=solver_engine,
+                vehicle_args=vehicle_args,
+            )
+        except Exception:
+            # The solve failed.
+            orbital_solution = None
+            solve_status = False
         else:
-            # It should not overwrite anything.
-            pass
-        return orbital_solution
+            # The solve worked okay.
+            solve_status = True
+        finally:
+            # Check if the solution should overwrite the current one.
+            if overwrite:
+                self.orbitals = orbital_solution
+                self.orbitals_status = solve_status
+        return orbital_solution, solve_status
 
     def solve_ephemeris(
         self,
@@ -507,17 +569,19 @@ class OpihiSolution(library.engine.ExarataSolution):
         vehicle_args : dictionary
             If the vehicle function for the provided solver engine needs
             extra parameters not otherwise provided by the standard input,
-            they are given here. s
+            they are given here.
 
         Returns
         -------
         ephemeritics_solution : EphemeriticSolution
             The orbit solution for the asteroid and image.
+        solve_status : bool
+            The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the orbit solution be computed before-hand.
-            This will not precompute automatically it without it being called
-            explicitly, but it will instead return an error.
+            This requires that the orbital solution be computed 
+            before-hand. It will not be precomputed automatically; without it
+            being called explicitly, this will instead raise an error.
         """
         # The propagation solution requires the astrometric solution to be
         # computed first.
@@ -529,19 +593,26 @@ class OpihiSolution(library.engine.ExarataSolution):
 
         # Computing the ephemeris solution provided the engine that the
         # user wants to use.
-        ephemeritics_solution = ephemeris.EphemeriticSolution(
-            orbitals=self.orbitals,
-            solver_engine=solver_engine,
-            vehicle_args=vehicle_args,
-        )
-
-        # Check if the solution should overwrite the current one.
-        if overwrite:
-            self.ephemeritics = ephemeritics_solution
+        try:
+            ephemeritics_solution = ephemeris.EphemeriticSolution(
+                orbitals=self.orbitals,
+                solver_engine=solver_engine,
+                vehicle_args=vehicle_args,
+            )
+        except Exception:
+            # The solve failed.
+            ephemeritics_solution = None
+            solve_status = False
         else:
-            # It should not overwrite anything.
-            pass
-        return ephemeritics_solution
+            # The solve passed file.
+            solve_status = True
+        finally:
+            # Check if the solution should overwrite the current one.
+            if overwrite:
+                self.ephemeritics = ephemeritics_solution
+                self.ephemeritics_status = solve_status
+        # All done.
+        return ephemeritics_solution, solve_status
 
     def mpc_table_row(self) -> hint.Table:
         """An MPC table of the current observation with information provided
