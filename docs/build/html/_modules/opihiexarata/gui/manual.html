@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.6.13 documentation</title>
+  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -240,20 +240,24 @@
 <span class="sd">    asteroid_set_name : string</span>
 <span class="sd">        The current asteroid name provided by the user.</span>
 <span class="sd">    raw_fits_filename : string</span>
-<span class="sd">        The raw input filename. This file is usually preprocessed before </span>
+<span class="sd">        The raw input filename. This file is usually preprocessed before</span>
 <span class="sd">        analysis.</span>
 <span class="sd">    raw_record_filename : string</span>
-<span class="sd">        The raw MPC record filename. This contains historical asteroid </span>
+<span class="sd">        The raw MPC record filename. This contains historical asteroid</span>
 <span class="sd">        information collected (with the unique identifier being the name).</span>
 <span class="sd">    process_fits_filename : string</span>
-<span class="sd">        The filename of the preprocessed image, this is generally generated </span>
-<span class="sd">        automatically by the preprocess solution. This file is generally used </span>
+<span class="sd">        The filename of the preprocessed image, this is generally generated</span>
+<span class="sd">        automatically by the preprocess solution. This file is generally used</span>
 <span class="sd">        for analysis.</span>
+<span class="sd">    automatic_fetch_directory : string</span>
+<span class="sd">        The directory where fits files are to be automatically fetched from.</span>
+<span class="sd">        Getting a file using the manual method updates this to the directory</span>
+<span class="sd">        of the manual file.</span>
 <span class="sd">    preprocess_solution : OpihiPreprocessSolution</span>
-<span class="sd">        The preprocessing solution which is used to convert raw images to </span>
+<span class="sd">        The preprocessing solution which is used to convert raw images to</span>
 <span class="sd">        preprocessed files.</span>
 <span class="sd">    opihi_solution : OpihiSolution</span>
-<span class="sd">        The general OpihiExarata solution, the collection class of all other </span>
+<span class="sd">        The general OpihiExarata solution, the collection class of all other</span>
 <span class="sd">        solutions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -280,8 +284,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_record_filename</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">process_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># The automatic fetching directory default is stored in the</span>
+        <span class="c1"># configuration file.</span>
+        <span class="n">AF_DIR</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">AF_DIR</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="n">AF_DIR</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Preparing the image area for Opihi sky images.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__init_opihi_image</span><span class="p">()</span>
@@ -495,8 +508,15 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO</span>
-        <span class="n">new_fits_filename</span> <span class="o">=</span> <span class="s2">&quot;pie&quot;</span>
+        <span class="c1"># Fetch a file from the directory where files are to be fetched.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_fits_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_most_recent_filename_in_directory</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span><span class="p">,</span> <span class="s2">&quot;fits&quot;</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Something happened and a new fits file cannot be properly</span>
+            <span class="c1"># derived.</span>
+            <span class="n">new_fits_filename</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># If the user did not provide a file to enter, there is nothing to be</span>
         <span class="c1"># changed.</span>
@@ -543,6 +563,12 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Exit!</span>
             <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># We update the automatic fetching directory with the path from this</span>
+        <span class="c1"># manual file. It is usually the case that the user expects updates</span>
+        <span class="c1"># from their same directory.</span>
+        <span class="n">new_fits_directory</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="n">new_fits_directory</span>
 
         <span class="c1"># Process the file first so that what the user sees is closer to</span>
         <span class="c1"># what it really is.</span>
@@ -1126,7 +1152,7 @@
 
         <span class="c1"># For asteroid information, if we are to prompt the user for</span>
         <span class="c1"># information about the asteroid.</span>
-        <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_PROMPT_FOR_ASTEROID_INFORMATION</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_PROMPT_FOR_ASTEROID_INFORMATION</span><span class="p">:</span>
             <span class="c1"># The name is derived from the current object set that we are on.</span>
             <span class="n">asteroid_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span>
             <span class="c1"># Use the target selector GUI for the position of the asteroid.</span>
@@ -1698,8 +1724,8 @@
 
         <span class="c1"># Use the current time and date to determine the future positions with</span>
         <span class="c1"># the time interval provided.</span>
-        <span class="n">ENTRY_COUNT</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_PROPAGATE_PRECOMPUTED_FUTURE_ENTRY_COUNT</span>
-        <span class="n">INTERVAL</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_PROPAGATE_PRECOMPUTED_FUTURE_TIMESTEP_SECONDS</span>
+        <span class="n">ENTRY_COUNT</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT</span>
+        <span class="n">INTERVAL</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS</span>
         <span class="n">INTERVAL_DAYS</span> <span class="o">=</span> <span class="n">INTERVAL</span> <span class="o">/</span> <span class="mi">86400</span>
         <span class="n">current_julian_day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">()</span>
         <span class="n">precomputed_future_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -1774,7 +1800,9 @@
         <span class="c1"># Attempt to plot the location of the specified asteroid.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_location</span>
-            <span class="n">TARGET_MARKER_SIZE</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_IMAGE_PLOT_TARGET_MARKER_SIZE</span><span class="p">)</span>
+            <span class="n">TARGET_MARKER_SIZE</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE</span>
+            <span class="p">)</span>
             <span class="n">target_marker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
                 <span class="n">target_x</span><span class="p">,</span>
                 <span class="n">target_y</span><span class="p">,</span>

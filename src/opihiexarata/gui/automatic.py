@@ -209,7 +209,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # As we instigated a manual trigger, update the GUI/status.
         self.operational_status_flag = "trigger"
         self.refresh_window()
-        # We just call the trigger itself. We still thread it out as to not 
+        # We just call the trigger itself. We still thread it out as to not
         # completely freeze the GUI.
         trigger_solving_thread = threading.Thread(target=self.trigger_next_image_solve)
         trigger_solving_thread.start()
@@ -270,7 +270,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 self.trigger_next_image_solve()
                 # We take a little break to ensure that, in the case of no new
                 # file from the trigger, we are not hammering the disk too hard.
-                COOLDOWN = library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS
+                COOLDOWN = (
+                    library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS
+                )
                 time.sleep(COOLDOWN)
 
         # The loop has been broken and likely this is because the stop check
@@ -429,11 +431,17 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Given the engines, solve for both the astrometry and photometry.
         # We rely on the error handling of the OpihiSolution solving itself.
         __, __ = opihi_solution.solve_astrometry(
-            solver_engine=astrometry_engine, overwrite=True, raise_on_error=False, vehicle_args=astrometry_vehicle_args
-            )
+            solver_engine=astrometry_engine,
+            overwrite=True,
+            raise_on_error=False,
+            vehicle_args=astrometry_vehicle_args,
+        )
         __, __ = opihi_solution.solve_photometry(
-                solver_engine=photometry_engine, overwrite=True, raise_on_error=False, vehicle_args=photometry_vehicle_args
-            )
+            solver_engine=photometry_engine,
+            overwrite=True,
+            raise_on_error=False,
+            vehicle_args=photometry_vehicle_args,
+        )
 
         # All done.
         return opihi_solution
@@ -503,7 +511,10 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # If the solve failed, as detected by the status flags, then it cannot
         # be a result.
-        if self.working_opihi_solution.astrometrics_status and self.working_opihi_solution.photometrics_status:
+        if (
+            self.working_opihi_solution.astrometrics_status
+            and self.working_opihi_solution.photometrics_status
+        ):
             # The solving likely worked alright. It is good enough to
             # consider this as a "results" class. A copy is desired so that
             # it does not get mixed up.
@@ -580,7 +591,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             self.ui.label_dynamic_results_filename.setText("None")
 
         # If there is no resulting Opihi solution, then there is no data to be
-        # extracted for results. The results solution should also be always 
+        # extracted for results. The results solution should also be always
         # solved so we do not need to check for it.
         if isinstance(self.results_opihi_solution, opihiexarata.OpihiSolution):
             # Obtaining the observing time.
@@ -593,7 +604,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 mint_int,
                 secs_float,
             ) = library.conversion.julian_day_to_full_date(jd=observing_time_jd)
-            # Allowing for padded zeros for ISO 8601 (like) compatibility, 
+            # Allowing for padded zeros for ISO 8601 (like) compatibility,
             # because it is a more unambiguous format.
             date_string = "{y:04d}-{m:02d}-{d:02d}".format(
                 y=year_int, m=moth_int, d=days_int

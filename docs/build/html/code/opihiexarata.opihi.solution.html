@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.solution module &mdash; OpihiExarata 2022.6.13 documentation</title>
+  <title>opihiexarata.opihi.solution module &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -348,6 +348,26 @@ there is no asteroid.</p>
 </dd>
 <dt>ephemeritics<span class="classifier">EphemeriticSolution</span></dt><dd><p>The ephemeris solution; if it has not been solved yet, this is None.</p>
 </dd>
+<dt>astrometrics_status<span class="classifier">bool, None</span></dt><dd><p>The status of the solving of the astrometric solution. It is True or
+False based on the success of the solve, None if a solve has not
+been attempted.</p>
+</dd>
+<dt>photometrics_status<span class="classifier">bool, None</span></dt><dd><p>The status of the solving of the photometric solution. It is True or
+False based on the success of the solve, None if a solve has not
+been attempted.</p>
+</dd>
+<dt>propagatives_status<span class="classifier">bool, None</span></dt><dd><p>The status of the solving of the propagative solution. It is True or
+False based on the success of the solve, None if a solve has not
+been attempted.</p>
+</dd>
+<dt>orbitals_status<span class="classifier">bool, None</span></dt><dd><p>The status of the solving of the orbital solution. It is True or
+False based on the success of the solve, None if a solve has not
+been attempted.</p>
+</dd>
+<dt>ephemeritics_status<span class="classifier">bool, None</span></dt><dd><p>The status of the solving of the ephemeris solution. It is True or
+False based on the success of the solve, None if a solve has not
+been attempted.</p>
+</dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.__init__">
@@ -414,7 +434,7 @@ by solved solutions. This routine does not attempt to do any solutions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.solve_astrometry">
-<span class="sig-name descname"><span class="pre">solve_astrometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><span class="pre">AstrometricSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_astrometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_astrometry" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solve_astrometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><span class="pre">AstrometricSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_astrometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_astrometry" title="Permalink to this definition"></a></dt>
 <dd><p>Solve the image astrometry by using an astrometric engine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -422,23 +442,26 @@ by solved solutions. This routine does not attempt to do any solutions.</p>
 <li><p><strong>solver_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><em>AstrometryEngine</em></a>) – The astrometric engine which the astrometry solver will use.</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>default = True</em>) – Overwrite and replace the information of this class with the new
 values. If False, the returned solution is not also applied.</p></li>
-<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+<li><p><strong>raise_on_error</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, this disables the error handing and allows for errors from
+the solving engines/solutions to be propagated out.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em><em>, </em><em>default = {}</em>) – If the vehicle function for the provided solver engine needs
 extra parameters not otherwise provided by the standard input,
 they are given here.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>astrometric_solution</strong> – The astrometry solution for the image.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution">AstrometricSolution</a></p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>astrometric_solution</strong> (<em>AstrometricSolution</em>) – The astrometry solution for the image.</p></li>
+<li><p><strong>solve_status</strong> (<em>bool</em>) – The status of the solve. If True, the solving was successful.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris">
-<span class="sig-name descname"><span class="pre">solve_ephemeris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><span class="pre">EphemerisEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_ephemeris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solve_ephemeris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><span class="pre">EphemerisEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_ephemeris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris" title="Permalink to this definition"></a></dt>
 <dd><p>Solve for the ephemeris solution an asteroid using previous
 observations and derived orbital elements.</p>
 <dl class="field-list simple">
@@ -447,17 +470,20 @@ observations and derived orbital elements.</p>
 <li><p><strong>solver_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine" title="opihiexarata.library.engine.EphemerisEngine"><em>EphemerisEngine</em></a>) – The ephemeris engine which the ephemeris solver will use.</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>default = True</em>) – Overwrite and replace the information of this class with the new
 values. If False, the returned solution is not also applied.</p></li>
-<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+<li><p><strong>raise_on_error</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, this disables the error handing and allows for errors from
+the solving engines/solutions to be propagated out.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em><em>, </em><em>default = {}</em>) – If the vehicle function for the provided solver engine needs
 extra parameters not otherwise provided by the standard input,
-they are given here. s</p></li>
+they are given here.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>ephemeritics_solution</strong> (<em>EphemeriticSolution</em>) – The orbit solution for the asteroid and image.</p></li>
-<li><p><em>Warning ..</em> – This requires that the orbit solution be computed before-hand.
-This will not precompute automatically it without it being called
-explicitly, but it will instead return an error.</p></li>
+<li><p><strong>solve_status</strong> (<em>bool</em>) – The status of the solve. If True, the solving was successful.</p></li>
+<li><p><em>Warning ..</em> – This requires that the orbital solution be computed
+before-hand. It will not be precomputed automatically; without it
+being called explicitly, this will instead raise an error.</p></li>
 </ul>
 </p>
 </dd>
@@ -466,7 +492,7 @@ explicitly, but it will instead return an error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.solve_orbit">
-<span class="sig-name descname"><span class="pre">solve_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine" title="opihiexarata.library.engine.OrbitEngine"><span class="pre">OrbitEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asteroid_location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_orbit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solve_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine" title="opihiexarata.library.engine.OrbitEngine"><span class="pre">OrbitEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asteroid_location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_orbit" title="Permalink to this definition"></a></dt>
 <dd><p>Solve for the orbital elements an asteroid using previous
 observations.</p>
 <dl class="field-list simple">
@@ -477,7 +503,9 @@ observations.</p>
 values. If False, the returned solution is not also applied.</p></li>
 <li><p><strong>asteroid_location</strong> (<em>tuple</em><em>, </em><em>default = None</em>) – The pixel location of the asteroid in the image. Defaults to the
 value provided at instantiation.</p></li>
-<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+<li><p><strong>raise_on_error</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, this disables the error handing and allows for errors from
+the solving engines/solutions to be propagated out.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em><em>, </em><em>default = {}</em>) – If the vehicle function for the provided solver engine needs
 extra parameters not otherwise provided by the standard input,
 they are given here.</p></li>
 </ul>
@@ -485,9 +513,10 @@ they are given here.</p></li>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>orbital_solution</strong> (<em>OrbitalSolution</em>) – The orbit solution for the asteroid and image.</p></li>
-<li><p><em>Warning ..</em> – This requires that the astrometry solution be computed before-hand.
-This will not precompute automatically it without it being called
-explicitly, but it will instead return an error.</p></li>
+<li><p><strong>solve_status</strong> (<em>bool</em>) – The status of the solve. If True, the solving was successful.</p></li>
+<li><p><em>Warning ..</em> – This requires that the astrometric solution be computed
+before-hand. It will not be precomputed automatically; without it
+being called explicitly, this will instead raise an error.</p></li>
 </ul>
 </p>
 </dd>
@@ -496,7 +525,7 @@ explicitly, but it will instead return an error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.solve_photometry">
-<span class="sig-name descname"><span class="pre">solve_photometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><span class="pre">PhotometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution" title="opihiexarata.photometry.solution.PhotometricSolution"><span class="pre">PhotometricSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_photometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_photometry" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solve_photometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><span class="pre">PhotometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution" title="opihiexarata.photometry.solution.PhotometricSolution"><span class="pre">PhotometricSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_photometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_photometry" title="Permalink to this definition"></a></dt>
 <dd><p>Solve the image photometry by using a photometric engine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -508,7 +537,9 @@ values. If False, the returned solution is not also applied.</p></li>
 instantiation.</p></li>
 <li><p><strong>exposure_time</strong> (<em>float</em><em>, </em><em>default = None</em>) – The exposure time of the image, in seconds. Defaults to the value
 provided at instantiation.</p></li>
-<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+<li><p><strong>raise_on_error</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, this disables the error handing and allows for errors from
+the solving engines/solutions to be propagated out.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em><em>, </em><em>default = {}</em>) – If the vehicle function for the provided solver engine needs
 extra parameters not otherwise provided by the standard input,
 they are given here.</p></li>
 </ul>
@@ -516,9 +547,10 @@ they are given here.</p></li>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>photometric_solution</strong> (<em>PhotometrySolution</em>) – The photometry solution for the image.</p></li>
-<li><p><em>Warning ..</em> – This requires that the astrometry solution be computed before-hand.
-This will not precompute automatically it without it being called
-explicitly, but it will instead return an error.</p></li>
+<li><p><strong>solve_status</strong> (<em>bool</em>) – The status of the solve. If True, the solving was successful.</p></li>
+<li><p><em>Warning ..</em> – This requires that the astrometric solution be computed
+before-hand. It will not be precomputed automatically; without it
+being called explicitly, this will instead raise an error.</p></li>
 </ul>
 </p>
 </dd>
@@ -527,7 +559,7 @@ explicitly, but it will instead return an error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.solve_propagate">
-<span class="sig-name descname"><span class="pre">solve_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PropagationEngine" title="opihiexarata.library.engine.PropagationEngine"><span class="pre">PropagationEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asteroid_location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution" title="opihiexarata.propagate.solution.PropagativeSolution"><span class="pre">PropagativeSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_propagate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_propagate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solve_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PropagationEngine" title="opihiexarata.library.engine.PropagationEngine"><span class="pre">PropagationEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asteroid_location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution" title="opihiexarata.propagate.solution.PropagativeSolution"><span class="pre">PropagativeSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.solve_propagate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.solve_propagate" title="Permalink to this definition"></a></dt>
 <dd><p>Solve for the location of an asteroid using a method of propagation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -537,7 +569,9 @@ explicitly, but it will instead return an error.</p></li>
 values. If False, the returned solution is not also applied.</p></li>
 <li><p><strong>asteroid_location</strong> (<em>tuple</em><em>, </em><em>default = None</em>) – The pixel location of the asteroid in the image. Defaults to the
 value provided at instantiation.</p></li>
-<li><p><strong>vehicle_args</strong> (<em>dictionary</em>) – If the vehicle function for the provided solver engine needs
+<li><p><strong>raise_on_error</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, this disables the error handing and allows for errors from
+the solving engines/solutions to be propagated out.</p></li>
+<li><p><strong>vehicle_args</strong> (<em>dictionary</em><em>, </em><em>default = {}</em>) – If the vehicle function for the provided solver engine needs
 extra parameters not otherwise provided by the standard input,
 they are given here.</p></li>
 </ul>
@@ -545,9 +579,10 @@ they are given here.</p></li>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>propagative_solution</strong> (<em>PropagativeSolution</em>) – The propagation solution for the asteroid and image.</p></li>
-<li><p><em>Warning ..</em> – This requires that the astrometry solution be computed before-hand.
-This will not precompute automatically it without it being called
-explicitly, but it will instead return an error.</p></li>
+<li><p><strong>solve_status</strong> (<em>bool</em>) – The status of the solve. If True, the solving was successful.</p></li>
+<li><p><em>Warning ..</em> – This requires that the astrometric solution be computed
+before-hand. It will not be precomputed automatically; without it
+being called explicitly, this will instead raise an error.</p></li>
 </ul>
 </p>
 </dd>

@@ -49,7 +49,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         automatically by the preprocess solution. This file is generally used
         for analysis.
     automatic_fetch_directory : string
-        The directory where fits files are to be automatically fetched from. 
+        The directory where fits files are to be automatically fetched from.
         Getting a file using the manual method updates this to the directory
         of the manual file.
     preprocess_solution : OpihiPreprocessSolution
@@ -87,7 +87,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.preprocess_solution = None
         self.opihi_solution = None
 
-        # The automatic fetching directory default is stored in the 
+        # The automatic fetching directory default is stored in the
         # configuration file.
         AF_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
         if os.path.isdir(AF_DIR):
@@ -309,9 +309,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         # Fetch a file from the directory where files are to be fetched.
         try:
-            new_fits_filename = library.path.get_most_recent_filename_in_directory(self.automatic_fetch_directory, "fits")
+            new_fits_filename = library.path.get_most_recent_filename_in_directory(
+                self.automatic_fetch_directory, "fits"
+            )
         except Exception:
-            # Something happened and a new fits file cannot be properly 
+            # Something happened and a new fits file cannot be properly
             # derived.
             new_fits_filename = ""
 

@@ -68,24 +68,24 @@ class OpihiSolution(library.engine.ExarataSolution):
     ephemeritics : EphemeriticSolution
         The ephemeris solution; if it has not been solved yet, this is None.
     astrometrics_status : bool, None
-        The status of the solving of the astrometric solution. It is True or 
-        False based on the success of the solve, None if a solve has not 
+        The status of the solving of the astrometric solution. It is True or
+        False based on the success of the solve, None if a solve has not
         been attempted.
     photometrics_status : bool, None
-        The status of the solving of the photometric solution. It is True or 
-        False based on the success of the solve, None if a solve has not 
+        The status of the solving of the photometric solution. It is True or
+        False based on the success of the solve, None if a solve has not
         been attempted.
     propagatives_status : bool, None
-        The status of the solving of the propagative solution. It is True or 
-        False based on the success of the solve, None if a solve has not 
+        The status of the solving of the propagative solution. It is True or
+        False based on the success of the solve, None if a solve has not
         been attempted.
     orbitals_status : bool, None
-        The status of the solving of the orbital solution. It is True or 
-        False based on the success of the solve, None if a solve has not 
+        The status of the solving of the orbital solution. It is True or
+        False based on the success of the solve, None if a solve has not
         been attempted.
     ephemeritics_status : bool, None
-        The status of the solving of the ephemeris solution. It is True or 
-        False based on the success of the solve, None if a solve has not 
+        The status of the solving of the ephemeris solution. It is True or
+        False based on the success of the solve, None if a solve has not
         been attempted.
     """
 
@@ -271,7 +271,7 @@ class OpihiSolution(library.engine.ExarataSolution):
             The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the astrometric solution be computed 
+            This requires that the astrometric solution be computed
             before-hand. It will not be precomputed automatically; without it
             being called explicitly, this will instead raise an error.
         """
@@ -349,7 +349,7 @@ class OpihiSolution(library.engine.ExarataSolution):
             The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the astrometric solution be computed 
+            This requires that the astrometric solution be computed
             before-hand. It will not be precomputed automatically; without it
             being called explicitly, this will instead raise an error.
         """
@@ -484,7 +484,7 @@ class OpihiSolution(library.engine.ExarataSolution):
             The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the astrometric solution be computed 
+            This requires that the astrometric solution be computed
             before-hand. It will not be precomputed automatically; without it
             being called explicitly, this will instead raise an error.
         """
@@ -611,7 +611,7 @@ class OpihiSolution(library.engine.ExarataSolution):
             The status of the solve. If True, the solving was successful.
 
         Warning ..
-            This requires that the orbital solution be computed 
+            This requires that the orbital solution be computed
             before-hand. It will not be precomputed automatically; without it
             being called explicitly, this will instead raise an error.
         """
