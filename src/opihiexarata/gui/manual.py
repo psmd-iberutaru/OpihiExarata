@@ -90,7 +90,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The automatic fetching directory default is stored in the 
         # configuration file.
         AF_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
-        self.automatic_fetch_directory = AF_DIR
+        if os.path.isdir(AF_DIR):
+            self.automatic_fetch_directory = AF_DIR
+        else:
+            self.automatic_fetch_directory = None
 
         # Preparing the image area for Opihi sky images.
         self.__init_opihi_image()

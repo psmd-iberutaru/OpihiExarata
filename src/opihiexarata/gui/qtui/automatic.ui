@@ -168,11 +168,32 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontal_layout_date_time">
+      <layout class="QHBoxLayout" name="horizontal_layout_astrometry_results">
        <item>
-        <widget class="QLabel" name="label_static_date_time">
+        <widget class="QLabel" name="label_static_ra_dec">
          <property name="text">
-          <string>Observed At (UTC)</string>
+          <string>Coordinates</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_dynamic_ra">
+         <property name="text">
+          <string>RR:RR:RR.RRR</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_dynamic_dec">
+         <property name="text">
+          <string>+DD:DD:DD.DDD</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_9">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
@@ -193,31 +214,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontal_layout_astrometry_results">
-       <item>
-        <widget class="QLabel" name="label_static_ra_dec">
-         <property name="text">
-          <string>Center Coordinates</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_dynamic_ra">
-         <property name="text">
-          <string>RR:RR:RR.RRR</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_dynamic_dec">
-         <property name="text">
-          <string>+DD:DD:DD.DDD</string>
          </property>
         </widget>
        </item>
@@ -280,7 +276,7 @@
        <item>
         <widget class="QLabel" name="label_static_operational_status">
          <property name="text">
-          <string>Status</string>
+          <string>Loop Status</string>
          </property>
         </widget>
        </item>
@@ -291,13 +287,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="Line" name="line_8">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>

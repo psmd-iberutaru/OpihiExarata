@@ -799,7 +799,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         ):
             # Represent the marker as the targets location as defined by the
             # search box and the target finding function.
-            MARKER_SIZE = float(library.config.SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
+            MARKER_SIZE = float(library.config.GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
             self.opihi_axes.scatter(
                 self.target_x,
                 self.target_y,
@@ -958,7 +958,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         dec_change = dec_rate * delta_time
 
         # Pixel scale, in arcsec per pixel.
-        PIXEL_SCALE = library.config.SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL
+        PIXEL_SCALE = library.config.GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL
         # We assume the image is aligned N/E to Y/X so a simple image
         # translation can be used.
         x_pix_change = ra_change / PIXEL_SCALE

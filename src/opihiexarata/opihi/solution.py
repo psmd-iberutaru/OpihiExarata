@@ -181,6 +181,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         self,
         solver_engine: hint.AstrometryEngine,
         overwrite: bool = True,
+        raise_on_error: bool = False,
         vehicle_args: dict = {},
     ) -> hint.AstrometricSolution:
         """Solve the image astrometry by using an astrometric engine.
@@ -192,7 +193,10 @@ class OpihiSolution(library.engine.ExarataSolution):
         overwrite : bool, default = True
             Overwrite and replace the information of this class with the new
             values. If False, the returned solution is not also applied.
-        vehicle_args : dictionary
+        raise_on_error : bool, default = False
+            If True, this disables the error handing and allows for errors from
+            the solving engines/solutions to be propagated out.
+        vehicle_args : dictionary, default = {}
             If the vehicle function for the provided solver engine needs
             extra parameters not otherwise provided by the standard input,
             they are given here.
@@ -210,10 +214,13 @@ class OpihiSolution(library.engine.ExarataSolution):
                 solver_engine=solver_engine,
                 vehicle_args=vehicle_args,
             )
-        except Exception:
+        except Exception as _exception:
             # The solving failed.
             astrometry_solution = None
             solve_status = False
+            # If the user wants a re-raised exception.
+            if raise_on_error:
+                raise _exception
         else:
             # The solving passed.
             solve_status = True
@@ -228,6 +235,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         self,
         solver_engine: hint.PhotometryEngine,
         overwrite: bool = True,
+        raise_on_error: bool = False,
         filter_name: str = None,
         exposure_time: float = None,
         vehicle_args: dict = {},
@@ -247,7 +255,10 @@ class OpihiSolution(library.engine.ExarataSolution):
         exposure_time : float, default = None
             The exposure time of the image, in seconds. Defaults to the value
             provided at instantiation.
-        vehicle_args : dictionary
+        raise_on_error : bool, default = False
+            If True, this disables the error handing and allows for errors from
+            the solving engines/solutions to be propagated out.
+        vehicle_args : dictionary, default = {}
             If the vehicle function for the provided solver engine needs
             extra parameters not otherwise provided by the standard input,
             they are given here.
@@ -285,10 +296,13 @@ class OpihiSolution(library.engine.ExarataSolution):
                 exposure_time=exposure_time,
                 vehicle_args=vehicle_args,
             )
-        except Exception:
+        except Exception as _exception:
             # The solving failed.
             photometric_solution = None
             solve_status = False
+            # If the user wants a re-raised exception.
+            if raise_on_error:
+                raise _exception
         else:
             # The solving passed.
             solve_status = True
@@ -303,6 +317,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         self,
         solver_engine: hint.PropagationEngine,
         overwrite: bool = True,
+        raise_on_error: bool = False,
         asteroid_location: tuple[float, float] = None,
         vehicle_args: dict = {},
     ) -> hint.PropagativeSolution:
@@ -318,7 +333,10 @@ class OpihiSolution(library.engine.ExarataSolution):
         asteroid_location : tuple, default = None
             The pixel location of the asteroid in the image. Defaults to the
             value provided at instantiation.
-        vehicle_args : dictionary
+        raise_on_error : bool, default = False
+            If True, this disables the error handing and allows for errors from
+            the solving engines/solutions to be propagated out.
+        vehicle_args : dictionary, default = {}
             If the vehicle function for the provided solver engine needs
             extra parameters not otherwise provided by the standard input,
             they are given here.
@@ -411,10 +429,13 @@ class OpihiSolution(library.engine.ExarataSolution):
                 solver_engine=solver_engine,
                 vehicle_args=vehicle_args,
             )
-        except Exception:
+        except Exception as _exception:
             # The solving failed.
             propagative_solution = None
             solve_status = False
+            # If the user wants a re-raised exception.
+            if raise_on_error:
+                raise _exception
         else:
             # The solving was completed.
             solve_status = True
@@ -430,6 +451,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         self,
         solver_engine: hint.OrbitEngine,
         overwrite: bool = True,
+        raise_on_error: bool = False,
         asteroid_location: tuple = None,
         vehicle_args: dict = {},
     ):
@@ -446,7 +468,10 @@ class OpihiSolution(library.engine.ExarataSolution):
         asteroid_location : tuple, default = None
             The pixel location of the asteroid in the image. Defaults to the
             value provided at instantiation.
-        vehicle_args : dictionary
+        raise_on_error : bool, default = False
+            If True, this disables the error handing and allows for errors from
+            the solving engines/solutions to be propagated out.
+        vehicle_args : dictionary, default = {}
             If the vehicle function for the provided solver engine needs
             extra parameters not otherwise provided by the standard input,
             they are given here.
@@ -536,10 +561,13 @@ class OpihiSolution(library.engine.ExarataSolution):
                 solver_engine=solver_engine,
                 vehicle_args=vehicle_args,
             )
-        except Exception:
+        except Exception as _exception:
             # The solve failed.
             orbital_solution = None
             solve_status = False
+            # If the user wants a re-raised exception.
+            if raise_on_error:
+                raise _exception
         else:
             # The solve worked okay.
             solve_status = True
@@ -554,6 +582,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         self,
         solver_engine: hint.EphemerisEngine,
         overwrite: bool = True,
+        raise_on_error: bool = False,
         vehicle_args: dict = {},
     ):
         """Solve for the ephemeris solution an asteroid using previous
@@ -566,7 +595,10 @@ class OpihiSolution(library.engine.ExarataSolution):
         overwrite : bool, default = True
             Overwrite and replace the information of this class with the new
             values. If False, the returned solution is not also applied.
-        vehicle_args : dictionary
+        raise_on_error : bool, default = False
+            If True, this disables the error handing and allows for errors from
+            the solving engines/solutions to be propagated out.
+        vehicle_args : dictionary, default = {}
             If the vehicle function for the provided solver engine needs
             extra parameters not otherwise provided by the standard input,
             they are given here.
@@ -599,10 +631,13 @@ class OpihiSolution(library.engine.ExarataSolution):
                 solver_engine=solver_engine,
                 vehicle_args=vehicle_args,
             )
-        except Exception:
+        except Exception as _exception:
             # The solve failed.
             ephemeritics_solution = None
             solve_status = False
+            # If the user wants a re-raised exception.
+            if raise_on_error:
+                raise _exception
         else:
             # The solve passed file.
             solve_status = True
