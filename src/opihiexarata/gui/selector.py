@@ -30,28 +30,62 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
     Attributes
     ----------
-    current_filename
-    current_header
-    current_data
-    reference_filename
-    reference_header
-    reference_data
-    subtract_none
-    subtract_sidereal
-    subtract_non_sidereal
-    target_x
-    target_y
-    subtraction_method
-    autoscale_1_99
-    plotted_data
-    colorbar_scale_low
-    colorbar_scale_high
-    opihi_figure
-    opihi_axes
-    opihi_canvas
-    opihi_nav_toolbar
-    gui_instance
-    _opihi_coordinate_formatter
+    current_filename : string
+        The fits filename of the image which the position of the asteroid is
+        going to be derived from.
+    current_header : Header
+        The fits header of the current fits image file.
+    current_data : array
+        The data of the of the current fits image file.
+    reference_filename : string
+        The fits filename of the image which is used to serve as an image to
+        compare the current one to so that the asteroid is easier to find.
+    reference_header : Header
+        The fits header of the reference fits image file.
+    reference_data : array
+        The fits data of the reference fits image file.
+    subtract_none : array
+        The data after the comparison operation of doing nothing was applied.
+        This serves mostly as a cache so that it only needs to be computed
+        once.
+    subtract_sidereal : array
+        The data after the comparison operation of subtracting the two images.
+        This serves mostly as a cache so that it only needs to be computed
+        once.
+    subtract_non_sidereal : array
+        The data after the comparison operation of doing shifting then
+        subtracting the two images. This serves mostly as a cache so that it
+        only needs to be computed once.
+    target_x : float
+        The x pixel location of the asteroid in the current image.
+    target_y : float
+        The y pixel location of the asteroid in the current image.
+    subtraction_method : string
+        The method of subtraction (comparison) between the current image and
+        the reference image.
+    autoscale_1_99 : bool
+        A flag to determine if, after every operation, the data's color bars
+        should be scaled so that it is 1 - 99%, a helpful scaling.
+    plotted_data : array
+        The data as is plotted in the GUI.
+    colorbar_scale_low : float
+        The lower value for which the color bar determines as its 0, the lowest
+        color value.
+    colorbar_scale_high : float
+        The higher value for which the color bar determines as its 1, the
+        highest color value.
+    opihi_figure : Figure
+        The matplotlib figure class of the displayed image in the GUI.
+    opihi_axes : Axes
+        The matplotlib axes class of the displayed image in the GUI.
+    opihi_canvas : FigureCanvasQTAgg
+        The matplotlib canvas class of the displayed image in the GUI. This
+        uses matplotlib's built-in Qt support.
+    opihi_nav_toolbar : NavigationToolbar2QT
+        The matplotlib navigation bar class of the displayed image in the
+        GUI. This uses matplotlib's built-in Qt support.
+    _opihi_coordinate_formatter : CoordinateFormatter
+        A class to wrap around the imshow formatter for fancy printing.
     """
 
     def __init__(
@@ -799,7 +833,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         ):
             # Represent the marker as the targets location as defined by the
             # search box and the target finding function.
-            MARKER_SIZE = float(library.config.GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
+            MARKER_SIZE = float(
+                library.config.GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE
+            )
             self.opihi_axes.scatter(
                 self.target_x,
                 self.target_y,
