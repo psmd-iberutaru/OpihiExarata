@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Orbfit &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>Install: Orbfit &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -15,6 +15,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -198,21 +204,21 @@
            <div itemprop="articleBody">
              
   <section id="install-orbfit">
-<h1>Install: Orbfit<a class="headerlink" href="#install-orbfit" title="Permalink to this headline"></a></h1>
+<h1>Install: Orbfit<a class="headerlink" href="#install-orbfit" title="Permalink to this heading"></a></h1>
 <p>Orbfit is one of the available asteroid orbit determiners.</p>
 <p>The instructions of installing Orbfit is derived from the
 <a class="reference external" href="http://adams.dm.unipi.it/~orbmaint/orbfit/OrbFit/doc/help.html#install">Orbfit installation documentation</a>.</p>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
 <p>There are a few prerequisites before the software can be installed.</p>
 <section id="directory">
-<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this headline"></a></h3>
+<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h3>
 <p>Enter into a directory which is accessible and usable by programs. In this documentation,
 we will call this directory <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>. You should do the commands of this section of
 the installation documentation within this directory.</p>
 </section>
 <section id="dependencies">
-<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h3>
 <p>The following dependencies should be installed. The installation of these are dependent
 on the package manager and operating system used.</p>
 <p>For APT-based systems:</p>
@@ -225,17 +231,17 @@ on the package manager and operating system used.</p>
 </div>
 </section>
 <section id="fortran-compiler">
-<h3>Fortran Compiler<a class="headerlink" href="#fortran-compiler" title="Permalink to this headline"></a></h3>
+<h3>Fortran Compiler<a class="headerlink" href="#fortran-compiler" title="Permalink to this heading"></a></h3>
 <p>A Fortran compiler is needed to compile the software. Although there are many different
 compilers available, we document here how to use the Intel Fortran compiler. The method
 of install is OS dependent, or more specifically, package manager dependent. Other
 installation method exist, see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top/installation.html">Intel Fortran compiler install</a> for more information
 (these instructions were derived from it).</p>
 <section id="install">
-<h4>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h4>
+<h4>Install<a class="headerlink" href="#install" title="Permalink to this heading"></a></h4>
 <p>Using package managers to install is the most convenient.</p>
 <section id="apt-package-managers">
-<h5>APT Package Managers<a class="headerlink" href="#apt-package-managers" title="Permalink to this headline"></a></h5>
+<h5>APT Package Managers<a class="headerlink" href="#apt-package-managers" title="Permalink to this heading"></a></h5>
 <p>Download the Intel repository to the system keyring:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Downloading key...</span>
 <span class="n">wget</span> <span class="o">-</span><span class="n">O</span><span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">apt</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">intel</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">intel</span><span class="o">-</span><span class="n">gpg</span><span class="o">-</span><span class="n">keys</span><span class="o">/</span><span class="n">GPG</span><span class="o">-</span><span class="n">PUB</span><span class="o">-</span><span class="n">KEY</span><span class="o">-</span><span class="n">INTEL</span><span class="o">-</span><span class="n">SW</span><span class="o">-</span><span class="n">PRODUCTS</span><span class="o">.</span><span class="n">PUB</span> \
@@ -258,7 +264,7 @@ installation method exist, see <a class="reference external" href="https://www.i
 </div>
 </section>
 <section id="yum-dnf-zypper-package-managers">
-<h5>YUM, DNF, Zypper Package Managers<a class="headerlink" href="#yum-dnf-zypper-package-managers" title="Permalink to this headline"></a></h5>
+<h5>YUM, DNF, Zypper Package Managers<a class="headerlink" href="#yum-dnf-zypper-package-managers" title="Permalink to this heading"></a></h5>
 <p>Download the Intel repository file and add it to the configuration directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Creating repository file...
 tee &gt; /tmp/oneAPI.repo &lt;&lt; EOF
@@ -306,7 +312,7 @@ sudo yum update
 </section>
 </section>
 <section id="environment-variables">
-<h4>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline"></a></h4>
+<h4>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading"></a></h4>
 <p>Set the environment variables for command-line development. This command sets the variables for the current session only. (For persistent environment variable set up, consider adding it to your startup script.):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">oneapi</span><span class="o">/</span><span class="n">setvars</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
@@ -315,7 +321,7 @@ sudo yum update
 </section>
 </section>
 <section id="download-orbfit">
-<h2>Download OrbFit<a class="headerlink" href="#download-orbfit" title="Permalink to this headline"></a></h2>
+<h2>Download OrbFit<a class="headerlink" href="#download-orbfit" title="Permalink to this heading"></a></h2>
 <p>The software needs to be downloaded.</p>
 <p>You can likely find the software package on the <a class="reference external" href="http://adams.dm.unipi.it/orbfit/">OrbFit website</a>. Otherwise, a download
 command may work:</p>
@@ -328,7 +334,7 @@ command may work:</p>
 </div>
 </section>
 <section id="compile">
-<h2>Compile<a class="headerlink" href="#compile" title="Permalink to this headline"></a></h2>
+<h2>Compile<a class="headerlink" href="#compile" title="Permalink to this heading"></a></h2>
 <p>To configure the compilation flags, OrbFit comes with a set of files which describe the
 flags. Initialize the proper compilation flags via the <code class="docutils literal notranslate"><span class="pre">config</span></code> command, (flags for an
 optimized build using the Intel compiler):</p>
@@ -354,7 +360,7 @@ does not seem to affect the orbit determination part of the program.</p>
 <p>The compiled programs should exist in <code class="docutils literal notranslate"><span class="pre">Orbfit/bin/</span></code>.</p>
 </section>
 <section id="download-jpl-ephemerides-file">
-<h2>Download JPL Ephemerides File<a class="headerlink" href="#download-jpl-ephemerides-file" title="Permalink to this headline"></a></h2>
+<h2>Download JPL Ephemerides File<a class="headerlink" href="#download-jpl-ephemerides-file" title="Permalink to this heading"></a></h2>
 <p>The OrbFit package uses the JPL ephemerides file for its calculations, it requires the binary ephemerides files. Current documentation suggests using the 405 ephemerides set, but more updated sets (DE ) also exist. For Linux, precomputed binaries can be found at <a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a> and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
 <p>For DE405:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ssd</span><span class="o">.</span><span class="n">jpl</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">eph</span><span class="o">/</span><span class="n">planets</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">de405</span><span class="o">/</span><span class="n">lnxp1600p2200</span><span class="mf">.405</span>
@@ -373,7 +379,7 @@ does not seem to affect the orbit determination part of the program.</p>
 </div>
 </section>
 <section id="testing-suite">
-<h2>Testing Suite<a class="headerlink" href="#testing-suite" title="Permalink to this headline"></a></h2>
+<h2>Testing Suite<a class="headerlink" href="#testing-suite" title="Permalink to this heading"></a></h2>
 <p>The software’s test suit can be executed from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">tests</span>
 </pre></div>
@@ -381,7 +387,7 @@ does not seem to affect the orbit determination part of the program.</p>
 <p>This ensures that the program has been installed correctly.</p>
 </section>
 <section id="executable-path-for-configuration-file">
-<h2>Executable Path for Configuration File<a class="headerlink" href="#executable-path-for-configuration-file" title="Permalink to this headline"></a></h2>
+<h2>Executable Path for Configuration File<a class="headerlink" href="#executable-path-for-configuration-file" title="Permalink to this heading"></a></h2>
 <p>For this program’s executables to be used, the path that they exist in must be known to
 OpihiExarata. Copy the output of the working directory command and add it to the
 configuration file’s entries as noted. The path should be an absolute path; these
@@ -398,7 +404,7 @@ cd ./bin; echo &quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;; pwd; cd ..
 </div>
 </section>
 <section id="opihiexarata-template-files">
-<h2>OpihiExarata Template Files<a class="headerlink" href="#opihiexarata-template-files" title="Permalink to this headline"></a></h2>
+<h2>OpihiExarata Template Files<a class="headerlink" href="#opihiexarata-template-files" title="Permalink to this heading"></a></h2>
 <p>In order for OpihiExarata to properly use the OrbFit program, files which are used by
 OrbFit must be collected for OpihiExarata to leverage.</p>
 <p>Create and enter the directory (starting from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>):</p>

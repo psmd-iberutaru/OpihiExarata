@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.solution &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.astrometry.solution &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -206,7 +212,7 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.astrometry</span> <span class="k">as</span> <span class="nn">astrometry</span>
 
 
-<div class="viewcode-block" id="AstrometricSolution"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution">[docs]</a><span class="k">class</span> <span class="nc">AstrometricSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="AstrometricSolution"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution">[docs]</a><span class="k">class</span> <span class="nc">AstrometricSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The primary class describing an astrometric solution, based on an image</span>
 <span class="sd">    provided.</span>
 
@@ -249,7 +255,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="AstrometricSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Solving the astrometry via the image provided. The engine class must</span>
 <span class="sd">        also be provided.</span>
@@ -263,6 +272,10 @@
 <span class="sd">            The astrometric solver engine class. This is what will act as the</span>
 <span class="sd">            &quot;behind the scenes&quot; and solve the field, using this middleware to</span>
 <span class="sd">            translate it into something that is easier.</span>
+<span class="sd">        vehicle_args : dictionary</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -291,7 +304,7 @@
         <span class="c1"># vehicle functions to run the engines and provide the data needed.</span>
         <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometryNetWebAPIEngine</span><span class="p">):</span>
             <span class="c1"># Solve using the API.</span>
-            <span class="n">solution_results</span> <span class="o">=</span> <span class="n">_vehicle_astrometrynet_web_api</span><span class="p">(</span>
+            <span class="n">astrometry_results</span> <span class="o">=</span> <span class="n">_vehicle_astrometrynet_web_api</span><span class="p">(</span>
                 <span class="n">fits_filename</span><span class="o">=</span><span class="n">fits_filename</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -309,14 +322,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_original_header</span> <span class="o">=</span> <span class="n">header</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_original_data</span> <span class="o">=</span> <span class="n">data</span>
             <span class="c1"># The base astrometric properties of the image.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ra</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;orientation&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;pixscale&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wcs</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;wcs&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ra</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;orientation&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;pixscale&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wcs</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;wcs&quot;</span><span class="p">]</span>
             <span class="c1"># The stars within the region.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">star_table</span> <span class="o">=</span> <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;star_table&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">star_table</span> <span class="o">=</span> <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;star_table&quot;</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
                 <span class="s2">&quot;The engine results provided are insufficient for this astrometric&quot;</span>
@@ -424,11 +437,11 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    solution_results : dict</span>
+<span class="sd">    astrometry_results : dict</span>
 <span class="sd">        A dictionary containing the results of the astrometric solution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># The results of the solve.</span>
-    <span class="n">solution_results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">astrometry_results</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Create an instance of the web API to work with.</span>
     <span class="n">PRIVATE_KEY</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SECRET_ASTROMETRYNET_WEB_API_KEY</span>
     <span class="c1"># The connection may fail the first time, so it is advised to repeat it a</span>
@@ -555,15 +568,15 @@
     <span class="n">star_corr_subset</span><span class="o">.</span><span class="n">rename_columns</span><span class="p">(</span><span class="n">column_key</span><span class="p">,</span> <span class="n">pref_name</span><span class="p">)</span>
 
     <span class="c1"># Extracting the data</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;orientation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;orientation&quot;</span><span class="p">]</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;radius&quot;</span><span class="p">]</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;pixscale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;pixscale&quot;</span><span class="p">]</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;wcs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wcs</span>
-    <span class="n">solution_results</span><span class="p">[</span><span class="s2">&quot;star_table&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">star_corr_subset</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;orientation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;orientation&quot;</span><span class="p">]</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;radius&quot;</span><span class="p">]</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;pixscale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job_results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">][</span><span class="s2">&quot;pixscale&quot;</span><span class="p">]</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;wcs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wcs</span>
+    <span class="n">astrometry_results</span><span class="p">[</span><span class="s2">&quot;star_table&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">star_corr_subset</span>
 
-    <span class="k">return</span> <span class="n">solution_results</span></div>
+    <span class="k">return</span> <span class="n">astrometry_results</span></div>
 </pre></div>
 
            </div>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.path module &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.library.path module &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,11 +15,12 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="opihiexarata.library.temporary module" href="opihiexarata.library.temporary.html" />
+    <link rel="next" title="opihiexarata.library.phototable module" href="opihiexarata.library.phototable.html" />
     <link rel="prev" title="opihiexarata.library.mpcrecord module" href="opihiexarata.library.mpcrecord.html" /> 
 </head>
 
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -199,7 +205,7 @@
            <div itemprop="articleBody">
              
   <section id="module-opihiexarata.library.path">
-<span id="opihiexarata-library-path-module"></span><h1>opihiexarata.library.path module<a class="headerlink" href="#module-opihiexarata.library.path" title="Permalink to this headline"></a></h1>
+<span id="opihiexarata-library-path-module"></span><h1>opihiexarata.library.path module<a class="headerlink" href="#module-opihiexarata.library.path" title="Permalink to this heading"></a></h1>
 <p>This module is just functions to deal with different common pathname manipulations.
 As Exarata is going to be cross platform, this is a nice abstraction.</p>
 <dl class="py function">
@@ -271,6 +277,32 @@ As Exarata is going to be cross platform, this is a nice abstraction.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.path.get_most_recent_filename_in_directory">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.path.</span></span><span class="sig-name descname"><span class="pre">get_most_recent_filename_in_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/path.html#get_most_recent_filename_in_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.path.get_most_recent_filename_in_directory" title="Permalink to this definition"></a></dt>
+<dd><p>This gets the most recent filename from a directory.</p>
+<p>Because of issues with different operating systems having differing
+issues with storing the creation time of a file, this function sorts based
+off of modification time. The most recent modified file is thus</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>string</em>) – The directory by which the most recent file will be derived from.</p></li>
+<li><p><strong>extension</strong> (<em>string</em><em> or </em><em>list</em>) – The extension by which to filter for. It is often the case that some
+files are created but the most recent file of some type is desired.
+Only files which match the included extensions will be considered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>recent_filename</strong> – The filename of the most recent file, by modification time, in the
+directory.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.path.merge_pathname">
 <span class="sig-prename descclassname"><span class="pre">opihiexarata.library.path.</span></span><span class="sig-name descname"><span class="pre">merge_pathname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/path.html#merge_pathname"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.path.merge_pathname" title="Permalink to this definition"></a></dt>
 <dd><p>Joins directories, filenames, and file extensions into one pathname.</p>
@@ -321,7 +353,7 @@ then the paths within it are combined.</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="opihiexarata.library.mpcrecord.html" class="btn btn-neutral float-left" title="opihiexarata.library.mpcrecord module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="opihiexarata.library.temporary.html" class="btn btn-neutral float-right" title="opihiexarata.library.temporary module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="opihiexarata.library.phototable.html" class="btn btn-neutral float-right" title="opihiexarata.library.phototable module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

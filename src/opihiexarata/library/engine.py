@@ -8,7 +8,7 @@ import opihiexarata.library.hint as hint
 # The solution classes.
 class ExarataSolution:
     """The base class for all of the solution classes which use engines to
-    solve particar problems."""
+    solve particular problems."""
 
     def __init__(self):
         raise error.DevelopmentError(
@@ -33,6 +33,11 @@ class ExarataEngine:
 class AstrometryEngine(ExarataEngine):
     """The base class where the Astrometry engines are derived from. Should
     not be used other than for type hinting and subclassing."""
+
+
+class EphemerisEngine(ExarataEngine):
+    """The base class for all of the Ephemeris determination engines. Should not
+    be used other than for type hinting and subclassing."""
 
 
 class OrbitEngine(ExarataEngine):

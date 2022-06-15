@@ -2,6 +2,7 @@
 As Exarata is going to be cross platform, this is a nice abstraction."""
 
 import os
+import glob
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -23,6 +24,68 @@ def get_directory(pathname: str) -> str:
     """
     directory = os.path.dirname(pathname)
     return directory
+
+
+def get_most_recent_filename_in_directory(
+    directory: str, extension: hint.Union[str, list] = None
+) -> str:
+    """This gets the most recent filename from a directory.
+
+    Because of issues with different operating systems having differing
+    issues with storing the creation time of a file, this function sorts based
+    off of modification time. The most recent modified file is thus
+
+    Parameters
+    ----------
+    directory : string
+        The directory by which the most recent file will be derived from.
+    extension : string or list
+        The extension by which to filter for. It is often the case that some
+        files are created but the most recent file of some type is desired.
+        Only files which match the included extensions will be considered.
+
+    Returns
+    -------
+    recent_filename : string
+        The filename of the most recent file, by modification time, in the
+        directory.
+    """
+    # Check if the directory provided actually exists.
+    if not os.path.isdir(directory):
+        raise error.InputError(
+            "The directory provided `{d}` does not exist. A most recent file cannot be"
+            " obtained.".format(d=str(directory))
+        )
+
+    # We need to check all of the files matching the provided extension. If
+    # none was provided, we use all.
+    extension = "*" if extension is None else extension
+    extension_list = (extension,) if isinstance(extension, str) else tuple(extension)
+    matching_filenames = []
+    for extensiondex in extension_list:
+        # If the extension has a leading dot, then we remove it as it
+        # is already assumed.
+        if extensiondex.startswith("."):
+            extensiondex = extensiondex[1:]
+        # Fetch all of the matching files within the directory. We only want
+        # files within the directory, not above or below.
+        pathname_glob_filter = merge_pathname(
+            directory=directory, filename="*", extension=extensiondex
+        )
+        extension_matching_files = glob.glob(pathname_glob_filter, recursive=False)
+        matching_filenames += extension_matching_files
+
+    # For all of the matching filenames, we need to find the most recent via
+    # the modification time. Given that the modification times are a UNIX time,
+    # the largest is the most recent.
+    recent_filename = max(matching_filenames, key=lambda f: os.path.getmtime(f))
+    # Just a quick check to make sure the file exists.
+    if not os.path.isfile(recent_filename):
+        raise error.DevelopmentError(
+            "For some reason, the detected most recent file is not actually a file."
+            " Something is wrong."
+        )
+    return recent_filename
 
 
 def get_filename_without_extension(pathname: str) -> str:

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.library.phototable &mdash; OpihiExarata 2022.6.14 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.library.phototable</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.library.phototable</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This is a module for uniform handling of the photometric star table.</span>
+<span class="sd">Many different databases will have their own standards and so functions and</span>
+<span class="sd">classes helpful for unifying all of their different entries into one uniform</span>
+<span class="sd">table which the software can expect are detailed here.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="c1"># The general template of the photometric table.</span>
+<span class="n">__PHOTOMETRY_TABLE_NAME_TYPE_PAIR</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ra_photo&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;dec_photo&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;c_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;c_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;g_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;g_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;r_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;r_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;i_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;i_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;z_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;z_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;1_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;1_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;2_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;2_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;3_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;3_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">PHOTOMETRY_TABLE_COLUMN_NAMES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">__PHOTOMETRY_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">PHOTOMETRY_TABLE_COLUMN_TYPES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">__PHOTOMETRY_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="c1"># The general template of the photometric table. Honestly, this is just a</span>
+<span class="c1"># sorting thing and may actually not even be needed in the future. However,</span>
+<span class="c1"># we have it here just in case.</span>
+<span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ra_astro&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;dec_astro&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;ra_photo&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;dec_photo&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;pixel_x&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;pixel_y&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;separation&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;c_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;c_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;g_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;g_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;r_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;r_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;i_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;i_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;z_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;z_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;1_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;1_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;2_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;2_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;3_mag&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;3_err&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="s2">&quot;counts&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">INTERSECTION_ASTROPHOTO_TABLE_COLUMN_TYPES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">__INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="blank_photometry_table"><a class="viewcode-back" href="../../../code/opihiexarata.library.phototable.html#opihiexarata.library.phototable.blank_photometry_table">[docs]</a><span class="k">def</span> <span class="nf">blank_photometry_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Creates a blank table which contains the columns which are the unified</span>
+<span class="sd">    photometry table.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    blank_table : Astropy Table</span>
+<span class="sd">        The table with only the column headings; no records are in the table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The names of the columns</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="n">PHOTOMETRY_TABLE_COLUMN_NAMES</span>
+    <span class="n">data_types</span> <span class="o">=</span> <span class="n">PHOTOMETRY_TABLE_COLUMN_TYPES</span>
+    <span class="n">blank_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">data_types</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">blank_table</span></div>
+
+
+<div class="viewcode-block" id="fill_incomplete_photometry_table"><a class="viewcode-back" href="../../../code/opihiexarata.library.phototable.html#opihiexarata.library.phototable.fill_incomplete_photometry_table">[docs]</a><span class="k">def</span> <span class="nf">fill_incomplete_photometry_table</span><span class="p">(</span><span class="n">partial_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This function takes a photometry table which is partially standardized</span>
+<span class="sd">    but may be missing a few columns or rows and fills in the missing values</span>
+<span class="sd">    with NaNs so that the resulting table is a standardized table for the</span>
+<span class="sd">    OpihiExarata software.</span>
+
+<span class="sd">    Metadata is added to the resulting table to signify that it is a complete</span>
+<span class="sd">    photometry table as standardized by OpihiExarata.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    partial_table : Table</span>
+<span class="sd">        A table which partially covers the photometry table standard but is</span>
+<span class="sd">        otherwise missing a few records.</span>
+
+<span class="sd">    complete_table : Table</span>
+<span class="sd">        A completed form of the partial table which is standardized to the</span>
+<span class="sd">        expectations of the photometry table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># A totally blank column for the cases where there are no observations of</span>
+    <span class="c1"># a given filter for either the magnitude or error in the magnitude.</span>
+    <span class="n">table_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial_table</span><span class="p">)</span>
+    <span class="n">nan_column</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">table_length</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="c1"># Extracting the available columns (filters) and information from these</span>
+    <span class="c1"># columns. If there is missing data, we fill it in as a blank column.</span>
+    <span class="n">photometry_table_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">colnamedex</span> <span class="ow">in</span> <span class="n">PHOTOMETRY_TABLE_COLUMN_NAMES</span><span class="p">:</span>
+        <span class="c1"># Instantiating the variables else a NameError may arise.</span>
+        <span class="n">column_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">column_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Attempting to extract the information, if this partial table has</span>
+            <span class="c1"># the information of course.</span>
+            <span class="n">column_name</span> <span class="o">=</span> <span class="n">colnamedex</span>
+            <span class="n">column_data</span> <span class="o">=</span> <span class="n">partial_table</span><span class="p">[</span><span class="n">colnamedex</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># This partial table does not have a column for the information</span>
+            <span class="c1"># about this particular photometry column, using blanks.</span>
+            <span class="n">column_name</span> <span class="o">=</span> <span class="n">colnamedex</span>
+            <span class="n">column_data</span> <span class="o">=</span> <span class="n">nan_column</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># If there is another error, then it is likely something is very</span>
+            <span class="c1"># wrong with the table, but we do not know.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span><span class="p">(</span>
+                <span class="s2">&quot;For some reason, the partial table cannot be accessed as expected for&quot;</span>
+                <span class="s2">&quot; a partial photometry table. Check the error stack.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># The information to be added to the photometry table. We do check</span>
+            <span class="c1"># that the name and data was extracted, somehow.</span>
+            <span class="k">if</span> <span class="n">column_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">column_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+                    <span class="s2">&quot;For some reason, the information about </span><span class="si">{col}</span><span class="s2"> from the partial&quot;</span>
+                    <span class="s2">&quot; table was not extracted or detected to be missing.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">col</span><span class="o">=</span><span class="n">colnamedex</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Adding the information.</span>
+                <span class="n">photometry_table_dict</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">column_data</span>
+
+    <span class="c1"># Compile the dictionary into an Astropy table.</span>
+    <span class="n">complete_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">photometry_table_dict</span><span class="p">)</span>
+    <span class="c1"># Double checking that all of the columns are there as expected by the</span>
+    <span class="c1"># standard table.</span>
+    <span class="k">if</span> <span class="n">complete_table</span><span class="o">.</span><span class="n">colnames</span> <span class="o">!=</span> <span class="n">PHOTOMETRY_TABLE_COLUMN_NAMES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+            <span class="s2">&quot;The standard photometry table derived from the partial table does not have&quot;</span>
+            <span class="s2">&quot; the same columns as expected from a standard photometry table.&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">complete_table</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

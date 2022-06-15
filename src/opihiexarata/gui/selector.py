@@ -7,8 +7,6 @@ import scipy.ndimage as sp_ndimage
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
-import matplotlib.colors as mpl_colors
-import matplotlib.figure as mpl_figure
 import matplotlib.patches as mpl_patches
 import matplotlib.pyplot as plt
 
@@ -32,28 +30,62 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
     Attributes
     ----------
-    current_filename
-    current_header
-    current_data
-    reference_filename
-    reference_header
-    reference_data
-    subtract_none
-    subtract_sidereal
-    subtract_non_sidereal
-    target_x
-    target_y
-    subtraction_method
-    autoscale_1_99
-    plotted_data
-    colorbar_scale_low
-    colorbar_scale_high
-    opihi_figure
-    opihi_axes
-    opihi_canvas
-    opihi_nav_toolbar
-    gui_instance
-    _opihi_coordinate_formatter
+    current_filename : string
+        The fits filename of the image which the position of the asteroid is
+        going to be derived from.
+    current_header : Header
+        The fits header of the current fits image file.
+    current_data : array
+        The data of the of the current fits image file.
+    reference_filename : string
+        The fits filename of the image which is used to serve as an image to
+        compare the current one to so that the asteroid is easier to find.
+    reference_header : Header
+        The fits header of the reference fits image file.
+    reference_data : array
+        The fits data of the reference fits image file.
+    subtract_none : array
+        The data after the comparison operation of doing nothing was applied.
+        This serves mostly as a cache so that it only needs to be computed
+        once.
+    subtract_sidereal : array
+        The data after the comparison operation of subtracting the two images.
+        This serves mostly as a cache so that it only needs to be computed
+        once.
+    subtract_non_sidereal : array
+        The data after the comparison operation of doing shifting then
+        subtracting the two images. This serves mostly as a cache so that it
+        only needs to be computed once.
+    target_x : float
+        The x pixel location of the asteroid in the current image.
+    target_y : float
+        The y pixel location of the asteroid in the current image.
+    subtraction_method : string
+        The method of subtraction (comparison) between the current image and
+        the reference image.
+    autoscale_1_99 : bool
+        A flag to determine if, after every operation, the data's color bars
+        should be scaled so that it is 1 - 99%, a helpful scaling.
+    plotted_data : array
+        The data as is plotted in the GUI.
+    colorbar_scale_low : float
+        The lower value for which the color bar determines as its 0, the lowest
+        color value.
+    colorbar_scale_high : float
+        The higher value for which the color bar determines as its 1, the
+        highest color value.
+    opihi_figure : Figure
+        The matplotlib figure class of the displayed image in the GUI.
+    opihi_axes : Axes
+        The matplotlib axes class of the displayed image in the GUI.
+    opihi_canvas : FigureCanvasQTAgg
+        The matplotlib canvas class of the displayed image in the GUI. This
+        uses matplotlib's built-in Qt support.
+    opihi_nav_toolbar : NavigationToolbar2QT
+        The matplotlib navigation bar class of the displayed image in the
+        GUI. This uses matplotlib's built-in Qt support.
+    _opihi_coordinate_formatter : CoordinateFormatter
+        A class to wrap around the imshow formatter for fancy printing.
     """
 
     def __init__(
@@ -142,6 +174,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Adding the GUI connections.
         self.__init_gui_connections()
 
+        # Redrawing the window before finishing up.
+        self.refresh_window()
+
         # All done.
         return None
 
@@ -161,7 +196,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Deriving the size of the image from the filler dummy image. The
         # figure should be a square. (Height really is the primary concern.)
         pix_to_in = lambda p: p / plt.rcParams["figure.dpi"]
-        dummy_edge_size = self.ui.dummy_opihi_image.height()
+        dummy_edge_size = self.ui.dummy_selector_image.height()
         edge_size = pix_to_in(dummy_edge_size)
         # The figure, canvas, and navigation toolbar of the image plot
         # using a Matplotlib Qt widget backend. We will add these to the
@@ -188,12 +223,24 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             def __call__(self, x, y) -> str:
                 """The coordinate string going to be put onto the navigation
                 bar."""
+                # The pixel locations.
                 x_index = int(x)
                 y_index = int(y)
-                coord_string = "[{x_int:d}, {y_int:d}] = {z_flt:.2f}".format(
-                    x_int=x_index,
-                    y_int=y_index,
-                    z_flt=self.gui_instance.plotted_data[y_index, x_index],
+                x_coord_string = "{x_int:d}".format(x_int=x_index)
+                y_coord_string = "{y_int:d}".format(y_int=y_index)
+                # Extracting the data.
+                try:
+                    z_float = self.gui_instance.plotted_data[y_index, x_index]
+                except AttributeError:
+                    # There is no data to index.
+                    z_coord_string = "NaN"
+                else:
+                    # Parse the string from the number provided.
+                    z_coord_string = "{z_flt:.2f}".format(z_flt=z_float)
+
+                # Compiling it all together.
+                coord_string = "[{x_str}, {y_str}] = {z_str}".format(
+                    x_str=x_coord_string, y_str=y_coord_string, z_str=z_coord_string
                 )
                 return coord_string
 
@@ -203,18 +250,18 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Setting the layout, it is likely better to have the toolbar below
         # rather than above to avoid conflicts with the reset buttons in the
-        # event of a misclick.
+        # event of a mis-click.
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
         # Remove the dummy spacers otherwise it is just extra unneeded space.
-        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
-        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_navbar)
-        self.ui.dummy_opihi_image.deleteLater()
-        self.ui.dummy_opihi_navbar.deleteLater()
-        self.ui.dummy_opihi_image = None
-        self.ui.dummy_opihi_navbar = None
-        del self.ui.dummy_opihi_image
-        del self.ui.dummy_opihi_navbar
+        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_selector_image)
+        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_selector_navbar)
+        self.ui.dummy_selector_image.hide()
+        self.ui.dummy_selector_navbar.hide()
+        self.ui.dummy_selector_image.deleteLater()
+        self.ui.dummy_selector_navbar.deleteLater()
+        del self.ui.dummy_selector_image
+        del self.ui.dummy_selector_navbar
         # A little hack to ensure the default zoom limits that are saved when
         # redrawing the figure is not 0-1 in both x and y but instead the image
         # itself.
@@ -244,7 +291,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             self.__connect_push_button_change_reference_filename
         )
 
-        # The figure connections for draging of the search box. The Opihi
+        # The figure connections for dragging of the search box. The Opihi
         # image initialization should be done first.
         self.opihi_canvas.mpl_connect(
             "button_press_event", self.__connect_matplotlib_mouse_press_event
@@ -307,7 +354,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         new_current_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
             parent=self,
             caption="Open New Current Opihi Image",
-            directory="./",
+            dir="./",
             filter="FITS Files (*.fits)",
         )
         # Extracted the needed information provided this new fits file.
@@ -341,7 +388,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         new_reference_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
             parent=self,
             caption="Open New Reference Opihi Image",
-            directory="./",
+            dir="./",
             filter="FITS Files (*.fits)",
         )
         # Extracted the needed information provided this new fits file.
@@ -562,7 +609,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Try to get the new value.
         try:
-            # Exctracting the value the user provided in the text block.
+            # Extracting the value the user provided in the text block.
             input_text = self.ui.line_edit_dynamic_scale_low.text()
             new_low_value = float(input_text)
         except Exception:
@@ -605,7 +652,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Try to get the new value.
         try:
-            # Exctracting the value the user provided in the text block.
+            # Extracting the value the user provided in the text block.
             input_text = self.ui.line_edit_dynamic_scale_high.text()
             new_high_value = float(input_text)
         except Exception:
@@ -684,7 +731,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Although this should be rare as any time a box is drawn, the values
         and text boxes should be updated.
 
-        If no entry is properly convertable, we default to center of the image.
+        If no entry is properly convertible, we default to center of the image.
 
         Parameters
         ----------
@@ -727,7 +774,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 using_pixel_y = self.current_data.shape[0] / 2
 
         # The target values updated to reflect this prioritization and
-        # converstion.
+        # conversation.
         self.target_x = using_pixel_x
         self.target_y = using_pixel_y
         # All done, closing the window as we can now let the primary part of
@@ -786,7 +833,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         ):
             # Represent the marker as the targets location as defined by the
             # search box and the target finding function.
-            MARKER_SIZE = float(library.config.SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE)
+            MARKER_SIZE = float(
+                library.config.GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE
+            )
             self.opihi_axes.scatter(
                 self.target_x,
                 self.target_y,
@@ -891,7 +940,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         """
         # Delete the plot. This ensures that there is not memory leak with
         # many plots open over time.
-        plt.close(self.figure)
+        plt.close(self.opihi_figure)
         # Close the window.
         self.close()
         return None
@@ -914,7 +963,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.subtract_none = self.current_data
 
         # The reference image mode is just the reference data without
-        # any compairson to the current data.
+        # any comparison to the current data.
         self.subtract_reference = self.reference_data
 
         # Subtracting sidereally implies that the center of the two images are
@@ -929,31 +978,36 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         dec_rate = self.current_header["TCS_NSDE"]
         # Deriving the difference in time between the current data and the
         # reference data.
-        current_time = library.conversion.modified_julian_day_to_unix_time(
+        current_jd = library.conversion.modified_julian_day_to_julian_day(
             mjd=self.current_header["MJD_OBS"]
         )
-        reference_time = library.conversion.modified_julian_day_to_unix_time(
+        reference_jd = library.conversion.modified_julian_day_to_julian_day(
             mjd=self.reference_header["MJD_OBS"]
         )
-        # We assume the reference image was taken in the past.
-        delta_time = current_time - reference_time
+        # We assume the reference image was taken in the past. As Julian days
+        # are in days, and we want seconds,
+        delta_days = current_jd - reference_jd
+        delta_time = delta_days * 86400
 
         # The total RA and DEC change.
         ra_change = ra_rate * delta_time
         dec_change = dec_rate * delta_time
 
         # Pixel scale, in arcsec per pixel.
-        PIXEL_SCALE = library.config.SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL
+        PIXEL_SCALE = library.config.GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL
         # We assume the image is aligned N/E to Y/X so a simple image
         # translation can be used.
         x_pix_change = ra_change / PIXEL_SCALE
         y_pix_change = -dec_change / PIXEL_SCALE
 
         # We shift the reference image forward in time as Scipy splines and
-        # it is best not to interpolate the real data. We do not assume
-        # anything about the data outside of the images.
+        # it is best not to interpolate the real data. We assume nothing about
+        # the outside parts of the image, so there is no data for them.
         shifted_reference_data = sp_ndimage.shift(
-            self.reference_data, (y_pix_change, x_pix_change), mode="constant", cval=0
+            self.reference_data,
+            (y_pix_change, x_pix_change),
+            mode="constant",
+            cval=np.nan,
         )
         self.subtract_non_sidereal = self.current_data - shifted_reference_data
 
@@ -996,8 +1050,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             int(ymin) : int(ymax), int(xmin) : int(xmax)
         ]
         # Calculate the percentile values from this subarray as the colorbar
-        # bounds.
-        low, high = np.percentile(
+        # bounds. If the images was translated, there will be NaNs to deal
+        # with.
+        low, high = np.nanpercentile(
             displayed_plotted_image.flatten(), [lower_percentile, higher_percentile]
         )
         self.colorbar_scale_low = low

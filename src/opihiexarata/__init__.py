@@ -1,14 +1,22 @@
-"""Test"""
+"""All of the subparts of the OpihiExarata software."""
 
+# The library must be imported first as all other parts depend on it.
+# Otherwise, a circular loop may occur in the imports.
 import opihiexarata.library as library
+
+# The main parts of the package themselves.
 import opihiexarata.astrometry as astrometry
-import opihiexarata.gui as gui
-import opihiexarata.opihi as opihi
+import opihiexarata.ephemeris as ephemeris
 import opihiexarata.orbit as orbit
 import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 
-# The primary solutions for OpihiExarata.
+
+# The section for the user interface.
+import opihiexarata.gui as gui
+
+# The primary collective solutions for OpihiExarata.
+import opihiexarata.opihi as opihi
 from opihiexarata.opihi import OpihiPreprocessSolution
 from opihiexarata.opihi import OpihiSolution
 

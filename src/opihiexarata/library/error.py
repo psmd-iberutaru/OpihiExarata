@@ -91,6 +91,11 @@ class ExarataException(Exception):
         return self.message
 
 
+class CommandLineError(ExarataException):
+    """An error to be used where the parameters or arguments entered in the
+    command line were not correct."""
+
+
 class ConfigurationError(ExarataException):
     """An error to be used where the expectation of how configuration files
     and configuration parameters are structures are violated."""

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,6 +15,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -199,12 +205,20 @@
            <div itemprop="articleBody">
              
   <section id="module-opihiexarata.library.error">
-<span id="opihiexarata-library-error-module"></span><h1>opihiexarata.library.error module<a class="headerlink" href="#module-opihiexarata.library.error" title="Permalink to this headline"></a></h1>
+<span id="opihiexarata-library-error-module"></span><h1>opihiexarata.library.error module<a class="headerlink" href="#module-opihiexarata.library.error" title="Permalink to this heading"></a></h1>
 <p>Error, warning, and logging functionality pertinent to the function of Exarata.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.CommandLineError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">CommandLineError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#CommandLineError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.CommandLineError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
+<p>An error to be used where the parameters or arguments entered in the
+command line were not correct.</p>
+</dd></dl>
+
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.ConfigurationError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">ConfigurationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#ConfigurationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.ConfigurationError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used where the expectation of how configuration files
 and configuration parameters are structures are violated.</p>
 </dd></dl>
@@ -212,7 +226,7 @@ and configuration parameters are structures are violated.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.DevelopmentError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">DevelopmentError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#DevelopmentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.DevelopmentError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataBaseException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
 <p>This is an error where the development of OpihiExarata is not correct and
 something is not coded based on the expectations of the software itself.
 This is not the fault of the user.</p>
@@ -221,7 +235,7 @@ This is not the fault of the user.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.DirectoryError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">DirectoryError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#DirectoryError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.DirectoryError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used when there are issues specifically with directories
 and not just files.</p>
 </dd></dl>
@@ -229,7 +243,7 @@ and not just files.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.EngineError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">EngineError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#EngineError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.EngineError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>This error is for when the astrometric, photometric, or asteroid-metric
 solver engines provided are not valid or expected. This error can also be
 used when an engine fails to solve or otherwise does not work as
@@ -292,7 +306,7 @@ are derived from.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.FileError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">FileError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#FileError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.FileError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used when obtaining data files or configuration files
 and something fails.</p>
 </dd></dl>
@@ -300,7 +314,7 @@ and something fails.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.InputError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">InputError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#InputError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.InputError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used when the inputs to a function are not valid and do
 not match the expectations of that function.</p>
 </dd></dl>
@@ -308,7 +322,7 @@ not match the expectations of that function.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.InstallError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">InstallError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#InstallError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.InstallError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used when informing the user or the program that the
 installation was not done properly and lack some of the features and
 assumptions which are a consequence of it.</p>
@@ -317,7 +331,7 @@ assumptions which are a consequence of it.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.IntentionalError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">IntentionalError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#IntentionalError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.IntentionalError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used where error catching is helpful. This error
 generally should always be caught by the code in context.</p>
 </dd></dl>
@@ -325,7 +339,7 @@ generally should always be caught by the code in context.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.LogicFlowError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">LogicFlowError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#LogicFlowError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.LogicFlowError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataBaseException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
 <p>This is an error to ensure that the logic does not flow to a point to a
 place where it is not supposed to. This is helpful in making sure changes
 to the code do not screw up the logical flow of the program.</p>
@@ -334,7 +348,7 @@ to the code do not screw up the logical flow of the program.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.PracticalityError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">PracticalityError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#PracticalityError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.PracticalityError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataBaseException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
 <p>This is an error to be used when what is trying to be done does not
 seem reasonable. Usually warnings are the better vehicle for this but
 this error is used when the assumptions for reasonability guided
@@ -345,7 +359,7 @@ by the software.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.ReadOnlyError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#ReadOnlyError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.ReadOnlyError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error where variables or files are assumed to be read only, this
 enforces that notion.</p>
 </dd></dl>
@@ -353,7 +367,7 @@ enforces that notion.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.SequentialOrderError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">SequentialOrderError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#SequentialOrderError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.SequentialOrderError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error used when something is happening out of the expected required
 order. This order being in place for specific publically communicated
 reasons.</p>
@@ -362,7 +376,7 @@ reasons.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.UndiscoveredError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">UndiscoveredError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#UndiscoveredError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.UndiscoveredError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataBaseException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
 <p>This is an error used in cases where the source of the error has not
 been determined and so a more helpful error message or mitigation strategy
 cannot be devised.</p>
@@ -371,7 +385,7 @@ cannot be devised.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.WebRequestError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">WebRequestError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#WebRequestError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.WebRequestError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.error.ExarataException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used when a web request to some API fails, either because
 of something from their end, or our end.</p>
 </dd></dl>

@@ -18,7 +18,6 @@ SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
 DEPENDENCIES = [
     "astropy",
-    "numba",
     "numpy",
     "pyyaml",
     "pillow",
@@ -88,4 +87,5 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     install_requires=DEPENDENCIES,
     python_requires=">=3.6",
+    entry_points={"console_scripts": ["opihiexarata=opihiexarata:__main__.main"]},
 )

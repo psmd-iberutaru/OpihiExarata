@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.temporary module &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.library.temporary module &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,12 +15,13 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="opihiexarata.opihi package" href="opihiexarata.opihi.html" />
-    <link rel="prev" title="opihiexarata.library.path module" href="opihiexarata.library.path.html" /> 
+    <link rel="prev" title="opihiexarata.library.phototable module" href="opihiexarata.library.phototable.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -199,7 +205,7 @@
            <div itemprop="articleBody">
              
   <section id="module-opihiexarata.library.temporary">
-<span id="opihiexarata-library-temporary-module"></span><h1>opihiexarata.library.temporary module<a class="headerlink" href="#module-opihiexarata.library.temporary" title="Permalink to this headline"></a></h1>
+<span id="opihiexarata-library-temporary-module"></span><h1>opihiexarata.library.temporary module<a class="headerlink" href="#module-opihiexarata.library.temporary" title="Permalink to this heading"></a></h1>
 <p>This is where functions dealing with the temporary files and temporary
 directory of the OpihiExarata system. Temporary files are helpful because they
 may also contain information useful to the user. These functions thus serve the
@@ -207,11 +213,14 @@ same purpose as Python’s build-in functions, but it is more restricted to
 OpihiExarata and it is also more persistant.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.temporary.create_temporary_directory">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.temporary.</span></span><span class="sig-name descname"><span class="pre">create_temporary_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/temporary.html#create_temporary_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.temporary.create_temporary_directory" title="Permalink to this definition"></a></dt>
-<dd><p>Make the temporary directory. Fails if the directory already exists.</p>
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.temporary.</span></span><span class="sig-name descname"><span class="pre">create_temporary_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/temporary.html#create_temporary_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.temporary.create_temporary_directory" title="Permalink to this definition"></a></dt>
+<dd><p>Make the temporary directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
+<dd class="field-odd"><p><strong>unique</strong> (<em>bool</em><em>, </em><em>default = None</em>) – Require a check on the creation of the directory to require it to be
+unique. If True, this will raise if the directory already exists
+otherwise it does not care. Will defer to the configuration file
+if None.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
@@ -275,7 +284,7 @@ recursively.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opihiexarata.library.path.html" class="btn btn-neutral float-left" title="opihiexarata.library.path module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.library.phototable.html" class="btn btn-neutral float-left" title="opihiexarata.library.phototable module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="opihiexarata.opihi.html" class="btn btn-neutral float-right" title="opihiexarata.opihi package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,5 +1,10 @@
 #requires -PSEdition Core
 
+# Each operating systems has their own unique way to determining how to
+# enter the Python shell. For ease, please set it here so that the alias
+# can be applied uniformly.
+Set-Alias -Name pyox -Value python
+
 # A script for performing a lot of auxiliary tasks for software development.
 # This script does the following, in order:
 #   - Installs packages required for the auxiliary tasks.
@@ -18,9 +23,7 @@ Write-Output "===== Installing Auxiliary Packages ======"
 Write-Output "=========================================="
 Write-Output ""
 # Making sure the needed packages are installed.
-pip install --upgrade --force-reinstall --quiet --quiet `
-black pytest coverage sphinx sphinx_rtd_theme 
-
+pyox -m pip install --upgrade black pytest coverage sphinx sphinx_rtd_theme 
 
 
 ##### Building the documentation.
@@ -57,8 +60,8 @@ Write-Output ""
 # Formatting of the code is done via Black. A first pass with future formatting
 # allows for a smoother transition; but the formatting should still use the 
 # default as the ultimate source.
-black . --preview
-black .
+pyox -m black . --preview
+pyox -m black .
 
 
 ##### Testing the code.
@@ -70,12 +73,12 @@ Write-Output ""
 # Running pytest, we can dump the historical cache as it is not needed.
 $pytest_cache_dir = "./.pytest/"
 Remove-Item $pytest_cache_dir -Recurse -Force
-pytest . -o cache_dir=$pytest_cache_dir
+pyox -m pytest . -o cache_dir=$pytest_cache_dir
 
 # Running code coverage. We do not need another copy of pytest information 
 # though, suppress it. (Watch out for the backtick linebreaks.)
 $cov_result = $pytest_cache_dir + "coverage/results.bin"
-coverage run --source=$src_ox --data-file=$cov_result -m pytest . `
+pyox -m coverage run --source=$src_ox --data-file=$cov_result -m pytest . `
 --quiet --no-header --no-summary --show-capture="no" `
 -p no:cacheprovider -o cache_dir=$pytest_cache_dir
 
@@ -84,8 +87,8 @@ coverage run --source=$src_ox --data-file=$cov_result -m pytest . `
 # consumption but it is needed for the badge and if parsing is needed.
 $cov_html_outdir = $doc_bld_dscd + "coverage/"
 $cov_xml_outfile = $doc_bld_dscd + "coverage/results.xml"
-coverage html --data-file=$cov_result --directory=$cov_html_outdir
-coverage xml -o $cov_xml_outfile --data-file=$cov_result --quiet
+pyox -m coverage html --data-file=$cov_result --directory=$cov_html_outdir
+pyox -m coverage xml -o $cov_xml_outfile --data-file=$cov_result --quiet
 
 
 

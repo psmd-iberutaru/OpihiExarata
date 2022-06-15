@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2022.6.14 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via zip archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.ephemeris.jplhorizons</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.ephemeris.jplhorizons</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The different ephemeris engines which use JPL horizons as its backend.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.interpolate</span> <span class="k">as</span> <span class="nn">sp_interpolate</span>
+<span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">JPLHorizonsWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This obtains the ephemeris of an asteroid using JPL horizons provided</span>
+<span class="sd">    the Keplerian orbital elements of the asteroid as determined by orbital</span>
+<span class="sd">    solutions.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    semimajor_axis : float</span>
+<span class="sd">        The semi-major axis of the orbit, in AU.</span>
+<span class="sd">    eccentricity : float</span>
+<span class="sd">        The eccentricity of the orbit.</span>
+<span class="sd">    inclination : float</span>
+<span class="sd">        The angle of inclination of the orbit, in degrees.</span>
+<span class="sd">    longitude_ascending_node : float</span>
+<span class="sd">        The longitude of the ascending node of the orbit, in degrees.</span>
+<span class="sd">    argument_perihelion : float</span>
+<span class="sd">        The argument of perihelion of the orbit, in degrees.</span>
+<span class="sd">    mean_anomaly : float</span>
+<span class="sd">        The mean anomaly of the orbit, in degrees.</span>
+<span class="sd">    epoch : float</span>
+<span class="sd">        The modified Julian date epoch of the osculating orbital elements.</span>
+<span class="sd">    ra_velocity : float</span>
+<span class="sd">        The right ascension angular velocity of the target, in degrees per</span>
+<span class="sd">        second.</span>
+<span class="sd">    dec_velocity : float</span>
+<span class="sd">        The declination angular velocity of the target, in degrees per</span>
+<span class="sd">        second.</span>
+<span class="sd">    ra_acceleration : float</span>
+<span class="sd">        The right ascension angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared.</span>
+<span class="sd">    dec_acceleration : float</span>
+<span class="sd">        The declination angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">semimajor_axis</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">eccentricity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">inclination</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">longitude_ascending_node</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">argument_perihelion</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">mean_anomaly</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">epoch</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Creating the engine.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        semimajor_axis : float</span>
+<span class="sd">            The semi-major axis of the orbit, in AU.</span>
+<span class="sd">        eccentricity : float</span>
+<span class="sd">            The eccentricity of the orbit.</span>
+<span class="sd">        inclination : float</span>
+<span class="sd">            The angle of inclination of the orbit, in degrees.</span>
+<span class="sd">        longitude_ascending_node : float</span>
+<span class="sd">            The longitude of the ascending node of the orbit, in degrees.</span>
+<span class="sd">        argument_perihelion : float</span>
+<span class="sd">            The argument of perihelion of the orbit, in degrees.</span>
+<span class="sd">        mean_anomaly : float</span>
+<span class="sd">            The mean anomaly of the orbit, in degrees.</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The full Julian date epoch of these osculating orbital elements.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Storing the orbital elements for usage during the API calls.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span> <span class="o">=</span> <span class="n">semimajor_axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">=</span> <span class="n">eccentricity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inclination</span> <span class="o">=</span> <span class="n">inclination</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span> <span class="o">=</span> <span class="n">longitude_ascending_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument_perihelion</span> <span class="o">=</span> <span class="n">argument_perihelion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span> <span class="o">=</span> <span class="n">mean_anomaly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch</span>
+
+        <span class="c1"># We adapt the internal time for accurate ephemeris, this is done so</span>
+        <span class="c1"># we do not request too much data. Using sensible defaults.</span>
+        <span class="n">current_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">-</span> <span class="p">((</span><span class="mi">15</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">+</span> <span class="p">((</span><span class="mi">30</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_step</span> <span class="o">=</span> <span class="mi">60</span>
+
+        <span class="c1"># Extracting the first pass ephemeris table. The ephemeris function</span>
+        <span class="c1"># uses this table to properly compute the future locations.</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_ephemeris</span><span class="p">(</span>
+            <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">stop_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The rates of the asteroid. We care only about the rates most</span>
+        <span class="c1"># accurate to the current time and so we can use the rates calculated</span>
+        <span class="c1"># from the close by default time.</span>
+        <span class="n">jpl_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;julian_day&quot;</span><span class="p">])</span>
+        <span class="n">jpl_ra_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;ra_rate&quot;</span><span class="p">])</span>
+        <span class="n">jpl_dec_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;dec_rate&quot;</span><span class="p">])</span>
+        <span class="c1"># Converting the Julian day time to seconds as it is just easier for</span>
+        <span class="c1"># the differentials. Using UNIX time as it is easy.</span>
+        <span class="n">unix_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">jpl_time</span><span class="p">)</span>
+
+        <span class="c1"># We derive the current velocity rates by the observations closest to</span>
+        <span class="c1"># the current time to remove as much second order effects as we can.</span>
+        <span class="n">nearby_delta</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="mi">24</span>
+        <span class="n">nearby_records</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">current_time</span> <span class="o">-</span> <span class="n">nearby_delta</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">jpl_time</span><span class="p">,</span>
+                <span class="n">jpl_time</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">current_time</span> <span class="o">+</span> <span class="n">nearby_delta</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># The rates from JPL are in arcseconds per hour, but the ephemeris</span>
+        <span class="c1"># parsing already handled the unit conversion. The average should be</span>
+        <span class="c1"># fine for this case.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">jpl_ra_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">jpl_dec_rate</span><span class="p">[</span><span class="n">nearby_records</span><span class="p">])</span>
+
+        <span class="c1"># We derive the current acceleration rates by assuming constant</span>
+        <span class="c1"># acceleration across the sky (ignoring 3rd order differential</span>
+        <span class="c1"># effects).</span>
+        <span class="k">def</span> <span class="nf">_determining_average_acceleration</span><span class="p">(</span>
+            <span class="n">time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">velocity</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;We just use a function here to better group processes and</span>
+<span class="sd">            local variable names. We use central difference to 4th order</span>
+<span class="sd">            error. We can afford the number of points needed.&quot;&quot;&quot;</span>
+            <span class="c1"># Spacing, though we assume uniform, we want to make sure.</span>
+            <span class="n">uniform_spacing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">time</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># Splitting up into the different subsets of V_{n-2} ... V_{n+2}.</span>
+            <span class="c1"># We do not need V_{n+0} for this method.</span>
+            <span class="n">vel_m2</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">vel_m1</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">vel_p1</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">vel_p2</span> <span class="o">=</span> <span class="n">velocity</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+            <span class="c1"># Finding the derivative.</span>
+            <span class="k">def</span> <span class="nf">derivative_function</span><span class="p">(</span>
+                <span class="n">x_m2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_m1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_p1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_p2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">float</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="sd">&quot;&quot;&quot;The constants for this function is well known for higher</span>
+<span class="sd">                order finite difference methods. Here is the 4th order form.</span>
+<span class="sd">                Arrays are also accepted.&quot;&quot;&quot;</span>
+                <span class="n">d_dv</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_m2</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_m1</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_p1</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_p2</span>
+                <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">h</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">d_dv</span>
+
+            <span class="c1"># Determining the acceleration.</span>
+            <span class="n">accel_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="n">derivative_function</span><span class="p">(</span>
+                    <span class="n">x_m2</span><span class="o">=</span><span class="n">vel_m2</span><span class="p">,</span>
+                    <span class="n">x_m1</span><span class="o">=</span><span class="n">vel_m1</span><span class="p">,</span>
+                    <span class="n">x_p1</span><span class="o">=</span><span class="n">vel_p1</span><span class="p">,</span>
+                    <span class="n">x_p2</span><span class="o">=</span><span class="n">vel_p2</span><span class="p">,</span>
+                    <span class="n">h</span><span class="o">=</span><span class="n">uniform_spacing</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># Assuming constant acceleration. There may be spikes that we do</span>
+            <span class="c1"># not want to deal with so a median is fine. There will also likely</span>
+            <span class="c1"># be a slope because the jerk that we otherwise are ignoring.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">accel_array</span><span class="p">)</span>
+
+        <span class="c1"># Determining the acceleration rates from the entire velocity records.</span>
+        <span class="c1"># We are assuming constant acceleration, and our time span is not that</span>
+        <span class="c1"># large so this should be okay.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">_determining_average_acceleration</span><span class="p">(</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">jpl_ra_rate</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">_determining_average_acceleration</span><span class="p">(</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">unix_time</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">jpl_dec_rate</span>
+        <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__parse_jpl_horizons_output</span><span class="p">(</span><span class="n">response_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function serves to parse the output from the JPL horizons. It</span>
+<span class="sd">        is a text output that is human readable but some parsing is needed.</span>
+<span class="sd">        We do that here, assuming the quantities in the original request.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        response_text : str</span>
+<span class="sd">            The raw response from the JPL horizons web API service.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Using lines is a lot easier to manage.</span>
+        <span class="n">response_lines</span> <span class="o">=</span> <span class="n">response_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># The ephemeris lines are demarked by $$SOE and $$EOE tags, extracting</span>
+        <span class="c1"># the ephemeris only as that is what we care about.</span>
+        <span class="n">soe_index</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">eoe_index</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">response_lines</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;$$SOE&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">:</span>
+                <span class="n">soe_index</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="k">elif</span> <span class="s2">&quot;$$EOE&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">:</span>
+                <span class="n">eoe_index</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="c1"># Something happened, the demarcations were not found.</span>
+        <span class="k">if</span> <span class="n">soe_index</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">eoe_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The demarcations for the ephemeris were not found, it is likely that&quot;</span>
+                <span class="s2">&quot; the web request sent was incorrect. The response from the API: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">r</span><span class="o">=</span><span class="n">response_text</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="c1"># Using the demarcations to extract the ephemeris section of the</span>
+        <span class="c1"># query lines. We do not need the demarcations themselves though.</span>
+        <span class="n">ephemeris_lines</span> <span class="o">=</span> <span class="n">response_lines</span><span class="p">[</span><span class="n">soe_index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">eoe_index</span><span class="p">]</span>
+
+        <span class="c1"># Parsing the lines individually.</span>
+        <span class="k">def</span> <span class="nf">_parse_jpl_horizons_ephemeris_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;We parse the line into the known parts based on the query.&quot;&quot;&quot;</span>
+            <span class="c1"># Removing extra spaces which might cause issues.</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="c1"># The solar presence is not really relevant and because of its</span>
+            <span class="c1"># formatting, screws up with the delimitation as &quot;nighttime&quot; is</span>
+            <span class="c1"># denoted by a space character. We remove it here.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">15</span><span class="p">:</span>
+                <span class="c1"># There exists the state of the Sun, we do not need it.</span>
+                <span class="n">line_sun_split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">line_split</span> <span class="o">=</span> <span class="n">line_sun_split</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">line_sun_split</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">14</span><span class="p">:</span>
+                <span class="c1"># The sun information is hidden as consecutive spaces.</span>
+                <span class="n">line_split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span><span class="p">(</span>
+                    <span class="s2">&quot;The JPL response has more entries than accountable for.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># ...and dealing with the parts.</span>
+            <span class="c1"># The date of the observation location, the month is in text</span>
+            <span class="c1"># form but it is easier to deal with numbers.</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">year</span><span class="p">,</span> <span class="n">month_name</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+            <span class="n">month</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">string_month_to_number</span><span class="p">(</span><span class="n">month_name</span><span class="p">)</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
+            <span class="c1"># The time of the observation location.</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># Sometimes they omit the seconds even though we want them.</span>
+                <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+                <span class="n">second</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour</span><span class="p">)</span>
+            <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute</span><span class="p">)</span>
+            <span class="n">second</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">second</span><span class="p">)</span>
+            <span class="c1"># The RA and DEC strings are split because of the deliminator</span>
+            <span class="c1"># being spaces, combine them back to HMS and DMS.</span>
+            <span class="n">ra_sex</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">dec_sex</span> <span class="o">=</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">line_split</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+            <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">sexagesimal_ra_dec_to_degrees</span><span class="p">(</span>
+                <span class="n">ra_sex</span><span class="o">=</span><span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span><span class="o">=</span><span class="n">dec_sex</span>
+            <span class="p">)</span>
+            <span class="c1"># The RA and DEC rates; these values are in arcsec/hr, but</span>
+            <span class="c1"># convention in this software is deg/sec so convert. The flat</span>
+            <span class="c1"># planar conversion is already done by Horizon.</span>
+            <span class="n">as_hr_to_dg_s</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ashr</span><span class="p">:</span> <span class="n">ashr</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
+            <span class="n">ra_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span>
+            <span class="n">dec_rate</span> <span class="o">=</span> <span class="n">as_hr_to_dg_s</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
+            <span class="c1"># The true anomaly.</span>
+            <span class="n">true_anomaly</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+            <span class="c1"># The exact usage of these parameters are really not know yet</span>
+            <span class="c1"># but they seem useful; not using any of that.</span>
+            <span class="n">sky_motion</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+            <span class="n">sky_position_angle</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+            <span class="n">sky_velocity_angle</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
+
+            <span class="c1"># From the current date and time, deriving the julian day. It</span>
+            <span class="c1"># is useful for all of the other calculations.</span>
+            <span class="n">julian_day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">full_date_to_julian_day</span><span class="p">(</span>
+                <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="n">second</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Compiling the dictionary.</span>
+            <span class="n">line_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+                <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">month</span><span class="p">,</span>
+                <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span>
+                <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">hour</span><span class="p">,</span>
+                <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="n">minute</span><span class="p">,</span>
+                <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="n">second</span><span class="p">,</span>
+                <span class="s2">&quot;julian_day&quot;</span><span class="p">:</span> <span class="n">julian_day</span><span class="p">,</span>
+                <span class="s2">&quot;ra&quot;</span><span class="p">:</span> <span class="n">ra_deg</span><span class="p">,</span>
+                <span class="s2">&quot;dec&quot;</span><span class="p">:</span> <span class="n">dec_deg</span><span class="p">,</span>
+                <span class="s2">&quot;ra_rate&quot;</span><span class="p">:</span> <span class="n">ra_rate</span><span class="p">,</span>
+                <span class="s2">&quot;dec_rate&quot;</span><span class="p">:</span> <span class="n">dec_rate</span><span class="p">,</span>
+                <span class="s2">&quot;true_anomaly&quot;</span><span class="p">:</span> <span class="n">true_anomaly</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">line_dict</span>
+
+        <span class="c1"># Using the above abstracted function for parsing the individual lines.</span>
+        <span class="n">ephemeris_table</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">ephemeris_lines</span><span class="p">:</span>
+            <span class="n">ephemeris_record</span> <span class="o">=</span> <span class="n">_parse_jpl_horizons_ephemeris_line</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="n">ephemeris_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ephemeris_record</span><span class="p">)</span>
+        <span class="n">ephemeris_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">ephemeris_table</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">ephemeris_table</span>
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine._refresh_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._refresh_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh_ephemeris</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stop_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">time_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function refreshes the calculations rederiving the solution</span>
+<span class="sd">        table and the ephemeris function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start_time : float, default = None</span>
+<span class="sd">            The time that the ephemeris should start at, in Julian days. If</span>
+<span class="sd">            not provided, then the old start time will be used instead.</span>
+<span class="sd">        stop_time : float, default = None</span>
+<span class="sd">            The time that the ephemeris should stop at, in Julian days. If</span>
+<span class="sd">            not provided, then the old stop time will be used instead.</span>
+<span class="sd">        time_step : float, default = None</span>
+<span class="sd">            The time step of the entries of the ephemeris calculation, in</span>
+<span class="sd">            seconds. (Note, JPL does not accept anything less than a minute.)</span>
+<span class="sd">            If not provided, then the old time step will be used instead.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the values provided do not really differ from what we have now,</span>
+        <span class="c1"># then it would be a lot of work for nothing.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">stop_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">time_step</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="c1"># Doing no work.</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Assign refreshed values to the current instance to do the work.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">start_time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span> <span class="k">if</span> <span class="n">stop_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stop_time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_step</span> <span class="k">if</span> <span class="n">time_step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">time_step</span>
+
+        <span class="c1"># Requery the Horizons service.</span>
+        <span class="n">ephemeris_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_jpl_horizons</span><span class="p">(</span>
+            <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
+            <span class="n">stop_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span><span class="p">,</span>
+            <span class="n">time_step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time_step</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span> <span class="o">=</span> <span class="n">ephemeris_table</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine._query_jpl_horizons"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._query_jpl_horizons">[docs]</a>    <span class="k">def</span> <span class="nf">_query_jpl_horizons</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">stop_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">time_step</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function queries JPL horizons. Using the current orbital</span>
+<span class="sd">        elements, and provided a minimum time, maximum time, and time step,</span>
+<span class="sd">        we can fetch the new table of ephemeris measurements.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start_time : float</span>
+<span class="sd">            The time that the ephemeris should start at, in Julian days.</span>
+<span class="sd">        stop_time : float</span>
+<span class="sd">            The time that the ephemeris should stop at, in Julian days.</span>
+<span class="sd">        time_step : float</span>
+<span class="sd">            The time step of the entries of the ephemeris calculation, in</span>
+<span class="sd">            seconds. (Note, JPL does not accept anything less than a minute.)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        epidermis_table : Table</span>
+<span class="sd">            The table of computed sky locations over time from JPL horizons.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The JPL service does not accept time steps in less than a second</span>
+        <span class="c1"># and floors at a minute. Minutes are the best unit, so we round to</span>
+        <span class="c1"># the nearest minute.</span>
+        <span class="n">time_step_minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_step</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span>
+
+        <span class="c1"># The entries for JPL Horizon API. The less needed escape</span>
+        <span class="c1"># characters the better. Strings need to be wrapped for the URI call.</span>
+        <span class="n">query_parameters</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># Adding a dummy name as this call has no preconceived knowledge of</span>
+            <span class="c1"># what this asteroid or object is.</span>
+            <span class="s2">&quot;OBJECT&quot;</span><span class="p">:</span> <span class="s2">&quot;OpihiExarata-Small-Body&quot;</span><span class="p">,</span>
+            <span class="c1"># The location of the observatory, we assume an observatory on</span>
+            <span class="c1"># Earth.</span>
+            <span class="s2">&quot;CENTER&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{code}</span><span class="s2">@399&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MPC_OBSERVATORY_CODE</span><span class="p">),</span>
+            <span class="c1"># Specifying to the JPL system that we are supplying elements, the</span>
+            <span class="c1"># semicolon must be URI encoded else the system does not</span>
+            <span class="c1"># recognize it. Also specifying that our ephemeris calculations</span>
+            <span class="c1"># are for an observer.</span>
+            <span class="s2">&quot;COMMAND&quot;</span><span class="p">:</span> <span class="s2">&quot;;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;EPHEM_TYPE&quot;</span><span class="p">:</span> <span class="s2">&quot;OBSERVER&quot;</span><span class="p">,</span>
+            <span class="c1"># Formatting the orbital elements and the current ecliptic that</span>
+            <span class="c1"># we are using as our assumption for the angles.</span>
+            <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">,</span>
+            <span class="s2">&quot;EC&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span>
+            <span class="s2">&quot;IN&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclination</span><span class="p">,</span>
+            <span class="s2">&quot;OM&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">,</span>
+            <span class="s2">&quot;W&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument_perihelion</span><span class="p">,</span>
+            <span class="s2">&quot;MA&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span><span class="p">,</span>
+            <span class="s2">&quot;EPOCH&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span>
+            <span class="s2">&quot;ECLIP&quot;</span><span class="p">:</span> <span class="s2">&quot;J2000&quot;</span><span class="p">,</span>
+            <span class="c1"># Formatting the time parameters.</span>
+            <span class="s2">&quot;START_TIME&quot;</span><span class="p">:</span> <span class="s2">&quot;JD</span><span class="si">{start}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_time</span><span class="p">),</span>
+            <span class="s2">&quot;STOP_TIME&quot;</span><span class="p">:</span> <span class="s2">&quot;JD</span><span class="si">{stop}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="n">stop_time</span><span class="p">),</span>
+            <span class="s2">&quot;STEP_SIZE&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{min}</span><span class="s2">m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="n">time_step_minute</span><span class="p">),</span>
+            <span class="c1"># The output quantities to be extracted from the JPL Horizons</span>
+            <span class="c1"># service. It is specified by a set of flags. See:</span>
+            <span class="c1"># https://ssd.jpl.nasa.gov/horizons/manual.html#output</span>
+            <span class="c1"># We want the ephemeris (1), the on-sky rates (3), with optionally</span>
+            <span class="c1"># the true anomaly (41), and vector-form sky motion (47).</span>
+            <span class="s2">&quot;QUANTITIES&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;1,3,41,47&#39;&quot;</span><span class="p">,</span>
+            <span class="c1"># The output of the time should include seconds, just in case given</span>
+            <span class="c1"># the current parser assumes hardcoded column positions.</span>
+            <span class="s2">&quot;TIME_DIGITS&quot;</span><span class="p">:</span> <span class="s2">&quot;FRACSEC&quot;</span><span class="p">,</span>
+            <span class="c1"># The format that the output will be specified in. There is little</span>
+            <span class="c1"># difference between JSON and text as it is all just text.</span>
+            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Constructing the API call. The parameters are delimitated by</span>
+        <span class="c1"># ampersands. The query character for query is added as well. The</span>
+        <span class="c1"># requests package handles it well.</span>
+        <span class="n">BASE_JPL_HORIZONS_URL</span> <span class="o">=</span> <span class="s2">&quot;https://ssd.jpl.nasa.gov/api/horizons.api&quot;</span>
+        <span class="c1"># Sending the request, characters are properly encoded here.</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BASE_JPL_HORIZONS_URL</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">query_parameters</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+        <span class="c1"># Extracting from this result the needed results.</span>
+        <span class="n">ephemeris_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_jpl_horizons_output</span><span class="p">(</span><span class="n">response_text</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ephemeris_table</span></div>
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine.forward_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.forward_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">forward_ephemeris</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;This allows the computation of future positions at a future time</span>
+<span class="sd">        using the derived ephemeris.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        future_time : array-like</span>
+<span class="sd">            The set of future times which to derive new RA and DEC coordinates.</span>
+<span class="sd">            The time must be in Julian day time.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        future_ra : ndarray</span>
+<span class="sd">            The set of right ascensions that corresponds to the future times,</span>
+<span class="sd">            in degrees.</span>
+<span class="sd">        future_dec : ndarray</span>
+<span class="sd">            The set of declinations that corresponds to the future times, in</span>
+<span class="sd">            degrees.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If any of the future time is outside of the current times provided</span>
+        <span class="c1"># by the ephemeris table, then more data needs to be obtained. We</span>
+        <span class="c1"># do not propagate or extrapolate.</span>
+        <span class="n">future_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&lt;</span> <span class="n">future_time</span><span class="p">,</span> <span class="n">future_time</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="c1"># New data to be queried. Establishing it so that the bounds are</span>
+            <span class="c1"># set by the new time requested plus a buffer of a few minutes.</span>
+            <span class="n">buffer_time</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">/</span> <span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="n">future_start_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">buffer_time</span>
+            <span class="n">future_stop_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span> <span class="o">+</span> <span class="n">buffer_time</span>
+            <span class="c1"># We do not want to reduce the current table we have, use the</span>
+            <span class="c1"># previous values where needed.</span>
+            <span class="n">new_start_time</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&lt;</span> <span class="n">future_start_time</span>
+                <span class="k">else</span> <span class="n">future_start_time</span>
+            <span class="p">)</span>
+            <span class="n">new_stop_time</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">future_stop_time</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span> <span class="o">&lt;</span> <span class="n">future_stop_time</span>
+                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_time</span>
+            <span class="p">)</span>
+            <span class="c1"># Refreshing the ephemeris data.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_ephemeris</span><span class="p">(</span><span class="n">start_time</span><span class="o">=</span><span class="n">new_start_time</span><span class="p">,</span> <span class="n">stop_time</span><span class="o">=</span><span class="n">new_stop_time</span><span class="p">)</span>
+            <span class="c1"># Attempt to compute the forward ephemeris data now with the</span>
+            <span class="c1"># updated information.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_ephemeris</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">future_time</span><span class="p">)</span>
+
+        <span class="c1"># It is unlikely that the ephemeris table has the exact data points,</span>
+        <span class="c1"># so we interpolate.</span>
+        <span class="n">ra_interpolate</span> <span class="o">=</span> <span class="n">sp_interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;julian_day&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">],</span>
+            <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;quadratic&quot;</span><span class="p">,</span>
+            <span class="n">bounds_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">dec_interpolate</span> <span class="o">=</span> <span class="n">sp_interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;julian_day&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ephemeris_table</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">],</span>
+            <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;quadratic&quot;</span><span class="p">,</span>
+            <span class="n">bounds_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Computing the interpolation. If for some reason it is outside of the</span>
+        <span class="c1"># bounds again, something is off. As such, we make sure it is not</span>
+        <span class="c1"># caught with other error catching systems.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">future_ra</span> <span class="o">=</span> <span class="n">ra_interpolate</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span>
+            <span class="n">future_dec</span> <span class="o">=</span> <span class="n">dec_interpolate</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+                <span class="s2">&quot;The ephemeris interpolation functions are trying to interpolate&quot;</span>
+                <span class="s2">&quot; outside of their defined range. However, this should have already&quot;</span>
+                <span class="s2">&quot; been caught with the time bounds check and a new queried ephemeris&quot;</span>
+                <span class="s2">&quot; table should have fixed this issue.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># All done, seem to be fine.</span>
+            <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span>
+        <span class="c1"># The code should not reach here.</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

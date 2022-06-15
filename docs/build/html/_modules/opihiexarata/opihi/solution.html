@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -208,11 +214,10 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.photometry</span> <span class="k">as</span> <span class="nn">photometry</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.propagate</span> <span class="k">as</span> <span class="nn">propagate</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.ephemeris</span> <span class="k">as</span> <span class="nn">ephemeris</span>
 
-<span class="c1"># from opihiexarata.ephemeris import EphemerisSolution</span>
 
-
-<div class="viewcode-block" id="OpihiSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the main class which acts as a collection container of</span>
 <span class="sd">    solution classes. It facilitates the interaction between the solution</span>
 <span class="sd">    classes and the GUI.</span>
@@ -226,10 +231,10 @@
 <span class="sd">    exposure_time : float</span>
 <span class="sd">        The exposure time of the image, in seconds.</span>
 <span class="sd">    observing_time : float</span>
-<span class="sd">        The time of observation, this must be a UNIX time.</span>
+<span class="sd">        The time of observation, this must be a Julian day time.</span>
 <span class="sd">    asteroid_name : str</span>
 <span class="sd">        The name of the asteroid. This is used to group similar observations</span>
-<span class="sd">        and to also retrive data from the MPC.</span>
+<span class="sd">        and to also retrieve data from the MPC.</span>
 <span class="sd">    asteroid_location : tuple</span>
 <span class="sd">        The pixel location of the asteroid. (Usually determined by a centroid</span>
 <span class="sd">        around a user specified location.) If this is None, then asteroid</span>
@@ -257,12 +262,32 @@
 <span class="sd">        The astrometric solution; if it has not been solved yet, this is None.</span>
 <span class="sd">    photometrics : PhotometricSolution</span>
 <span class="sd">        The photometric solution; if it has not been solved yet, this is None.</span>
-<span class="sd">    propagatives : PropagationSolution</span>
+<span class="sd">    propagatives : PropagativeSolution</span>
 <span class="sd">        The propagation solution; if it has not been solved yet, this is None.</span>
-<span class="sd">    orbitals : OrbitSolution</span>
+<span class="sd">    orbitals : OrbitalSolution</span>
 <span class="sd">        The orbit solution; if it has not been solved yet, this is None.</span>
-<span class="sd">    ephemeritics : EphemerisSolution</span>
+<span class="sd">    ephemeritics : EphemeriticSolution</span>
 <span class="sd">        The ephemeris solution; if it has not been solved yet, this is None.</span>
+<span class="sd">    astrometrics_status : bool, None</span>
+<span class="sd">        The status of the solving of the astrometric solution. It is True or</span>
+<span class="sd">        False based on the success of the solve, None if a solve has not</span>
+<span class="sd">        been attempted.</span>
+<span class="sd">    photometrics_status : bool, None</span>
+<span class="sd">        The status of the solving of the photometric solution. It is True or</span>
+<span class="sd">        False based on the success of the solve, None if a solve has not</span>
+<span class="sd">        been attempted.</span>
+<span class="sd">    propagatives_status : bool, None</span>
+<span class="sd">        The status of the solving of the propagative solution. It is True or</span>
+<span class="sd">        False based on the success of the solve, None if a solve has not</span>
+<span class="sd">        been attempted.</span>
+<span class="sd">    orbitals_status : bool, None</span>
+<span class="sd">        The status of the solving of the orbital solution. It is True or</span>
+<span class="sd">        False based on the success of the solve, None if a solve has not</span>
+<span class="sd">        been attempted.</span>
+<span class="sd">    ephemeritics_status : bool, None</span>
+<span class="sd">        The status of the solving of the ephemeris solution. It is True or</span>
+<span class="sd">        False based on the success of the solve, None if a solve has not</span>
+<span class="sd">        been attempted.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># https://www.adsabs.harvard.edu/full/1895PA......3...17S</span>
@@ -296,7 +321,7 @@
 <span class="sd">        exposure_time : float</span>
 <span class="sd">            The exposure time of the image, in seconds.</span>
 <span class="sd">        observing_time : float</span>
-<span class="sd">            The time of observation, this must be a UNIX time.</span>
+<span class="sd">            The time of observation, this time must in Julian day.</span>
 <span class="sd">        asteroid_name : str, default = None</span>
 <span class="sd">            The name of the asteroid.</span>
 <span class="sd">        asteroid_location : tuple, default = None</span>
@@ -346,10 +371,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">propagatives</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orbitals</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ephemeritics</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">photometrics_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">propagatives_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orbitals_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ephemeritics_status</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="OpihiSolution.solve_astrometry"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_astrometry">[docs]</a>    <span class="k">def</span> <span class="nf">solve_astrometry</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">raise_on_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">AstrometricSolution</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Solve the image astrometry by using an astrometric engine.</span>
 
@@ -360,29 +394,52 @@
 <span class="sd">        overwrite : bool, default = True</span>
 <span class="sd">            Overwrite and replace the information of this class with the new</span>
 <span class="sd">            values. If False, the returned solution is not also applied.</span>
+<span class="sd">        raise_on_error : bool, default = False</span>
+<span class="sd">            If True, this disables the error handing and allows for errors from</span>
+<span class="sd">            the solving engines/solutions to be propagated out.</span>
+<span class="sd">        vehicle_args : dictionary, default = {}</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        astrometric_solution : AstrometricSolution</span>
 <span class="sd">            The astrometry solution for the image.</span>
+<span class="sd">        solve_status : bool</span>
+<span class="sd">            The status of the solve. If True, the solving was successful.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">astrometry_solution</span> <span class="o">=</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometricSolution</span><span class="p">(</span>
-            <span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">,</span> <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span>
-        <span class="p">)</span>
-        <span class="c1"># Check if the solution should overwrite the current one.</span>
-        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span> <span class="o">=</span> <span class="n">astrometry_solution</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">astrometry_solution</span> <span class="o">=</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometricSolution</span><span class="p">(</span>
+                <span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">,</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
+                <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_exception</span><span class="p">:</span>
+            <span class="c1"># The solving failed.</span>
+            <span class="n">astrometry_solution</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># If the user wants a re-raised exception.</span>
+            <span class="k">if</span> <span class="n">raise_on_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">_exception</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># It should not overwrite anything.</span>
-            <span class="k">pass</span>
-        <span class="k">return</span> <span class="n">astrometry_solution</span></div>
+            <span class="c1"># The solving passed.</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Check if the solution should overwrite the current one.</span>
+            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span> <span class="o">=</span> <span class="n">astrometry_solution</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics_status</span> <span class="o">=</span> <span class="n">solve_status</span>
+        <span class="k">return</span> <span class="n">astrometry_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
 <div class="viewcode-block" id="OpihiSolution.solve_photometry"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_photometry">[docs]</a>    <span class="k">def</span> <span class="nf">solve_photometry</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PhotometryEngine</span><span class="p">,</span>
-        <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">filter_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">exposure_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">raise_on_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">PhotometricSolution</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Solve the image photometry by using a photometric engine.</span>
 
@@ -399,16 +456,25 @@
 <span class="sd">        exposure_time : float, default = None</span>
 <span class="sd">            The exposure time of the image, in seconds. Defaults to the value</span>
 <span class="sd">            provided at instantiation.</span>
+<span class="sd">        raise_on_error : bool, default = False</span>
+<span class="sd">            If True, this disables the error handing and allows for errors from</span>
+<span class="sd">            the solving engines/solutions to be propagated out.</span>
+<span class="sd">        vehicle_args : dictionary, default = {}</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        photometric_solution : PhotometrySolution</span>
 <span class="sd">            The photometry solution for the image.</span>
+<span class="sd">        solve_status : bool</span>
+<span class="sd">            The status of the solve. If True, the solving was successful.</span>
 
 <span class="sd">        Warning ..</span>
-<span class="sd">            This requires that the astrometry solution be computed before-hand.</span>
-<span class="sd">            This will not precompute automatically it without it being called</span>
-<span class="sd">            explicitly, but it will instead return an error.</span>
+<span class="sd">            This requires that the astrometric solution be computed</span>
+<span class="sd">            before-hand. It will not be precomputed automatically; without it</span>
+<span class="sd">            being called explicitly, this will instead raise an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># The photometric solution requires the astrometric solution to be</span>
         <span class="c1"># computed first.</span>
@@ -422,49 +488,71 @@
         <span class="n">exposure_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span> <span class="k">if</span> <span class="n">exposure_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">exposure_time</span>
 
         <span class="c1"># Solving the photometric solution.</span>
-        <span class="n">photometric_solution</span> <span class="o">=</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PhotometricSolution</span><span class="p">(</span>
-            <span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">,</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
-            <span class="n">astrometrics</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="p">,</span>
-            <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span>
-            <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="c1"># Check if the solution should overwrite the current one.</span>
-        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">photometrics</span> <span class="o">=</span> <span class="n">photometric_solution</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">photometric_solution</span> <span class="o">=</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PhotometricSolution</span><span class="p">(</span>
+                <span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">,</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
+                <span class="n">astrometrics</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="p">,</span>
+                <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span>
+                <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
+                <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_exception</span><span class="p">:</span>
+            <span class="c1"># The solving failed.</span>
+            <span class="n">photometric_solution</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># If the user wants a re-raised exception.</span>
+            <span class="k">if</span> <span class="n">raise_on_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">_exception</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># It should not overrite anything.</span>
-            <span class="k">pass</span>
-        <span class="k">return</span> <span class="n">photometric_solution</span></div>
+            <span class="c1"># The solving passed.</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Check if the solution should overwrite the current one.</span>
+            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">photometrics</span> <span class="o">=</span> <span class="n">photometric_solution</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">photometrics_status</span> <span class="o">=</span> <span class="n">solve_status</span>
+        <span class="k">return</span> <span class="n">photometric_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
 <div class="viewcode-block" id="OpihiSolution.solve_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">solve_propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">,</span>
-        <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">raise_on_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">asteroid_location</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationSolution</span><span class="p">:</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagativeSolution</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Solve for the location of an asteroid using a method of propagation.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        solver_engine : PropagationEngine</span>
-<span class="sd">            The propagative engine which the propgation solver will use.</span>
+<span class="sd">            The propagative engine which the propagation solver will use.</span>
 <span class="sd">        overwrite : bool, default = True</span>
 <span class="sd">            Overwrite and replace the information of this class with the new</span>
 <span class="sd">            values. If False, the returned solution is not also applied.</span>
 <span class="sd">        asteroid_location : tuple, default = None</span>
 <span class="sd">            The pixel location of the asteroid in the image. Defaults to the</span>
 <span class="sd">            value provided at instantiation.</span>
+<span class="sd">        raise_on_error : bool, default = False</span>
+<span class="sd">            If True, this disables the error handing and allows for errors from</span>
+<span class="sd">            the solving engines/solutions to be propagated out.</span>
+<span class="sd">        vehicle_args : dictionary, default = {}</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        propagative_solution : PropagationSolution</span>
+<span class="sd">        propagative_solution : PropagativeSolution</span>
 <span class="sd">            The propagation solution for the asteroid and image.</span>
+<span class="sd">        solve_status : bool</span>
+<span class="sd">            The status of the solve. If True, the solving was successful.</span>
 
 <span class="sd">        Warning ..</span>
-<span class="sd">            This requires that the astrometry solution be computed before-hand.</span>
-<span class="sd">            This will not precompute automatically it without it being called</span>
-<span class="sd">            explicitly, but it will instead return an error.</span>
+<span class="sd">            This requires that the astrometric solution be computed</span>
+<span class="sd">            before-hand. It will not be precomputed automatically; without it</span>
+<span class="sd">            being called explicitly, this will instead raise an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># The propagation solution requires the astrometric solution to be</span>
         <span class="c1"># computed first.</span>
@@ -488,7 +576,7 @@
                 <span class="s2">&quot; location parameters have been provided.&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Splitting it up is easier notationally.</span>
+            <span class="c1"># Splitting it up is easier notionally.</span>
             <span class="n">asteroid_x</span><span class="p">,</span> <span class="n">asteroid_y</span> <span class="o">=</span> <span class="n">asteroid_location</span>
             <span class="c1"># The location of the asteroid needs to be transformed to RA and DEC.</span>
             <span class="n">asteroid_ra</span><span class="p">,</span> <span class="n">asteroid_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">pixel_to_sky_coordinates</span><span class="p">(</span>
@@ -499,9 +587,9 @@
         <span class="c1"># propagation from.</span>
         <span class="n">past_asteroid_ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_observations</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span>
         <span class="n">past_asteroid_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_observations</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">]</span>
-        <span class="c1"># Converting the decimal days to the required unix time. This function</span>
-        <span class="c1"># seems to be vectorized to handle arrays.</span>
-        <span class="n">past_asteroid_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">decimal_day_to_unix_time</span><span class="p">(</span>
+        <span class="c1"># Converting the decimal days to the required Julian day time. This</span>
+        <span class="c1"># function seems to be vectorized to handle arrays.</span>
+        <span class="n">past_asteroid_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">decimal_day_to_julian_day</span><span class="p">(</span>
             <span class="n">year</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_observations</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span>
             <span class="n">month</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_observations</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">],</span>
             <span class="n">day</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_observations</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">],</span>
@@ -511,11 +599,12 @@
         <span class="n">past_asteroid_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">past_asteroid_dec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">past_asteroid_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">past_asteroid_time</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="c1"># Propagation only works with really recent observations so we only</span>
-        <span class="c1"># include those done within some number of hours.</span>
+        <span class="c1"># include those done within some number of hours. The Julian day system</span>
+        <span class="c1"># is in days.</span>
         <span class="n">EXPIRE_HOURS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS</span>
-        <span class="n">EXPIRE_SECONDS</span> <span class="o">=</span> <span class="n">EXPIRE_HOURS</span> <span class="o">*</span> <span class="mi">3600</span>
+        <span class="n">EXPIRE_DAYS</span> <span class="o">=</span> <span class="n">EXPIRE_HOURS</span> <span class="o">/</span> <span class="mi">24</span>
         <span class="n">valid_observation_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">asteroid_time</span> <span class="o">-</span> <span class="n">past_asteroid_time</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">EXPIRE_SECONDS</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="p">(</span><span class="n">asteroid_time</span> <span class="o">-</span> <span class="n">past_asteroid_time</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">EXPIRE_DAYS</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span>
         <span class="p">)</span>
         <span class="n">valid_past_asteroid_ra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
             <span class="n">past_asteroid_ra</span><span class="p">[</span><span class="n">valid_observation_index</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
@@ -532,26 +621,40 @@
         <span class="n">asteroid_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">valid_past_asteroid_dec</span><span class="p">,</span> <span class="n">asteroid_dec</span><span class="p">)</span>
         <span class="n">asteroid_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">valid_past_asteroid_time</span><span class="p">,</span> <span class="n">asteroid_time</span><span class="p">)</span>
 
-        <span class="c1"># Computing the propagation solutions.</span>
-        <span class="n">propagative_solution</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PropagationSolution</span><span class="p">(</span>
-            <span class="n">ra</span><span class="o">=</span><span class="n">asteroid_ra</span><span class="p">,</span>
-            <span class="n">dec</span><span class="o">=</span><span class="n">asteroid_dec</span><span class="p">,</span>
-            <span class="n">obs_time</span><span class="o">=</span><span class="n">asteroid_time</span><span class="p">,</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="c1"># See if the current propagation solution should be replaced.</span>
-        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">propagatives</span> <span class="o">=</span> <span class="n">propagative_solution</span>
+        <span class="c1"># Computing the propagation solution.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">propagative_solution</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PropagativeSolution</span><span class="p">(</span>
+                <span class="n">ra</span><span class="o">=</span><span class="n">asteroid_ra</span><span class="p">,</span>
+                <span class="n">dec</span><span class="o">=</span><span class="n">asteroid_dec</span><span class="p">,</span>
+                <span class="n">obs_time</span><span class="o">=</span><span class="n">asteroid_time</span><span class="p">,</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
+                <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_exception</span><span class="p">:</span>
+            <span class="c1"># The solving failed.</span>
+            <span class="n">propagative_solution</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># If the user wants a re-raised exception.</span>
+            <span class="k">if</span> <span class="n">raise_on_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">_exception</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
+            <span class="c1"># The solving was completed.</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># See if the current propagation solution should be replaced.</span>
+            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">propagatives</span> <span class="o">=</span> <span class="n">propagative_solution</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">propagatives_status</span> <span class="o">=</span> <span class="n">solve_status</span>
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="n">propagative_solution</span></div>
+        <span class="k">return</span> <span class="n">propagative_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
 <div class="viewcode-block" id="OpihiSolution.solve_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">raise_on_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">asteroid_location</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Solve for the orbital elements an asteroid using previous</span>
 <span class="sd">        observations.</span>
@@ -566,16 +669,25 @@
 <span class="sd">        asteroid_location : tuple, default = None</span>
 <span class="sd">            The pixel location of the asteroid in the image. Defaults to the</span>
 <span class="sd">            value provided at instantiation.</span>
+<span class="sd">        raise_on_error : bool, default = False</span>
+<span class="sd">            If True, this disables the error handing and allows for errors from</span>
+<span class="sd">            the solving engines/solutions to be propagated out.</span>
+<span class="sd">        vehicle_args : dictionary, default = {}</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        orbital_solution : OrbitSolution</span>
+<span class="sd">        orbital_solution : OrbitalSolution</span>
 <span class="sd">            The orbit solution for the asteroid and image.</span>
+<span class="sd">        solve_status : bool</span>
+<span class="sd">            The status of the solve. If True, the solving was successful.</span>
 
 <span class="sd">        Warning ..</span>
-<span class="sd">            This requires that the astrometry solution be computed before-hand.</span>
-<span class="sd">            This will not precompute automatically it without it being called</span>
-<span class="sd">            explicitly, but it will instead return an error.</span>
+<span class="sd">            This requires that the astrometric solution be computed</span>
+<span class="sd">            before-hand. It will not be precomputed automatically; without it</span>
+<span class="sd">            being called explicitly, this will instead raise an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># A lot of this code re-implements of the methods for deriving the</span>
         <span class="c1"># record row; but this is to allow for the submission of a custom</span>
@@ -589,25 +701,28 @@
                 <span class="s2">&quot; astrometric solution needs to be called and run first.&quot;</span>
             <span class="p">)</span>
 
+        <span class="c1"># Check that the proper asteroid information has been provided. If</span>
+        <span class="c1"># the orbit defined is custom however, these checks should be skipped.</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">):</span>
+            <span class="n">asteroid_name</span> <span class="o">=</span> <span class="s2">&quot;custom&quot;</span>
+            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Ensuring there is no unintentional modification to the name</span>
+            <span class="c1"># or history.</span>
+            <span class="n">asteroid_name</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span><span class="p">)</span>
+            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_history</span><span class="p">)</span>
         <span class="c1"># If asteroid information is not provided, then nothing can be solved.</span>
         <span class="c1"># As there is no information.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">asteroid_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
                 <span class="s2">&quot;The orbit of an asteroid cannot be solved as no asteroid name has been&quot;</span>
                 <span class="s2">&quot; provided by which to fill in the MPC record.&quot;</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Ensuring there is no unintentional modification to the name.</span>
-            <span class="n">asteroid_name</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_history</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">asteroid_history</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
                 <span class="s2">&quot;The orbit of an asteroid cannot be solved as no history of the orbit&quot;</span>
                 <span class="s2">&quot; of the asteroid has been provided.&quot;</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Ensuring that the history of the asteroid does not change for</span>
-            <span class="c1"># some reason.</span>
-            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_history</span><span class="p">)</span>
 
         <span class="c1"># Using the defaults if an overriding value was not provided.</span>
         <span class="n">asteroid_location</span> <span class="o">=</span> <span class="p">(</span>
@@ -619,7 +734,7 @@
                 <span class="s2">&quot; parameters have been provided.&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Splitting it up is easier notationally.</span>
+            <span class="c1"># Splitting is nicer on the notational side.</span>
             <span class="n">asteroid_x</span><span class="p">,</span> <span class="n">asteroid_y</span> <span class="o">=</span> <span class="n">asteroid_location</span>
             <span class="c1"># The location of the asteroid needs to be transformed to RA and DEC.</span>
             <span class="n">asteroid_ra</span><span class="p">,</span> <span class="n">asteroid_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">pixel_to_sky_coordinates</span><span class="p">(</span>
@@ -641,18 +756,36 @@
         <span class="n">asteroid_record</span> <span class="o">=</span> <span class="n">asteroid_history</span> <span class="o">+</span> <span class="n">current_mpc_record</span>
 
         <span class="c1"># Solve for the orbital solution.</span>
-        <span class="n">orbital_solution</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbitSolution</span><span class="p">(</span>
-            <span class="n">observation_record</span><span class="o">=</span><span class="n">asteroid_record</span><span class="p">,</span> <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span>
-        <span class="p">)</span>
-        <span class="c1"># Check if the solution should overwrite the current one.</span>
-        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">orbitals</span> <span class="o">=</span> <span class="n">orbital_solution</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">orbital_solution</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbitalSolution</span><span class="p">(</span>
+                <span class="n">observation_record</span><span class="o">=</span><span class="n">asteroid_record</span><span class="p">,</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
+                <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_exception</span><span class="p">:</span>
+            <span class="c1"># The solve failed.</span>
+            <span class="n">orbital_solution</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># If the user wants a re-raised exception.</span>
+            <span class="k">if</span> <span class="n">raise_on_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">_exception</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># It should not overrite anything.</span>
-            <span class="k">pass</span>
-        <span class="k">return</span> <span class="n">orbital_solution</span></div>
+            <span class="c1"># The solve worked okay.</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Check if the solution should overwrite the current one.</span>
+            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">orbitals</span> <span class="o">=</span> <span class="n">orbital_solution</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">orbitals_status</span> <span class="o">=</span> <span class="n">solve_status</span>
+        <span class="k">return</span> <span class="n">orbital_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.solve_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">solve_ephemeris</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solver_engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiSolution.solve_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">solve_ephemeris</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">raise_on_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Solve for the ephemeris solution an asteroid using previous</span>
 <span class="sd">        observations and derived orbital elements.</span>
 
@@ -663,35 +796,59 @@
 <span class="sd">        overwrite : bool, default = True</span>
 <span class="sd">            Overwrite and replace the information of this class with the new</span>
 <span class="sd">            values. If False, the returned solution is not also applied.</span>
+<span class="sd">        raise_on_error : bool, default = False</span>
+<span class="sd">            If True, this disables the error handing and allows for errors from</span>
+<span class="sd">            the solving engines/solutions to be propagated out.</span>
+<span class="sd">        vehicle_args : dictionary, default = {}</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        ephemeritics_solution : EphemerisSolution</span>
+<span class="sd">        ephemeritics_solution : EphemeriticSolution</span>
 <span class="sd">            The orbit solution for the asteroid and image.</span>
+<span class="sd">        solve_status : bool</span>
+<span class="sd">            The status of the solve. If True, the solving was successful.</span>
 
 <span class="sd">        Warning ..</span>
-<span class="sd">            This requires that the orbit solution be computed before-hand.</span>
-<span class="sd">            This will not precompute automatically it without it being called</span>
-<span class="sd">            explicitly, but it will instead return an error.</span>
+<span class="sd">            This requires that the orbital solution be computed</span>
+<span class="sd">            before-hand. It will not be precomputed automatically; without it</span>
+<span class="sd">            being called explicitly, this will instead raise an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># The propagation solution requires the astrometric solution to be</span>
         <span class="c1"># computed first.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orbitals</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbitSolution</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orbitals</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbitalSolution</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">(</span>
                 <span class="s2">&quot;The ephemeris solution requires an orbital solution. The&quot;</span>
                 <span class="s2">&quot; orbital solution needs to be called and run first.&quot;</span>
             <span class="p">)</span>
 
-        <span class="c1"># TODO</span>
-        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span><span class="s2">&quot;Not done yet.&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Check if the solution should overwrite the current one.</span>
-        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ephemeritics</span> <span class="o">=</span> <span class="n">ephemeritics_solution</span>
+        <span class="c1"># Computing the ephemeris solution provided the engine that the</span>
+        <span class="c1"># user wants to use.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ephemeritics_solution</span> <span class="o">=</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span><span class="p">(</span>
+                <span class="n">orbitals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">orbitals</span><span class="p">,</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">solver_engine</span><span class="p">,</span>
+                <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_exception</span><span class="p">:</span>
+            <span class="c1"># The solve failed.</span>
+            <span class="n">ephemeritics_solution</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># If the user wants a re-raised exception.</span>
+            <span class="k">if</span> <span class="n">raise_on_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">_exception</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># It should not overrite anything.</span>
-            <span class="k">pass</span>
-        <span class="k">return</span> <span class="n">ephemeritics_solution</span></div>
+            <span class="c1"># The solve passed file.</span>
+            <span class="n">solve_status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Check if the solution should overwrite the current one.</span>
+            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ephemeritics</span> <span class="o">=</span> <span class="n">ephemeritics_solution</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ephemeritics_status</span> <span class="o">=</span> <span class="n">solve_status</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">ephemeritics_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
 <div class="viewcode-block" id="OpihiSolution.mpc_table_row"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_table_row">[docs]</a>    <span class="k">def</span> <span class="nf">mpc_table_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;An MPC table of the current observation with information provided</span>
@@ -709,17 +866,17 @@
         <span class="c1"># Using the table is a much cleaner way of doing this as the formatting</span>
         <span class="c1"># is already handled. A dictionary is the better way to establish</span>
         <span class="c1"># parameters and the eventual row.</span>
-        <span class="n">mpc_table</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">mpcrecord</span><span class="o">.</span><span class="n">minor_planet_blank_table</span><span class="p">()</span>
+        <span class="n">mpc_table</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">mpcrecord</span><span class="o">.</span><span class="n">blank_minor_planet_table</span><span class="p">()</span>
         <span class="n">current_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># If this system is going to deal with provisional numbers is currently</span>
+        <span class="c1"># beyond the design scope. May change in the future.</span>
+        <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;minor_planet_number&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># Assuming the name is the MPC provisional number as is common.</span>
         <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;provisional_number&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
         <span class="p">)</span>
-
-        <span class="c1"># If this system is going to deal with provisional numbers is currently</span>
-        <span class="c1"># beyond the design scope. May change in the future.</span>
-        <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;provisional_number&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># It is practically guaranteed that this observation is not the</span>
         <span class="c1"># discovery observation.</span>
@@ -730,9 +887,9 @@
         <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;publishable_note&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;observing_note&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="c1"># The data can be extracted from the UNIX time of observation.</span>
-        <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">unix_time_to_decimal_day</span><span class="p">(</span>
-            <span class="n">unix_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">observing_time</span>
+        <span class="c1"># The data can be extracted from the Julian day time of observation.</span>
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_decimal_day</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">observing_time</span>
         <span class="p">)</span>
         <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year</span>
         <span class="n">current_data</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month</span>
@@ -742,7 +899,7 @@
         <span class="c1"># can just take it straight if the astrometric solution exists.</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="p">,</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometricSolution</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="c1"># Splitting it up is easier notationally.</span>
+                <span class="c1"># Splitting it up is easier on the notation.</span>
                 <span class="n">asteroid_x</span><span class="p">,</span> <span class="n">asteroid_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_location</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>

@@ -1,4 +1,4 @@
-# The general photometeric solution.
+# The general photometric solution.
 from opihiexarata.photometry.solution import PhotometricSolution
 
 # The engines of the photometric solution.

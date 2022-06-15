@@ -15,12 +15,10 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   opihiexarata.gui.automatic
+   opihiexarata.gui.manual
    opihiexarata.gui.name
-   opihiexarata.gui.opihi_image
-   opihiexarata.gui.primary
-   opihiexarata.gui.qt
    opihiexarata.gui.selector
-   opihiexarata.gui.theme_viewer
 
 Module contents
 ---------------

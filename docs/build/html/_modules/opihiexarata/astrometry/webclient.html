@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -205,10 +211,10 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 <span class="c1"># The base URL for the API which all other service URLs are derived from.</span>
-<span class="n">_DEFAULT_BASE_URL</span> <span class="o">=</span> <span class="s2">&quot;http://nova.astrometry.net/api/&quot;</span>
+<span class="n">_DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://nova.astrometry.net/api/&quot;</span>
 
 
-<div class="viewcode-block" id="AstrometryNetWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">AstrometryNetWebAPIEngine</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">AstrometryNetWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A python-based wrapper around the web API for astrometry.net.</span>
 
 <span class="sd">    This API does not have the full functionality of the default Python client</span>
@@ -218,6 +224,8 @@
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
+<span class="sd">    _ASTROMETRY_NET_API_BASE_URL : string</span>
+<span class="sd">        The base URL for the API which all other service URLs are derived from.</span>
 <span class="sd">    _apikey : string</span>
 <span class="sd">        The API key used to log in.</span>
 <span class="sd">    original_upload_filename : string</span>
@@ -225,46 +233,6 @@
 <span class="sd">    session : string</span>
 <span class="sd">        The session ID of this API connection to astrometry.net</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># The default arguments for uploading files. In (key, value, type) form.</span>
-    <span class="c1"># Detailed is also their useage cases per</span>
-    <span class="c1"># http://astrometry.net/doc/net/api.html#submitting-a-url</span>
-    <span class="n">_DEFAULT_URL_ARGUMENTS</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="c1"># These parameters are for licensing and distribution terms.</span>
-        <span class="p">(</span><span class="s2">&quot;allow_commercial_use&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;allow_modifications&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-        <span class="c1"># For visibility by the general public.</span>
-        <span class="p">(</span><span class="s2">&quot;publicly_visible&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-        <span class="c1"># Image scaling parameters, if provided, when known, helps the</span>
-        <span class="c1"># processing a little.</span>
-        <span class="p">(</span><span class="s2">&quot;scale_units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;scale_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;scale_lower&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;scale_upper&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;scale_est&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;scale_err&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="c1"># These parameters allows for the establishment of an initial guess</span>
-        <span class="c1"># specified byt he centers, and its maximal deviation as specified</span>
-        <span class="c1"># by the radius parameter. (In degrees.)</span>
-        <span class="p">(</span><span class="s2">&quot;center_ra&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;center_dec&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="c1"># Image properties, preprocessing it a little can help in its</span>
-        <span class="c1"># determination.</span>
-        <span class="p">(</span><span class="s2">&quot;parity&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;downsample_factor&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;positional_error&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;tweak_order&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;crpix_center&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;invert&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
-        <span class="c1"># These parameters are needed if being sent instead is an x,y list of</span>
-        <span class="c1"># source star positions.</span>
-        <span class="p">(</span><span class="s2">&quot;image_width&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;image_height&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-    <span class="p">]</span>
 
 <div class="viewcode-block" id="AstrometryNetWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The instantiation, connecting to the web API using the API key.</span>
@@ -287,9 +255,50 @@
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Defining the URL.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ASTROMETRY_BASE_API_URL</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_DEFAULT_BASE_URL</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ASTROMETRY_NET_API_BASE_URL</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL</span>
         <span class="p">)</span>
+
+        <span class="c1"># Base parameters.</span>
+        <span class="c1"># The default arguments for uploading files. In (key, value, type) form.</span>
+        <span class="c1"># Detailed is also their useage cases per</span>
+        <span class="c1"># http://astrometry.net/doc/net/api.html#submitting-a-url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_URL_ARGUMENTS</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># These parameters are for licensing and distribution terms.</span>
+            <span class="p">(</span><span class="s2">&quot;allow_commercial_use&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;allow_modifications&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="c1"># For visibility by the general public.</span>
+            <span class="p">(</span><span class="s2">&quot;publicly_visible&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="c1"># Image scaling parameters, if provided, when known, helps the</span>
+            <span class="c1"># processing a little.</span>
+            <span class="p">(</span><span class="s2">&quot;scale_units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_lower&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_upper&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_est&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_err&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="c1"># These parameters allows for the establishment of an initial guess</span>
+            <span class="c1"># specified byt he centers, and its maximal deviation as specified</span>
+            <span class="c1"># by the radius parameter. (In degrees.)</span>
+            <span class="p">(</span><span class="s2">&quot;center_ra&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;center_dec&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="c1"># Image properties, preprocessing it a little can help in its</span>
+            <span class="c1"># determination.</span>
+            <span class="p">(</span><span class="s2">&quot;parity&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;downsample_factor&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;positional_error&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;tweak_order&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;crpix_center&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;invert&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
+            <span class="c1"># These parameters are needed if being sent instead is an x,y list of</span>
+            <span class="c1"># source star positions.</span>
+            <span class="p">(</span><span class="s2">&quot;image_width&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;image_height&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+        <span class="p">]</span>
 
         <span class="c1"># Use the API key to log in a derive a session key.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
@@ -423,7 +432,7 @@
 
 <div class="viewcode-block" id="AstrometryNetWebAPIEngine._generate_service_url"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate the correct URL for the desired service. Because astrometry.net</span>
-<span class="sd">        uses a convension, we can follow it to obtain the desired service URL.</span>
+<span class="sd">        uses a convention, we can follow it to obtain the desired service URL.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -435,7 +444,7 @@
 <span class="sd">        url : str</span>
 <span class="sd">            The URL for the service.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ASTROMETRY_BASE_API_URL</span> <span class="o">+</span> <span class="n">service</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ASTROMETRY_NET_API_BASE_URL</span> <span class="o">+</span> <span class="n">service</span>
         <span class="k">return</span> <span class="n">url</span></div>
 
 <div class="viewcode-block" id="AstrometryNetWebAPIEngine._generate_upload_args"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_upload_args">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_upload_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>

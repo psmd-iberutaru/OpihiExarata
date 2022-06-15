@@ -12,7 +12,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-class OpihiPreprocessSolution:
+class OpihiPreprocessSolution(library.engine.ExarataSolution):
     """A class which represents the reduction process of Opihi data, having the
     raw data corrected using previously and provided derived flats and darks.
     The required parameters (such as exposure time) must also be provided.

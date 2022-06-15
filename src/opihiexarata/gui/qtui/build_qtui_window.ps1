@@ -8,6 +8,7 @@
 # Set-ExecutionPolicy -Scope Process RemoteSigned
 
 # Creating the GUI files.
-
-pyside6-uic .\primary.ui | Out-File .\qtui_primary.py -Encoding "utf8"
+pyside6-uic .\manual.ui | Out-File .\qtui_manual.py -Encoding "utf8"
 pyside6-uic .\selector.ui | Out-File .\qtui_selector.py -Encoding "utf8"
+
+pyside6-uic .\automatic.ui | Out-File .\qtui_automatic.py -Encoding "utf8"

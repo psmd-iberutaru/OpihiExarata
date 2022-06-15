@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -195,10 +201,15 @@
   <h1>Source code for opihiexarata.library.conversion</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;For miscellaneous conversions.&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">ap_coordinates</span>
 <span class="kn">import</span> <span class="nn">astropy.time</span> <span class="k">as</span> <span class="nn">ap_time</span>
 <span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">ap_units</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
 <div class="viewcode-block" id="degrees_to_sexagesimal_ra_dec"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec">[docs]</a><span class="k">def</span> <span class="nf">degrees_to_sexagesimal_ra_dec</span><span class="p">(</span>
@@ -262,8 +273,8 @@
     <span class="k">return</span> <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span></div>
 
 
-<div class="viewcode-block" id="decimal_day_to_unix_time"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.decimal_day_to_unix_time">[docs]</a><span class="k">def</span> <span class="nf">decimal_day_to_unix_time</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A function to convert decimal day time formats to UNIX time.</span>
+<div class="viewcode-block" id="decimal_day_to_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.decimal_day_to_julian_day">[docs]</a><span class="k">def</span> <span class="nf">decimal_day_to_julian_day</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert decimal day time formats to the Julian day.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -277,8 +288,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    unix_time : float</span>
-<span class="sd">        The unix time that the date represents.</span>
+<span class="sd">    julian_day : float</span>
+<span class="sd">        The Julian day of the date provided.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Determining the true year and letting the remainder flow.</span>
     <span class="n">int_year</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -295,8 +306,8 @@
     <span class="n">leftover_seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">leftover_minutes</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
     <span class="c1"># Seconds.</span>
     <span class="n">seconds</span> <span class="o">=</span> <span class="n">leftover_seconds</span>
-    <span class="c1"># Unix time.</span>
-    <span class="n">unix_time</span> <span class="o">=</span> <span class="n">full_date_to_unix_time</span><span class="p">(</span>
+    <span class="c1"># Julian time.</span>
+    <span class="n">julian_day</span> <span class="o">=</span> <span class="n">full_date_to_julian_day</span><span class="p">(</span>
         <span class="n">year</span><span class="o">=</span><span class="n">int_year</span><span class="p">,</span>
         <span class="n">month</span><span class="o">=</span><span class="n">int_month</span><span class="p">,</span>
         <span class="n">day</span><span class="o">=</span><span class="n">int_day</span><span class="p">,</span>
@@ -304,13 +315,13 @@
         <span class="n">minute</span><span class="o">=</span><span class="n">int_minute</span><span class="p">,</span>
         <span class="n">second</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">unix_time</span></div>
+    <span class="k">return</span> <span class="n">julian_day</span></div>
 
 
-<div class="viewcode-block" id="full_date_to_unix_time"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.full_date_to_unix_time">[docs]</a><span class="k">def</span> <span class="nf">full_date_to_unix_time</span><span class="p">(</span>
-    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="viewcode-block" id="full_date_to_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.full_date_to_julian_day">[docs]</a><span class="k">def</span> <span class="nf">full_date_to_julian_day</span><span class="p">(</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="nb">float</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A function to convert the a whole date format into UNIX time.</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert the a whole date format into the Julian day time.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -329,8 +340,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    unix_time : float</span>
-<span class="sd">        The time input converted into UNIX time.</span>
+<span class="sd">    julian_day : float</span>
+<span class="sd">        The time input converted into the Julian day.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">time_param</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
@@ -341,17 +352,53 @@
         <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="n">second</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">time_param</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;utc&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ymdhms&quot;</span><span class="p">)</span>
-    <span class="n">unix_time</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;unix&quot;</span><span class="p">,</span> <span class="n">subfmt</span><span class="o">=</span><span class="s2">&quot;long&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">unix_time</span></div>
+    <span class="n">julian_day</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;jd&quot;</span><span class="p">,</span> <span class="n">subfmt</span><span class="o">=</span><span class="s2">&quot;long&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">julian_day</span></div>
 
 
-<div class="viewcode-block" id="modified_julian_day_to_unix_time"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.modified_julian_day_to_unix_time">[docs]</a><span class="k">def</span> <span class="nf">modified_julian_day_to_unix_time</span><span class="p">(</span><span class="n">mjd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A function to convert between modified julian days to Unix time.</span>
+<div class="viewcode-block" id="modified_julian_day_to_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.modified_julian_day_to_julian_day">[docs]</a><span class="k">def</span> <span class="nf">modified_julian_day_to_julian_day</span><span class="p">(</span><span class="n">mjd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert modified Julian days to Julian days.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    mjd : float</span>
-<span class="sd">        The modified Julian day to be converted.</span>
+<span class="sd">        The modified Julian day to be converted to a Julian day.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    jd : float</span>
+<span class="sd">        The Julian day value after conversion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">mjd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;mjd&quot;</span><span class="p">)</span>
+    <span class="n">jd</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;jd&quot;</span><span class="p">,</span> <span class="n">subfmt</span><span class="o">=</span><span class="s2">&quot;long&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jd</span></div>
+
+
+<div class="viewcode-block" id="julian_day_to_modified_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.julian_day_to_modified_julian_day">[docs]</a><span class="k">def</span> <span class="nf">julian_day_to_modified_julian_day</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert Julian days to  modified Julian days.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    jd : float</span>
+<span class="sd">        The Julian day to be converted to a modified Julian day.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mjd : float</span>
+<span class="sd">        The modified Julian day value after conversion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">jd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;mjd&quot;</span><span class="p">)</span>
+    <span class="n">mjd</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;mjd&quot;</span><span class="p">,</span> <span class="n">subfmt</span><span class="o">=</span><span class="s2">&quot;long&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mjd</span></div>
+
+
+<div class="viewcode-block" id="julian_day_to_unix_time"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.julian_day_to_unix_time">[docs]</a><span class="k">def</span> <span class="nf">julian_day_to_unix_time</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert between Julian days to UNIX time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    jd : float</span>
+<span class="sd">        The Julian day to be converted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -360,66 +407,158 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># This could eventually be replaced with multiplication and addition, but</span>
     <span class="c1"># this is a convenient way of doing it.</span>
-    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">mjd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;mjd&quot;</span><span class="p">)</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">jd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;jd&quot;</span><span class="p">)</span>
     <span class="n">unix_time</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;unix&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">unix_time</span></div>
 
 
-<div class="viewcode-block" id="unix_time_to_decimal_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.unix_time_to_decimal_day">[docs]</a><span class="k">def</span> <span class="nf">unix_time_to_decimal_day</span><span class="p">(</span><span class="n">unix_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A function to convert UNIX time to the decimal day time.</span>
-
+<div class="viewcode-block" id="unix_time_to_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.unix_time_to_julian_day">[docs]</a><span class="k">def</span> <span class="nf">unix_time_to_julian_day</span><span class="p">(</span><span class="n">unix_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert between julian days to Unix time.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    unix_time : float</span>
-<span class="sd">        The unix time that is going to be converted.</span>
+<span class="sd">        The UNIX time to be converted to a Julian day.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    jd : float</span>
+<span class="sd">        The Julian day value as converted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># This could eventually be replaced with multiplication and addition, but</span>
+    <span class="c1"># this is a convenient way of doing it.</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">unix_time</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;unix&quot;</span><span class="p">)</span>
+    <span class="n">jd</span> <span class="o">=</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;jd&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jd</span></div>
+
+
+<div class="viewcode-block" id="julian_day_to_decimal_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.julian_day_to_decimal_day">[docs]</a><span class="k">def</span> <span class="nf">julian_day_to_decimal_day</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert the Julian day time to the decimal day time.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    jd : float</span>
+<span class="sd">        The Julian day time that is going to be converted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    year : int</span>
-<span class="sd">        The year of the UNIX time.</span>
+<span class="sd">        The year of the Julian day time.</span>
 <span class="sd">    month : int</span>
-<span class="sd">        The month of the UNIX time.</span>
+<span class="sd">        The month of the Julian day time.</span>
 <span class="sd">    day : float</span>
-<span class="sd">        The day of the the UNIX time, the hours, minute, and seconds are all</span>
+<span class="sd">        The day of the the Julian day time, the hours, minute, and seconds are all</span>
 <span class="sd">        contained as a decimal.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Getting the full date and just converting it from there.</span>
-    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">int_day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">unix_time_to_full_date</span><span class="p">(</span>
-        <span class="n">unix_time</span><span class="o">=</span><span class="n">unix_time</span>
-    <span class="p">)</span>
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">int_day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">julian_day_to_full_date</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">jd</span><span class="p">)</span>
     <span class="c1"># Calculating the decimal day.</span>
     <span class="n">day</span> <span class="o">=</span> <span class="n">int_day</span> <span class="o">+</span> <span class="n">hour</span> <span class="o">/</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">minute</span> <span class="o">/</span> <span class="mi">1440</span> <span class="o">+</span> <span class="n">second</span> <span class="o">/</span> <span class="mi">86400</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span></div>
 
 
-<div class="viewcode-block" id="unix_time_to_full_date"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.unix_time_to_full_date">[docs]</a><span class="k">def</span> <span class="nf">unix_time_to_full_date</span><span class="p">(</span><span class="n">unix_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A function to convert the a whole date format into UNIX time.</span>
+<div class="viewcode-block" id="julian_day_to_full_date"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.julian_day_to_full_date">[docs]</a><span class="k">def</span> <span class="nf">julian_day_to_full_date</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert the Julian day to a full date time.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    unix_time : float</span>
-<span class="sd">        The UNIX time which is subject to be input.</span>
+<span class="sd">    jd : float</span>
+<span class="sd">        The Julian day time that is going to be converted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    year : int</span>
-<span class="sd">        The year of the UNIX time provided.</span>
+<span class="sd">        The year of the Julian day provided.</span>
 <span class="sd">    month : int</span>
-<span class="sd">        The month of the UNIX time provided.</span>
+<span class="sd">        The month of the Julian day provided.</span>
 <span class="sd">    day : int</span>
-<span class="sd">        The day of the UNIX time provided.</span>
+<span class="sd">        The day of the Julian day provided.</span>
 <span class="sd">    hour : int</span>
-<span class="sd">        The hour of the UNIX time provided.</span>
+<span class="sd">        The hour of the Julian day provided.</span>
 <span class="sd">    minute : int</span>
-<span class="sd">        The minute of the UNIX time provided.</span>
+<span class="sd">        The minute of the Julian day provided.</span>
 <span class="sd">    second : float</span>
-<span class="sd">        The second of the UNIX time provided.</span>
+<span class="sd">        The second of the Julian day provided.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">unix_time</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;unix&quot;</span><span class="p">)</span>
-    <span class="c1"># It is faster to not unpack, even though it would be less readable.</span>
+    <span class="n">time_instance</span> <span class="o">=</span> <span class="n">ap_time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">jd</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;jd&quot;</span><span class="p">)</span>
+    <span class="c1"># It is faster to not unpack, even though it is less readable.</span>
     <span class="k">return</span> <span class="n">time_instance</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span><span class="s2">&quot;ymdhms&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="current_utc_to_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.current_utc_to_julian_day">[docs]</a><span class="k">def</span> <span class="nf">current_utc_to_julian_day</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return the current UTC time when this function is called as a Julian day</span>
+<span class="sd">    time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    current_jd : float</span>
+<span class="sd">        The current time in Julian date format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We can just derive it from the system UNIX time.</span>
+    <span class="n">current_unix_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">current_jd</span> <span class="o">=</span> <span class="n">unix_time_to_julian_day</span><span class="p">(</span><span class="n">unix_time</span><span class="o">=</span><span class="n">current_unix_time</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">current_jd</span></div>
+
+
+<div class="viewcode-block" id="string_month_to_number"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.string_month_to_number">[docs]</a><span class="k">def</span> <span class="nf">string_month_to_number</span><span class="p">(</span><span class="n">month_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A function to convert from the name of a month to the month number.</span>
+<span class="sd">    This is just because it is easy to have here and to add a package import</span>
+<span class="sd">    for something like this is silly.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    month_str : string</span>
+<span class="sd">        The month name.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    month_int : int</span>
+<span class="sd">        The month number integer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Capitalization does not matter.</span>
+    <span class="n">month_str</span> <span class="o">=</span> <span class="n">month_str</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+    <span class="c1"># There is no real need to import a new package.</span>
+    <span class="n">month_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;january&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;february&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;march&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;april&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">&quot;may&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;june&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s2">&quot;july&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s2">&quot;august&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">&quot;september&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;october&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;november&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+        <span class="s2">&quot;december&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># It could also be a 3 letter month abbreviation.</span>
+    <span class="n">three_letter_month_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;jan&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;feb&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;mar&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;apr&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">&quot;may&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;jun&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s2">&quot;jul&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s2">&quot;aug&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">&quot;sep&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;oct&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;nov&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+        <span class="s2">&quot;dec&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">month_str</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># It is likely a 3 letter month abbreviation, or May.</span>
+        <span class="n">month_int</span> <span class="o">=</span> <span class="n">three_letter_month_dict</span><span class="p">[</span><span class="n">month_str</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">month_int</span> <span class="o">=</span> <span class="n">month_dict</span><span class="p">[</span><span class="n">month_str</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">month_int</span></div>
 </pre></div>
 
            </div>

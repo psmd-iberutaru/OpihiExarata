@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.webclient module &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.astrometry.webclient module &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,11 +15,12 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="opihiexarata.gui package" href="opihiexarata.gui.html" />
+    <link rel="next" title="opihiexarata.ephemeris package" href="opihiexarata.ephemeris.html" />
     <link rel="prev" title="opihiexarata.astrometry.solution module" href="opihiexarata.astrometry.solution.html" /> 
 </head>
 
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -199,16 +205,27 @@
            <div itemprop="articleBody">
              
   <section id="module-opihiexarata.astrometry.webclient">
-<span id="opihiexarata-astrometry-webclient-module"></span><h1>opihiexarata.astrometry.webclient module<a class="headerlink" href="#module-opihiexarata.astrometry.webclient" title="Permalink to this headline"></a></h1>
+<span id="opihiexarata-astrometry-webclient-module"></span><h1>opihiexarata.astrometry.webclient module<a class="headerlink" href="#module-opihiexarata.astrometry.webclient" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.astrometry.webclient.</span></span><span class="sig-name descname"><span class="pre">AstrometryNetWebAPIEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apikey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPIEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.library.engine.AstrometryEngine</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">AstrometryEngine</span></code></a></p>
 <p>A python-based wrapper around the web API for astrometry.net.</p>
 <p>This API does not have the full functionality of the default Python client
 seen at <a class="reference external" href="https://github.com/dstndstn/astrometry.net/blob/master/net/client/client.py">https://github.com/dstndstn/astrometry.net/blob/master/net/client/client.py</a>.
 The point of this class is to be simple enough to be understood by others and
 be specialized for OpihiExarata.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._ASTROMETRY_NET_API_BASE_URL">
+<span class="sig-name descname"><span class="pre">_ASTROMETRY_NET_API_BASE_URL</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._ASTROMETRY_NET_API_BASE_URL" title="Permalink to this definition"></a></dt>
+<dd><p>The base URL for the API which all other service URLs are derived from.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._apikey">
 <span class="sig-name descname"><span class="pre">_apikey</span></span><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._apikey" title="Permalink to this definition"></a></dt>
@@ -268,7 +285,7 @@ This is helpful for debugging or similar processes.</p></li>
 <dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url">
 <span class="sig-name descname"><span class="pre">_generate_service_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPIEngine._generate_service_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url" title="Permalink to this definition"></a></dt>
 <dd><p>Generate the correct URL for the desired service. Because astrometry.net
-uses a convension, we can follow it to obtain the desired service URL.</p>
+uses a convention, we can follow it to obtain the desired service URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>service</strong> (<em>str</em>) – The service which the API URL for should be generated from.</p>
@@ -410,7 +427,7 @@ returned instead.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation">
-<span class="sig-name descname"><span class="pre">get_reference_star_pixel_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.table.table.Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_reference_star_pixel_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation" title="Permalink to this definition"></a></dt>
 <dd><p>This obtains the table that correlates the location of reference
 stars and their pixel locations. It is obtained from the fits corr file
 that is downloaded into a temporary directory.</p>
@@ -473,7 +490,7 @@ by the file upload is used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_wcs">
-<span class="sig-name descname"><span class="pre">get_wcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">astropy.wcs.wcs.WCS</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPIEngine.get_wcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_wcs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_wcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">WCS</span></span></span><a class="reference internal" href="../_modules/opihiexarata/astrometry/webclient.html#AstrometryNetWebAPIEngine.get_wcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_wcs" title="Permalink to this definition"></a></dt>
 <dd><p>This obtains the wcs header file and then computes World Coordinate
 System solution from it. Because astrometry.net computes it for us,
 we just extract it from the header file using Astropy.</p>
@@ -537,7 +554,7 @@ used as well.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="opihiexarata.astrometry.solution.html" class="btn btn-neutral float-left" title="opihiexarata.astrometry.solution module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="opihiexarata.gui.html" class="btn btn-neutral float-right" title="opihiexarata.gui package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="opihiexarata.ephemeris.html" class="btn btn-neutral float-right" title="opihiexarata.ephemeris package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

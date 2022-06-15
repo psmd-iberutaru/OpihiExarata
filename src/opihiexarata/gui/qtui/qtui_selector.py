@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'selector.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.3
+## Created by: Qt User Interface Compiler version 6.3.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -60,10 +60,10 @@ class Ui_SelectorWindow(object):
     def setupUi(self, SelectorWindow):
         if not SelectorWindow.objectName():
             SelectorWindow.setObjectName("SelectorWindow")
-        SelectorWindow.resize(623, 867)
+        SelectorWindow.resize(623, 868)
         self.verticalLayoutWidget = QWidget(SelectorWindow)
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 604, 838))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 604, 846))
         font = QFont()
         font.setFamilies(["Sylfaen"])
         font.setPointSize(12)
@@ -144,18 +144,19 @@ class Ui_SelectorWindow(object):
 
         self.vertical_layout_image = QVBoxLayout()
         self.vertical_layout_image.setObjectName("vertical_layout_image")
-        self.dummy_opihi_image = QGraphicsView(self.verticalLayoutWidget)
-        self.dummy_opihi_image.setObjectName("dummy_opihi_image")
-        self.dummy_opihi_image.setMinimumSize(QSize(600, 600))
-        self.dummy_opihi_image.setMaximumSize(QSize(600, 600))
+        self.dummy_selector_image = QGraphicsView(self.verticalLayoutWidget)
+        self.dummy_selector_image.setObjectName("dummy_selector_image")
+        self.dummy_selector_image.setMinimumSize(QSize(600, 600))
+        self.dummy_selector_image.setMaximumSize(QSize(600, 600))
 
-        self.vertical_layout_image.addWidget(self.dummy_opihi_image)
+        self.vertical_layout_image.addWidget(self.dummy_selector_image)
 
-        self.dummy_opihi_navbar = QLabel(self.verticalLayoutWidget)
-        self.dummy_opihi_navbar.setObjectName("dummy_opihi_navbar")
-        self.dummy_opihi_navbar.setAlignment(Qt.AlignCenter)
+        self.dummy_selector_navbar = QLabel(self.verticalLayoutWidget)
+        self.dummy_selector_navbar.setObjectName("dummy_selector_navbar")
+        self.dummy_selector_navbar.setMinimumSize(QSize(0, 30))
+        self.dummy_selector_navbar.setAlignment(Qt.AlignCenter)
 
-        self.vertical_layout_image.addWidget(self.dummy_opihi_navbar)
+        self.vertical_layout_image.addWidget(self.dummy_selector_navbar)
 
         self.vertical_layout_selector.addLayout(self.vertical_layout_image)
 
@@ -328,7 +329,7 @@ class Ui_SelectorWindow(object):
         self.label_static_reference_fits_filename.setText(
             QCoreApplication.translate("SelectorWindow", "Reference:", None)
         )
-        self.dummy_opihi_navbar.setText(
+        self.dummy_selector_navbar.setText(
             QCoreApplication.translate("SelectorWindow", "DUMMY NAVIGATION BAR", None)
         )
         self.label_static_subtraction_mode.setText(

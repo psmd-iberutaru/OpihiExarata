@@ -12,19 +12,32 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
-def create_temporary_directory() -> None:
-    """Make the temporary directory. Fails if the directory already exists.
+def create_temporary_directory(unique: bool = None) -> None:
+    """Make the temporary directory.
 
     Parameters
     ----------
-    None
+    unique : bool, default = None
+        Require a check on the creation of the directory to require it to be
+        unique. If True, this will raise if the directory already exists
+        otherwise it does not care. Will defer to the configuration file
+        if None.
 
     Returns
     -------
     None
     """
+    # Check if a stink should be made if the directory already exists.
+    if unique is None:
+        # We defer to the configuration file on how to handle this.
+        unique_check = library.config.TEMPORARY_DIRECTORY_REQUIRE_UNIQUE
+    else:
+        # The user provided instructions explicitly, so we use that.
+        unique_check = bool(unique)
+
+    # Create the directory as provided by the configuration file.
     directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
-    if os.path.isdir(directory):
+    if os.path.isdir(directory) and unique_check:
         raise error.DirectoryError(
             "The directory path provided for the temporary directory already exists. A"
             " temporary directory cannot be made. Directory: {dir}".format(
@@ -32,7 +45,8 @@ def create_temporary_directory() -> None:
             )
         )
     else:
-        os.makedirs(directory)
+        os.makedirs(directory, exist_ok=not unique_check)
+    # All done.
     return None
 
 
@@ -49,25 +63,27 @@ def delete_temporary_directory() -> None:
     -------
     None
     """
-    temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
+    temporary_directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     # Determine if the directory is empty of all useful files.
     try:
-        with os.scandir(temp_dir) as temp_dir:
-            for entry in temp_dir:
+        with os.scandir(temporary_directory) as scandir:
+            for entry in scandir:
                 if entry.is_file():
                     raise error.DirectoryError(
                         "Cannot delete the temporary directory, it contains files."
-                        " Purge the temporary directory before deleteing it. Directory:"
-                        " {dir}".format(dir=temp_dir)
+                        " Purge the temporary directory before deleting it. Directory:"
+                        " {dir}".format(dir=temporary_directory)
                     )
     except FileNotFoundError:
         raise error.DirectoryError(
-            "The directory cannot be found. The temporary directory cannot be deleted"
-            " if it does not exist. Directory: {dir}".format(dir=temp_dir)
+            "The directory cannot be found. The temporary directory cannot be scanned"
+            " for deletion if it does not exist. Directory: {dir}".format(
+                dir=temporary_directory
+            )
         )
     # Otherwise, delete the directory.
-    if os.path.isdir(temp_dir):
-        os.removedirs(temp_dir)
+    if os.path.isdir(temporary_directory):
+        os.removedirs(temporary_directory)
     else:
         # The directory does not exist, or it is not actually a directory.
         pass

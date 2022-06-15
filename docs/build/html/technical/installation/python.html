@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Python Part &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>Install: Python Part &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -15,6 +15,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -198,18 +204,18 @@
            <div itemprop="articleBody">
              
   <section id="install-python-part">
-<h1>Install: Python Part<a class="headerlink" href="#install-python-part" title="Permalink to this headline"></a></h1>
+<h1>Install: Python Part<a class="headerlink" href="#install-python-part" title="Permalink to this heading"></a></h1>
 <p>The Python part of OpihiExarata is the primary part of OpihiExarata. Luckily,
 it is likely also the simplest.</p>
 <p>You will build the Python wheel from the source and install it.</p>
 <section id="download">
-<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h2>
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h2>
 <p>Download and install a current release of Python if you have not already. You
 can find the latest releases at: <a class="reference external" href="https://www.python.org/downloads/">Python Releases</a>.</p>
 <p>Please note you must install/have Python 3.9+.</p>
 </section>
 <section id="build">
-<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h2>
+<h2>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h2>
 <p>You should have have the repository code in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>. You can
 run the build command (while in the directory) based on the operation system
 you are using:</p>
@@ -220,7 +226,7 @@ that you installed. The version is likely to be the day you built it, it affects
 the name of the wheel file for the next step.</p>
 </section>
 <section id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h2>
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this heading"></a></h2>
 <p>Install the wheel package.</p>
 <p>You will need to modify this command to the proper wheel that you generated
 from before. Because this project using date-based versioning, your package

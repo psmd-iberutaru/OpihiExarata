@@ -28,7 +28,7 @@ MPC_MINOR_PLANET_TABLE_COLUMN_NAMES = list(__MPC_TABLE_NAME_TYPE_PAIR.keys())
 MPC_MINOR_PLANET_TABLE_COLUMN_TYPES = list(__MPC_TABLE_NAME_TYPE_PAIR.values())
 
 
-def minor_planet_blank_table() -> hint.Table:
+def blank_minor_planet_table() -> hint.Table:
     """Creates a blank table which contains the columns which are recognized by
     the MPC standard 80-column record format.
 
@@ -174,7 +174,7 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
     # Construct the Astropy Table. If nothing was provided, still provide a
     # blank table as there are still keyword expectations.
     table = ap_table.Table(rows=table_rows_list)
-    table = table if len(table) != 0 else minor_planet_blank_table()
+    table = table if len(table) != 0 else blank_minor_planet_table()
     return table
 
 

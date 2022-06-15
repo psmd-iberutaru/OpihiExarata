@@ -10,10 +10,10 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 # The base URL for the API which all other service URLs are derived from.
-_DEFAULT_BASE_URL = "http://nova.astrometry.net/api/"
+_DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL = "http://nova.astrometry.net/api/"
 
 
-class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
+class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
 
     This API does not have the full functionality of the default Python client
@@ -23,6 +23,8 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
 
     Attributes
     ----------
+    _ASTROMETRY_NET_API_BASE_URL : string
+        The base URL for the API which all other service URLs are derived from.
     _apikey : string
         The API key used to log in.
     original_upload_filename : string
@@ -30,46 +32,6 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
     session : string
         The session ID of this API connection to astrometry.net
     """
-
-    # The default arguments for uploading files. In (key, value, type) form.
-    # Detailed is also their useage cases per
-    # http://astrometry.net/doc/net/api.html#submitting-a-url
-    _DEFAULT_URL_ARGUMENTS = [
-        # These parameters are for licensing and distribution terms.
-        ("allow_commercial_use", "d", str),
-        ("allow_modifications", "d", str),
-        # For visibility by the general public.
-        ("publicly_visible", "y", str),
-        # Image scaling parameters, if provided, when known, helps the
-        # processing a little.
-        ("scale_units", None, str),
-        ("scale_type", None, str),
-        ("scale_lower", None, float),
-        ("scale_upper", None, float),
-        ("scale_est", None, float),
-        ("scale_err", None, float),
-        # These parameters allows for the establishment of an initial guess
-        # specified byt he centers, and its maximal deviation as specified
-        # by the radius parameter. (In degrees.)
-        ("center_ra", None, float),
-        ("center_dec", None, float),
-        ("radius", None, float),
-        # Image properties, preprocessing it a little can help in its
-        # determination.
-        ("parity", None, int),
-        ("downsample_factor", None, int),
-        ("positional_error", None, float),
-        ("tweak_order", None, int),
-        ("crpix_center", None, bool),
-        ("invert", None, bool),
-        # These parameters are needed if being sent instead is an x,y list of
-        # source star positions.
-        ("image_width", None, int),
-        ("image_height", None, int),
-        ("x", None, list),
-        ("y", None, list),
-        ("album", None, str),
-    ]
 
     def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
         """The instantiation, connecting to the web API using the API key.
@@ -92,9 +54,50 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
         None
         """
         # Defining the URL.
-        self.ASTROMETRY_BASE_API_URL = (
-            str(url) if url is not None else _DEFAULT_BASE_URL
+        self._ASTROMETRY_NET_API_BASE_URL = (
+            str(url) if url is not None else _DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL
         )
+
+        # Base parameters.
+        # The default arguments for uploading files. In (key, value, type) form.
+        # Detailed is also their useage cases per
+        # http://astrometry.net/doc/net/api.html#submitting-a-url
+        self._DEFAULT_URL_ARGUMENTS = [
+            # These parameters are for licensing and distribution terms.
+            ("allow_commercial_use", "d", str),
+            ("allow_modifications", "d", str),
+            # For visibility by the general public.
+            ("publicly_visible", "y", str),
+            # Image scaling parameters, if provided, when known, helps the
+            # processing a little.
+            ("scale_units", None, str),
+            ("scale_type", None, str),
+            ("scale_lower", None, float),
+            ("scale_upper", None, float),
+            ("scale_est", None, float),
+            ("scale_err", None, float),
+            # These parameters allows for the establishment of an initial guess
+            # specified byt he centers, and its maximal deviation as specified
+            # by the radius parameter. (In degrees.)
+            ("center_ra", None, float),
+            ("center_dec", None, float),
+            ("radius", None, float),
+            # Image properties, preprocessing it a little can help in its
+            # determination.
+            ("parity", None, int),
+            ("downsample_factor", None, int),
+            ("positional_error", None, float),
+            ("tweak_order", None, int),
+            ("crpix_center", None, bool),
+            ("invert", None, bool),
+            # These parameters are needed if being sent instead is an x,y list of
+            # source star positions.
+            ("image_width", None, int),
+            ("image_height", None, int),
+            ("x", None, list),
+            ("y", None, list),
+            ("album", None, str),
+        ]
 
         # Use the API key to log in a derive a session key.
         self.session = None
@@ -228,7 +231,7 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
 
     def _generate_service_url(self, service: str) -> str:
         """Generate the correct URL for the desired service. Because astrometry.net
-        uses a convension, we can follow it to obtain the desired service URL.
+        uses a convention, we can follow it to obtain the desired service URL.
 
         Parameters
         ----------
@@ -240,7 +243,7 @@ class AstrometryNetWebAPIEngine(hint.AstrometryEngine):
         url : str
             The URL for the service.
         """
-        url = self.ASTROMETRY_BASE_API_URL + service
+        url = self._ASTROMETRY_NET_API_BASE_URL + service
         return url
 
     def _generate_upload_args(self, **kwargs) -> dict:

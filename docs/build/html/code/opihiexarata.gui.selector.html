@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.selector module &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.gui.selector module &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -15,12 +15,13 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="opihiexarata.gui.theme_viewer module" href="opihiexarata.gui.theme_viewer.html" />
-    <link rel="prev" title="opihiexarata.gui.qt module" href="opihiexarata.gui.qt.html" /> 
+    <link rel="next" title="opihiexarata.library package" href="opihiexarata.library.html" />
+    <link rel="prev" title="opihiexarata.gui.name module" href="opihiexarata.gui.name.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -131,6 +132,11 @@
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -199,11 +205,11 @@
            <div itemprop="articleBody">
              
   <section id="module-opihiexarata.gui.selector">
-<span id="opihiexarata-gui-selector-module"></span><h1>opihiexarata.gui.selector module<a class="headerlink" href="#module-opihiexarata.gui.selector" title="Permalink to this headline"></a></h1>
+<span id="opihiexarata-gui-selector-module"></span><h1>opihiexarata.gui.selector module<a class="headerlink" href="#module-opihiexarata.gui.selector" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opihiexarata.gui.selector.TargetSelectorWindow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.selector.</span></span><span class="sig-name descname"><span class="pre">TargetSelectorWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/gui/selector.html#TargetSelectorWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.selector.TargetSelectorWindow" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PySide6.QtWidgets.QWidget</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.gui.selector.TargetSelectorWindow.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/selector.html#TargetSelectorWindow.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.selector.TargetSelectorWindow.__init__" title="Permalink to this definition"></a></dt>
@@ -353,7 +359,7 @@ This refreshes both the dynamic label text and redraws the image.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opihiexarata.gui.selector.TargetSelectorWindow.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;PySide6.QtCore.QMetaObject</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#opihiexarata.gui.selector.TargetSelectorWindow.staticMetaObject" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;TargetSelectorWindow&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#opihiexarata.gui.selector.TargetSelectorWindow.staticMetaObject" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -394,8 +400,8 @@ is. If None, then no image will be loaded until manually specified.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opihiexarata.gui.qt.html" class="btn btn-neutral float-left" title="opihiexarata.gui.qt module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="opihiexarata.gui.theme_viewer.html" class="btn btn-neutral float-right" title="opihiexarata.gui.theme_viewer module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="opihiexarata.gui.name.html" class="btn btn-neutral float-left" title="opihiexarata.gui.name module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.library.html" class="btn btn-neutral float-right" title="opihiexarata.library package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

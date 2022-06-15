@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.5.18 documentation</title>
+  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.6.14 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -128,6 +129,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
@@ -205,12 +211,12 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.propagate</span> <span class="k">as</span> <span class="nn">propagate</span>
 
 
-<div class="viewcode-block" id="PropagationSolution"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution">[docs]</a><span class="k">class</span> <span class="nc">PropagationSolution</span><span class="p">(</span><span class="n">hint</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="PropagativeSolution"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution">[docs]</a><span class="k">class</span> <span class="nc">PropagativeSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The general solution class for asteroid propagation.</span>
 
 <span class="sd">    This uses the recent past location of asteroids to determine their</span>
 <span class="sd">    future location. For determination based on orbital elements and</span>
-<span class="sd">    emphemeris, use the OrbitSolution and EphemerisSolution classes</span>
+<span class="sd">    ephemerids, use the OrbitalSolution and EphemeriticSolution classes</span>
 <span class="sd">    respectively.</span>
 
 <span class="sd">    Attributes</span>
@@ -222,7 +228,7 @@
 <span class="sd">            The array of declinations used fit and extrapolate to, in degrees.</span>
 <span class="sd">    obs_time_array : array-like</span>
 <span class="sd">            An array of observation times which the RA and DEC measurements</span>
-<span class="sd">            were taken at. The values are in UNIX time.</span>
+<span class="sd">            were taken at. The values are in Julian days.</span>
 <span class="sd">    raw_ra_velocity : float</span>
 <span class="sd">        The right ascension angular velocity of the target, in degrees per</span>
 <span class="sd">        second. These values are derived straight from the data and not the</span>
@@ -253,12 +259,13 @@
 <span class="sd">        second squared. These values are derived from the engine.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PropagationSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="PropagativeSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
         <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
         <span class="n">obs_time</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The instantiation of the propagation solution.</span>
 
@@ -272,10 +279,14 @@
 <span class="sd">            degrees.</span>
 <span class="sd">        obs_time : array-like</span>
 <span class="sd">            An array of observation times which the RA and DEC measurements</span>
-<span class="sd">            were taken at. Must be UNIX time.</span>
+<span class="sd">            were taken at. Must be Julian days.</span>
 <span class="sd">        solver_engine : PropagationEngine</span>
 <span class="sd">            The propagation solver engine class that will be used to compute</span>
 <span class="sd">            the propagation solution.</span>
+<span class="sd">        vehicle_args : dictionary</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -382,7 +393,7 @@
 <span class="sd">            The array of declinations used fit and extrapolate to, in degrees.</span>
 <span class="sd">        obs_time_array : array-like</span>
 <span class="sd">            An array of observation times which the RA and DEC measurements</span>
-<span class="sd">            were taken at. The values are in UNIX time.</span>
+<span class="sd">            were taken at. The values are in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -400,10 +411,17 @@
 <span class="sd">            The raw declination angular acceleration of the target, in</span>
 <span class="sd">            degrees per second squared.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># As the observing time is in Julian days, but as our rates are going</span>
+        <span class="c1"># to be in seconds, it is easier to just transform our units to</span>
+        <span class="c1"># seconds via UNIX time.</span>
+        <span class="n">unix_obs_time_array</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">obs_time_array</span>
+        <span class="p">)</span>
+
         <span class="c1"># Computing the differences.</span>
         <span class="n">delta_ra</span> <span class="o">=</span> <span class="n">ra_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ra_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">delta_dec</span> <span class="o">=</span> <span class="n">dec_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">dec_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="c1"># First difference is velocity, using the most recent measure to get</span>
         <span class="c1"># the velocity.</span>
         <span class="n">raw_ra_velocity</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -411,12 +429,12 @@
         <span class="c1"># The second difference is acceleration. We use midpoint time</span>
         <span class="c1"># differences to determine the time difference between three</span>
         <span class="c1"># observations.</span>
-        <span class="k">if</span> <span class="n">obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">unix_obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="c1"># There are more than two observations, acceleration can be</span>
             <span class="c1"># calculated.</span>
             <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
             <span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -444,7 +462,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        obs_time_array : array-like</span>
 <span class="sd">            An array of observation times which the RA and DEC measurements</span>
-<span class="sd">            were taken at. The values are in UNIX time.</span>
+<span class="sd">            were taken at. The values are in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -468,10 +486,17 @@
         <span class="c1"># helpful.</span>
         <span class="n">ra_array</span><span class="p">,</span> <span class="n">dec_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">obs_time_array</span><span class="p">)</span>
 
+        <span class="c1"># As the observing time is in Julian days, but as our rates are going</span>
+        <span class="c1"># to be in seconds, it is easier to just transform our units to</span>
+        <span class="c1"># seconds via UNIX time.</span>
+        <span class="n">unix_obs_time_array</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">obs_time_array</span>
+        <span class="p">)</span>
+
         <span class="c1"># Computing the differences.</span>
         <span class="n">delta_ra</span> <span class="o">=</span> <span class="n">ra_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ra_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">delta_dec</span> <span class="o">=</span> <span class="n">dec_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">dec_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="c1"># First difference is velocity, using the most recent measure to get</span>
         <span class="c1"># the velocity.</span>
         <span class="n">propagate_ra_velocity</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -479,12 +504,12 @@
         <span class="c1"># The second difference is acceleration. We use midpoint time</span>
         <span class="c1"># differences to determine the time difference between three</span>
         <span class="c1"># observations.</span>
-        <span class="k">if</span> <span class="n">obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">unix_obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="c1"># There are more than two observations, acceleration can be</span>
             <span class="c1"># calculated.</span>
             <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
             <span class="n">propagate_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">propagate_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -499,7 +524,7 @@
             <span class="n">propagate_dec_acceleration</span><span class="p">,</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="PropagationSolution.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagationSolution.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
+<div class="viewcode-block" id="PropagativeSolution.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;A wrapper call around the engine&#39;s propagation function. This</span>
@@ -510,15 +535,15 @@
 <span class="sd">        ----------</span>
 <span class="sd">        future_time : array-like</span>
 <span class="sd">            The set of future times which to derive new RA and DEC coordinates.</span>
-<span class="sd">            The time must be in UNIX time.</span>
+<span class="sd">            The time must be in Julian days.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        future_ra : ndarray</span>
-<span class="sd">            The set of right ascensions that cooresponds to the future times,</span>
+<span class="sd">            The set of right ascensions that corresponds to the future times,</span>
 <span class="sd">            in degrees.</span>
 <span class="sd">        future_dec : ndarray</span>
-<span class="sd">            The set of declinations that cooresponds to the future times, in</span>
+<span class="sd">            The set of declinations that corresponds to the future times, in</span>
 <span class="sd">            degrees.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_propagation_function</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span>
@@ -539,7 +564,7 @@
 <span class="sd">        The array of declinations used fit and extrapolate to, in degrees.</span>
 <span class="sd">    obs_time_array : array-like</span>
 <span class="sd">        An array of observation times which the RA and DEC measurements</span>
-<span class="sd">        were taken at. The values are in UNIX time.</span>
+<span class="sd">        were taken at. The values are in Julian days.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -583,7 +608,7 @@
 <span class="sd">        The array of declinations used fit and extrapolate to, in degrees.</span>
 <span class="sd">    obs_time_array : array-like</span>
 <span class="sd">        An array of observation times which the RA and DEC measurements</span>
-<span class="sd">        were taken at. The values are in UNIX time.</span>
+<span class="sd">        were taken at. The values are in Julian days.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
