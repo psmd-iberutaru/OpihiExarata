@@ -28,7 +28,7 @@ class Ui_AutomaticWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayoutWidget = QWidget(self.centralwidget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(9, 9, 581, 341))
+        self.verticalLayoutWidget.setGeometry(QRect(9, 9, 589, 341))
         font = QFont()
         font.setFamilies([u"Sylfaen"])
         font.setPointSize(12)
@@ -105,32 +105,25 @@ class Ui_AutomaticWindow(object):
 
         self.grid_layout_fits_filenames = QGridLayout()
         self.grid_layout_fits_filenames.setObjectName(u"grid_layout_fits_filenames")
-        self.label_dynamic_working_filename = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_working_filename.setObjectName(u"label_dynamic_working_filename")
+        self.label_dynamic_results_filename = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_results_filename.setObjectName(u"label_dynamic_results_filename")
 
-        self.grid_layout_fits_filenames.addWidget(self.label_dynamic_working_filename, 0, 2, 1, 1)
+        self.grid_layout_fits_filenames.addWidget(self.label_dynamic_results_filename, 1, 1, 1, 1)
 
         self.label_static_results_filename = QLabel(self.verticalLayoutWidget)
         self.label_static_results_filename.setObjectName(u"label_static_results_filename")
 
         self.grid_layout_fits_filenames.addWidget(self.label_static_results_filename, 1, 0, 1, 1)
 
-        self.label_dynamic_results_filename = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_results_filename.setObjectName(u"label_dynamic_results_filename")
-
-        self.grid_layout_fits_filenames.addWidget(self.label_dynamic_results_filename, 1, 2, 1, 1)
-
         self.label_static_working_filename = QLabel(self.verticalLayoutWidget)
         self.label_static_working_filename.setObjectName(u"label_static_working_filename")
 
         self.grid_layout_fits_filenames.addWidget(self.label_static_working_filename, 0, 0, 1, 1)
 
-        self.line_6 = QFrame(self.verticalLayoutWidget)
-        self.line_6.setObjectName(u"line_6")
-        self.line_6.setFrameShape(QFrame.VLine)
-        self.line_6.setFrameShadow(QFrame.Sunken)
+        self.label_dynamic_working_filename = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_working_filename.setObjectName(u"label_dynamic_working_filename")
 
-        self.grid_layout_fits_filenames.addWidget(self.line_6, 0, 1, 2, 1)
+        self.grid_layout_fits_filenames.addWidget(self.label_dynamic_working_filename, 0, 1, 1, 1)
 
 
         self.vertical_layout_automatic.addLayout(self.grid_layout_fits_filenames)
@@ -270,10 +263,10 @@ class Ui_AutomaticWindow(object):
 
         self.combo_box_photometry_engine.setItemText(0, QCoreApplication.translate("AutomaticWindow", u"Pan-STARRS 3pi DR2 MAST", None))
 
-        self.label_dynamic_working_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None))
-        self.label_static_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Results:", None))
         self.label_dynamic_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits", None))
+        self.label_static_results_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Results:", None))
         self.label_static_working_filename.setText(QCoreApplication.translate("AutomaticWindow", u"Working:", None))
+        self.label_dynamic_working_filename.setText(QCoreApplication.translate("AutomaticWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None))
         self.label_static_ra_dec.setText(QCoreApplication.translate("AutomaticWindow", u"Coordinates", None))
         self.label_dynamic_ra.setText(QCoreApplication.translate("AutomaticWindow", u"RR:RR:RR.RRR", None))
         self.label_dynamic_dec.setText(QCoreApplication.translate("AutomaticWindow", u"+DD:DD:DD.DDD", None))

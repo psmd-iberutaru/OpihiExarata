@@ -54,6 +54,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         It primarily contains...
 
             - normal : Everything is working normally.
+            - trigger : An image is being solved by a manual trigger command.
             - failed : An image failed to solve.
             - halted : The automatic mode stopped, but it was not done by the
             active status flag, but a file halt.
@@ -205,6 +206,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # As we instigated a manual trigger, update the GUI/status.
+        self.operational_status_flag = "trigger"
+        self.refresh_window()
         # We just call the trigger itself. We still thread it out as to not 
         # completely freeze the GUI.
         trigger_solving_thread = threading.Thread(target=self.trigger_next_image_solve)
@@ -451,6 +455,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # A new image is to be solved. We fetch the new image.
         fetched_filename = self.fetch_new_filename()
+        print(fetched_filename)
         # Test to see if we have already processed this file and currently
         # have information about it. This prevents doing too much work.
         def _is_same_file(file_1: str, file_2: str) -> bool:
@@ -463,7 +468,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             if file_1 == file_2:
                 return True
             # If neither exists...
-            if os.path.exists(file_1) and os.path.exists(file_2):
+            if not os.path.isfile(file_1) and not os.path.isfile(file_2):
                 return True
             # If they are the same file...
             try:
@@ -487,6 +492,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             self.working_fits_filename = fetched_filename
             # Keeping the GUI up to date while in the loop.
             self.refresh_window()
+
+        print(self.working_fits_filename)
 
         # With this new working fits file, we attempt to solve it.
         working_opihi_solution = self.solve_astrometry_photometry_single_image(
@@ -633,6 +640,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 status_string = "Running"
             else:
                 status_string = "Stopped"
+        elif operational_status_flag == "trigger":
+            # A manual trigger has been specified.
+            status_string = "Triggered"
         elif operational_status_flag == "failed":
             # The solving engines failed to solve.
             status_string = "Failed"
