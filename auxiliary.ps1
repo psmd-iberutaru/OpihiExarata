@@ -73,12 +73,12 @@ Write-Output ""
 # Running pytest, we can dump the historical cache as it is not needed.
 $pytest_cache_dir = "./.pytest/"
 Remove-Item $pytest_cache_dir -Recurse -Force
-pyox -m pytest . -o cache_dir=$pytest_cache_dir
+pyox -m pytest -o cache_dir=$pytest_cache_dir
 
 # Running code coverage. We do not need another copy of pytest information 
 # though, suppress it. (Watch out for the backtick linebreaks.)
 $cov_result = $pytest_cache_dir + "coverage/results.bin"
-pyox -m coverage run --source=$src_ox --data-file=$cov_result -m pytest . `
+pyox -m coverage run --source=$src_ox --data-file=$cov_result -m pytest `
 --quiet --no-header --no-summary --show-capture="no" `
 -p no:cacheprovider -o cache_dir=$pytest_cache_dir
 
