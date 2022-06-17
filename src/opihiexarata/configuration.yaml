@@ -93,9 +93,10 @@ GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
 GUI_MANUAL_PROMPT_FOR_ASTEROID_INFORMATION : True
 
 
-# This is the size of the marker which denotes the asteroid/target. This 
-# value is passed right to matplotlib.pyplot.imshow.
+# This is the size of the marker which denotes the asteroid/target. The 
+# desired color as well, in matplotlib form (we suggest hex).
 GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE : 30
+GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_COLOR : "#FF0000"
 
 
 # For propagation, when displaying the precomputed results in the text 
@@ -104,6 +105,16 @@ GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE : 30
 # to be done.
 GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT : 10
 GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS : 60
+
+# If the ephemeris or propagation solutions were solved, then the timepoints
+# which are used to define the futrue arc trace plot are defined here. It 
+# uses the observational time as the origin and timesteps, in seconds, some
+# number of times provided here. The desired colors as well, in matplotlib 
+# form (we suggest hex).
+GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS : 60
+GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT : 60
+GUI_MANUAL_FUTURE_TIME_PLOT_EPHEMERIS_LINE_COLOR : "#78C850"
+GUI_MANUAL_FUTURE_TIME_PLOT_PROPAGATE_LINE_COLOR : "#F85888"
 
 ############################################################
 ##########     Opihi Target Selector Configuration

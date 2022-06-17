@@ -67,18 +67,20 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
                 " flat. They represent the observations of asteroids."
             )
 
-        # Saving the observational values.
+        # Saving the observational values. The UNIX time is helpful for fitting
+        # to avoid numerical issues with using Julian days.s
         self.ra_array = ra
         self.dec_array = dec
+        self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(jd=obs_time)
         self.obs_time_array = obs_time
 
         # Computing the fitting parameters. That is, the polynomial fit of both
         # RA and DEC as a function of time.
         ra_param, __ = self.__fit_polynomial_function(
-            fit_x=self.obs_time_array, fit_y=self.ra_array
+            fit_x=self.unix_obs_time_array, fit_y=self.ra_array
         )
         dec_param, __ = self.__fit_polynomial_function(
-            fit_x=self.obs_time_array, fit_y=self.dec_array
+            fit_x=self.unix_obs_time_array, fit_y=self.dec_array
         )
         self.ra_poly_param = ra_param
         self.dec_poly_param = dec_param
@@ -143,6 +145,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         fit_y = np.asarray(fit_y)
         # Fitting.
         polynomial_function = self.__linear_function
+        max_iteration_count = int(1e6)
         try:
             # Most efficient method, but might fail with too few observations.
             fit_param, fit_covar = sp_optimize.curve_fit(
@@ -150,8 +153,6 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
                 fit_x,
                 fit_y,
                 method="lm",
-                p0=[1, 1],
-                max_nfev=10000,
             )
         except:
             fit_param, fit_covar = sp_optimize.curve_fit(
@@ -159,8 +160,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
                 fit_x,
                 fit_y,
                 method="trf",
-                p0=[1, 1],
-                max_nfev=10000,
+                max_nfev=max_iteration_count,
             )
         # Error on the fit itself.
         fit_error = np.sqrt(np.diag(fit_covar))
@@ -188,10 +188,13 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
             The set of declinations that corresponds to the future times, in
             degrees.
         """
+        # As the polynomial fitting was done with UNIX time instead of Julian
+        # days, we need to convert to the same timescale.
+        future_time_unix = library.conversion.julian_day_to_unix_time(jd=future_time)
         # Determining the RA and DEC via the polynomial function based on the
         # fitted parameters.
-        new_ra = self.__linear_function(future_time, *self.ra_poly_param)
-        new_dec = self.__linear_function(future_time, *self.dec_poly_param)
+        new_ra = self.__linear_function(future_time_unix, *self.ra_poly_param)
+        new_dec = self.__linear_function(future_time_unix, *self.dec_poly_param)
         # Apply wrap around for the angles.
         future_ra = (new_ra + 360) % 360
         future_dec = np.abs(((new_dec - 90) % 360) - 180) - 90
@@ -249,18 +252,20 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
                 " flat. They represent the observations of asteroids."
             )
 
-        # Saving the observational values.
+        # Saving the observational values. The UNIX time is helpful for fitting
+        # to avoid numerical issues with using Julian days.
         self.ra_array = ra
         self.dec_array = dec
+        self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(jd=obs_time)
         self.obs_time_array = obs_time
 
         # Computing the fitting parameters. That is, the polynomial fit of both
         # RA and DEC as a function of time.
         ra_param, __ = self.__fit_polynomial_function(
-            fit_x=self.obs_time_array, fit_y=self.ra_array
+            fit_x=self.unix_obs_time_array, fit_y=self.ra_array
         )
         dec_param, __ = self.__fit_polynomial_function(
-            fit_x=self.obs_time_array, fit_y=self.dec_array
+            fit_x=self.unix_obs_time_array, fit_y=self.dec_array
         )
         self.ra_poly_param = ra_param
         self.dec_poly_param = dec_param
@@ -370,6 +375,9 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
             The set of declinations that corresponds to the future times, in
             degrees.
         """
+        # As the polynomial fitting was done with UNIX time instead of Julian
+        # days, we need to convert to the same timescale.
+        future_time_unix = library.conversion.julian_day_to_unix_time(jd=future_time)
         # Determining the RA and DEC via the polynomial function based on the
         # fitted parameters.
         new_ra = self.__quadratic_function(future_time, *self.ra_poly_param)

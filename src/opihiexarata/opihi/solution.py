@@ -94,9 +94,9 @@ class OpihiSolution(library.engine.ExarataSolution):
     def __init__(
         self,
         fits_filename: str,
-        filter_name: str,
-        exposure_time: float,
-        observing_time: float,
+        filter_name: str = None,
+        exposure_time: float = None,
+        observing_time: float = None,
         asteroid_name: str = None,
         asteroid_location: tuple[float, float] = None,
         asteroid_history: list[str] = None,
@@ -114,13 +114,17 @@ class OpihiSolution(library.engine.ExarataSolution):
         Parameters
         ----------
         fits_filename : str
-            The fits filename of which is the image which this solution is solving.
-        filter_name : string
-            The filter_name of the image which is contained within the data array.
-        exposure_time : float
+            The fits filename of which is the image which this solution is
+            solving.
+        filter_name : string, default=None
+            The filter_name of the image which is contained within the data
+            array. If None, we attempt to pull the value from the fits file.
+        exposure_time : float, default=None
             The exposure time of the image, in seconds.
-        observing_time : float
+            If None, we attempt to pull the value from the fits file.
+        observing_time : float, default=None
             The time of observation, this time must in Julian day.
+            If None, we attempt to pull the value from the fits file.
         asteroid_name : str, default = None
             The name of the asteroid.
         asteroid_location : tuple, default = None
@@ -131,14 +135,27 @@ class OpihiSolution(library.engine.ExarataSolution):
         """
         # Collecting the initial instantiation data.
         self.fits_filename = fits_filename
-        self.filter_name = filter_name
-        self.exposure_time = exposure_time
-        self.observing_time = observing_time
-
         # Loading the fits file to record its data.
         header, data = library.fits.read_fits_image_file(filename=fits_filename)
         self.header = header
         self.data = data
+
+        # If none of the metadata are provided, we try and get it from the
+        # header file.
+        if filter_name is None:
+            self.filter_name = "g"
+        else:
+            self.filter_name = filter_name
+        if exposure_time is None:
+            self.exposure_time = header["ITIME"]
+        else:
+            self.exposure_time = exposure_time
+        if observing_time is None:
+            self.observing_time = library.conversion.modified_julian_day_to_julian_day(
+                mjd=header["MJD_OBS"]
+            )
+        else:
+            self.observing_time = observing_time
 
         # See if asteroids are important for this image and if so, lets
         # process the input data. Try to process as much as you can.

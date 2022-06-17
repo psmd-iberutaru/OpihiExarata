@@ -1573,51 +1573,122 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # The data that will be plotted.
-        plotting_data = self.opihi_solution.data
+        # Clear the information before re-plotting, it is easier just to draw
+        # it all again.
+        self.opihi_axes.clear()
 
         # This is a function which allows for the disabling of other axes
         # formatting their data values and messing with the formatter class.
         def empty_string(string: str) -> str:
             return str()
 
+        # These are points in future time which will be used to plot the
+        # ephemeris and propagation solutions, if they exist. However,
+        # as the time step is in seconds, and the standard time of this
+        # system is in Julian days, convert.
+        TIMESTEP_JD = (
+            library.config.GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS / 86400
+        )
+        N_POINTS = library.config.GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT
+        # Numpy says linspace is more stable for decimal non-integer steps.
+        future_time_plot = np.linspace(
+            self.opihi_solution.observing_time,
+            self.opihi_solution.observing_time + TIMESTEP_JD * N_POINTS,
+            N_POINTS,
+            endpoint=True
+        )
+
+        # There is no solution and thus no image can be plotted.
+        if self.opihi_solution is None:
+            return None
+
+        # The data that will be plotted.
+        plotting_data = self.opihi_solution.data
         # We set the bounds of the colorbar based on the 1-99 % bounds.
         colorbar_low, colorbar_high = np.nanpercentile(plotting_data, [1, 99])
+        # Plotting the image, should be in the background of everything.
+        image = self.opihi_axes.imshow(
+            plotting_data, cmap="gray", vmin=colorbar_low, vmax=colorbar_high, zorder=-3
+        )
+        # Disable their formatting in favor of ours.
+        image.format_cursor_data = empty_string
 
-        # Clear the information before re-plotting, it is easier just to draw
-        # it all again.
-        self.opihi_axes.clear()
-
-        # Attempt to plot the image data if it exists.
-        if self.opihi_solution is not None:
-            image = self.opihi_axes.imshow(
-                plotting_data, cmap="gray", vmin=colorbar_low, vmax=colorbar_high
-            )
-            # Disable their formatting in favor of ours.
-            image.format_cursor_data = empty_string
-
-        # Attempt to plot the location of the specified asteroid.
+        # Attempt to plot the location of the specified asteroid. If this does
+        # not work, it is often because the location of the asteroid was not
+        # provided.
         try:
             target_x, target_y = self.opihi_solution.asteroid_location
-            TARGET_MARKER_SIZE = float(
-                library.config.GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE
-            )
             target_marker = self.opihi_axes.scatter(
                 target_x,
                 target_y,
-                s=TARGET_MARKER_SIZE,
+                s=float(library.config.GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE),
                 marker="^",
-                color="r",
+                color=str(library.config.GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_COLOR),
                 facecolors="None",
             )
             # Disable their formatting in favor of ours.
             target_marker.format_cursor_data = empty_string
         except Exception:
+            # It does not work.
             pass
 
-        # TESTING
-        rand = np.random.rand(5)
-        self.opihi_axes.plot(rand, 1 / rand)
+        # If there is an ephemeris solution, it is helpful to trace out the
+        # future path predicted by the ephemeris.
+        if isinstance(self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution):
+            # The astrometric solution is also needed to convert it back to
+            # pixel coordinates. As the ephemeritic solution requires the
+            # astrometric solution, this is fine.
+            astrometrics = self.opihi_solution.astrometrics
+            ephemeritics = self.opihi_solution.ephemeritics
+            # Find the future coordinates based on the future plot times
+            # from the configuration.
+            ephemeris_future_ra, ephemeris_future_dec = ephemeritics.forward_ephemeris(
+                future_time=future_time_plot
+            )
+            # Converting to pixel locations.
+            (
+                ephemeris_future_x,
+                ephemeris_future_y,
+            ) = astrometrics.sky_to_pixel_coordinates(
+                ra=ephemeris_future_ra, dec=ephemeris_future_dec
+            )
+            # Plotting.
+            future_ephemeris_plot = self.opihi_axes.plot(
+                ephemeris_future_x,
+                ephemeris_future_y,
+                color=library.config.GUI_MANUAL_FUTURE_TIME_PLOT_EPHEMERIS_LINE_COLOR,
+            )
+            # Disable their formatting in favor of ours.
+            future_ephemeris_plot[0].format_cursor_data = empty_string
+
+        # If there is a propagation solution, it is helpful to trace out the
+        # future path predicted by the propagation.
+        if isinstance(self.opihi_solution.propagatives, propagate.PropagativeSolution):
+            # The astrometric solution is also needed to convert it back to
+            # pixel coordinates. As the ephemeritic solution requires the
+            # astrometric solution, this is fine.
+            astrometrics = self.opihi_solution.astrometrics
+            propagatives = self.opihi_solution.propagatives
+            # Find the future coordinates based on the future plot times
+            # from the configuration.
+            propagate_future_ra, propagate_future_dec = propagatives.forward_propagate(
+                future_time=future_time_plot
+            )
+            # Converting to pixel locations.
+            (
+                propagate_future_x,
+                propagate_future_y,
+            ) = astrometrics.sky_to_pixel_coordinates(
+                ra=propagate_future_ra, dec=propagate_future_dec
+            )
+            # Plotting.
+            future_propagate_plot = self.opihi_axes.plot(
+                propagate_future_x,
+                propagate_future_y,
+                color=library.config.GUI_MANUAL_FUTURE_TIME_PLOT_PROPAGATE_LINE_COLOR,
+            )
+            # Disable their formatting in favor of ours.
+            future_propagate_plot[0].format_cursor_data = empty_string
 
         # Make sure the coordinate formatter does not change.
         self.opihi_axes.format_coord = self._opihi_coordinate_formatter

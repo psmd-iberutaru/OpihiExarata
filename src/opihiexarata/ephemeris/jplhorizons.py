@@ -92,7 +92,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         current_time = library.conversion.current_utc_to_julian_day()
         self.start_time = current_time - ((15 / 60) / 24)
         self.stop_time = current_time + ((30 / 60) / 24)
-        self.time_step = 60
+        self.time_step = 120
 
         # Extracting the first pass ephemeris table. The ephemeris function
         # uses this table to properly compute the future locations.
