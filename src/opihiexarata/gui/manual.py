@@ -1047,7 +1047,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 # There was never a deliminator, there is only one value and
                 # no error bars.
                 value_number = float(entry_string)
-                error_number = np.nan
+                error_number = 0
             elif lower_delim_index is not None and upper_delim_index is None:
                 # There is only one deliminator character, use this to split
                 # the string.
@@ -1075,7 +1075,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         m_anom_val, m_anom_err = error_bar_parse(m_anom_str)
         epoch_val, epoch_err = error_bar_parse(epoch_str)
         # The Epoch should not have an error.
-        if not np.isnan(epoch_err):
+        if epoch_err != 0:
             raise error.InputError(
                 "The Epoch value is detecting that it is specified with an error term"
                 " with a non-numeric deliminator. However, the Epoch should not have an"
@@ -1348,7 +1348,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         def orb_str_conv(val: float, err: float) -> str:
             """Unified string formatting for orbital element values and errors."""
             # Rounding values to sensible values.
-            val = round(val, 5)
+            val = round(val, 7)
             err = round(err, 3)
             # Building the string, allowing for the usage of the plus minus
             # symbol to demark the error.
@@ -1595,7 +1595,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             self.opihi_solution.observing_time,
             self.opihi_solution.observing_time + TIMESTEP_JD * N_POINTS,
             N_POINTS,
-            endpoint=True
+            endpoint=True,
         )
 
         # There is no solution and thus no image can be plotted.
