@@ -90,7 +90,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # We adapt the internal time for accurate ephemeris, this is done so
         # we do not request too much data. Using sensible defaults.
         current_time = library.conversion.current_utc_to_julian_day()
-        self.start_time = current_time - ((15 / 60) / 24)
+        self.start_time = current_time - ((5 / 60) / 24)
         self.stop_time = current_time + ((30 / 60) / 24)
         self.time_step = 120
 
