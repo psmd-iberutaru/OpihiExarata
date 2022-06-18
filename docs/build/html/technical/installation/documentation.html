@@ -205,13 +205,14 @@
              
   <section id="optional-documentation">
 <h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this heading"></a></h1>
-<p>Building the documentation is relatively simple as we leverage Sphinx to build it.</p>
+<p>Building the documentation is relatively simple as we leverage Sphinx to
+build it.</p>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
 <section id="sphinx">
 <h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this heading"></a></h3>
-<p>To build the Sphinx documentation, Python needs to be installed (the Python version
-installed in this installation procedure can be used).</p>
+<p>To build the Sphinx documentation, Python needs to be installed (the Python
+version installed in this installation procedure can be used).</p>
 <p>The following packages must be installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">rtd</span><span class="o">-</span><span class="n">theme</span>
 </pre></div>
@@ -219,34 +220,36 @@ installed in this installation procedure can be used).</p>
 </section>
 <section id="latex">
 <h3>LaTeX<a class="headerlink" href="#latex" title="Permalink to this heading"></a></h3>
-<p>If a PDF version of the documentation is desired, Sphinx can build it via LaTeX. LaTeX
-must be installed. We suggest installing the <a class="reference external" href="https://tug.org/texlive/">TeX Live distribution</a> and installing the
-full install. Instructions on how to install TeX Live is beyond the scope of this
-documentation.</p>
+<p>If a PDF version of the documentation is desired, Sphinx can build it via
+LaTeX. LaTeX must be installed. We suggest installing the
+<a class="reference external" href="https://tug.org/texlive/">TeX Live distribution</a> and installing the full install. Instructions on
+how to install TeX Live is beyond the scope of this documentation.</p>
 </section>
 <section id="directory">
 <h3>Directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h3>
-<p>Change your directory to the <code class="docutils literal notranslate"><span class="pre">OpihiExarata/docs</span></code> directory, run all of the commands
-while within this directory.</p>
+<p>Change your directory to the <code class="docutils literal notranslate"><span class="pre">OpihiExarata/docs</span></code> directory, run all of the
+commands while within this directory.</p>
 </section>
 </section>
 <section id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h2>
 <p><strong>First</strong>, the Python docstrings need to be processed into documentation. This
 can be done via running the script file: <code class="docutils literal notranslate"><span class="pre">./docstring.cmd</span></code></p>
-<p><strong>Second</strong>, it is helpful to removed the cached versions of the documentation files,
-you can do this via the commands: (This just removes the build directory along
-with other goodies.)</p>
+<p><strong>Second</strong>, it is helpful to removed the cached versions of the documentation
+files, you can do this via the commands: (This just removes the build directory
+along with other goodies.)</p>
 <ul class="simple">
 <li><p>Windows: <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">clean</span></code></p></li>
 <li><p>Linux: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code></p></li>
 </ul>
-<p><strong>Third</strong>, the documentation can be built using the batch/makefile using the command:</p>
+<p><strong>Third</strong>, the documentation can be built using the batch/makefile using the
+command:</p>
 <ul class="simple">
 <li><p>Windows: <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">&lt;type&gt;</span></code></p></li>
 <li><p>Linux: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&lt;type&gt;</span></code></p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> should be replaced with the type of output desired, suggestions below:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> should be replaced with the type of output desired, suggestions
+below:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">html</span></code> A collection of webpages ordered and structured. This is the suggested method.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">singlehtml</span></code> A single HTML page; useful when sending the documentation between devices.</p></li>

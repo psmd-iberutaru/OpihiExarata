@@ -206,16 +206,16 @@
   <section id="optional-windows-compatibility">
 <h1>Optional: Windows Compatibility<a class="headerlink" href="#optional-windows-compatibility" title="Permalink to this heading"></a></h1>
 <p>Many of the parts of OpihiExarata are built for Linux-only operating systems.
-However, Windows can use a Linux subsystem to call the compiled Linux parts, allowing
-OpihiExarata to run on Windows, with a set of assumptions.</p>
-<p>When a Linux call is needed, the software calls it via the Windows Subsystem for Linux
-(WSL) using Powershell. Thus WSL must be installed and Powershell must have script mode
-enabled.</p>
+However, Windows can use a Linux subsystem to call the compiled Linux parts,
+allowing OpihiExarata to run on Windows, with a set of assumptions.</p>
+<p>When a Linux call is needed, the software calls it via the Windows Subsystem
+for Linux (WSL) using Powershell. Thus WSL must be installed and Powershell
+must have script mode enabled.</p>
 <section id="powershell-execution-policy">
 <h2>Powershell Execution Policy<a class="headerlink" href="#powershell-execution-policy" title="Permalink to this heading"></a></h2>
-<p>Powershell scripts are seen as the most reliable way to call WSL on Windows. But,
-the default execution policy of most Windows machines disable scripts. To enable
-scripts, do the following command in an administrator Powershell shell:</p>
+<p>Powershell scripts are seen as the most reliable way to call WSL on Windows.
+But, the default execution policy of most Windows machines disable scripts. To
+enable scripts, do the following command in an administrator Powershell shell:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span><span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="n">RemoteSigned</span>
 </pre></div>
 </div>
@@ -224,16 +224,18 @@ scripts, do the following command in an administrator Powershell shell:</p>
 </section>
 <section id="windows-subsystem-for-linux">
 <h2>Windows Subsystem for Linux<a class="headerlink" href="#windows-subsystem-for-linux" title="Permalink to this heading"></a></h2>
-<p>As the WSL system is slightly new, the steps to install it differ based on what version
-of Windows is installed.</p>
-<p>For Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 and higher,
-see <a class="reference internal" href="#modern-install">Modern Install</a>.</p>
-<p>For older versions of Windows 10 (version 1903 or higher, with build 18362 or higher), see <a class="reference internal" href="#manual-install">Manual Install</a>.</p>
-<p>OpihiExarata does not support or is designed to run on older versions of Windows.</p>
+<p>As the WSL system is slightly new, the steps to install it differ based on
+what version of Windows is installed.</p>
+<p>For Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11
+and higher, see <a class="reference internal" href="#modern-install">Modern Install</a>.</p>
+<p>For older versions of Windows 10 (version 1903 or higher, with build 18362 or
+higher), see <a class="reference internal" href="#manual-install">Manual Install</a>.</p>
+<p>OpihiExarata does not support or is designed to run on older versions of
+Windows.</p>
 <section id="modern-install">
 <h3>Modern Install<a class="headerlink" href="#modern-install" title="Permalink to this heading"></a></h3>
-<p>In newer Windows versions (Windows 10 version 2004 and higher (Build 19041 and higher) or
-Windows 11), the installation of WSL is relatively simple.</p>
+<p>In newer Windows versions (Windows 10 version 2004 and higher (Build 19041
+and higher) or Windows 11), the installation of WSL is relatively simple.</p>
 <p>In an administrator Powershell, run the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wsl</span> <span class="o">--</span><span class="n">install</span>
 </pre></div>
@@ -258,22 +260,26 @@ from Microsoft.</p>
 <p><strong>Download Linux Kernel Update Package</strong></p>
 <p>You can download the latest kernel package from:
 <a class="reference external" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">WSL2 Linux kernel update package for x64 machines</a>.</p>
-<p>Run the downloaded package; you will likely be prompted for administrative permissions.</p>
+<p>Run the downloaded package; you will likely be prompted for administrative
+permissions.</p>
 <p><strong>Set WSL 2 as Default</strong></p>
-<p>In an administrator Powershell, use the following command to set WSL 2 as the default version:</p>
+<p>In an administrator Powershell, use the following command to set WSL 2 as the
+default version:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wsl</span> <span class="o">--</span><span class="nb">set</span><span class="o">-</span><span class="n">default</span><span class="o">-</span><span class="n">version</span> <span class="mi">2</span>
 </pre></div>
 </div>
-<p>This the more typical WSL installation, rather than WSL 1 which is a compatibility layer.</p>
+<p>This the more typical WSL installation, rather than WSL 1 which is a
+compatibility layer.</p>
 <p><strong>Download Linux Distribution</strong></p>
-<p>Download your desired Linux distribution from the Windows store, we suggest <a class="reference external" href="https://www.microsoft.com/store/apps/9n6svws3rx71">WSL Ubuntu</a>:</p>
+<p>Download your desired Linux distribution from the Windows store, we
+suggest <a class="reference external" href="https://www.microsoft.com/store/apps/9n6svws3rx71">WSL Ubuntu</a>:</p>
 </section>
 </section>
 <section id="verify">
 <h2>Verify<a class="headerlink" href="#verify" title="Permalink to this heading"></a></h2>
-<p>To verify that that the Powershell execution policy is correct, check that the Local
-Machine policy is at least RemoteSigned. You can check this by using an administrative
-Powershell command:</p>
+<p>To verify that that the Powershell execution policy is correct, check that
+the Local Machine policy is at least RemoteSigned. You can check this by using
+an administrative Powershell command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="o">-</span><span class="n">List</span>
 </pre></div>
 </div>
@@ -281,16 +287,16 @@ Powershell command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wsl</span>
 </pre></div>
 </div>
-<p>If this is the first time you have installed the WSL system onto your computer, you will
-have to setup a user account similar to a fresh install. Follow and complete the prompt,
-and then check <code class="docutils literal notranslate"><span class="pre">wsl</span></code> again to ensure that it enters a standard Linux shell without any
-interruptions.</p>
+<p>If this is the first time you have installed the WSL system onto your computer,
+you will have to setup a user account similar to a fresh install. Follow and
+complete the prompt, and then check <code class="docutils literal notranslate"><span class="pre">wsl</span></code> again to ensure that it enters a
+standard Linux shell without any interruptions.</p>
 </section>
 <section id="final">
 <h2>Final<a class="headerlink" href="#final" title="Permalink to this heading"></a></h2>
-<p>When installing other parts of the OpihiExarata software, follow the instructions using
-the WSL OS installed where needed. The commands should be run in your usual WSL shell in
-the proper relevant directory.</p>
+<p>When installing other parts of the OpihiExarata software, follow the
+instructions using the WSL OS installed where needed. The commands should be
+run in your usual WSL shell in the proper relevant directory.</p>
 </section>
 </section>
 

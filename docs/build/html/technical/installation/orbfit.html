@@ -213,14 +213,15 @@
 <p>There are a few prerequisites before the software can be installed.</p>
 <section id="directory">
 <h3>Directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h3>
-<p>Enter into a directory which is accessible and usable by programs. In this documentation,
-we will call this directory <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>. You should do the commands of this section of
-the installation documentation within this directory.</p>
+<p>Enter into a directory which is accessible and usable by programs. In this
+documentation, we will call this directory <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>. You should do the
+commands of this section of the installation documentation within this
+directory.</p>
 </section>
 <section id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h3>
-<p>The following dependencies should be installed. The installation of these are dependent
-on the package manager and operating system used.</p>
+<p>The following dependencies should be installed. The installation of these are
+dependent on the package manager and operating system used.</p>
 <p>For APT-based systems:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">curl</span> <span class="n">time</span>
 </pre></div>
@@ -232,11 +233,12 @@ on the package manager and operating system used.</p>
 </section>
 <section id="fortran-compiler">
 <h3>Fortran Compiler<a class="headerlink" href="#fortran-compiler" title="Permalink to this heading"></a></h3>
-<p>A Fortran compiler is needed to compile the software. Although there are many different
-compilers available, we document here how to use the Intel Fortran compiler. The method
-of install is OS dependent, or more specifically, package manager dependent. Other
-installation method exist, see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top/installation.html">Intel Fortran compiler install</a> for more information
-(these instructions were derived from it).</p>
+<p>A Fortran compiler is needed to compile the software. Although there are many
+different compilers available, we document here how to use the Intel Fortran
+compiler. The method of install is OS dependent, or more specifically, package
+manager dependent. Other installation method exist, see
+<a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top/installation.html">Intel Fortran compiler install</a> for more information (these instructions were
+derived from it).</p>
 <section id="install">
 <h4>Install<a class="headerlink" href="#install" title="Permalink to this heading"></a></h4>
 <p>Using package managers to install is the most convenient.</p>
@@ -252,7 +254,8 @@ installation method exist, see <a class="reference external" href="https://www.i
 <span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
 </pre></div>
 </div>
-<p>Install the Intel Fortran compiler, the base toolkit is also needed as a requirement:</p>
+<p>Install the Intel Fortran compiler, the base toolkit is also needed as a
+requirement:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">basekit</span>
 <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">hpckit</span>
 </pre></div>
@@ -290,7 +293,8 @@ sudo yum update
 <span class="n">sudo</span> <span class="n">zypper</span> <span class="n">update</span>
 </pre></div>
 </div>
-<p>Install the Intel Fortran compiler, the base toolkit is also needed as a requirement:</p>
+<p>Install the Intel Fortran compiler, the base toolkit is also needed as a
+requirement:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">basekit</span>
 <span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">intel</span><span class="o">-</span><span class="n">hpckit</span>
 </pre></div>
@@ -313,7 +317,9 @@ sudo yum update
 </section>
 <section id="environment-variables">
 <h4>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading"></a></h4>
-<p>Set the environment variables for command-line development. This command sets the variables for the current session only. (For persistent environment variable set up, consider adding it to your startup script.):</p>
+<p>Set the environment variables for command-line development. This command sets
+the variables for the current session only. (For persistent environment
+variable set up,consider adding it to your startup script.):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">oneapi</span><span class="o">/</span><span class="n">setvars</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
@@ -323,8 +329,8 @@ sudo yum update
 <section id="download-orbfit">
 <h2>Download OrbFit<a class="headerlink" href="#download-orbfit" title="Permalink to this heading"></a></h2>
 <p>The software needs to be downloaded.</p>
-<p>You can likely find the software package on the <a class="reference external" href="http://adams.dm.unipi.it/orbfit/">OrbFit website</a>. Otherwise, a download
-command may work:</p>
+<p>You can likely find the software package on the <a class="reference external" href="http://adams.dm.unipi.it/orbfit/">OrbFit website</a>. Otherwise,
+a download command may work:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">adams</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">unipi</span><span class="o">.</span><span class="n">it</span><span class="o">/</span><span class="n">orbfit</span><span class="o">/</span><span class="n">OrbFit5</span><span class="mf">.0.7</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
@@ -335,23 +341,27 @@ command may work:</p>
 </section>
 <section id="compile">
 <h2>Compile<a class="headerlink" href="#compile" title="Permalink to this heading"></a></h2>
-<p>To configure the compilation flags, OrbFit comes with a set of files which describe the
-flags. Initialize the proper compilation flags via the <code class="docutils literal notranslate"><span class="pre">config</span></code> command, (flags for an
-optimized build using the Intel compiler):</p>
+<p>To configure the compilation flags, OrbFit comes with a set of files which
+describe the flags. Initialize the proper compilation flags via the <code class="docutils literal notranslate"><span class="pre">config</span></code>
+command, (flags for an optimized build using the Intel compiler):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">config</span> <span class="o">-</span><span class="n">O</span> <span class="n">intel</span>
 </pre></div>
 </div>
-<p>The generated compilation flags, however, needs to be changed. The generated compilation flags can be found in the file <code class="docutils literal notranslate"><span class="pre">Orbfit/src/make.flags</span></code>, as generated by the <code class="docutils literal notranslate"><span class="pre">config</span></code> script. The options should be (see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/fortran-compiler-oneapi-dev-guide-and-reference/top/compiler-reference/compiler-options/alphabetical-list-of-compiler-options.html">Intel Fortran compiler options</a> for more information):</p>
+<p>The generated compilation flags, however, needs to be changed. The generated
+compilation flags can be found in the file <code class="docutils literal notranslate"><span class="pre">Orbfit/src/make.flags</span></code>, as
+generated by the <code class="docutils literal notranslate"><span class="pre">config</span></code> script. The options should be
+(see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/fortran-compiler-oneapi-dev-guide-and-reference/top/compiler-reference/compiler-options/alphabetical-list-of-compiler-options.html">Intel Fortran compiler options</a> for more information):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FFLAGS</span><span class="o">=</span> <span class="o">-</span><span class="n">warn</span> <span class="n">nousage</span> <span class="o">-</span><span class="n">O</span> <span class="o">-</span><span class="n">mp1</span> <span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">intel</span> <span class="o">-</span><span class="n">save</span> <span class="o">-</span><span class="n">assume</span> <span class="n">byterecl</span> <span class="o">-</span><span class="n">I</span><span class="o">../</span><span class="n">include</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You make use the default compilation flags as well; the change to the flags just
-allows the program to run with the Intel Fortran libraries statically compiled
-with the program rather than linked in. This alleviates the need for always needing
-to set up the environment variables whenever OrbFit is run. The changing memory model
-does not seem to affect the orbit determination part of the program.</p>
+<p>You make use the default compilation flags as well; the change to the
+flags just allows the program to run with the Intel Fortran libraries
+statically compiled with the program rather than linked in. This alleviates
+the need for always needing to set up the environment variables whenever
+OrbFit is run. The changing memory model does not seem to affect the orbit
+determination part of the program.</p>
 </div>
 <p>Finally the program can be compiled using the makefile:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span>
@@ -361,7 +371,11 @@ does not seem to affect the orbit determination part of the program.</p>
 </section>
 <section id="download-jpl-ephemerides-file">
 <h2>Download JPL Ephemerides File<a class="headerlink" href="#download-jpl-ephemerides-file" title="Permalink to this heading"></a></h2>
-<p>The OrbFit package uses the JPL ephemerides file for its calculations, it requires the binary ephemerides files. Current documentation suggests using the 405 ephemerides set, but more updated sets (DE ) also exist. For Linux, precomputed binaries can be found at <a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a> and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
+<p>The OrbFit package uses the JPL ephemerides file for its calculations, it
+requires the binary ephemerides files. Current documentation suggests using
+the 405 ephemerides set, but more updated sets (DE ) also exist. For Linux,
+precomputed binaries can be found at <a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a>
+and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
 <p>For DE405:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ssd</span><span class="o">.</span><span class="n">jpl</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">eph</span><span class="o">/</span><span class="n">planets</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">de405</span><span class="o">/</span><span class="n">lnxp1600p2200</span><span class="mf">.405</span>
 </pre></div>
@@ -370,7 +384,10 @@ does not seem to affect the orbit determination part of the program.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ssd</span><span class="o">.</span><span class="n">jpl</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">eph</span><span class="o">/</span><span class="n">planets</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">de440</span><span class="o">/</span><span class="n">linux_p1550p2650</span><span class="mf">.440</span>
 </pre></div>
 </div>
-<p>The downloaded binary ephemerides file must be linked so that the OrbFit program can properly utilize it; using a symbolic link in the <code class="docutils literal notranslate"><span class="pre">Orbfit/lib/</span></code> directory, and assuming the DE440 file was downloaded (the command below should be changed to fit your file):</p>
+<p>The downloaded binary ephemerides file must be linked so that the OrbFit
+program can properly utilize it; using a symbolic link in the <code class="docutils literal notranslate"><span class="pre">Orbfit/lib/</span></code>
+directory, and assuming the DE440 file was downloaded (the command below
+should be changed to fit your file):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">lib</span><span class="o">/</span>
 <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">./../</span><span class="n">linux_p1550p2650</span><span class="mf">.440</span> <span class="n">jpleph</span>
 <span class="c1"># Back to Orbfit/.</span>
@@ -388,16 +405,16 @@ does not seem to affect the orbit determination part of the program.</p>
 </section>
 <section id="executable-path-for-configuration-file">
 <h2>Executable Path for Configuration File<a class="headerlink" href="#executable-path-for-configuration-file" title="Permalink to this heading"></a></h2>
-<p>For this program’s executables to be used, the path that they exist in must be known to
-OpihiExarata. Copy the output of the working directory command and add it to the
-configuration file’s entries as noted. The path should be an absolute path; these
-commands should be run in the <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory:</p>
+<p>For this program’s executables to be used, the path that they exist in must
+be known to OpihiExarata. Copy the output of the working directory command
+and add it to the configuration file’s entries as noted. The path should be
+an absolute path; these commands should be run in the <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span>
 <span class="n">cd</span> <span class="o">./</span><span class="nb">bin</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span><span class="p">;</span> <span class="n">cd</span> <span class="o">..</span>
 </pre></div>
 </div>
-<p>If your main operating system is Windows and you are installing this via WSL Ubuntu,
-use the following instead:</p>
+<p>If your main operating system is Windows and you are installing this via WSL
+Ubuntu, use the following instead:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd .; echo &quot;ORBFIT_DIRECTORY ==&quot;; echo &quot;\\\\wsl$/Ubuntu&quot;$(pwd)
 cd ./bin; echo &quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;; pwd; cd ..
 </pre></div>
@@ -405,17 +422,18 @@ cd ./bin; echo &quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;; pwd; cd ..
 </section>
 <section id="opihiexarata-template-files">
 <h2>OpihiExarata Template Files<a class="headerlink" href="#opihiexarata-template-files" title="Permalink to this heading"></a></h2>
-<p>In order for OpihiExarata to properly use the OrbFit program, files which are used by
-OrbFit must be collected for OpihiExarata to leverage.</p>
+<p>In order for OpihiExarata to properly use the OrbFit program, files which are
+used by OrbFit must be collected for OpihiExarata to leverage.</p>
 <p>Create and enter the directory (starting from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">exarata</span><span class="p">;</span> <span class="n">cd</span> <span class="n">exarata</span>
 </pre></div>
 </div>
-<p>Within the <code class="docutils literal notranslate"><span class="pre">Orbfit/exarata/</span></code> directory, copy over the asteroid propagation files. This
-contains ephemerides data for asteroids to better propagations. Generally, these files
-can be found in <code class="docutils literal notranslate"><span class="pre">Orbfit/tests/bineph/testout</span></code>. For some reason, the file extensions on
-these files are not in a form which is liked by Orbfit, so they are also changed. Namely,
-the commands below should work:</p>
+<p>Within the <code class="docutils literal notranslate"><span class="pre">Orbfit/exarata/</span></code> directory, copy over the asteroid propagation
+files. This contains ephemerides data for asteroids to better propagations.
+Generally, these files can be found in <code class="docutils literal notranslate"><span class="pre">Orbfit/tests/bineph/testout</span></code>. For
+some reason, the file extensions on these files are not in a form which is
+liked by Orbfit, so they are also changed. Namely, the commands below should
+work:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copying the files...</span>
 <span class="n">cp</span> <span class="o">./../</span><span class="n">tests</span><span class="o">/</span><span class="n">bineph</span><span class="o">/</span><span class="n">testout</span><span class="o">/</span><span class="n">AST17</span><span class="o">.*</span> <span class="o">.</span>
 <span class="n">cp</span> <span class="o">./../</span><span class="n">tests</span><span class="o">/</span><span class="n">bineph</span><span class="o">/</span><span class="n">testout</span><span class="o">/</span><span class="n">CPV</span><span class="o">.*</span> <span class="o">.</span>
@@ -427,7 +445,10 @@ the commands below should work:</p>
 <span class="n">mv</span> <span class="n">CPV_iter</span><span class="o">.</span><span class="n">bop</span> <span class="n">CPV</span><span class="o">.</span><span class="n">bop</span>
 </pre></div>
 </div>
-<p>Also, create the files which are to be used to input data into Orbfit from OpihiExarata. The main file that needs to be created is <code class="docutils literal notranslate"><span class="pre">exarata.oop</span></code>. Create it with your favorite text editor and fill the file and save it with the following:</p>
+<p>Also, create the files which are to be used to input data into Orbfit from
+OpihiExarata. The main file that needs to be created is <code class="docutils literal notranslate"><span class="pre">exarata.oop</span></code>.
+Create it with your favorite text editor and fill the file and save it with
+the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! First object
 object1.
     .name = exarata        ! Object name
@@ -478,9 +499,10 @@ reject.
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>OpihiExarata will check that these three files exist as a check to see that these
-steps have been followed correctly. It is also a way to ensure that the configuration
-paths provided in the configuration are valid and point to the right location.)</p>
+<p>OpihiExarata will check that these three files exist as a check to see
+that these steps have been followed correctly. It is also a way to ensure
+that the configuration paths provided in the configuration are valid and
+point to the right location.</p>
 </div>
 </section>
 </section>
