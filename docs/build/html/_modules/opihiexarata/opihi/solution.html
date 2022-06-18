@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2022.6.14 documentation</title>
+  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2022.6.17 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -295,9 +295,9 @@
 <div class="viewcode-block" id="OpihiSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">observing_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">observing_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">asteroid_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">asteroid_location</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">asteroid_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -315,13 +315,17 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        fits_filename : str</span>
-<span class="sd">            The fits filename of which is the image which this solution is solving.</span>
-<span class="sd">        filter_name : string</span>
-<span class="sd">            The filter_name of the image which is contained within the data array.</span>
-<span class="sd">        exposure_time : float</span>
+<span class="sd">            The fits filename of which is the image which this solution is</span>
+<span class="sd">            solving.</span>
+<span class="sd">        filter_name : string, default=None</span>
+<span class="sd">            The filter_name of the image which is contained within the data</span>
+<span class="sd">            array. If None, we attempt to pull the value from the fits file.</span>
+<span class="sd">        exposure_time : float, default=None</span>
 <span class="sd">            The exposure time of the image, in seconds.</span>
-<span class="sd">        observing_time : float</span>
+<span class="sd">            If None, we attempt to pull the value from the fits file.</span>
+<span class="sd">        observing_time : float, default=None</span>
 <span class="sd">            The time of observation, this time must in Julian day.</span>
+<span class="sd">            If None, we attempt to pull the value from the fits file.</span>
 <span class="sd">        asteroid_name : str, default = None</span>
 <span class="sd">            The name of the asteroid.</span>
 <span class="sd">        asteroid_location : tuple, default = None</span>
@@ -332,14 +336,27 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Collecting the initial instantiation data.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="o">=</span> <span class="n">fits_filename</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">filter_name</span> <span class="o">=</span> <span class="n">filter_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span> <span class="o">=</span> <span class="n">exposure_time</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">observing_time</span> <span class="o">=</span> <span class="n">observing_time</span>
-
         <span class="c1"># Loading the fits file to record its data.</span>
         <span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">fits_filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">header</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="c1"># If none of the metadata are provided, we try and get it from the</span>
+        <span class="c1"># header file.</span>
+        <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter_name</span> <span class="o">=</span> <span class="s2">&quot;g&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter_name</span> <span class="o">=</span> <span class="n">filter_name</span>
+        <span class="k">if</span> <span class="n">exposure_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s2">&quot;ITIME&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span> <span class="o">=</span> <span class="n">exposure_time</span>
+        <span class="k">if</span> <span class="n">observing_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">observing_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">modified_julian_day_to_julian_day</span><span class="p">(</span>
+                <span class="n">mjd</span><span class="o">=</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;MJD_OBS&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">observing_time</span> <span class="o">=</span> <span class="n">observing_time</span>
 
         <span class="c1"># See if asteroids are important for this image and if so, lets</span>
         <span class="c1"># process the input data. Try to process as much as you can.</span>

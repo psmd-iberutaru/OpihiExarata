@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.6.14 documentation</title>
+  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.6.17 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -1248,7 +1248,7 @@
                 <span class="c1"># There was never a deliminator, there is only one value and</span>
                 <span class="c1"># no error bars.</span>
                 <span class="n">value_number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">entry_string</span><span class="p">)</span>
-                <span class="n">error_number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">error_number</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">elif</span> <span class="n">lower_delim_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upper_delim_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># There is only one deliminator character, use this to split</span>
                 <span class="c1"># the string.</span>
@@ -1276,7 +1276,7 @@
         <span class="n">m_anom_val</span><span class="p">,</span> <span class="n">m_anom_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">m_anom_str</span><span class="p">)</span>
         <span class="n">epoch_val</span><span class="p">,</span> <span class="n">epoch_err</span> <span class="o">=</span> <span class="n">error_bar_parse</span><span class="p">(</span><span class="n">epoch_str</span><span class="p">)</span>
         <span class="c1"># The Epoch should not have an error.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">epoch_err</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">epoch_err</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
                 <span class="s2">&quot;The Epoch value is detecting that it is specified with an error term&quot;</span>
                 <span class="s2">&quot; with a non-numeric deliminator. However, the Epoch should not have an&quot;</span>
@@ -1549,7 +1549,7 @@
         <span class="k">def</span> <span class="nf">orb_str_conv</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
             <span class="sd">&quot;&quot;&quot;Unified string formatting for orbital element values and errors.&quot;&quot;&quot;</span>
             <span class="c1"># Rounding values to sensible values.</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
             <span class="n">err</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
             <span class="c1"># Building the string, allowing for the usage of the plus minus</span>
             <span class="c1"># symbol to demark the error.</span>
@@ -1774,51 +1774,122 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># The data that will be plotted.</span>
-        <span class="n">plotting_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">data</span>
+        <span class="c1"># Clear the information before re-plotting, it is easier just to draw</span>
+        <span class="c1"># it all again.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="c1"># This is a function which allows for the disabling of other axes</span>
         <span class="c1"># formatting their data values and messing with the formatter class.</span>
         <span class="k">def</span> <span class="nf">empty_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">()</span>
 
+        <span class="c1"># These are points in future time which will be used to plot the</span>
+        <span class="c1"># ephemeris and propagation solutions, if they exist. However,</span>
+        <span class="c1"># as the time step is in seconds, and the standard time of this</span>
+        <span class="c1"># system is in Julian days, convert.</span>
+        <span class="n">TIMESTEP_JD</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS</span> <span class="o">/</span> <span class="mi">86400</span>
+        <span class="p">)</span>
+        <span class="n">N_POINTS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT</span>
+        <span class="c1"># Numpy says linspace is more stable for decimal non-integer steps.</span>
+        <span class="n">future_time_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span> <span class="o">+</span> <span class="n">TIMESTEP_JD</span> <span class="o">*</span> <span class="n">N_POINTS</span><span class="p">,</span>
+            <span class="n">N_POINTS</span><span class="p">,</span>
+            <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># There is no solution and thus no image can be plotted.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># The data that will be plotted.</span>
+        <span class="n">plotting_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">data</span>
         <span class="c1"># We set the bounds of the colorbar based on the 1-99 % bounds.</span>
         <span class="n">colorbar_low</span><span class="p">,</span> <span class="n">colorbar_high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">plotting_data</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">99</span><span class="p">])</span>
+        <span class="c1"># Plotting the image, should be in the background of everything.</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+            <span class="n">plotting_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">colorbar_low</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">colorbar_high</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=-</span><span class="mi">3</span>
+        <span class="p">)</span>
+        <span class="c1"># Disable their formatting in favor of ours.</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
 
-        <span class="c1"># Clear the information before re-plotting, it is easier just to draw</span>
-        <span class="c1"># it all again.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
-        <span class="c1"># Attempt to plot the image data if it exists.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
-                <span class="n">plotting_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">colorbar_low</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">colorbar_high</span>
-            <span class="p">)</span>
-            <span class="c1"># Disable their formatting in favor of ours.</span>
-            <span class="n">image</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
-
-        <span class="c1"># Attempt to plot the location of the specified asteroid.</span>
+        <span class="c1"># Attempt to plot the location of the specified asteroid. If this does</span>
+        <span class="c1"># not work, it is often because the location of the asteroid was not</span>
+        <span class="c1"># provided.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_location</span>
-            <span class="n">TARGET_MARKER_SIZE</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
-                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE</span>
-            <span class="p">)</span>
             <span class="n">target_marker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
                 <span class="n">target_x</span><span class="p">,</span>
                 <span class="n">target_y</span><span class="p">,</span>
-                <span class="n">s</span><span class="o">=</span><span class="n">TARGET_MARKER_SIZE</span><span class="p">,</span>
+                <span class="n">s</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE</span><span class="p">),</span>
                 <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_COLOR</span><span class="p">),</span>
                 <span class="n">facecolors</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="c1"># Disable their formatting in favor of ours.</span>
             <span class="n">target_marker</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># It does not work.</span>
             <span class="k">pass</span>
 
-        <span class="c1"># TESTING</span>
-        <span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">rand</span><span class="p">)</span>
+        <span class="c1"># If there is an ephemeris solution, it is helpful to trace out the</span>
+        <span class="c1"># future path predicted by the ephemeris.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="p">,</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span><span class="p">):</span>
+            <span class="c1"># The astrometric solution is also needed to convert it back to</span>
+            <span class="c1"># pixel coordinates. As the ephemeritic solution requires the</span>
+            <span class="c1"># astrometric solution, this is fine.</span>
+            <span class="n">astrometrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span>
+            <span class="n">ephemeritics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span>
+            <span class="c1"># Find the future coordinates based on the future plot times</span>
+            <span class="c1"># from the configuration.</span>
+            <span class="n">ephemeris_future_ra</span><span class="p">,</span> <span class="n">ephemeris_future_dec</span> <span class="o">=</span> <span class="n">ephemeritics</span><span class="o">.</span><span class="n">forward_ephemeris</span><span class="p">(</span>
+                <span class="n">future_time</span><span class="o">=</span><span class="n">future_time_plot</span>
+            <span class="p">)</span>
+            <span class="c1"># Converting to pixel locations.</span>
+            <span class="p">(</span>
+                <span class="n">ephemeris_future_x</span><span class="p">,</span>
+                <span class="n">ephemeris_future_y</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">astrometrics</span><span class="o">.</span><span class="n">sky_to_pixel_coordinates</span><span class="p">(</span>
+                <span class="n">ra</span><span class="o">=</span><span class="n">ephemeris_future_ra</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">ephemeris_future_dec</span>
+            <span class="p">)</span>
+            <span class="c1"># Plotting.</span>
+            <span class="n">future_ephemeris_plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">ephemeris_future_x</span><span class="p">,</span>
+                <span class="n">ephemeris_future_y</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_EPHEMERIS_LINE_COLOR</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># Disable their formatting in favor of ours.</span>
+            <span class="n">future_ephemeris_plot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
+
+        <span class="c1"># If there is a propagation solution, it is helpful to trace out the</span>
+        <span class="c1"># future path predicted by the propagation.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PropagativeSolution</span><span class="p">):</span>
+            <span class="c1"># The astrometric solution is also needed to convert it back to</span>
+            <span class="c1"># pixel coordinates. As the ephemeritic solution requires the</span>
+            <span class="c1"># astrometric solution, this is fine.</span>
+            <span class="n">astrometrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span>
+            <span class="n">propagatives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span>
+            <span class="c1"># Find the future coordinates based on the future plot times</span>
+            <span class="c1"># from the configuration.</span>
+            <span class="n">propagate_future_ra</span><span class="p">,</span> <span class="n">propagate_future_dec</span> <span class="o">=</span> <span class="n">propagatives</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span>
+                <span class="n">future_time</span><span class="o">=</span><span class="n">future_time_plot</span>
+            <span class="p">)</span>
+            <span class="c1"># Converting to pixel locations.</span>
+            <span class="p">(</span>
+                <span class="n">propagate_future_x</span><span class="p">,</span>
+                <span class="n">propagate_future_y</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">astrometrics</span><span class="o">.</span><span class="n">sky_to_pixel_coordinates</span><span class="p">(</span>
+                <span class="n">ra</span><span class="o">=</span><span class="n">propagate_future_ra</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">propagate_future_dec</span>
+            <span class="p">)</span>
+            <span class="c1"># Plotting.</span>
+            <span class="n">future_propagate_plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">propagate_future_x</span><span class="p">,</span>
+                <span class="n">propagate_future_y</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_PROPAGATE_LINE_COLOR</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># Disable their formatting in favor of ours.</span>
+            <span class="n">future_propagate_plot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
 
         <span class="c1"># Make sure the coordinate formatter does not change.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">format_coord</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opihi_coordinate_formatter</span>

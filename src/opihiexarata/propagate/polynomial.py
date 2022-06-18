@@ -71,7 +71,9 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         # to avoid numerical issues with using Julian days.s
         self.ra_array = ra
         self.dec_array = dec
-        self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(jd=obs_time)
+        self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(
+            jd=obs_time
+        )
         self.obs_time_array = obs_time
 
         # Computing the fitting parameters. That is, the polynomial fit of both
@@ -256,7 +258,9 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         # to avoid numerical issues with using Julian days.
         self.ra_array = ra
         self.dec_array = dec
-        self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(jd=obs_time)
+        self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(
+            jd=obs_time
+        )
         self.obs_time_array = obs_time
 
         # Computing the fitting parameters. That is, the polynomial fit of both
