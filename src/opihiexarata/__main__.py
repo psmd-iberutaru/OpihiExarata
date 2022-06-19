@@ -118,16 +118,6 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         ),
     )
     parser.add_argument(
-        "--keep-temporary",
-        action="store_true",
-        default=False,
-        required=False,
-        help=(
-            "If provided, the temporary directory created is not purged and is instead"
-            " kept. This is really something that should only be done for debugging."
-        ),
-    )
-    parser.add_argument(
         "--overwrite",
         action="store_true",
         default=False,
@@ -135,6 +125,16 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         help=(
             "For any command line function where file conflicts are possible, then this"
             " flag specifies that files should be overwritten."
+        ),
+    )
+    parser.add_argument(
+        "--keep-temporary",
+        action="store_true",
+        default=False,
+        required=False,
+        help=(
+            "If provided, the temporary directory created is not purged and is instead"
+            " kept. This is really something that should only be done for debugging."
         ),
     )
 

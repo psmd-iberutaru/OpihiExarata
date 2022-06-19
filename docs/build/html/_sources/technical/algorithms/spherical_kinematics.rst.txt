@@ -228,7 +228,6 @@ location in spherical coordinates,
    \phi^+_i &= \arctan\!2(Y_i, X_i) \simeq \arctan\left(\frac{Y_i}{X_i}\right)
 
 .. note::
-
    In order to properly handle the quadrant issue, the 2-argument arctangent is 
    required. Moreover, if the 2-argument arctangent function returns in a range 
    :math:`-\pi \leq \angle \leq \pi`, it can be converted to the usual range of 
