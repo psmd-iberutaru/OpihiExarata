@@ -148,7 +148,8 @@ path where the generated configuration fill will be saved. Otherwise, the
 program will read the configuration file at this path and use its values 
 instead of the program's defaults, where they differ. 
 
-See :ref:`user-configuration` for the specifications of the configuration file.
+See :ref:`user-configuration-standard-configuration-file` for the 
+specifications of the configuration file.
 
 
 .. _user-command-line-available-options-secrets:
@@ -164,7 +165,8 @@ path where the generated secrets fill will be saved. Otherwise, the
 program will read the secrets file at this path and use its values 
 instead of the program's defaults, where they differ. 
 
-See :ref:`user-configuration` for the specifications of the secrets file.
+See :ref:`user-configuration-secrets-configuration-file` for the 
+specifications of the secrets file.
 
 
 Overwrite
