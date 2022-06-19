@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Manual &mdash; OpihiExarata 2022.6.17 documentation</title>
+  <title>User Manual &mdash; OpihiExarata 2022.6.18 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -20,7 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Trivia" href="trivia.html" />
+    <link rel="next" title="Opihi Telescope" href="opihi_telescope.html" />
     <link rel="prev" title="OpihiExarata Documentation" href="../index.html" /> 
 </head>
 
@@ -42,6 +42,36 @@
               <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automatic_mode.html">Automatic Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citations.html">Citations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trivia.html">Trivia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
 </ul>
@@ -103,6 +133,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -114,9 +145,6 @@
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../technical/preprocessing/index.html">Preprocessing</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -205,6 +233,64 @@
 <h1>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<p>This is the user manual portion of the OpihiExarata software package for
+reducing and analyzing Opihi data.</p>
+<p>The Opihi telescope is a smaller telescope mounted on the side of the IRTF. It
+primarily provides asteroid viewfinding and photometric calibration services.</p>
+<p>It was conceived to assist the IRTF telescope and its instruments in finding
+asteroids and other near Earth objects on the sky when the positional
+uncertainty in the ephemeris of these objects are greater than the field of
+view of the IRTF’s current acquisitional and tracking instruments (about 1
+arcminuite). This can often be the case for newly discovered objects with
+a small number of observations. With Opihi’s 32 arcminuite field of view, these
+objects can be spotted and the telescope pointing can be corrected, thus
+greatly reducing the overhead time of finding the target.</p>
+<p>However, only a minority of time allocated by the IRTF are for these types of
+targets. Having Opihi only operate a few times a semester where it is needed
+for acquisition is inefficient. In addition to the asteroid viewfinding
+capabilities, the Opihi telescope also serves as a source for photometric
+monitoring and calibration. By continuously taking pictures and determining the
+photometric solution for each, the photometric conditions (as measured by
+the zero point magnitude) can be monitored over time. Moreover, this
+photometric data can also be used to assist with photometrically calibrating
+science targets observed by other IRTF facility instruments (e.g. SpeX, MORIS,
+SPECTRE, etc).</p>
+<p>A more detailed description of the physical and optical specifications of the
+Opihi telescope can be found in <a class="reference internal" href="opihi_telescope.html#user-opihi-telescope"><span class="std std-ref">Opihi Telescope</span></a>.</p>
+<p>It is typical for the asteroid viewfinding to be done manually by either a
+telescope operator or an observing astronomer; for this reason, we may refer
+to this viewfinding mode as the “<a class="reference internal" href="manual_mode.html#user-manual-mode"><span class="std std-ref">Manual Mode</span></a>” of operation for Opihi and
+OpihiExarata.</p>
+<p>The photometric monitoring mode does not require the constant
+input from a user, it only requires instructing the Opihi camera to
+continuously take images and for the software (OpihiExarata) to continuously
+solve for their respective photometric solutions; for this reason, we may
+refer to this photometric monitoring mode as the “<a class="reference internal" href="automatic_mode.html#user-automatic-mode"><span class="std std-ref">Automatic Mode</span></a>”
+of operation for Opihi and OpihiExarata.</p>
+<p>Photometric monitoring may be done manually if the user desires more control
+over the process. However, asteroid viewfinding cannot be done automatically.
+It is currently beyond the scope of this software to implement automatic
+asteroid/transient finding.</p>
+<p>An astronomer or other user interacts with the Opihi telescope and the
+OpihiExarata software by connecting to a VNC session; <a class="reference external" href="http://irtfweb.ifa.hawaii.edu/observing/computer/vnc.php">this is common to all
+IRTF instruments</a>.
+The Opihi camera controller has an interface and data viewer independent of
+the interfaces of OpihiExarata.</p>
+<p>For the general user, the OpihiExarata presents itself with helpful graphical
+user interfaces (GUIs). However, a command-line interface is provided to
+open these GUIs. It is likely that most users do not need to worry about this
+interface as the GUI may already be open for them in the VNC session, however,
+the command-line interface and its usage is documented in
+<a class="reference internal" href="command_line.html#user-command-line"><span class="std std-ref">Command Line</span></a>.</p>
+<p>See <a class="reference internal" href="manual_mode.html#user-manual-mode"><span class="std std-ref">Manual Mode</span></a> or <a class="reference internal" href="automatic_mode.html#user-automatic-mode"><span class="std std-ref">Automatic Mode</span></a> for usage instructions
+depending on the desired mode of operation. See <a class="reference internal" href="configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a> for
+available configuration options for both modes. If you are having trouble,
+see <a class="reference internal" href="troubleshooting.html#user-troubleshooting"><span class="std std-ref">Troubleshooting</span></a> for information and possible solutions. If you
+believe you found an issue or bug with the software, please report it to the
+appropriate IRTF staff member(s).</p>
+<p>If you used the Opihi telescope or the OpihiExarata software, please
+acknowledge your usage in any projects or publications; see
+<a class="reference internal" href="citations.html#user-citations"><span class="std std-ref">Citations</span></a> for assistance and for our own references.</p>
 </section>
 
 
@@ -212,13 +298,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="OpihiExarata Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="trivia.html" class="btn btn-neutral float-right" title="Trivia" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="opihi_telescope.html" class="btn btn-neutral float-right" title="Opihi Telescope" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

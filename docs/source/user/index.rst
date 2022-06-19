@@ -48,15 +48,15 @@ Opihi telescope can be found in :ref:`user-opihi-telescope`.
 
 It is typical for the asteroid viewfinding to be done manually by either a 
 telescope operator or an observing astronomer; for this reason, we may refer 
-to this viewfinding mode as the "manual mode" of operation for Opihi and 
+to this viewfinding mode as the ":ref:`user-manual-mode`" of operation for Opihi and 
 OpihiExarata. 
 
 The photometric monitoring mode does not require the constant 
 input from a user, it only requires instructing the Opihi camera to 
 continuously take images and for the software (OpihiExarata) to continuously 
 solve for their respective photometric solutions; for this reason, we may 
-refer to this photometric monitoring mode as the "automatic mode" of 
-operation for Opihi and OpihiExarata.
+refer to this photometric monitoring mode as the ":ref:`user-automatic-mode`" 
+of operation for Opihi and OpihiExarata.
 
 Photometric monitoring may be done manually if the user desires more control 
 over the process. However, asteroid viewfinding cannot be done automatically. 
@@ -64,9 +64,10 @@ It is currently beyond the scope of this software to implement automatic
 asteroid/transient finding.
 
 An astronomer or other user interacts with the Opihi telescope and the 
-OpihiExarata software by connecting to a VNC session; this is common to all 
-IRTF instruments. The Opihi camera controller has an interface and data viewer
-independent of the interfaces of OpihiExarata.
+OpihiExarata software by connecting to a VNC session; `this is common to all 
+IRTF instruments <http://irtfweb.ifa.hawaii.edu/observing/computer/vnc.php>`_. 
+The Opihi camera controller has an interface and data viewer independent of 
+the interfaces of OpihiExarata.
 
 For the general user, the OpihiExarata presents itself with helpful graphical
 user interfaces (GUIs). However, a command-line interface is provided to 

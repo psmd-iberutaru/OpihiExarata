@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spherical Kinematics &mdash; OpihiExarata 2022.6.17 documentation</title>
+  <title>Spherical Kinematics &mdash; OpihiExarata 2022.6.18 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -21,8 +21,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Preprocessing" href="../preprocessing/index.html" />
-    <link rel="prev" title="Algorithms" href="index.html" /> 
+    <link rel="next" title="opihiexarata" href="../../code/modules.html" />
+    <link rel="prev" title="Preprocessing" href="preprocessing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,6 +43,36 @@
               <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/automatic_mode.html">Automatic Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/trivia.html">Trivia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
 </ul>
@@ -104,6 +134,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Algorithms</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deriving-rates">Deriving Rates</a></li>
@@ -115,9 +146,6 @@
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -209,6 +237,10 @@
 <p>Here we detail the algorithm for computing the propagation of the position of
 an asteroid given observations. This method uses the laws of kinematic motion
 in spherical coordinates.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 2022.2.1: </span>This method has not been implemented nor have the calculations below been
+proven to be correct and work for the purposes of being a PropagationEngine.</p>
+</div>
 <section id="definitions">
 <h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading"></a></h2>
 <p>We are using spherical coordinates, namely the coordinates
@@ -412,14 +444,14 @@ t = 0 &amp;\implies \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} = \mathbf{C_1} = \m
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Algorithms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../preprocessing/index.html" class="btn btn-neutral float-right" title="Preprocessing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="preprocessing.html" class="btn btn-neutral float-left" title="Preprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../code/modules.html" class="btn btn-neutral float-right" title="opihiexarata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Kenji Sparrow Emerson.</p>
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

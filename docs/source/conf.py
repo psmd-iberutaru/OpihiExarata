@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "src")))
 # -- Project information -----------------------------------------------------
 
 project = "OpihiExarata"
-copyright = "2021, Kenji Sparrow Emerson"
+copyright = "2022, Kenji Sparrow Emerson"
 author = "Kenji Sparrow Emerson"
 
 # The full version, including alpha/beta/rc tags

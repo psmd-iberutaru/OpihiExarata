@@ -9,4 +9,5 @@ hello
    :hidden:
    :caption: Algorithms
 
+   preprocessing
    spherical_kinematics
