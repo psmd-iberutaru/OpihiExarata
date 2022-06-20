@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Download &mdash; OpihiExarata 2022.6.18 documentation</title>
+  <title>Install: Download &mdash; OpihiExarata 2022.6.20 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -71,7 +71,23 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/trivia.html">Trivia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
 </ul>
@@ -85,7 +101,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Install: Download</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#via-git-recommended">Via git (Recommended)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#via-zip-archive">Via zip archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#via-zip-archive">Via .zip Archive</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
@@ -130,6 +146,11 @@
 <li class="toctree-l4"><a class="reference internal" href="orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#manual-installation">Manual Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
@@ -232,7 +253,7 @@
            <div itemprop="articleBody">
              
   <section id="install-download">
-<h1>Install: Download<a class="headerlink" href="#install-download" title="Permalink to this heading"></a></h1>
+<span id="technical-installation-download"></span><h1>Install: Download<a class="headerlink" href="#install-download" title="Permalink to this heading"></a></h1>
 <section id="via-git-recommended">
 <h2>Via git (Recommended)<a class="headerlink" href="#via-git-recommended" title="Permalink to this heading"></a></h2>
 <p>The best way to download OpihiExarata is to clone the repository:</p>
@@ -245,7 +266,7 @@ directory as <code class="docutils literal notranslate"><span class="pre">OpihiE
 Please adapt any absolute paths as needed.</p>
 </section>
 <section id="via-zip-archive">
-<h2>Via zip archive<a class="headerlink" href="#via-zip-archive" title="Permalink to this heading"></a></h2>
+<h2>Via .zip Archive<a class="headerlink" href="#via-zip-archive" title="Permalink to this heading"></a></h2>
 <p>There are alternative ways to download the software. Although, the only other
 method that is worthwhile to document is downloading the software as an
 archive and extracting it to the desired location.</p>
@@ -255,6 +276,7 @@ archive and extracting it to the desired location.</p>
 <span class="c1"># Optional; to follow the documentation naming conventions.</span>
 <span class="n">mv</span> <span class="n">OpihiExarata</span><span class="o">-</span><span class="n">master</span> <span class="n">OpihiExarata</span>
 <span class="c1"># The zip is no longer needed.</span>
+<span class="n">rm</span> <span class="n">master</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Throughout the installation tutorial we refer to the internal OpihiExarata

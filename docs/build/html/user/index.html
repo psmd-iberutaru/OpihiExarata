@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Manual &mdash; OpihiExarata 2022.6.18 documentation</title>
+  <title>User Manual &mdash; OpihiExarata 2022.6.20 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -71,7 +71,23 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="citations.html">Citations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="trivia.html">Trivia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
 </ul>
@@ -85,7 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../technical/installation/index.html">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../technical/installation/download.html">Install: Download</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html#via-zip-archive">Via zip archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/installation/python.html">Install: Python Part</a><ul>
@@ -130,6 +146,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#manual-installation">Manual Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
@@ -236,7 +257,7 @@
 <p>This is the user manual portion of the OpihiExarata software package for
 reducing and analyzing Opihi data.</p>
 <p>The Opihi telescope is a smaller telescope mounted on the side of the IRTF. It
-primarily provides asteroid viewfinding and photometric calibration services.</p>
+primarily provides asteroid view-finding and photometric calibration services.</p>
 <p>It was conceived to assist the IRTF telescope and its instruments in finding
 asteroids and other near Earth objects on the sky when the positional
 uncertainty in the ephemeris of these objects are greater than the field of
@@ -247,7 +268,7 @@ objects can be spotted and the telescope pointing can be corrected, thus
 greatly reducing the overhead time of finding the target.</p>
 <p>However, only a minority of time allocated by the IRTF are for these types of
 targets. Having Opihi only operate a few times a semester where it is needed
-for acquisition is inefficient. In addition to the asteroid viewfinding
+for acquisition is inefficient. In addition to the asteroid view-finding
 capabilities, the Opihi telescope also serves as a source for photometric
 monitoring and calibration. By continuously taking pictures and determining the
 photometric solution for each, the photometric conditions (as measured by
@@ -257,10 +278,10 @@ science targets observed by other IRTF facility instruments (e.g. SpeX, MORIS,
 SPECTRE, etc).</p>
 <p>A more detailed description of the physical and optical specifications of the
 Opihi telescope can be found in <a class="reference internal" href="opihi_telescope.html#user-opihi-telescope"><span class="std std-ref">Opihi Telescope</span></a>.</p>
-<p>It is typical for the asteroid viewfinding to be done manually by either a
+<p>It is typical for the asteroid view-finding to be done manually by either a
 telescope operator or an observing astronomer; for this reason, we may refer
-to this viewfinding mode as the “<a class="reference internal" href="manual_mode.html#user-manual-mode"><span class="std std-ref">Manual Mode</span></a>” of operation for Opihi and
-OpihiExarata.</p>
+to this view-finding mode as the “<a class="reference internal" href="manual_mode.html#user-manual-mode"><span class="std std-ref">Manual Mode</span></a>” of operation for
+Opihi and OpihiExarata.</p>
 <p>The photometric monitoring mode does not require the constant
 input from a user, it only requires instructing the Opihi camera to
 continuously take images and for the software (OpihiExarata) to continuously
@@ -268,7 +289,7 @@ solve for their respective photometric solutions; for this reason, we may
 refer to this photometric monitoring mode as the “<a class="reference internal" href="automatic_mode.html#user-automatic-mode"><span class="std std-ref">Automatic Mode</span></a>”
 of operation for Opihi and OpihiExarata.</p>
 <p>Photometric monitoring may be done manually if the user desires more control
-over the process. However, asteroid viewfinding cannot be done automatically.
+over the process. However, asteroid view-finding cannot be done automatically.
 It is currently beyond the scope of this software to implement automatic
 asteroid/transient finding.</p>
 <p>An astronomer or other user interacts with the Opihi telescope and the

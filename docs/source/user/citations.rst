@@ -4,7 +4,7 @@
 Citations
 =========
 
-If you use the Opihi telescope or its accomapnying OpihiExarata software, please cite your usage using the following citation information:
+If you use the Opihi telescope or its accompanying OpihiExarata software, please cite your usage using the following citation information:
 
 (The citation information, here, will be updated as more publication information is provided.)
 
@@ -13,7 +13,7 @@ If you use the Opihi telescope or its accomapnying OpihiExarata software, please
 References
 ==========
 
-We detail the other projects that OpihiExarata uses to acomplish its goals, in no particular order.
+We detail the other projects that OpihiExarata uses to accomplish its goals, in no particular order.
 
 
 NASA Infrared Telescope Facility

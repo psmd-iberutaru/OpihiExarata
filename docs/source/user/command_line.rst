@@ -47,7 +47,7 @@ Manual
 Action syntax: ``manual``, ``m``.
 
 This opens up the manual mode GUI. This is used when the user wants to 
-utilize the manual (asteroid viewfinding) of Opihi and OpihiExarata. Or, 
+utilize the manual (asteroid view-finding) of Opihi and OpihiExarata. Or, 
 alternatively, the user wants to manually operate the photometric monitoring 
 mode.
 

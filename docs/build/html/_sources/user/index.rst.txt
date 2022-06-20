@@ -21,7 +21,7 @@ This is the user manual portion of the OpihiExarata software package for
 reducing and analyzing Opihi data.
 
 The Opihi telescope is a smaller telescope mounted on the side of the IRTF. It 
-primarily provides asteroid viewfinding and photometric calibration services. 
+primarily provides asteroid view-finding and photometric calibration services. 
 
 It was conceived to assist the IRTF telescope and its instruments in finding 
 asteroids and other near Earth objects on the sky when the positional 
@@ -34,7 +34,7 @@ greatly reducing the overhead time of finding the target.
 
 However, only a minority of time allocated by the IRTF are for these types of 
 targets. Having Opihi only operate a few times a semester where it is needed 
-for acquisition is inefficient. In addition to the asteroid viewfinding 
+for acquisition is inefficient. In addition to the asteroid view-finding 
 capabilities, the Opihi telescope also serves as a source for photometric
 monitoring and calibration. By continuously taking pictures and determining the
 photometric solution for each, the photometric conditions (as measured by 
@@ -46,10 +46,10 @@ SPECTRE, etc).
 A more detailed description of the physical and optical specifications of the 
 Opihi telescope can be found in :ref:`user-opihi-telescope`.
 
-It is typical for the asteroid viewfinding to be done manually by either a 
+It is typical for the asteroid view-finding to be done manually by either a 
 telescope operator or an observing astronomer; for this reason, we may refer 
-to this viewfinding mode as the ":ref:`user-manual-mode`" of operation for Opihi and 
-OpihiExarata. 
+to this view-finding mode as the ":ref:`user-manual-mode`" of operation for 
+Opihi and OpihiExarata. 
 
 The photometric monitoring mode does not require the constant 
 input from a user, it only requires instructing the Opihi camera to 
@@ -59,7 +59,7 @@ refer to this photometric monitoring mode as the ":ref:`user-automatic-mode`"
 of operation for Opihi and OpihiExarata.
 
 Photometric monitoring may be done manually if the user desires more control 
-over the process. However, asteroid viewfinding cannot be done automatically. 
+over the process. However, asteroid view-finding cannot be done automatically. 
 It is currently beyond the scope of this software to implement automatic 
 asteroid/transient finding.
 

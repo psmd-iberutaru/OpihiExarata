@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optional: Documentation &mdash; OpihiExarata 2022.6.18 documentation</title>
+  <title>Optional: Documentation &mdash; OpihiExarata 2022.6.20 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -71,7 +71,23 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/trivia.html">Trivia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
 </ul>
@@ -85,7 +101,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="download.html">Install: Download</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="download.html#via-git-recommended">Via git (Recommended)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="download.html#via-zip-archive">Via zip archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="download.html#via-zip-archive">Via .zip Archive</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
@@ -130,6 +146,11 @@
 <li class="toctree-l4"><a class="reference internal" href="orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#manual-installation">Manual Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
@@ -232,7 +253,7 @@
            <div itemprop="articleBody">
              
   <section id="optional-documentation">
-<h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this heading"></a></h1>
+<span id="technical-installation-documentation"></span><h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this heading"></a></h1>
 <p>Building the documentation is relatively simple as we leverage Sphinx to
 build it.</p>
 <section id="prerequisites">
@@ -262,7 +283,10 @@ commands while within this directory.</p>
 <section id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h2>
 <p><strong>First</strong>, the Python docstrings need to be processed into documentation. This
-can be done via running the script file: <code class="docutils literal notranslate"><span class="pre">./docstring.cmd</span></code></p>
+can be done via running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">f</span> <span class="o">-</span><span class="n">e</span> <span class="o">-</span><span class="n">o</span> <span class="o">./</span><span class="n">code</span><span class="o">/</span> <span class="o">./../</span><span class="n">src</span><span class="o">/</span><span class="n">opihiexarata</span><span class="o">/</span>
+</pre></div>
+</div>
 <p><strong>Second</strong>, it is helpful to removed the cached versions of the documentation
 files, you can do this via the commands: (This just removes the build directory
 along with other goodies.)</p>

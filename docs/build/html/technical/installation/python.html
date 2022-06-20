@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Python Part &mdash; OpihiExarata 2022.6.18 documentation</title>
+  <title>Install: Python Part &mdash; OpihiExarata 2022.6.20 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -71,7 +71,23 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/trivia.html">Trivia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
 </ul>
@@ -85,7 +101,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="download.html">Install: Download</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="download.html#via-git-recommended">Via git (Recommended)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="download.html#via-zip-archive">Via zip archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="download.html#via-zip-archive">Via .zip Archive</a></li>
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Install: Python Part</a><ul>
@@ -130,6 +146,11 @@
 <li class="toctree-l4"><a class="reference internal" href="orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#manual-installation">Manual Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
@@ -232,7 +253,7 @@
            <div itemprop="articleBody">
              
   <section id="install-python-part">
-<h1>Install: Python Part<a class="headerlink" href="#install-python-part" title="Permalink to this heading"></a></h1>
+<span id="technical-installation-python-part"></span><h1>Install: Python Part<a class="headerlink" href="#install-python-part" title="Permalink to this heading"></a></h1>
 <p>The Python part of OpihiExarata is the primary part of OpihiExarata. Luckily,
 it is likely also the simplest.</p>
 <p>You will build the Python wheel from the source and install it.</p>
@@ -247,8 +268,8 @@ can find the latest releases at: <a class="reference external" href="https://www
 <p>You should have have the repository code in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>. You can
 run the build command (while in the directory) based on the operation system
 you are using:</p>
-<p>Windows: <code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
-<p>Linux: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
+<p>Windows: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
+<p>Linux: <code class="docutils literal notranslate"><span class="pre">python39</span> <span class="pre">-m</span> <span class="pre">build</span></code></p>
 <p>The package will build into a distributable wheel, note in the output the
 version that you installed. The version is likely to be the day you built it,
 it affects the name of the wheel file for the next step.</p>
@@ -259,10 +280,9 @@ it affects the name of the wheel file for the next step.</p>
 <p>You will need to modify this command to the proper wheel that you generated
 from before. Because this project using date-based versioning, your package
 will likely be that of the date that you build the wheel.</p>
-<p>(Force reinstall is optional but suggested to ensures you have the most
-up-to-date version.)</p>
+<p>(The <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> option is to ensure that you have the most up to date version.)</p>
 <p>You can install the wheel using while in <code class="docutils literal notranslate"><span class="pre">OpihiExarata/</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">dist</span><span class="o">/</span><span class="n">OpihiExarata</span><span class="o">-</span><span class="n">YYYY</span><span class="o">.</span><span class="n">MM</span><span class="o">.</span><span class="n">DD</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">dist</span><span class="o">/</span><span class="n">OpihiExarata</span><span class="o">-</span><span class="n">YYYY</span><span class="o">.</span><span class="n">MM</span><span class="o">.</span><span class="n">DD</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span> <span class="o">--</span><span class="n">upgrade</span>
 </pre></div>
 </div>
 </section>

@@ -5,7 +5,7 @@ Install: Download
 =================
 
 Via git (Recommended)
----------------------
+=====================
 
 The best way to download OpihiExarata is to clone the repository::
 
@@ -19,8 +19,8 @@ Please adapt any absolute paths as needed.
 
 
 
-Via zip archive
----------------
+Via .zip Archive
+================
 
 There are alternative ways to download the software. Although, the only other 
 method that is worthwhile to document is downloading the software as an 
@@ -33,6 +33,7 @@ A zip archive of the git repository can be downloaded via::
     # Optional; to follow the documentation naming conventions.
     mv OpihiExarata-master OpihiExarata
     # The zip is no longer needed.
+    rm master.zip
 
 Throughout the installation tutorial we refer to the internal OpihiExarata 
 directory as ``OpihiExarata/``. This allows for the instructions to be general. 
