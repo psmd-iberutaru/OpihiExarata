@@ -1,3 +1,5 @@
+.. _technical-installation-download:
+
 =================
 Install: Download
 =================

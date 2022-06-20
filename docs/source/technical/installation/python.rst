@@ -1,6 +1,8 @@
-=========================
+.. _technical-installation-python-part:
+
+====================
 Install: Python Part
-=========================
+====================
 
 The Python part of OpihiExarata is the primary part of OpihiExarata. Luckily,
 it is likely also the simplest.
