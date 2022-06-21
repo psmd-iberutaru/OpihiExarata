@@ -22,11 +22,11 @@ User Manual
 ===========
 
 .. toctree::
-   :maxdepth: 3
-   :hidden:
-   :caption: User Manual
+    :maxdepth: 3
+    :hidden:
+    :caption: User Manual
 
-   user/index
+    user/index
 
 The user manual is primarily for general users, such as telescope operators and 
 observing astronomers. It details how to use OpihiExarata in conjunction with 
@@ -41,11 +41,11 @@ Technical Manual
 ================
 
 .. toctree::
-   :maxdepth: 3
-   :hidden:
-   :caption: Technical Manual
+    :maxdepth: 3
+    :hidden:
+    :caption: Technical Manual
 
-   technical/index
+    technical/index
 
 The technical manual is primarily for software maintainers and other IRTF 
 staff. (For general use purposes, see the :ref:`home-user-manual`).
@@ -62,11 +62,11 @@ Code Manual
 ===========
 
 .. toctree::
-   :maxdepth: 3
-   :hidden: 
-   :caption: Code Manual
+    :maxdepth: 3
+    :hidden: 
+    :caption: Code Manual
 
-   code/modules
+    code/modules
 
 The code manual is primarily for software maintainers and other IRTF staff. It 
 details the software API documentation of OpihiExarata and its inner workings.

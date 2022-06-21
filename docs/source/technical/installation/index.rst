@@ -55,7 +55,7 @@ For the installation script ``install.ps1``:
 
 - You need to specify the version-specific Python command that Powershell Core uses to enter the correct Python interpreter. It is typically something like ``python3.9`` for Python 3.9, or something similar for other versions. (Windows operating systems, for example, is often just ``python``.) For example, the line should be something like::
 
-   Set-Alias -Name pyox -Value python3.9
+    Set-Alias -Name pyox -Value python3.9
 
 - If you are using a Linux system, you need to specify the primary flavor as different systems have different ways of installing packages. Set either ``$isCentOS`` or ``$isUbuntu`` to True based on what system you have. If the system detects that you have a Linux system and neither is specified, an error will be raised.
 
@@ -63,7 +63,7 @@ For the auxillary script ``auxillary.ps1``:
 
 - Like the install script, you need to specify the version-specific Python command that Powershell Core uses. Typically it is typically something like ``python3.9`` for Python 3.9. It is advised that you use the same entry as in the installation script::
 
-   Set-Alias -Name pyox -Value python3.9
+    Set-Alias -Name pyox -Value python3.9
 
 
 .. _technical-installation-manual-installation:

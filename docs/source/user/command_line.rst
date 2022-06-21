@@ -90,9 +90,9 @@ This displays the help dialog in the terminal. It is identical to the
 
 
 .. warning::
-   If any action is specified that does not match any of the expected actions, 
-   the program will raise a Python exception as opposed to ignoring it or 
-   strictly a shell error.
+    If any action is specified that does not match any of the expected actions, 
+    the program will raise a Python exception as opposed to ignoring it or 
+    strictly a shell error.
 
 
 .. _user-command-line-available-options:
@@ -196,5 +196,5 @@ is more for debugging purposes.
 
 
 .. warning::
-   If any option is specified that does not match any of the expected option, 
-   the program will raise a shell error.
+    If any option is specified that does not match any of the expected option, 
+    the program will raise a shell error.

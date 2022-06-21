@@ -21,9 +21,9 @@ The camera/detector on the Opihi telescope:
 - The well depth is about 150 000 electrons.
 
 .. note::
-   Most, if not all, of the information provided on this page is taken from the 
-   Opihi telescope and OpihiExarata SPIE conference paper (see 
-   :ref:`user-citations`) or the IRTF Opihi website. You may find more 
-   information from these resources.
+    Most, if not all, of the information provided on this page is taken from the 
+    Opihi telescope and OpihiExarata SPIE conference paper (see 
+    :ref:`user-citations`) or the `IRTF Opihi website`_. You may find more 
+    information from these resources.
 
 .. _IRTF Opihi website: http://irtfweb.ifa.hawaii.edu/~opihi/

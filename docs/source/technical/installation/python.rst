@@ -34,7 +34,6 @@ The package will build into a distributable wheel, note in the output the
 version that you installed. The version is likely to be the day you built it, 
 it affects the name of the wheel file for the next step.
 
-
 Install
 =======
 

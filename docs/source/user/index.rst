@@ -1,21 +1,23 @@
+.. _user-index:
 
 ===========
 User Manual
 ===========
 
 .. toctree::
-   :maxdepth: 3
-   :hidden:
-   :caption: User Manual
+    :maxdepth: 3
+    :hidden:
+    :caption: User Manual
 
-   opihi_telescope
-   command_line
-   manual_mode
-   automatic_mode
-   configuration
-   troubleshooting
-   citations
-   trivia
+    opihi_telescope
+    opihiexarata_framework
+    command_line
+    manual_mode
+    automatic_mode
+    configuration
+    troubleshooting
+    citations
+    trivia
 
 This is the user manual portion of the OpihiExarata software package for 
 reducing and analyzing Opihi data.
@@ -77,11 +79,12 @@ the command-line interface and its usage is documented in
 :ref:`user-command-line`. 
 
 See :ref:`user-manual-mode` or :ref:`user-automatic-mode` for usage instructions
-depending on the desired mode of operation. See :ref:`user-configuration` for 
-available configuration options for both modes. If you are having trouble, 
-see :ref:`user-troubleshooting` for information and possible solutions. If you 
-believe you found an issue or bug with the software, please report it to the 
-appropriate IRTF staff member(s). 
+depending on the desired mode of operation. Both of these have some technical 
+jargon better described in :ref:`user-system-framework`. See 
+:ref:`user-configuration` for available configuration options for both modes. 
+If you are having trouble, see :ref:`user-troubleshooting` for information and 
+possible solutions. If you believe you found an issue or bug with the software, 
+please report it to the appropriate IRTF staff member(s). 
 
 If you used the Opihi telescope or the OpihiExarata software, please 
 acknowledge your usage in any projects or publications; see 

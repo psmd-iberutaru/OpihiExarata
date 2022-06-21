@@ -1,3 +1,5 @@
+.. _technical-algorithms-preprocessing:
+
 =============
 Preprocessing
 =============

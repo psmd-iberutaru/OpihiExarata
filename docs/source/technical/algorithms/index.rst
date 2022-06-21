@@ -5,9 +5,9 @@ Algorithms
 hello
 
 .. toctree::
-   :maxdepth: 3
-   :hidden:
-   :caption: Algorithms
+    :maxdepth: 3
+    :hidden:
+    :caption: Algorithms
 
-   preprocessing
-   spherical_kinematics
+    preprocessing
+    spherical_kinematics

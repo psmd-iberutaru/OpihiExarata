@@ -1,15 +1,17 @@
+.. _technical-index:
 
 ================
 Technical Manual
 ================
 
 .. toctree::
-   :maxdepth: 3
-   :hidden:
-   :caption: Technical Manual
+    :maxdepth: 3
+    :hidden:
+    :caption: Technical Manual
 
-   installation/index
-   algorithms/index
+    installation/index
+    architecture/index
+    algorithms/index
 
 The technical manual here is made for the those looking for more detail about 
 the inner-workings of the OpihiExarata software. This is typically staff and 
