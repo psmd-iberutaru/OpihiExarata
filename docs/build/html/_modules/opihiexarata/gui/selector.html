@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.gui.selector</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.gui.selector</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="k">as</span> <span class="nn">sp_ndimage</span>
+
+<span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpl_patches</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Using Qt backends.</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="n">FigureCanvasQTAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="n">NavigationToolbar2QT</span> <span class="k">as</span> <span class="n">NavigationToolbar</span>
+
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
+
+
+<div class="viewcode-block" id="TargetSelectorWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow">[docs]</a><span class="k">class</span> <span class="nc">TargetSelectorWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the general class for the target selector window. The whole</span>
+<span class="sd">    purpose of this class is for the ease of finding an asteroid.</span>
+
+<span class="sd">    The GUI attribute elements are too numerous to list.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    current_filename : string</span>
+<span class="sd">        The fits filename of the image which the position of the asteroid is</span>
+<span class="sd">        going to be derived from.</span>
+<span class="sd">    current_header : Header</span>
+<span class="sd">        The fits header of the current fits image file.</span>
+<span class="sd">    current_data : array</span>
+<span class="sd">        The data of the of the current fits image file.</span>
+<span class="sd">    reference_filename : string</span>
+<span class="sd">        The fits filename of the image which is used to serve as an image to</span>
+<span class="sd">        compare the current one to so that the asteroid is easier to find.</span>
+<span class="sd">    reference_header : Header</span>
+<span class="sd">        The fits header of the reference fits image file.</span>
+<span class="sd">    reference_data : array</span>
+<span class="sd">        The fits data of the reference fits image file.</span>
+<span class="sd">    subtract_none : array</span>
+<span class="sd">        The data after the comparison operation of doing nothing was applied.</span>
+<span class="sd">        This serves mostly as a cache so that it only needs to be computed</span>
+<span class="sd">        once.</span>
+<span class="sd">    subtract_sidereal : array</span>
+<span class="sd">        The data after the comparison operation of subtracting the two images.</span>
+<span class="sd">        This serves mostly as a cache so that it only needs to be computed</span>
+<span class="sd">        once.</span>
+<span class="sd">    subtract_non_sidereal : array</span>
+<span class="sd">        The data after the comparison operation of doing shifting then</span>
+<span class="sd">        subtracting the two images. This serves mostly as a cache so that it</span>
+<span class="sd">        only needs to be computed once.</span>
+<span class="sd">    target_x : float</span>
+<span class="sd">        The x pixel location of the asteroid in the current image.</span>
+<span class="sd">    target_y : float</span>
+<span class="sd">        The y pixel location of the asteroid in the current image.</span>
+<span class="sd">    subtraction_method : string</span>
+<span class="sd">        The method of subtraction (comparison) between the current image and</span>
+<span class="sd">        the reference image.</span>
+<span class="sd">    autoscale_1_99 : bool</span>
+<span class="sd">        A flag to determine if, after every operation, the data&#39;s color bars</span>
+<span class="sd">        should be scaled so that it is 1 - 99%, a helpful scaling.</span>
+<span class="sd">    plotted_data : array</span>
+<span class="sd">        The data as is plotted in the GUI.</span>
+<span class="sd">    colorbar_scale_low : float</span>
+<span class="sd">        The lower value for which the color bar determines as its 0, the lowest</span>
+<span class="sd">        color value.</span>
+<span class="sd">    colorbar_scale_high : float</span>
+<span class="sd">        The higher value for which the color bar determines as its 1, the</span>
+<span class="sd">        highest color value.</span>
+<span class="sd">    opihi_figure : Figure</span>
+<span class="sd">        The matplotlib figure class of the displayed image in the GUI.</span>
+<span class="sd">    opihi_axes : Axes</span>
+<span class="sd">        The matplotlib axes class of the displayed image in the GUI.</span>
+<span class="sd">    opihi_canvas : FigureCanvasQTAgg</span>
+<span class="sd">        The matplotlib canvas class of the displayed image in the GUI. This</span>
+<span class="sd">        uses matplotlib&#39;s built-in Qt support.</span>
+<span class="sd">    opihi_nav_toolbar : NavigationToolbar2QT</span>
+<span class="sd">        The matplotlib navigation bar class of the displayed image in the</span>
+<span class="sd">        GUI. This uses matplotlib&#39;s built-in Qt support.</span>
+<span class="sd">    _opihi_coordinate_formatter : CoordinateFormatter</span>
+<span class="sd">        A class to wrap around the imshow formatter for fancy printing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TargetSelectorWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">current_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">reference_fits_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create the target selector window. Though often used for asteroids,</span>
+<span class="sd">        there is no reason why is should specific to them; so we use a general</span>
+<span class="sd">        name.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        current_fits_filename : string</span>
+<span class="sd">            The current fits filename which will be used to determine where the</span>
+<span class="sd">            location of the target is.</span>
+<span class="sd">        reference_fits_filename : string, default = None</span>
+<span class="sd">            The reference fits filename which will be used to compare against the</span>
+<span class="sd">            current fits filename to determine where the location of the target</span>
+<span class="sd">            is. If None, then no image will be loaded until manually specified.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Creating the GUI itself using the Qt framework and the converted</span>
+        <span class="c1"># Qt designer files.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TargetSelectorWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">qtui</span><span class="o">.</span><span class="n">Ui_SelectorWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Window design parameters, just for show.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;OpihiExarata Target Selector&quot;</span><span class="p">)</span>
+
+        <span class="c1"># The data from which will be shown to the user which they will use</span>
+        <span class="c1"># to find the location of the target.</span>
+        <span class="n">current_header</span><span class="p">,</span> <span class="n">current_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">current_fits_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_filename</span> <span class="o">=</span> <span class="n">current_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_header</span> <span class="o">=</span> <span class="n">current_header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">=</span> <span class="n">current_data</span>
+        <span class="c1"># The reference data, if the fits file has been provided. Need to</span>
+        <span class="c1"># take into account if the reference filename is not provided.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reference_fits_filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span>
+            <span class="n">reference_fits_filename</span>
+        <span class="p">):</span>
+            <span class="n">reference_header</span><span class="p">,</span> <span class="n">reference_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">reference_fits_filename</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">reference_fits_filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_header</span> <span class="o">=</span> <span class="n">reference_header</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No data has been provided, just using sensible defaults.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">reference_fits_filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_header</span> <span class="o">=</span> <span class="n">current_header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="p">)</span>
+        <span class="c1"># Precompute the translated image array values to ensure the</span>
+        <span class="c1"># cache speedup and subtraction capability.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_subtraction_arrays</span><span class="p">()</span>
+
+        <span class="c1"># The location of the target, the user did not provide it so</span>
+        <span class="c1"># blank currently.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_x</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_y</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># There is currently no subtraction method provided. We assume</span>
+        <span class="c1"># no subtraction so that the image can be shown. (Both None the type</span>
+        <span class="c1"># and the string is valid as no subtraction. The type just means</span>
+        <span class="c1"># that it has not been formally specified using the GUI.)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtraction_method</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># The data, as it is plotted. This will change with different</span>
+        <span class="c1"># subtraction methodology. But, as the subtraction is defined as None,</span>
+        <span class="c1"># the current data is fine.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="p">)</span>
+
+        <span class="c1"># We default the scale to the 1-99 automatic linear scale. It is</span>
+        <span class="c1"># just an easier system and it makes the user think of it as a default.</span>
+        <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">99</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">low</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">high</span><span class="p">)</span>
+
+        <span class="c1"># Making the plot itself.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_opihi_image</span><span class="p">()</span>
+
+        <span class="c1"># Adding the GUI connections.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_gui_connections</span><span class="p">()</span>
+
+        <span class="c1"># Redrawing the window before finishing up.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__init_opihi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create the image area which will display what Opihi took from the</span>
+<span class="sd">        sky. This takes advantage of a reserved image vertical layout in the</span>
+<span class="sd">        design of the window.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Deriving the size of the image from the filler dummy image. The</span>
+        <span class="c1"># figure should be a square. (Height really is the primary concern.)</span>
+        <span class="n">pix_to_in</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span> <span class="o">/</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span>
+        <span class="n">dummy_edge_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_image</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="n">edge_size</span> <span class="o">=</span> <span class="n">pix_to_in</span><span class="p">(</span><span class="n">dummy_edge_size</span><span class="p">)</span>
+        <span class="c1"># The figure, canvas, and navigation toolbar of the image plot</span>
+        <span class="c1"># using a Matplotlib Qt widget backend. We will add these to the</span>
+        <span class="c1"># layout later.</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">edge_size</span><span class="p">,</span> <span class="n">edge_size</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_figure</span> <span class="o">=</span> <span class="n">fig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span> <span class="o">=</span> <span class="n">ax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span> <span class="o">=</span> <span class="n">FigureCanvas</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_figure</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_nav_toolbar</span> <span class="o">=</span> <span class="n">NavigationToolbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># The flag for determining if autoscaling should always be applied.</span>
+        <span class="c1"># The default, from Qt, is False.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">autoscale_1_99</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># For ease of usage, a custom navigation bar coordinate formatter</span>
+        <span class="c1"># function/class is used.</span>
+        <span class="k">class</span> <span class="nc">CoordinateFormatter</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;A simple function class to properly format the navigation bar</span>
+<span class="sd">            coordinate text. This assumes the current structure of the GUI.&quot;&quot;&quot;</span>
+
+            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gui_instance</span><span class="p">:</span> <span class="n">TargetSelectorWindow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span> <span class="o">=</span> <span class="n">gui_instance</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="sd">&quot;&quot;&quot;The coordinate string going to be put onto the navigation</span>
+<span class="sd">                bar.&quot;&quot;&quot;</span>
+                <span class="c1"># The pixel locations.</span>
+                <span class="n">x_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">y_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">x_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{x_int:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_int</span><span class="o">=</span><span class="n">x_index</span><span class="p">)</span>
+                <span class="n">y_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{y_int:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_int</span><span class="o">=</span><span class="n">y_index</span><span class="p">)</span>
+                <span class="c1"># Extracting the data.</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">z_float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gui_instance</span><span class="o">.</span><span class="n">plotted_data</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span> <span class="n">x_index</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="c1"># There is no data to index.</span>
+                    <span class="n">z_coord_string</span> <span class="o">=</span> <span class="s2">&quot;NaN&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Parse the string from the number provided.</span>
+                    <span class="n">z_coord_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{z_flt:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z_flt</span><span class="o">=</span><span class="n">z_float</span><span class="p">)</span>
+
+                <span class="c1"># Compiling it all together.</span>
+                <span class="n">coord_string</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{x_str}</span><span class="s2">, </span><span class="si">{y_str}</span><span class="s2">] = </span><span class="si">{z_str}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">x_str</span><span class="o">=</span><span class="n">x_coord_string</span><span class="p">,</span> <span class="n">y_str</span><span class="o">=</span><span class="n">y_coord_string</span><span class="p">,</span> <span class="n">z_str</span><span class="o">=</span><span class="n">z_coord_string</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">coord_string</span>
+
+        <span class="c1"># Assigning the coordinate formatter derived.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opihi_coordinate_formatter</span> <span class="o">=</span> <span class="n">CoordinateFormatter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">format_coord</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opihi_coordinate_formatter</span>
+
+        <span class="c1"># Setting the layout, it is likely better to have the toolbar below</span>
+        <span class="c1"># rather than above to avoid conflicts with the reset buttons in the</span>
+        <span class="c1"># event of a mis-click.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">vertical_layout_image</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">vertical_layout_image</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_nav_toolbar</span><span class="p">)</span>
+        <span class="c1"># Remove the dummy spacers otherwise it is just extra unneeded space.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">vertical_layout_image</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">vertical_layout_image</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_navbar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_image</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_navbar</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_image</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_navbar</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_image</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dummy_selector_navbar</span>
+        <span class="c1"># A little hack to ensure the default zoom limits that are saved when</span>
+        <span class="c1"># redrawing the figure is not 0-1 in both x and y but instead the image</span>
+        <span class="c1"># itself.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># Redraw the image.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init_gui_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A initiation set of functions that attach to the buttons on the</span>
+<span class="sd">        GUI.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The connections for the fits file selection.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_change_current_filename</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_change_current_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_change_reference_filename</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_change_reference_filename</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The figure connections for dragging of the search box. The Opihi</span>
+        <span class="c1"># image initialization should be done first.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span>
+            <span class="s2">&quot;button_press_event&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connect_matplotlib_mouse_press_event</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span>
+            <span class="s2">&quot;button_release_event&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connect_matplotlib_mouse_release_event</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The subtraction method connections for comparing the current</span>
+        <span class="c1"># and release fits images. These buttons really just set the</span>
+        <span class="c1"># subtraction method flag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_mode_none</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_mode_none</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_mode_reference</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_mode_reference</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_mode_sidereal</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_mode_sidereal</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_mode_non_sidereal</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_mode_non_sidereal</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The scale and colorbar connections for determining the scale and</span>
+        <span class="c1"># color bar information, along with the automatic way.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_scale_low</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_line_edit_dynamic_scale_low</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_scale_high</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_line_edit_dynamic_scale_high</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_scale_1_99</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_scale_1_99</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">check_box_autoscale_1_99</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_check_box_autoscale_1_99</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The pixel location submission button connection.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_submit_target</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_submit_target</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_change_current_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function provides a popup dialog to prompt the user to change</span>
+<span class="sd">        the current fits filename.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use the build-in OS dialog box.</span>
+        <span class="n">new_current_filename</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Open New Current Opihi Image&quot;</span><span class="p">,</span>
+            <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span>
+            <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;FITS Files (*.fits)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Extracted the needed information provided this new fits file.</span>
+        <span class="n">current_header</span><span class="p">,</span> <span class="n">current_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">new_current_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_filename</span> <span class="o">=</span> <span class="n">new_current_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_header</span> <span class="o">=</span> <span class="n">current_header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">=</span> <span class="n">current_data</span>
+
+        <span class="c1"># Precompute the translated image array values to ensure the</span>
+        <span class="c1"># cache speedup and subtraction capability.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_subtraction_arrays</span><span class="p">()</span>
+        <span class="c1"># Redraw and refresh the window to use this new updated information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_change_reference_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function provides a popup dialog to prompt the user to change</span>
+<span class="sd">        the reference fits filename.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use the build-in OS dialog box.</span>
+        <span class="n">new_reference_filename</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Open New Reference Opihi Image&quot;</span><span class="p">,</span>
+            <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span>
+            <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;FITS Files (*.fits)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Extracted the needed information provided this new fits file.</span>
+        <span class="n">reference_header</span><span class="p">,</span> <span class="n">reference_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">new_reference_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_filename</span> <span class="o">=</span> <span class="n">new_reference_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_header</span> <span class="o">=</span> <span class="n">reference_header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
+
+        <span class="c1"># Precompute the translated image array values to ensure the</span>
+        <span class="c1"># cache speedup and subtraction capability.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_subtraction_arrays</span><span class="p">()</span>
+        <span class="c1"># Redraw and refresh the window to use this new updated information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_matplotlib_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">MouseEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A function to describe what would happen when a mouse press is</span>
+<span class="sd">        done on the Matplotlib image.</span>
+
+<span class="sd">        This function defaults to the toolbar functionality when the toolbar</span>
+<span class="sd">        is considered active.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : MouseEvent</span>
+<span class="sd">            The event of the click itself.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># A tool on the toolbar is wanting to be used if the mode is non-blank,</span>
+        <span class="c1"># prioritize the tool over the selector.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_nav_toolbar</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Assign the potential location of the target to the location</span>
+        <span class="c1"># of the mouse.</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># The user likely clicked outside of the canvas area. Ignore.</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># One of the bounds of the search rectangle.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_matplotlib_mouse_release_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">MouseEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A function to describe what would happen when a mouse press is</span>
+<span class="sd">        released done on the Matplotlib image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : MouseEvent</span>
+<span class="sd">            The event of the click itself.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># A tool on the toolbar is wanting to be used if the mode is non-blank,</span>
+        <span class="c1"># prioritize the tool over the selector.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_nav_toolbar</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Assign the potential location of the target to the location</span>
+        <span class="c1"># of the mouse.</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># The user likely clicked outside of the canvas area. Ignore.</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># One of the bounds of the search rectangle.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">)</span>
+        <span class="c1"># By convention, the x0 &lt;= x1 and vice versa for y. If the user drew</span>
+        <span class="c1"># a backwards square, then we fix it here.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span><span class="p">:</span>
+            <span class="n">lower_x</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span><span class="p">])</span>
+            <span class="n">upper_x</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span> <span class="o">=</span> <span class="n">lower_x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span> <span class="o">=</span> <span class="n">upper_x</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span><span class="p">:</span>
+            <span class="n">lower_y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span><span class="p">])</span>
+            <span class="n">upper_y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span> <span class="o">=</span> <span class="n">lower_y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span> <span class="o">=</span> <span class="n">upper_y</span>
+
+        <span class="c1"># Find the target location based on the search area just determined.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_target_location</span><span class="p">(</span>
+            <span class="n">x0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span><span class="p">,</span>
+            <span class="n">x1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span><span class="p">,</span>
+            <span class="n">y0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span><span class="p">,</span>
+            <span class="n">y1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Redrawing the image to have the location be visible.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_mode_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function sets the subtraction method to None, for comparing</span>
+<span class="sd">        the current image from the reference image.</span>
+
+<span class="sd">        Both None the type and the string is valid as no subtraction. The</span>
+<span class="sd">        type just means that it has not been formally specified using the GUI.</span>
+
+<span class="sd">        This method has no subtraction and thus no comparison to the reference</span>
+<span class="sd">        image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># As the mode is being set by the GUI, we use the string form.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtraction_method</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+        <span class="c1"># Because the subtraction mode changed, the data which is used to plot</span>
+        <span class="c1"># should also be changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtract_none</span>
+        <span class="c1"># Refresh the window because the method changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_mode_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function sets the subtraction method to Reference, plotting</span>
+<span class="sd">        the reference image instead of the current image.</span>
+
+<span class="sd">        This method has no subtraction and thus no comparison to the current</span>
+<span class="sd">        image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># As the mode is being set by the GUI, we use the string form.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtraction_method</span> <span class="o">=</span> <span class="s2">&quot;reference&quot;</span>
+        <span class="c1"># Because the subtraction mode changed, the data which is used to plot</span>
+        <span class="c1"># should also be changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtract_reference</span>
+        <span class="c1"># Refresh the window because the method changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_mode_sidereal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function sets the subtraction method to sidereal, for comparing</span>
+<span class="sd">        the current image from the reference image.</span>
+
+<span class="sd">        This method assumes the approximation that both the current and</span>
+<span class="sd">        reference images are pointing to the same point in the sky.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Setting the mode to sidereal.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtraction_method</span> <span class="o">=</span> <span class="s2">&quot;sidereal&quot;</span>
+        <span class="c1"># Because the subtraction mode changed, the data which is used to plot</span>
+        <span class="c1"># should also be changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtract_sidereal</span>
+        <span class="c1"># Refresh the window because the method changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_mode_non_sidereal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function sets the subtraction method to non-sidereal, for</span>
+<span class="sd">        comparing the current image from the reference image.</span>
+
+<span class="sd">        This method assumes the approximation that the target itself did not</span>
+<span class="sd">        move at all compared to both images, but the stars do as they are</span>
+<span class="sd">        moving siderally.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Setting the mode to non-sidereal.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtraction_method</span> <span class="o">=</span> <span class="s2">&quot;non-sidereal&quot;</span>
+        <span class="c1"># Because the subtraction mode changed, the data which is used to plot</span>
+        <span class="c1"># should also be changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtract_non_sidereal</span>
+        <span class="c1"># Refresh the window because the method changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_line_edit_dynamic_scale_low</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A function to operate on the change of the text of the low scale.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Saving the old lower bound scale value in the event that the text</span>
+        <span class="c1"># entered cannot be properly converted.</span>
+        <span class="n">old_low_value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span><span class="p">)</span>
+
+        <span class="c1"># Try to get the new value.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Extracting the value the user provided in the text block.</span>
+            <span class="n">input_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_scale_low</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">new_low_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">input_text</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Something is wrong, the value entered is a valid entry; reverting</span>
+            <span class="c1"># back to the defaults.</span>
+            <span class="n">new_low_value</span> <span class="o">=</span> <span class="n">old_low_value</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span> <span class="o">=</span> <span class="n">new_low_value</span>
+
+        <span class="c1"># If maximum value is less than the minimum value, it is likely the</span>
+        <span class="c1"># user swapped them by mistake. We correct for the swapping here.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span><span class="p">:</span>
+            <span class="c1"># Storing to swap...</span>
+            <span class="n">raw_low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span>
+            <span class="n">raw_high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span>
+            <span class="c1"># ...and swap.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span> <span class="o">=</span> <span class="n">raw_high</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">=</span> <span class="n">raw_low</span>
+
+        <span class="c1"># Redraw the image with this new low colorbar. (Refreshing the</span>
+        <span class="c1"># image itself is likely fine too.)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_line_edit_dynamic_scale_high</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A function to operate on the change of the text of the high scale.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Saving the old higher bound scale value in the event that the text</span>
+        <span class="c1"># entered cannot be properly converted.</span>
+        <span class="n">old_high_value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span><span class="p">)</span>
+
+        <span class="c1"># Try to get the new value.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Extracting the value the user provided in the text block.</span>
+            <span class="n">input_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_scale_high</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">new_high_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">input_text</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Something is wrong, the value entered is a valid entry; reverting</span>
+            <span class="c1"># back to the defaults.</span>
+            <span class="n">new_high_value</span> <span class="o">=</span> <span class="n">old_high_value</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">=</span> <span class="n">new_high_value</span>
+
+        <span class="c1"># If maximum value is less than the minimum value, it is likely the</span>
+        <span class="c1"># user swapped them by mistake. We correct for the swapping here.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span><span class="p">:</span>
+            <span class="c1"># Storing to swap...</span>
+            <span class="n">raw_low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span>
+            <span class="n">raw_high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span>
+            <span class="c1"># ...and swap.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span> <span class="o">=</span> <span class="n">raw_high</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">=</span> <span class="n">raw_low</span>
+
+        <span class="c1"># Redraw the image with this new low colorbar. (Refreshing the</span>
+        <span class="c1"># image itself is likely fine too.)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_scale_1_99</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A function set the scale automatically to 1-99 within the</span>
+<span class="sd">        region currently displayed on the screen.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We can autoscale to these values by recomputing the colorbar values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_colorbar_autoscale</span><span class="p">(</span><span class="n">lower_percentile</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">higher_percentile</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+        <span class="c1"># Redraw the image with this new colorbar range. (Refreshing the</span>
+        <span class="c1"># image itself is likely fine too.)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_check_box_autoscale_1_99</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This check box allows the user to force the autoscaling of images</span>
+<span class="sd">        when the subtraction method changes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the state of the check box.</span>
+        <span class="n">checkbox_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">check_box_autoscale_1_99</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="c1"># As the mode is being set by the GUI, we use the string form.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">autoscale_1_99</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">checkbox_state</span><span class="p">)</span>
+        <span class="c1"># Because this checkbox itself is expected to trigger scaling as well.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoscale_1_99</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_colorbar_autoscale</span><span class="p">(</span><span class="n">lower_percentile</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">higher_percentile</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+        <span class="c1"># Refresh the window because the scaling has changed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_submit_target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This button submits the current location of the target and closes</span>
+<span class="sd">        the window. (The target information is saved within the class</span>
+<span class="sd">        instance.)</span>
+
+<span class="sd">        If the text within the line edits differ than what the box selection</span>
+<span class="sd">        has selected, then this prioritizes the values as manually defined.</span>
+<span class="sd">        Although this should be rare as any time a box is drawn, the values</span>
+<span class="sd">        and text boxes should be updated.</span>
+
+<span class="sd">        If no entry is properly convertible, we default to center of the image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The pixel locations as derived from the box mode.</span>
+        <span class="n">box_pixel_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_x</span>
+        <span class="n">box_pixel_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_y</span>
+        <span class="c1"># The pixel locations as derived from the text entry. If they can</span>
+        <span class="c1"># be converted into actual pixel locations, we prioritize them.</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">entry_pixel_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_target_x</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="n">entry_pixel_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_target_y</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># The conversion cannot happen, the entry provided is not a valid</span>
+            <span class="c1"># entry, going to use the box values instead.</span>
+            <span class="n">using_pixel_x</span> <span class="o">=</span> <span class="n">box_pixel_x</span>
+            <span class="n">using_pixel_y</span> <span class="o">=</span> <span class="n">box_pixel_y</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Prioritizing the entered values.</span>
+            <span class="n">using_pixel_x</span> <span class="o">=</span> <span class="n">entry_pixel_x</span>
+            <span class="n">using_pixel_y</span> <span class="o">=</span> <span class="n">entry_pixel_y</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Type checking the currently assumed pixel values.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">using_pixel_x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">using_pixel_y</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="c1"># The pixel values provided either through manual or box entry</span>
+                <span class="c1"># is valid; prioritization has already been done.</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># The currently derived values are incorrect. Falling back on</span>
+                <span class="c1"># assumption that the center as the target.</span>
+                <span class="n">using_pixel_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="n">using_pixel_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># The target values updated to reflect this prioritization and</span>
+        <span class="c1"># conversation.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_x</span> <span class="o">=</span> <span class="n">using_pixel_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_y</span> <span class="o">=</span> <span class="n">using_pixel_y</span>
+        <span class="c1"># All done, closing the window as we can now let the primary part of</span>
+        <span class="c1"># the program continue.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TargetSelectorWindow._refresh_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._refresh_image">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Redraw and refresh the image, this is mostly used to allow for the</span>
+<span class="sd">        program to update where the user selected.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># To retain the current zoom and pan, save the limits that the image</span>
+        <span class="c1"># is currently at before redrawing.</span>
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+
+        <span class="c1"># If the user has set for autoscaling, then we apply the default</span>
+        <span class="c1"># 1-99 % autoscaling. This must be done before the figure it cleared</span>
+        <span class="c1"># before redrawing else it computes it from a single pixel image.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoscale_1_99</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_colorbar_autoscale</span><span class="p">(</span><span class="n">lower_percentile</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">higher_percentile</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+
+        <span class="c1"># This is a function to replace the coordinate formatting in</span>
+        <span class="c1"># favor of our own.</span>
+        <span class="k">def</span> <span class="nf">empty_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">()</span>
+
+        <span class="c1"># Clearing the axes, starting fresh and anew as this entire function</span>
+        <span class="c1"># does a whole redraw. It may not be needed but small performance</span>
+        <span class="c1"># hit to ensure it all works normally.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="c1"># Customizing the colorbar of our plotting image to match what the</span>
+        <span class="c1"># current values are set at.</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span><span class="p">,</span>
+            <span class="n">vmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span><span class="p">,</span>
+            <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Disable their formatting in favor of ours.</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
+
+        <span class="c1"># If there is a specified target location, put it on the map.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_y</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="c1"># Represent the marker as the targets location as defined by the</span>
+            <span class="c1"># search box and the target finding function.</span>
+            <span class="n">MARKER_SIZE</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_x</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_y</span><span class="p">,</span>
+                <span class="n">s</span><span class="o">=</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
+                <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="n">facecolors</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># If there is a target, then the bounding box created must have</span>
+            <span class="c1"># also succeeded. It is helpful for the user to also draw it.</span>
+            <span class="n">search_rectangle</span> <span class="o">=</span> <span class="n">mpl_patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_x1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_x0</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_search_y1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_search_y0</span><span class="p">,</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">search_rectangle</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No need, there is no current valid location specified.</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Reinstate the zoom and pan settings via the previous limits.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+        <span class="c1"># Make sure the coordinate formatter does not change.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">format_coord</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opihi_coordinate_formatter</span>
+        <span class="c1"># And finally, drawing the image.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetSelectorWindow._refresh_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._refresh_text">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function just refreshes the GUI text based on the current</span>
+<span class="sd">        actual values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Refreshing the current and reference fits filenames. No directory</span>
+        <span class="c1"># information.</span>
+        <span class="n">current_bare_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_filename</span>
+        <span class="p">)</span>
+        <span class="n">reference_bare_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_current_fits_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">current_bare_filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_reference_fits_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">reference_bare_filename</span><span class="p">)</span>
+
+        <span class="c1"># Refreshing the scale value text as set. Formatting the numerical</span>
+        <span class="c1"># values into strings.</span>
+        <span class="n">scale_low_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span><span class="p">)</span>
+        <span class="n">scale_high_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_scale_low</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">scale_low_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_scale_high</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">scale_high_str</span><span class="p">)</span>
+
+        <span class="c1"># Refreshing the target pixel location in the manual entry. Formatting</span>
+        <span class="c1"># the numerical values into strings.</span>
+        <span class="n">target_x_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_x</span><span class="p">)</span>
+        <span class="n">target_y_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_target_x</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">target_x_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_target_y</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">target_y_str</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetSelectorWindow.refresh_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.refresh_window">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Refresh the text content of the window given new information.</span>
+<span class="sd">        This refreshes both the dynamic label text and redraws the image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Rewriting the text...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_image</span><span class="p">()</span>
+        <span class="c1"># ...redrawing the image plot...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_text</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetSelectorWindow.close_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.close_window">[docs]</a>    <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Closes the window. Generally called when it is all done.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Delete the plot. This ensures that there is not memory leak with</span>
+        <span class="c1"># many plots open over time.</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_figure</span><span class="p">)</span>
+        <span class="c1"># Close the window.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetSelectorWindow._recompute_subtraction_arrays"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._recompute_subtraction_arrays">[docs]</a>    <span class="k">def</span> <span class="nf">_recompute_subtraction_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This computes the subtracted arrays for both none, sidereal, and</span>
+<span class="sd">        non-sidereal subtractions. This is done mostly for speed considerations</span>
+<span class="sd">        as the values can be computed and stored during image loading.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Begin with computing no subtraction. This is really just the same</span>
+        <span class="c1"># as the current data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtract_none</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span>
+
+        <span class="c1"># The reference image mode is just the reference data without</span>
+        <span class="c1"># any comparison to the current data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtract_reference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span>
+
+        <span class="c1"># Subtracting sidereally implies that the center of the two images are</span>
+        <span class="c1"># the same, so no translation is needed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtract_sidereal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span>
+
+        <span class="c1"># Subtracting non-sidereally means that the centers are offset based</span>
+        <span class="c1"># on the non-sidereal motion and time difference. We use this</span>
+        <span class="c1"># information to translate in pixel space before subtraction.</span>
+        <span class="c1"># TCS rates, in arcsec per second.</span>
+        <span class="n">ra_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_header</span><span class="p">[</span><span class="s2">&quot;TCS_NSRA&quot;</span><span class="p">]</span>
+        <span class="n">dec_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_header</span><span class="p">[</span><span class="s2">&quot;TCS_NSDE&quot;</span><span class="p">]</span>
+        <span class="c1"># Deriving the difference in time between the current data and the</span>
+        <span class="c1"># reference data.</span>
+        <span class="n">current_jd</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">modified_julian_day_to_julian_day</span><span class="p">(</span>
+            <span class="n">mjd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_header</span><span class="p">[</span><span class="s2">&quot;MJD_OBS&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">reference_jd</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">modified_julian_day_to_julian_day</span><span class="p">(</span>
+            <span class="n">mjd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_header</span><span class="p">[</span><span class="s2">&quot;MJD_OBS&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="c1"># We assume the reference image was taken in the past. As Julian days</span>
+        <span class="c1"># are in days, and we want seconds,</span>
+        <span class="n">delta_days</span> <span class="o">=</span> <span class="n">current_jd</span> <span class="o">-</span> <span class="n">reference_jd</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">delta_days</span> <span class="o">*</span> <span class="mi">86400</span>
+
+        <span class="c1"># The total RA and DEC change.</span>
+        <span class="n">ra_change</span> <span class="o">=</span> <span class="n">ra_rate</span> <span class="o">*</span> <span class="n">delta_time</span>
+        <span class="n">dec_change</span> <span class="o">=</span> <span class="n">dec_rate</span> <span class="o">*</span> <span class="n">delta_time</span>
+
+        <span class="c1"># Pixel scale, in arcsec per pixel.</span>
+        <span class="n">PIXEL_SCALE</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL</span>
+        <span class="c1"># We assume the image is aligned N/E to Y/X so a simple image</span>
+        <span class="c1"># translation can be used.</span>
+        <span class="n">x_pix_change</span> <span class="o">=</span> <span class="n">ra_change</span> <span class="o">/</span> <span class="n">PIXEL_SCALE</span>
+        <span class="n">y_pix_change</span> <span class="o">=</span> <span class="o">-</span><span class="n">dec_change</span> <span class="o">/</span> <span class="n">PIXEL_SCALE</span>
+
+        <span class="c1"># We shift the reference image forward in time as Scipy splines and</span>
+        <span class="c1"># it is best not to interpolate the real data. We assume nothing about</span>
+        <span class="c1"># the outside parts of the image, so there is no data for them.</span>
+        <span class="n">shifted_reference_data</span> <span class="o">=</span> <span class="n">sp_ndimage</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">y_pix_change</span><span class="p">,</span> <span class="n">x_pix_change</span><span class="p">),</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+            <span class="n">cval</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtract_non_sidereal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">-</span> <span class="n">shifted_reference_data</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetSelectorWindow._recompute_colorbar_autoscale"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._recompute_colorbar_autoscale">[docs]</a>    <span class="k">def</span> <span class="nf">_recompute_colorbar_autoscale</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">lower_percentile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">higher_percentile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">99</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This is a function to recompute the autoscaling of the colorbar.</span>
+
+<span class="sd">        This function needs to be split from the connection buttons otherwise</span>
+<span class="sd">        an infinite loop occurs because of their inherent and expected calls</span>
+<span class="sd">        to refresh the window.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        lower_percentile : float, default = 1</span>
+<span class="sd">            The lower percentile value which will be defined at the zero point</span>
+<span class="sd">            for the colorbar.</span>
+<span class="sd">        higher_percentile : float, default = 99</span>
+<span class="sd">            The higher (upper) percentile value which will be defined as the</span>
+<span class="sd">            one point for the colorbar.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Percentiles must be between 0 &lt;= p &lt;= 100.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">lower_percentile</span> <span class="o">&lt;=</span> <span class="mi">100</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">higher_percentile</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The percentiles given for the colorbar scaling are not between 0 and&quot;</span>
+                <span class="s2">&quot; 100 as expected of percentiles.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># The subset of the data that is currently displayed on the screen.</span>
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+        <span class="n">displayed_plotted_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plotted_data</span><span class="p">[</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">ymin</span><span class="p">)</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">ymax</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xmin</span><span class="p">)</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">xmax</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="c1"># Calculate the percentile values from this subarray as the colorbar</span>
+        <span class="c1"># bounds. If the images was translated, there will be NaNs to deal</span>
+        <span class="c1"># with.</span>
+        <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span>
+            <span class="n">displayed_plotted_image</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="p">[</span><span class="n">lower_percentile</span><span class="p">,</span> <span class="n">higher_percentile</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_low</span> <span class="o">=</span> <span class="n">low</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_scale_high</span> <span class="o">=</span> <span class="n">high</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TargetSelectorWindow.find_target_location"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.find_target_location">[docs]</a>    <span class="k">def</span> <span class="nf">find_target_location</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Find the location of a target by using a guessed location.</span>
+<span class="sd">        The bounds of the search is specified by the rectangle.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x0 : float</span>
+<span class="sd">            The lower x axis bound of the search area. These values are cast</span>
+<span class="sd">            into integers upon indexing the search area.</span>
+<span class="sd">        x1 : float</span>
+<span class="sd">            The upper x axis bound of the search area. These values are cast</span>
+<span class="sd">            into integers upon indexing the search area.</span>
+<span class="sd">        y0 : float</span>
+<span class="sd">            The lower y axis bound of the search area. These values are cast</span>
+<span class="sd">            into integers upon indexing the search area.</span>
+<span class="sd">        y1 : float</span>
+<span class="sd">            The upper y axis bound of the search area. These values are cast</span>
+<span class="sd">            into integers upon indexing the search area.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        target_x : float</span>
+<span class="sd">            The location of the target, based on the guess.</span>
+<span class="sd">        target_y : float</span>
+<span class="sd">            The location of the target, based on the guess.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Define the search area by the search radius. Being generous on the</span>
+        <span class="c1"># search radius.</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y0</span><span class="p">)</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">search_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="p">[</span>
+            <span class="n">y0</span><span class="p">:</span><span class="n">y1</span><span class="p">,</span>
+            <span class="n">x0</span><span class="p">:</span><span class="n">x1</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Find the location of the target. Using the maximum pixel value as</span>
+        <span class="c1"># it.</span>
+        <span class="n">search_y</span><span class="p">,</span> <span class="n">search_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nanargmax</span><span class="p">(</span><span class="n">search_array</span><span class="p">),</span> <span class="n">search_array</span><span class="o">.</span><span class="n">shape</span>
+        <span class="p">)</span>
+        <span class="c1"># Transform it back into the total array coordinates.</span>
+        <span class="n">target_x</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">search_x</span>
+        <span class="n">target_y</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">search_y</span>
+        <span class="c1"># Define the location of the target as the center of the maximum</span>
+        <span class="c1"># pixel, not its edge.</span>
+        <span class="n">target_x</span> <span class="o">+=</span> <span class="mf">0.5</span>
+        <span class="n">target_y</span> <span class="o">+=</span> <span class="mf">0.5</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div></div>
+
+
+<div class="viewcode-block" id="ask_user_target_selector_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.ask_user_target_selector_window">[docs]</a><span class="k">def</span> <span class="nf">ask_user_target_selector_window</span><span class="p">(</span>
+    <span class="n">current_fits_filename</span><span class="p">,</span> <span class="n">reference_fits_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Use the target selector window to have the user provide the</span>
+<span class="sd">    information needed to determine the location of the target.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    current_fits_filename : string</span>
+<span class="sd">        The current fits filename which will be used to determine where the</span>
+<span class="sd">        location of the target is.</span>
+<span class="sd">    reference_fits_filename : string, default = None</span>
+<span class="sd">        The reference fits filename which will be used to compare against the</span>
+<span class="sd">        current fits filename to determine where the location of the target</span>
+<span class="sd">        is. If None, then no image will be loaded until manually specified.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    target_x : float</span>
+<span class="sd">        The location of the target in the x axis direction.</span>
+<span class="sd">    target_y : float</span>
+<span class="sd">        The location of the target in the y axis direction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create the target selector viewer window and let the user interact with</span>
+    <span class="c1"># it until they let the answer be found.</span>
+    <span class="n">target_selector_window</span> <span class="o">=</span> <span class="n">TargetSelectorWindow</span><span class="p">(</span>
+        <span class="n">current_fits_filename</span><span class="o">=</span><span class="n">current_fits_filename</span><span class="p">,</span>
+        <span class="n">reference_fits_filename</span><span class="o">=</span><span class="n">reference_fits_filename</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Freeze all other processes until the location of the target has been</span>
+    <span class="c1"># determined. This is a blocking process because everything else requires</span>
+    <span class="c1"># this to be done.</span>
+    <span class="n">target_selector_window</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">WidgetAttribute</span><span class="o">.</span><span class="n">WA_DeleteOnClose</span><span class="p">)</span>
+    <span class="n">target_selector_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="c1"># Using an event loop to wait until the widget closes, which is when</span>
+    <span class="c1"># the user is done selecting the target location.</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEventLoop</span><span class="p">()</span>
+    <span class="n">target_selector_window</span><span class="o">.</span><span class="n">destroyed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">loop</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+    <span class="c1"># The extracted target pixel location values.</span>
+    <span class="n">target_x</span> <span class="o">=</span> <span class="n">target_selector_window</span><span class="o">.</span><span class="n">target_x</span>
+    <span class="n">target_y</span> <span class="o">=</span> <span class="n">target_selector_window</span><span class="o">.</span><span class="n">target_y</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+
+    <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span> <span class="o">=</span> <span class="n">ask_user_target_selector_window</span><span class="p">()</span>
+
+    <span class="n">application</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># This is really just to test the GUI, to actually use the GUI, please use</span>
+    <span class="c1"># the proper function.</span>
+    <span class="n">application</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+
+    <span class="c1">##### TESTING</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="mf">0.025</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">data_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">Z1</span> <span class="o">-</span> <span class="n">Z2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ask_user_target_selector_window</span><span class="p">(</span><span class="n">data_array</span><span class="o">=</span><span class="n">data_array</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;XY Coordinates: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

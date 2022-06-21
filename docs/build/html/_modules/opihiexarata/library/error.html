@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.library.error &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.library.error</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.library.error</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Error, warning, and logging functionality pertinent to the function of Exarata.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Halting errors</span>
+<span class="c1">####################</span>
+
+
+<div class="viewcode-block" id="ExarataBaseException"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataBaseException">[docs]</a><span class="k">class</span> <span class="nc">ExarataBaseException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base exception class. This is for exceptions that should never be</span>
+<span class="sd">    caught and should bring everything to a halt.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ExarataBaseException.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataBaseException.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The initialization of a base exception for OpihiExarata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        message : string</span>
+<span class="sd">            The message of the error message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The user&#39;s message.</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Unrecoverable error!&quot;</span>
+        <span class="c1"># There also defined is two extra lines of text, this helps with</span>
+        <span class="c1"># giving the user more information as to how to proceed.</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;(OpihiExarata) TERMINAL - &quot;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;&gt;&gt; Contact the maintainers of OpihiExarata to fix this issue.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="n">suffix</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span></div>
+
+
+<div class="viewcode-block" id="DevelopmentError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.DevelopmentError">[docs]</a><span class="k">class</span> <span class="nc">DevelopmentError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error where the development of OpihiExarata is not correct and</span>
+<span class="sd">    something is not coded based on the expectations of the software itself.</span>
+<span class="sd">    This is not the fault of the user.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LogicFlowError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.LogicFlowError">[docs]</a><span class="k">class</span> <span class="nc">LogicFlowError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error to ensure that the logic does not flow to a point to a</span>
+<span class="sd">    place where it is not supposed to. This is helpful in making sure changes</span>
+<span class="sd">    to the code do not screw up the logical flow of the program.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="PracticalityError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.PracticalityError">[docs]</a><span class="k">class</span> <span class="nc">PracticalityError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error to be used when what is trying to be done does not</span>
+<span class="sd">    seem reasonable. Usually warnings are the better vehicle for this but</span>
+<span class="sd">    this error is used when the assumptions for reasonability guided</span>
+<span class="sd">    development and what the user is trying to do is not currently supported</span>
+<span class="sd">    by the software.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="UndiscoveredError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.UndiscoveredError">[docs]</a><span class="k">class</span> <span class="nc">UndiscoveredError</span><span class="p">(</span><span class="n">ExarataBaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an error used in cases where the source of the error has not</span>
+<span class="sd">    been determined and so a more helpful error message or mitigation strategy</span>
+<span class="sd">    cannot be devised.&quot;&quot;&quot;</span></div>
+
+
+<span class="c1"># Handled errors</span>
+<span class="c1">####################</span>
+
+
+<div class="viewcode-block" id="ExarataException"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataException">[docs]</a><span class="k">class</span> <span class="nc">ExarataException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The main inheriting class which all exceptions use as their base. This</span>
+<span class="sd">    is done for ease of error handling and is something that can and should be</span>
+<span class="sd">    managed.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ExarataException.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataException.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The initialization of a normal exception.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        message : string</span>
+<span class="sd">            The message of the error message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The user&#39;s message.</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Error.&quot;</span>
+        <span class="c1"># Note that these errors are from OpihiExarata.</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;(OpihiExarata) - &quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">message</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span></div>
+
+
+<div class="viewcode-block" id="CommandLineError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.CommandLineError">[docs]</a><span class="k">class</span> <span class="nc">CommandLineError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used where the parameters or arguments entered in the</span>
+<span class="sd">    command line were not correct.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ConfigurationError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ConfigurationError">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used where the expectation of how configuration files</span>
+<span class="sd">    and configuration parameters are structures are violated.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="DirectoryError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.DirectoryError">[docs]</a><span class="k">class</span> <span class="nc">DirectoryError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when there are issues specifically with directories</span>
+<span class="sd">    and not just files.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EngineError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.EngineError">[docs]</a><span class="k">class</span> <span class="nc">EngineError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This error is for when the astrometric, photometric, or asteroid-metric</span>
+<span class="sd">    solver engines provided are not valid or expected. This error can also be</span>
+<span class="sd">    used when an engine fails to solve or otherwise does not work as</span>
+<span class="sd">    intended.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="FileError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.FileError">[docs]</a><span class="k">class</span> <span class="nc">FileError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when obtaining data files or configuration files</span>
+<span class="sd">    and something fails.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InputError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.InputError">[docs]</a><span class="k">class</span> <span class="nc">InputError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when the inputs to a function are not valid and do</span>
+<span class="sd">    not match the expectations of that function.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InstallError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.InstallError">[docs]</a><span class="k">class</span> <span class="nc">InstallError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when informing the user or the program that the</span>
+<span class="sd">    installation was not done properly and lack some of the features and</span>
+<span class="sd">    assumptions which are a consequence of it.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="IntentionalError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.IntentionalError">[docs]</a><span class="k">class</span> <span class="nc">IntentionalError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used where error catching is helpful. This error</span>
+<span class="sd">    generally should always be caught by the code in context.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ReadOnlyError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ReadOnlyError">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error where variables or files are assumed to be read only, this</span>
+<span class="sd">    enforces that notion.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SequentialOrderError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.SequentialOrderError">[docs]</a><span class="k">class</span> <span class="nc">SequentialOrderError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error used when something is happening out of the expected required</span>
+<span class="sd">    order. This order being in place for specific publically communicated</span>
+<span class="sd">    reasons.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="WebRequestError"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.WebRequestError">[docs]</a><span class="k">class</span> <span class="nc">WebRequestError</span><span class="p">(</span><span class="n">ExarataException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An error to be used when a web request to some API fails, either because</span>
+<span class="sd">    of something from their end, or our end.&quot;&quot;&quot;</span></div>
+
+
+<span class="c1"># Warnings</span>
+<span class="c1">####################</span>
+
+
+<div class="viewcode-block" id="ExarataWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataWarning">[docs]</a><span class="k">class</span> <span class="nc">ExarataWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base warning class which all of the other OpihiExarata warnings</span>
+<span class="sd">    are derived from.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="warn"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.warn">[docs]</a><span class="k">def</span> <span class="nf">warn</span><span class="p">(</span>
+    <span class="n">warn_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">ExarataWarning</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExarataWarning</span><span class="p">,</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The common method to use to warn for any OpihiExarata based warnings.</span>
+
+<span class="sd">    This is used because it has better context manager wrappers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    warn_class : type, default = ExarataWarning</span>
+<span class="sd">        The warning class, it must be a subtype of a user warning.</span>
+<span class="sd">    message : string, default = &quot;&quot;</span>
+<span class="sd">        The warning message.</span>
+<span class="sd">    stacklevel : integer, default = 2</span>
+<span class="sd">        The location in the stack that the warning call will highlight.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The warning class must be a subset of the OpihiExarata warnings as that</span>
+    <span class="c1"># is all this function is supposed to use.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">warn_class</span><span class="p">,</span> <span class="n">ExarataWarning</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">DevelopmentError</span><span class="p">(</span>
+            <span class="s2">&quot;The OpihiExarata warning system is build only for user defined errors&quot;</span>
+            <span class="s2">&quot; coming from OpihiExarata.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">warn_class</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># Logging</span>
+<span class="c1">####################</span>
+
+
+<span class="c1"># Context manegers</span>
+<span class="c1">####################</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

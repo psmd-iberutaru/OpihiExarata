@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.orbit.solution &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.orbit.solution</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.orbit.solution</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The orbit solution class.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">sp_optimize</span>
+
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.orbit</span> <span class="k">as</span> <span class="nn">orbit</span>
+
+
+<div class="viewcode-block" id="OrbitalSolution"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution">[docs]</a><span class="k">class</span> <span class="nc">OrbitalSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the class which solves a record of observations to derive the</span>
+<span class="sd">    orbital parameters of asteroids or objects in general. A record of</span>
+<span class="sd">    observations must be provided.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    semimajor_axis : float</span>
+<span class="sd">        The semi-major axis of the orbit solved, in AU.</span>
+<span class="sd">    semimajor_axis_error : float</span>
+<span class="sd">        The error on the semi-major axis of the orbit solved, in AU.</span>
+<span class="sd">    eccentricity : float</span>
+<span class="sd">        The eccentricity of the orbit solved.</span>
+<span class="sd">    eccentricity_error : float</span>
+<span class="sd">        The error on the eccentricity of the orbit solved.</span>
+<span class="sd">    inclination : float</span>
+<span class="sd">        The angle of inclination of the orbit solved, in degrees.</span>
+<span class="sd">    inclination_error : float</span>
+<span class="sd">        The error on the angle of inclination of the orbit solved, in degrees.</span>
+<span class="sd">    longitude_ascending_node : float</span>
+<span class="sd">        The longitude of the ascending node of the orbit solved, in degrees.</span>
+<span class="sd">    longitude_ascending_node_error : float</span>
+<span class="sd">        The error on the longitude of the ascending node of the orbit solved, in degrees.</span>
+<span class="sd">    argument_perihelion : float</span>
+<span class="sd">        The argument of perihelion of the orbit solved, in degrees.</span>
+<span class="sd">    argument_perihelion_error : float</span>
+<span class="sd">        The error on the argument of perihelion of the orbit solved, in degrees.</span>
+<span class="sd">    mean_anomaly : float</span>
+<span class="sd">        The mean anomaly of the orbit solved, in degrees.</span>
+<span class="sd">    mean_anomaly_error : float</span>
+<span class="sd">        The error on the mean anomaly of the orbit solved, in degrees.</span>
+<span class="sd">    true_anomaly : float</span>
+<span class="sd">        The true anomaly of the orbit solved, in degrees. This value is</span>
+<span class="sd">        calculated from the mean anomaly.</span>
+<span class="sd">    true_anomaly_error : float</span>
+<span class="sd">        The error on the true anomaly of the orbit solved, in degrees. This</span>
+<span class="sd">        value is calculated from the error on the mean anomaly.</span>
+<span class="sd">    epoch_julian_day : float</span>
+<span class="sd">        The epoch where for these osculating orbital elements. This value is</span>
+<span class="sd">        in Julian days.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OrbitalSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The initialization function. Provided the list of observations,</span>
+<span class="sd">        solves the orbit for the Keplarian orbits.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        observation_record : list</span>
+<span class="sd">            A list of the standard MPC 80-column observation records. Each</span>
+<span class="sd">            element of the list should be a string representing the observation.</span>
+<span class="sd">        solver_engine : OrbitEngine</span>
+<span class="sd">            The engine which will be used to complete the orbital elements</span>
+<span class="sd">            from the observation record.</span>
+<span class="sd">        vehicle_args : dictionary</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra arguments not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check that the solver engine is a valid submission, that is is an</span>
+        <span class="c1"># expected engine class.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The orbit solver engine provided should be the engine class&quot;</span>
+                <span class="s2">&quot; itself, not an instance thereof.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
+            <span class="c1"># It is fine, the user submitted a valid orbit engine.</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The provided orbit engine is not a valid engine which can be&quot;</span>
+                <span class="s2">&quot; used for orbit solutions.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Derive the orbital elements using the proper vehicle function for</span>
+        <span class="c1"># the desired engine is that is to be used.</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbfitOrbitDeterminerEngine</span><span class="p">):</span>
+            <span class="c1"># Solve using Orbfit.</span>
+            <span class="n">raw_orbit_results</span> <span class="o">=</span> <span class="n">_vehicle_orbfit_orbit_determiner</span><span class="p">(</span>
+                <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">):</span>
+            <span class="c1"># A custom orbit has been desired, the vehicle function arguments</span>
+            <span class="c1"># contain the values needed.</span>
+            <span class="n">raw_orbit_results</span> <span class="o">=</span> <span class="n">_vehicle_custom_orbit</span><span class="p">(</span>
+                <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># There is no vehicle function, the engine is not supported.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The provided orbit engine `</span><span class="si">{eng}</span><span class="s2">` is not supported, there is no&quot;</span>
+                <span class="s2">&quot; associated vehicle function for it.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eng</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">))</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Sanity check on the dictionary-like return.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_orbit_results</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+                <span class="s2">&quot;The results of the orbit engines should be a dictionary. The orbit&quot;</span>
+                <span class="s2">&quot; engine used, and the subsequent vehicle function: </span><span class="si">{engtype}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">engtype</span><span class="o">=</span><span class="n">solver_engine</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Quick type checking; everything should be float or at the least</span>
+            <span class="c1"># float-convertible. This may be unneeded but it does not hurt.</span>
+            <span class="n">orbit_results</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">keydex</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">valuedex</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">raw_orbit_results</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+
+        <span class="c1"># Extract the needed values from the results of the engine.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Semimajor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;semimajor_axis&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">]</span>
+            <span class="c1"># Eccentricity</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;eccentricity&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;eccentricity_error&quot;</span><span class="p">]</span>
+            <span class="c1"># Inclination</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inclination</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;inclination&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inclination_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;inclination_error&quot;</span><span class="p">]</span>
+            <span class="c1"># Longitude</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span>
+                <span class="s2">&quot;longitude_ascending_node_error&quot;</span>
+            <span class="p">]</span>
+            <span class="c1"># Perihelion</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">argument_perihelion</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;argument_perihelion&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">argument_perihelion_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">]</span>
+            <span class="c1"># Mean anomaly</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly_error</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">]</span>
+            <span class="c1"># MJD</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epoch_julian_day</span> <span class="o">=</span> <span class="n">orbit_results</span><span class="p">[</span><span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The engine results provided are insufficient for this orbit&quot;</span>
+                <span class="s2">&quot; solver. Either the engine cannot be used because it cannot provide&quot;</span>
+                <span class="s2">&quot; the needed results, or the vehicle function does not pull the&quot;</span>
+                <span class="s2">&quot; required results from the engine.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Calculating the eccentric anomaly and error from the provided values.</span>
+        <span class="p">(</span>
+            <span class="n">eccentric_anomaly</span><span class="p">,</span>
+            <span class="n">eccentric_anomaly_error</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_eccentric_anomaly</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eccentric_anomaly</span> <span class="o">=</span> <span class="n">eccentric_anomaly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eccentric_anomaly_error</span> <span class="o">=</span> <span class="n">eccentric_anomaly_error</span>
+
+        <span class="c1"># Calculating the true anomaly and error from the provided values.</span>
+        <span class="n">true_anomaly</span><span class="p">,</span> <span class="n">true_anomaly_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_true_anomaly</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_anomaly</span> <span class="o">=</span> <span class="n">true_anomaly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_anomaly_error</span> <span class="o">=</span> <span class="n">true_anomaly_error</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__calculate_eccentric_anomaly</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculating the eccentric anomaly and error from the mean anomaly.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        eccentric_anomaly : float</span>
+<span class="sd">            The eccentric anomaly as derived from the mean anomaly.</span>
+<span class="sd">        eccentric_anomaly_error : float</span>
+<span class="sd">            The eccentric anomaly error derived as an average from the upper</span>
+<span class="sd">            and lower ranges of the mean anomaly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Needed orbital values.</span>
+        <span class="n">eccentricity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span>
+        <span class="n">mean_anomaly</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span>
+        <span class="n">mean_anomaly_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly_error</span>
+        <span class="c1"># Calculating the eccentric anomaly.</span>
+        <span class="n">eccentric_anomaly</span> <span class="o">=</span> <span class="n">_calculate_eccentric_anomaly</span><span class="p">(</span>
+            <span class="n">mean_anomaly</span><span class="o">=</span><span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="o">=</span><span class="n">eccentricity</span>
+        <span class="p">)</span>
+        <span class="c1"># And the error using upper and lower bound method.</span>
+        <span class="n">lower_eccentric_anomaly</span> <span class="o">=</span> <span class="n">_calculate_eccentric_anomaly</span><span class="p">(</span>
+            <span class="n">mean_anomaly</span><span class="o">=</span><span class="n">mean_anomaly</span> <span class="o">-</span> <span class="n">mean_anomaly_error</span><span class="p">,</span> <span class="n">eccentricity</span><span class="o">=</span><span class="n">eccentricity</span>
+        <span class="p">)</span>
+        <span class="n">upper_eccentric_anomaly</span> <span class="o">=</span> <span class="n">_calculate_eccentric_anomaly</span><span class="p">(</span>
+            <span class="n">mean_anomaly</span><span class="o">=</span><span class="n">mean_anomaly</span> <span class="o">+</span> <span class="n">mean_anomaly_error</span><span class="p">,</span> <span class="n">eccentricity</span><span class="o">=</span><span class="n">eccentricity</span>
+        <span class="p">)</span>
+        <span class="n">bounds_eccentric_anomaly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">lower_eccentric_anomaly</span><span class="p">,</span> <span class="n">upper_eccentric_anomaly</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
+        <span class="p">)</span>
+        <span class="n">eccentric_anomaly_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bounds_eccentric_anomaly</span> <span class="o">-</span> <span class="n">eccentric_anomaly</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">eccentric_anomaly</span><span class="p">,</span> <span class="n">eccentric_anomaly_error</span>
+
+    <span class="k">def</span> <span class="nf">__calculate_true_anomaly</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculating the true anomaly and error from the eccentric anomaly.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        true_anomaly : float</span>
+<span class="sd">            The true anomaly as derived from the mean anomaly.</span>
+<span class="sd">        true_anomaly_error : float</span>
+<span class="sd">            The true anomaly error derived as an average from the upper</span>
+<span class="sd">            and lower ranges of the eccentric anomaly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Needed orbital values.</span>
+        <span class="n">eccentricity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span>
+        <span class="n">eccentric_anomaly</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentric_anomaly</span>
+        <span class="n">eccentric_anomaly_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentric_anomaly_error</span>
+        <span class="c1"># Calculating the eccentric anomaly.</span>
+        <span class="n">true_anomaly</span> <span class="o">=</span> <span class="n">_calculate_true_anomaly</span><span class="p">(</span>
+            <span class="n">eccentric_anomaly</span><span class="o">=</span><span class="n">eccentric_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="o">=</span><span class="n">eccentricity</span>
+        <span class="p">)</span>
+        <span class="c1"># And the error using upper and lower bound method.</span>
+        <span class="n">lower_true_anomaly</span> <span class="o">=</span> <span class="n">_calculate_true_anomaly</span><span class="p">(</span>
+            <span class="n">eccentric_anomaly</span><span class="o">=</span><span class="n">eccentric_anomaly</span> <span class="o">-</span> <span class="n">eccentric_anomaly_error</span><span class="p">,</span>
+            <span class="n">eccentricity</span><span class="o">=</span><span class="n">eccentricity</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">upper_true_anomaly</span> <span class="o">=</span> <span class="n">_calculate_true_anomaly</span><span class="p">(</span>
+            <span class="n">eccentric_anomaly</span><span class="o">=</span><span class="n">eccentric_anomaly</span> <span class="o">+</span> <span class="n">eccentric_anomaly_error</span><span class="p">,</span>
+            <span class="n">eccentricity</span><span class="o">=</span><span class="n">eccentricity</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">bounds_true_anomaly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">lower_true_anomaly</span><span class="p">,</span> <span class="n">upper_true_anomaly</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
+        <span class="p">)</span>
+        <span class="n">true_anomaly_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bounds_true_anomaly</span> <span class="o">-</span> <span class="n">true_anomaly</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">true_anomaly</span><span class="p">,</span> <span class="n">true_anomaly_error</span></div>
+
+
+<div class="viewcode-block" id="_calculate_eccentric_anomaly"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution._calculate_eccentric_anomaly">[docs]</a><span class="k">def</span> <span class="nf">_calculate_eccentric_anomaly</span><span class="p">(</span><span class="n">mean_anomaly</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the eccentric anomaly from the mean anomaly and eccentricity</span>
+<span class="sd">    of an orbit. This is found iteratively using Newton&#39;s method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mean_anomaly : float</span>
+<span class="sd">        The mean anomaly of the orbit, in degrees.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    eccentric_anomaly : float</span>
+<span class="sd">        The eccentric anomaly as derived from the mean anomaly, in degrees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Converting first to radians.</span>
+    <span class="n">radian_mean_anomaly</span> <span class="o">=</span> <span class="n">mean_anomaly</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+    <span class="c1"># The main equation to solve using the root finding algorithm; as derived</span>
+    <span class="c1"># from Kepler&#39;s equation.</span>
+    <span class="k">def</span> <span class="nf">root_kepler_equation</span><span class="p">(</span><span class="n">ecc_ano</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mean_ano</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eccen</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ecc_ano</span> <span class="o">-</span> <span class="n">eccen</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ecc_ano</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean_ano</span>
+
+    <span class="k">def</span> <span class="nf">root_kepler_equation_prime</span><span class="p">(</span><span class="n">ecc_ano</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mean_ano</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eccen</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">eccen</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ecc_ano</span><span class="p">)</span>
+
+    <span class="c1"># Initial guess. High eccentricities are better served by a different</span>
+    <span class="c1"># initial guess than the native one.</span>
+    <span class="k">if</span> <span class="n">eccentricity</span> <span class="o">&lt;=</span> <span class="mf">0.7</span><span class="p">:</span>
+        <span class="n">initial_guess</span> <span class="o">=</span> <span class="n">radian_mean_anomaly</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">initial_guess</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="c1"># Using the root finding algorithm to find the eccentric anomaly.</span>
+    <span class="n">root_results</span> <span class="o">=</span> <span class="n">sp_optimize</span><span class="o">.</span><span class="n">root_scalar</span><span class="p">(</span>
+        <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ec_an</span><span class="p">:</span> <span class="n">root_kepler_equation</span><span class="p">(</span>
+            <span class="n">ecc_ano</span><span class="o">=</span><span class="n">ec_an</span><span class="p">,</span> <span class="n">mean_ano</span><span class="o">=</span><span class="n">radian_mean_anomaly</span><span class="p">,</span> <span class="n">eccen</span><span class="o">=</span><span class="n">eccentricity</span>
+        <span class="p">),</span>
+        <span class="n">fprime</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ec_an</span><span class="p">:</span> <span class="n">root_kepler_equation_prime</span><span class="p">(</span>
+            <span class="n">ecc_ano</span><span class="o">=</span><span class="n">ec_an</span><span class="p">,</span> <span class="n">mean_ano</span><span class="o">=</span><span class="n">radian_mean_anomaly</span><span class="p">,</span> <span class="n">eccen</span><span class="o">=</span><span class="n">eccentricity</span>
+        <span class="p">),</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">x0</span><span class="o">=</span><span class="n">initial_guess</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Scipy gives a class back rather than just a tuple of values. Who knows</span>
+    <span class="c1"># why.</span>
+    <span class="n">radian_eccentric_anomaly</span> <span class="o">=</span> <span class="n">root_results</span><span class="o">.</span><span class="n">root</span>
+    <span class="c1"># Converting back to degrees.</span>
+    <span class="n">eccentric_anomaly</span> <span class="o">=</span> <span class="n">radian_eccentric_anomaly</span> <span class="o">*</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">eccentric_anomaly</span></div>
+
+
+<div class="viewcode-block" id="_calculate_true_anomaly"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution._calculate_true_anomaly">[docs]</a><span class="k">def</span> <span class="nf">_calculate_true_anomaly</span><span class="p">(</span><span class="n">eccentric_anomaly</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the true anomaly from the mean anomaly and eccentricity</span>
+<span class="sd">    of an orbit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eccentric_anomaly : float</span>
+<span class="sd">        The eccentric anomaly of the orbit, in degrees.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    true_anomaly : float</span>
+<span class="sd">        The true anomaly as derived from the eccentric anomaly, in degrees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Converting first to radians.</span>
+    <span class="n">radian_eccentric_anomaly</span> <span class="o">=</span> <span class="n">eccentric_anomaly</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+    <span class="c1"># Using just the tangent version. There is no expectation that the</span>
+    <span class="c1"># eccentricity will be close to 1.</span>
+    <span class="n">e_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">eccentricity</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eccentricity</span><span class="p">)</span>
+    <span class="n">radian_true_anomaly</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">radian_eccentric_anomaly</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Converting back to degrees.</span>
+    <span class="n">true_anomaly</span> <span class="o">=</span> <span class="n">radian_true_anomaly</span> <span class="o">*</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">true_anomaly</span></div>
+
+
+<div class="viewcode-block" id="_vehicle_orbfit_orbit_determiner"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution._vehicle_orbfit_orbit_determiner">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_orbfit_orbit_determiner</span><span class="p">(</span><span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This uses the Orbfit engine to calculate orbital elements from the</span>
+<span class="sd">    observation record. The results are then returned to be managed by</span>
+<span class="sd">    the main class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    observation_record : list</span>
+<span class="sd">        The MPC standard 80-column record for observations of the asteroid</span>
+<span class="sd">        by which the orbit shall be computed from.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    orbit_results : dict</span>
+<span class="sd">        The results of the orbit computation using the Orbfit engine. Namely,</span>
+<span class="sd">        this returns the 6 classical Kepler elements, using mean anomaly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Creating the Orbfit class. It does an correct installation check. If</span>
+    <span class="c1"># the installation is wrong, it is mentioned. Catching it should it fail</span>
+    <span class="c1"># to add context as well as the stack trace should give the error</span>
+    <span class="c1"># information.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">orbfit</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbfitOrbitDeterminerEngine</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">(</span>
+            <span class="s2">&quot;The Orbfit engine is not properly installed; thus it cannot be used to&quot;</span>
+            <span class="s2">&quot; compute the orbital elements for this solution class.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Solving for the orbit. This engine has a record-based solution function</span>
+    <span class="c1"># so just using it.</span>
+    <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">mjd_epoch</span> <span class="o">=</span> <span class="n">orbfit</span><span class="o">.</span><span class="n">solve_orbit_via_record</span><span class="p">(</span>
+        <span class="n">observation_record</span><span class="o">=</span><span class="n">observation_record</span>
+    <span class="p">)</span>
+
+    <span class="c1"># As the Orbfit engine returns the epoch as a MJD but the overall solution</span>
+    <span class="c1"># requires it as a Julian date, we convert here.</span>
+    <span class="n">epoch_julian_day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">modified_julian_day_to_julian_day</span><span class="p">(</span>
+        <span class="n">mjd</span><span class="o">=</span><span class="n">mjd_epoch</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Converting the the results from this engine to the standard output</span>
+    <span class="c1"># expected by the vehicle functions for orbit solving.</span>
+    <span class="n">orbit_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;semimajor_axis&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;semimajor_axis&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;eccentricity&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;eccentricity_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;eccentricity_error&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;inclination&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;inclination&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;inclination_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;inclination_error&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span>
+            <span class="s2">&quot;longitude_ascending_node_error&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;argument_perihelion&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">kepler_elements</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">kepler_error</span><span class="p">[</span><span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">:</span> <span class="n">epoch_julian_day</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">orbit_results</span></div>
+
+
+<div class="viewcode-block" id="_vehicle_custom_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution._vehicle_custom_orbit">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_custom_orbit</span><span class="p">(</span><span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is the vehicle function for the specification of a custom orbit.</span>
+
+<span class="sd">    A check is done for the extra vehicle arguments to ensure that the orbital</span>
+<span class="sd">    elements desired are within the arguments. The observation record is</span>
+<span class="sd">    not of concern for this vehicle.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    observation_record : list</span>
+<span class="sd">        The MPC standard 80-column record for observations of the asteroid</span>
+<span class="sd">        by which the orbit shall be computed from.</span>
+<span class="sd">    vehicle_args : dict</span>
+<span class="sd">        The arguments to be passed to the Engine class to help its creation</span>
+<span class="sd">        and solving abilities. In this case, it is just the orbital elements</span>
+<span class="sd">        as defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We do not care about the observation record.</span>
+    <span class="n">__</span> <span class="o">=</span> <span class="n">observation_record</span>
+
+    <span class="c1"># Attempt to create the engine; if some of the values are not in the</span>
+    <span class="c1"># vehicle, then raise an error back.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">custom_orbit</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">(</span><span class="o">**</span><span class="n">vehicle_args</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+            <span class="s2">&quot;The custom orbit engine cannot be created as the required orbital&quot;</span>
+            <span class="s2">&quot; parameters have not been passed down through the vehicle arguments.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Converting the the results from this engine to the standard output</span>
+    <span class="c1"># expected by the vehicle functions for orbit solving. Of course, we are</span>
+    <span class="c1"># just passing the information back up.</span>
+    <span class="n">orbit_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;semimajor_axis&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">,</span>
+        <span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">semimajor_axis_error</span><span class="p">,</span>
+        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span>
+        <span class="s2">&quot;eccentricity_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">eccentricity_error</span><span class="p">,</span>
+        <span class="s2">&quot;inclination&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">inclination</span><span class="p">,</span>
+        <span class="s2">&quot;inclination_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">inclination_error</span><span class="p">,</span>
+        <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">,</span>
+        <span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">longitude_ascending_node_error</span><span class="p">,</span>
+        <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">argument_perihelion</span><span class="p">,</span>
+        <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">argument_perihelion_error</span><span class="p">,</span>
+        <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">mean_anomaly</span><span class="p">,</span>
+        <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">mean_anomaly_error</span><span class="p">,</span>
+        <span class="s2">&quot;epoch_julian_day&quot;</span><span class="p">:</span> <span class="n">custom_orbit</span><span class="o">.</span><span class="n">epoch_julian_day</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">orbit_results</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

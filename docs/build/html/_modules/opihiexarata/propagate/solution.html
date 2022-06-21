@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.propagate.solution &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.propagate.solution</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.propagate.solution</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The main solution class for propagations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.propagate</span> <span class="k">as</span> <span class="nn">propagate</span>
+
+
+<div class="viewcode-block" id="PropagativeSolution"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution">[docs]</a><span class="k">class</span> <span class="nc">PropagativeSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The general solution class for asteroid propagation.</span>
+
+<span class="sd">    This uses the recent past location of asteroids to determine their</span>
+<span class="sd">    future location. For determination based on orbital elements and</span>
+<span class="sd">    ephemerids, use the OrbitalSolution and EphemeriticSolution classes</span>
+<span class="sd">    respectively.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra_array : array-like</span>
+<span class="sd">            The array of right ascensions used fit and extrapolate to,</span>
+<span class="sd">            in degrees.</span>
+<span class="sd">    dec_array : array-like</span>
+<span class="sd">            The array of declinations used fit and extrapolate to, in degrees.</span>
+<span class="sd">    obs_time_array : array-like</span>
+<span class="sd">            An array of observation times which the RA and DEC measurements</span>
+<span class="sd">            were taken at. The values are in Julian days.</span>
+<span class="sd">    raw_ra_velocity : float</span>
+<span class="sd">        The right ascension angular velocity of the target, in degrees per</span>
+<span class="sd">        second. These values are derived straight from the data and not the</span>
+<span class="sd">        propagation engine.</span>
+<span class="sd">    raw_dec_velocity : float</span>
+<span class="sd">        The declination angular velocity of the target, in degrees per</span>
+<span class="sd">        second. These values are derived straight from the data and not the</span>
+<span class="sd">        propagation engine.</span>
+<span class="sd">    raw_ra_acceleration : float</span>
+<span class="sd">        The right ascension angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared. These values are derived straight from the data and</span>
+<span class="sd">        not the propagation engine.</span>
+<span class="sd">    raw_dec_acceleration : float</span>
+<span class="sd">        The declination angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared. These values are derived straight from the data</span>
+<span class="sd">        and not the propagation engine.</span>
+<span class="sd">    ra_velocity : float</span>
+<span class="sd">        The right ascension angular velocity of the target, in degrees per</span>
+<span class="sd">        second. These values are derived from the engine.</span>
+<span class="sd">    dec_velocity : float</span>
+<span class="sd">        The declination angular velocity of the target, in degrees per</span>
+<span class="sd">        second. These values are derived from the engine.</span>
+<span class="sd">    ra_acceleration : float</span>
+<span class="sd">        The right ascension angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared. These values are derived from the engine.</span>
+<span class="sd">    dec_acceleration : float</span>
+<span class="sd">        The declination angular acceleration of the target, in degrees per</span>
+<span class="sd">        second squared. These values are derived from the engine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PropagativeSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">obs_time</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">,</span>
+        <span class="n">vehicle_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The instantiation of the propagation solution.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ra : array-like</span>
+<span class="sd">            An array of right ascensions to fit and extrapolate to, must be in</span>
+<span class="sd">            degrees.</span>
+<span class="sd">        dec : array-like</span>
+<span class="sd">            An array of declinations to fit and extrapolate to, must be in</span>
+<span class="sd">            degrees.</span>
+<span class="sd">        obs_time : array-like</span>
+<span class="sd">            An array of observation times which the RA and DEC measurements</span>
+<span class="sd">            were taken at. Must be Julian days.</span>
+<span class="sd">        solver_engine : PropagationEngine</span>
+<span class="sd">            The propagation solver engine class that will be used to compute</span>
+<span class="sd">            the propagation solution.</span>
+<span class="sd">        vehicle_args : dictionary</span>
+<span class="sd">            If the vehicle function for the provided solver engine needs</span>
+<span class="sd">            extra parameters not otherwise provided by the standard input,</span>
+<span class="sd">            they are given here.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Saving the sent values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">obs_time</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="c1"># Check that the solver engine is a valid submission, that is is an</span>
+        <span class="c1"># expected engine class.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The propagation solver engine provided should be the engine class&quot;</span>
+                <span class="s2">&quot; itself, not an instance thereof.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">):</span>
+            <span class="c1"># It is fine, the user submitted a valid orbit engine.</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The provided propagation engine is not a valid engine which can be&quot;</span>
+                <span class="s2">&quot; used for propagation solutions.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Derive the propagation values using the proper vehicle function for</span>
+        <span class="c1"># the desired engine is that is to be used.</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">LinearPropagationEngine</span><span class="p">):</span>
+            <span class="c1"># The propagation results.</span>
+            <span class="n">raw_propagate_results</span> <span class="o">=</span> <span class="n">_vehicle_linear_propagation</span><span class="p">(</span>
+                <span class="n">ra_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span><span class="p">,</span>
+                <span class="n">dec_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span><span class="p">,</span>
+                <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">QuadraticPropagationEngine</span><span class="p">):</span>
+            <span class="c1"># The propagation results.</span>
+            <span class="n">raw_propagate_results</span> <span class="o">=</span> <span class="n">_vehicle_quadratic_propagation</span><span class="p">(</span>
+                <span class="n">ra_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span><span class="p">,</span>
+                <span class="n">dec_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span><span class="p">,</span>
+                <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># There is no vehicle function, the engine is not supported.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The provided orbit engine `</span><span class="si">{eng}</span><span class="s2">` is not supported, there is no&quot;</span>
+                <span class="s2">&quot; associated vehicle function for it.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eng</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">solver_engine</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="c1"># Get the results of the solution. If the engine did not provide all of</span>
+        <span class="c1"># the needed values, then the engine is deficient.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># The original information.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_propagation_function</span> <span class="o">=</span> <span class="n">raw_propagate_results</span><span class="p">[</span><span class="s2">&quot;propagation_function&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The engine results provided are insufficient for this propagation&quot;</span>
+                <span class="s2">&quot; solver. Either the engine cannot be used because it cannot provide&quot;</span>
+                <span class="s2">&quot; the needed results, or the vehicle function does not pull the&quot;</span>
+                <span class="s2">&quot; required results from the engine.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Deriving the rates from the raw data. They should be similar to the</span>
+        <span class="c1"># propagation but no test shall be done. Here the rates are calculated</span>
+        <span class="c1"># from the three most recent points.</span>
+        <span class="n">r_ra_v</span><span class="p">,</span> <span class="n">r_dc_v</span><span class="p">,</span> <span class="n">r_ra_a</span><span class="p">,</span> <span class="n">r_dc_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__init_compute_raw_motion</span><span class="p">(</span>
+            <span class="n">ra_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span><span class="p">,</span>
+            <span class="n">dec_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span><span class="p">,</span>
+            <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_ra_velocity</span> <span class="o">=</span> <span class="n">r_ra_v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="n">r_ra_a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_dec_velocity</span> <span class="o">=</span> <span class="n">r_dc_v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">r_dc_a</span>
+
+        <span class="c1"># Deriving the rates from the propagation function.</span>
+        <span class="n">p_ra_v</span><span class="p">,</span> <span class="n">p_dc_v</span><span class="p">,</span> <span class="n">p_ra_a</span><span class="p">,</span> <span class="n">p_dc_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__init_compute_propagation_motion</span><span class="p">(</span>
+            <span class="n">obs_time_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_velocity</span> <span class="o">=</span> <span class="n">p_ra_v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_acceleration</span> <span class="o">=</span> <span class="n">p_ra_a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_velocity</span> <span class="o">=</span> <span class="n">p_dc_v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_acceleration</span> <span class="o">=</span> <span class="n">p_dc_a</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__init_compute_raw_motion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Compute the raw velocities and accelerations of RA and DEC.</span>
+
+<span class="sd">        This function prioritizes calculating the raw motion using the most</span>
+<span class="sd">        recent observations only.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ra_array : array-like</span>
+<span class="sd">            The array of right ascensions used fit and extrapolate to,</span>
+<span class="sd">            in degrees.</span>
+<span class="sd">        dec_array : array-like</span>
+<span class="sd">            The array of declinations used fit and extrapolate to, in degrees.</span>
+<span class="sd">        obs_time_array : array-like</span>
+<span class="sd">            An array of observation times which the RA and DEC measurements</span>
+<span class="sd">            were taken at. The values are in Julian days.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        raw_ra_velocity : float</span>
+<span class="sd">            The raw right ascension angular velocity of the target, in degrees</span>
+<span class="sd">            per second.</span>
+<span class="sd">        raw_dec_velocity : float</span>
+<span class="sd">            The raw declination angular velocity of the target, in degrees per</span>
+<span class="sd">            second.</span>
+<span class="sd">        raw_ra_acceleration : float</span>
+<span class="sd">            The raw right ascension angular acceleration of the target, in</span>
+<span class="sd">            degrees per second squared.</span>
+<span class="sd">            propagation engine.</span>
+<span class="sd">        raw_dec_acceleration : float</span>
+<span class="sd">            The raw declination angular acceleration of the target, in</span>
+<span class="sd">            degrees per second squared.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># As the observing time is in Julian days, but as our rates are going</span>
+        <span class="c1"># to be in seconds, it is easier to just transform our units to</span>
+        <span class="c1"># seconds via UNIX time.</span>
+        <span class="n">unix_obs_time_array</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">obs_time_array</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Computing the differences.</span>
+        <span class="n">delta_ra</span> <span class="o">=</span> <span class="n">ra_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ra_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_dec</span> <span class="o">=</span> <span class="n">dec_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">dec_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># First difference is velocity, using the most recent measure to get</span>
+        <span class="c1"># the velocity.</span>
+        <span class="n">raw_ra_velocity</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">raw_dec_velocity</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># The second difference is acceleration. We use midpoint time</span>
+        <span class="c1"># differences to determine the time difference between three</span>
+        <span class="c1"># observations.</span>
+        <span class="k">if</span> <span class="n">unix_obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># There are more than two observations, acceleration can be</span>
+            <span class="c1"># calculated.</span>
+            <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># A true raw acceleration cannot be calculated so we assume zero.</span>
+            <span class="n">raw_ra_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">raw_dec_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">raw_ra_velocity</span><span class="p">,</span>
+            <span class="n">raw_dec_velocity</span><span class="p">,</span>
+            <span class="n">raw_ra_acceleration</span><span class="p">,</span>
+            <span class="n">raw_dec_acceleration</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init_compute_propagation_motion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Compute the raw velocities and accelerations of RA and DEC.</span>
+
+<span class="sd">        This function prioritizes calculating the raw motion using the most</span>
+<span class="sd">        recent observations only.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obs_time_array : array-like</span>
+<span class="sd">            An array of observation times which the RA and DEC measurements</span>
+<span class="sd">            were taken at. The values are in Julian days.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        propagate_ra_velocity : float</span>
+<span class="sd">            The propagative right ascension angular velocity of the target, in degrees</span>
+<span class="sd">            per second.</span>
+<span class="sd">        propagate_dec_velocity : float</span>
+<span class="sd">            The propagative declination angular velocity of the target, in degrees per</span>
+<span class="sd">            second.</span>
+<span class="sd">        propagate_ra_acceleration : float</span>
+<span class="sd">            The propagative right ascension angular acceleration of the target, in</span>
+<span class="sd">            degrees per second squared.</span>
+<span class="sd">            propagation engine.</span>
+<span class="sd">        propagate_dec_acceleration : float</span>
+<span class="sd">            The propagative declination angular acceleration of the target, in</span>
+<span class="sd">            degrees per second squared.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># From the propagation methods, calculate the expected locations</span>
+        <span class="c1"># of the target based on propagation. Although this is forward</span>
+        <span class="c1"># propagation, deriving rates from non-present times is not really</span>
+        <span class="c1"># helpful.</span>
+        <span class="n">ra_array</span><span class="p">,</span> <span class="n">dec_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">obs_time_array</span><span class="p">)</span>
+
+        <span class="c1"># As the observing time is in Julian days, but as our rates are going</span>
+        <span class="c1"># to be in seconds, it is easier to just transform our units to</span>
+        <span class="c1"># seconds via UNIX time.</span>
+        <span class="n">unix_obs_time_array</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">obs_time_array</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Computing the differences.</span>
+        <span class="n">delta_ra</span> <span class="o">=</span> <span class="n">ra_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ra_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_dec</span> <span class="o">=</span> <span class="n">dec_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">dec_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># First difference is velocity, using the most recent measure to get</span>
+        <span class="c1"># the velocity.</span>
+        <span class="n">propagate_ra_velocity</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">propagate_dec_velocity</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># The second difference is acceleration. We use midpoint time</span>
+        <span class="c1"># differences to determine the time difference between three</span>
+        <span class="c1"># observations.</span>
+        <span class="k">if</span> <span class="n">unix_obs_time_array</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># There are more than two observations, acceleration can be</span>
+            <span class="c1"># calculated.</span>
+            <span class="n">delta2_ra</span> <span class="o">=</span> <span class="n">delta_ra</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_ra</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_dec</span> <span class="o">=</span> <span class="n">delta_dec</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">delta_dec</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta2_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">unix_obs_time_array</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">unix_obs_time_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">propagate_ra_acceleration</span> <span class="o">=</span> <span class="n">delta2_ra</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">propagate_dec_acceleration</span> <span class="o">=</span> <span class="n">delta2_dec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delta2_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># A true raw acceleration cannot be calculated so we assume zero.</span>
+            <span class="n">propagate_ra_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">propagate_dec_acceleration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">propagate_ra_velocity</span><span class="p">,</span>
+            <span class="n">propagate_dec_velocity</span><span class="p">,</span>
+            <span class="n">propagate_ra_acceleration</span><span class="p">,</span>
+            <span class="n">propagate_dec_acceleration</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="PropagativeSolution.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;A wrapper call around the engine&#39;s propagation function. This</span>
+<span class="sd">        allows the computation of future positions at a future time using</span>
+<span class="sd">        propagation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        future_time : array-like</span>
+<span class="sd">            The set of future times which to derive new RA and DEC coordinates.</span>
+<span class="sd">            The time must be in Julian days.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        future_ra : ndarray</span>
+<span class="sd">            The set of right ascensions that corresponds to the future times,</span>
+<span class="sd">            in degrees.</span>
+<span class="sd">        future_dec : ndarray</span>
+<span class="sd">            The set of declinations that corresponds to the future times, in</span>
+<span class="sd">            degrees.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_propagation_function</span><span class="p">(</span><span class="n">future_time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span></div></div>
+
+
+<div class="viewcode-block" id="_vehicle_linear_propagation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution._vehicle_linear_propagation">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_linear_propagation</span><span class="p">(</span>
+    <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Derive the propagation from 1st order polynomial extrapolation methods.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra_array : array-like</span>
+<span class="sd">        The array of right ascensions used fit and extrapolate to,</span>
+<span class="sd">        in degrees.</span>
+<span class="sd">    dec_array : array-like</span>
+<span class="sd">        The array of declinations used fit and extrapolate to, in degrees.</span>
+<span class="sd">    obs_time_array : array-like</span>
+<span class="sd">        An array of observation times which the RA and DEC measurements</span>
+<span class="sd">        were taken at. The values are in Julian days.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    solution_results : dictionary</span>
+<span class="sd">        The results of the propagation engine which then gets integrated into</span>
+<span class="sd">        the solution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Instantiate the propagation engine.</span>
+    <span class="n">polyprop</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">LinearPropagationEngine</span><span class="p">(</span>
+        <span class="n">ra</span><span class="o">=</span><span class="n">ra_array</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_array</span><span class="p">,</span> <span class="n">obs_time</span><span class="o">=</span><span class="n">obs_time_array</span>
+    <span class="p">)</span>
+    <span class="c1"># Check that the system uses quadratics, otherwise this section needs to</span>
+    <span class="c1"># be double checked.</span>
+    <span class="k">if</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+            <span class="s2">&quot;The polynomial engine does not use quadratics. This engine function needs&quot;</span>
+            <span class="s2">&quot; to be revised to ensure that it is returning the correct values.&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># The propagation function.</span>
+    <span class="n">propagation_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="c1"># The dictionary that holds the results.</span>
+    <span class="n">solution_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;propagation_function&quot;</span><span class="p">:</span> <span class="n">propagation_function</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">solution_results</span></div>
+
+
+<div class="viewcode-block" id="_vehicle_quadratic_propagation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution._vehicle_quadratic_propagation">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_quadratic_propagation</span><span class="p">(</span>
+    <span class="n">ra_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Derive the propagation from 2nd order polynomial extrapolation methods.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra_array : array-like</span>
+<span class="sd">        The array of right ascensions used fit and extrapolate to,</span>
+<span class="sd">        in degrees.</span>
+<span class="sd">    dec_array : array-like</span>
+<span class="sd">        The array of declinations used fit and extrapolate to, in degrees.</span>
+<span class="sd">    obs_time_array : array-like</span>
+<span class="sd">        An array of observation times which the RA and DEC measurements</span>
+<span class="sd">        were taken at. The values are in Julian days.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    solution_results : dictionary</span>
+<span class="sd">        The results of the propagation engine which then gets integrated into</span>
+<span class="sd">        the solution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Instantiate the propagation engine.</span>
+    <span class="n">polyprop</span> <span class="o">=</span> <span class="n">propagate</span><span class="o">.</span><span class="n">QuadraticPropagationEngine</span><span class="p">(</span>
+        <span class="n">ra</span><span class="o">=</span><span class="n">ra_array</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_array</span><span class="p">,</span> <span class="n">obs_time</span><span class="o">=</span><span class="n">obs_time_array</span>
+    <span class="p">)</span>
+    <span class="c1"># Check that the system uses quadratics, otherwise this section needs to</span>
+    <span class="c1"># be double checked.</span>
+    <span class="k">if</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+            <span class="s2">&quot;The quadratic engine does not use quadratics. This engine function needs&quot;</span>
+            <span class="s2">&quot; to be revised to ensure that it is returning the correct values.&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># The propagation function.</span>
+    <span class="n">propagation_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">polyprop</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span><span class="n">future_time</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="c1"># The dictionary that holds the results.</span>
+    <span class="n">solution_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;propagation_function&quot;</span><span class="p">:</span> <span class="n">propagation_function</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">solution_results</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

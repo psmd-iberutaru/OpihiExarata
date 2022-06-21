@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automatic Mode &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Manual Mode" href="manual_mode.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      <li>Automatic Mode</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user/automatic_mode.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="automatic-mode">
+<span id="user-automatic-mode"></span><h1>Automatic Mode<a class="headerlink" href="#automatic-mode" title="Permalink to this heading"></a></h1>
+<p>The automatic mode of OpihiExarata is its atmospheric monitoring mode. It is
+best operated by its graphical user interface.</p>
+<p>Images, continuously taken by the Opihi telescope and camera, are
+photometrically solved such that their zero points are calculated. The
+program does this automatically after the initial specifications and trigger.</p>
+<p>We present the procedure for operating OpihiExarata, please also reference the
+GUI figure provided for reference. We also summarize the procedure and
+process of the automatic mode via a flowchart.</p>
+<section id="graphical-user-interface">
+<h2>Graphical User Interface<a class="headerlink" href="#graphical-user-interface" title="Permalink to this heading"></a></h2>
+<figure class="align-default" id="id1">
+<img alt="../_images/automatic-mode-gui.png" src="../_images/automatic-mode-gui.png" />
+<figcaption>
+<p><span class="caption-text">The GUI of the automatic mode of OpihiExarata. This is what you see when
+the interface is freshly loaded. Most of the text is filler text, they will
+change as the program is executed.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading"></a></h2>
+<figure class="align-default" id="id2">
+<img alt="../_images/automatic-mode-flowchart.svg" src="../_images/automatic-mode-flowchart.svg" /><figcaption>
+<p><span class="caption-text">A summary of the procedural flowchart of the automatic mode. It includes
+the actions of the user along with the program’s flow afterwards.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<section id="start-and-open-gui">
+<h3>Start and Open GUI<a class="headerlink" href="#start-and-open-gui" title="Permalink to this heading"></a></h3>
+<p>You will want to open the OpihiExarata automatic mode, typically via the
+command-line interface with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opihiexarata</span> <span class="n">automatic</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">--</span><span class="n">secret</span><span class="o">=</span><span class="n">secrets</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>Please replace the configuration parameters with the correct path to your
+configuration and secrets file; see <a class="reference internal" href="configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a> for more
+information.</p>
+</section>
+<section id="specify-data-directory">
+<h3>Specify Data Directory<a class="headerlink" href="#specify-data-directory" title="Permalink to this heading"></a></h3>
+<p>You will need to specify the data directory that the OpihiExarata program will
+pull the most recent images from. This should be the same directory where the
+Opihi camera will be saving the images it is taking constantly.</p>
+<p>You can specify this directory by clicking the <code class="docutils literal notranslate"><span class="pre">Change</span></code> button to bring up
+a directory selecting dialog. The exact form of your dialog is operating system
+dependent as we defer to its implementation. Select the directory using that
+dialog.</p>
+<p>Once submitted, the <code class="docutils literal notranslate"><span class="pre">Fetch</span> <span class="pre">Directory</span></code> entry should change to match your
+selection. This display uses absolute paths; ensure that it is correct.</p>
+</section>
+<section id="specify-solving-engines">
+<h3>Specify Solving Engines<a class="headerlink" href="#specify-solving-engines" title="Permalink to this heading"></a></h3>
+<p>You will need to specify the solving engines that OpihiExarata will use to in
+order to solve the images. For this mode, only the AstrometryEngine(s) and
+PhotometryEngine(s) is considered as it does not use any other engine. The
+selected engines will constantly be used until a different one is specified.</p>
+<p>Specify the desired AstrometryEngine using the left drop-down combo box.
+Specify the desired PhotometryEngine using the right drop-down combo box.
+The “Engines (A, P)” label has also small key to tell you which is which.
+For more information on the available engines, see
+<a class="reference internal" href="../technical/architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a></p>
+</section>
+<section id="trigger-continuous-images">
+<h3>Trigger Continuous Images<a class="headerlink" href="#trigger-continuous-images" title="Permalink to this heading"></a></h3>
+<p>You will need to trigger the Opihi camera to continuously take images.
+Please consult the Opihi camera controller documentation for more information.</p>
+<p>(A little supporting information about operating the camera controller will
+be posted here when more information is available.)</p>
+<p>Ensure that the directory that these continuous images are being saved to is
+the same directory you specified for this program to fetch from.</p>
+</section>
+<section id="trigger-automatic-solving">
+<h3>Trigger Automatic Solving<a class="headerlink" href="#trigger-automatic-solving" title="Permalink to this heading"></a></h3>
+<p>You will need to start automatic solving by triggering it via the <code class="docutils literal notranslate"><span class="pre">Start</span></code>
+button. Once it starts, it will do the following, in order, automatically,
+without need for user intervention:</p>
+<ol class="arabic simple">
+<li><p>It will fetch the most recent fits image as determined by the modification timestamp of all fits files within the specified directory as provided by the operating system.</p></li>
+<li><p>It will pre-process the fetched image according to the preprocessing algorithm, see <a class="reference internal" href="../technical/algorithms/preprocessing.html#technical-algorithms-preprocessing"><span class="std std-ref">Preprocessing</span></a>.</p></li>
+<li><p>It will solve for the astrometric solution of the pre-processed image via the specified AstrometryEngine. The results of the solution will be displayed in the GUI.</p></li>
+<li><p>It will solve for the photometric solution of the pre-processed image via the specified PhotometryEngine. The results of the solution will be displayed in the GUI.</p></li>
+<li><p>It will add this result (the filter zero point measurement) to the archive of observations. The monitoring webpage uses this archive to derive its figures.</p></li>
+<li><p>The results from the pre-processing of the raw image and the subsequent engine solves will be saved to disk under a similar name to the original raw file and in the data directory specified.</p></li>
+<li><p>It will repeat this process until stopped.</p></li>
+</ol>
+<section id="trigger-once-manually">
+<h4>Trigger Once Manually<a class="headerlink" href="#trigger-once-manually" title="Permalink to this heading"></a></h4>
+<p>You may also trigger the automatic solving procedure manually once via the
+<code class="docutils literal notranslate"><span class="pre">Trigger</span></code> button. This will do the entire process as elaborated above,
+except for repeating it.</p>
+</section>
+</section>
+<section id="displayed-status-and-results">
+<h3>Displayed Status and Results<a class="headerlink" href="#displayed-status-and-results" title="Permalink to this heading"></a></h3>
+<p>As each image is solved, the results of the solve will be displayed. We
+describe the fields which change as the automatic solving runs.</p>
+<p>The “Working” field details the file that is currently being (or was last)
+worked on by the automatic solving algorithms. The “Results” field details
+the file that has already been worked on and has been solved without failure.
+When the working file, undergoing the solving, is solved successfully, it
+becomes a file with results and the program designates it as such. If the
+working file failed to solve, it is not transferred over.</p>
+<p>The astrometric and photometric results of the “Results” file is displayed
+as well.</p>
+<p>The “Coordinates” felids specify the on-sky right ascension and declination
+of the center of the image along with the UTC time of when this image was
+taken.</p>
+<p>The “Zero Point” value, calculated via the photometric solver, of the image
+is provided, along with the “Filter” that the image was taken in specified in
+said field. (The filter term is based on the fits metadata.)</p>
+<p>The status of the automatic solving will be displayed under “Loop Status”. The
+possible statuses, and their meanings, are:</p>
+<ul class="simple">
+<li><p><strong>Running</strong>: The automatic loop of fetching and solving images is currently running.</p></li>
+<li><p><strong>Stopped</strong>: The automatic loop of fetching and solving images is stopped.</p></li>
+<li><p><strong>Triggered</strong>: The solving of a single image has been triggered and it is being worked on.</p></li>
+<li><p><strong>Failed</strong>: An image in the automatic loop failed to solve, but this does not stop the loop.</p></li>
+<li><p><strong>Halted</strong>: The loop has been stopped via an alternative method than the <code class="docutils literal notranslate"><span class="pre">Stop</span></code> button.</p></li>
+<li><p><strong>Default</strong>: This is filler text when the GUI is first opened. This should not reappear throughout usage.</p></li>
+</ul>
+</section>
+<section id="stop-automatic-solving">
+<h3>Stop Automatic Solving<a class="headerlink" href="#stop-automatic-solving" title="Permalink to this heading"></a></h3>
+<p>When you want to stop the automatic solving, you can click the <code class="docutils literal notranslate"><span class="pre">Stop</span></code> button
+at any time. This will finish the current image it is working on and stop the
+automatic loop from fetching another image from the data directory. Because of
+the nature of sending information to other services (i.e. the backends to the
+engines), the solving of an image cannot gracefully stopped mid-way and so the
+process must finish and we only prevent it from continuing.</p>
+<p>If you want to stop the solving immediately for whatever reason, it is
+suggested to cancel or crash the process that OpihiExarata is running on.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Stop</span></code> button will not prevent a manual trigger from being executed via
+the <code class="docutils literal notranslate"><span class="pre">Trigger</span></code> button.</p>
+<p>If the infinite automatic loop continues fetching images even after the stop
+button is pressed, this likely means something was changed in the code and
+the original logic failed. A solution to stop the loop is detailed in
+<a class="reference internal" href="troubleshooting.html#user-troubleshooting-automatic-mode-stop-button-not-working"><span class="std std-ref">Automatic Mode Stop Button Not Working</span></a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="manual_mode.html" class="btn btn-neutral float-left" title="Manual Mode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

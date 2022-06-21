@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.photometry.panstarrs &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.photometry.panstarrs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.photometry.panstarrs</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Photometric database access using PANSTARRS data. There are a few ways and </span>
+<span class="sd">they are implemented here.&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ap_ascii</span>
+<span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="n">PANSTARRS_AVAILABLE_COLUMNS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;objName&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;objAltName1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;objAltName2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;objAltName3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;objID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uniquePspsOBid&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ippObjID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;surveyID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;htmID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zoneID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tessID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectionID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;skyCellID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;randomID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;batchID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dvoRegionID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;processingVersion&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;objInfoFlag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;qualityFlag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;raStack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;decStack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;raStackErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;decStackErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;raMean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;decMean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;raMeanErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;decMeanErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;epochMean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;posMeanChisq&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cx&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lambda&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;beta&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;l&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nStackObjectRows&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nStackDetections&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nDetections&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ng&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ni&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ny&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gQfPerfect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanPSFMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanPSFMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanPSFMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanPSFMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanPSFMagMin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanPSFMagMax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanKronMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanKronMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanKronMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanKronMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanApMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanApMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanApMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gMeanApMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gFlags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rQfPerfect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanPSFMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanPSFMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanPSFMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanPSFMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanPSFMagMin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanPSFMagMax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanKronMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanKronMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanKronMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanKronMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanApMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanApMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanApMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rMeanApMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rFlags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iQfPerfect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanPSFMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanPSFMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanPSFMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanPSFMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanPSFMagMin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanPSFMagMax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanKronMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanKronMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanKronMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanKronMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanApMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanApMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanApMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iMeanApMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;iFlags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zQfPerfect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanPSFMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanPSFMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanPSFMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanPSFMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanPSFMagMin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanPSFMagMax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanKronMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanKronMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanKronMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanKronMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanApMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanApMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanApMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zMeanApMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zFlags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yQfPerfect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanPSFMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanPSFMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanPSFMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanPSFMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanPSFMagMin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanPSFMagMax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanKronMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanKronMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanKronMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanKronMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanApMag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanApMagErr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanApMagStd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yMeanApMagNpt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;yFlags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;distance&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="c1"># The column names are fine case insensitive for the MAST API call.</span>
+<span class="n">PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">namedex</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">namedex</span> <span class="ow">in</span> <span class="n">PANSTARRS_AVAILABLE_COLUMNS</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">PanstarrsMastWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PhotometryEngine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is a photometric data extractor using PanSTARRS data obtained from</span>
+<span class="sd">    their catalogs via the MAST API.</span>
+
+<span class="sd">    See https://catalogs.mast.stsci.edu/docs/panstarrs.html for more</span>
+<span class="sd">    information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verify_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create the instance of the API.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        verify_ssl : boolean, default = True</span>
+<span class="sd">            Connecting to the MAST API usually uses SSL verification via HTTPS,</span>
+<span class="sd">            set to False to allow bypassing this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify_ssl</span> <span class="o">=</span> <span class="n">verify_ssl</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine._mask_table_data"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine._mask_table_data">[docs]</a>    <span class="k">def</span> <span class="nf">_mask_table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This masks the raw data derived from PanSTARRS, implementing the</span>
+<span class="sd">        masking/null value specifics of the PanSTARRS system.</span>
+
+<span class="sd">        The point of this is to make masked or invalid data more typical to</span>
+<span class="sd">        the user by abstracting the idiosyncrasies of PanSTARRS.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_table : Astropy Table</span>
+<span class="sd">            The data table to be cleaned up.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        masked_data_table : Astropy Table</span>
+<span class="sd">            The masked table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Enable masking capabilities, requires a new table.</span>
+        <span class="n">masked_data_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">data_table</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Each column has different data types and the method which they are</span>
+        <span class="c1"># flagged as masked are different.</span>
+        <span class="k">for</span> <span class="n">colnamedex</span> <span class="ow">in</span> <span class="n">data_table</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>
+            <span class="n">column_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_table</span><span class="p">[</span><span class="n">colnamedex</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="c1"># The method of masking is dependent on the kind of data contained.</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="n">column_data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span>
+            <span class="k">if</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">):</span>
+                <span class="c1"># It is a string. The method for masking is not known.</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">column_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">):</span>
+                <span class="c1"># It is numerical data, unknown values are denoted by -999.</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">column_data</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span><span class="p">(</span>
+                    <span class="s2">&quot;The data type that PanSTARRS is sending is not one which has an&quot;</span>
+                    <span class="s2">&quot; appropriate masking idiosyncrasy documented and implemented in&quot;</span>
+                    <span class="s2">&quot; this API.&quot;</span>
+                <span class="p">)</span>
+            <span class="c1"># Apply the mask to the column.</span>
+            <span class="n">masked_data_table</span><span class="p">[</span><span class="n">colnamedex</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span>
+        <span class="k">return</span> <span class="n">masked_data_table</span></div>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.cone_search"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.cone_search">[docs]</a>    <span class="k">def</span> <span class="nf">cone_search</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ra</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">dec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">detections</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">color_detections</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">columns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">data_release</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Search the PanSTARRS database for targets within a cone region</span>
+<span class="sd">        specified.</span>
+
+<span class="sd">        The table data returned from this function is not processed and is raw</span>
+<span class="sd">        from the fetching of the results.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ra : float</span>
+<span class="sd">            The right ascension of the center point of the cone search, in</span>
+<span class="sd">            degrees.</span>
+<span class="sd">        dec : float</span>
+<span class="sd">            The declination of the center point of the cone search, in</span>
+<span class="sd">            degrees.</span>
+<span class="sd">        radius : float</span>
+<span class="sd">            The radius from the center point of the cone search in which to</span>
+<span class="sd">            search, in degrees.</span>
+<span class="sd">        detections : int, default = 3</span>
+<span class="sd">            The minimum number of detections each object needs to have to be</span>
+<span class="sd">            included.</span>
+<span class="sd">        color_detections : int, default = 1</span>
+<span class="sd">            The minimum number of detections for the g, r, i, z filters of the</span>
+<span class="sd">            Sloan filters of PanSTARRS. As this is a photometric engine for</span>
+<span class="sd">            OpihiExarata, the filters should be the ones pertinent to the</span>
+<span class="sd">            telescope.</span>
+<span class="sd">        columns : list</span>
+<span class="sd">            The columns that are desired to be pulled. The purpose of this is</span>
+<span class="sd">            to lighten the data download load. If None, then it defaults to</span>
+<span class="sd">            all columns.</span>
+<span class="sd">        max_rows : int, default = 1000</span>
+<span class="sd">            The maximum entries that will be pulled from the server.</span>
+<span class="sd">        data_release : int, default = 2</span>
+<span class="sd">            The PanSTARRS data release version from which to take the data from.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        catalog_results : Astropy Table</span>
+<span class="sd">            The result of the cone search, pulled from the PanSTARRS catalog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that the RA and DEC are within degrees limits. The radius limit</span>
+        <span class="c1"># also should have reasonable limits constrained upon it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ra</span> <span class="o">&lt;=</span> <span class="mi">360</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The right ascension for the cone search must be in degrees and within&quot;</span>
+                <span class="s2">&quot; the reasonable limits thereof.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="o">-</span><span class="mi">90</span> <span class="o">&lt;=</span> <span class="n">dec</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The declination for the cone search must be in degrees and within the&quot;</span>
+                <span class="s2">&quot; reasonable limits thereof.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">radius</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The right ascension for the cone search must be in degrees and within&quot;</span>
+                <span class="s2">&quot; the reasonable limits thereof. The limit is the entire sky.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Sanity checks for the other input parameters.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">detections</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">detections</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">detections</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                    <span class="s2">&quot;The number of required detections must be at least one.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The number of detections inputted must be integer convertable.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">max_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_rows</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">max_rows</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                    <span class="s2">&quot;The number of required maximum rows queried must be at least one.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The number of maximum rows queried inputted must be integer&quot;</span>
+                <span class="s2">&quot; convertable.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Check that the columns provided are valid columns.</span>
+        <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># The default is all columns.</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># Encapsulate it into a list to retain it being a single value.</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">columnlabeldex</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">columnlabeldex</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                    <span class="s2">&quot;The column label `</span><span class="si">{label}</span><span class="s2">` is not a valid column which can be used&quot;</span>
+                    <span class="s2">&quot; with the PanSTARRS query.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">columnlabeldex</span><span class="p">)</span>
+                <span class="p">)</span>
+        <span class="c1"># Specific formatting for the MAST API call.</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">namedex</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">namedex</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+        <span class="n">colstring</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
+
+        <span class="c1"># Check that the data release is suppored.</span>
+        <span class="n">data_release</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_release</span><span class="p">)</span>
+        <span class="n">VALID_PANSTARRS_DATA_RELEASES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data_release</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_PANSTARRS_DATA_RELEASES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The data release version provided is not supported.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># The MAST API service is a url request. Constructing the URL based on</span>
+        <span class="c1"># the provided information.</span>
+        <span class="n">mast_api_url</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr</span><span class="si">{v}</span><span class="s2">/mean?&quot;</span>
+            <span class="s2">&quot;ra=</span><span class="si">{a}</span><span class="s2">&amp;dec=</span><span class="si">{d}</span><span class="s2">&amp;radius=</span><span class="si">{r}</span><span class="s2">&amp;nDetections.gte=</span><span class="si">{n}</span><span class="s2">&amp;columns=</span><span class="si">{c}</span><span class="s2">&amp;pagesize=</span><span class="si">{l}</span><span class="s2">&amp;&quot;</span>
+            <span class="s2">&quot;ng.gte=</span><span class="si">{p}</span><span class="s2">&amp;nr.gte=</span><span class="si">{p}</span><span class="s2">&amp;ni.gte=</span><span class="si">{p}</span><span class="s2">&amp;nz.gte=</span><span class="si">{p}</span><span class="s2">&amp;&quot;</span>
+            <span class="s2">&quot;format=csv&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">v</span><span class="o">=</span><span class="n">data_release</span><span class="p">,</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">ra</span><span class="p">,</span>
+            <span class="n">d</span><span class="o">=</span><span class="n">dec</span><span class="p">,</span>
+            <span class="n">r</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
+            <span class="n">n</span><span class="o">=</span><span class="n">detections</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">colstring</span><span class="p">,</span>
+            <span class="n">l</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
+            <span class="n">p</span><span class="o">=</span><span class="n">color_detections</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Pull the data into a table.</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">mast_api_url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify_ssl</span><span class="p">)</span>
+        <span class="n">catalog_results</span> <span class="o">=</span> <span class="n">ap_ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">catalog_results</span></div>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.masked_cone_search"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.masked_cone_search">[docs]</a>    <span class="k">def</span> <span class="nf">masked_cone_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The same as cone_search, but it also masks the data based on the</span>
+<span class="sd">        masking idiosyncrasies of PanSTARRS.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        (see cone_search)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        masked_catalog_results : Astropy Table</span>
+<span class="sd">            The data from the cone search with the entries masked where</span>
+<span class="sd">            appropriate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the data that will be post-processed using making.</span>
+        <span class="n">catalog_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cone_search</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Mask the table.</span>
+        <span class="n">masked_catalog_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_table_data</span><span class="p">(</span><span class="n">data_table</span><span class="o">=</span><span class="n">catalog_results</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">masked_catalog_results</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

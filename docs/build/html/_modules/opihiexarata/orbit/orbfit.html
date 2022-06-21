@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.orbit.orbfit</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.orbit.orbfit</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This contains the Python wrapper class around Orbfit, assuming the </span>
+<span class="sd">installation procedure was followed.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">import</span> <span class="nn">astropy</span> <span class="k">as</span> <span class="nn">ap</span>
+<span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="c1"># Handling Windows installs are a little more involved so this flag determines</span>
+<span class="c1"># if it is needed.</span>
+<span class="n">_IS_WINDOWS_OPERATING_SYSTEM</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="kc">True</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine">[docs]</a><span class="k">class</span> <span class="nc">OrbfitOrbitDeterminerEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Uses the Orbfit package to determine the orbital elements of an astroid</span>
+<span class="sd">    provided observations. This assumes that the installation instructions</span>
+<span class="sd">    provided were followed.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    orbital_elements : dict</span>
+<span class="sd">        The six Keplarian orbital elements.</span>
+<span class="sd">    orbital_elements_errors : dict</span>
+<span class="sd">        The errors of the orbital elements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Instantiation of the orbfit package.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that the installation is actually valid; otherwise this</span>
+        <span class="c1"># entire class would be useless.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__check_installation</span><span class="p">()</span>
+
+        <span class="c1"># Operating in the temporary directory would clutter it unnecessarily.</span>
+        <span class="c1"># Instead, we work in a subdirectory of it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ORBFIT_OPERATING_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">TEMPORARY_DIRECTORY</span><span class="p">,</span> <span class="s2">&quot;operate_orbfit&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># Preparing the directory for orbfit to work in.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_orbfit_files</span><span class="p">()</span>
+        <span class="c1"># Pre-cleaning of the directory in the event some files were leftover.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clean_orbfit_files</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__check_installation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">no_raise</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Check if the installation was completed according to the</span>
+<span class="sd">        documentation provided. This functions only checks for the existence</span>
+<span class="sd">        of the template files.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        no_raise : bool, default = False</span>
+<span class="sd">            By default, an invalid install will raise. Set this if a False</span>
+<span class="sd">            return without interrupting the flow of the program is desired.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        valid_install : bool</span>
+<span class="sd">            If the installation is detected to be valid, then this returns True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># By default, we assume the installation was wrong.</span>
+        <span class="n">valid_install</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># If the user wants this to run without raising, then catching all of</span>
+        <span class="c1"># the raises that would have happened anyways is a easy solution.</span>
+        <span class="k">if</span> <span class="n">no_raise</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">valid_install</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__check_installation</span><span class="p">(</span><span class="n">no_raise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">:</span>
+                <span class="n">valid_install</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">valid_install</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Otherwise... Let the program stop on a bad install... continuing.</span>
+            <span class="k">pass</span>
+
+        <span class="n">ORBFIT_PATH</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_DIRECTORY</span>
+        <span class="n">ORBFIT_BIN_PATH</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_BINARY_EXECUTABLE_DIRECTORY</span>
+        <span class="c1"># Defined by the install process.</span>
+        <span class="n">ORBFIT_TEMPLATE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ORBFIT_PATH</span><span class="p">,</span> <span class="s2">&quot;exarata&quot;</span><span class="p">)</span>
+        <span class="c1"># These paths are defined by the assumptions made in the install</span>
+        <span class="c1"># process. If these do not exist, it is highly likely the installation</span>
+        <span class="c1"># step for this was not done and it is known that this class will not</span>
+        <span class="c1"># do anything.</span>
+        <span class="n">INP_FILE_PATHNAME</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_TEMPLATE_PATH</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;inp&quot;</span>
+        <span class="p">)</span>
+        <span class="n">OBS_FILE_PATHNAME</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_TEMPLATE_PATH</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;obs&quot;</span>
+        <span class="p">)</span>
+        <span class="n">OOP_FILE_PATHNAME</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_TEMPLATE_PATH</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;oop&quot;</span>
+        <span class="p">)</span>
+        <span class="n">ORBFIT_EXECUTABLE</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="p">[</span><span class="n">ORBFIT_PATH</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">],</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;orbfit&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;x&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># Test if the files exist.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">INP_FILE_PATHNAME</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">(</span>
+                <span class="s2">&quot;The input file which should contain the name of their targets does not&quot;</span>
+                <span class="s2">&quot; exist. Please follow the instructions on setting up the OpihiExarata&quot;</span>
+                <span class="s2">&quot; template files.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OBS_FILE_PATHNAME</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">(</span>
+                <span class="s2">&quot;The observational file which should contain the name of their targets&quot;</span>
+                <span class="s2">&quot; does not exist. Please follow the instructions on setting up &quot;</span>
+                <span class="s2">&quot; the OpihiExarata template files.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OOP_FILE_PATHNAME</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">(</span>
+                <span class="s2">&quot;The operations file which should contain the name of their targets&quot;</span>
+                <span class="s2">&quot; does not exist. Please follow the instructions on setting up &quot;</span>
+                <span class="s2">&quot; the OpihiExarata template files.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ORBFIT_EXECUTABLE</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">(</span>
+                <span class="s2">&quot;The orbfit compiled executable does not exist in the expected binary&quot;</span>
+                <span class="s2">&quot; directory. This is indicative of a bad install of OrbFit. Please&quot;</span>
+                <span class="s2">&quot; reinstall Orbfit.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># An additional check is needed if the system is Windows; the</span>
+        <span class="c1"># Powershell method uses Linux root pathnames for the mounted drive.</span>
+        <span class="c1"># For a Linux system however, the additional handling is not needed.</span>
+        <span class="k">if</span> <span class="n">_IS_WINDOWS_OPERATING_SYSTEM</span><span class="p">:</span>
+            <span class="c1"># Special handling must be used for the path because the path</span>
+            <span class="c1"># provided by the configuration file is an absolute path and</span>
+            <span class="c1"># path join cuts off the preceding paths.</span>
+            <span class="n">test_binary_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="o">*</span><span class="p">[</span><span class="sa">R</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">wsl$&quot;</span><span class="p">,</span> <span class="s2">&quot;Ubuntu/&quot;</span><span class="p">,</span> <span class="n">ORBFIT_BIN_PATH</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">test_binary_dir</span> <span class="o">=</span> <span class="n">ORBFIT_BIN_PATH</span>
+        <span class="n">test_binary_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">test_binary_dir</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;orbfit&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;x&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">test_binary_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InstallError</span><span class="p">(</span>
+                <span class="s2">&quot;The orbfit compiled executable does not exist in the expected&quot;</span>
+                <span class="s2">&quot; directory as per the install instructions. However, it was found in a&quot;</span>
+                <span class="s2">&quot; previous check using the orbfit directory. Check your configuration&quot;</span>
+                <span class="s2">&quot; file that the binary executable directory entry is correct.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If it passed without raising any errors, then the install is likely</span>
+        <span class="c1"># fine.</span>
+        <span class="n">valid_install</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">valid_install</span>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._prepare_orbfit_files"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._prepare_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_prepare_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function prepares the operational directory for Orbfit inside</span>
+<span class="sd">        of the temporary directory. This allows for files to be generated for</span>
+<span class="sd">        useage by the binary orbfit.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The paths which hold the needed files.</span>
+        <span class="n">ORBFIT_BIN</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_BINARY_EXECUTABLE_DIRECTORY</span>
+        <span class="n">ORBFIT_DIR</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_DIRECTORY</span>
+        <span class="n">ORBFIT_TEM</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ORBFIT_DIR</span><span class="p">,</span> <span class="s2">&quot;exarata&quot;</span><span class="p">)</span>
+
+        <span class="c1"># The environment which Orbfit will run needs to be prepared first.</span>
+        <span class="n">ORBFIT_OPERATING_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ORBFIT_OPERATING_DIR</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">):</span>
+            <span class="c1"># It probably already exists because this was run before.</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">)</span>
+        <span class="c1"># Copying the template files.</span>
+        <span class="n">orbfit_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+                <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_TEM</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;*&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">orbfit_list</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">filedex</span><span class="p">,</span> <span class="n">ORBFIT_OPERATING_DIR</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._clean_orbfit_files"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._clean_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_clean_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function cleans up the operational directory of Orbfit.</span>
+<span class="sd">        If there are leftover files, the program may try to use them in a</span>
+<span class="sd">        manner which is not desired. It is usually better to start from</span>
+<span class="sd">        scratch each time to avoid these issues.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The operational directory.</span>
+        <span class="n">ORBFIT_OPERATING_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ORBFIT_OPERATING_DIR</span>
+        <span class="c1"># Removing the files which are considered the results of the orbit</span>
+        <span class="c1"># determination; both error files and the completed files. This</span>
+        <span class="c1"># is based off of the Makefile clean function in the tests.</span>
+        <span class="n">extentions_to_delete</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pro&quot;</span><span class="p">,</span> <span class="s2">&quot;clo&quot;</span><span class="p">,</span> <span class="s2">&quot;odc&quot;</span><span class="p">,</span> <span class="s2">&quot;oel&quot;</span><span class="p">,</span> <span class="s2">&quot;olg&quot;</span><span class="p">,</span> <span class="s2">&quot;oep&quot;</span><span class="p">,</span> <span class="s2">&quot;rwo&quot;</span><span class="p">,</span> <span class="s2">&quot;err&quot;</span><span class="p">]</span>
+        <span class="c1"># Delete the files.</span>
+        <span class="k">for</span> <span class="n">extdex</span> <span class="ow">in</span> <span class="n">extentions_to_delete</span><span class="p">:</span>
+            <span class="n">matching_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+                    <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extdex</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># Removing the files which match the extension pattern.</span>
+            <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">matching_files</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filedex</span><span class="p">)</span>
+
+        <span class="c1"># Resetting the observation file. Although the writing of the file</span>
+        <span class="c1"># should overwrite it, this is a fall back just in case.</span>
+        <span class="n">obs_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;obs&quot;</span>
+        <span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">obs_filename</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">obs_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._solve_single_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">_solve_single_orbit</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;This uses the Orbfit program to an orbit provided a record of</span>
+<span class="sd">        observations. If it cannot be solved, an error is raised.</span>
+
+<span class="sd">        This function is not intended to solve an entire set of observations,</span>
+<span class="sd">        but instead a subset of them. The rational being that orbfit tends to</span>
+<span class="sd">        fail on larger sets; averaging the values of smaller sets is a little</span>
+<span class="sd">        more robust against failure. Use the non-hidden function to compute</span>
+<span class="sd">        orbital elements for a full range of observations.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        observation_table : Astropy Table</span>
+<span class="sd">            The table of observations; this will be converted to the</span>
+<span class="sd">            required formats for processing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kepler_elements : dict</span>
+<span class="sd">            The Keplarian orbital elements.</span>
+<span class="sd">        kepler_error : dict</span>
+<span class="sd">            The error on the Keplarian orbital elements.</span>
+<span class="sd">        modified_julian_date : float</span>
+<span class="sd">            The modified Julian date corresponding to the osculating orbit and</span>
+<span class="sd">            the Keplerian orbital parameters provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The paths which hold the needed files.</span>
+        <span class="n">ORBFIT_BIN</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_BINARY_EXECUTABLE_DIRECTORY</span>
+        <span class="n">ORBFIT_DIR</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_DIRECTORY</span>
+        <span class="n">ORBFIT_TEM</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ORBFIT_DIR</span><span class="p">,</span> <span class="s2">&quot;exarata&quot;</span><span class="p">)</span>
+        <span class="n">ORBFIT_OPERATING_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ORBFIT_OPERATING_DIR</span>
+
+        <span class="c1"># Convert the table into the needed 80-column format.</span>
+        <span class="n">obs_record</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">mpcrecord</span><span class="o">.</span><span class="n">minor_planet_table_to_record</span><span class="p">(</span>
+            <span class="n">table</span><span class="o">=</span><span class="n">observation_table</span>
+        <span class="p">)</span>
+        <span class="c1"># Creating the observation file.</span>
+        <span class="n">obs_file</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;obs&quot;</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">obs_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="c1"># Because for some reason, newlines needs to be added in manually.</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">recorddex</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">recorddex</span> <span class="ow">in</span> <span class="n">obs_record</span><span class="p">)</span>
+
+        <span class="c1"># Execute the Orbfit program, this function call is operating system</span>
+        <span class="c1"># dependnet so we need to handle both Windows and Linux.</span>
+        <span class="n">ORBFIT_EXE</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_BIN</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;orbfit&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;x&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">_IS_WINDOWS_OPERATING_SYSTEM</span><span class="p">:</span>
+            <span class="c1"># The Orbfit executable must use POSIX-like pathnames only as it is</span>
+            <span class="c1"># accessed via WSL. This is a little shoddy.</span>
+            <span class="n">ORBFIT_EXE_WSL_PATH</span> <span class="o">=</span> <span class="n">ORBFIT_EXE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+            <span class="c1"># Leveraging Powershell and WSL.</span>
+            <span class="n">windows_command</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s1">&#39;powershell.exe &quot;cd </span><span class="si">{opdir}</span><span class="s1">; wsl echo exarata | wsl </span><span class="si">{orbexe}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">opdir</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">orbexe</span><span class="o">=</span><span class="n">ORBFIT_EXE_WSL_PATH</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="n">windows_command</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Standard Linux.</span>
+            <span class="n">linux_command</span> <span class="o">=</span> <span class="s2">&quot;cd </span><span class="si">{opdir}</span><span class="s2">; echo exarata | </span><span class="si">{orbexe}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">opdir</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">orbexe</span><span class="o">=</span><span class="n">ORBFIT_EXE</span>
+            <span class="p">)</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="n">linux_command</span>
+        <span class="c1"># Run the command and complete the orbital elements via the Orbfit</span>
+        <span class="c1"># executable.</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Process the output. The results, if successful are stored in an</span>
+        <span class="c1"># orbital elements file which needs to be processed and read in.</span>
+        <span class="c1"># Otherwise, if it failed, then orbfit uses a file flag.</span>
+        <span class="n">orbit_file_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;oel&quot;</span>
+        <span class="p">)</span>
+        <span class="n">error_file_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">ORBFIT_OPERATING_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;exarata&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">error_file_path</span><span class="p">):</span>
+            <span class="c1"># The orbit determincation failed, likely because the software</span>
+            <span class="c1"># could not converge on a good fit.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clean_orbfit_files</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The orbfit software could not determine a fitting orbit solution.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">orbit_file_path</span><span class="p">):</span>
+            <span class="c1"># The orbit has been determined. The parameters can be extracted</span>
+            <span class="c1"># from the orbit file.</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">orbit_file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="c1"># Stripping the newlines; the list itself kind of encodes this.</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span><span class="p">]</span>
+                <span class="c1"># Getting the Kepler orbital elements.</span>
+                <span class="n">kep_ele_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;KEP&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="c1"># Getting the errors on the Kepler orbital elements.</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">kep_err_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;RMS&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="c1"># It does not look like an error was computed; using</span>
+                    <span class="c1"># the configuration defaults. Filling in what is the usual</span>
+                    <span class="c1"># line in the orbit file, but with the new errors.</span>
+                    <span class="n">LIN_ERR_FRAC</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_MAXIMUM_LINEAR_ERROR</span>
+                    <span class="n">ANG_ERR_FRAC</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ORBFIT_MAXIMUM_ANGULAR_ERROR</span>
+                    <span class="n">kep_err_line</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s2">&quot;! RMS    </span><span class="si">{la}</span><span class="s2">   </span><span class="si">{le}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">   </span><span class="si">{a}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">la</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">kep_ele_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:][</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">LIN_ERR_FRAC</span><span class="p">,</span>
+                            <span class="n">le</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">kep_ele_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">LIN_ERR_FRAC</span><span class="p">,</span>
+                            <span class="n">a</span><span class="o">=</span><span class="mi">360</span> <span class="o">*</span> <span class="n">ANG_ERR_FRAC</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="c1"># The modified Julian date which these elements correspond to.</span>
+                <span class="n">mjd_dat_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">linedex</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">content</span> <span class="k">if</span> <span class="s2">&quot;MJD&quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="c1"># Clean up the results so that it does not interfere with future</span>
+            <span class="c1"># runs.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clean_orbfit_files</span><span class="p">()</span>
+            <span class="c1"># The order of the elements and the errors are the same; this</span>
+            <span class="c1"># key from the file.</span>
+            <span class="n">kep_ele_keys</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;semimajor_axis&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;eccentricity&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;inclination&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># The beginning characters, which identified the line, are not</span>
+            <span class="c1"># needed and would mess up float conversion otherwise.</span>
+            <span class="n">kep_ele_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kep_ele_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="n">kep_err_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kep_err_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="n">mjd_dat_values</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mjd_dat_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># Constructing the dictionary which holds the values. The error</span>
+            <span class="c1"># is also noted in the key to avoid confusion.</span>
+            <span class="n">kep_ele_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">keydex</span><span class="p">:</span> <span class="n">valuedex</span>
+                <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">kep_ele_keys</span><span class="p">,</span> <span class="n">kep_ele_values</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">kep_err_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">keydex</span> <span class="o">+</span> <span class="s2">&quot;_error&quot;</span><span class="p">:</span> <span class="n">valuedex</span>
+                <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">kep_ele_keys</span><span class="p">,</span> <span class="n">kep_err_values</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span><span class="p">(</span>
+                <span class="s2">&quot;The output from orbfit execution is unexpected. Neither an orbital&quot;</span>
+                <span class="s2">&quot; elements file or an error file exists.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># For documentation naming conventions.</span>
+        <span class="n">kepler_elements</span> <span class="o">=</span> <span class="n">kep_ele_dict</span>
+        <span class="n">kepler_error</span> <span class="o">=</span> <span class="n">kep_err_dict</span>
+        <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">mjd_dat_values</span>
+        <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Attempts to compute Keplarian orbits provided a table of observations.</span>
+
+<span class="sd">        This function attempts to compute the orbit using the entire</span>
+<span class="sd">        observation table. If it is unable to, then the observations are split</span>
+<span class="sd">        into subsets based on the year of observations. The derived orbital</span>
+<span class="sd">        elements are averaged and errors propagated. If no orbit is found,</span>
+<span class="sd">        then an error is raised.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        observation_record : Astropy Table</span>
+<span class="sd">            The table of observational records; this will be converted to the</span>
+<span class="sd">            required MPC 80 column format.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kepler_elements : dict</span>
+<span class="sd">            The Keplarian orbital elements.</span>
+<span class="sd">        kepler_error : dict</span>
+<span class="sd">            The error on the Keplarian orbital elements.</span>
+<span class="sd">        modified_julian_date : float</span>
+<span class="sd">            The modified Julian date corresponding to the osculating orbit and</span>
+<span class="sd">            the Keplerian orbital parameters provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># First attempt to do the entire observation table. If it works, then</span>
+        <span class="c1"># swell.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sng_k_ele</span><span class="p">,</span> <span class="n">sng_k_err</span><span class="p">,</span> <span class="n">sng_mjd_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solve_single_orbit</span><span class="p">(</span>
+                <span class="n">observation_table</span><span class="o">=</span><span class="n">observation_table</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">:</span>
+            <span class="c1"># The fit failed. The observation table will be split to see if</span>
+            <span class="c1"># the more robust option might work.</span>
+            <span class="k">pass</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Some other unexpected error has occurred; reraise with a higher</span>
+            <span class="c1"># priority for development.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Using the entire observation table worked.</span>
+            <span class="c1"># For documentation naming conventions.</span>
+            <span class="n">kepler_elements</span> <span class="o">=</span> <span class="n">sng_k_ele</span>
+            <span class="n">kepler_error</span> <span class="o">=</span> <span class="n">sng_k_err</span>
+            <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">sng_mjd_date</span>
+            <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Cleaning up for future runs.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clean_orbfit_files</span><span class="p">()</span>
+
+        <span class="c1"># If the code gets here, then the single attempt failed and what is</span>
+        <span class="c1"># next is to split up the observation table.</span>
+
+        <span class="c1"># Extracting the year of the observations.</span>
+        <span class="n">year_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">observation_table</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">])</span>
+        <span class="n">unique_years</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">year_array</span><span class="p">)</span>
+
+        <span class="c1"># The data results.</span>
+        <span class="n">kep_ele_dict_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">kep_err_dict_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mod_jul_date_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># We derive the observational subtables by just indexing the main table based</span>
+        <span class="c1"># on the year.</span>
+        <span class="k">for</span> <span class="n">uyeardex</span> <span class="ow">in</span> <span class="n">unique_years</span><span class="p">:</span>
+            <span class="n">subset_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">year_array</span> <span class="o">==</span> <span class="n">uyeardex</span><span class="p">)</span>
+            <span class="n">subset_obs_table</span> <span class="o">=</span> <span class="n">observation_table</span><span class="p">[</span><span class="n">subset_rows</span><span class="p">]</span>
+            <span class="c1"># Attempt to solve for the orbital elements. If it fails, then continue on.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ele_dict</span><span class="p">,</span> <span class="n">err_dict</span><span class="p">,</span> <span class="n">mjd_flot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solve_single_orbit</span><span class="p">(</span>
+                    <span class="n">observation_table</span><span class="o">=</span><span class="n">subset_obs_table</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">:</span>
+                <span class="c1"># The fit likely failed, this observational subtable will provide us</span>
+                <span class="c1"># nothing.</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Keep the results to average out later.</span>
+                <span class="n">kep_ele_dict_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele_dict</span><span class="p">)</span>
+                <span class="n">kep_err_dict_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">err_dict</span><span class="p">)</span>
+                <span class="n">mod_jul_date_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mjd_flot</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="c1"># Clean up the current files for the next computation.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_clean_orbfit_files</span><span class="p">()</span>
+        <span class="c1"># If no results actually came back and no orbit could be found, then no</span>
+        <span class="c1"># orbital information can be extracted. It should be checked that the results</span>
+        <span class="c1"># are all of the same length though.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kep_ele_dict_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">kep_err_dict_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">mod_jul_date_list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mod_jul_date_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># No results, all of the orbit solving failed.</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                    <span class="s2">&quot;No orbit could be found from the subset of the observations.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Something exists, process it.</span>
+                <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The results returned are not parallel arrays, it is unknown why this would</span>
+            <span class="c1"># happen.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span>
+
+        <span class="c1"># The results stored in the dictionaries, it is easier to use tables and arrays</span>
+        <span class="c1"># despite the overhead.</span>
+        <span class="n">kepler_element_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">kep_ele_dict_list</span><span class="p">)</span>
+        <span class="n">kepler_error_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">kep_err_dict_list</span><span class="p">)</span>
+        <span class="n">mod_julian_date_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mod_jul_date_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="c1"># In order to statistically combine them, the Julian date needs to be the</span>
+        <span class="c1"># same.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">mod_julian_date_array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">mod_julian_date_array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The modified Julian dates are not the same. The orbfit configuration&quot;</span>
+                <span class="s2">&quot; file created at install should contain the same date.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># The mean of the parameters. The angles needs to be treated differently as</span>
+        <span class="c1"># they are circular quantities. See https://en.wikipedia.org/wiki/Circular_mean</span>
+        <span class="c1"># Wrapper functions make it easy to implement with error propagation.</span>
+        <span class="k">def</span> <span class="nf">_average_angle</span><span class="p">(</span><span class="n">ang</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of angles in degrees.&quot;&quot;&quot;</span>
+            <span class="c1"># Numpy trigonometric functions use radians.</span>
+            <span class="n">angles_rad</span> <span class="o">=</span> <span class="n">ang</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+            <span class="c1"># The arctan2 variant of the circular mean is provided.</span>
+            <span class="n">circ_mean_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles_rad</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles_rad</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="c1"># Back into degrees.</span>
+            <span class="n">circ_mean</span> <span class="o">=</span> <span class="n">circ_mean_rad</span> <span class="o">*</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+            <span class="c1"># Sometimes the average of the angle is an equivalent negative</span>
+            <span class="c1"># angle; seemingly by convention, the orbital parameter angles</span>
+            <span class="c1"># should be positive.</span>
+            <span class="n">circ_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">circ_mean</span> <span class="o">+</span> <span class="mi">360</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+            <span class="c1"># Linear errors are used because of a lack of a better method.</span>
+            <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
+            <span class="c1"># Done.</span>
+            <span class="k">return</span> <span class="n">circ_mean</span><span class="p">,</span> <span class="n">lin_error</span>
+
+        <span class="k">def</span> <span class="nf">_average_linear</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;Finds the average and the propagated error of standard linear points.&quot;&quot;&quot;</span>
+            <span class="c1"># Linear median; sometimes orbfit throws out some weird answers.</span>
+            <span class="n">lin_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="c1"># Linear error propagation.</span>
+            <span class="n">lin_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">err</span><span class="o">.</span><span class="n">size</span>
+            <span class="c1"># Done.</span>
+            <span class="k">return</span> <span class="n">lin_mean</span><span class="p">,</span> <span class="n">lin_error</span>
+
+        <span class="c1"># Calculating the average of all of the provided values.</span>
+        <span class="n">avg_semimajor_axis</span><span class="p">,</span> <span class="n">err_semimajor_axis</span> <span class="o">=</span> <span class="n">_average_linear</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;semimajor_axis&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">avg_eccentricity</span><span class="p">,</span> <span class="n">err_eccentricity</span> <span class="o">=</span> <span class="n">_average_linear</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;eccentricity&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;eccentricity_error&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">avg_inclination</span><span class="p">,</span> <span class="n">err_inclination</span> <span class="o">=</span> <span class="n">_average_angle</span><span class="p">(</span>
+            <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;inclination&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;inclination_error&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">avg_longitude</span><span class="p">,</span> <span class="n">err_longitude</span> <span class="o">=</span> <span class="n">_average_angle</span><span class="p">(</span>
+            <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">avg_periapsis</span><span class="p">,</span> <span class="n">err_periapsis</span> <span class="o">=</span> <span class="n">_average_angle</span><span class="p">(</span>
+            <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;argument_perihelion&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">avg_mean_anomaly</span><span class="p">,</span> <span class="n">err_mean_anomaly</span> <span class="o">=</span> <span class="n">_average_angle</span><span class="p">(</span>
+            <span class="n">ang</span><span class="o">=</span><span class="n">kepler_element_table</span><span class="p">[</span><span class="s2">&quot;mean_anomaly&quot;</span><span class="p">],</span>
+            <span class="n">err</span><span class="o">=</span><span class="n">kepler_error_table</span><span class="p">[</span><span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="c1"># This really is not needed, but it might be better than using the</span>
+        <span class="c1"># first value</span>
+        <span class="n">avg_mod_julian_date</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mod_julian_date_array</span><span class="p">)</span>
+
+        <span class="c1"># Assembling the elements into the proper dictionaries to return;</span>
+        <span class="c1"># same with the errors.</span>
+        <span class="n">kepler_elements</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;semimajor_axis&quot;</span><span class="p">:</span> <span class="n">avg_semimajor_axis</span><span class="p">,</span>
+            <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">avg_eccentricity</span><span class="p">,</span>
+            <span class="s2">&quot;inclination&quot;</span><span class="p">:</span> <span class="n">avg_inclination</span><span class="p">,</span>
+            <span class="s2">&quot;longitude_ascending_node&quot;</span><span class="p">:</span> <span class="n">avg_longitude</span><span class="p">,</span>
+            <span class="s2">&quot;argument_perihelion&quot;</span><span class="p">:</span> <span class="n">avg_periapsis</span><span class="p">,</span>
+            <span class="s2">&quot;mean_anomaly&quot;</span><span class="p">:</span> <span class="n">avg_mean_anomaly</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">kepler_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;semimajor_axis_error&quot;</span><span class="p">:</span> <span class="n">err_semimajor_axis</span><span class="p">,</span>
+            <span class="s2">&quot;eccentricity_error&quot;</span><span class="p">:</span> <span class="n">err_eccentricity</span><span class="p">,</span>
+            <span class="s2">&quot;inclination_error&quot;</span><span class="p">:</span> <span class="n">err_inclination</span><span class="p">,</span>
+            <span class="s2">&quot;longitude_ascending_node_error&quot;</span><span class="p">:</span> <span class="n">err_longitude</span><span class="p">,</span>
+            <span class="s2">&quot;argument_perihelion_error&quot;</span><span class="p">:</span> <span class="n">err_periapsis</span><span class="p">,</span>
+            <span class="s2">&quot;mean_anomaly_error&quot;</span><span class="p">:</span> <span class="n">err_mean_anomaly</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">avg_mod_julian_date</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit_via_record"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit_via_record">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit_via_record</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Attempts to compute Keplarian orbits provided a standard 80-column</span>
+<span class="sd">         record of observations.</span>
+
+<span class="sd">        This function calls and depends on `solve_orbfit`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        observation_record : Astropy Table</span>
+<span class="sd">            The record of observations in the standard 80-column format.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kepler_elements : dict</span>
+<span class="sd">            The Keplarian orbital elements.</span>
+<span class="sd">        kepler_error : dict</span>
+<span class="sd">            The error on the Keplarian orbital elements.</span>
+<span class="sd">        modified_julian_date : float</span>
+<span class="sd">            The modified Julian date corresponding to the osculating orbit and</span>
+<span class="sd">            the Keplerian orbital parameters provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Convert from the record to a the table.</span>
+        <span class="n">obs_table</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">mpcrecord</span><span class="o">.</span><span class="n">minor_planet_record_to_table</span><span class="p">(</span>
+            <span class="n">records</span><span class="o">=</span><span class="n">observation_record</span>
+        <span class="p">)</span>
+        <span class="c1"># Calling the primary function.</span>
+        <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_orbit</span><span class="p">(</span>
+            <span class="n">observation_table</span><span class="o">=</span><span class="n">obs_table</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

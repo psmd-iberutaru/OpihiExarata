@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2022.6.20 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#latex">LaTeX</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#directory">Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#modern-install">Modern Install</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#manual-install">Manual Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#directory">Directory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#dependencies">Dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#fortran-compiler">Fortran Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.astrometry.webclient</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.astrometry.webclient</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">urllib.error</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">astropy.wcs</span> <span class="k">as</span> <span class="nn">ap_wcs</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="c1"># The base URL for the API which all other service URLs are derived from.</span>
+<span class="n">_DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://nova.astrometry.net/api/&quot;</span>
+
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">AstrometryNetWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A python-based wrapper around the web API for astrometry.net.</span>
+
+<span class="sd">    This API does not have the full functionality of the default Python client</span>
+<span class="sd">    seen at https://github.com/dstndstn/astrometry.net/blob/master/net/client/client.py.</span>
+<span class="sd">    The point of this class is to be simple enough to be understood by others and</span>
+<span class="sd">    be specialized for OpihiExarata.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _ASTROMETRY_NET_API_BASE_URL : string</span>
+<span class="sd">        The base URL for the API which all other service URLs are derived from.</span>
+<span class="sd">    _apikey : string</span>
+<span class="sd">        The API key used to log in.</span>
+<span class="sd">    original_upload_filename : string</span>
+<span class="sd">        The original filename that was used to upload the data.</span>
+<span class="sd">    session : string</span>
+<span class="sd">        The session ID of this API connection to astrometry.net</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The instantiation, connecting to the web API using the API key.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        url : string, default = None</span>
+<span class="sd">            The base url which all other API URL links are derived from. This</span>
+<span class="sd">            should be used if the API is a self-hosted install or has a</span>
+<span class="sd">            different web source than nova.astrometry.net. Defaults to the</span>
+<span class="sd">            nova.astrometry.net api service.</span>
+<span class="sd">        apikey : string</span>
+<span class="sd">            The API key of the user.</span>
+<span class="sd">        silent : bool, default = True</span>
+<span class="sd">            Should there be printed messages as the processes are executed.</span>
+<span class="sd">            This is helpful for debugging or similar processes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Defining the URL.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ASTROMETRY_NET_API_BASE_URL</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Base parameters.</span>
+        <span class="c1"># The default arguments for uploading files. In (key, value, type) form.</span>
+        <span class="c1"># Detailed is also their useage cases per</span>
+        <span class="c1"># http://astrometry.net/doc/net/api.html#submitting-a-url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_URL_ARGUMENTS</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># These parameters are for licensing and distribution terms.</span>
+            <span class="p">(</span><span class="s2">&quot;allow_commercial_use&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;allow_modifications&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="c1"># For visibility by the general public.</span>
+            <span class="p">(</span><span class="s2">&quot;publicly_visible&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="c1"># Image scaling parameters, if provided, when known, helps the</span>
+            <span class="c1"># processing a little.</span>
+            <span class="p">(</span><span class="s2">&quot;scale_units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_lower&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_upper&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_est&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_err&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="c1"># These parameters allows for the establishment of an initial guess</span>
+            <span class="c1"># specified byt he centers, and its maximal deviation as specified</span>
+            <span class="c1"># by the radius parameter. (In degrees.)</span>
+            <span class="p">(</span><span class="s2">&quot;center_ra&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;center_dec&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="c1"># Image properties, preprocessing it a little can help in its</span>
+            <span class="c1"># determination.</span>
+            <span class="p">(</span><span class="s2">&quot;parity&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;downsample_factor&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;positional_error&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;tweak_order&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;crpix_center&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;invert&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
+            <span class="c1"># These parameters are needed if being sent instead is an x,y list of</span>
+            <span class="c1"># source star positions.</span>
+            <span class="p">(</span><span class="s2">&quot;image_width&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;image_height&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Use the API key to log in a derive a session key.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">session_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__login</span><span class="p">(</span><span class="n">apikey</span><span class="o">=</span><span class="n">apikey</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apikey</span> <span class="o">=</span> <span class="n">apikey</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session_key</span>
+
+        <span class="c1"># Placeholder variables.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_upload_filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_return_results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apikey</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The method to log into the API system.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        apikey : string</span>
+<span class="sd">            The API key for the web API service.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        session_key : string</span>
+<span class="sd">            The session key for this login session.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The key.</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;apikey&quot;</span><span class="p">:</span> <span class="n">apikey</span><span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;session&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Check if the session works and that the API key given is valid.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">session</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The provided API key did not provide a valid session.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The session should be fine.</span>
+            <span class="n">session_key</span> <span class="o">=</span> <span class="n">session</span>
+        <span class="k">return</span> <span class="n">session_key</span>
+
+    <span class="k">def</span> <span class="nf">__get_submission_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Extract the submission ID from the image upload results.&quot;&quot;&quot;</span>
+        <span class="n">image_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image_return_results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__submission_id</span> <span class="o">=</span> <span class="n">image_results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subid&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__submission_id</span>
+
+    <span class="k">def</span> <span class="nf">__set_submission_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Assign the submission ID, it should only be done once when the</span>
+<span class="sd">        image is obtained.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__submission_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__submission_id</span> <span class="o">=</span> <span class="n">sub_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">ReadOnlyError</span><span class="p">(</span>
+                <span class="s2">&quot;The submission ID has already been set by obtaining it from the API&quot;</span>
+                <span class="s2">&quot; service.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__del_submission_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Remove the current submission ID association.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__submission_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">__doc_submission_id</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;When file upload or table upload is sent to the API, the submission ID is&quot;</span>
+        <span class="s2">&quot; saved here.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">__submission_id</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">submission_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span>
+        <span class="n">__get_submission_id</span><span class="p">,</span>
+        <span class="n">__set_submission_id</span><span class="p">,</span>
+        <span class="n">__del_submission_id</span><span class="p">,</span>
+        <span class="n">__doc_submission_id</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_job_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Extract the job ID from the image upload results. It may be the</span>
+<span class="sd">        case that there is not job yet associated with this submission.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the job ID already has been obtained, then there is no reason to</span>
+        <span class="c1"># call the API again.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span>
+        <span class="c1"># Call the API to get the job ID.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">submission_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_submission_results</span><span class="p">(</span>
+                <span class="n">submission_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">submission_id</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">:</span>
+            <span class="c1"># Make a more helpful error message for what is going on.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">submission_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                    <span class="s2">&quot;There cannot be a job id without there being a submission for that&quot;</span>
+                    <span class="s2">&quot; job to operate on.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># What happened is unknown.</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">UndiscoveredError</span><span class="p">(</span><span class="s2">&quot;Why the web request failed is unknown.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">job_id_list</span> <span class="o">=</span> <span class="n">submission_results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="c1"># If there are no jobs, then it is likely still in queue.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">job_id_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="o">=</span> <span class="n">job_id_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__set_job_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Assign the job ID, it should only be done once when the</span>
+<span class="sd">        image is obtained.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="o">=</span> <span class="n">job_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">ReadOnlyError</span><span class="p">(</span>
+                <span class="s2">&quot;The job ID has already been set by obtaining it from the API service.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__del_job_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Remove the current job ID association.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">__doc_job_id</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;When file upload or table upload is sent to the API, the job ID of the&quot;</span>
+        <span class="s2">&quot; submission is saved here.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">__job_id</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">job_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_job_id</span><span class="p">,</span> <span class="n">__set_job_id</span><span class="p">,</span> <span class="n">__del_job_id</span><span class="p">,</span> <span class="n">__doc_job_id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine._generate_service_url"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate the correct URL for the desired service. Because astrometry.net</span>
+<span class="sd">        uses a convention, we can follow it to obtain the desired service URL.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        service : str</span>
+<span class="sd">            The service which the API URL for should be generated from.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        url : str</span>
+<span class="sd">            The URL for the service.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ASTROMETRY_NET_API_BASE_URL</span> <span class="o">+</span> <span class="n">service</span>
+        <span class="k">return</span> <span class="n">url</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine._generate_upload_args"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_upload_args">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_upload_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate the arguments for sending a request. This constructs the</span>
+<span class="sd">        needed arguments, replacing the defaults with user provided arguments</span>
+<span class="sd">        where desired.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs : dict</span>
+<span class="sd">            Arguments which would override the defaults.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        args : dict</span>
+<span class="sd">            The arguments which can be used to send the request.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">defaultdex</span><span class="p">,</span> <span class="n">typedex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_URL_ARGUMENTS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keydex</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">new_value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">keydex</span><span class="p">)</span>
+                <span class="n">new_value</span> <span class="o">=</span> <span class="n">typedex</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">keydex</span><span class="p">:</span> <span class="n">new_value</span><span class="p">})</span>
+            <span class="k">elif</span> <span class="n">defaultdex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">keydex</span><span class="p">:</span> <span class="n">defaultdex</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">args</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine._send_web_request"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._send_web_request">[docs]</a>    <span class="k">def</span> <span class="nf">_send_web_request</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">file_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A wrapper function for sending a webrequest to the astrometry.net API</span>
+<span class="sd">        service. Returns the results as well.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        service : string</span>
+<span class="sd">            The service which is being requested. The web URL is constructed</span>
+<span class="sd">            from this string.</span>
+<span class="sd">        args : dictionary, default = {}</span>
+<span class="sd">            The arguments being sent over the web request.</span>
+<span class="sd">        file_args : dictionary, default = None</span>
+<span class="sd">            If a file is being uploaded instead, special care must be taken to</span>
+<span class="sd">            sure it matches the upload specifications.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : dictionary</span>
+<span class="sd">            The results of the web request if it did not fail.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Obtain the session key derived when this class is instantiated and</span>
+        <span class="c1"># logged into. Use this session key for requests.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">})</span>
+        <span class="c1"># The API requires that the data format must be a JSON based datatype.</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">dictionary_to_json</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+        <span class="c1"># The URL which to send this request to, constructed from the service</span>
+        <span class="c1"># desired.</span>
+        <span class="n">api_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_service_url</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
+
+        <span class="c1"># If the request requires that a file be send, then it must be in the</span>
+        <span class="c1"># correct format. Namely, a multipart/form-data format.</span>
+        <span class="k">if</span> <span class="n">file_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">boundary_key</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="s2">&quot;0123456789&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">19</span><span class="p">)])</span>
+            <span class="n">boundary</span> <span class="o">=</span> <span class="s2">&quot;===============</span><span class="si">{bkey}</span><span class="s2">==&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bkey</span><span class="o">=</span><span class="n">boundary_key</span><span class="p">)</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s1">&#39;multipart/form-data; boundary=&quot;</span><span class="si">{bd}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">bd</span><span class="o">=</span><span class="n">boundary</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">data_pre</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                <span class="s2">&quot;--&quot;</span>
+                <span class="o">+</span> <span class="n">boundary</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;Content-Type: text/plain</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;MIME-Version: 1.0</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s1">&#39;Content-disposition: form-data; name=&quot;request-json&quot;</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="n">json_data</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;--&quot;</span>
+                <span class="o">+</span> <span class="n">boundary</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;Content-Type: application/octet-stream</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;MIME-Version: 1.0</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s1">&#39;Content-disposition: form-data; name=&quot;file&quot;; filename=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">file_args</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">data_post</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;--&quot;</span> <span class="o">+</span> <span class="n">boundary</span> <span class="o">+</span> <span class="s2">&quot;--</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data_pre</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="n">file_args</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data_post</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Otherwise, the form should be standard encoded: x-www-form-encoded</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;request-json&quot;</span><span class="p">:</span> <span class="n">json_data</span><span class="p">}</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Finally send the request.</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">api_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Processing the request.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
+                <span class="n">request</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT</span>
+            <span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">json_to_dictionary</span><span class="p">(</span><span class="n">json_string</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+            <span class="c1"># Check if the status of the request provided is a valid status.</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;errormessage&quot;</span><span class="p">,</span> <span class="s2">&quot;(none)&quot;</span><span class="p">)</span>
+                <span class="c1"># Try to deduce what the error is.</span>
+                <span class="k">if</span> <span class="n">error_message</span> <span class="o">==</span> <span class="s2">&quot;bad apikey&quot;</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                        <span class="s2">&quot;The API key provided is not a valid key.&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                        <span class="s2">&quot;The server returned an error status message: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{message}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">message</span><span class="o">=</span><span class="n">error_message</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The web request output cannot be properly processed. This is likely&quot;</span>
+                <span class="s2">&quot; from a bad web request.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># The logic should not flow beyond this point.</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_job_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the results of a job sent to the API service.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        job_id : str, default = None</span>
+<span class="sd">            The ID of the job that the results should be obtained from. If not</span>
+<span class="sd">            provided, the ID determined by the file upload is used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : dict</span>
+<span class="sd">            The results of the astrometry.net job. They are, in general: (If</span>
+<span class="sd">            the job has not finished yet, None is returned.)</span>
+
+<span class="sd">                - Status : The status of the job.</span>
+<span class="sd">                - Calibration : Calibration of the image uploaded.</span>
+<span class="sd">                - Tags : Known tagged objects in the image, people inputted.</span>
+<span class="sd">                - Machine Tags : Ditto for tags, but only via machine inputs.</span>
+<span class="sd">                - Objects in field : Known objects in the image field.</span>
+<span class="sd">                - Annotations : Known objects in the field, with annotations.</span>
+<span class="sd">                - Info : A collection of most everything above.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">job_id</span> <span class="o">=</span> <span class="n">job_id</span> <span class="k">if</span> <span class="n">job_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span>
+        <span class="c1"># Get the result of the job.</span>
+        <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">job_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">:</span>
+            <span class="c1"># This error is likely because the job is still in queue.</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="c1"># Check that the service was successful.</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">job_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s2">&quot;success&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The job result request failed, check that the job ID is correct or try&quot;</span>
+                <span class="s2">&quot; again later.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># For the status.</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
+            <span class="c1"># For the calibrations.</span>
+            <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">/calibration&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+            <span class="c1"># For the tags.</span>
+            <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">/tags&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;tags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+            <span class="c1"># For the machine tags.</span>
+            <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">/machine_tags&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;machine_tags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+            <span class="c1"># For the objects in field.</span>
+            <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">/objects_in_field&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;objects_in_field&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+            <span class="c1"># For the annotations.</span>
+            <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">/annotations&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+            <span class="c1"># For the info.</span>
+            <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">/info&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_job_status"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_job_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the status of a job specified by its ID.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        job_id : str, default = None</span>
+<span class="sd">            The ID of the job that the results should be obtained from. If not</span>
+<span class="sd">            provided, the ID determined by the file upload is used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        status : string</span>
+<span class="sd">            The status of the submission. If the job has not run yet, None is</span>
+<span class="sd">            returned instead.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">job_id</span> <span class="o">=</span> <span class="n">job_id</span> <span class="k">if</span> <span class="n">job_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span>
+        <span class="c1"># Get the result of the job.</span>
+        <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;jobs/</span><span class="si">{id}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">job_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">:</span>
+            <span class="c1"># This error is likely because the job is still in queue.</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Check the job status.</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">job_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">status</span>
+        <span class="c1"># Should not get here.</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_submission_results"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_submission_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_submission_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submission_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the results of a submission specified by its ID.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        submission_id : str</span>
+<span class="sd">            The ID of the submission. If it is not passed, the ID determined</span>
+<span class="sd">            by the file upload is used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : dict</span>
+<span class="sd">            The result of the submission.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">submission_id</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">submission_id</span> <span class="k">if</span> <span class="n">submission_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">submission_id</span>
+        <span class="p">)</span>
+        <span class="n">service_string</span> <span class="o">=</span> <span class="s2">&quot;submissions/</span><span class="si">{sub_id}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sub_id</span><span class="o">=</span><span class="n">submission_id</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service_string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_submission_status"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_submission_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_submission_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submission_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the status of a submission specified by its ID.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        submission_id : str, default = None</span>
+<span class="sd">            The ID of the submission. If it is not passed, the ID determined</span>
+<span class="sd">            by the file upload is used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        status : string</span>
+<span class="sd">            The status of the submission.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">submission_id</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">submission_id</span> <span class="k">if</span> <span class="n">submission_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">submission_id</span>
+        <span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_submission_results</span><span class="p">(</span><span class="n">submission_id</span><span class="o">=</span><span class="n">submission_id</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation">[docs]</a>    <span class="k">def</span> <span class="nf">get_reference_star_pixel_correlation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">temp_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete_after</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This obtains the table that correlates the location of reference</span>
+<span class="sd">        stars and their pixel locations. It is obtained from the fits corr file</span>
+<span class="sd">        that is downloaded into a temporary directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        job_id : string, default = None</span>
+<span class="sd">            The ID of the job that the results should be obtained from. If not</span>
+<span class="sd">            provided, the ID determined by the file upload is used.</span>
+<span class="sd">        temp_filename : string, default = None</span>
+<span class="sd">            The filename that the downloaded correlation file will be</span>
+<span class="sd">            downloaded as. The path is going to still be in the temporary</span>
+<span class="sd">            directory.</span>
+<span class="sd">        delete_after : bool, default = True</span>
+<span class="sd">            Delete the file after downloading it to extract its information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        correlation_table : Table</span>
+<span class="sd">            The table which details the correlation between the coordinates of</span>
+<span class="sd">            the stars and their pixel locations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">job_id</span> <span class="o">=</span> <span class="n">job_id</span> <span class="k">if</span> <span class="n">job_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span>
+        <span class="c1"># Download the correlation file to read into a data table.</span>
+        <span class="n">upload_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_without_extension</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">original_upload_filename</span>
+        <span class="p">)</span>
+        <span class="n">fits_table_filename</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">temp_filename</span> <span class="k">if</span> <span class="n">temp_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">upload_filename</span> <span class="o">+</span> <span class="s2">&quot;_corr&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># The full path of the filename derived from saving it in a temporary</span>
+        <span class="c1"># directory.</span>
+        <span class="n">corr_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">fits_table_filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span>
+        <span class="p">)</span>
+        <span class="n">corr_pathname</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">temporary</span><span class="o">.</span><span class="n">make_temporary_directory_path</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">corr_filename</span>
+        <span class="p">)</span>
+        <span class="c1"># Save the correlation file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">download_result_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">corr_pathname</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;corr&quot;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">job_id</span>
+        <span class="p">)</span>
+        <span class="c1"># Load the data from the file.</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">correlation_table</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_table_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">corr_pathname</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="c1"># Delete the temporary file after loading it if desired.</span>
+        <span class="k">if</span> <span class="n">delete_after</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">corr_pathname</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">correlation_table</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.get_wcs"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_wcs">[docs]</a>    <span class="k">def</span> <span class="nf">get_wcs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">temp_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete_after</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">WCS</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This obtains the wcs header file and then computes World Coordinate</span>
+<span class="sd">        System solution from it. Because astrometry.net computes it for us,</span>
+<span class="sd">        we just extract it from the header file using Astropy.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        job_id : string, default = None</span>
+<span class="sd">            The ID of the job that the results should be obtained from. If not</span>
+<span class="sd">            provided, the ID determined by the file upload is used.</span>
+<span class="sd">        temp_filename : string, default = None</span>
+<span class="sd">            The filename that the downloaded wcs file will be downloaded as.</span>
+<span class="sd">            The path is going to still be in the temporary directory.</span>
+<span class="sd">        delete_after : bool, default = True</span>
+<span class="sd">            Delete the file after downloading it to extract its information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        wcs : Astropy WCS</span>
+<span class="sd">            The world coordinate solution class for the image provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">job_id</span> <span class="o">=</span> <span class="n">job_id</span> <span class="k">if</span> <span class="n">job_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span>
+        <span class="c1"># Download the correlation file to read into a data table.</span>
+        <span class="n">upload_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_without_extension</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">original_upload_filename</span>
+        <span class="p">)</span>
+        <span class="n">fits_table_filename</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">temp_filename</span> <span class="k">if</span> <span class="n">temp_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">upload_filename</span> <span class="o">+</span> <span class="s2">&quot;_wcs&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># The full path of the filename derived from saving it in a temporary</span>
+        <span class="c1"># directory.</span>
+        <span class="n">corr_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">fits_table_filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span>
+        <span class="p">)</span>
+        <span class="n">corr_pathname</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">temporary</span><span class="o">.</span><span class="n">make_temporary_directory_path</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">corr_filename</span>
+        <span class="p">)</span>
+        <span class="c1"># Save the correlation file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">download_result_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">corr_pathname</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;wcs&quot;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">job_id</span>
+        <span class="p">)</span>
+        <span class="c1"># Load the header from the file.</span>
+        <span class="n">wcs_header</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_header</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">corr_pathname</span><span class="p">)</span>
+        <span class="n">wcs</span> <span class="o">=</span> <span class="n">ap_wcs</span><span class="o">.</span><span class="n">WCS</span><span class="p">(</span><span class="n">wcs_header</span><span class="p">)</span>
+
+        <span class="c1"># Delete the temporary file after loading it if desired.</span>
+        <span class="k">if</span> <span class="n">delete_after</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">corr_pathname</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wcs</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.upload_file"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.upload_file">[docs]</a>    <span class="k">def</span> <span class="nf">upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A wrapper to allow for the uploading of files or images to the API.</span>
+
+<span class="sd">        This also determines the submission ID and the job ID for the uploaded</span>
+<span class="sd">        image and saves it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pathname : str</span>
+<span class="sd">            The pathname of the file to open. The filename is extracted and</span>
+<span class="sd">            used as well.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : dict</span>
+<span class="sd">            The results of the API call to upload the image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># When uploading a new file, the submission and job IDs will change.</span>
+        <span class="c1"># They must be reset because of their read-only nature.</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">submission_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span>
+
+        <span class="c1"># Save the file information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_upload_filename</span> <span class="o">=</span> <span class="n">pathname</span>
+
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_upload_args</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Process the file upload.</span>
+        <span class="n">file_args</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">pathname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">pathname</span><span class="p">)</span>
+            <span class="n">file_args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()}</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span><span class="s2">&quot;File does not exist: </span><span class="si">{path}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">pathname</span><span class="p">))</span>
+        <span class="c1"># Extract the submission id. This allows for easier</span>
+        <span class="c1"># association between this class instance and the uploaded file.</span>
+        <span class="n">upload_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_web_request</span><span class="p">(</span><span class="s2">&quot;upload&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">file_args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_return_results</span> <span class="o">=</span> <span class="n">upload_results</span>
+        <span class="k">return</span> <span class="n">upload_results</span></div>
+
+<div class="viewcode-block" id="AstrometryNetWebAPIEngine.download_result_file"><a class="viewcode-back" href="../../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.download_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">download_result_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Downloads fits data table files which correspond to the job id.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The filename of the file when it is downloaded and saved to disk.</span>
+<span class="sd">        file_type : str</span>
+<span class="sd">            The type of file to be downloaded from astrometry.net. It should</span>
+<span class="sd">            one of the following:</span>
+
+<span class="sd">                - `wcs`: The world corrdinate data table file.</span>
+<span class="sd">                - `new_fits`, `new_image`: A new fits file, containing the</span>
+<span class="sd">                  original image, annotations, and WCS header information.</span>
+<span class="sd">                - `rdls`: A table of reference stars nearby.</span>
+<span class="sd">                - `axy`: A table in of the location of stars detected in the</span>
+<span class="sd">                  provided image.</span>
+<span class="sd">                - `corr`: A table of the correspondences between reference</span>
+<span class="sd">                  stars location in the sky and in pixel space.</span>
+
+<span class="sd">        job_id : str, default = None</span>
+<span class="sd">            The ID of the job that the results should be obtained from. If not</span>
+<span class="sd">            provided, the ID determined by the file upload is used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the proper job ID.</span>
+        <span class="n">job_id</span> <span class="o">=</span> <span class="n">job_id</span> <span class="k">if</span> <span class="n">job_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span>
+        <span class="c1"># Ensure that the type provided is a valid type which we can pull</span>
+        <span class="c1"># from the API service. Accommodating for capitalization.</span>
+        <span class="n">file_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_type</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">valid_api_file_types</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;wcs&quot;</span><span class="p">,</span> <span class="s2">&quot;new_fits&quot;</span><span class="p">,</span> <span class="s2">&quot;rdls&quot;</span><span class="p">,</span> <span class="s2">&quot;axy&quot;</span><span class="p">,</span> <span class="s2">&quot;corr&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_api_file_types</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The provided file type to be downloaded is not a valid type which can&quot;</span>
+                <span class="s2">&quot; be downloaded, it must be one of: </span><span class="si">{fty}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">fty</span><span class="o">=</span><span class="n">valid_api_file_types</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="c1"># Construct the URL for the request. It is a little different from the</span>
+        <span class="c1"># normal API scheme so a new method is made.</span>
+        <span class="k">def</span> <span class="nf">_construct_file_download_url</span><span class="p">(</span><span class="n">ftype</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;Construct the file curl from the file type `ftype` and the</span>
+<span class="sd">            job id `id`.&quot;&quot;&quot;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nova.astrometry.net/</span><span class="si">{_type}</span><span class="s2">_file/</span><span class="si">{_id}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">_type</span><span class="o">=</span><span class="n">ftype</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="nb">id</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">url</span>
+
+        <span class="n">file_download_url</span> <span class="o">=</span> <span class="n">_construct_file_download_url</span><span class="p">(</span><span class="n">ftype</span><span class="o">=</span><span class="n">file_type</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+        <span class="c1"># Before downloading the file, check that the file actually exists.</span>
+        <span class="k">if</span> <span class="n">job_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span><span class="s2">&quot;There is no job to download the file from.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">get_http_status_code</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">file_download_url</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">WebRequestError</span><span class="p">(</span>
+                <span class="s2">&quot;The file download link is not giving an acceptable http status code.&quot;</span>
+                <span class="s2">&quot; It is likely that the job is still processing and thus the data files&quot;</span>
+                <span class="s2">&quot; are not ready.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Download the file.</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">download_file_from_url</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">file_download_url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
