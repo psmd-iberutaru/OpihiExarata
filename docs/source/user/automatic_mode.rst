@@ -11,9 +11,9 @@ Images, continuously taken by the Opihi telescope and camera, are
 photometrically solved such that their zero points are calculated. The 
 program does this automatically after the initial specifications and trigger.
 
-We present the procedure for operating OpihiExarata, please also reference the 
-GUI figure provided for reference. We also summarize the procedure and 
-process of the automatic mode via a flowchart.
+We present the procedure for operating OpihiExarata in its automatic mode, 
+please also reference the GUI figure provided for reference. We also summarize 
+the procedure and process of the automatic mode via a flowchart.
 
 Graphical User Interface
 ========================
@@ -29,7 +29,7 @@ Procedure
 
 .. figure:: /assets/images/automatic-mode-flowchart.*
 
-    A summary of the procedural flowchart of the automatic mode. It includes 
+    A flowchart summary of the procedure of the automatic mode. It includes 
     the actions of the user along with the program's flow afterwards.
 
 

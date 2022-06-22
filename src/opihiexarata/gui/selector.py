@@ -55,7 +55,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
     subtract_non_sidereal : array
         The data after the comparison operation of doing shifting then
         subtracting the two images. This serves mostly as a cache so that it
-        only needs to be computed once.
+        only needs to be computed once. The non-sidereal rates of the
+        current image are used.
     target_x : float
         The x pixel location of the asteroid in the current image.
     target_y : float

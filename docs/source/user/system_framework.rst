@@ -26,7 +26,7 @@ OpihiExarata could not solve it on its own:
 - On-sky target propagation.
 
 These five problems are solved by sending relevant data to other services, 
-utilizing their API to compute a solution. (See our :ref:`user-citations` for 
+utilizing their APIs to compute a solution. (See our :ref:`user-citations` for 
 more references.)
 
 Each of these services are made by different organizations. We access the 
@@ -49,4 +49,4 @@ wrappers can be found in :ref:`technical-architecture-vehicles-solutions`, but
 it likely is particularly of little concern to the average user. 
 
 Conceptually, you may think of the engine as synonymous with the service; the 
-rest are just details.
+rest are just unnecessary details.

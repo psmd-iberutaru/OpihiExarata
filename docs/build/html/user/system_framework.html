@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>System Framework &mdash; OpihiExarata 2022.6.20 documentation</title>
+  <title>System Framework &mdash; OpihiExarata 2022.6.21 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -70,7 +70,29 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="manual_mode.html">Manual Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_mode.html">Manual Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#specify-new-target-name">Specify New Target Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#take-and-image">Take and Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#find-asteroid-location">Find Asteroid Location</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual_mode.html#target-selector-gui">Target Selector GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#compute-astrometric-solution">Compute Astrometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#compute-photometric-solution">Compute Photometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#asteroid-on-sky-position">Asteroid On-Sky Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#historical-observations">Historical Observations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#asteroid-observation-record">Asteroid Observation Record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#asteroid-position-propagation">Asteroid Position Propagation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#orbital-elements">Orbital Elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#ephemeris">Ephemeris</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#asteroid-on-sky-future-track">Asteroid On-Sky Future Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual_mode.html#telescope-control-software-update">Telescope Control Software: Update</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="automatic_mode.html">Automatic Mode</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="automatic_mode.html#procedure">Procedure</a><ul>
@@ -311,7 +333,7 @@ OpihiExarata could not solve it on its own:</p>
 <li><p>On-sky target propagation.</p></li>
 </ul>
 <p>These five problems are solved by sending relevant data to other services,
-utilizing their API to compute a solution. (See our <a class="reference internal" href="citations.html#user-citations"><span class="std std-ref">Citations</span></a> for
+utilizing their APIs to compute a solution. (See our <a class="reference internal" href="citations.html#user-citations"><span class="std std-ref">Citations</span></a> for
 more references.)</p>
 <p>Each of these services are made by different organizations. We access the
 capabilities of theses service by what is called an “engine”. Each service has
@@ -329,7 +351,7 @@ vehicle functions and solution classes for ease of use. More detail about these
 wrappers can be found in <a class="reference internal" href="../technical/architecture/vehicles_solutions.html#technical-architecture-vehicles-solutions"><span class="std std-ref">Vehicles and Solutions</span></a>, but
 it likely is particularly of little concern to the average user.</p>
 <p>Conceptually, you may think of the engine as synonymous with the service; the
-rest are just details.</p>
+rest are just unnecessary details.</p>
 </section>
 </section>
 </section>
