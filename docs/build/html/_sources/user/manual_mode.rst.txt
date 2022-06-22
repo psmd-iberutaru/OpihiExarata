@@ -9,11 +9,11 @@ photometric monitoring can be done manually, and the manual mode is well
 equipped for said use case, it is not the primary use case for the manual mode.
 
 The user uses the Opihi instrument to take images of asteroids. They then 
-specify the location of the asteroid using a GUI (usually by comparing it to 
-a reference image). An astrometric solution can convert the asteroid's 
-pixel location to an on-sky location, and using previous observations, its 
-path across the sky can be determined. This information is used to properly 
-point the IRTF telescope to the desired asteroid target.
+specify the location of the asteroid using a GUI (usually with help from 
+comparing it to a reference image). An astrometric solution can convert the 
+asteroid's pixel location to an on-sky location, and using previous 
+observations, its path across the sky can be determined. This information is 
+used to properly point the IRTF telescope to the desired asteroid target.
 
 We present the procedure for operating OpihiExarata in its manual mode, 
 please also reference the GUI figure provided for reference. We also summarize 
@@ -24,6 +24,8 @@ the procedure and process of the manual mode via a flowchart.
 Graphical User Interface
 ========================
 
+.. _figure-manual-mode-gui-all:
+
 .. figure:: /assets/images/manual-mode-gui-all.*
 
     The GUI of the manual mode of OpihiExarata. This is what you see when 
@@ -31,6 +33,10 @@ Graphical User Interface
     change as the program is executed. Note that there are different tabs for 
     the summary, astrometry, photometry, orbit, ephemeris, and propagation. 
     Each of the sections covers their GUIs, this is just the general GUI.
+
+The manual mode GUI contains a main data window and a few tabs 
+compartmentalizing a lot of the functionality of OpihiExarata, see 
+:numref:`figure-manual-mode-gui-all`.
 
 In the manual mode general GUI, you have three buttons which control file 
 and target acquisition. The ``New Target`` button specifies that you desire to 
@@ -50,14 +56,31 @@ There is also a ``Refresh Window`` button to redraw the image in the viewer and
 to also refresh the information in the tabs. This should not be needed too much 
 as the program should automatically refresh itself if there is new information.
 
-
 Procedure
 =========
+
+.. _figure-manual-mode-flowchart:
 
 .. figure:: /assets/images/manual-mode-flowchart.*
 
     A flowchart summary of the procedure of the manual mode. It includes 
     the actions of the user along with the program's flow afterwards.
+
+We describe the procedure for utilizing the asteroid view-finding (manual) 
+mode of OpihiExarata. See :numref:`figure-automatic-mode-flowchart` for a 
+flowchart summary of this procedure.
+
+
+Start and Open GUI
+------------------
+You will want to open the OpihiExarata manual mode GUI, typically via the 
+command-line interface with::
+
+    opihiexarata manual --config=config.yaml --secret=secrets.yaml
+
+Please replace the configuration parameters with the correct path to your 
+configuration and secrets file; see :ref:`user-configuration` for more 
+information.
 
 
 .. _user-manual-mode-procedure-specify-new-target-name:
@@ -116,10 +139,15 @@ to find the asteroid pixel location.
 Target Selector GUI
 ```````````````````
 
+.. _figure-target-selector-gui:
+
 .. figure:: /assets/images/target-selector-gui.*
 
     The GUI for finding the pixel location of a target in the image. The 
     targets are typically asteroids.
+
+The target selector GUI allows you to select a specific target location in 
+an image, see :numref:`figure-target-selector-gui`.
 
 The current file which you are determining the location of a target in is 
 given by "Current:". A reference image (if provided) to compare against is 
@@ -169,6 +197,8 @@ location of your target will be recorded.
 Compute Astrometric Solution
 ----------------------------
 
+.. _figure-manual-mode-gui-astrometry:
+
 .. figure:: /assets/images/manual-mode-gui-astrometry.*
 
     The astrometry GUI tab for customizing and executing astrometric solutions.
@@ -176,7 +206,8 @@ Compute Astrometric Solution
 The astrometric solution of the image is next to be solved. The pattern of 
 stars within the image is compared with known patterns in astrometric star 
 databases to derive the `WCS <https://fits.gsfc.nasa.gov/fits_wcs.html>`_ 
-astrometric solution of the image.
+astrometric solution of the image. See :numref:`figure-manual-mode-gui-astrometry`
+for the interface for astrometric solutions.
 
 To solve for the astrometric solution of the image, you will need to select 
 the desired astrometric engine from the drop down menu then click on the 
@@ -204,13 +235,17 @@ does nothing without a valid astrometric solution.
 Compute Photometric Solution
 -----------------------------
 
+.. _figure-manual-mode-gui-photometry:
+
 .. figure:: /assets/images/manual-mode-gui-photometry.*
 
     The photometry GUI tab for customizing and executing photometric solutions.
 
 The photometric solution of the image is next to be solved. The brightness of 
 the stars in the image is compared to known filter magnitudes from a 
-photometric database to derive a photometric calibration solution.
+photometric database to derive a photometric calibration solution. 
+See :numref:`figure-manual-mode-gui-photometry` for the interface for photometric 
+solutions.
 
 This is an optional step and is not related to asteroid finding in of itself. 
 This operation can be skipped entirely if a photometric solution is not 
@@ -283,6 +318,8 @@ Both options are sufficient but we recommend
 Asteroid Position Propagation
 -----------------------------
 
+.. _figure-manual-mode-gui-propagate:
+
 .. figure:: /assets/images/manual-mode-gui-propagate.*
 
     The propagation GUI tab for customizing and executing propagation solutions.
@@ -290,7 +327,8 @@ Asteroid Position Propagation
 Propagating the on-sky motion of the asteroid is done by taking the 
 observational record from 
 :ref:`user-manual-mode-procedure-asteroid-observation-record` and propagating 
-only the most recent observations forward in time.
+only the most recent observations forward in time. See 
+:numref:`figure-manual-mode-gui-propagate` for the interface for propagation solutions.
 
 To solve for the propagation solution from the observations, you will need to 
 select the desired propagation engine from the drop down menu then click on the 
@@ -322,12 +360,16 @@ asteroid at the provided time.
 Orbital Elements
 ----------------
 
+.. _figure-manual-mode-gui-orbit:
+
 .. figure:: /assets/images/manual-mode-gui-orbit.*
 
     The orbit GUI tab for customizing and executing orbital solutions.
 
 Provided a list of historical observations, we can solve for the Keplerian 
 orbital elements using preliminary orbit determination for osculating elements.
+See :numref:`figure-manual-mode-gui-orbit` for the interface for orbital 
+solutions.
 
 To solve for the orbital solution from the observations, you will need to 
 select the desired orbit engine from the drop down menu then click on the 
@@ -364,12 +406,16 @@ you can click ``Solve Orbit`` to *solve* for your orbital solution.
 Ephemeris
 ---------
 
+.. _figure-manual-mode-gui-ephemeris:
+
 .. figure:: /assets/images/manual-mode-gui-ephemeris.*
 
     The ephemeris GUI tab for customizing and executing ephemeris solutions.
 
 The orbital elements derived in :ref:`user-manual-mode-procedure-orbital-elements`
-are then used to derive the ephemeris of the asteroid.
+are then used to derive the ephemeris of the asteroid. See 
+:numref:`figure-manual-mode-gui-ephemeris` for the interface for ephemeris 
+solutions.
 
 To solve for the ephemeris solution from the orbital elements, you will need to 
 select the desired ephemeris engine from the drop down menu then click on the 

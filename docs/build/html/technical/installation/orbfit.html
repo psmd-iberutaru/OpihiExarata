@@ -73,6 +73,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../user/manual_mode.html">Manual Mode</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/manual_mode.html#graphical-user-interface">Graphical User Interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../user/manual_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/manual_mode.html#start-and-open-gui">Start and Open GUI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/manual_mode.html#specify-new-target-name">Specify New Target Name</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/manual_mode.html#take-and-image">Take and Image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/manual_mode.html#find-asteroid-location">Find Asteroid Location</a><ul>
@@ -129,7 +130,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#matplotlib">Matplotlib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astropy">Astropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#numpy">Numpy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#gaia">GAIA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#gaia">Gaia</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astrometry-net">Astrometry.net</a></li>
@@ -148,58 +149,46 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technical Manual</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="download.html">Install: Download</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="download.html#via-git-recommended">Via git (Recommended)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="download.html#via-zip-archive">Via .zip Archive</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="python.html#download">Download</a></li>
-<li class="toctree-l4"><a class="reference internal" href="python.html#build">Build</a></li>
-<li class="toctree-l4"><a class="reference internal" href="python.html#install">Install</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="documentation.html">Optional: Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="documentation.html#prerequisites">Prerequisites</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
-<li class="toctree-l5"><a class="reference internal" href="documentation.html#latex">LaTeX</a></li>
-<li class="toctree-l5"><a class="reference internal" href="documentation.html#directory">Directory</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="documentation.html#build">Build</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="windows.html">Optional: Windows Compatibility</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="windows.html#modern-install">Modern Install</a></li>
-<li class="toctree-l5"><a class="reference internal" href="windows.html#manual-install">Manual Install</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="windows.html#verify">Verify</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows.html#final">Final</a></li>
-</ul>
-</li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Install: Orbfit</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#directory">Directory</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#fortran-compiler">Fortran Compiler</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#download-orbfit">Download OrbFit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#compile">Compile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#testing-suite">Testing Suite</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#opihiexarata-template-files">OpihiExarata Template Files</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#automated-scripts">Automated Scripts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="index.html#script-usage">Script Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#manual-installation">Manual Installation</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="download.html">Install: Download</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="python.html">Install: Python Part</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="python.html#download">Download</a></li>
+<li class="toctree-l5"><a class="reference internal" href="python.html#build">Build</a></li>
+<li class="toctree-l5"><a class="reference internal" href="python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="documentation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a></li>
+<li class="toctree-l5"><a class="reference internal" href="windows.html#verify">Verify</a></li>
+<li class="toctree-l5"><a class="reference internal" href="windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Install: Orbfit</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#compile">Compile</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#testing-suite">Testing Suite</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>

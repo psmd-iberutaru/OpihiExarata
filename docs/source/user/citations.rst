@@ -67,7 +67,7 @@ This work makes use of NumPy
 (`Harris et. al. 2020 <https://doi.org/10.1038/s41586-020-2649-2}>`_).
 
 
-GAIA
+Gaia
 ----
 This work makes use of data from the European Space Agency (ESA) mission *Gaia* 
 (`website <https://www.cosmos.esa.int/gaia>`_), processed by the *Gaia* Data 

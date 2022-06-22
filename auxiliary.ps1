@@ -1,5 +1,10 @@
 #requires -PSEdition Core
 
+# Parameter handling for this script.
+Param (
+    [switch]$LaTeX=$False
+)
+
 # Each operating systems has their own unique way to determining how to
 # enter the Python shell. For ease, please set it here so that the alias
 # can be applied uniformly.
@@ -39,6 +44,7 @@ $doc_src = $doc_dir + "source/"
 $doc_bld = $doc_dir + "build/"
 $doc_src_dscd = $doc_src + "code/"
 $doc_bld_html = $doc_bld + "html/"
+$doc_bld_latex = $doc_bld + "latex/"
 $doc_bld_dscd = $doc_bld_html + "code/"
 
 # Rebuilding the docstring documentation files. Clearing the cache first 
@@ -50,6 +56,10 @@ sphinx-apidoc -f -e -o $doc_src_dscd $src_ox
 Remove-Item $doc_bld -Recurse -Force
 sphinx-build -b html $doc_src $doc_bld_html
 
+# If LaTeX is also to be built.
+if ($LaTeX) {
+    sphinx-build -M latexpdf $doc_src $doc_bld_latex
+}
 
 ##### Formatting the code.
 Write-Output ""

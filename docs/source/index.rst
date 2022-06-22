@@ -13,13 +13,26 @@ to be an astrometric solver, photometric calibrator, asteroid finder,
 ephemeris computer, and astrometric monitor. We accomplish this by integrating 
 services and open source software collections for our purposes.
 
-This software is specific to the IRTF Opihi telescope.
+This software is specific to the IRTF Opihi telescope. 
+
+.. note::
+    This documentation comes in two forms, a set of HTML webpages and a LaTeX 
+    document. The HTML is given preference when formatting issues arise between 
+    the two. We highly suggest that you read the 
+    `HTML version <https://psmd-iberutaru.github.io/OpihiExarata>`_ as it is 
+    better formatted, easier to navigate, and more likely to be up to date.
 
 
 .. _home-user-manual:
 
 User Manual
 ===========
+
+The user manual is primarily for general users, such as telescope operators and 
+observing astronomers. It details how to use OpihiExarata in conjunction with 
+the Opihi telescope, primarily covering the usage of its GUI and command-line 
+interfaces. It can be accessed via the sidebar or by clicking 
+:doc:`here <./user/index>`.
 
 .. toctree::
     :maxdepth: 3
@@ -28,24 +41,11 @@ User Manual
 
     user/index
 
-The user manual is primarily for general users, such as telescope operators and 
-observing astronomers. It details how to use OpihiExarata in conjunction with 
-the Opihi telescope, primarily covering the usage of its GUI and command-line 
-interfaces. It can be accessed via the sidebar or by clicking 
-:doc:`here <./user/index>`.
-
 
 .. _home-technical-manual:
 
 Technical Manual
 ================
-
-.. toctree::
-    :maxdepth: 3
-    :hidden:
-    :caption: Technical Manual
-
-    technical/index
 
 The technical manual is primarily for software maintainers and other IRTF 
 staff. (For general use purposes, see the :ref:`home-user-manual`).
@@ -55,18 +55,18 @@ function and class documentation of the raw API itself, see the
 :ref:`home-technical-manual`.) It can be accessed via the sidebar or by 
 clicking :doc:`here <./technical/index>`.
 
+.. toctree::
+    :maxdepth: 3
+    :hidden:
+    :caption: Technical Manual
+
+    technical/index
+
 
 .. _home-code-manual:
 
 Code Manual
 ===========
-
-.. toctree::
-    :maxdepth: 3
-    :hidden: 
-    :caption: Code Manual
-
-    code/modules
 
 The code manual is primarily for software maintainers and other IRTF staff. It 
 details the software API documentation of OpihiExarata and its inner workings.
@@ -80,9 +80,13 @@ a different tool. As such, it is manually linked rather than integrated.
 
 .. _Code coverage: https://psmd-iberutaru.github.io/OpihiExarata/build/html/code/coverage/index.html
 
+.. toctree::
+    :maxdepth: 3
+    :hidden: 
+    :caption: Code Manual
 
-Indices and tables
-==================
+    code/modules
+
 
 * :ref:`genindex`
 * :ref:`modindex`

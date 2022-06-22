@@ -4,6 +4,22 @@
 Opihi Telescope
 ===============
 
+.. _figure-opihi-telescope-no-shield:
+
+.. figure:: /assets/images/opihi-telescope-no-shield.*
+
+    An image of the Opihi telescope during the commissioning process. An
+    aluminum weather proof shield has been since been added which covers the 
+    back half of the system to cover the electronics.
+
+We detail the physical specifications of the Opihi telescope itself. As the 
+:ref:`technical-index` is more for detail about the software, and the 
+actual telescope's physical quantities may be useful for users, we leave this 
+section here in the user manual.
+
+See :numref:`figure-opihi-telescope-no-shield` for an image of the Opihi 
+telescope itself.
+
 The Opihi telescope:
 
 - Is a 0.43 meter corrected Dall-Kirkham telescope from PlaneWave Instruments.
@@ -21,8 +37,8 @@ The camera/detector on the Opihi telescope:
 - The well depth is about 150 000 electrons.
 
 .. note::
-    Most, if not all, of the information provided on this page is taken from the 
-    Opihi telescope and OpihiExarata SPIE conference paper (see 
+    Most, if not all, of the information provided on this page/section is 
+    taken from the Opihi telescope and OpihiExarata SPIE conference paper (see 
     :ref:`user-citations`) or the `IRTF Opihi website`_. You may find more 
     information from these resources.
 

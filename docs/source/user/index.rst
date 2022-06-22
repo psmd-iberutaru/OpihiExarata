@@ -4,21 +4,6 @@
 User Manual
 ===========
 
-.. toctree::
-    :maxdepth: 3
-    :hidden:
-    :caption: User Manual
-
-    opihi_telescope
-    system_framework
-    command_line
-    manual_mode
-    automatic_mode
-    configuration
-    troubleshooting
-    citations
-    trivia
-
 This is the user manual portion of the OpihiExarata software package for 
 reducing and analyzing Opihi data.
 
@@ -50,14 +35,14 @@ Opihi telescope can be found in :ref:`user-opihi-telescope`.
 
 It is typical for the asteroid view-finding to be done manually by either a 
 telescope operator or an observing astronomer; for this reason, we may refer 
-to this view-finding mode as the ":ref:`user-manual-mode`" of operation for 
+to this view-finding mode as the :ref:`user-manual-mode` of operation for 
 Opihi and OpihiExarata. 
 
 The photometric monitoring mode does not require the constant 
 input from a user, it only requires instructing the Opihi camera to 
 continuously take images and for the software (OpihiExarata) to continuously 
 solve for their respective photometric solutions; for this reason, we may 
-refer to this photometric monitoring mode as the ":ref:`user-automatic-mode`" 
+refer to this photometric monitoring mode as the :ref:`user-automatic-mode` 
 of operation for Opihi and OpihiExarata.
 
 Photometric monitoring may be done manually if the user desires more control 
@@ -89,3 +74,19 @@ please report it to the appropriate IRTF staff member(s).
 If you used the Opihi telescope or the OpihiExarata software, please 
 acknowledge your usage in any projects or publications; see 
 :ref:`user-citations` for assistance and for our own references.
+
+
+.. toctree::
+    :maxdepth: 3
+    :hidden:
+    :caption: User Manual
+
+    opihi_telescope
+    system_framework
+    command_line
+    manual_mode
+    automatic_mode
+    configuration
+    troubleshooting
+    citations
+    trivia

@@ -4,17 +4,6 @@
 Installation
 ============
 
-.. toctree::
-   :maxdepth: 3
-   :hidden:
-   :caption: Installation
-
-   download
-   python
-   documentation
-   windows
-   orbfit
-
 The installation instructions are detailed here. For convenience, installation 
 scripts have been written to install the software for choice operating systems. 
 Currently, the supported operating systems are, in order, Rocky Linux, Windows 
@@ -86,3 +75,14 @@ installation order is as follows, we note what is optional and why:
 4.  :ref:`technical-installation-windows-compatibility`: (Situtional) Some of the services that OpihiExarata depends on only works for Linux. In order to have supported functionality on Windows, the OpihiExarata software leverages the Windows Subsystem for Linux. It is required that Windows users download and install this feature. The instructions are detailed here.
 5.  :ref:`technical-installation-orbfit`: This installs the Orbfit preliminary orbit determiner program which OpihiExarata uses for orbit determination.
 
+
+.. toctree::
+   :maxdepth: 3
+   :hidden:
+   :caption: Installation
+
+   download
+   python
+   documentation
+   windows
+   orbfit

@@ -2,16 +2,6 @@
 Algorithms
 ==========
 
-.. toctree::
-    :maxdepth: 3
-    :hidden:
-    :caption: Algorithms
-
-    preprocessing
-    polynomial_propagation
-    spherical_kinematics
-
-
 Here we detail the methods behind a few of the algorithms that we have 
 implemented ourselves. The algorithms and implementations of other systems 
 (especially the engines and services of 
@@ -25,3 +15,12 @@ and upkeep of this software.
 
 See the sidebar (for the web version of this documentation) for the details on 
 specific algorithms. 
+
+.. toctree::
+    :maxdepth: 3
+    :hidden:
+    :caption: Algorithms
+
+    preprocessing
+    polynomial_propagation
+    spherical_kinematics

@@ -18,24 +18,35 @@ the procedure and process of the automatic mode via a flowchart.
 Graphical User Interface
 ========================
 
+.. _figure-automatic-mode-gui:
+
 .. figure:: /assets/images/automatic-mode-gui.*
 
     The GUI of the automatic mode of OpihiExarata. This is what you see when 
     the interface is freshly loaded. Most of the text is filler text, they will
     change as the program is executed.
 
+The graphical user interface of the automatic mode of OpihiExarata, see 
+:numref:`figure-automatic-mode-gui`. More information is detailed in the 
+respective subsections of this section.
+
 Procedure
 =========
+
+.. _figure-automatic-mode-flowchart:
 
 .. figure:: /assets/images/automatic-mode-flowchart.*
 
     A flowchart summary of the procedure of the automatic mode. It includes 
     the actions of the user along with the program's flow afterwards.
 
+We describe the procedure to configuring and starting and stopping the
+automatic mode of OpihiExarata. See :numref:`figure-automatic-mode-flowchart` 
+for a flowchart summary of this procedure.
 
 Start and Open GUI
 ------------------
-You will want to open the OpihiExarata automatic mode, typically via the 
+You will want to open the OpihiExarata automatic mode GUI, typically via the 
 command-line interface with::
 
     opihiexarata automatic --config=config.yaml --secret=secrets.yaml
