@@ -1,3 +1,5 @@
+.. _technical-installation-documentation:
+
 =======================
 Optional: Documentation
 =======================
@@ -38,7 +40,9 @@ Build
 =====
 
 **First**, the Python docstrings need to be processed into documentation. This 
-can be done via running the script file: ``./docstring.cmd``
+can be done via running::
+
+    sphinx-apidoc -f -e -o ./code/ ./../src/opihiexarata/
 
 **Second**, it is helpful to removed the cached versions of the documentation 
 files, you can do this via the commands: (This just removes the build directory 

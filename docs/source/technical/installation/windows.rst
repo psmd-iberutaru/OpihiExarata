@@ -1,3 +1,5 @@
+.. _technical-installation-windows-compatibility:
+
 ===============================
 Optional: Windows Compatibility
 ===============================

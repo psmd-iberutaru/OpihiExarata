@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "src")))
 # -- Project information -----------------------------------------------------
 
 project = "OpihiExarata"
-copyright = "2021, Kenji Sparrow Emerson"
+copyright = "2022, Kenji Sparrow Emerson"
 author = "Kenji Sparrow Emerson"
 
 # The full version, including alpha/beta/rc tags
@@ -89,6 +89,8 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# Allow for figure numbers.
+numfig = True
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -107,3 +109,15 @@ html_favicon = "./assets/pyukumuku_favicon.png"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+
+# -- Options for LaTeX output -------------------------------------------------
+latex_engine = "lualatex"
+latex_show_urls = "footnote"
+
+latex_elements = {
+    # A little bigger font to be more readable.
+    "pointsize": "11pt",
+    # Single column index.
+    "makeindex": "\\usepackage[columns=1]{idxlayout}\\makeindex",
+}

@@ -54,9 +54,9 @@
             </div>
         </aside>
         <h2>
-            <span class="text">212 statements &nbsp;</span>
+            <span class="text">213 statements &nbsp;</span>
             <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">0<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">212<span class="text"> missing</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">213<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_d631c828c019ee22_manual_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4.1</a>,
-            created at 2022-06-17 20:35 -1000
+            created at 2022-06-21 23:25 -1000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -744,75 +744,76 @@
     <p class="pln"><span class="n"><a id="t662" href="#t662">662</a></span><span class="t">            <span class="com"># been made to force the stop of the loop.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t663" href="#t663">663</a></span><span class="t">            <span class="nam">status_string</span> <span class="op">=</span> <span class="str">"Halted"</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t664" href="#t664">664</a></span><span class="t">        <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t665" href="#t665">665</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">DevelopmentError</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t666" href="#t666">666</a></span><span class="t">                <span class="str">"The operational status flag is `{oflag}`. There is no string refresh"</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t667" href="#t667">667</a></span><span class="t">                <span class="str">" case built to handle this flag. It must be implemented."</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t668" href="#t668">668</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t669" href="#t669">669</a></span><span class="t">        <span class="com"># Setting the string.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t670" href="#t670">670</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_operational_status</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="nam">status_string</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t671" href="#t671">671</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t672" href="#t672">672</a></span><span class="t">        <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t673" href="#t673">673</a></span><span class="t">        <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t674" href="#t674">674</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t675" href="#t675">675</a></span><span class="t">    <span class="key">def</span> <span class="nam">reset_window</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t676" href="#t676">676</a></span><span class="t">        <span class="str">"""This function resets the window to the default values or</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t677" href="#t677">677</a></span><span class="t"><span class="str">        parameters</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t678" href="#t678">678</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t679" href="#t679">679</a></span><span class="t"><span class="str">        Parameters</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t680" href="#t680">680</a></span><span class="t"><span class="str">        ----------</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t681" href="#t681">681</a></span><span class="t"><span class="str">        None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t682" href="#t682">682</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t683" href="#t683">683</a></span><span class="t"><span class="str">        Returns</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t684" href="#t684">684</a></span><span class="t"><span class="str">        -------</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t685" href="#t685">685</a></span><span class="t"><span class="str">        None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t686" href="#t686">686</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t687" href="#t687">687</a></span><span class="t">        <span class="com"># Resetting all of the text to their defaults.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t688" href="#t688">688</a></span><span class="t">        <span class="com"># Directory.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t689" href="#t689">689</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_fits_directory</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"/path/to/fits/directory/"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t690" href="#t690">690</a></span><span class="t">        <span class="com"># Filenames.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t691" href="#t691">691</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_working_filename</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t692" href="#t692">692</a></span><span class="t">            <span class="str">"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t693" href="#t693">693</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t694" href="#t694">694</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_results_filename</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t695" href="#t695">695</a></span><span class="t">            <span class="str">"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits"</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t696" href="#t696">696</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t697" href="#t697">697</a></span><span class="t">        <span class="com"># Astrometric coordinates and results.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t698" href="#t698">698</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_ra</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"RR:RR:RR.RRR"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t699" href="#t699">699</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_dec</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"+DD:DD:DD.DDD"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t700" href="#t700">700</a></span><span class="t">        <span class="com"># Photometric results.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t701" href="#t701">701</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_zero_point</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"ZZZ.ZZZ"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t702" href="#t702">702</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_filter</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"FF"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t703" href="#t703">703</a></span><span class="t">        <span class="com"># Operational status.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t704" href="#t704">704</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_operational_status</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"Default"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t705" href="#t705">705</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t706" href="#t706">706</a></span><span class="t">        <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t707" href="#t707">707</a></span><span class="t">        <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t708" href="#t708">708</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t665" href="#t665">665</a></span><span class="t">            <span class="nam">status_string</span> <span class="op">=</span> <span class="str">"Default"</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t666" href="#t666">666</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">DevelopmentError</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t667" href="#t667">667</a></span><span class="t">                <span class="str">"The operational status flag is `{oflag}`. There is no string refresh"</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t668" href="#t668">668</a></span><span class="t">                <span class="str">" case built to handle this flag. It must be implemented."</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t669" href="#t669">669</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t670" href="#t670">670</a></span><span class="t">        <span class="com"># Setting the string.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t671" href="#t671">671</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_operational_status</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="nam">status_string</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t672" href="#t672">672</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t673" href="#t673">673</a></span><span class="t">        <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t674" href="#t674">674</a></span><span class="t">        <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t675" href="#t675">675</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t676" href="#t676">676</a></span><span class="t">    <span class="key">def</span> <span class="nam">reset_window</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t677" href="#t677">677</a></span><span class="t">        <span class="str">"""This function resets the window to the default values or</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t678" href="#t678">678</a></span><span class="t"><span class="str">        parameters</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t679" href="#t679">679</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t680" href="#t680">680</a></span><span class="t"><span class="str">        Parameters</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t681" href="#t681">681</a></span><span class="t"><span class="str">        ----------</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t682" href="#t682">682</a></span><span class="t"><span class="str">        None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t683" href="#t683">683</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t684" href="#t684">684</a></span><span class="t"><span class="str">        Returns</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t685" href="#t685">685</a></span><span class="t"><span class="str">        -------</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t686" href="#t686">686</a></span><span class="t"><span class="str">        None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t687" href="#t687">687</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t688" href="#t688">688</a></span><span class="t">        <span class="com"># Resetting all of the text to their defaults.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t689" href="#t689">689</a></span><span class="t">        <span class="com"># Directory.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t690" href="#t690">690</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_fits_directory</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"/path/to/fits/directory/"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t691" href="#t691">691</a></span><span class="t">        <span class="com"># Filenames.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t692" href="#t692">692</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_working_filename</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t693" href="#t693">693</a></span><span class="t">            <span class="str">"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t694" href="#t694">694</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t695" href="#t695">695</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_results_filename</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t696" href="#t696">696</a></span><span class="t">            <span class="str">"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits"</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t697" href="#t697">697</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t698" href="#t698">698</a></span><span class="t">        <span class="com"># Astrometric coordinates and results.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t699" href="#t699">699</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_ra</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"RR:RR:RR.RRR"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t700" href="#t700">700</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_dec</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"+DD:DD:DD.DDD"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t701" href="#t701">701</a></span><span class="t">        <span class="com"># Photometric results.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t702" href="#t702">702</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_zero_point</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"ZZZ.ZZZ"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t703" href="#t703">703</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_filter</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"FF"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t704" href="#t704">704</a></span><span class="t">        <span class="com"># Operational status.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t705" href="#t705">705</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">ui</span><span class="op">.</span><span class="nam">label_dynamic_operational_status</span><span class="op">.</span><span class="nam">setText</span><span class="op">(</span><span class="str">"Default"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t706" href="#t706">706</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t707" href="#t707">707</a></span><span class="t">        <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t708" href="#t708">708</a></span><span class="t">        <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t709" href="#t709">709</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t710" href="#t710">710</a></span><span class="t"><span class="key">def</span> <span class="nam">start_automatic_window</span><span class="op">(</span><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t711" href="#t711">711</a></span><span class="t">    <span class="str">"""This is the function to create the automatic window for usage.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t712" href="#t712">712</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t713" href="#t713">713</a></span><span class="t"><span class="str">    Parameters</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t714" href="#t714">714</a></span><span class="t"><span class="str">    ----------</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t715" href="#t715">715</a></span><span class="t"><span class="str">    None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t716" href="#t716">716</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t717" href="#t717">717</a></span><span class="t"><span class="str">    Returns</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t718" href="#t718">718</a></span><span class="t"><span class="str">    -------</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t719" href="#t719">719</a></span><span class="t"><span class="str">    None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t720" href="#t720">720</a></span><span class="t"><span class="str">    """</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t721" href="#t721">721</a></span><span class="t">    <span class="com"># Creating the application and its infrastructure.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t722" href="#t722">722</a></span><span class="t">    <span class="nam">app</span> <span class="op">=</span> <span class="nam">QtWidgets</span><span class="op">.</span><span class="nam">QApplication</span><span class="op">(</span><span class="op">[</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t723" href="#t723">723</a></span><span class="t">    <span class="com"># The automatic GUI window.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t724" href="#t724">724</a></span><span class="t">    <span class="nam">automatic_window</span> <span class="op">=</span> <span class="nam">OpihiAutomaticWindow</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t725" href="#t725">725</a></span><span class="t">    <span class="nam">automatic_window</span><span class="op">.</span><span class="nam">show</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t726" href="#t726">726</a></span><span class="t">    <span class="com"># Closing out of the window.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t727" href="#t727">727</a></span><span class="t">    <span class="nam">sys</span><span class="op">.</span><span class="nam">exit</span><span class="op">(</span><span class="nam">app</span><span class="op">.</span><span class="nam">exec</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t728" href="#t728">728</a></span><span class="t">    <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t729" href="#t729">729</a></span><span class="t">    <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t730" href="#t730">730</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t710" href="#t710">710</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t711" href="#t711">711</a></span><span class="t"><span class="key">def</span> <span class="nam">start_automatic_window</span><span class="op">(</span><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t712" href="#t712">712</a></span><span class="t">    <span class="str">"""This is the function to create the automatic window for usage.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t713" href="#t713">713</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t714" href="#t714">714</a></span><span class="t"><span class="str">    Parameters</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t715" href="#t715">715</a></span><span class="t"><span class="str">    ----------</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t716" href="#t716">716</a></span><span class="t"><span class="str">    None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t717" href="#t717">717</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t718" href="#t718">718</a></span><span class="t"><span class="str">    Returns</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t719" href="#t719">719</a></span><span class="t"><span class="str">    -------</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t720" href="#t720">720</a></span><span class="t"><span class="str">    None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t721" href="#t721">721</a></span><span class="t"><span class="str">    """</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t722" href="#t722">722</a></span><span class="t">    <span class="com"># Creating the application and its infrastructure.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t723" href="#t723">723</a></span><span class="t">    <span class="nam">app</span> <span class="op">=</span> <span class="nam">QtWidgets</span><span class="op">.</span><span class="nam">QApplication</span><span class="op">(</span><span class="op">[</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t724" href="#t724">724</a></span><span class="t">    <span class="com"># The automatic GUI window.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t725" href="#t725">725</a></span><span class="t">    <span class="nam">automatic_window</span> <span class="op">=</span> <span class="nam">OpihiAutomaticWindow</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t726" href="#t726">726</a></span><span class="t">    <span class="nam">automatic_window</span><span class="op">.</span><span class="nam">show</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t727" href="#t727">727</a></span><span class="t">    <span class="com"># Closing out of the window.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t728" href="#t728">728</a></span><span class="t">    <span class="nam">sys</span><span class="op">.</span><span class="nam">exit</span><span class="op">(</span><span class="nam">app</span><span class="op">.</span><span class="nam">exec</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t729" href="#t729">729</a></span><span class="t">    <span class="com"># All done.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t730" href="#t730">730</a></span><span class="t">    <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t731" href="#t731">731</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t732" href="#t732">732</a></span><span class="t"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">"__main__"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t733" href="#t733">733</a></span><span class="t">    <span class="nam">start_automatic_window</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t732" href="#t732">732</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t733" href="#t733">733</a></span><span class="t"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">"__main__"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t734" href="#t734">734</a></span><span class="t">    <span class="nam">start_automatic_window</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
@@ -822,7 +823,7 @@
             <a id="nextFileLink" class="nav" href="d_d631c828c019ee22_manual_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4.1</a>,
-            created at 2022-06-17 20:35 -1000
+            created at 2022-06-21 23:25 -1000
         </p>
     </div>
 </footer>

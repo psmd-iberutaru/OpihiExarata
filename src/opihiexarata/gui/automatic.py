@@ -662,6 +662,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # been made to force the stop of the loop.
             status_string = "Halted"
         else:
+            status_string = "Default"
             raise error.DevelopmentError(
                 "The operational status flag is `{oflag}`. There is no string refresh"
                 " case built to handle this flag. It must be implemented."
