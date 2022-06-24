@@ -3,6 +3,7 @@
 import os
 import numpy as np
 import PIL.Image
+import scipy.ndimage as sp_ndimage
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -115,6 +116,41 @@ def scale_image_array(
     # Ensuring the invalid pixels are still invalid.
     scaled_array[invalid_pixels] = np.nan
     return scaled_array
+
+
+def translate_image_array(
+    array: hint.array, shift_x: float = 0, shift_y: float = 0, pad_value: float = np.nan
+) -> hint.array:
+    """This function translates an image or array in some direction. The image
+    is treated as value padded so pixels beyond the scope of the image after
+    translation are given by the value specified.
+
+    Parameters
+    ----------
+    array : array
+        The image array which is going to be translated.
+    shift_x : float, default = 0
+        The number of pixels the image will be shifted in the x direction.
+    shift_y : float, default = 0
+        The number of pixels the image will be shifted in the y direction.
+    pad_value : float, default = np.nan
+        The value to pad around the image.
+
+    Returns
+    -------
+    shifted_image : array
+        The image array after shifting.
+    """
+    # The padded values, assumed to be NaN.
+    # Using Scipy's built-in shifting function.
+    shifted_array = sp_ndimage.shift(
+        array,
+        (shift_y, shift_x),
+        mode="constant",
+        cval=pad_value,
+    )
+    # All done
+    return shifted_array
 
 
 def create_circular_mask(

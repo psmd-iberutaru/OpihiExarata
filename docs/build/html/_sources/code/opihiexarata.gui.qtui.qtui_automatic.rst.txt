@@ -5,3 +5,4 @@ opihiexarata.gui.qtui.qtui\_automatic module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

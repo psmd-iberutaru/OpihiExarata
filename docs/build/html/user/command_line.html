@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command Line &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Command Line &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -192,9 +192,48 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,6 +241,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -269,6 +309,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -316,20 +360,29 @@ following in a terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opihiexarata</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal notranslate"><span class="pre">[action]</span></code> is the specified actions to take. There are many actions
-which the command-line interface may execute. The currently available actions
-are detailed in <a class="reference internal" href="#user-command-line-available-actions"><span class="std std-ref">Available Actions</span></a>.</p>
-<p>Different command-line options, <code class="docutils literal notranslate"><span class="pre">[options]</span></code>, are detailed in <a class="reference internal" href="#user-command-line-available-options"><span class="std std-ref">Available Options</span></a>. The options detailed are all
+<p>Where <a class="reference internal" href="#cmdoption-arg-action"><code class="xref std std-option docutils literal notranslate"><span class="pre">[action]</span></code></a> is the specified actions to take. There are many
+actions which the command-line interface may execute. The currently available
+actions are detailed in <a class="reference internal" href="#user-command-line-available-actions"><span class="std std-ref">Available Actions</span></a>.</p>
+<p>Different command-line options, <a class="reference internal" href="#cmdoption-arg-options"><code class="xref std std-option docutils literal notranslate"><span class="pre">[options]</span></code></a>, are detailed in <a class="reference internal" href="#user-command-line-available-options"><span class="std std-ref">Available Options</span></a>. The options detailed are all
 optional. The only mandatory input is the required action to take.</p>
 <section id="available-actions">
 <span id="user-command-line-available-actions"></span><h2>Available Actions<a class="headerlink" href="#available-actions" title="Permalink to this heading"></a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-action">
+<span class="sig-name descname"><span class="pre">[action]</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-action" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>Here we list the available actions for the command-line interface, ordered by
 (approximately) the order of importance each command is to the average user.</p>
 <p>Note that there are aliases for different actions for ease of use, they
 are all listed here.</p>
 <section id="manual">
 <span id="user-command-line-available-actions-manual"></span><h3>Manual<a class="headerlink" href="#manual" title="Permalink to this heading"></a></h3>
-<p>Action syntax: <code class="docutils literal notranslate"><span class="pre">manual</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-manual">
+<span id="cmdoption-arg-m"></span><span class="sig-name descname"><span class="pre">manual</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">m</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-manual" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This opens up the manual mode GUI. This is used when the user wants to
 utilize the manual (asteroid view-finding) of Opihi and OpihiExarata. Or,
 alternatively, the user wants to manually operate the photometric monitoring
@@ -337,14 +390,22 @@ mode.</p>
 </section>
 <section id="automatic">
 <span id="user-command-line-available-actions-automatic"></span><h3>Automatic<a class="headerlink" href="#automatic" title="Permalink to this heading"></a></h3>
-<p>Action syntax: <code class="docutils literal notranslate"><span class="pre">automatic</span></code>, <code class="docutils literal notranslate"><span class="pre">auto</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-automatic">
+<span id="cmdoption-arg-auto"></span><span id="cmdoption-arg-a"></span><span class="sig-name descname"><span class="pre">automatic</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">auto</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">a</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-automatic" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This opens up the automatic mode GUI. This is used when the user wants to
 utilize the automatic (photometric monitoring) mode of Opihi and OpihiExarata.
 Typically, this user would be a telescope operator.</p>
 </section>
 <section id="generate">
 <span id="user-command-line-available-actions-generate"></span><h3>Generate<a class="headerlink" href="#generate" title="Permalink to this heading"></a></h3>
-<p>Action syntax: <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-generate">
+<span id="cmdoption-arg-g"></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">g</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-generate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This generates configuration files to allow a user to edit and customize the
 functionality of OpihiExarata. There are two different configuration files.
 Which type of configuration file, and where it is saved are determined by the
@@ -353,9 +414,14 @@ For more information about configuration, see <a class="reference internal" href
 </section>
 <section id="help">
 <span id="user-command-line-available-actions-help"></span><h3>Help<a class="headerlink" href="#help" title="Permalink to this heading"></a></h3>
-<p>Action syntax: <code class="docutils literal notranslate"><span class="pre">help</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-help">
+<span id="cmdoption-arg-h"></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">h</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This displays the help dialog in the terminal. It is identical to the
-<code class="docutils literal notranslate"><span class="pre">--help</span></code> option or invoking <code class="docutils literal notranslate"><span class="pre">opihiexarata</span></code> without any specified action.</p>
+<a class="reference internal" href="#cmdoption-help"><code class="xref std std-option docutils literal notranslate"><span class="pre">--help</span></code></a> option or invoking <strong class="command">opihiexarata</strong> without any
+specified action.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If any action is specified that does not match any of the expected actions,
@@ -366,6 +432,11 @@ strictly a shell error.</p>
 </section>
 <section id="available-options">
 <span id="user-command-line-available-options"></span><h2>Available Options<a class="headerlink" href="#available-options" title="Permalink to this heading"></a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-options">
+<span class="sig-name descname"><span class="pre">[options]</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-options" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>Here we list the available actions for the command-line interface, ordered by
 (approximately) the order of importance each command is to the average user.</p>
 <p>Note that there are aliases for different actions for ease of use, they
@@ -374,26 +445,42 @@ is provided. To see the aliases, see the help screen for more information:
 <a class="reference internal" href="#user-command-line-available-actions-help"><span class="std std-ref">Help</span></a>.</p>
 <section id="id1">
 <h3>Help<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--help</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-help">
+<span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This overrides any specified actions and executes the help dialog. See
 <a class="reference internal" href="#user-command-line-available-actions-help"><span class="std std-ref">Help</span></a>.</p>
 </section>
 <section id="id2">
 <h3>Manual<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--manual</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-manual">
+<span class="sig-name descname"><span class="pre">--manual</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-manual" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This opens up the manual mode GUI regardless of the action specified. See <a class="reference internal" href="#user-command-line-available-actions-manual"><span class="std std-ref">Manual</span></a>.</p>
 </section>
 <section id="id3">
 <h3>Automatic<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--automatic</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-automatic">
+<span class="sig-name descname"><span class="pre">--automatic</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-automatic" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This opens up the automatic mode GUI regardless of the action specified. See <a class="reference internal" href="#user-command-line-available-actions-automatic"><span class="std std-ref">Automatic</span></a>.</p>
 </section>
 <section id="configuration">
 <span id="user-command-line-available-options-configuration"></span><h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--config=&quot;path/to/config.yaml&quot;</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-config">
+<span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;path/to/config.yaml&gt;</span></span><a class="headerlink" href="#cmdoption-config" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This specifies the path of the configuration file. The configuration file is
-in a YAML format. If the action specified is <code class="docutils literal notranslate"><span class="pre">generate</span></code>, then this is the
-path where the generated configuration fill will be saved. Otherwise, the
+in a YAML format. If the action specified is <a class="reference internal" href="#cmdoption-arg-generate"><code class="xref std std-option docutils literal notranslate"><span class="pre">generate</span></code></a>, then this is
+the path where the generated configuration fill will be saved. Otherwise, the
 program will read the configuration file at this path and use its values
 instead of the program’s defaults, where they differ.</p>
 <p>See <a class="reference internal" href="configuration.html#user-configuration-standard-configuration-file"><span class="std std-ref">Standard Configuration File</span></a> for the
@@ -401,10 +488,14 @@ specifications of the configuration file.</p>
 </section>
 <section id="secrets">
 <span id="user-command-line-available-options-secrets"></span><h3>Secrets<a class="headerlink" href="#secrets" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--secret=&quot;path/to/secret.yaml&quot;</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-secret">
+<span class="sig-name descname"><span class="pre">--secret</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;path/to/secret.yaml&gt;</span></span><a class="headerlink" href="#cmdoption-secret" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This specifies the path of the secrets file. The secrets file is
-in a YAML format. If the action specified is <code class="docutils literal notranslate"><span class="pre">generate</span></code>, then this is the
-path where the generated secrets fill will be saved. Otherwise, the
+in a YAML format. If the action specified is <a class="reference internal" href="#cmdoption-arg-generate"><code class="xref std std-option docutils literal notranslate"><span class="pre">generate</span></code></a>, then this is
+the path where the generated secrets fill will be saved. Otherwise, the
 program will read the secrets file at this path and use its values
 instead of the program’s defaults, where they differ.</p>
 <p>See <a class="reference internal" href="configuration.html#user-configuration-secrets-configuration-file"><span class="std std-ref">Secrets Configuration File</span></a> for the
@@ -412,7 +503,11 @@ specifications of the secrets file.</p>
 </section>
 <section id="overwrite">
 <h3>Overwrite<a class="headerlink" href="#overwrite" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--overwrite</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-overwrite">
+<span class="sig-name descname"><span class="pre">--overwrite</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-overwrite" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>This option allows for the specification of what to do when a provided
 file at a path already exists. This is typically used when generating new
 configuration files. When provided, any pre-existing files are overwritten.
@@ -421,7 +516,11 @@ file already exists at a given path.</p>
 </section>
 <section id="keep-temporary">
 <h3>Keep Temporary<a class="headerlink" href="#keep-temporary" title="Permalink to this heading"></a></h3>
-<p>Option syntax: <code class="docutils literal notranslate"><span class="pre">--keep-temporary</span></code>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-keep-temporary">
+<span class="sig-name descname"><span class="pre">--keep-temporary</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-keep-temporary" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <p>The normal operation of OpihiExarata requires the writing of temporary files.
 A temporary directory is created (as specified by the configuration file) and
 is then purged and deleted. Using this flag prevents the cleanup of the

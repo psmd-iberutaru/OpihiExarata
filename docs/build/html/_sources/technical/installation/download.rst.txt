@@ -14,8 +14,8 @@ The best way to download OpihiExarata is to clone the repository::
 The location where you download OpihiExarata is relatively irrelevant. 
 
 Throughout the installation tutorial we refer to the internal OpihiExarata 
-directory as ``OpihiExarata/``. This allows for the instructions to be general. 
-Please adapt any absolute paths as needed.
+directory as :file:`OpihiExarata/`. This allows for the instructions to be 
+general. Please adapt any absolute paths as needed.
 
 
 
@@ -36,5 +36,5 @@ A zip archive of the git repository can be downloaded via::
     rm master.zip
 
 Throughout the installation tutorial we refer to the internal OpihiExarata 
-directory as ``OpihiExarata/``. This allows for the instructions to be general. 
-Please adapt any absolute paths as needed.
+directory as :file:`OpihiExarata/`. This allows for the instructions to be 
+general. Please adapt any absolute paths as needed.

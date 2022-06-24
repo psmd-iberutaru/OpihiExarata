@@ -5,3 +5,4 @@ opihiexarata.ephemeris.jplhorizons module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

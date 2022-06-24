@@ -3,7 +3,6 @@ import os
 import copy
 
 import numpy as np
-import scipy.ndimage as sp_ndimage
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -1001,14 +1000,14 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         x_pix_change = ra_change / PIXEL_SCALE
         y_pix_change = -dec_change / PIXEL_SCALE
 
-        # We shift the reference image forward in time as Scipy splines and
-        # it is best not to interpolate the real data. We assume nothing about
-        # the outside parts of the image, so there is no data for them.
-        shifted_reference_data = sp_ndimage.shift(
-            self.reference_data,
-            (y_pix_change, x_pix_change),
-            mode="constant",
-            cval=np.nan,
+        # We shift the reference image forward in time as translation splines
+        # and it is best not to interpolate the real data. We assume nothing
+        # about the outside parts of the image, so there is no data for them.
+        shifted_reference_data = library.image.translate_image_array(
+            array=self.reference_data,
+            shift_x=x_pix_change,
+            shift_y=y_pix_change,
+            pad_value=np.nan,
         )
         self.subtract_non_sidereal = self.current_data - shifted_reference_data
 

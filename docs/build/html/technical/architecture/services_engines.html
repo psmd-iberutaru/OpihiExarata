@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services and Engines &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Services and Engines &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -192,9 +192,48 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Services and Engines</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,6 +241,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -269,6 +309,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -304,6 +348,139 @@
              
   <section id="services-and-engines">
 <span id="technical-architecture-services-engines"></span><h1>Services and Engines<a class="headerlink" href="#services-and-engines" title="Permalink to this heading"></a></h1>
+<p>The OpihiExarata software primarily outsources solving the main five problems
+for solving an image to other internal or external modules, those being:</p>
+<ul class="simple">
+<li><p>The image astrometric solution, the pointing of the image and its WCS solution;</p></li>
+<li><p>The photometric solution, determined from a photometric star catalog;</p></li>
+<li><p>The preliminary orbit determination, calculated from a record of observations;</p></li>
+<li><p>The ephemeris, calculated from a set of provided orbital elements;</p></li>
+<li><p>The asteroid propagation, calculated from a set of asteroid observations.</p></li>
+</ul>
+<p>There are many different types of services and programs which are available
+that are able to solve the above problems. We decided that it is good to
+allow the user (or the program in general) to be able to customize/swap which
+service they use to process their data. This interchangeability also allows
+for OpihiExarata to be more stable as if a given service fails, a different
+one can be selected to continue instead of said inability breaking the
+software and workflow.</p>
+<p>Each service has different interfaces and protocols for communication between
+it and external problems like OpihiExarata; some have nice APIs while others
+are more complicated.</p>
+<p>To deal with the fact that each service has unique interfaces, we implemented
+a wrapper/abstraction layer for each and every supported service. This
+abstraction layer allows for easier implementation of these services.
+These abstraction layers are called Engines and are implemented in as
+subclasses from <a class="reference internal" href="../../code/opihiexarata.library.engine.html#module-opihiexarata.library.engine" title="opihiexarata.library.engine"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.engine</span></code></a>. These engines are
+classified under
+<a class="reference internal" href="#technical-architecture-services-engines-astrometryengines"><span class="std std-ref">AstrometryEngines</span></a>,
+<a class="reference internal" href="#technical-architecture-services-engines-photometryengines"><span class="std std-ref">PhotometryEngines</span></a>,
+<a class="reference internal" href="#technical-architecture-services-engines-orbitengines"><span class="std std-ref">OrbitEngines</span></a>,
+<a class="reference internal" href="#technical-architecture-services-engines-ephemerisengines"><span class="std std-ref">EphemerisEngines</span></a>,
+<a class="reference internal" href="#technical-architecture-services-engines-propagateengines"><span class="std std-ref">PropagateEngines</span></a>
+depending on the problem it solves.</p>
+<p>We detail all of the available engines (which solve the five problems) here.
+Note that the names of the engines themselves (when in the code or otherwise)
+are case insensitive.</p>
+<p>A lot of these engines use other external services, see <a class="reference internal" href="../../user/citations.html#user-citations"><span class="std std-ref">Citations</span></a>
+for our references.</p>
+<section id="astrometryengines">
+<span id="technical-architecture-services-engines-astrometryengines"></span><h2>AstrometryEngines<a class="headerlink" href="#astrometryengines" title="Permalink to this heading"></a></h2>
+<p>These engines solve for the astrometric plate solution of an image.</p>
+<section id="astrometry-net-nova">
+<h3>Astrometry.net Nova<a class="headerlink" href="#astrometry-net-nova" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine" title="opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine</span></code></a></p>
+<p>This allows for the leveraging of the
+<a class="reference external" href="https://nova.astrometry.net/">Astrometry.net Nova online service</a> for
+astrometric plate solving. It is a stable system able to solve most images.
+However, as it is a public system, there is a queue so solving a particular
+image may take longer from your perspective because of the added wait time.
+This implementation is based off of the
+<a class="reference external" href="https://github.com/dstndstn/astrometry.net/blob/main/net/client/client.py">official version</a>.</p>
+<p>The images taken are uploaded to the service to be solved, OpihiExarata
+periodically requests the solution, parsing it when the image is astrometrically
+solved successfully.</p>
+</section>
+</section>
+<section id="photometryengines">
+<span id="technical-architecture-services-engines-photometryengines"></span><h2>PhotometryEngines<a class="headerlink" href="#photometryengines" title="Permalink to this heading"></a></h2>
+<p>These engines solve for the photometric calibration solution of an image.</p>
+<section id="pan-starrs-3pi-dr2-mast">
+<h3>Pan-STARRS 3pi DR2 MAST<a class="headerlink" href="#pan-starrs-3pi-dr2-mast" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine" title="opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine</span></code></a></p>
+<p>This specifies that the photometric database to be used for photometric
+calibration should be Pan-STARRS 3pi Data Release 2. We access it via a web
+interface using the
+<a class="reference external" href="https://catalogs.mast.stsci.edu/docs/panstarrs.html">Pan-STARRS MAST API</a>.</p>
+<p>The Pan-STARRS 3pi Data Release 2 survey covers areas north of -30
+degrees declination in only the g’, r’, i’, and z’ filters. OpihiExarata
+queries the database around the field of view for photometric stars to use in
+calculating relevant the photometric quantities of the image.</p>
+</section>
+</section>
+<section id="orbitengines">
+<span id="technical-architecture-services-engines-orbitengines"></span><h2>OrbitEngines<a class="headerlink" href="#orbitengines" title="Permalink to this heading"></a></h2>
+<p>These engines solve for preliminary orbital elements from a list of
+observations.</p>
+<section id="orbfit">
+<h3>OrbFit<a class="headerlink" href="#orbfit" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine" title="opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine</span></code></a></p>
+<p>This utilizes the <a class="reference external" href="http://adams.dm.unipi.it/orbfit/">OrbFit software system</a>
+in determining the preliminary orbital elements of a sun-orbiting object
+(typically an asteroid) provided a list of on-sky coordinate observations
+through time. This particular software system uses least-squares as its method
+of orbit determination.</p>
+</section>
+<section id="custom-orbit">
+<h3>Custom Orbit<a class="headerlink" href="#custom-orbit" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.orbit.custom.html#opihiexarata.orbit.custom.CustomOrbitEngine" title="opihiexarata.orbit.custom.CustomOrbitEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.orbit.custom.CustomOrbitEngine</span></code></a></p>
+<p>This does not utilize any actual service for orbital determination. The user
+provides the orbital elements to use along with their respective epoch period.
+No asteroid observational information is used. Typically orbital elements a
+user provides through an interface (GUI) should be passed through the
+vehicle arguments (see <a class="reference internal" href="#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a>).</p>
+</section>
+</section>
+<section id="ephemerisengines">
+<span id="technical-architecture-services-engines-ephemerisengines"></span><h2>EphemerisEngines<a class="headerlink" href="#ephemerisengines" title="Permalink to this heading"></a></h2>
+<p>These engines solve for an asteroid’s on-sky track from a set of
+Keplerian orbital elements.</p>
+<section id="jpl-horizons">
+<h3>JPL Horizons<a class="headerlink" href="#jpl-horizons" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine" title="opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine</span></code></a></p>
+<p>This utilizes the <a class="reference external" href="https://ssd.jpl.nasa.gov/horizons/">JPL Horizons System</a>
+from the <a class="reference external" href="https://ssd.jpl.nasa.gov/">JPL Solar Systems Dynamics</a> group for
+the determination of an ephemeris from a set of Keplerian orbital elements.
+This software sends the orbital elements (and other observatory parameters)
+via the <a class="reference external" href="https://ssd-api.jpl.nasa.gov/doc/horizons.html">Horizons API</a>
+service and parses the returned ephemeris.</p>
+</section>
+</section>
+<section id="propagateengines">
+<span id="technical-architecture-services-engines-propagateengines"></span><h2>PropagateEngines<a class="headerlink" href="#propagateengines" title="Permalink to this heading"></a></h2>
+<p>These engines solve for an asteroid’s (or other target’s) on-sky track from a
+set of recent observations.</p>
+<section id="linear">
+<h3>Linear<a class="headerlink" href="#linear" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine" title="opihiexarata.propagate.polynomial.LinearPropagationEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.propagate.polynomial.LinearPropagationEngine</span></code></a></p>
+<p>This takes the most recent (within a few hours) observations and fits a
+first order (linear) polynomial function to both the RA and DEC as a function
+of time. This method assumes a tangent plane projection and so is not suited
+for propagations on long timescales. See
+<a class="reference internal" href="../algorithms/polynomial_propagation.html#technical-algorithms-polynomial-propagation"><span class="std std-ref">Polynomial Propagation</span></a> for more information on the
+algorithm used.</p>
+</section>
+<section id="quadratic">
+<h3>Quadratic<a class="headerlink" href="#quadratic" title="Permalink to this heading"></a></h3>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine" title="opihiexarata.propagate.polynomial.QuadraticPropagationEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.propagate.polynomial.QuadraticPropagationEngine</span></code></a></p>
+<p>This takes the most recent (within a few hours) observations and fits a
+second order (quadratic) polynomial function to both the RA and DEC as a
+function of time. This method assumes a tangent plane projection and so is not
+suited for propagations on long timescales. See
+<a class="reference internal" href="../algorithms/polynomial_propagation.html#technical-algorithms-polynomial-propagation"><span class="std std-ref">Polynomial Propagation</span></a> for more information on the
+algorithm used.</p>
+</section>
+</section>
 </section>
 
 

@@ -5,3 +5,4 @@ opihiexarata.opihi.preprocess module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Graphical User Interface &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Graphical User Interface &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -20,7 +20,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Algorithms" href="../algorithms/index.html" />
+    <link rel="next" title="Conventions" href="../conventions.html" />
     <link rel="prev" title="Library" href="library.html" /> 
 </head>
 
@@ -192,9 +192,48 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#building-ui-files">Building UI Files</a></li>
@@ -202,6 +241,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -269,6 +309,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -328,22 +372,24 @@ generates the GUI design files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyside6</span><span class="o">-</span><span class="n">designer</span>
 </pre></div>
 </div>
-<p>The GUI design files are saved in the <code class="docutils literal notranslate"><span class="pre">/OpihiExarata/src/opihiexarata/gui/qtui/</span></code>
-directory typically as something akin to <code class="docutils literal notranslate"><span class="pre">manual.ui</span></code>. These files may be
-opened by Qt Designer and modified as needed.</p>
+<p>The GUI design files are saved in the
+<code class="file docutils literal notranslate"><span class="pre">/OpihiExarata/src/opihiexarata/gui/qtui/</span></code> directory typically as
+something akin to <code class="file docutils literal notranslate"><span class="pre">manual.ui</span></code>. These files may be opened by Qt Designer
+and modified as needed.</p>
 </section>
 <section id="building-ui-files">
 <span id="technical-architecture-graphical-user-interface-building-ui-files"></span><h2>Building UI Files<a class="headerlink" href="#building-ui-files" title="Permalink to this heading"></a></h2>
 <p>It is part of development (not installation) to develop the Python versions of
 the GUI files. The UI files created via Qt Designer can be converted to their
-Python versions using <code class="docutils literal notranslate"><span class="pre">pyside6-uic</span></code>. (See
+Python versions using <strong class="command">pyside6-uic</strong>. (See
 <a class="reference external" href="https://doc.qt.io/qtforpython/tutorials/basictutorial/uifiles.html#using-ui-files-from-designer-or-qtcreator-with-quiloader-and-pyside6-uic">Qt’s documentation</a>
 for more information.)</p>
-<p>The UI files are stored in <code class="docutils literal notranslate"><span class="pre">/OpihiExarata/src/opihiexarata/gui/qtui/</span></code> and it
-is expected that the generated Python equivalent files will also be written
-there as <code class="docutils literal notranslate"><span class="pre">qtui_*.py</span></code>, where the original UI filename fills the wildcard.</p>
-<p>For example, for a file <code class="docutils literal notranslate"><span class="pre">manual.ui</span></code>, it can be converted to the proper Python
-version using the command:</p>
+<p>The UI files are stored in <code class="file docutils literal notranslate"><span class="pre">/OpihiExarata/src/opihiexarata/gui/qtui/</span></code>
+and it is expected that the generated Python equivalent files will also be
+written there as <code class="file docutils literal notranslate"><span class="pre">qtui_*.py</span></code>, where the original UI filename fills the
+wildcard.</p>
+<p>For example, for a file <code class="file docutils literal notranslate"><span class="pre">manual.ui</span></code>, it can be converted to the proper
+Python version using the command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyside6</span><span class="o">-</span><span class="n">uic</span> <span class="n">manual</span><span class="o">.</span><span class="n">ui</span> <span class="o">&gt;</span> <span class="n">qtui_manual</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
@@ -361,7 +407,7 @@ found in the same directory and is executed by:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="library.html" class="btn btn-neutral float-left" title="Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../algorithms/index.html" class="btn btn-neutral float-right" title="Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../conventions.html" class="btn btn-neutral float-right" title="Conventions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

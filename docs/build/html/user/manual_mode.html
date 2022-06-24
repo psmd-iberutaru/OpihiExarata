@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manual Mode &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Manual Mode &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -193,9 +193,48 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -203,6 +242,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -270,6 +310,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -332,20 +376,22 @@ Each of the sections covers their GUIs, this is just the general GUI.</span><a c
 compartmentalizing a lot of the functionality of OpihiExarata, see
 <a class="reference internal" href="#figure-manual-mode-gui-all"><span class="std std-numref">Fig. 2</span></a>.</p>
 <p>In the manual mode general GUI, you have three buttons which control file
-and target acquisition. The <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Target</span></code> button specifies that you desire to
-work on a new target (typically a new asteroid). The <code class="docutils literal notranslate"><span class="pre">Manual</span> <span class="pre">New</span> <span class="pre">Image</span></code>
-button opens a file dialog so that you can select a new Opihi image FITS file
-to load into OpihiExarata. The <code class="docutils literal notranslate"><span class="pre">Automatic</span> <span class="pre">New</span> <span class="pre">Image</span></code> button pulls the most
-recent FITS image from the same directory as the last image specified manually.</p>
+and target acquisition. The <span class="guilabel">New Target</span> button specifies that you
+desire to work on a new target (typically a new asteroid). The
+<span class="guilabel">Manual New Image</span> button opens a file dialog so that you can
+select a new Opihi image FITS file to load into OpihiExarata. The
+<span class="guilabel">Automatic New Image</span> button pulls the most recent FITS image from
+the same directory as the last image specified manually.</p>
 <p>There is also a data viewer. Relevant information from the solutions will be
 plotted here along with the image data. There is a navigation bar for
 manipulating the image, including zooming, panning, saving, and configuring
 other options. This functionality makes use of matplotlib, see
 <a class="reference external" href="https://matplotlib.org/3.2.2/users/navigation_toolbar.html">Interactive navigation (outdated)</a>
 or <a class="reference external" href="https://matplotlib.org/stable/users/explain/interactive.html">Interactive figures</a>.</p>
-<p>There is also a <code class="docutils literal notranslate"><span class="pre">Refresh</span> <span class="pre">Window</span></code> button to redraw the image in the viewer and
-to also refresh the information in the tabs. This should not be needed too much
-as the program should automatically refresh itself if there is new information.</p>
+<p>There is also a <span class="guilabel">Refresh Window</span> button to redraw the image in the
+viewer and to also refresh the information in the tabs. This should not be
+needed too much as the program should automatically refresh itself if there
+is new information.</p>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading"></a></h2>
@@ -374,7 +420,7 @@ information.</p>
 <p>The OpihiExarata manual mode software groups sequential images as belonging to
 a set of observations of a single target. In order to tell the software what
 target/asteroid you are observing you need to provide it.</p>
-<p>Use the <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Target</span></code> button, it will open a small prompt for you to enter the
+<p>Use the <span class="guilabel">New Target</span> button, it will open a small prompt for you to enter the
 name of the asteroid/target you are observing. From this point on, all images
 loaded (either manually or automatically fetched) will be assumed to be of the
 target you provided (until you change it by clicking the button again).</p>
@@ -405,7 +451,7 @@ It does not matter which is the reference image for more images taken. (See
 <p>You will need to find and specify the location of the asteroid in the image.
 It is beyond the scope of this software and procedure to implement this
 automatically. (If you are not observing asteroids, you may skip this step
-and just click <code class="docutils literal notranslate"><span class="pre">Submit</span></code> in the
+and just click <span class="guilabel">Submit</span> in the
 <a class="reference internal" href="#user-manual-mode-procedure-find-asteroid-location-target-selector-gui"><span class="std std-ref">Target Selector GUI</span></a>.)</p>
 <p>Use the <a class="reference internal" href="#user-manual-mode-procedure-find-asteroid-location-target-selector-gui"><span class="std std-ref">Target Selector GUI</span></a>
 to find the asteroid pixel location.</p>
@@ -421,9 +467,9 @@ targets are typically asteroids.</span><a class="headerlink" href="#id4" title="
 <p>The target selector GUI allows you to select a specific target location in
 an image, see <a class="reference internal" href="#figure-target-selector-gui"><span class="std std-numref">Fig. 4</span></a>.</p>
 <p>The current file which you are determining the location of a target in is
-given by “Current:”. A reference image (if provided) to compare against is
-given by “Reference:”. Both of these files can be changed using their
-respective <code class="docutils literal notranslate"><span class="pre">Change</span></code> buttons; a file dialog will be opened so you can specify
+given by <span class="guilabel">Current:</span>. A reference image (if provided) to compare against is
+given by <span class="guilabel">Reference:</span>. Both of these files can be changed using their
+respective <span class="guilabel">Change</span> buttons; a file dialog will be opened so you can specify
 the new FITS files.</p>
 <p>There is a data viewer similar to the one specified in
 <a class="reference internal" href="#user-manual-mode-graphical-user-interface"><span class="std std-ref">Graphical User Interface</span></a>. However, in addition, if you
@@ -431,7 +477,7 @@ drag a box (left click and hold, drag, then release) without any tool selected
 in toolbar, then the software will search within the drawn (blue) box and
 extract the brightest object within the box. It will mark this target with a
 (red) triangle. It will assume that this is the desired target and update the
-“Target X” and “Target Y” fields with its pixel coordinates.</p>
+<span class="guilabel">Target X</span> and <span class="guilabel">Target Y</span> fields with its pixel coordinates.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This box drawing method  finds the brightest object in the current image. It ignores the
@@ -440,25 +486,25 @@ affect the actual current image.</p>
 </div>
 <p>You can compare your current image file $C$ with your reference image $R$ file
 in two subtractive ways using the two labeled buttons under
-“Subtraction Method”. (There are also buttons for simply viewing the images.)
+<span class="guilabel">Subtraction Method</span>. (There are also buttons for simply viewing the images.)
 These four ways are:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>, <span class="math notranslate nohighlight">\(C-0\)</span>: The current image is not compared with the reference image.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Reference</span></code>, <span class="math notranslate nohighlight">\(R-0\)</span>: The reference image is shown rather than the current image.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Sidereal</span></code>, <span class="math notranslate nohighlight">\(C-R\)</span>: The two images are subtracted assuming the IRTF is doing sidereal tracking. Because of this assumption, no shifting is done.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Non-sidereal</span></code>, <span class="math notranslate nohighlight">\(C-T_v(R)\)</span>: The two images are subtracted assuming the IRTF is doing non-sidereal tracking. Because of this assumption, the images are shifted based on the non-sidereal rates of the current image and the time between the two images.</p></li>
+<li><p><span class="guilabel">None</span>, <span class="math notranslate nohighlight">\(C-0\)</span>: The current image is not compared with the reference image.</p></li>
+<li><p><span class="guilabel">Reference</span>, <span class="math notranslate nohighlight">\(R-0\)</span>: The reference image is shown rather than the current image.</p></li>
+<li><p><span class="guilabel">Sidereal</span>, <span class="math notranslate nohighlight">\(C-R\)</span>: The two images are subtracted assuming the IRTF is doing sidereal tracking. Because of this assumption, no shifting is done.</p></li>
+<li><p><span class="guilabel">Non-sidereal</span>, <span class="math notranslate nohighlight">\(C-T_v(R)\)</span>: The two images are subtracted assuming the IRTF is doing non-sidereal tracking. Because of this assumption, the images are shifted based on the non-sidereal rates of the current image and the time between the two images.</p></li>
 </ul>
 <p>The displayed image’s color bar scale can be modified manually by entering
-values into the boxes accompanying “Scale [Low High]”, the left and right being
-the lower and higher bounds of the color bar respectively as indicated. The
-scale can also be automatically set so that the lower bound is the
-1 percentile and the higher bound is the 99 percentile by clicking the
-<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">99</span> <span class="pre">%</span></code> button. If the <code class="docutils literal notranslate"><span class="pre">Auto</span></code> checkbox is enabled, this autoscaling
-is done whenever a new operation is done the image (i.e. using the tools in
-the toolbar, changing the comparison method, among others).</p>
+values into the boxes accompanying <span class="guilabel">Scale [Low High]</span>, the left and
+right being the lower and higher bounds of the color bar respectively as
+indicated. The scale can also be automatically set so that the lower bound is
+the 1 percentile and the higher bound is the 99 percentile by clicking the
+<span class="guilabel">1 - 99 %</span> button. If the <span class="guilabel">Auto</span> checkbox is enabled,
+this autoscaling is done whenever a new operation is done the image (i.e.
+using the tools in the toolbar, changing the comparison method, among others).</p>
 <p>Select your target, either from the box method or by manually entering the
-coordinates in the “Target X” and “Target Y” boxes, and click <code class="docutils literal notranslate"><span class="pre">Submit</span></code>. The
-location of your target will be recorded.</p>
+coordinates in the <span class="guilabel">Target X</span> and <span class="guilabel">Target Y</span> boxes, and
+click <span class="guilabel">Submit</span>. The location of your target will be recorded.</p>
 </section>
 </section>
 <section id="compute-astrometric-solution">
@@ -476,21 +522,21 @@ astrometric solution of the image. See <a class="reference internal" href="#figu
 for the interface for astrometric solutions.</p>
 <p>To solve for the astrometric solution of the image, you will need to select
 the desired astrometric engine from the drop down menu then click on the
-<code class="docutils literal notranslate"><span class="pre">Solve</span> <span class="pre">Astrometry</span></code> button to solve.
+<span class="guilabel">Solve Astrometry</span> button to solve.
 (See <a class="reference internal" href="../technical/architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a> for more information on
 the available engines.)</p>
-<p>The pixel location (X,Y) of the center of the image, given by “Opihi Center”,
-and the specified target, given by “Target/Asteroid”, is provided with or
-without an astrometric solution. When the astrometric solution is provided,
-the right ascension and declination of these will also be provided.</p>
+<p>The pixel location (X,Y) of the center of the image, given by <span class="guilabel">Opihi Center</span>,
+and the specified target, given by <span class="guilabel">Target/Asteroid</span>, is provided
+with or without an astrometric solution. When the astrometric solution is
+provided, the right ascension and declination of these will also be provided.</p>
 <p>Custom pixel coordinate (X,Y) can be provided in the boxes to be translated to
 the sky coordinates that they correspond to. Alternatively, if sky coordinates
 are provided (in sexagesimal form, RA hours and DEC degrees, delimitated by
 colons), the pixel coordinates of the sky coordinates can also be determined;
 the pixel coordinate boxes must be empty as the solving gives preference to
 pixel to on-sky solving. Enter in either pixel or sky coordinates as described
-and click the <code class="docutils literal notranslate"><span class="pre">Custom</span> <span class="pre">Solve</span></code> button to convert it to the other. The button
-does nothing without a valid astrometric solution.</p>
+and click the <span class="guilabel">Custom Solve</span> button to convert it to the other. The
+button does nothing without a valid astrometric solution.</p>
 </section>
 <section id="compute-photometric-solution">
 <span id="user-manual-mode-procedure-find-asteroid-location-compute-photometric-solution"></span><h3>Compute Photometric Solution<a class="headerlink" href="#compute-photometric-solution" title="Permalink to this heading"></a></h3>
@@ -510,13 +556,13 @@ This operation can be skipped entirely if a photometric solution is not
 necessary.</p>
 <p>To solve for the photometric solution of the image, you will need to select
 the desired photometric engine from the drop down menu then click on the
-<code class="docutils literal notranslate"><span class="pre">Solve</span> <span class="pre">Photometry</span></code> button to solve.
+<span class="guilabel">Solve Photometry</span> button to solve.
 (See <a class="reference internal" href="../technical/architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a> for more information on
 the available engines.)</p>
-<p>The filter that the image was taken in is noted by “Filter”, this is
+<p>The filter that the image was taken in is noted by <span class="guilabel">Filter</span>, this is
 determined by the FITS file header.</p>
 <p>Once a photometric solution has been solved, the corresponding filter zero
-point magnitude of the image is provided by “Zero Point”.</p>
+point magnitude of the image is provided by <span class="guilabel">Zero Point</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Execution of the photometric solution requires a completed astrometric
@@ -569,20 +615,20 @@ only the most recent observations forward in time. See
 <a class="reference internal" href="#figure-manual-mode-gui-propagate"><span class="std std-numref">Fig. 7</span></a> for the interface for propagation solutions.</p>
 <p>To solve for the propagation solution from the observations, you will need to
 select the desired propagation engine from the drop down menu then click on the
-<code class="docutils literal notranslate"><span class="pre">Solve</span> <span class="pre">Propagation</span></code> button to solve.
+<span class="guilabel">Solve Propagation</span> button to solve.
 (See <a class="reference internal" href="../technical/architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a> for more information on
 the available engines.)</p>
 <p>If a propagation solution is done, the on-sky rates will be provided under
-“Propagate Rate [ “/s | “/s<sup>2</sup>]”. Both the first order (velocity) and
+<span class="guilabel">Propagate Rate [ “/s | “/s²]</span>. Both the first order (velocity) and
 second order (acceleration) on-sky rates in RA and DEC are given in arcseconds
 per second, or arcseconds per second squared. The RA is given on the right and
 DEC on the left within the first or second order pairs.</p>
 <p>You may also provide a custom date and time, in
 (<a class="reference external" href="https://www.iso.org/standard/70907.html">ISO-8601 like formatting</a>) the
 provided dialog box. You can specify the timezone that the provided date and
-time corresponds to using the dropdown menu. When you click <code class="docutils literal notranslate"><span class="pre">Custom</span> <span class="pre">Solve</span></code>,
-the displayed RA and DEC coordinate is the estimated sky coordinates for the
-asteroid at the provided time.</p>
+time corresponds to using the dropdown menu. When you click
+<span class="guilabel">Custom Solve</span>, the displayed RA and DEC coordinate is the estimated
+sky coordinates for the asteroid at the provided time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Execution of the propagation solution requires a completed astrometric
@@ -604,26 +650,26 @@ See <a class="reference internal" href="#figure-manual-mode-gui-orbit"><span cla
 solutions.</p>
 <p>To solve for the orbital solution from the observations, you will need to
 select the desired orbit engine from the drop down menu then click on the
-<code class="docutils literal notranslate"><span class="pre">Solve</span> <span class="pre">Orbit</span></code> button to solve.
+<span class="guilabel">Solve Orbit</span> button to solve.
 (See <a class="reference internal" href="../technical/architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a> for more information on
 the available engines.)</p>
 <p>The six Keplerian orbital elements (plus the epoch) are provided after the
 orbital solutions is solved. They are:</p>
 <ul class="simple">
-<li><p>“SM-Axis”: The semi-major axis of the orbit, in AU.</p></li>
-<li><p>“Ecc.”: The eccentricity of the orbit, this is unit-less.</p></li>
-<li><p>“Incli.”: The inclination of the orbit, in degrees.</p></li>
-<li><p>“As-Node”: The longitude of the ascending node, in degrees.</p></li>
-<li><p>“Peri.”: The argument of perihelion, in degrees.</p></li>
-<li><p>“M-Anom.”: The mean anomaly, in degrees.</p></li>
-<li><p>“Epoch”: The epoch of these of these osculating orbital elements, in Julian days.</p></li>
+<li><p><span class="guilabel">Ecc.</span>: The eccentricity of the orbit, this is unit-less.</p></li>
+<li><p><span class="guilabel">Incli.</span>: The inclination of the orbit, in degrees.</p></li>
+<li><p><span class="guilabel">As-Node</span>: The longitude of the ascending node, in degrees.</p></li>
+<li><p><span class="guilabel">Peri.</span>: The argument of perihelion, in degrees.</p></li>
+<li><p><span class="guilabel">M-Anom.</span>: The mean anomaly, in degrees.</p></li>
+<li><p><span class="guilabel">Epoch</span>: The epoch of these of these osculating orbital elements, in Julian days.</p></li>
 </ul>
-<p>If the Engine provided is “Custom”, then you are trying to provide a custom
-orbit. You provide your Keplerian orbital parameters in the boxes. You may also
-specify the error in these elements by providing another number delimitated
-from the first by a letter. (Note, scientific notation is not supported,
-especially E-notation based entries.) After you provide your orbital parameters,
-you can click <code class="docutils literal notranslate"><span class="pre">Solve</span> <span class="pre">Orbit</span></code> to <em>solve</em> for your orbital solution.</p>
+<p>If the Engine provided is <span class="guilabel">Custom</span>, then you are trying to provide a
+custom orbit. You provide your Keplerian orbital parameters in the boxes. You
+may also specify the error in these elements by providing another number
+delimitated from the first by a letter. (Note, scientific notation is not
+supported, especially E-notation based entries.) After you provide your
+orbital parameters, you can click <span class="guilabel">Solve Orbit</span> to <em>solve</em> for your
+orbital solution.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Execution of the orbital solution requires a completed astrometric
@@ -645,20 +691,20 @@ are then used to derive the ephemeris of the asteroid. See
 solutions.</p>
 <p>To solve for the ephemeris solution from the orbital elements, you will need to
 select the desired ephemeris engine from the drop down menu then click on the
-<code class="docutils literal notranslate"><span class="pre">Solve</span> <span class="pre">Ephemeris</span></code> button to solve.
+<span class="guilabel">Solve Ephemeris</span> button to solve.
 (See <a class="reference internal" href="../technical/architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a> for more information on
 the available engines.)</p>
 <p>If an ephemeris solution is done, the on-sky rates will be provided under
-“Ephemeris Rate [ “/s | “/s<sup>2</sup>]”. Both the first order (velocity) and
+<span class="guilabel">Ephemeris Rate [ “/s | “/s²]</span>. Both the first order (velocity) and
 second order (acceleration) on-sky rates in RA and DEC are given in arcseconds
 per second, or arcseconds per second squared. The RA is given on the right and
 DEC on the left within the first or second order pairs.</p>
 <p>You may also provide a custom date and time, in
 (<a class="reference external" href="https://www.iso.org/standard/70907.html">ISO-8601 like formatting</a>) the
 provided dialog box. You can specify the timezone that the provided date and
-time corresponds to using the dropdown menu. When you click <code class="docutils literal notranslate"><span class="pre">Custom</span> <span class="pre">Solve</span></code>,
-the displayed RA and DEC coordinate is the estimated sky coordinates for the
-asteroid at the provided time.</p>
+time corresponds to using the dropdown menu. When you click
+<span class="guilabel">Custom Solve</span>, the displayed RA and DEC coordinate is the estimated
+sky coordinates for the asteroid at the provided time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Execution of the ephemeris solution requires a completed orbital

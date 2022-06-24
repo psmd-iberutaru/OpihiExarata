@@ -72,7 +72,7 @@ installation order is as follows, we note what is optional and why:
 1.  :ref:`technical-installation-download`: You will download the OpihiExarata package from its Github repository in this step.
 2.  :ref:`technical-installation-python-part`: You will download a supported Python version and build then install the Python part of OpihiExarata and its dependencies. This part being the primary part.
 3.  :ref:`technical-installation-documentation`: (Optional) You will build and process the documentation files to build the documentation for OpihiExarata. This is helpful if this set of documentation that you are reading is outdated or if you just want the documentation.
-4.  :ref:`technical-installation-windows-compatibility`: (Situtional) Some of the services that OpihiExarata depends on only works for Linux. In order to have supported functionality on Windows, the OpihiExarata software leverages the Windows Subsystem for Linux. It is required that Windows users download and install this feature. The instructions are detailed here.
+4.  :ref:`technical-installation-windows-compatibility`: (Situational) Some of the services that OpihiExarata depends on only works for Linux. In order to have supported functionality on Windows, the OpihiExarata software leverages the Windows Subsystem for Linux. It is required that Windows users download and install this feature. The instructions are detailed here.
 5.  :ref:`technical-installation-orbfit`: This installs the Orbfit preliminary orbit determiner program which OpihiExarata uses for orbit determination.
 
 

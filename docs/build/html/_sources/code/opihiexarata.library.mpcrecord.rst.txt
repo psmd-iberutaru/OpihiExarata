@@ -5,3 +5,4 @@ opihiexarata.library.mpcrecord module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

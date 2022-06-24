@@ -5,3 +5,4 @@ opihiexarata.gui.automatic module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

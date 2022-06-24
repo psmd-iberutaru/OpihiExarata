@@ -16,6 +16,14 @@ Subpackages
    opihiexarata.photometry
    opihiexarata.propagate
 
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   opihiexarata.__main__
+
 Module contents
 ---------------
 
@@ -23,3 +31,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

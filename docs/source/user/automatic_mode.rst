@@ -62,13 +62,13 @@ You will need to specify the data directory that the OpihiExarata program will
 pull the most recent images from. This should be the same directory where the 
 Opihi camera will be saving the images it is taking constantly.
 
-You can specify this directory by clicking the ``Change`` button to bring up
-a directory selecting dialog. The exact form of your dialog is operating system
-dependent as we defer to its implementation. Select the directory using that 
-dialog.
+You can specify this directory by clicking the :guilabel:`Change` button to 
+bring up a directory selecting dialog. The exact form of your dialog is 
+operating system dependent as we defer to its implementation. Select the 
+directory using that dialog.
 
-Once submitted, the ``Fetch Directory`` entry should change to match your 
-selection. This display uses absolute paths; ensure that it is correct.
+Once submitted, the :guilabel:`Fetch Directory` entry should change to match 
+your selection. This display uses absolute paths; ensure that it is correct.
 
 
 Specify Solving Engines
@@ -80,8 +80,8 @@ selected engines will constantly be used until a different one is specified.
 
 Specify the desired AstrometryEngine using the left drop-down combo box. 
 Specify the desired PhotometryEngine using the right drop-down combo box. 
-The "Engines (A, P)" label has also small key to tell you which is which.
-For more information on the available engines, see 
+The :guilabel:`Engines (A, P)` label has also small key to tell you which is 
+which. For more information on the available engines, see 
 :ref:`technical-architecture-services-engines`
 
 
@@ -99,9 +99,9 @@ the same directory you specified for this program to fetch from.
 
 Trigger Automatic Solving
 -------------------------
-You will need to start automatic solving by triggering it via the ``Start``
-button. Once it starts, it will do the following, in order, automatically, 
-without need for user intervention:
+You will need to start automatic solving by triggering it via the 
+:guilabel:`Start` button. Once it starts, it will do the following, in order, 
+automatically, without need for user intervention:
 
 1.  It will fetch the most recent fits image as determined by the modification timestamp of all fits files within the specified directory as provided by the operating system.
 2.  It will pre-process the fetched image according to the preprocessing algorithm, see :ref:`technical-algorithms-preprocessing`.
@@ -112,10 +112,10 @@ without need for user intervention:
 7.  It will repeat this process until stopped.
 
 Trigger Once Manually
-`````````````````````
+~~~~~~~~~~~~~~~~~~~~~
 
 You may also trigger the automatic solving procedure manually once via the 
-``Trigger`` button. This will do the entire process as elaborated above, 
+:guilabel:`Trigger` button. This will do the entire process as elaborated above, 
 except for repeating it.
 
 Displayed Status and Results
@@ -124,39 +124,41 @@ Displayed Status and Results
 As each image is solved, the results of the solve will be displayed. We 
 describe the fields which change as the automatic solving runs.
 
-The "Working" field details the file that is currently being (or was last) 
-worked on by the automatic solving algorithms. The "Results" field details 
-the file that has already been worked on and has been solved without failure.
-When the working file, undergoing the solving, is solved successfully, it 
-becomes a file with results and the program designates it as such. If the 
-working file failed to solve, it is not transferred over. 
+The :guilabel:`Working` field details the file that is currently being (or 
+was last) worked on by the automatic solving algorithms. The 
+:guilabel:`Results` field details the file that has already been worked on 
+and has been solved without failure. When the working file, undergoing the 
+solving, is solved successfully, it becomes a file with results and the 
+program designates it as such. If the working file failed to solve, it is not 
+transferred over. 
 
-The astrometric and photometric results of the "Results" file is displayed 
-as well. 
+The astrometric and photometric results of the :guilabel:`Results` file is 
+displayed as well. 
 
-The "Coordinates" felids specify the on-sky right ascension and declination 
-of the center of the image along with the UTC time of when this image was 
-taken. 
+The :guilabel:`Coordinates` felids specify the on-sky right ascension and 
+declination of the center of the image along with the UTC time of when this 
+image was taken. 
 
-The "Zero Point" value, calculated via the photometric solver, of the image 
-is provided, along with the "Filter" that the image was taken in specified in 
-said field. (The filter term is based on the fits metadata.)
+The :guilabel:`Zero Point` value, calculated via the photometric solver, of 
+the image is provided, along with the :guilabel:`Filter` that the image was 
+taken in specified in said field. (The filter term is based on the fits 
+metadata.)
 
-The status of the automatic solving will be displayed under "Loop Status". The
-possible statuses, and their meanings, are:
+The status of the automatic solving will be displayed under 
+:guilabel:`Loop Status`. The possible statuses, and their meanings, are:
 
-- **Running**: The automatic loop of fetching and solving images is currently running.
-- **Stopped**: The automatic loop of fetching and solving images is stopped.
-- **Triggered**: The solving of a single image has been triggered and it is being worked on.
-- **Failed**: An image in the automatic loop failed to solve, but this does not stop the loop.
-- **Halted**: The loop has been stopped via an alternative method than the ``Stop`` button.
-- **Default**: This is filler text when the GUI is first opened. This should not reappear throughout usage.
+- :guilabel:`Running`: The automatic loop of fetching and solving images is currently running.
+- :guilabel:`Stopped`: The automatic loop of fetching and solving images is stopped.
+- :guilabel:`Triggered`: The solving of a single image has been triggered and it is being worked on.
+- :guilabel:`Failed`: An image in the automatic loop failed to solve, but this does not stop the loop.
+- :guilabel:`Halted`: The loop has been stopped via an alternative method than the :guilabel:`Stop` button.
+- :guilabel:`Default`: This is filler text when the GUI is first opened. This should not reappear throughout usage.
 
 
 Stop Automatic Solving
 ----------------------
 
-When you want to stop the automatic solving, you can click the ``Stop`` button
+When you want to stop the automatic solving, you can click the :guilabel:`Stop` button
 at any time. This will finish the current image it is working on and stop the 
 automatic loop from fetching another image from the data directory. Because of 
 the nature of sending information to other services (i.e. the backends to the 
@@ -166,8 +168,8 @@ process must finish and we only prevent it from continuing.
 If you want to stop the solving immediately for whatever reason, it is 
 suggested to cancel or crash the process that OpihiExarata is running on. 
 
-The ``Stop`` button will not prevent a manual trigger from being executed via 
-the ``Trigger`` button.
+The :guilabel:`Stop` button will not prevent a manual trigger from being executed via 
+the :guilabel:`Trigger` button.
 
 If the infinite automatic loop continues fetching images even after the stop 
 button is pressed, this likely means something was changed in the code and 

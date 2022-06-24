@@ -5,3 +5,4 @@ opihiexarata.library.phototable module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

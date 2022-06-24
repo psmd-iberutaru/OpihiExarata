@@ -35,9 +35,10 @@ When installing Pyside6, Qt Designer often is included and can be invoked by::
 
     pyside6-designer
 
-The GUI design files are saved in the ``/OpihiExarata/src/opihiexarata/gui/qtui/``
-directory typically as something akin to ``manual.ui``. These files may be 
-opened by Qt Designer and modified as needed.
+The GUI design files are saved in the 
+:file:`/OpihiExarata/src/opihiexarata/gui/qtui/` directory typically as 
+something akin to :file:`manual.ui`. These files may be opened by Qt Designer 
+and modified as needed.
 
 
 .. _technical-architecture-graphical-user-interface-building-ui-files:
@@ -47,16 +48,17 @@ Building UI Files
 
 It is part of development (not installation) to develop the Python versions of
 the GUI files. The UI files created via Qt Designer can be converted to their 
-Python versions using ``pyside6-uic``. (See 
+Python versions using :command:`pyside6-uic`. (See 
 `Qt's documentation <https://doc.qt.io/qtforpython/tutorials/basictutorial/uifiles.html#using-ui-files-from-designer-or-qtcreator-with-quiloader-and-pyside6-uic>`_ 
 for more information.)
 
-The UI files are stored in ``/OpihiExarata/src/opihiexarata/gui/qtui/`` and it 
-is expected that the generated Python equivalent files will also be written 
-there as ``qtui_*.py``, where the original UI filename fills the wildcard.
+The UI files are stored in :file:`/OpihiExarata/src/opihiexarata/gui/qtui/`
+and it is expected that the generated Python equivalent files will also be 
+written there as :file:`qtui_*.py`, where the original UI filename fills the 
+wildcard.
 
-For example, for a file ``manual.ui``, it can be converted to the proper Python
-version using the command::
+For example, for a file :file:`manual.ui`, it can be converted to the proper 
+Python version using the command::
 
     pyside6-uic manual.ui > qtui_manual.py
 

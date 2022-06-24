@@ -33,8 +33,8 @@ how to install TeX Live is beyond the scope of this documentation.
 Directory
 ---------
 
-Change your directory to the ``OpihiExarata/docs`` directory, run all of the 
-commands while within this directory.
+Change your directory to the :file:`OpihiExarata/docs` directory, run all of 
+the commands while within this directory.
 
 Build
 =====
@@ -48,17 +48,17 @@ can be done via running::
 files, you can do this via the commands: (This just removes the build directory 
 along with other goodies.)
 
-* Windows: ``.\make.bat clean``
-* Linux: ``make clean``
+* Windows: :command:`.\make.bat clean`
+* Linux: :command:`make clean`
 
 **Third**, the documentation can be built using the batch/makefile using the 
 command: 
 
-* Windows: ``.\make.bat <type>``
-* Linux: ``make <type>``
+* Windows: :command:`.\make.bat <type>`
+* Linux: :command:`make <type>`
 
-The ``<type>`` should be replaced with the type of output desired, suggestions 
-below:
+The ``<type>`` should be replaced with the type of output desired, 
+suggestions below:
 
 * ``html`` A collection of webpages ordered and structured. This is the suggested method.
 * ``singlehtml`` A single HTML page; useful when sending the documentation between devices.

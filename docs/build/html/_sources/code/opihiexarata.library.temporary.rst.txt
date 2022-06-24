@@ -5,3 +5,4 @@ opihiexarata.library.temporary module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

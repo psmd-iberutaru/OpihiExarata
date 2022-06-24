@@ -21,4 +21,5 @@ audiences.
 
     installation/index
     architecture/index
+    conventions
     algorithms/index

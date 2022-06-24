@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Orbfit &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Install: Orbfit &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -192,9 +192,48 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,6 +241,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -269,6 +309,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -313,7 +357,7 @@
 <section id="directory">
 <h3>Directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h3>
 <p>Enter into a directory which is accessible and usable by programs. In this
-documentation, we will call this directory <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>. You should do the
+documentation, we will call this directory <code class="file docutils literal notranslate"><span class="pre">Orbfit/</span></code>. You should do the
 commands of this section of the installation documentation within this
 directory.</p>
 </section>
@@ -441,14 +485,15 @@ a download command may work:</p>
 <section id="compile">
 <h2>Compile<a class="headerlink" href="#compile" title="Permalink to this heading"></a></h2>
 <p>To configure the compilation flags, OrbFit comes with a set of files which
-describe the flags. Initialize the proper compilation flags via the <code class="docutils literal notranslate"><span class="pre">config</span></code>
-command, (flags for an optimized build using the Intel compiler):</p>
+describe the flags. Initialize the proper compilation flags via the
+<strong class="command">config</strong> command, (flags for an optimized build using the Intel
+compiler):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">config</span> <span class="o">-</span><span class="n">O</span> <span class="n">intel</span>
 </pre></div>
 </div>
 <p>The generated compilation flags, however, needs to be changed. The generated
-compilation flags can be found in the file <code class="docutils literal notranslate"><span class="pre">Orbfit/src/make.flags</span></code>, as
-generated by the <code class="docutils literal notranslate"><span class="pre">config</span></code> script. The options should be
+compilation flags can be found in the file <code class="file docutils literal notranslate"><span class="pre">Orbfit/src/make.flags</span></code>, as
+generated by the <strong class="command">config</strong> script. The options should be
 (see <a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/fortran-compiler-oneapi-dev-guide-and-reference/top/compiler-reference/compiler-options/alphabetical-list-of-compiler-options.html">Intel Fortran compiler options</a> for more information):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FFLAGS</span><span class="o">=</span> <span class="o">-</span><span class="n">warn</span> <span class="n">nousage</span> <span class="o">-</span><span class="n">O</span> <span class="o">-</span><span class="n">mp1</span> <span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">intel</span> <span class="o">-</span><span class="n">save</span> <span class="o">-</span><span class="n">assume</span> <span class="n">byterecl</span> <span class="o">-</span><span class="n">I</span><span class="o">../</span><span class="n">include</span>
 </pre></div>
@@ -466,13 +511,13 @@ determination part of the program.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span>
 </pre></div>
 </div>
-<p>The compiled programs should exist in <code class="docutils literal notranslate"><span class="pre">Orbfit/bin/</span></code>.</p>
+<p>The compiled programs should exist in <code class="file docutils literal notranslate"><span class="pre">Orbfit/bin/</span></code>.</p>
 </section>
 <section id="download-jpl-ephemerides-file">
 <h2>Download JPL Ephemerides File<a class="headerlink" href="#download-jpl-ephemerides-file" title="Permalink to this heading"></a></h2>
 <p>The OrbFit package uses the JPL ephemerides file for its calculations, it
 requires the binary ephemerides files. Current documentation suggests using
-the 405 ephemerides set, but more updated sets (DE ) also exist. For Linux,
+the 405 ephemerides set, but more updated sets (DE 407) also exist. For Linux,
 precomputed binaries can be found at <a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a>
 and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
 <p>For DE405:</p>
@@ -484,9 +529,9 @@ and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph
 </pre></div>
 </div>
 <p>The downloaded binary ephemerides file must be linked so that the OrbFit
-program can properly utilize it; using a symbolic link in the <code class="docutils literal notranslate"><span class="pre">Orbfit/lib/</span></code>
-directory, and assuming the DE440 file was downloaded (the command below
-should be changed to fit your file):</p>
+program can properly utilize it; using a symbolic link in the
+<code class="file docutils literal notranslate"><span class="pre">Orbfit/lib/</span></code> directory, and assuming the DE440 file was downloaded (the
+command below should be changed to fit your file):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">lib</span><span class="o">/</span>
 <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">./../</span><span class="n">linux_p1550p2650</span><span class="mf">.440</span> <span class="n">jpleph</span>
 <span class="c1"># Back to Orbfit/.</span>
@@ -496,7 +541,7 @@ should be changed to fit your file):</p>
 </section>
 <section id="testing-suite">
 <h2>Testing Suite<a class="headerlink" href="#testing-suite" title="Permalink to this heading"></a></h2>
-<p>The software’s test suit can be executed from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> via:</p>
+<p>The software’s test suit can be executed from <code class="file docutils literal notranslate"><span class="pre">Orbfit/</span></code> via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">tests</span>
 </pre></div>
 </div>
@@ -507,7 +552,7 @@ should be changed to fit your file):</p>
 <p>For this program’s executables to be used, the path that they exist in must
 be known to OpihiExarata. Copy the output of the working directory command
 and add it to the configuration file’s entries as noted. The path should be
-an absolute path; these commands should be run in the <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory:</p>
+an absolute path; these commands should be run in the <code class="file docutils literal notranslate"><span class="pre">Orbfit/</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span>
 <span class="n">cd</span> <span class="o">./</span><span class="nb">bin</span><span class="p">;</span> <span class="n">echo</span> <span class="s2">&quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;</span><span class="p">;</span> <span class="n">pwd</span><span class="p">;</span> <span class="n">cd</span> <span class="o">..</span>
 </pre></div>
@@ -523,13 +568,13 @@ cd ./bin; echo &quot;ORBFIT_BINARY_EXECUTABLE_DIRECTORY ==&quot;; pwd; cd ..
 <h2>OpihiExarata Template Files<a class="headerlink" href="#opihiexarata-template-files" title="Permalink to this heading"></a></h2>
 <p>In order for OpihiExarata to properly use the OrbFit program, files which are
 used by OrbFit must be collected for OpihiExarata to leverage.</p>
-<p>Create and enter the directory (starting from <code class="docutils literal notranslate"><span class="pre">Orbfit/</span></code>):</p>
+<p>Create and enter the directory (starting from <code class="file docutils literal notranslate"><span class="pre">Orbfit/</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">exarata</span><span class="p">;</span> <span class="n">cd</span> <span class="n">exarata</span>
 </pre></div>
 </div>
-<p>Within the <code class="docutils literal notranslate"><span class="pre">Orbfit/exarata/</span></code> directory, copy over the asteroid propagation
+<p>Within the <code class="file docutils literal notranslate"><span class="pre">Orbfit/exarata/</span></code> directory, copy over the asteroid propagation
 files. This contains ephemerides data for asteroids to better propagations.
-Generally, these files can be found in <code class="docutils literal notranslate"><span class="pre">Orbfit/tests/bineph/testout</span></code>. For
+Generally, these files can be found in <code class="file docutils literal notranslate"><span class="pre">Orbfit/tests/bineph/testout</span></code>. For
 some reason, the file extensions on these files are not in a form which is
 liked by Orbfit, so they are also changed. Namely, the commands below should
 work:</p>
@@ -545,7 +590,7 @@ work:</p>
 </pre></div>
 </div>
 <p>Also, create the files which are to be used to input data into Orbfit from
-OpihiExarata. The main file that needs to be created is <code class="docutils literal notranslate"><span class="pre">exarata.oop</span></code>.
+OpihiExarata. The main file that needs to be created is <code class="file docutils literal notranslate"><span class="pre">exarata.oop</span></code>.
 Create it with your favorite text editor and fill the file and save it with
 the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! First object

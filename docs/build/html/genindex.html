@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Index &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/pyukumuku_favicon.png"/>
@@ -189,9 +189,48 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="technical/architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -199,6 +238,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="technical/conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="technical/algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="technical/algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -266,6 +306,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -300,7 +344,8 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#_"><strong>_</strong></a>
+ <a href="#Symbols"><strong>Symbols</strong></a>
+ | <a href="#_"><strong>_</strong></a>
  | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
@@ -324,9 +369,168 @@
  | <a href="#Z"><strong>Z</strong></a>
  
 </div>
+<h2 id="Symbols">Symbols</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --automatic
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-automatic">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --config
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-config">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --help
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-help">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --keep-temporary
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-keep-temporary">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --manual
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-manual">command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --overwrite
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-overwrite">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --secret
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-secret">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    [action]
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-action">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    [options]
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-options">command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution.__calculate_eccentric_anomaly">__calculate_eccentric_anomaly() (opihiexarata.orbit.solution.OrbitalSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.__calculate_intersection_star_table">__calculate_intersection_star_table() (opihiexarata.photometry.solution.PhotometricSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.__calculate_sky_counts_mask">__calculate_sky_counts_mask() (opihiexarata.photometry.solution.PhotometricSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.__calculate_sky_counts_value">__calculate_sky_counts_value() (opihiexarata.photometry.solution.PhotometricSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution.__calculate_true_anomaly">__calculate_true_anomaly() (opihiexarata.orbit.solution.OrbitalSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.__check_installation">__check_installation() (opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine class method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_check_box_autoscale_1_99">__connect_check_box_autoscale_1_99() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_line_edit_dynamic_scale_high">__connect_line_edit_dynamic_scale_high() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_line_edit_dynamic_scale_low">__connect_line_edit_dynamic_scale_low() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_matplotlib_mouse_press_event">__connect_matplotlib_mouse_press_event() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_matplotlib_mouse_release_event">__connect_matplotlib_mouse_release_event() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_custom_solve">__connect_push_button_astrometry_custom_solve() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_solve_astrometry">__connect_push_button_astrometry_solve_astrometry() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_change_current_filename">__connect_push_button_change_current_filename() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__connect_push_button_change_directory">__connect_push_button_change_directory() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_change_reference_filename">__connect_push_button_change_reference_filename() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_mode_non_sidereal">__connect_push_button_mode_non_sidereal() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_mode_none">__connect_push_button_mode_none() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_mode_reference">__connect_push_button_mode_reference() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_mode_sidereal">__connect_push_button_mode_sidereal() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_image_automatic">__connect_push_button_new_image_automatic() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_image_manual">__connect_push_button_new_image_manual() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_target">__connect_push_button_new_target() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_orbit_solve_ephemeris">__connect_push_button_orbit_solve_ephemeris() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_orbit_solve_orbit">__connect_push_button_orbit_solve_orbit() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_photometry_solve_photometry">__connect_push_button_photometry_solve_photometry() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_propagate_custom_solve">__connect_push_button_propagate_custom_solve() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_propagate_solve_propagation">__connect_push_button_propagate_solve_propagation() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_refresh_window">__connect_push_button_refresh_window() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_scale_1_99">__connect_push_button_scale_1_99() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__connect_push_button_start">__connect_push_button_start() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__connect_push_button_stop">__connect_push_button_stop() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_push_button_submit_target">__connect_push_button_submit_target() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__connect_push_button_trigger">__connect_push_button_trigger() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__del_job_id">__del_job_id() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__del_submission_id">__del_submission_id() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__doc_job_id">__doc_job_id (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__doc_submission_id">__doc_submission_id (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
+</li>
+      <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine.__fit_polynomial_function">__fit_polynomial_function() (opihiexarata.propagate.polynomial.LinearPropagationEngine method)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__fit_polynomial_function">(opihiexarata.propagate.polynomial.QuadraticPropagationEngine method)</a>
+</li>
+      </ul></li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__get_job_id">__get_job_id() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__get_mpc_record_filename">__get_mpc_record_filename() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__get_submission_id">__get_submission_id() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.__init__">__init__() (opihiexarata.astrometry.solution.AstrometricSolution method)</a>
 
       <ul>
@@ -369,6 +573,66 @@
         <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.__init__">(opihiexarata.propagate.solution.PropagativeSolution method)</a>
 </li>
       </ul></li>
+      <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.__init_compute_propagation_motion">__init_compute_propagation_motion() (opihiexarata.propagate.solution.PropagativeSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.__init_compute_raw_motion">__init_compute_raw_motion() (opihiexarata.propagate.solution.PropagativeSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__init_gui_connections">__init_gui_connections() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init_gui_connections">(opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+        <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__init_gui_connections">(opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      </ul></li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init_opihi_image">__init_opihi_image() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__init_opihi_image">(opihiexarata.gui.selector.TargetSelectorWindow method)</a>
+</li>
+      </ul></li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init_preprocess_solution">__init_preprocess_solution() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init_read_flat_data">__init_read_flat_data() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init_read_linearity_data">__init_read_linearity_data() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init_read_mask_data">__init_read_mask_data() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__job_id">__job_id (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
+</li>
+      <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine.__linear_function">__linear_function() (opihiexarata.propagate.polynomial.LinearPropagationEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__login">__login() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.__main__.html#opihiexarata.__main__.__main_execute_arguments">__main_execute_arguments() (in module opihiexarata.__main__)</a>
+</li>
+      <li><a href="code/opihiexarata.__main__.html#opihiexarata.__main__.__main_parse_arguments">__main_parse_arguments() (in module opihiexarata.__main__)</a>
+</li>
+      <li><a href="code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.__parse_jpl_horizons_output">__parse_jpl_horizons_output() (opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__quadratic_function">__quadratic_function() (opihiexarata.propagate.polynomial.QuadraticPropagationEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__refresh_dynamic_label_text">__refresh_dynamic_label_text() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_astrometry">__refresh_dynamic_label_text_astrometry() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_ephemeris">__refresh_dynamic_label_text_ephemeris() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_orbit">__refresh_dynamic_label_text_orbit() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_photometry">__refresh_dynamic_label_text_photometry() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_propagate">__refresh_dynamic_label_text_propagate() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__set_job_id">__set_job_id() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__set_submission_id">__set_submission_id() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__submission_id">__submission_id (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._apikey">_apikey (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._ASTROMETRY_NET_API_BASE_URL">_ASTROMETRY_NET_API_BASE_URL (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
@@ -407,8 +671,6 @@
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._flat_r_fits_filename">_flat_r_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._flat_z_fits_filename">_flat_z_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url">_generate_service_url() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
@@ -499,6 +761,13 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    a
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-automatic">command line option</a>
+</li>
+      </ul></li>
       <li><a href="code/opihiexarata.library.http.html#opihiexarata.library.http.api_request_sleep">api_request_sleep() (in module opihiexarata.library.http)</a>
 </li>
       <li><a href="code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.argument_perihelion">argument_perihelion (opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine attribute)</a>
@@ -521,10 +790,10 @@
 </li>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.asteroid_history">asteroid_history (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.asteroid_location">asteroid_location (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.asteroid_name">asteroid_name (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.asteroid_observations">asteroid_observations (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
@@ -537,6 +806,20 @@
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine">AstrometryNetWebAPIEngine (class in opihiexarata.astrometry.webclient)</a>
 </li>
+      <li>
+    auto
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-automatic">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    automatic
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-automatic">command line option</a>
+</li>
+      </ul></li>
       <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.automatic_triggering">automatic_triggering() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
 </li>
       <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.available_filters">available_filters (opihiexarata.photometry.solution.PhotometricSolution attribute)</a>
@@ -563,12 +846,53 @@
 </li>
       <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.close_window">close_window() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
 </li>
+      <li>
+    command line option
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-automatic">--automatic</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-config">--config</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-help">--help</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-keep-temporary">--keep-temporary</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-manual">--manual</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-overwrite">--overwrite</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-secret">--secret</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-action">[action]</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-options">[options]</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-automatic">a</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-automatic">auto</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-automatic">automatic</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-generate">g</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-generate">generate</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-help">h</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-help">help</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-manual">m</a>
+</li>
+        <li><a href="user/command_line.html#cmdoption-arg-manual">manual</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.CommandLineError">CommandLineError</a>
 </li>
       <li><a href="code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.cone_search">cone_search() (opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.ConfigurationError">ConfigurationError</a>
 </li>
       <li><a href="code/opihiexarata.library.image.html#opihiexarata.library.image.create_circular_mask">create_circular_mask() (in module opihiexarata.library.image)</a>
@@ -735,6 +1059,20 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    g
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-generate">command line option</a>
+</li>
+      </ul></li>
+      <li>
+    generate
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-generate">command line option</a>
+</li>
+      </ul></li>
       <li><a href="code/opihiexarata.library.config.html#opihiexarata.library.config.generate_configuration_file_copy">generate_configuration_file_copy() (in module opihiexarata.library.config)</a>
 </li>
       <li><a href="code/opihiexarata.library.config.html#opihiexarata.library.config.generate_secrets_file_copy">generate_secrets_file_copy() (in module opihiexarata.library.config)</a>
@@ -745,12 +1083,12 @@
 </li>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_with_extension">get_filename_with_extension() (in module opihiexarata.library.path)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_without_extension">get_filename_without_extension() (in module opihiexarata.library.path)</a>
 </li>
       <li><a href="code/opihiexarata.library.http.html#opihiexarata.library.http.get_http_status_code">get_http_status_code() (in module opihiexarata.library.http)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_results">get_job_results() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_status">get_job_status() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
@@ -771,8 +1109,24 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    h
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-help">command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.header">header (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
 </li>
+      <li>
+    help
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-help">command line option</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -861,14 +1215,30 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/opihiexarata.gui.name.html#opihiexarata.gui.name.main">main() (in module opihiexarata.gui.name)</a>
+      <li>
+    m
 
       <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-manual">command line option</a>
+</li>
+      </ul></li>
+      <li><a href="code/opihiexarata.__main__.html#opihiexarata.__main__.main">main() (in module opihiexarata.__main__)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.gui.name.html#opihiexarata.gui.name.main">(in module opihiexarata.gui.name)</a>
+</li>
         <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.main">(in module opihiexarata.gui.selector)</a>
 </li>
       </ul></li>
       <li><a href="code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.make_temporary_directory_path">make_temporary_directory_path() (in module opihiexarata.library.temporary)</a>
 </li>
+      <li>
+    manual
+
+      <ul>
+        <li><a href="user/command_line.html#cmdoption-arg-manual">command line option</a>
+</li>
+      </ul></li>
       <li><a href="code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.masked_cone_search">masked_cone_search() (opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine method)</a>
 </li>
       <li><a href="code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.mean_anomaly">mean_anomaly (opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine attribute)</a>
@@ -899,6 +1269,8 @@
       <ul>
         <li><a href="code/opihiexarata.html#module-opihiexarata">opihiexarata</a>
 </li>
+        <li><a href="code/opihiexarata.__main__.html#module-opihiexarata.__main__">opihiexarata.__main__</a>
+</li>
         <li><a href="code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">opihiexarata.astrometry</a>
 </li>
         <li><a href="code/opihiexarata.astrometry.solution.html#module-opihiexarata.astrometry.solution">opihiexarata.astrometry.solution</a>
@@ -914,6 +1286,8 @@
         <li><a href="code/opihiexarata.gui.html#module-opihiexarata.gui">opihiexarata.gui</a>
 </li>
         <li><a href="code/opihiexarata.gui.automatic.html#module-opihiexarata.gui.automatic">opihiexarata.gui.automatic</a>
+</li>
+        <li><a href="code/opihiexarata.gui.functions.html#module-opihiexarata.gui.functions">opihiexarata.gui.functions</a>
 </li>
         <li><a href="code/opihiexarata.gui.manual.html#module-opihiexarata.gui.manual">opihiexarata.gui.manual</a>
 </li>
@@ -1016,6 +1390,13 @@
 </li>
       </ul></li>
       <li>
+    opihiexarata.__main__
+
+      <ul>
+        <li><a href="code/opihiexarata.__main__.html#module-opihiexarata.__main__">module</a>
+</li>
+      </ul></li>
+      <li>
     opihiexarata.astrometry
 
       <ul>
@@ -1069,6 +1450,13 @@
 
       <ul>
         <li><a href="code/opihiexarata.gui.automatic.html#module-opihiexarata.gui.automatic">module</a>
+</li>
+      </ul></li>
+      <li>
+    opihiexarata.gui.functions
+
+      <ul>
+        <li><a href="code/opihiexarata.gui.functions.html#module-opihiexarata.gui.functions">module</a>
 </li>
       </ul></li>
       <li>
@@ -1162,6 +1550,8 @@
         <li><a href="code/opihiexarata.library.fits.html#module-opihiexarata.library.fits">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     opihiexarata.library.hint
 
@@ -1169,8 +1559,6 @@
         <li><a href="code/opihiexarata.library.hint.html#module-opihiexarata.library.hint">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     opihiexarata.library.http
 
@@ -1345,14 +1733,16 @@
 </li>
       <li><a href="code/opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine">PhotometryEngine (class in opihiexarata.library.engine)</a>
 </li>
+      <li><a href="code/opihiexarata.gui.functions.html#opihiexarata.gui.functions.pick_engine_class_from_name">pick_engine_class_from_name() (in module opihiexarata.gui.functions)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.pixel_scale">pixel_scale (opihiexarata.astrometry.solution.AstrometricSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.pixel_to_sky_coordinates">pixel_to_sky_coordinates() (opihiexarata.astrometry.solution.AstrometricSolution method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.PracticalityError">PracticalityError</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_data_image">preprocess_data_image() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_fits_file">preprocess_fits_file() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
@@ -1363,6 +1753,15 @@
 </li>
       <li><a href="code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.purge_temporary_directory">purge_temporary_directory() (in module opihiexarata.library.temporary)</a>
 </li>
+      <li>
+    Python Enhancement Proposals
+
+      <ul>
+        <li><a href="technical/architecture/library.html#index-0">PEP 483</a>
+</li>
+        <li><a href="technical/architecture/library.html#index-1">PEP 484</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1552,6 +1951,8 @@
       <li><a href="code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow">TargetNameWindow (class in opihiexarata.gui.name)</a>
 </li>
       <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow">TargetSelectorWindow (class in opihiexarata.gui.selector)</a>
+</li>
+      <li><a href="code/opihiexarata.library.image.html#opihiexarata.library.image.translate_image_array">translate_image_array() (in module opihiexarata.library.image)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>

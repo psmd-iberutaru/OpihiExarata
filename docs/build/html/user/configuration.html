@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Configuration &mdash; OpihiExarata 2022.6.23 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -192,9 +192,48 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,6 +241,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
@@ -269,6 +309,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -307,26 +351,26 @@
 modify the OpihiExarata software. The configuration options are split into
 two different configuration files, detailed here.</p>
 <p>If these configuration files to not exist on the system, you can generate a
-new configuration file, which contains the defaults, using the <code class="docutils literal notranslate"><span class="pre">generate</span></code>
-action from the command-line interface, see <a class="reference internal" href="command_line.html#user-command-line-available-actions-generate"><span class="std std-ref">Generate</span></a>.</p>
+new configuration file, which contains the defaults, using the
+<a class="reference internal" href="command_line.html#cmdoption-arg-generate"><code class="xref std std-option docutils literal notranslate"><span class="pre">generate</span></code></a> action from the command-line interface, see <a class="reference internal" href="command_line.html#user-command-line-available-actions-generate"><span class="std std-ref">Generate</span></a>.</p>
 <section id="standard-configuration-file">
 <span id="user-configuration-standard-configuration-file"></span><h2>Standard Configuration File<a class="headerlink" href="#standard-configuration-file" title="Permalink to this heading"></a></h2>
 <p>A standard configuration file (simplified to configuration file), typically
-called something like <code class="docutils literal notranslate"><span class="pre">configuration.yaml</span></code>, is where most of the
+called something like <code class="file docutils literal notranslate"><span class="pre">configuration.yaml</span></code>, is where most of the
 configuration parameters for all aspects of the OpihiExarata software package
 exists.</p>
 <p>The configuration file is a YAML formatted file with relatively verbose names.
 A newly generated configuration file is a copy of the default file being used.</p>
 <p>To detail all of the configuration parameters here is not particularly
 efficient. The parameters are documented in the configuration file itself.
-It can be found at <code class="docutils literal notranslate"><span class="pre">OpihiExarata/src/opihiexarata/configuration.yaml</span></code> in
+It can be found at <code class="file docutils literal notranslate"><span class="pre">OpihiExarata/src/opihiexarata/configuration.yaml</span></code> in
 the directory tree. Alternatively, it can also be found
 <a class="reference external" href="https://github.com/psmd-iberutaru/OpihiExarata/blob/master/src/opihiexarata/configuration.yaml">here on the OpihiExarata Github, configuration.yaml</a>.</p>
 </section>
 <section id="secrets-configuration-file">
 <span id="user-configuration-secrets-configuration-file"></span><h2>Secrets Configuration File<a class="headerlink" href="#secrets-configuration-file" title="Permalink to this heading"></a></h2>
 <p>A secrets configuration file (simplified to secrets file), typically
-called something like <code class="docutils literal notranslate"><span class="pre">secrets.yaml</span></code>, is where configuration parameters
+called something like <code class="file docutils literal notranslate"><span class="pre">secrets.yaml</span></code>, is where configuration parameters
 which should not be released to the public (via open source) are kept, hence a
 secrets file. These are often software and API keys.</p>
 <p>The secrets file is a YAML formatted file with relatively verbose names.
@@ -335,7 +379,7 @@ there are no defaults and the secrets are blank as that is the whole point of
 a secrets file. They need to be filled in with a user provided secrets file.</p>
 <p>To detail all of the secrets parameters here is not particularly efficient.
 The secrets themselves are documented in the secrets file itself. It can be
-found at <code class="docutils literal notranslate"><span class="pre">OpihiExarata/src/opihiexarata/secrets.yaml</span></code> in the directory tree.
+found at <code class="file docutils literal notranslate"><span class="pre">OpihiExarata/src/opihiexarata/secrets.yaml</span></code> in the directory tree.
 Alternatively, it can also be found <a class="reference external" href="https://github.com/psmd-iberutaru/OpihiExarata/blob/master/src/opihiexarata/secrets.yaml">here on the OpihiExarata Github, secrets.yaml</a>.</p>
 </section>
 </section>
