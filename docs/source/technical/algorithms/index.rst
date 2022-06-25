@@ -20,7 +20,6 @@ specific algorithms.
     :maxdepth: 3
     :hidden:
     :caption: Algorithms
-
-    preprocessing
+    
     polynomial_propagation
     spherical_kinematics
