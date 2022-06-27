@@ -13,7 +13,7 @@ primarily provides asteroid view-finding and photometric calibration services.
 It was conceived to assist the IRTF telescope and its instruments in finding 
 asteroids and other near Earth objects on the sky when the positional 
 uncertainty in the ephemeris of these objects are greater than the field of 
-view of the IRTF's current acquisitional and tracking instruments (about 1 
+view of the IRTF's current acquisition and tracking instruments (about 1 
 arcminuite). This can often be the case for newly discovered objects with 
 a small number of observations. With Opihi's 32 arcminuite field of view, these 
 objects can be spotted and the telescope pointing can be corrected, thus 
