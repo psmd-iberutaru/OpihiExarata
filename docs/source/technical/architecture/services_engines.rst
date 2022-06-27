@@ -141,6 +141,8 @@ These engines solve for an asteroid's on-sky track from a set of
 Keplerian orbital elements.
 
 
+.. _technical-architecture-services-engines-ephemerisengines-jpl-horizons:
+
 JPL Horizons
 ------------
 

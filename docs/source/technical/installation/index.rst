@@ -10,6 +10,9 @@ Currently, the supported operating systems are, in order, Rocky Linux, Windows
 and Ubuntu. Future compatibility with other operating systems is unlikely to 
 be supported in the future.
 
+
+.. _technical-installation-automated-scripts:
+
 Automated Scripts
 =================
 

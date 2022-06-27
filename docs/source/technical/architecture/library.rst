@@ -46,6 +46,8 @@ provided by the user via regular methods, is done via
 this will only apply the configuration to the current Python session.
 
 
+.. _technical-architecture-library-conversion:
+
 Conversion
 ==========
 
@@ -98,6 +100,8 @@ table FITS files. Astropy has a lot of functionality for this, and these
 functions wrap around their implementation so that it is more specialized for 
 OpihiExarata and so the reading and writing of FITS files are uniformly applied.
 
+
+.. _technical-architecture-library-hint:
 
 Type Hint
 =========
