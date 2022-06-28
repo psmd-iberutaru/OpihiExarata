@@ -4,8 +4,15 @@
 Vehicles and Solutions
 ======================
 
+Vehicles
+========
+
+
+Solution
+========
+
 OpihiSolution
-=============
+-------------
 
 The OpihiSolution is a class which is built to conveniently store and interface
 with all of the of the other solution classes provided by OpihiExarata. This 
@@ -18,7 +25,7 @@ interfacing with the GUI.
 
 
 AstrometrySolution
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Implementation: :py:class:`opihiexarata.astrometry.solution.AstrometricSolution`
 
@@ -32,7 +39,7 @@ between pixel and on-sky coordinates or vice-verse.
 
 
 PhotometrySolution
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Implementation: :py:class:`opihiexarata.photometry.solution.PhotometricSolution`
 
@@ -49,7 +56,7 @@ and its error are also calculated.
 
 
 OrbitalSolution
----------------
+~~~~~~~~~~~~~~~
 
 Implementation: :py:class:`opihiexarata.orbit.solution.OrbitalSolution`
 
@@ -61,11 +68,12 @@ Primarily, it contains the siz primary Keplerian orbital elements along with
 the epoch that these orbital elements. The mean anomaly is the primary anomaly 
 used. However, the eccentric anomaly is also calculated using Newton's method 
 to solve Kepler's equation: :math:`M = E - e \sin E`. The true anomaly is 
-then calculated from the eccentric anomaly and the eccentricity.
+then calculated from the eccentric anomaly and the eccentricity using 
+geometry.
 
 
 EphemeriticSolution
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Implementation: :py:class:`opihiexarata.ephemeris.solution.EphemeriticSolution`
 
@@ -74,11 +82,13 @@ which are derived from the ephemeris engines and converted to a standard
 form from their appropriate vehicle functions.
 
 Primarily, it contains the ephemeris function. This function provides for the 
-coordinates 
+on-sky coordinates of an asteroid at a (provided) future time based on the 
+ephemeris. The ephemeris itself is derived from the orbital elements as 
+provided by the OrbitalSolution.
 
 
 PropagativeSolution
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Implementation: :py:class:`opihiexarata.propagate.solution.PropagativeSolution`
 
@@ -86,11 +96,17 @@ The PropagativeSolution contains the results and other related functions
 which are derived from the propagation engines and converted to a standard 
 form from their appropriate vehicle functions.
 
+Primarily, it contains the propagation function. This function provides for 
+the on-sky coordinates of an asteroid at a (provided) future time based on 
+the propagation of the asteroid's path on the sky. The propagation of the 
+path is determined by extrapolating the motion of the asteroid on the 
+sky based on a sequence of recent images.
+
 
 .. _technical-architecture-vehicles-solutions-preprocesssolution:
 
 PreprocessSolution
-==================
+------------------
 
 The data that comes from the Opihi camera is considered raw data, it has many
 systematic artifacts like hot pixels, dark current, and bias to name a few.
