@@ -7,9 +7,52 @@ Vehicles and Solutions
 Vehicles
 ========
 
+The input and output of each of the engines are curtailed to each service. 
+(See :ref:`technical-architecture-services-engines` for the engines.) 
+However, the solution classes all expect exactly the same input regardless 
+of which engine/service is used. To extract the needed information from an 
+engine for the instantiation of the solution class, we mimic the usage of an 
+engine via what we call a vehicle function. 
+
+A vehicle function is just a section of code which mimics the usage of the 
+engines that access the service, using it to determine the required results 
+for the solutions. All vehicle functions have the same input (additional 
+arguments may be provided in rare cases for special engines) and the exact 
+same output depending on the solution class it services. We detail the inputs 
+and outputs here for vehicle functions corresponding to the solutions, 
+exceptions (like additional arguments).
+
+
+Astrometry Vehicle Functions
+----------------------------
+
+
+
+
+Photometry Vehicle Functions
+----------------------------
+
+
+Orbit Vehicle Functions
+-----------------------
+
+
+Ephemeris Vehicle Functions
+---------------------------
+
+
+Propagation Vehicle Functions
+-----------------------------
+
+
+
 
 Solution
 ========
+
+Solutions classes incorporate information extracted from the engines and 
+vehicles. These classes also calculates other values which are derived from 
+the results of the engine and vehicle functions.
 
 OpihiSolution
 -------------
