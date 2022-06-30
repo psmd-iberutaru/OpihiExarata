@@ -120,4 +120,6 @@ latex_elements = {
     "pointsize": "11pt",
     # Single column index.
     "makeindex": "\\usepackage[columns=1]{idxlayout}\\makeindex",
+    # Strict figure placement so things do not get lost.
+    'figure_align':"H"
 }
