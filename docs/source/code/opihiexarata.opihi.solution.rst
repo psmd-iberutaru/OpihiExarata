@@ -5,3 +5,4 @@ opihiexarata.opihi.solution module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

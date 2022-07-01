@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual module &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>opihiexarata.gui.manual module &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="opihiexarata.gui.name module" href="opihiexarata.gui.name.html" />
-    <link rel="prev" title="opihiexarata.gui.automatic module" href="opihiexarata.gui.automatic.html" /> 
+    <link rel="prev" title="opihiexarata.gui.functions module" href="opihiexarata.gui.functions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -192,9 +192,63 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,9 +256,30 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -218,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -269,6 +345,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -311,10 +391,325 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.manual.</span></span><span class="sig-name descname"><span class="pre">OpihiManualWindow</span></span><a class="reference internal" href="../_modules/opihiexarata/gui/manual.html#OpihiManualWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_custom_solve">
+<span class="sig-name descname"><span class="pre">__connect_push_button_astrometry_custom_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_custom_solve" title="Permalink to this definition"></a></dt>
+<dd><p>“The button which uses an astrometric solution to solve for a
+custom pixel location or RA DEC location depending on entry.</p>
+<p>This prioritizes solving RA DEC from pixel location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_solve_astrometry">
+<span class="sig-name descname"><span class="pre">__connect_push_button_astrometry_solve_astrometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_solve_astrometry" title="Permalink to this definition"></a></dt>
+<dd><p>The button to instruct on the solving of the astrometric solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_image_automatic">
+<span class="sig-name descname"><span class="pre">__connect_push_button_new_image_automatic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_image_automatic" title="Permalink to this definition"></a></dt>
+<dd><p>The automatic method relying on earliest fits file available in
+the expected directory. This function is a connected function action to
+a button in the GUI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_image_manual">
+<span class="sig-name descname"><span class="pre">__connect_push_button_new_image_manual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_image_manual" title="Permalink to this definition"></a></dt>
+<dd><p>The manual method relying on earliest fits file available in
+the expected directory. This function is a connected function action to
+a button in the GUI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_target">
+<span class="sig-name descname"><span class="pre">__connect_push_button_new_target</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_new_target" title="Permalink to this definition"></a></dt>
+<dd><p>The function serving to set the software to be on a new target.
+A name is prompted from the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_orbit_solve_ephemeris">
+<span class="sig-name descname"><span class="pre">__connect_push_button_orbit_solve_ephemeris</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_orbit_solve_ephemeris" title="Permalink to this definition"></a></dt>
+<dd><p>A routine to use the current observation and historical observations
+to derive the orbit solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_orbit_solve_orbit">
+<span class="sig-name descname"><span class="pre">__connect_push_button_orbit_solve_orbit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_orbit_solve_orbit" title="Permalink to this definition"></a></dt>
+<dd><p>A routine to use the current observation and historical observations
+to derive the orbit solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_photometry_solve_photometry">
+<span class="sig-name descname"><span class="pre">__connect_push_button_photometry_solve_photometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_photometry_solve_photometry" title="Permalink to this definition"></a></dt>
+<dd><p>A routine to use the current observation and historical observations
+to derive the propagation solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_propagate_custom_solve">
+<span class="sig-name descname"><span class="pre">__connect_push_button_propagate_custom_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_propagate_custom_solve" title="Permalink to this definition"></a></dt>
+<dd><p>Solving for the location of the target through propagation based on
+the time and date provided by the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_propagate_solve_propagation">
+<span class="sig-name descname"><span class="pre">__connect_push_button_propagate_solve_propagation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_propagate_solve_propagation" title="Permalink to this definition"></a></dt>
+<dd><p>A routine to use the current observation and historical observations
+to derive the propagation solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_refresh_window">
+<span class="sig-name descname"><span class="pre">__connect_push_button_refresh_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_refresh_window" title="Permalink to this definition"></a></dt>
+<dd><p>The function serving to refresh the window and redrawing the plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__get_mpc_record_filename">
+<span class="sig-name descname"><span class="pre">__get_mpc_record_filename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__get_mpc_record_filename" title="Permalink to this definition"></a></dt>
+<dd><p>This is a function which derives the MPC record filename from
+naming conventions and the current fits file name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>mpc_record_filename</strong> – The filename of the MPC record for this object/image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/manual.html#OpihiManualWindow.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>The manual GUI window for OpihiExarata. This interacts directly
 with the total solution object of Opihi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__init_gui_connections">
+<span class="sig-name descname"><span class="pre">__init_gui_connections</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__init_gui_connections" title="Permalink to this definition"></a></dt>
+<dd><p>Assign the action bindings for the buttons which get new
+file(names).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__init_opihi_image">
+<span class="sig-name descname"><span class="pre">__init_opihi_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__init_opihi_image" title="Permalink to this definition"></a></dt>
+<dd><p>Create the image area which will display what Opihi took from the
+sky. This takes advantage of a reserved image vertical layout in the
+design of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__init_preprocess_solution">
+<span class="sig-name descname"><span class="pre">__init_preprocess_solution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__init_preprocess_solution" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the preprocessing solution. The preprocessing files
+should be specified in the configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_astrometry">
+<span class="sig-name descname"><span class="pre">__refresh_dynamic_label_text_astrometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_astrometry" title="Permalink to this definition"></a></dt>
+<dd><p>Refresh all of the dynamic label text for astrometry.
+This fills out the information based on the current solutions
+available and solved.</p>
+<p>An astrometric solution must exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_ephemeris">
+<span class="sig-name descname"><span class="pre">__refresh_dynamic_label_text_ephemeris</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_ephemeris" title="Permalink to this definition"></a></dt>
+<dd><p>Refresh all of the dynamic label text for ephemerides.
+This fills out the information based on the current solutions
+available and solved.</p>
+<p>An ephemeritic solution must exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_orbit">
+<span class="sig-name descname"><span class="pre">__refresh_dynamic_label_text_orbit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_orbit" title="Permalink to this definition"></a></dt>
+<dd><p>Refresh all of the dynamic label text for orbit.
+This fills out the information based on the current solutions
+available and solved.</p>
+<p>An orbital solution must exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_photometry">
+<span class="sig-name descname"><span class="pre">__refresh_dynamic_label_text_photometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_photometry" title="Permalink to this definition"></a></dt>
+<dd><p>Refresh all of the dynamic label text for photometry.
+This fills out the information based on the current solutions
+available and solved.</p>
+<p>A photometric solution must exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_propagate">
+<span class="sig-name descname"><span class="pre">__refresh_dynamic_label_text_propagate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__refresh_dynamic_label_text_propagate" title="Permalink to this definition"></a></dt>
+<dd><p>Refresh all of the dynamic label text for propagate.
+This fills out the information based on the current solutions
+available and solved.</p>
+<p>A propagative solution must exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
@@ -479,7 +874,7 @@ and this function does nothing.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opihiexarata.gui.automatic.html" class="btn btn-neutral float-left" title="opihiexarata.gui.automatic module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.gui.functions.html" class="btn btn-neutral float-left" title="opihiexarata.gui.functions module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="opihiexarata.gui.name.html" class="btn btn-neutral float-right" title="opihiexarata.gui.name module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

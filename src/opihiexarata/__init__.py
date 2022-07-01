@@ -36,3 +36,6 @@ library.config.load_then_apply_configuration(
         extension="yaml",
     )
 )
+
+# Lastly, the main file.
+import __main__

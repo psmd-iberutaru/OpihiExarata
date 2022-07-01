@@ -5,3 +5,4 @@ opihiexarata.ephemeris.solution module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

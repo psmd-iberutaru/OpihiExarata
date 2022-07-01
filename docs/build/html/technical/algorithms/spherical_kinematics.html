@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spherical Kinematics &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Spherical Kinematics &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -21,7 +21,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="opihiexarata" href="../../code/modules.html" />
+    <link rel="next" title="License" href="../license.html" />
     <link rel="prev" title="Polynomial Propagation" href="polynomial_propagation.html" /> 
 </head>
 
@@ -193,9 +193,63 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/services_engines.html">Services and Engines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -203,9 +257,30 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Algorithms</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deriving-rates">Deriving Rates</a></li>
@@ -219,6 +294,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -268,6 +344,10 @@
 <li class="toctree-l5"><a class="reference internal" href="../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
@@ -326,7 +406,7 @@ temporal spherical coordinates <span class="math notranslate nohighlight">\((r=1
 <span class="math notranslate nohighlight">\(t\)</span> is the absolute time of the observation; UNIX time or Julian date
 time works best.</p>
 <p>Moreover, in spherical coordinates, the position, velocity, and acceleration
-vectors are given as: (see <a class="reference external" href="http://www.worldcat.org/oclc/1104053368">Keplerian Ellipses Chapter 2 Reed 2019</a>)</p>
+vectors are given as: (See <a class="reference external" href="http://www.worldcat.org/oclc/1104053368">Keplerian Ellipses Chapter 2 Reed 2019</a>.)</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{r} &amp;= r \mathbf{\hat r} \\
 \mathbf{v} &amp;= \dot{r} \mathbf{\hat r} + r \dot\theta \hat{\boldsymbol\theta } + r \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
@@ -348,8 +428,8 @@ The distance from the origin of the coordinate system does not change. Thus:</p>
 \[\begin{split}\mathbf{r} &amp;= \mathbf{\hat r} \\
 \mathbf{v} &amp;=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
 \mathbf{a} &amp;= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
-<p>We can convert these vectors to Cartesian coordinates using the matrix
-transformation. The spherical to Cartesian transformation matrix
+<p>We can convert these vectors to Cartesian coordinates using the following
+matrix transformation. The spherical to Cartesian transformation matrix
 <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> can be derived from the defining angles of the spherical
 coordinate system <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>. Where
 <span class="math notranslate nohighlight">\(\mathbf{u}_\text{cart} = \mathbf{R} \mathbf{u}_\text{sph}\)</span>.:</p>
@@ -379,15 +459,16 @@ observation to the current time.</p>
 <p>Multiple observations from Opihi provides multiple sightings of an asteroid at
 many different points in the sky, providing multiple RA and DEC coordinates,
 <span class="math notranslate nohighlight">\(\alpha_n\)</span> and <span class="math notranslate nohighlight">\(\delta_n\)</span> at time <span class="math notranslate nohighlight">\(t_n\)</span>. We have a total of
-<span class="math notranslate nohighlight">\(N\)</span> RA DEC observations. (The propagation calculation will need to be redone for
-a new observation set <span class="math notranslate nohighlight">\(N' = N + 1\)</span>.)</p>
-<p>We can convert this to spherical coordinates with <span class="math notranslate nohighlight">\(\phi_n = \alpha_n\)</span> and <span class="math notranslate nohighlight">\(\theta_n = \frac{\pi}{2} - \delta_n\)</span>.</p>
+<span class="math notranslate nohighlight">\(N\)</span> RA-DEC observations. (The propagation calculation will need to be
+redone for a new observation set <span class="math notranslate nohighlight">\(N' = N + 1\)</span>.)</p>
+<p>We can convert this to spherical coordinates with <span class="math notranslate nohighlight">\(\phi_n = \alpha_n\)</span>
+and <span class="math notranslate nohighlight">\(\theta_n = \frac{\pi}{2} - \delta_n\)</span>.</p>
 <p>These multiple observations allows for the determination of the rates of
 change of spherical coordinates for the asteroid, namely: (For the time
 difference <span class="math notranslate nohighlight">\(t_\Delta = t_{n+1} - t_n\)</span>.)</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\dot\theta_p = \frac{\theta_{n+1} - \theta_{n}}{t_{n+1} - t_n}\\\dot\phi_p = \frac{\phi_{n+1} - \phi_{n}}{t_{n+1} - t_n}\\t'_p = \frac{1}{2} \left( t_{n+1} + t_n \right)\end{aligned}\end{align} \]</div>
-<p>…and…</p>
+<p>and,</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\ddot\theta_q = \frac{\dot\theta_{p+1} - \dot\theta_{p}}{t'_{p+1} - t'_p}\\\ddot\phi_q = \frac{\dot\phi_{p+1} - \dot\phi_{p}}{t'_{p+1} - t'_p}\end{aligned}\end{align} \]</div>
 <p>The first order rates changes over time. As such, it is required that two
@@ -516,7 +597,7 @@ t = 0 &amp;\implies \frac{\mathrm{d}\mathbf{r}}{\mathrm{d}t} = \mathbf{C_1} = \m
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="polynomial_propagation.html" class="btn btn-neutral float-left" title="Polynomial Propagation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../code/modules.html" class="btn btn-neutral float-right" title="opihiexarata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

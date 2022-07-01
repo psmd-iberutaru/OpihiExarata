@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Polynomial Propagation &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Polynomial Propagation &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -17,11 +17,12 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Spherical Kinematics" href="spherical_kinematics.html" />
-    <link rel="prev" title="Preprocessing" href="preprocessing.html" /> 
+    <link rel="prev" title="Algorithms" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -192,9 +193,63 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/services_engines.html">Services and Engines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,9 +257,30 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Algorithms</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Polynomial Propagation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -218,6 +294,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -269,6 +346,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -304,13 +385,100 @@
              
   <section id="polynomial-propagation">
 <span id="technical-algorithms-polynomial-propagation"></span><h1>Polynomial Propagation<a class="headerlink" href="#polynomial-propagation" title="Permalink to this heading"></a></h1>
+<p>Polynomial propagation is one of the different implemented propagation engines
+(see <a class="reference internal" href="../architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a>). Conceptually it is one
+of the easiest methods. Simply put, it just computes the rate of right
+ascension and declination change as independent rates from a collection of
+previous observations.</p>
+<p>The use of polynomial propagation assumes the following:</p>
+<ul class="simple">
+<li><p>The set of taken asteroid observations (and desired future positions) are within a relatively short timespan, usually within 24 hours.</p></li>
+<li><p>The tangent plane projection of the sky is valid and the effects of curvature because of the spherical sky are negligible.</p></li>
+<li><p>The motion of the asteroid across the sky within the provided time span is small enough such that the aforementioned tangent plane projection still holds.</p></li>
+</ul>
+<section id="coordinate-conversion">
+<h2>Coordinate Conversion<a class="headerlink" href="#coordinate-conversion" title="Permalink to this heading"></a></h2>
+<p>The only required observational data for this method of propagation is the
+RA and DEC of the observations, <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span>, along with
+the time of observations <span class="math notranslate nohighlight">\(t\)</span>. Because of the conventions of OpihiExarata
+(see <a class="reference internal" href="../conventions.html#technical-conventions"><span class="std std-ref">Conventions</span></a>) the units of these are degrees and Julian
+days. (For notation purposes, the variables stand for all taken observations.)</p>
+<p>We found that using these units for fitting the rates were inadequate and
+suffered from two different problems.</p>
+<ol class="arabic simple">
+<li><p>The Julian day time difference was often much less than one and so the fitting algorithms became unstable and could properly not fit the observations.</p></li>
+<li><p>Angles are cyclical and the fitting a function to cyclical points are not stable using quick methods.</p></li>
+</ol>
+<p>To solve the first problem, we converted the time of observations to UNIX time.
+Because it is in seconds, the numerical difference between each data point is
+much larger and it seems that this change produces more accurate results. Of
+course the propagation function itself (which has Julian days as input) needs
+to covert the input date to UNIX time as the fitting constants are now in
+the UNIX time domain.</p>
+<p>To solve the second problem, we convert the angles so that they can be treated
+linearly. More specifically, as the angular coordinates provided are between
+<span class="math notranslate nohighlight">\(0 \leq \angle \leq 360\)</span> or <span class="math notranslate nohighlight">\(-90 \leq \angle \leq 90\)</span>, if the
+maximum difference is (numerically) greater than <span class="math notranslate nohighlight">\(\approx 135\)</span> degrees
+in either coordinate, then it guaranteed that a loop around happened for that
+coordinate. If it was motion that caused this difference, then it must have
+violated one of the assumptions and so this method is useless for propagation.
+We use the most recent observation to set the range, the other points are
+cycled until no wrap around occurs.</p>
+</section>
+<section id="fitting-coordinates">
+<h2>Fitting Coordinates<a class="headerlink" href="#fitting-coordinates" title="Permalink to this heading"></a></h2>
+<p>We treat both <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span> as separate and independent
+coordinates and we also treat their on-sky rates as independent of each other.
+This is valid as long as the timescales are relatively small and the
+tangent plane projection of the sky holds.</p>
+<p>As such, we have two functions <span class="math notranslate nohighlight">\(A(f)\)</span> and <span class="math notranslate nohighlight">\(D(f)\)</span> which is the
+path of the asteroid across the sky over time <span class="math notranslate nohighlight">\(f\)</span> in right ascension
+(<span class="math notranslate nohighlight">\(A\)</span>) and declination (<span class="math notranslate nohighlight">\(D\)</span>).</p>
+<p>We can approximate these functions using polynomials. We fit our <span class="math notranslate nohighlight">\(n\)</span>
+order polynomial <span class="math notranslate nohighlight">\(P_n\)</span> for both right ascension and declination to get
+approximations to these functions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{fit}[P_n(t) = \alpha] \implies A(f) \approx P_{n,A}(f) \mapsto (f, \alpha) \\
+\text{fit}[P_n(t) = \delta] \implies D(f) \approx P_{n,D}(f) \mapsto (f, \delta)\end{split}\]</div>
+<p>Simply put, when we have a fit to the <span class="math notranslate nohighlight">\((t, \alpha)\)</span> and
+<span class="math notranslate nohighlight">\((t, \delta)\)</span> pairs using polynomial functions, we use these functions as
+approximations to <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(D\)</span> and use these approximations to
+derive the future location.</p>
+<p>Provided the future time <span class="math notranslate nohighlight">\(f\)</span> where the user wants to predict the future
+right ascension <span class="math notranslate nohighlight">\(\alpha_f\)</span> and declination <span class="math notranslate nohighlight">\(\delta_f\)</span>, we can
+easily compute our estimations as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P_{n,A}(f) = \alpha_f \\
+P_{n,D}(f) = \delta_f\end{split}\]</div>
+<p>We use low order polynomials as they are simple functions to both fit and
+interpret. We implement both first order (linear) polynomial
+(<a class="reference internal" href="../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine" title="opihiexarata.propagate.polynomial.LinearPropagationEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.propagate.polynomial.LinearPropagationEngine</span></code></a>) and
+second order (quadratic) polynomial
+(<a class="reference internal" href="../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine" title="opihiexarata.propagate.polynomial.QuadraticPropagationEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.propagate.polynomial.QuadraticPropagationEngine</span></code></a>).
+Higher order polynomials and more complicated functions often over-fit (and
+are otherwise overcomplicated) as typically there are only a few observations
+and thus few <span class="math notranslate nohighlight">\((\alpha, \delta, t)\)</span> sets for fitting.</p>
+<section id="wrap-around">
+<h3>Wrap Around<a class="headerlink" href="#wrap-around" title="Permalink to this heading"></a></h3>
+<p>In some cases, the approximate angular coordinates given by <span class="math notranslate nohighlight">\(P_{n,A}(f)\)</span>
+and <span class="math notranslate nohighlight">\(P_{n,D}(f)\)</span> may exceed the standard angular bounds of
+<span class="math notranslate nohighlight">\(0 \leq \angle \leq 360\)</span> or <span class="math notranslate nohighlight">\(-90 \leq \angle \leq 90\)</span> for right
+ascension and declination respectively. As such, we can convert the angles
+back into this range <span class="math notranslate nohighlight">\(R\)</span> (in degrees) using:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\alpha_{f,R} = (\alpha_f + 360) \mod 360 \\
+\delta_{f,R} = \left| ((\delta_f - 90) \mod 360) - 180 \right| - 90\end{split}\]</div>
+<p>These values, still in degrees per <a class="reference internal" href="../conventions.html#technical-conventions"><span class="std std-ref">Conventions</span></a>, are then
+passed to the systems which need this prediction of the asteroid’s location.</p>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="preprocessing.html" class="btn btn-neutral float-left" title="Preprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Algorithms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="spherical_kinematics.html" class="btn btn-neutral float-right" title="Spherical Kinematics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

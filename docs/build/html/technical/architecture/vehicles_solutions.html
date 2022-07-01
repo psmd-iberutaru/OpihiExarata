@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vehicles and Solutions &mdash; OpihiExarata 2022.6.21 documentation</title>
+  <title>Vehicles and Solutions &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -17,6 +17,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -192,9 +193,63 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="services_engines.html">Services and Engines</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Vehicles and Solutions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="graphical_user_interface.html">Graphical User Interface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="graphical_user_interface.html#qt-designer">Qt Designer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
@@ -202,9 +257,30 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -218,6 +294,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -269,6 +346,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
 </ul>
 </li>
@@ -304,6 +385,220 @@
              
   <section id="vehicles-and-solutions">
 <span id="technical-architecture-vehicles-solutions"></span><h1>Vehicles and Solutions<a class="headerlink" href="#vehicles-and-solutions" title="Permalink to this heading"></a></h1>
+<section id="vehicles">
+<h2>Vehicles<a class="headerlink" href="#vehicles" title="Permalink to this heading"></a></h2>
+<p>The input and output of each of the engines are curtailed to each service.
+(See <a class="reference internal" href="services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a> for the engines.)
+However, the solution classes all expect exactly the same input regardless
+of which engine/service is used. To extract the needed information from an
+engine for the instantiation of the solution class, we mimic the usage of an
+engine (by a user) via what we call a vehicle function.</p>
+<p>A vehicle function is just a section of code which mimics the usage of the
+engines that access the service, using it to determine the required results
+for the solutions. All vehicle functions have the same input (additional
+arguments may be provided in rare cases for special engines, details are
+engine specific and may be found in
+<a class="reference internal" href="services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a>) and the exact same output
+depending on the solution class it services. We detail the inputs
+and outputs here for vehicle functions corresponding to the solutions,
+exceptions (like additional arguments).</p>
+<section id="astrometry-vehicle-functions">
+<h3>Astrometry Vehicle Functions<a class="headerlink" href="#astrometry-vehicle-functions" title="Permalink to this heading"></a></h3>
+<figure class="align-default" id="id1">
+<span id="figure-vehicle-function-astrometry"></span><img alt="../../_images/vehicle-function-astrometry.svg" src="../../_images/vehicle-function-astrometry.svg" /><figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">A somewhat visual description of the input arguments used by
+astrometric vehicle functions and their respective engines to
+provide the information for astrometric solutions.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>As shown in <a class="reference internal" href="#figure-vehicle-function-astrometry"><span class="std std-numref">Fig. 13</span></a>, the astrometric
+vehicle functions and engines generally require the input of the image data.
+They are required to return the on-sky position of the image, its orientation,
+and pixel scale. They also must provide a table of all of the stars which are
+within the field along with a
+<a class="reference external" href="https://fits.gsfc.nasa.gov/fits_wcs.html">FITS world coordinate system (WCS)</a>
+solution as implemented via Astropy.</p>
+</section>
+<section id="photometry-vehicle-functions">
+<h3>Photometry Vehicle Functions<a class="headerlink" href="#photometry-vehicle-functions" title="Permalink to this heading"></a></h3>
+<figure class="align-default" id="id2">
+<span id="figure-vehicle-function-photometry"></span><img alt="../../_images/vehicle-function-photometry.svg" src="../../_images/vehicle-function-photometry.svg" /><figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">A somewhat visual description of the input arguments used by
+photometric vehicle functions and their respective engines to
+provide the information for photometric solutions.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>As shown in <a class="reference internal" href="#figure-vehicle-function-photometry"><span class="std std-numref">Fig. 14</span></a>, the photometric
+vehicle functions and engines generally require the input of parameters (RA,
+DEC, and search radius) to do a cone search of a photometric catalog. They are
+required to return a table detailing the location and filter magnitudes of all
+found stars within the search radius along with a list of filters which the
+table contains data for.</p>
+</section>
+<section id="orbit-vehicle-functions">
+<h3>Orbit Vehicle Functions<a class="headerlink" href="#orbit-vehicle-functions" title="Permalink to this heading"></a></h3>
+<figure class="align-default" id="id3">
+<span id="figure-vehicle-function-orbit"></span><img alt="../../_images/vehicle-function-orbit.svg" src="../../_images/vehicle-function-orbit.svg" /><figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">A somewhat visual description of the input arguments used by
+orbital vehicle functions and their respective engines to
+provide the information for orbital solutions.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>As shown in <a class="reference internal" href="#figure-vehicle-function-orbit"><span class="std std-numref">Fig. 15</span></a>, the orbital vehicle
+functions and engines generally require the input of asteroid observations
+in the 80-column Minor Planet Center format. They are required to output
+(from their calculations) the six Keplerian orbital elements are calculated
+(along with their errors) as outputs; the epoch of these orbital elements
+must also be returned.</p>
+</section>
+<section id="ephemeris-vehicle-functions">
+<h3>Ephemeris Vehicle Functions<a class="headerlink" href="#ephemeris-vehicle-functions" title="Permalink to this heading"></a></h3>
+<figure class="align-default" id="id4">
+<span id="figure-vehicle-function-ephemeris"></span><img alt="../../_images/vehicle-function-ephemeris.svg" src="../../_images/vehicle-function-ephemeris.svg" /><figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">A somewhat visual description of the input arguments used by
+ephemeris vehicle functions and their respective engines to
+provide the information for ephemeris solutions.</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>As shown in <a class="reference internal" href="#figure-vehicle-function-ephemeris"><span class="std std-numref">Fig. 16</span></a>, the ephemeris
+vehicle functions and engines generally require the input of the six
+Keplerian orbital elements and the epoch that they were determined for.
+They are required to output the on-sky rates (both first order, “velocity”,
+and second order, “acceleration”) of an asteroid (or other target) and a
+function which, when specified a time of observation, gives the predicted
+on-sky position from the ephemeris.</p>
+</section>
+<section id="propagation-vehicle-functions">
+<h3>Propagation Vehicle Functions<a class="headerlink" href="#propagation-vehicle-functions" title="Permalink to this heading"></a></h3>
+<figure class="align-default" id="id5">
+<span id="figure-vehicle-function-propagate"></span><img alt="../../_images/vehicle-function-propagate.svg" src="../../_images/vehicle-function-propagate.svg" /><figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">A somewhat visual description of the input arguments used by
+propagation vehicle functions and their respective engines to
+provide the information for propagation solutions.</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>As shown in <a class="reference internal" href="#figure-vehicle-function-propagate"><span class="std std-numref">Fig. 17</span></a>, the propagation
+vehicle functions and engines generally require the input of on-sky
+observations (RA, DEC, and observational time) of an asteroid. They are
+required to output the on-sky rates (both first order, “velocity”, and
+second order, “acceleration”) of an asteroid (or other target) and a function
+which, when specified a time of observation, gives the predicted on-sky
+position from propagating the on-sky motion.</p>
+</section>
+</section>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="#solution" title="Permalink to this heading"></a></h2>
+<p>Solutions classes incorporate information extracted from the engines and
+vehicles. These classes also calculates other values which are derived from
+the results of the engine and vehicle functions.</p>
+<section id="opihisolution">
+<h3>OpihiSolution<a class="headerlink" href="#opihisolution" title="Permalink to this heading"></a></h3>
+<p>The OpihiSolution is a class which is built to conveniently store and interface
+with all of the of the other solution classes provided by OpihiExarata for a
+single image. This grouping is beneficial because a single image and its
+associated solutions can remain together and saving the newly solved data is
+a lot easier.</p>
+<p>The OpihiSolution class, which contains all of the functionality which
+OpihiExarata has to offer for a single image from Opihi, is also a helpful
+abstraction for developing the interactions between the GUI and an image and
+its data.</p>
+<section id="astrometrysolution">
+<h4>AstrometrySolution<a class="headerlink" href="#astrometrysolution" title="Permalink to this heading"></a></h4>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.astrometry.solution.AstrometricSolution</span></code></a></p>
+<p>The AstrometrySolution contains the results and other related functions
+which are derived from the astrometry engines and converted to a standard
+form from their appropriate vehicle functions.</p>
+<p>Primarily, it contains the on-sky location of an image along with its pixel
+scale. It also contains a table listing the stars which were observed to be
+in the field and their pixel location. A way to convert between pixel and
+on-sky coordinates or vice-verse is implemented utilizing the WCS solution.</p>
+</section>
+<section id="photometrysolution">
+<h4>PhotometrySolution<a class="headerlink" href="#photometrysolution" title="Permalink to this heading"></a></h4>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution" title="opihiexarata.photometry.solution.PhotometricSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.photometry.solution.PhotometricSolution</span></code></a></p>
+<p>The PhotometrySolution contains the results and other related functions
+which are derived from the photometry engines and converted to a standard
+form from their appropriate vehicle functions.</p>
+<p>Primarily, it contains a table listing the stars which are detected within the
+astrometric solution and it also has their filter magnitudes as provided by the
+photometric database; aperture DN counts are also given. An average sky value
+is calculated from sky regions, i.e. not including the stellar regions and
+other regions on the detector. This average sky value is used to correct the
+aperture DN counts. From this table and the corrected DN counts, the filter
+zero point and its error are also calculated.</p>
+</section>
+<section id="orbitalsolution">
+<h4>OrbitalSolution<a class="headerlink" href="#orbitalsolution" title="Permalink to this heading"></a></h4>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.orbit.solution.html#opihiexarata.orbit.solution.OrbitalSolution" title="opihiexarata.orbit.solution.OrbitalSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.orbit.solution.OrbitalSolution</span></code></a></p>
+<p>The OrbitalSolution contains the results and other related functions
+which are derived from the orbit engines and converted to a standard
+form from their appropriate vehicle functions.</p>
+<p>Primarily, it contains the siz primary Keplerian orbital elements along with
+the epoch that these orbital elements. The mean anomaly <span class="math notranslate nohighlight">\(M\)</span> is the
+primary anomaly used. However, the eccentric anomaly <span class="math notranslate nohighlight">\(E\)</span> is also
+calculated using Newton’s method to solve Kepler’s equation:
+<span class="math notranslate nohighlight">\(M = E - e \sin E\)</span>. The true anomaly <span class="math notranslate nohighlight">\(\nu\)</span> is then calculated
+from the eccentric anomaly and the eccentricity using the geometrically
+derived formula: (See
+<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1973CeMec...7..388B">Broucke, R. Celestial Mechanics p. 388</a>.)</p>
+<div class="math notranslate nohighlight">
+\[\tan\left( \frac{\nu - E}{2} \right) = \frac{\beta \sin E}{1 - \beta \cos E}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\beta\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\beta \triangleq \frac{e}{1 + \sqrt{1 - e^2}}\]</div>
+</section>
+<section id="ephemeriticsolution">
+<h4>EphemeriticSolution<a class="headerlink" href="#ephemeriticsolution" title="Permalink to this heading"></a></h4>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.ephemeris.solution.html#opihiexarata.ephemeris.solution.EphemeriticSolution" title="opihiexarata.ephemeris.solution.EphemeriticSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.ephemeris.solution.EphemeriticSolution</span></code></a></p>
+<p>The EphemeriticSolution contains the results and other related functions
+which are derived from the ephemeris engines and converted to a standard
+form from their appropriate vehicle functions.</p>
+<p>Primarily, it contains the ephemeris function. This function provides for the
+on-sky coordinates of an asteroid at a (provided) future time based on the
+ephemeris. It also contains the on-sky first-order and second-order rates of
+an asteroid. The ephemeris itself is derived from the orbital elements as
+provided by the OrbitalSolution.</p>
+</section>
+<section id="propagativesolution">
+<h4>PropagativeSolution<a class="headerlink" href="#propagativesolution" title="Permalink to this heading"></a></h4>
+<p>Implementation: <a class="reference internal" href="../../code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution" title="opihiexarata.propagate.solution.PropagativeSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.propagate.solution.PropagativeSolution</span></code></a></p>
+<p>The PropagativeSolution contains the results and other related functions
+which are derived from the propagation engines and converted to a standard
+form from their appropriate vehicle functions.</p>
+<p>Primarily, it contains the propagation function. This function provides for
+the on-sky coordinates of an asteroid at a (provided) future time based on
+the propagation of the asteroid’s path on the sky.  It also contains the
+on-sky first-order and second-order rates of an asteroid. The propagation of
+the path is determined by extrapolating the motion of the asteroid on the
+sky based on a sequence of recent images.</p>
+</section>
+</section>
+<section id="preprocesssolution">
+<span id="technical-architecture-vehicles-solutions-preprocesssolution"></span><h3>PreprocessSolution<a class="headerlink" href="#preprocesssolution" title="Permalink to this heading"></a></h3>
+<p>The data that comes from the Opihi camera is considered raw data, it has many
+systematic artifacts like hot pixels, dark current, and bias to name a few.
+We reduce this data using standard array processing procedures.</p>
+<p>We can remove these using preprocessing calibration images. These images
+are taken before hand. For the use case for Opihi, using archive calibration
+files are more than satisfactory and avoiding the need for the user to
+take calibration images on their own reduces the overhead.</p>
+<p>An explanation on the procedure and methodology of data preprocessing is
+assumed by this manual, but a brief summary may be
+<a class="reference external" href="https://wiki.digiultsparrow.space/en/academic/notes/astronomical-ccd-image-preprocessing">obtained from here</a>.</p>
+<p>The implementation of image preprocessing is done by the PreprocessSolution
+class (see <a class="reference internal" href="../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution" title="opihiexarata.opihi.preprocess.OpihiPreprocessSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.opihi.preprocess.OpihiPreprocessSolution</span></code></a>).
+However, because the preprocessing of CCD images is pretty standard and simple
+and involves only one method, this solution does not require an engine and
+instead implements it itself.</p>
+<p>Moreover, because many of the image calibration files used are generally the
+same from image to image, this solution is also not image specific unlike the
+other solution classes. Instead, it contains a function which will take an
+image (either an array or a fits file) and pre-process it. It is built like
+this so that the large preprocessing calibration images (which are cached
+within the class to avoid disk utilization) does not take up a too much
+memory as opposed if the class was duplicated per image.</p>
+</section>
+</section>
 </section>
 
 

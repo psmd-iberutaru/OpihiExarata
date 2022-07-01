@@ -400,16 +400,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         astrometry_engine_name = self.ui.combo_box_astrometry_engine.currentText()
         astrometry_engine_name = astrometry_engine_name.casefold()
         # Search programed engines for the one specified.
-        if astrometry_engine_name == "astrometry.net nova":
-            astrometry_engine = astrometry.AstrometryNetWebAPIEngine
-            astrometry_vehicle_args = {}
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented astrometric engine.".format(
-                    in_eng=str(astrometry_engine_name)
-                )
-            )
+        astrometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=astrometry_engine_name,
+            engine_type=library.engine.AstrometryEngine,
+        )
+        astrometry_vehicle_args = {}
 
         # Determine the photometry engine from user input via the drop down
         # menu. The recognizing text ought to be case insensitive, makes
@@ -417,16 +412,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         photometry_engine_name = self.ui.combo_box_photometry_engine.currentText()
         photometry_engine_name = photometry_engine_name.casefold()
         # Search programed engines for the one specified.
-        if photometry_engine_name == "pan-starrs 3pi dr2 mast":
-            photometry_engine = photometry.PanstarrsMastWebAPIEngine
-            photometry_vehicle_args = {}
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented photometric engine.".format(
-                    in_eng=str(photometry_engine_name)
-                )
-            )
+        photometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=photometry_engine_name,
+            engine_type=library.engine.PhotometryEngine,
+        )
+        photometry_vehicle_args = {}
 
         # Given the engines, solve for both the astrometry and photometry.
         # We rely on the error handling of the OpihiSolution solving itself.

@@ -11,16 +11,16 @@ The Opihi telescope is a smaller telescope mounted on the side of the IRTF. It
 primarily provides asteroid view-finding and photometric calibration services. 
 
 It was conceived to assist the IRTF telescope and its instruments in finding 
-asteroids and other near Earth objects on the sky when the positional 
-uncertainty in the ephemeris of these objects are greater than the field of 
-view of the IRTF's current acquisitional and tracking instruments (about 1 
-arcminuite). This can often be the case for newly discovered objects with 
-a small number of observations. With Opihi's 32 arcminuite field of view, these 
-objects can be spotted and the telescope pointing can be corrected, thus 
+asteroids and other near Earth objects on the sky. This is needed when the 
+positional uncertainty in the ephemeris of these objects are greater than the 
+field of view of the IRTF's current acquisition and tracking instruments 
+(about 1 arcminuite). This can often be the case for newly discovered objects 
+with a small number of observations. With Opihi's 32 arcminuite field of view, 
+these objects can be spotted and the telescope pointing can be corrected, thus 
 greatly reducing the overhead time of finding the target.
 
-However, only a minority of time allocated by the IRTF are for these types of 
-targets. Having Opihi only operate a few times a semester where it is needed 
+However, a minority of time allocated by the IRTF are for these types of 
+targets. Having Opihi only operate a few times a semester when it is needed 
 for acquisition is inefficient. In addition to the asteroid view-finding 
 capabilities, the Opihi telescope also serves as a source for photometric
 monitoring and calibration. By continuously taking pictures and determining the
@@ -66,10 +66,10 @@ the command-line interface and its usage is documented in
 See :ref:`user-manual-mode` or :ref:`user-automatic-mode` for usage instructions
 depending on the desired mode of operation. Both of these have some technical 
 jargon better described in :ref:`user-system-framework`. See 
-:ref:`user-configuration` for available configuration options for both modes. 
-If you are having trouble, see :ref:`user-troubleshooting` for information and 
-possible solutions. If you believe you found an issue or bug with the software, 
-please report it to the appropriate IRTF staff member(s). 
+:ref:`user-configuration` for the available configuration options of both 
+modes. If you are having trouble, see :ref:`user-troubleshooting` for more
+information and possible solutions. If you believe you found an issue or bug 
+with the software, please report it to the appropriate IRTF staff member(s). 
 
 If you used the Opihi telescope or the OpihiExarata software, please 
 acknowledge your usage in any projects or publications; see 

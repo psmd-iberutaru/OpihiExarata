@@ -5,3 +5,4 @@ opihiexarata.orbit.orbfit module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

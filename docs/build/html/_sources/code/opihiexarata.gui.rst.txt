@@ -16,6 +16,7 @@ Submodules
    :maxdepth: 4
 
    opihiexarata.gui.automatic
+   opihiexarata.gui.functions
    opihiexarata.gui.manual
    opihiexarata.gui.name
    opihiexarata.gui.selector
@@ -27,3 +28,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

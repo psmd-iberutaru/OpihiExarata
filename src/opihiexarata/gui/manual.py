@@ -439,16 +439,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         input_engine_name = self.ui.combo_box_astrometry_solve_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
-        if input_engine_name == "astrometry.net nova":
-            engine = astrometry.AstrometryNetWebAPIEngine
-            vehicle_args = {}
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented astrometric engine.".format(
-                    in_eng=str(input_engine_name)
-                )
-            )
+        engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=input_engine_name, engine_type=library.engine.AstrometryEngine
+        )
+        vehicle_args = {}
 
         # Solve the field using the provided engine.
         __ = self.opihi_solution.solve_astrometry(
@@ -567,16 +561,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         input_engine_name = self.ui.combo_box_photometry_solve_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
-        if input_engine_name == "pan-starrs 3pi dr2 mast":
-            engine = photometry.PanstarrsMastWebAPIEngine
-            vehicle_args = {}
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented photometric engine.".format(
-                    in_eng=str(input_engine_name)
-                )
-            )
+        engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=input_engine_name, engine_type=library.engine.PhotometryEngine
+        )
+        vehicle_args = {}
+
         # Solve.
         __ = self.opihi_solution.solve_photometry(
             solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
@@ -609,22 +598,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         input_engine_name = self.ui.combo_box_orbit_solve_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
-        if input_engine_name == "orbfit":
-            engine = orbit.OrbfitOrbitDeterminerEngine
-            vehicle_args = {}
-        elif input_engine_name == "custom":
-            engine = orbit.CustomOrbitEngine
-            # The custom orbit requires than an orbit be specified, we
-            # commandeer the orbital element reporting window.
+        engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=input_engine_name, engine_type=library.engine.OrbitEngine
+        )
+        vehicle_args = {}
+        # If a custom orbit has been specified, then it is captured by the
+        # vehicle arguments.
+        if issubclass(engine, orbit.CustomOrbitEngine):
             custom_orbit_elements = self._parse_custom_orbital_elements()
             vehicle_args = custom_orbit_elements
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented orbital engine.".format(
-                    in_eng=str(input_engine_name)
-                )
-            )
+
         # Solve.
         __ = self.opihi_solution.solve_orbit(
             solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
@@ -658,16 +641,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         input_engine_name = self.ui.combo_box_ephemeris_solve_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
-        if input_engine_name == "jpl horizons":
-            engine = ephemeris.JPLHorizonsWebAPIEngine
-            vehicle_args = {}
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented ephemeritic engine.".format(
-                    in_eng=str(input_engine_name)
-                )
-            )
+        engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=input_engine_name, engine_type=library.engine.EphemerisEngine
+        )
+        vehicle_args = {}
+
         # Solve.
         __ = self.opihi_solution.solve_ephemeris(
             solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
@@ -760,19 +738,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         input_engine_name = self.ui.combo_box_propagate_solve_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
-        if input_engine_name == "linear":
-            engine = propagate.LinearPropagationEngine
-            vehicle_args = {}
-        elif input_engine_name == "quadratic":
-            engine = propagate.QuadraticPropagationEngine
-            vehicle_args = {}
-        else:
-            raise error.DevelopmentError(
-                "The provided input engine name `{in_eng}` is not implemented and"
-                " cannot be matched to an implemented propagative engine.".format(
-                    in_eng=str(input_engine_name)
-                )
-            )
+        engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=input_engine_name, engine_type=library.engine.PropagationEngine
+        )
+        vehicle_args = {}
+
         # Solve.
         __ = self.opihi_solution.solve_propagate(
             solver_engine=engine, overwrite=True, vehicle_args=vehicle_args

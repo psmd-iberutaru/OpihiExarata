@@ -50,7 +50,7 @@ $doc_bld_dscd = $doc_bld_html + "code/"
 # Rebuilding the docstring documentation files. Clearing the cache first 
 # and building using Sphinx.
 Remove-Item $doc_src_dscd -Recurse -Force
-sphinx-apidoc -f -e -o $doc_src_dscd $src_ox
+sphinx-apidoc -f -e -P -o $doc_src_dscd $src_ox
 
 # Building the html documentation. We clear out the inital built just in case.
 Remove-Item $doc_bld -Recurse -Force

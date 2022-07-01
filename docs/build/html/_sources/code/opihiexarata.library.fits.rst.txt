@@ -5,3 +5,4 @@ opihiexarata.library.fits module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

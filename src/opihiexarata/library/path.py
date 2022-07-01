@@ -39,7 +39,7 @@ def get_most_recent_filename_in_directory(
     ----------
     directory : string
         The directory by which the most recent file will be derived from.
-    extension : string or list
+    extension : string or list, default = None
         The extension by which to filter for. It is often the case that some
         files are created but the most recent file of some type is desired.
         Only files which match the included extensions will be considered.

@@ -5,7 +5,8 @@ Optional: Documentation
 =======================
 
 Building the documentation is relatively simple as we leverage Sphinx to 
-build it.
+build it. This is also done when the ``auxiliary.ps1`` auxillary script is 
+run.
 
 Prerequisites
 =============
@@ -13,8 +14,8 @@ Prerequisites
 Sphinx
 ------
 
-To build the Sphinx documentation, Python needs to be installed (the Python 
-version installed in this installation procedure can be used). 
+To build the Sphinx documentation, Python needs to be installed. (The Python 
+version installed in :ref:`technical-installation-python-part` can be used.)
 
 The following packages must be installed::
 
@@ -25,7 +26,7 @@ LaTeX
 
 If a PDF version of the documentation is desired, Sphinx can build it via 
 LaTeX. LaTeX must be installed. We suggest installing the 
-`TeX Live distribution`_ and installing the full install. Instructions on 
+`TeX Live distribution`_ and selecting the full install. Instructions on 
 how to install TeX Live is beyond the scope of this documentation.
 
 .. _TeX Live distribution: https://tug.org/texlive/
@@ -33,8 +34,8 @@ how to install TeX Live is beyond the scope of this documentation.
 Directory
 ---------
 
-Change your directory to the ``OpihiExarata/docs`` directory, run all of the 
-commands while within this directory.
+Change your directory to the :file:`OpihiExarata/docs` directory, run all of 
+the commands while within this directory.
 
 Build
 =====
@@ -48,17 +49,17 @@ can be done via running::
 files, you can do this via the commands: (This just removes the build directory 
 along with other goodies.)
 
-* Windows: ``.\make.bat clean``
-* Linux: ``make clean``
+* Windows: :command:`.\make.bat clean`
+* Linux: :command:`make clean`
 
 **Third**, the documentation can be built using the batch/makefile using the 
 command: 
 
-* Windows: ``.\make.bat <type>``
-* Linux: ``make <type>``
+* Windows: :command:`.\make.bat <type>`
+* Linux: :command:`make <type>`
 
-The ``<type>`` should be replaced with the type of output desired, suggestions 
-below:
+The ``<type>`` should be replaced with the type of output desired, 
+suggestions below:
 
 * ``html`` A collection of webpages ordered and structured. This is the suggested method.
 * ``singlehtml`` A single HTML page; useful when sending the documentation between devices.

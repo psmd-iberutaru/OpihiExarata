@@ -41,11 +41,6 @@ if ($isLinux) {
     }
 }
 
-# If the user wanted auxiliary processes to compute.
-if ($Auxiliary) {
-    pwsh -File "./auxiliary.ps1"
-}
-
 ##########################################
 Write-Output "=========================================="
 Write-Output "===== Python Part ========================"
@@ -92,3 +87,9 @@ Write-Output "Installing OpihiExarata package:   $build_path"
 # The optimized mode is in the event it is being build on a network drive or 
 # something.
 pyox -O -m pip install $build_path
+
+
+# If the user wanted auxiliary processes to compute.
+if ($Auxiliary) {
+    pwsh -File "./auxiliary.ps1"
+}
