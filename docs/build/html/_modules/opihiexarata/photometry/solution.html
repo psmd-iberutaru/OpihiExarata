@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -207,21 +207,36 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
@@ -238,10 +253,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -255,6 +290,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/license.html">License</a></li>
 </ul>
 </li>
 </ul>

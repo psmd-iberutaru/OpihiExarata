@@ -62,6 +62,7 @@ release = get_date_version()
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "sphinx_rtd_theme",
@@ -73,12 +74,15 @@ napoleon_include_init_with_doc = True
 napoleon_include_private_with_doc = True
 napoleon_include_special_with_doc = True
 
+# We do not include the Python inter-sphinx mapping because native Python
+# types should already be known and because the footnote links in the LaTeX
+# file, get super out of hand.
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/", None),
-    "numpy": ("http://docs.scipy.org/doc/numpy/", None),
-    "scipy": ("http://docs.scipy.org/doc/scipy/reference/", None),
-    "matplotlib": ("http://matplotlib.sourceforge.net/", None),
-    "astropy": ("http://docs.astropy.org/en/stable/", None),
+    #    "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/", None),
+    "matplotlib": ("https://matplotlib.org/stable/", None),
+    "astropy": ("https://docs.astropy.org/en/stable/", None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -121,5 +125,5 @@ latex_elements = {
     # Single column index.
     "makeindex": "\\usepackage[columns=1]{idxlayout}\\makeindex",
     # Strict figure placement so things do not get lost.
-    "figure_align":"H"
+    "figure_align": "H",
 }

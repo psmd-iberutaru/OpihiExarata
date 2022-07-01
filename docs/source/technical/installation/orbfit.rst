@@ -130,7 +130,7 @@ Environment Variables
 
 Set the environment variables for command-line development. This command sets 
 the variables for the current session only. (For persistent environment 
-variable set up,consider adding it to your startup script.)::
+variable set up, consider adding it to your startup script.)::
 
     . /opt/intel/oneapi/setvars.sh
 
@@ -143,11 +143,11 @@ Download OrbFit
 The software needs to be downloaded. 
 
 You can likely find the software package on the `OrbFit website`_. Otherwise, 
-a download command may work::
+the download command should work::
 
     curl -O http://adams.dm.unipi.it/orbfit/OrbFit5.0.7.tar.gz
 
-And it can thus be extracted::
+It can then be extracted using::
 
     tar -xvzf OrbFit5.0.7.tar.gz
 
@@ -159,7 +159,7 @@ Compile
 
 To configure the compilation flags, OrbFit comes with a set of files which 
 describe the flags. Initialize the proper compilation flags via the 
-:command:`config` command, (flags for an optimized build using the Intel 
+:command:`config` script, (flags for an optimized build using the Intel 
 compiler)::
 
     ./config -O intel
@@ -192,10 +192,11 @@ Download JPL Ephemerides File
 =============================
 
 The OrbFit package uses the JPL ephemerides file for its calculations, it 
-requires the binary ephemerides files. Current documentation suggests using 
-the 405 ephemerides set, but more updated sets (DE 407) also exist. For Linux, 
-precomputed binaries can be found at `JPL Ephemerides binary files for Linux`_ 
-and the `JPL Ephemerides descriptions`_.
+requires the binary ephemerides files. Current OrbFit documentation suggests 
+using the 405 ephemerides set, but more updated sets (DE 407) also exist. For 
+Linux, precomputed binaries can be found at 
+`JPL Ephemerides binary files for Linux`_  and the 
+`JPL Ephemerides descriptions`_.
 
 For DE405::
 
@@ -212,7 +213,7 @@ command below should be changed to fit your file)::
 
     cd ./lib/
     ln -s ./../linux_p1550p2650.440 jpleph
-    # Back to Orbfit/.
+    # Back to the Orbfit/ directory.
     cd ..
 
 .. _JPL Ephemerides binary files for Linux: https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/
@@ -223,7 +224,7 @@ command below should be changed to fit your file)::
 Testing Suite
 =============
 
-The software's test suit can be executed from :file:`Orbfit/` via::
+The OrbFit software's test suit can be executed from :file:`Orbfit/` via::
 
     make tests
 

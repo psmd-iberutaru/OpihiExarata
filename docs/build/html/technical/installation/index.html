@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>Installation &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -210,21 +210,36 @@
 <li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#json-parsing">JSON Parsing</a></li>
@@ -241,10 +256,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -258,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -349,11 +385,13 @@
 <span id="technical-installation"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
 <p>The installation instructions are detailed here. For convenience, installation
 scripts have been written to install the software for choice operating systems.
-Currently, the supported operating systems are, in order, Rocky Linux, Windows
+Currently, the supported operating systems are, in order, Rocky Linux, Windows,
 and Ubuntu. Future compatibility with other operating systems is unlikely to
-be supported in the future.</p>
+be supported in the future as this software package is purpose built. In order
+to get the scripts, and the software in general, you still need to download the
+software, see <a class="reference internal" href="download.html#technical-installation-download"><span class="std std-ref">Install: Download</span></a>.</p>
 <section id="automated-scripts">
-<h2>Automated Scripts<a class="headerlink" href="#automated-scripts" title="Permalink to this heading"></a></h2>
+<span id="technical-installation-automated-scripts"></span><h2>Automated Scripts<a class="headerlink" href="#automated-scripts" title="Permalink to this heading"></a></h2>
 <p>As there are many parts to the OpihiExarata software, for convenience, an
 installation script has been written for convenience and to help facilitate
 installation. Please note that the automated script installs everything, if
@@ -362,11 +400,11 @@ you want to customize your install, please see
 <p>The installation script is written in Powershell Core and thus require the
 installation of Powershell Core. Instructions for the installation and usage
 of <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/">Powershell Core</a> can be
-found on its website. The installation of the OpihiExarata software does not
-depend on Powershell Core after installation, but the convenience scripts
-would be unavailable. If this is the case, please follow the other
+found on Microsoft’s website. The installation of the OpihiExarata software
+does not depend on Powershell Core after installation, but the convenience
+scripts would be unavailable. If this is the case, please follow the other
 installation instructions as usual.</p>
-<p>In addition to installation script, an auxillary script has been written in
+<p>In addition to the installation script, an auxillary script has been written in
 Powershell Core. The purpose of the auxillary script is to do tasks not
 strictly related to installation. These tasks include code formatting,
 testing, and documentation building. You may use this as well but it is not
@@ -378,7 +416,7 @@ Editing a few lines in the beginning of each script file before running them
 is all that is needed.</p>
 <p>For the installation script <code class="docutils literal notranslate"><span class="pre">install.ps1</span></code>:</p>
 <ul>
-<li><p>You need to specify the version-specific Python command that Powershell Core uses to enter the correct Python interpreter. It is typically something like <code class="docutils literal notranslate"><span class="pre">python3.9</span></code> for Python 3.9, or something similar for other versions. (Windows operating systems, for example, is often just <code class="docutils literal notranslate"><span class="pre">python</span></code>.) For example, the line should be something like:</p>
+<li><p>You need to specify the version-specific Python command that Powershell Core uses to enter the correct Python interpreter. It is typically something like <code class="docutils literal notranslate"><span class="pre">python3.9</span></code> for Python 3.9, or something similar for other versions. (Windows operating systems, for example, is often just <code class="docutils literal notranslate"><span class="pre">python</span></code>.) For example, the line in <code class="docutils literal notranslate"><span class="pre">install.ps1</span></code> should be something like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span><span class="o">-</span><span class="n">Alias</span> <span class="o">-</span><span class="n">Name</span> <span class="n">pyox</span> <span class="o">-</span><span class="n">Value</span> <span class="n">python3</span><span class="mf">.9</span>
 </pre></div>
 </div>
@@ -406,8 +444,8 @@ feature complete install of OpihiExarata, but they are highly suggested. The
 installation order is as follows, we note what is optional and why:</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="download.html#technical-installation-download"><span class="std std-ref">Install: Download</span></a>: You will download the OpihiExarata package from its Github repository in this step.</p></li>
-<li><p><a class="reference internal" href="python.html#technical-installation-python-part"><span class="std std-ref">Install: Python Part</span></a>: You will download a supported Python version and build then install the Python part of OpihiExarata and its dependencies. This part being the primary part.</p></li>
-<li><p><a class="reference internal" href="documentation.html#technical-installation-documentation"><span class="std std-ref">Optional: Documentation</span></a>: (Optional) You will build and process the documentation files to build the documentation for OpihiExarata. This is helpful if this set of documentation that you are reading is outdated or if you just want the documentation.</p></li>
+<li><p><a class="reference internal" href="python.html#technical-installation-python-part"><span class="std std-ref">Install: Python Part</span></a>: You will download a supported Python version and build then install the Python part of OpihiExarata and its dependencies. This part is the main part of installation.</p></li>
+<li><p><a class="reference internal" href="documentation.html#technical-installation-documentation"><span class="std std-ref">Optional: Documentation</span></a>: (Optional) You will build and process the documentation files to build the documentation for OpihiExarata. This is helpful if this set of documentation that you are reading is outdated or if you just want the documentation on your machine to be up to date.</p></li>
 <li><p><a class="reference internal" href="windows.html#technical-installation-windows-compatibility"><span class="std std-ref">Optional: Windows Compatibility</span></a>: (Situational) Some of the services that OpihiExarata depends on only works for Linux. In order to have supported functionality on Windows, the OpihiExarata software leverages the Windows Subsystem for Linux. It is required that Windows users download and install this feature. The instructions are detailed here.</p></li>
 <li><p><a class="reference internal" href="orbfit.html#technical-installation-orbfit"><span class="std std-ref">Install: Orbfit</span></a>: This installs the Orbfit preliminary orbit determiner program which OpihiExarata uses for orbit determination.</p></li>
 </ol>

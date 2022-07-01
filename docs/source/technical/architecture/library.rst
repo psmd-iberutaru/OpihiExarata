@@ -33,12 +33,13 @@ When a user specifies a configuration file to be applied to this software, the
 file is loaded and its parameters and values are loaded into the the 
 namespace of this module. Therefore, the software internally can call these 
 configurations as variables in this module; an example, 
-:code:`library.config.SQUARE` would correspond to the ``SQUARE`` configuration
-in the configuration YAML file.
+:code:`library.config.LYCANROC` would correspond to the ``LYCANROC`` 
+configuration parameter in the configuration YAML file.
 
 Both normal configuration parameters and secret parameters (detailed in 
 :ref:`user-configuration`) are taken from their respective files and placed 
-into this same namespace. Therefore, the parameters must be uniquely named.
+into this same namespace. Therefore, all of the configuration parameters must 
+be uniquely named.
 
 The loading and applying of a configuration file (either secret or not), 
 provided by the user via regular methods, is done via 
@@ -73,7 +74,7 @@ Engines
 See :py:mod:`opihiexarata.library.engine`.
 
 Base classes for different engines and solution implementations exist here. 
-They are typically subclassed for the actual implemented engines 
+They are typically subclassed for the actual implementation of the engines 
 (:ref:`technical-architecture-services-engines`) and solutions 
 (:ref:`technical-architecture-vehicles-solutions`). These are also useful for 
 type checking.
@@ -98,22 +99,24 @@ See :py:mod:`opihiexarata.library.fits`.
 This implements functions which assist in the reading and writing of image and 
 table FITS files. Astropy has a lot of functionality for this, and these 
 functions wrap around their implementation so that it is more specialized for 
-OpihiExarata and so the reading and writing of FITS files are uniformly applied.
+OpihiExarata and so that the reading and writing of FITS files are uniformly 
+applied across the software.
 
 
 .. _technical-architecture-library-hint:
 
-Type Hint
-=========
+Type Hinting
+============
 
 See :py:mod:`opihiexarata.library.hint`.
 
 Python is a dynamically typed language. However it implements type hints 
 (see :pep:`483` and :pep:`484`) so that text editors and other development 
-tools and features are more accurate and detailed. OpihiExarata uses type hints
-throughout and highly recommends them. However, to avoid extremely long 
-object calls and unnecessary importing, object types that otherwise need an 
-import are all imported in this one namespace to be used across the codebase.
+tools and features can be more accurate and detailed. OpihiExarata uses type 
+hints throughout and highly recommends their usage. However, to avoid 
+extremely long object calls and unnecessary importing, object types that 
+would otherwise need to be imported to be used are instead all imported into 
+this one namespace to be used across the codebase.
 
 
 HTTP Calls
@@ -136,7 +139,7 @@ See :py:mod:`opihiexarata.library.image`.
 Opihi is an imaging telescope and images are often represented as arrays. 
 However, there are some functionality that make sense in terms of images but 
 have more involved implementations when using arrays as images. Functions 
-here implement common manipulations of images.
+here implement common manipulations of images represented as arrays.
 
 
 JSON Parsing
@@ -157,14 +160,14 @@ See :py:mod:`opihiexarata.library.mpcrecord`.
 
 One of the most ubiquitous ways of representing an observation of an asteroid 
 is using the 
-`MPC 80-column record <https://www.minorplanetcenter.net/iau/info/OpticalObs.html>`_.
+`MPC 80-column foarmat record <https://www.minorplanetcenter.net/iau/info/OpticalObs.html>`_.
 However, it is not a very connivent format for Python to use and so 
 functions which convert between the 80-column format and an Astropy table 
 (see :py:mod:`astropy.table`, or more specifically, 
 :py:class:`astropy.table.Table`). In general, the table format is better for 
 internal manipulation while the 80-column format is used primarily to record 
 and send asteroid observations to other services (including, obviously, the 
-Minor Planet Center.)
+Minor Planet Center).
 
 
 File and Directory Path Manipulations
@@ -188,7 +191,8 @@ The astrometric solution and the photometric solution
 similar information in tables. Older versions of this software had two 
 different tables which were very unwieldy as progress continued. As such, 
 this class implements a photometry table which is more coherent and 
-comprehensive. Feature expansion in this region is unlikely.
+comprehensive to better harmonize the interplay between the astrometric and 
+photometric solutions. Feature expansion in this region is unlikely.
 
 
 Temporary Directory
@@ -199,5 +203,5 @@ processing data and reading the results. In order for these files not to
 mess up anything on the system this software is installed on, a temporary 
 directory is created where the files can be created and utilized. The exact 
 place where this directory is created is given by the configuration parameter 
-``TEMPORARY_DIRECTORY`` (see :ref:`user-configuration`) Functions are
-implemented here which help with the management of this temporary directory.
+``TEMPORARY_DIRECTORY`` (see :ref:`user-configuration`) Functions implemented 
+here help with the management of this temporary directory.

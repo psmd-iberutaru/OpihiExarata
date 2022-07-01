@@ -5,7 +5,7 @@ Install: Python Part
 ====================
 
 The Python part of OpihiExarata is the primary part of OpihiExarata. Luckily,
-it is likely also the simplest.
+it is also likely the simplest.
 
 You will build the Python wheel from the source and install it.
 
@@ -40,12 +40,13 @@ Install
 Install the wheel package. 
 
 You will need to modify this command to the proper wheel that you generated 
-from before. Because this project using date-based versioning, your package 
+from before. Because this project uses date-based versioning, your package 
 will likely be that of the date that you build the wheel. 
 
 (The ``--upgrade`` option is to ensure that you have the most up to date 
 version.)
 
-You can install the wheel using while in :file:`OpihiExarata/`::
+You can install the wheel using while in the :file:`OpihiExarata/` directory 
+with::
 
     pip install ./dist/OpihiExarata-YYYY.MM.DD-py3-none-any.whl --upgrade

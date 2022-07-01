@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automatic Mode &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>Automatic Mode &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -210,21 +210,36 @@
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
@@ -241,10 +256,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -258,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -348,11 +384,11 @@
   <section id="automatic-mode">
 <span id="user-automatic-mode"></span><h1>Automatic Mode<a class="headerlink" href="#automatic-mode" title="Permalink to this heading"></a></h1>
 <p>The automatic mode of OpihiExarata is its atmospheric monitoring mode. It is
-best operated by its graphical user interface.</p>
+best operated by its dedicated graphical user interface.</p>
 <p>Images, continuously taken by the Opihi telescope and camera, are
 photometrically solved such that their zero points are calculated. The
 program does this automatically after the initial specifications and trigger.</p>
-<p>We present the procedure for operating OpihiExarata in its automatic mode,
+<p>We present the procedure for operating OpihiExarata in its automatic mode;
 please also reference the GUI figure provided for reference. We also summarize
 the procedure and process of the automatic mode via a flowchart.</p>
 <section id="graphical-user-interface">
@@ -387,18 +423,18 @@ command-line interface with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opihiexarata</span> <span class="n">automatic</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">--</span><span class="n">secret</span><span class="o">=</span><span class="n">secrets</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-<p>Please replace the configuration parameters with the correct path to your
+<p>Please replace the configuration file names with the correct path to your
 configuration and secrets file; see <a class="reference internal" href="configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a> for more
 information.</p>
 </section>
 <section id="specify-data-directory">
 <h3>Specify Data Directory<a class="headerlink" href="#specify-data-directory" title="Permalink to this heading"></a></h3>
 <p>You will need to specify the data directory that the OpihiExarata program will
-pull the most recent images from. This should be the same directory where the
-Opihi camera will be saving the images it is taking constantly.</p>
+pull from the most recent images Opihi has taken. This should be the same
+directory where the Opihi camera is saving the images it is taking constantly.</p>
 <p>You can specify this directory by clicking the <span class="guilabel">Change</span> button to
-bring up a directory selecting dialog. The exact form of your dialog is
-operating system dependent as we defer to its implementation. Select the
+bring up a directory selection dialog. The exact form of the dialog is
+operating system dependent as we defer to their implementation. Select the
 directory using that dialog.</p>
 <p>Once submitted, the <span class="guilabel">Fetch Directory</span> entry should change to match
 your selection. This display uses absolute paths; ensure that it is correct.</p>
@@ -407,7 +443,7 @@ your selection. This display uses absolute paths; ensure that it is correct.</p>
 <h3>Specify Solving Engines<a class="headerlink" href="#specify-solving-engines" title="Permalink to this heading"></a></h3>
 <p>You will need to specify the solving engines that OpihiExarata will use to in
 order to solve the images. For this mode, only the AstrometryEngine(s) and
-PhotometryEngine(s) is considered as it does not use any other engine. The
+PhotometryEngine(s) are considered as it does not use any other engines. The
 selected engines will constantly be used until a different one is specified.</p>
 <p>Specify the desired AstrometryEngine using the left drop-down combo box.
 Specify the desired PhotometryEngine using the right drop-down combo box.
@@ -428,10 +464,10 @@ the same directory you specified for this program to fetch from.</p>
 <h3>Trigger Automatic Solving<a class="headerlink" href="#trigger-automatic-solving" title="Permalink to this heading"></a></h3>
 <p>You will need to start automatic solving by triggering it via the
 <span class="guilabel">Start</span> button. Once it starts, it will do the following, in order,
-automatically, without need for user intervention:</p>
+automatically, without the need for user intervention:</p>
 <ol class="arabic simple">
 <li><p>It will fetch the most recent fits image as determined by the modification timestamp of all fits files within the specified directory as provided by the operating system.</p></li>
-<li><p>It will pre-process the fetched image according to the preprocessing algorithm, see <a class="reference internal" href="../technical/algorithms/preprocessing.html#technical-algorithms-preprocessing"><span class="std std-ref">Preprocessing</span></a>.</p></li>
+<li><p>It will pre-process the fetched image according to the preprocessing algorithm, see <a class="reference internal" href="../technical/architecture/vehicles_solutions.html#technical-architecture-vehicles-solutions-preprocesssolution"><span class="std std-ref">PreprocessSolution</span></a>.</p></li>
 <li><p>It will solve for the astrometric solution of the pre-processed image via the specified AstrometryEngine. The results of the solution will be displayed in the GUI.</p></li>
 <li><p>It will solve for the photometric solution of the pre-processed image via the specified PhotometryEngine. The results of the solution will be displayed in the GUI.</p></li>
 <li><p>It will add this result (the filter zero point measurement) to the archive of observations. The monitoring webpage uses this archive to derive its figures.</p></li>
@@ -441,8 +477,8 @@ automatically, without need for user intervention:</p>
 <section id="trigger-once-manually">
 <h4>Trigger Once Manually<a class="headerlink" href="#trigger-once-manually" title="Permalink to this heading"></a></h4>
 <p>You may also trigger the automatic solving procedure manually once via the
-<span class="guilabel">Trigger</span> button. This will do the entire process as elaborated above,
-except for repeating it.</p>
+<span class="guilabel">Trigger</span> button. This will do the entire process as elaborated
+above, except for repeating it.</p>
 </section>
 </section>
 <section id="displayed-status-and-results">
@@ -450,9 +486,9 @@ except for repeating it.</p>
 <p>As each image is solved, the results of the solve will be displayed. We
 describe the fields which change as the automatic solving runs.</p>
 <p>The <span class="guilabel">Working</span> field details the file that is currently being (or
-was last) worked on by the automatic solving algorithms. The
+was last) worked on by the automatic solving procedure. The
 <span class="guilabel">Results</span> field details the file that has already been worked on
-and has been solved without failure. When the working file, undergoing the
+and that has been solved without failure. When the working file, undergoing the
 solving, is solved successfully, it becomes a file with results and the
 program designates it as such. If the working file failed to solve, it is not
 transferred over.</p>
@@ -462,9 +498,9 @@ displayed as well.</p>
 declination of the center of the image along with the UTC time of when this
 image was taken.</p>
 <p>The <span class="guilabel">Zero Point</span> value, calculated via the photometric solver, of
-the image is provided, along with the <span class="guilabel">Filter</span> that the image was
+the image is provided along with the <span class="guilabel">Filter</span> that the image was
 taken in specified in said field. (The filter term is based on the fits
-metadata.)</p>
+header metadata.)</p>
 <p>The status of the automatic solving will be displayed under
 <span class="guilabel">Loop Status</span>. The possible statuses, and their meanings, are:</p>
 <ul class="simple">
@@ -481,13 +517,13 @@ metadata.)</p>
 <p>When you want to stop the automatic solving, you can click the <span class="guilabel">Stop</span> button
 at any time. This will finish the current image it is working on and stop the
 automatic loop from fetching another image from the data directory. Because of
-the nature of sending information to other services (i.e. the backends to the
-engines), the solving of an image cannot gracefully stopped mid-way and so the
-process must finish and we only prevent it from continuing.</p>
+the nature of sending information to external services (i.e. the backends to the
+engines), the solving of an image cannot be gracefully stopped mid-way and so
+the process must finish and we only prevent it from repeating.</p>
 <p>If you want to stop the solving immediately for whatever reason, it is
 suggested to cancel or crash the process that OpihiExarata is running on.</p>
-<p>The <span class="guilabel">Stop</span> button will not prevent a manual trigger from being executed via
-the <span class="guilabel">Trigger</span> button.</p>
+<p>The <span class="guilabel">Stop</span> button will not prevent a manual trigger from being
+executed via the <span class="guilabel">Trigger</span> button.</p>
 <p>If the infinite automatic loop continues fetching images even after the stop
 button is pressed, this likely means something was changed in the code and
 the original logic failed. A solution to stop the loop is detailed in

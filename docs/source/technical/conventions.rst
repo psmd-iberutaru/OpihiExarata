@@ -22,17 +22,23 @@ in the following table.
 | Quantity             | Unit                           |
 +======================+================================+
 | Angles               | Degrees                        |
++----------------------+--------------------------------+
 | Date-time            | Julian days                    |
++----------------------+--------------------------------+
 | Time difference      | Days or seconds                |
-| Orbital elements     | (Convention)                   |
++----------------------+--------------------------------+
+| Orbital elements     | (Convention, see below)        |
++----------------------+--------------------------------+
 | Pixel scale          | Arcseconds per pixel           |
++----------------------+--------------------------------+
 | On-sky velocity      | Degrees per second             |
++----------------------+--------------------------------+
 | On-sky acceleration  | Degrees per second squared     |
 +----------------------+--------------------------------+
 
 - We use degrees for angles because, unlike angular hours, it is much easier to use mathematically. Radians were considered but were ultimately not used because declination already used degrees and it is far less prevalent than degrees in astronomy.
-- Date time, the measurement of an absolute time relative to an epoch, uses Julian days (JD). UNIX time is not as prevalent in astronomy compared to JD and MJD for the services encountered. JPL Horizons (see :ref:`technical-architecture-services-engines-ephemerisengines-jpl-horizons`) uses JD and because conversion between JD and MJD is trivial, we stuck with JD. 
-- Time difference, the measurement of time between two different times, is either in days (for times on the order or hours or days) or seconds (for times on the order of seconds or minutes). We primarily use days except in cases where the numerical value is too small (for example, with :ref:`technical-algorithms-polynomial-propagation`). The usage of which unit is documented.
+- Date time, the measurement of an absolute time relative to an epoch, uses Julian days (JD). UNIX time is not as prevalent in astronomy compared to JD and MJD for the services encountered. JPL Horizons (see :ref:`technical-architecture-services-engines-ephemerisengines-jpl-horizons`) uses JD and because conversion between JD and MJD is trivial; we stuck with JD. 
+- Time difference, the measurement of time between two different date times, is either in days (for times on the order of hours or days) or seconds (for times on the order of seconds or minutes). We primarily use days except in cases where the numerical value is too small (for example, with :ref:`technical-algorithms-polynomial-propagation`). The usage of which unit is documented.
 - The Keplerian orbital elements are in the units that they are conventionally in. The semi-major axis :math:`a` is in AU, the eccentricity :math:`e` is unit-less, the inclination :math:`i` is in degrees, the longitude of ascending node :math:`\Omega` is in degrees, the argument of perihelion :math:`\omega` is in degrees, and the mean anomaly :math:`M` is in degrees. The epoch of these orbital elements is in Julian days, as is the convention for date-times.
 - The pixel scale, as is traditionally given in most other contexts, is provided as arcseconds per pixel.
 - The on-sky first order motion (i.e. the "velocity") in RA and DEC of an asteroid or other target is given in degrees per second. Degrees are used to keep both the angular units the same as the standard convention and seconds are use because they are a much more reasonable unit for the motion than days (the other time difference unit.)
@@ -48,7 +54,7 @@ Formatting Style
 For consistency, the Python code style that this project uses is the 
 `black <https://pypi.org/project/black/>`_ code style. This style is enforced 
 by the aforementioned package, the auxillary script from 
-:ref:`technical-installation-automated-scripts` will trigger proper code 
+:ref:`technical-installation-automated-scripts` will trigger automated code 
 formatting.
 
 Type Hinting
@@ -78,7 +84,7 @@ Main Body Files
 The main body of documentation uses reStructuredText files as markup. A 
 Sphinx specific primer can be found on 
 `their website <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_. A more complete reference for reStructuredText can be found in 
-`their documentation <https://docutils.sourceforge.io/rst.html>`.
+`their documentation <https://docutils.sourceforge.io/rst.html>`_.
 
 Image Files
 -----------
@@ -88,9 +94,9 @@ Because the documentation can be built into either HTML or LaTeX forms, special
 care should be exercised for images as both take different file formats.
 
 When calling an image or figure file, the file path in the reStructuredText 
-should leave the file extension as a wildcard so that the Sphinx builders
+should have the file extension as a wildcard so that the Sphinx builders
 can choose the file format best suited for the form the documentation is 
-going to be built as. 
+going to be built into. 
 
 When creating images, please adhere to the following:
 
@@ -102,8 +108,7 @@ Python Docstrings
 
 For Sphinx to properly load and process the documentation strings from the 
 Python files themselves, they need to be marked up in a specific way. Natively
-it would be reStructuredText, but it looks ugly. Instead, we use the 
+it would be in reStructuredText, but it looks ugly. Instead, we use the 
 Napoleon extension for Sphinx to allow for the usage of 
 `NumPy docstring formatting <https://numpydoc.readthedocs.io/>`_.
-`An example <https://www.sphinx-doc.org/en/master/usage/extensions/example_numpy.html>`_ 
-of the formatting is also provided by Sphinx.
+`An example of Numpy formatting is also provided by Sphinx <https://www.sphinx-doc.org/en/master/usage/extensions/example_numpy.html>`_.

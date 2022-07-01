@@ -12,19 +12,19 @@ previous observations.
 
 The use of polynomial propagation assumes the following:
 
-- The set of taken asteroid observations and (and desired future positions) are within a relatively short timespan, usually within 24 hours.
-- The tangent plane projection of the sky is valid and spherical effects are negligible.
-- The motion of the asteroid across the sky within the provided time span is small enough such that the tangent project still holds.
+- The set of taken asteroid observations (and desired future positions) are within a relatively short timespan, usually within 24 hours.
+- The tangent plane projection of the sky is valid and the effects of curvature because of the spherical sky are negligible.
+- The motion of the asteroid across the sky within the provided time span is small enough such that the aforementioned tangent plane projection still holds.
 
 
 Coordinate Conversion
 =====================
 
 The only required observational data for this method of propagation is the 
-RA and DEC of the observations, :math:`\alpha` and :math:`\delta` along with 
+RA and DEC of the observations, :math:`\alpha` and :math:`\delta`, along with 
 the time of observations :math:`t`. Because of the conventions of OpihiExarata
 (see :ref:`technical-conventions`) the units of these are degrees and Julian 
-days. (Notational wise, the variables stand for all taken observations.)
+days. (For notation purposes, the variables stand for all taken observations.)
 
 We found that using these units for fitting the rates were inadequate and 
 suffered from two different problems.
@@ -68,7 +68,7 @@ approximations to these functions:
 
 .. math::
 
-    \text{fit}[P_n(t) = \alpha] \implies A(f) \approx P_{n,A}(f) \mapsto (f, \alpha)
+    \text{fit}[P_n(t) = \alpha] \implies A(f) \approx P_{n,A}(f) \mapsto (f, \alpha) \\
     \text{fit}[P_n(t) = \delta] \implies D(f) \approx P_{n,D}(f) \mapsto (f, \delta)
 
 Simply put, when we have a fit to the :math:`(t, \alpha)` and 
@@ -82,7 +82,7 @@ easily compute our estimations as:
 
 .. math::
 
-    P_{n,A}(f) = \alpha_f
+    P_{n,A}(f) = \alpha_f \\
     P_{n,D}(f) = \delta_f
 
 We use low order polynomials as they are simple functions to both fit and 
@@ -90,9 +90,9 @@ interpret. We implement both first order (linear) polynomial
 (:py:class:`opihiexarata.propagate.polynomial.LinearPropagationEngine`) and 
 second order (quadratic) polynomial 
 (:py:class:`opihiexarata.propagate.polynomial.QuadraticPropagationEngine`). 
-Higher order polynomials and more complicated functions often over fit as 
-typically there are only a few observations and thus few 
-:math:`(\alpha, \delta, t)` pairs for fitting.
+Higher order polynomials and more complicated functions often over-fit (and 
+are otherwise overcomplicated) as typically there are only a few observations 
+and thus few :math:`(\alpha, \delta, t)` sets for fitting.
 
 Wrap Around
 -----------
@@ -105,7 +105,7 @@ back into this range :math:`R` (in degrees) using:
 
 .. math::
 
-    \alpha_{f,R} = (\alpha_f + 360) \mod 360
+    \alpha_{f,R} = (\alpha_f + 360) \mod 360 \\
     \delta_{f,R} = \left| ((\delta_f - 90) \mod 360) - 180 \right| - 90
 
 These values, still in degrees per :ref:`technical-conventions`, are then 

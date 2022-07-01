@@ -41,13 +41,14 @@ Secrets Configuration File
 
 A secrets configuration file (simplified to secrets file), typically 
 called something like :file:`secrets.yaml`, is where configuration parameters 
-which should not be released to the public (via open source) are kept, hence a 
-secrets file. These are often software and API keys.
+which should not be released to the public (via the open source repository) 
+are kept, hence a secrets file. These are often software and API keys.
 
 The secrets file is a YAML formatted file with relatively verbose names.
 A newly generated secrets file is a copy of the default file being used. But, 
 there are no defaults and the secrets are blank as that is the whole point of 
-a secrets file. They need to be filled in with a user provided secrets file.
+a secrets file. The configuration values need to be filled in with a user 
+provided information.
 
 To detail all of the secrets parameters here is not particularly efficient. 
 The secrets themselves are documented in the secrets file itself. It can be 

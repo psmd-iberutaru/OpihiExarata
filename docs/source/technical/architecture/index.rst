@@ -5,7 +5,7 @@ Architecture
 ============
 
 In brief, the OpihiExarata software was created with the following requirements 
-in mind to guide the architectural design:
+in mind to guide its architectural design:
 
 - It must be able to accommodate and provide for the use cases of the Opihi telescope, (see :ref:`user-index`).
 - The requirements for the user for interaction must be minimal in complexity but feature complete.
@@ -14,7 +14,7 @@ in mind to guide the architectural design:
 
 We thus designed the parts of the OpihiExarata software package to follow 
 these principles. A visual overview is given in 
-:ref:`figure-software-framework-diagram`.
+:numref:`figure-software-framework-diagram`.
 
 .. _figure-software-framework-diagram:
 
@@ -32,8 +32,8 @@ mind, we often on modularized and abstracted where possible.
 
 The OpihiExarata software handles the analysis of images one at a time. 
 All relevant data and results of a given image are stored in a container 
-class called OpihiSolution. Historical information are also provided and 
-used in the OpihiSolution class.
+class called OpihiSolution. Historical observational information is also 
+provided and used in the OpihiSolution class.
 
 As described in :ref:`user-system-framework`, there are five main problems 
 which this software is to solve for each given image: astrometric plate 

@@ -17,10 +17,10 @@ similar to this software, it has a rather small audience.)
 
 The binomial taxonomical name of the Hawaiian blackfoot opihi is Cellana 
 exarata. The genus Cellana describes the group of limpets including the opihi, 
-but "exarata" is the identifying part for the Hawaiian blackfoot, thus the 
-name of this software, we decided, is a hybrid: OpihiExarata. A backronym for 
-it, which describes its function: Ephemeris with eXtra Atmospheric Response 
-and Asteroid Trajectory Analysis.
+but *exarata* is the identifying part for the Hawaiian blackfoot, thus the 
+name of this software, we decided, is the hybrid: OpihiExarata. A backronym for 
+it, descriptive of its function: OPIHI Ephemeris with eXtra Atmospheric 
+Response and Asteroid Trajectory Analysis.
 
 .. _opihi: https://www.waikikiaquarium.org/experience/animal-guide/invertebrates/molluscs/opihi/
 .. _Hawaiian blackfoot opihi: https://en.wikipedia.org/wiki/Cellana_exarata

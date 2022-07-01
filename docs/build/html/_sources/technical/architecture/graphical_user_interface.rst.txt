@@ -14,11 +14,12 @@ likely to be supported for longer.
 (The PySide6 is LGPL licensed. Qt Designer is GPL licensed but we only use it 
 as a connivent tool and do not bundle or have our program require it. As far 
 at PySide6 is concerned, we are dynamically linking it and are bound only by 
-LGPL.)
+LGPL. See :ref:`technical-architecture-license`.)
 
-The exact shape and form of the GUIs are a byproduct of the feature sets in 
-:ref:`user-manual-mode` and :ref:`user-automatic-mode`. The interface is 
-optimized to those use cases and does not otherwise follow a rigid theme. 
+The exact shape and form of the GUIs are a byproduct of the features required 
+for the :ref:`user-manual-mode` and :ref:`user-automatic-mode` operations. 
+The interface is optimized to those use cases and does not otherwise follow 
+a rigid theme. 
 
 
 Qt Designer
@@ -54,8 +55,8 @@ for more information.)
 
 The UI files are stored in :file:`/OpihiExarata/src/opihiexarata/gui/qtui/`
 and it is expected that the generated Python equivalent files will also be 
-written there as :file:`qtui_*.py`, where the original UI filename fills the 
-wildcard.
+written there as :file:`qtui_*.py`, where the original UI filename replaces 
+the wildcard.
 
 For example, for a file :file:`manual.ui`, it can be converted to the proper 
 Python version using the command::

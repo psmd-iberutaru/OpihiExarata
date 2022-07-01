@@ -310,7 +310,7 @@ def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity: float) -> fl
     """Calculate the true anomaly from the mean anomaly and eccentricity
     of an orbit.
 
-    We use the more numerically stable equation from 
+    We use the more numerically stable equation from
     https://ui.adsabs.harvard.edu/abs/1973CeMec...7..388B.
 
     Parameters
@@ -325,13 +325,13 @@ def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity: float) -> fl
     """
     # Converting first to radians.
     radian_eccentric_anomaly = eccentric_anomaly * (np.pi / 180)
-    # Using just the numerically stable tangent version. There is no 
-    # expectation that the eccentricity will be close enough to 1 to have 
-    # a numerical error. 
+    # Using just the numerically stable tangent version. There is no
+    # expectation that the eccentricity will be close enough to 1 to have
+    # a numerical error.
     beta = eccentricity / (1 + np.sqrt(1 - eccentricity**2))
-    radian_true_anomaly = radian_eccentric_anomaly + 2*np.arctan2(
+    radian_true_anomaly = radian_eccentric_anomaly + 2 * np.arctan2(
         beta * np.sin(radian_eccentric_anomaly),
-        1 - beta *np.cos(radian_eccentric_anomaly),
+        1 - beta * np.cos(radian_eccentric_anomaly),
     )
     # Converting back to degrees.
     true_anomaly = radian_true_anomaly * (180 / np.pi)

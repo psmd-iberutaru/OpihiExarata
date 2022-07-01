@@ -11,7 +11,7 @@ OpihiExarata is a group of individual software packages, API services, and
 executables designed to process data from the IRTF Opihi telescope. It serves 
 to be an astrometric solver, photometric calibrator, asteroid finder, 
 ephemeris computer, and astrometric monitor. We accomplish this by integrating 
-services and open source software collections for our purposes.
+services and open source software collections.
 
 This software is specific to the IRTF Opihi telescope. 
 

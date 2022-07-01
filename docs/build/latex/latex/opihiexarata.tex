@@ -81,8 +81,8 @@
 
 
 \title{OpihiExarata}
-\date{Jun 23, 2022}
-\release{2022.6.23}
+\date{Jun 30, 2022}
+\release{2022.6.30}
 \author{Kenji Sparrow Emerson}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -102,7 +102,7 @@ OpihiExarata is a group of individual software packages, API services, and
 executables designed to process data from the IRTF Opihi telescope. It serves
 to be an astrometric solver, photometric calibrator, asteroid finder,
 ephemeris computer, and astrometric monitor. We accomplish this by integrating
-services and open source software collections for our purposes.
+services and open source software collections.
 
 \sphinxAtStartPar
 This software is specific to the IRTF Opihi telescope.
@@ -145,17 +145,17 @@ primarily provides asteroid view\sphinxhyphen{}finding and photometric calibrati
 
 \sphinxAtStartPar
 It was conceived to assist the IRTF telescope and its instruments in finding
-asteroids and other near Earth objects on the sky when the positional
-uncertainty in the ephemeris of these objects are greater than the field of
-view of the IRTF’s current acquisitional and tracking instruments (about 1
-arcminuite). This can often be the case for newly discovered objects with
-a small number of observations. With Opihi’s 32 arcminuite field of view, these
-objects can be spotted and the telescope pointing can be corrected, thus
+asteroids and other near Earth objects on the sky. This is needed when the
+positional uncertainty in the ephemeris of these objects are greater than the
+field of view of the IRTF’s current acquisition and tracking instruments
+(about 1 arcminuite). This can often be the case for newly discovered objects
+with a small number of observations. With Opihi’s 32 arcminuite field of view,
+these objects can be spotted and the telescope pointing can be corrected, thus
 greatly reducing the overhead time of finding the target.
 
 \sphinxAtStartPar
-However, only a minority of time allocated by the IRTF are for these types of
-targets. Having Opihi only operate a few times a semester where it is needed
+However, a minority of time allocated by the IRTF are for these types of
+targets. Having Opihi only operate a few times a semester when it is needed
 for acquisition is inefficient. In addition to the asteroid view\sphinxhyphen{}finding
 capabilities, the Opihi telescope also serves as a source for photometric
 monitoring and calibration. By continuously taking pictures and determining the
@@ -212,10 +212,10 @@ the command\sphinxhyphen{}line interface and its usage is documented in
 See {\hyperref[\detokenize{user/manual_mode:user-manual-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Manual Mode}}}} or {\hyperref[\detokenize{user/automatic_mode:user-automatic-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Automatic Mode}}}} for usage instructions
 depending on the desired mode of operation. Both of these have some technical
 jargon better described in {\hyperref[\detokenize{user/system_framework:user-system-framework}]{\sphinxcrossref{\DUrole{std,std-ref}{System Framework}}}}. See
-{\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}} for available configuration options for both modes.
-If you are having trouble, see {\hyperref[\detokenize{user/troubleshooting:user-troubleshooting}]{\sphinxcrossref{\DUrole{std,std-ref}{Troubleshooting}}}} for information and
-possible solutions. If you believe you found an issue or bug with the software,
-please report it to the appropriate IRTF staff member(s).
+{\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}} for the available configuration options of both
+modes. If you are having trouble, see {\hyperref[\detokenize{user/troubleshooting:user-troubleshooting}]{\sphinxcrossref{\DUrole{std,std-ref}{Troubleshooting}}}} for more
+information and possible solutions. If you believe you found an issue or bug
+with the software, please report it to the appropriate IRTF staff member(s).
 
 \sphinxAtStartPar
 If you used the Opihi telescope or the OpihiExarata software, please
@@ -227,7 +227,7 @@ acknowledge your usage in any projects or publications; see
 
 \subsection{Opihi Telescope}
 \label{\detokenize{user/opihi_telescope:opihi-telescope}}\label{\detokenize{user/opihi_telescope:user-opihi-telescope}}\label{\detokenize{user/opihi_telescope::doc}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
@@ -314,9 +314,9 @@ information from these resources.
 \subsection{System Framework}
 \label{\detokenize{user/system_framework:system-framework}}\label{\detokenize{user/system_framework:user-system-framework}}\label{\detokenize{user/system_framework::doc}}
 \sphinxAtStartPar
-We briefly cover a few terms and processes necessary for usage of this software.
-This does not go into more detail than is needed by a standard user; for more
-information, see the {\hyperref[\detokenize{technical/index:technical-index}]{\sphinxcrossref{\DUrole{std,std-ref}{Technical Manual}}}}.
+We briefly cover a few terms and processes necessary for usage of this
+software. This does not go into more detail than is needed by a standard user;
+for more information, see the {\hyperref[\detokenize{technical/index:technical-index}]{\sphinxcrossref{\DUrole{std,std-ref}{Technical Manual}}}}.
 
 
 \subsubsection{Engines}
@@ -360,7 +360,7 @@ more references.)
 
 \sphinxAtStartPar
 Each of these services are made by different organizations. We access the
-capabilities of theses service by what is called an “engine”. Each service has
+capabilities of theses service by what we call an “engine”. Each service has
 their own custom implemented engine. Selecting a given engine (as you use this
 program) means that your data will be processed by the service the engine
 corresponds to.
@@ -374,11 +374,11 @@ You can find out about the different available services (and thus engines) in
 \label{\detokenize{user/system_framework:vehicles-and-solutions}}
 \sphinxAtStartPar
 There may be multiple engines for solving one of the five problems. Different
-datasets may be predisposed to work better with one engine than another. As an
+datasets may be predisposed to work better with one engine over another. As an
 implementation detail, we also built wrappers around the engines called
 vehicle functions and solution classes for ease of use. More detail about these
 wrappers can be found in {\hyperref[\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions}]{\sphinxcrossref{\DUrole{std,std-ref}{Vehicles and Solutions}}}}, but
-it likely is particularly of little concern to the average user.
+it likely is of little concern to the average user.
 
 \sphinxAtStartPar
 Conceptually, you may think of the engine as synonymous with the service; the
@@ -491,7 +491,8 @@ This generates configuration files to allow a user to edit and customize the
 functionality of OpihiExarata. There are two different configuration files.
 Which type of configuration file, and where it is saved are determined by the
 specification of the optional parameters
-For more information about configuration, see {\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}}.
+For more information about configuration and configuration files, see
+{\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}}.
 
 
 \paragraph{Help}
@@ -514,7 +515,7 @@ specified action.
 \sphinxAtStartPar
 If any action is specified that does not match any of the expected actions,
 the program will raise a Python exception as opposed to ignoring it or
-strictly a shell error.
+raising a shell error.
 \end{sphinxadmonition}
 
 
@@ -666,9 +667,9 @@ file already exists at a given path.
 The normal operation of OpihiExarata requires the writing of temporary files.
 A temporary directory is created (as specified by the configuration file) and
 is then purged and deleted. Using this flag prevents the cleanup of the
-temporary directory on the program’s exit. However, as the software itself often
-cleans up before exiting, this option is not very useful for the end user. It
-is more for debugging purposes.
+temporary directory on the program’s exit. However, as the software itself
+often cleans up after itself periodically during usage, this option is not
+very useful for the end user. It is more for debugging purposes.
 
 \begin{sphinxadmonition}{warning}{Warning:}
 \sphinxAtStartPar
@@ -687,12 +688,13 @@ photometric monitoring can be done manually, and the manual mode is well
 equipped for said use case, it is not the primary use case for the manual mode.
 
 \sphinxAtStartPar
-The user uses the Opihi instrument to take images of asteroids. They then
+The user uses the Opihi instrument to take images of an asteroid. Then they
 specify the location of the asteroid using a GUI (usually with help from
-comparing it to a reference image). An astrometric solution can convert the
-asteroid’s pixel location to an on\sphinxhyphen{}sky location, and using previous
-observations, its path across the sky can be determined. This information is
-used to properly point the IRTF telescope to the desired asteroid target.
+comparing their image to a reference image). An astrometric solution can
+convert the asteroid’s pixel location to an on\sphinxhyphen{}sky location. Then by
+utilizing previous observations, its path across the sky can be determined.
+This information is used to properly point the IRTF telescope to the desired
+asteroid target.
 
 \sphinxAtStartPar
 We present the procedure for operating OpihiExarata in its manual mode,
@@ -702,7 +704,7 @@ the procedure and process of the manual mode via a flowchart.
 
 \subsubsection{Graphical User Interface}
 \label{\detokenize{user/manual_mode:graphical-user-interface}}\label{\detokenize{user/manual_mode:user-manual-mode-graphical-user-interface}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
@@ -741,7 +743,8 @@ or \sphinxhref{https://matplotlib.org/stable/users/explain/interactive.html}{Int
 \begin{footnote}[5]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://matplotlib.org/stable/users/explain/interactive.html}
 %
-\end{footnote}.
+\end{footnote}
+for more information.
 
 \sphinxAtStartPar
 There is also a \sphinxguilabel{Refresh Window} button to redraw the image in the
@@ -752,7 +755,7 @@ is new information.
 
 \subsubsection{Procedure}
 \label{\detokenize{user/manual_mode:procedure}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
@@ -777,7 +780,7 @@ command\sphinxhyphen{}line interface with:
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-Please replace the configuration parameters with the correct path to your
+Please replace the configuration file names with the correct path to your
 configuration and secrets file; see {\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}} for more
 information.
 
@@ -787,13 +790,14 @@ information.
 \sphinxAtStartPar
 The OpihiExarata manual mode software groups sequential images as belonging to
 a set of observations of a single target. In order to tell the software what
-target/asteroid you are observing you need to provide it.
+target/asteroid you are observing you need to provide its name.
 
 \sphinxAtStartPar
-Use the \sphinxguilabel{New Target} button, it will open a small prompt for you to enter the
-name of the asteroid/target you are observing. From this point on, all images
-loaded (either manually or automatically fetched) will be assumed to be of the
-target you provided (until you change it by clicking the button again).
+Use the \sphinxguilabel{New Target} button, it will open a small prompt for you to
+enter the name of the asteroid/target you are observing. From this point on,
+all images loaded (either manually or automatically fetched) will be assumed
+to be of the target you provided (until you change it by clicking the button
+again).
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
@@ -837,7 +841,7 @@ to find the asteroid pixel location.
 
 \subparagraph{Target Selector GUI}
 \label{\detokenize{user/manual_mode:target-selector-gui}}\label{\detokenize{user/manual_mode:user-manual-mode-procedure-find-asteroid-location-target-selector-gui}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
@@ -846,37 +850,37 @@ to find the asteroid pixel location.
 targets are typically asteroids.}\label{\detokenize{user/manual_mode:id4}}\label{\detokenize{user/manual_mode:figure-target-selector-gui}}\end{figure}
 
 \sphinxAtStartPar
-The target selector GUI allows you to select a specific target location in
-an image, see \hyperref[\detokenize{user/manual_mode:figure-target-selector-gui}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-target-selector-gui}}}.
+The target selector GUI allows you to select a specific target (generally an
+asteroid) location in an image, see \hyperref[\detokenize{user/manual_mode:figure-target-selector-gui}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-target-selector-gui}}}.
 
 \sphinxAtStartPar
 The current file which you are determining the location of a target in is
-given by \sphinxguilabel{Current:}. A reference image (if provided) to compare against is
-given by \sphinxguilabel{Reference:}. Both of these files can be changed using their
-respective \sphinxguilabel{Change} buttons; a file dialog will be opened so you can specify
-the new FITS files.
+given by \sphinxguilabel{Current:}. The reference image (if provided) used to
+compare against is given by \sphinxguilabel{Reference:}. Both of these files can
+be changed using their respective \sphinxguilabel{Change} buttons; a file dialog
+will be opened so you can specify the new FITS files.
 
 \sphinxAtStartPar
 There is a data viewer similar to the one specified in
 {\hyperref[\detokenize{user/manual_mode:user-manual-mode-graphical-user-interface}]{\sphinxcrossref{\DUrole{std,std-ref}{Graphical User Interface}}}}. However, in addition, if you
 drag a box (left click and hold, drag, then release) without any tool selected
-in toolbar, then the software will search within the drawn (blue) box and
+in toolbar, the software will search within the drawn (blue) box and
 extract the brightest object within the box. It will mark this target with a
-(red) triangle. It will assume that this is the desired target and update the
+red triangle. It will assume that this is the desired target and update the
 \sphinxguilabel{Target X} and \sphinxguilabel{Target Y} fields with its pixel coordinates.
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
-This box drawing method  finds the brightest object in the current image. It ignores the
-subtractive comparison method and its result as such comparisons do not
-affect the actual current image.
+This box drawing method finds the brightest object in the current image.
+It ignores the subtractive comparison method and its result as such
+comparisons do not affect the actual current image.
 \end{sphinxadmonition}
 
 \sphinxAtStartPar
-You can compare your current image file \$C\$ with your reference image \$R\$ file
-in two subtractive ways using the two labeled buttons under
-\sphinxguilabel{Subtraction Method}. (There are also buttons for simply viewing the images.)
-These four ways are:
+You can compare your current image file \(C\) with your reference image
+\(R\) file in two subtractive ways using the two labeled buttons under
+\sphinxguilabel{Subtraction Method}. (There are also buttons for simply viewing
+the images.) Therefore, the two (plus two) ways of viewing the data are:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
@@ -914,12 +918,13 @@ click \sphinxguilabel{Submit}. The location of your target will be recorded.
 
 \paragraph{Compute Astrometric Solution}
 \label{\detokenize{user/manual_mode:compute-astrometric-solution}}\label{\detokenize{user/manual_mode:user-manual-mode-procedure-find-asteroid-location-compute-astrometric-solution}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
 \noindent\sphinxincludegraphics{{manual-mode-gui-astrometry}.png}
-\caption{The astrometry GUI tab for customizing and executing astrometric solutions.}\label{\detokenize{user/manual_mode:id5}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-astrometry}}\end{figure}
+\caption{The astrometry GUI tab for customizing and executing astrometric solutions.
+This is the default view before any values have been calculated.}\label{\detokenize{user/manual_mode:id5}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-astrometry}}\end{figure}
 
 \sphinxAtStartPar
 The astrometric solution of the image is next to be solved. The pattern of
@@ -940,10 +945,11 @@ the desired astrometric engine from the drop down menu then click on the
 the available engines.)
 
 \sphinxAtStartPar
-The pixel location (X,Y) of the center of the image, given by \sphinxguilabel{Opihi Center},
-and the specified target, given by \sphinxguilabel{Target/Asteroid}, is provided
-with or without an astrometric solution. When the astrometric solution is
-provided, the right ascension and declination of these will also be provided.
+The pixel location (X,Y) of the center of the image, given by
+\sphinxguilabel{Opihi Center}, and the specified target, given by
+\sphinxguilabel{Target/Asteroid}, is provided with or without an astrometric
+solution. When the astrometric solution is provided, the right ascension and
+declination of these will also be provided.
 
 \sphinxAtStartPar
 Custom pixel coordinate (X,Y) can be provided in the boxes to be translated to
@@ -958,19 +964,20 @@ button does nothing without a valid astrometric solution.
 
 \paragraph{Compute Photometric Solution}
 \label{\detokenize{user/manual_mode:compute-photometric-solution}}\label{\detokenize{user/manual_mode:user-manual-mode-procedure-find-asteroid-location-compute-photometric-solution}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
 \noindent\sphinxincludegraphics{{manual-mode-gui-photometry}.png}
-\caption{The photometry GUI tab for customizing and executing photometric solutions.}\label{\detokenize{user/manual_mode:id6}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-photometry}}\end{figure}
+\caption{The photometry GUI tab for customizing and executing photometric solutions.
+This is the default view before any values have been calculated.}\label{\detokenize{user/manual_mode:id6}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-photometry}}\end{figure}
 
 \sphinxAtStartPar
 The photometric solution of the image is next to be solved. The brightness of
 the stars in the image is compared to known filter magnitudes from a
 photometric database to derive a photometric calibration solution.
-See \hyperref[\detokenize{user/manual_mode:figure-manual-mode-gui-photometry}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-manual-mode-gui-photometry}}} for the interface for photometric
-solutions.
+See \hyperref[\detokenize{user/manual_mode:figure-manual-mode-gui-photometry}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-manual-mode-gui-photometry}}} for the interface for
+photometric solutions.
 
 \sphinxAtStartPar
 This is an optional step and is not related to asteroid finding in of itself.
@@ -990,7 +997,8 @@ determined by the FITS file header.
 
 \sphinxAtStartPar
 Once a photometric solution has been solved, the corresponding filter zero
-point magnitude of the image is provided by \sphinxguilabel{Zero Point}.
+point magnitude (and its error) of the image is provided by
+\sphinxguilabel{Zero Point}.
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
@@ -1017,7 +1025,8 @@ The software will attempt to use the target/asteroid name provided in
 to obtain the set of historical observations from the Minor Planet Center.
 
 \sphinxAtStartPar
-Older images will also be considered part of the set of historical observations.
+Recently taken images will also be considered part of the set of historical
+observations.
 
 
 \paragraph{Asteroid Observation Record}
@@ -1050,19 +1059,21 @@ Both options are sufficient but we recommend
 
 \paragraph{Asteroid Position Propagation}
 \label{\detokenize{user/manual_mode:asteroid-position-propagation}}\label{\detokenize{user/manual_mode:user-manual-mode-procedure-asteroid-position-propagation}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
 \noindent\sphinxincludegraphics{{manual-mode-gui-propagate}.png}
-\caption{The propagation GUI tab for customizing and executing propagation solutions.}\label{\detokenize{user/manual_mode:id7}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-propagate}}\end{figure}
+\caption{The propagation GUI tab for customizing and executing propagation solutions.
+This is the default view before any values have been calculated.}\label{\detokenize{user/manual_mode:id7}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-propagate}}\end{figure}
 
 \sphinxAtStartPar
 Propagating the on\sphinxhyphen{}sky motion of the asteroid is done by taking the
 observational record from
 {\hyperref[\detokenize{user/manual_mode:user-manual-mode-procedure-asteroid-observation-record}]{\sphinxcrossref{\DUrole{std,std-ref}{Asteroid Observation Record}}}} and propagating
 only the most recent observations forward in time. See
-\hyperref[\detokenize{user/manual_mode:figure-manual-mode-gui-propagate}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-manual-mode-gui-propagate}}} for the interface for propagation solutions.
+\hyperref[\detokenize{user/manual_mode:figure-manual-mode-gui-propagate}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-manual-mode-gui-propagate}}} for the interface for propagation
+solutions.
 
 \sphinxAtStartPar
 To solve for the propagation solution from the observations, you will need to
@@ -1075,20 +1086,20 @@ the available engines.)
 If a propagation solution is done, the on\sphinxhyphen{}sky rates will be provided under
 \sphinxguilabel{Propagate Rate {[} “/s | “/s²{]}}. Both the first order (velocity) and
 second order (acceleration) on\sphinxhyphen{}sky rates in RA and DEC are given in arcseconds
-per second, or arcseconds per second squared. The RA is given on the right and
+per second or arcseconds per second squared. The RA is given on the right and
 DEC on the left within the first or second order pairs.
 
 \sphinxAtStartPar
-You may also provide a custom date and time, in
+You may also provide a custom date and time, in the provided dialog box (using
 (\sphinxhref{https://www.iso.org/standard/70907.html}{ISO\sphinxhyphen{}8601 like formatting}%
 \begin{footnote}[7]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.iso.org/standard/70907.html}
 %
-\end{footnote}) the
-provided dialog box. You can specify the timezone that the provided date and
-time corresponds to using the dropdown menu. When you click
-\sphinxguilabel{Custom Solve}, the displayed RA and DEC coordinate is the estimated
-sky coordinates for the asteroid at the provided time.
+\end{footnote}). You
+can specify the timezone that the provided date and time corresponds to using
+the dropdown menu. When you click \sphinxguilabel{Custom Solve}, the displayed RA
+and DEC coordinates are the estimated sky coordinates for the asteroid at the
+provided input time.
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
@@ -1100,12 +1111,13 @@ solution from
 
 \paragraph{Orbital Elements}
 \label{\detokenize{user/manual_mode:orbital-elements}}\label{\detokenize{user/manual_mode:user-manual-mode-procedure-orbital-elements}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
 \noindent\sphinxincludegraphics{{manual-mode-gui-orbit}.png}
-\caption{The orbit GUI tab for customizing and executing orbital solutions.}\label{\detokenize{user/manual_mode:id8}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-orbit}}\end{figure}
+\caption{The orbit GUI tab for customizing and executing orbital solutions.
+This is the default view before any values have been calculated.}\label{\detokenize{user/manual_mode:id8}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-orbit}}\end{figure}
 
 \sphinxAtStartPar
 Provided a list of historical observations, we can solve for the Keplerian
@@ -1122,8 +1134,12 @@ the available engines.)
 
 \sphinxAtStartPar
 The six Keplerian orbital elements (plus the epoch) are provided after the
-orbital solutions is solved. They are:
+orbital solution is solved. They are:
 \begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxguilabel{SM\sphinxhyphen{}Axis}: The semi\sphinxhyphen{}major axis of the orbit, this is in AU.
+
 \item {} 
 \sphinxAtStartPar
 \sphinxguilabel{Ecc.}: The eccentricity of the orbit, this is unit\sphinxhyphen{}less.
@@ -1169,16 +1185,17 @@ solution from
 
 \paragraph{Ephemeris}
 \label{\detokenize{user/manual_mode:ephemeris}}\label{\detokenize{user/manual_mode:user-manual-mode-procedure-ephemeris}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
 \noindent\sphinxincludegraphics{{manual-mode-gui-ephemeris}.png}
-\caption{The ephemeris GUI tab for customizing and executing ephemeris solutions.}\label{\detokenize{user/manual_mode:id9}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-ephemeris}}\end{figure}
+\caption{The ephemeris GUI tab for customizing and executing ephemeris solutions.
+This is the default view before any values have been calculated.}\label{\detokenize{user/manual_mode:id9}}\label{\detokenize{user/manual_mode:figure-manual-mode-gui-ephemeris}}\end{figure}
 
 \sphinxAtStartPar
 The orbital elements derived in {\hyperref[\detokenize{user/manual_mode:user-manual-mode-procedure-orbital-elements}]{\sphinxcrossref{\DUrole{std,std-ref}{Orbital Elements}}}}
-are then used to derive the ephemeris of the asteroid. See
+can then be used to derive an ephemeris of an asteroid. See
 \hyperref[\detokenize{user/manual_mode:figure-manual-mode-gui-ephemeris}]{Fig.\@ \ref{\detokenize{user/manual_mode:figure-manual-mode-gui-ephemeris}}} for the interface for ephemeris
 solutions.
 
@@ -1197,16 +1214,16 @@ per second, or arcseconds per second squared. The RA is given on the right and
 DEC on the left within the first or second order pairs.
 
 \sphinxAtStartPar
-You may also provide a custom date and time, in
+You may also provide a custom date and time, in the provided dialog box (using
 (\sphinxhref{https://www.iso.org/standard/70907.html}{ISO\sphinxhyphen{}8601 like formatting}%
 \begin{footnote}[8]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.iso.org/standard/70907.html}
 %
-\end{footnote}) the
-provided dialog box. You can specify the timezone that the provided date and
-time corresponds to using the dropdown menu. When you click
-\sphinxguilabel{Custom Solve}, the displayed RA and DEC coordinate is the estimated
-sky coordinates for the asteroid at the provided time.
+\end{footnote}). You
+can specify the timezone that the provided date and time corresponds to using
+the dropdown menu. When you click \sphinxguilabel{Custom Solve}, the displayed RA
+and DEC coordinates are the estimated sky coordinates for the asteroid at the
+provided input time.
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
@@ -1243,7 +1260,7 @@ the asteroid.
 \label{\detokenize{user/automatic_mode:automatic-mode}}\label{\detokenize{user/automatic_mode:user-automatic-mode}}\label{\detokenize{user/automatic_mode::doc}}
 \sphinxAtStartPar
 The automatic mode of OpihiExarata is its atmospheric monitoring mode. It is
-best operated by its graphical user interface.
+best operated by its dedicated graphical user interface.
 
 \sphinxAtStartPar
 Images, continuously taken by the Opihi telescope and camera, are
@@ -1251,14 +1268,14 @@ photometrically solved such that their zero points are calculated. The
 program does this automatically after the initial specifications and trigger.
 
 \sphinxAtStartPar
-We present the procedure for operating OpihiExarata in its automatic mode,
+We present the procedure for operating OpihiExarata in its automatic mode;
 please also reference the GUI figure provided for reference. We also summarize
 the procedure and process of the automatic mode via a flowchart.
 
 
 \subsubsection{Graphical User Interface}
 \label{\detokenize{user/automatic_mode:graphical-user-interface}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
@@ -1275,7 +1292,7 @@ respective subsections of this section.
 
 \subsubsection{Procedure}
 \label{\detokenize{user/automatic_mode:procedure}}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \capstart
 
@@ -1300,7 +1317,7 @@ command\sphinxhyphen{}line interface with:
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-Please replace the configuration parameters with the correct path to your
+Please replace the configuration file names with the correct path to your
 configuration and secrets file; see {\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}} for more
 information.
 
@@ -1309,13 +1326,13 @@ information.
 \label{\detokenize{user/automatic_mode:specify-data-directory}}
 \sphinxAtStartPar
 You will need to specify the data directory that the OpihiExarata program will
-pull the most recent images from. This should be the same directory where the
-Opihi camera will be saving the images it is taking constantly.
+pull from the most recent images Opihi has taken. This should be the same
+directory where the Opihi camera is saving the images it is taking constantly.
 
 \sphinxAtStartPar
 You can specify this directory by clicking the \sphinxguilabel{Change} button to
-bring up a directory selecting dialog. The exact form of your dialog is
-operating system dependent as we defer to its implementation. Select the
+bring up a directory selection dialog. The exact form of the dialog is
+operating system dependent as we defer to their implementation. Select the
 directory using that dialog.
 
 \sphinxAtStartPar
@@ -1328,7 +1345,7 @@ your selection. This display uses absolute paths; ensure that it is correct.
 \sphinxAtStartPar
 You will need to specify the solving engines that OpihiExarata will use to in
 order to solve the images. For this mode, only the AstrometryEngine(s) and
-PhotometryEngine(s) is considered as it does not use any other engine. The
+PhotometryEngine(s) are considered as it does not use any other engines. The
 selected engines will constantly be used until a different one is specified.
 
 \sphinxAtStartPar
@@ -1359,7 +1376,7 @@ the same directory you specified for this program to fetch from.
 \sphinxAtStartPar
 You will need to start automatic solving by triggering it via the
 \sphinxguilabel{Start} button. Once it starts, it will do the following, in order,
-automatically, without need for user intervention:
+automatically, without the need for user intervention:
 \begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \item {} 
@@ -1368,7 +1385,7 @@ It will fetch the most recent fits image as determined by the modification times
 
 \item {} 
 \sphinxAtStartPar
-It will pre\sphinxhyphen{}process the fetched image according to the preprocessing algorithm, see {\hyperref[\detokenize{technical/algorithms/preprocessing:technical-algorithms-preprocessing}]{\sphinxcrossref{\DUrole{std,std-ref}{Preprocessing}}}}.
+It will pre\sphinxhyphen{}process the fetched image according to the preprocessing algorithm, see {\hyperref[\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions-preprocesssolution}]{\sphinxcrossref{\DUrole{std,std-ref}{PreprocessSolution}}}}.
 
 \item {} 
 \sphinxAtStartPar
@@ -1397,8 +1414,8 @@ It will repeat this process until stopped.
 \label{\detokenize{user/automatic_mode:trigger-once-manually}}
 \sphinxAtStartPar
 You may also trigger the automatic solving procedure manually once via the
-\sphinxguilabel{Trigger} button. This will do the entire process as elaborated above,
-except for repeating it.
+\sphinxguilabel{Trigger} button. This will do the entire process as elaborated
+above, except for repeating it.
 
 
 \paragraph{Displayed Status and Results}
@@ -1409,9 +1426,9 @@ describe the fields which change as the automatic solving runs.
 
 \sphinxAtStartPar
 The \sphinxguilabel{Working} field details the file that is currently being (or
-was last) worked on by the automatic solving algorithms. The
+was last) worked on by the automatic solving procedure. The
 \sphinxguilabel{Results} field details the file that has already been worked on
-and has been solved without failure. When the working file, undergoing the
+and that has been solved without failure. When the working file, undergoing the
 solving, is solved successfully, it becomes a file with results and the
 program designates it as such. If the working file failed to solve, it is not
 transferred over.
@@ -1427,9 +1444,9 @@ image was taken.
 
 \sphinxAtStartPar
 The \sphinxguilabel{Zero Point} value, calculated via the photometric solver, of
-the image is provided, along with the \sphinxguilabel{Filter} that the image was
+the image is provided along with the \sphinxguilabel{Filter} that the image was
 taken in specified in said field. (The filter term is based on the fits
-metadata.)
+header metadata.)
 
 \sphinxAtStartPar
 The status of the automatic solving will be displayed under
@@ -1468,17 +1485,17 @@ The status of the automatic solving will be displayed under
 When you want to stop the automatic solving, you can click the \sphinxguilabel{Stop} button
 at any time. This will finish the current image it is working on and stop the
 automatic loop from fetching another image from the data directory. Because of
-the nature of sending information to other services (i.e. the backends to the
-engines), the solving of an image cannot gracefully stopped mid\sphinxhyphen{}way and so the
-process must finish and we only prevent it from continuing.
+the nature of sending information to external services (i.e. the backends to the
+engines), the solving of an image cannot be gracefully stopped mid\sphinxhyphen{}way and so
+the process must finish and we only prevent it from repeating.
 
 \sphinxAtStartPar
 If you want to stop the solving immediately for whatever reason, it is
 suggested to cancel or crash the process that OpihiExarata is running on.
 
 \sphinxAtStartPar
-The \sphinxguilabel{Stop} button will not prevent a manual trigger from being executed via
-the \sphinxguilabel{Trigger} button.
+The \sphinxguilabel{Stop} button will not prevent a manual trigger from being
+executed via the \sphinxguilabel{Trigger} button.
 
 \sphinxAtStartPar
 If the infinite automatic loop continues fetching images even after the stop
@@ -1531,14 +1548,15 @@ the directory tree. Alternatively, it can also be found
 \sphinxAtStartPar
 A secrets configuration file (simplified to secrets file), typically
 called something like \sphinxcode{\sphinxupquote{secrets.yaml}}, is where configuration parameters
-which should not be released to the public (via open source) are kept, hence a
-secrets file. These are often software and API keys.
+which should not be released to the public (via the open source repository)
+are kept, hence a secrets file. These are often software and API keys.
 
 \sphinxAtStartPar
 The secrets file is a YAML formatted file with relatively verbose names.
 A newly generated secrets file is a copy of the default file being used. But,
 there are no defaults and the secrets are blank as that is the whole point of
-a secrets file. They need to be filled in with a user provided secrets file.
+a secrets file. The configuration values need to be filled in with a user
+provided information.
 
 \sphinxAtStartPar
 To detail all of the secrets parameters here is not particularly efficient.
@@ -1570,10 +1588,11 @@ design of the automatic mode.
 
 \sphinxAtStartPar
 You can force the loop to stop gracefully by creating a file named
-\sphinxcode{\sphinxupquote{opihiexarata\_automatic.stop}} in the same data directory that the automatic
-loop is fetching the most recent images from. The loop checks for the
+\sphinxcode{\sphinxupquote{opihiexarata\_automatic.stop}} in the same data directory that the
+automatic loop is fetching the most recent images from. The loop checks for the
 existence of this file and it will stop in a similar way to if the stop button
-was pressed. The loop will be considered \sphinxguilabel{Halted}.
+was pressed. The loop will be considered \sphinxguilabel{Halted} as it stopped via
+a method other than the \sphinxguilabel{Stop} button.
 
 \sphinxAtStartPar
 If this fails, then the suggested remedy is to ungracefully stop or crash the
@@ -1615,7 +1634,7 @@ more information.
 If you use the Opihi telescope or its accompanying OpihiExarata software, please cite your usage using the following citation information:
 
 \sphinxAtStartPar
-(The citation information, here, will be updated as more publication
+(The citation information here will be updated as more publication
 information is provided.)
 
 
@@ -1630,10 +1649,8 @@ in no particular order.
 \label{\detokenize{user/citations:nasa-infrared-telescope-facility}}
 \sphinxAtStartPar
 This work utilizes, is utilized by, is built for, and is funded by the NASA
-Infrared Telescope Facility (IRTF), which is operated by the University of
-Hawaii under Cooperative Agreement no. NNX\sphinxhyphen{}08AE38A with the National
-Aeronautics and Space Administration, Science Mission Directorate, Planetary
-Astronomy Program.
+Infrared Telescope Facility is operated by the University of Hawaii under
+contract 80HQTR19D0030 with the National Aeronautics and Space Administration.
 
 
 \paragraph{MAST}
@@ -1667,7 +1684,8 @@ This work makes use of SciPy
 \paragraph{Matplotlib}
 \label{\detokenize{user/citations:matplotlib}}
 \sphinxAtStartPar
-This work makes use of matplotlib, a Python library for publication quality graphics
+This work makes use of matplotlib, a Python library for publication quality
+graphics
 (\sphinxhref{https://doi.ieeecomputersociety.org/10.1109/MCSE.2007.55}{Hunter 2007}%
 \begin{footnote}[12]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://doi.ieeecomputersociety.org/10.1109/MCSE.2007.55}
@@ -1811,10 +1829,10 @@ similar to this software, it has a rather small audience.)
 \sphinxAtStartPar
 The binomial taxonomical name of the Hawaiian blackfoot opihi is Cellana
 exarata. The genus Cellana describes the group of limpets including the opihi,
-but “exarata” is the identifying part for the Hawaiian blackfoot, thus the
-name of this software, we decided, is a hybrid: OpihiExarata. A backronym for
-it, which describes its function: Ephemeris with eXtra Atmospheric Response
-and Asteroid Trajectory Analysis.
+but \sphinxstyleemphasis{exarata} is the identifying part for the Hawaiian blackfoot, thus the
+name of this software, we decided, is the hybrid: OpihiExarata. A backronym for
+it, descriptive of its function: OPIHI Ephemeris with eXtra Atmospheric
+Response and Asteroid Trajectory Analysis.
 
 
 \chapter{Technical Manual}
@@ -1839,6 +1857,20 @@ the inner\sphinxhyphen{}workings of the OpihiExarata software. This is typically
 maintainers for the OpihiExarata package, but it may be useful for some other
 audiences.
 
+\sphinxAtStartPar
+We detail the installation instructions (written primarily for the computer
+which runs the Opihi telescope in the event that this software needs to be
+reinstalled).
+
+\sphinxAtStartPar
+We also detail some of the architectural considerations and designs of the
+OpihiExarata software as a whole and some of the algorithms and conventions
+which underpin the implementation.
+
+\sphinxAtStartPar
+The license by which this software is licensed under, and a small discussion
+on the licenses of its dependencies is also provided.
+
 \sphinxstepscope
 
 
@@ -1847,13 +1879,15 @@ audiences.
 \sphinxAtStartPar
 The installation instructions are detailed here. For convenience, installation
 scripts have been written to install the software for choice operating systems.
-Currently, the supported operating systems are, in order, Rocky Linux, Windows
+Currently, the supported operating systems are, in order, Rocky Linux, Windows,
 and Ubuntu. Future compatibility with other operating systems is unlikely to
-be supported in the future.
+be supported in the future as this software package is purpose built. In order
+to get the scripts, and the software in general, you still need to download the
+software, see {\hyperref[\detokenize{technical/installation/download:technical-installation-download}]{\sphinxcrossref{\DUrole{std,std-ref}{Install: Download}}}}.
 
 
 \subsubsection{Automated Scripts}
-\label{\detokenize{technical/installation/index:automated-scripts}}
+\label{\detokenize{technical/installation/index:automated-scripts}}\label{\detokenize{technical/installation/index:technical-installation-automated-scripts}}
 \sphinxAtStartPar
 As there are many parts to the OpihiExarata software, for convenience, an
 installation script has been written for convenience and to help facilitate
@@ -1869,13 +1903,13 @@ of \sphinxhref{https://docs.microsoft.com/en-us/powershell/}{Powershell Core}%
 \sphinxnolinkurl{https://docs.microsoft.com/en-us/powershell/}
 %
 \end{footnote} can be
-found on its website. The installation of the OpihiExarata software does not
-depend on Powershell Core after installation, but the convenience scripts
-would be unavailable. If this is the case, please follow the other
+found on Microsoft’s website. The installation of the OpihiExarata software
+does not depend on Powershell Core after installation, but the convenience
+scripts would be unavailable. If this is the case, please follow the other
 installation instructions as usual.
 
 \sphinxAtStartPar
-In addition to installation script, an auxillary script has been written in
+In addition to the installation script, an auxillary script has been written in
 Powershell Core. The purpose of the auxillary script is to do tasks not
 strictly related to installation. These tasks include code formatting,
 testing, and documentation building. You may use this as well but it is not
@@ -1894,7 +1928,7 @@ For the installation script \sphinxcode{\sphinxupquote{install.ps1}}:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-You need to specify the version\sphinxhyphen{}specific Python command that Powershell Core uses to enter the correct Python interpreter. It is typically something like \sphinxcode{\sphinxupquote{python3.9}} for Python 3.9, or something similar for other versions. (Windows operating systems, for example, is often just \sphinxcode{\sphinxupquote{python}}.) For example, the line should be something like:
+You need to specify the version\sphinxhyphen{}specific Python command that Powershell Core uses to enter the correct Python interpreter. It is typically something like \sphinxcode{\sphinxupquote{python3.9}} for Python 3.9, or something similar for other versions. (Windows operating systems, for example, is often just \sphinxcode{\sphinxupquote{python}}.) For example, the line in \sphinxcode{\sphinxupquote{install.ps1}} should be something like:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{Set}\PYG{o}{\PYGZhy{}}\PYG{n}{Alias} \PYG{o}{\PYGZhy{}}\PYG{n}{Name} \PYG{n}{pyox} \PYG{o}{\PYGZhy{}}\PYG{n}{Value} \PYG{n}{python3}\PYG{l+m+mf}{.9}
@@ -1940,11 +1974,11 @@ installation order is as follows, we note what is optional and why:
 
 \item {} 
 \sphinxAtStartPar
-{\hyperref[\detokenize{technical/installation/python:technical-installation-python-part}]{\sphinxcrossref{\DUrole{std,std-ref}{Install: Python Part}}}}: You will download a supported Python version and build then install the Python part of OpihiExarata and its dependencies. This part being the primary part.
+{\hyperref[\detokenize{technical/installation/python:technical-installation-python-part}]{\sphinxcrossref{\DUrole{std,std-ref}{Install: Python Part}}}}: You will download a supported Python version and build then install the Python part of OpihiExarata and its dependencies. This part is the main part of installation.
 
 \item {} 
 \sphinxAtStartPar
-{\hyperref[\detokenize{technical/installation/documentation:technical-installation-documentation}]{\sphinxcrossref{\DUrole{std,std-ref}{Optional: Documentation}}}}: (Optional) You will build and process the documentation files to build the documentation for OpihiExarata. This is helpful if this set of documentation that you are reading is outdated or if you just want the documentation.
+{\hyperref[\detokenize{technical/installation/documentation:technical-installation-documentation}]{\sphinxcrossref{\DUrole{std,std-ref}{Optional: Documentation}}}}: (Optional) You will build and process the documentation files to build the documentation for OpihiExarata. This is helpful if this set of documentation that you are reading is outdated or if you just want the documentation on your machine to be up to date.
 
 \item {} 
 \sphinxAtStartPar
@@ -1961,6 +1995,21 @@ installation order is as follows, we note what is optional and why:
 
 \paragraph{Install: Download}
 \label{\detokenize{technical/installation/download:install-download}}\label{\detokenize{technical/installation/download:technical-installation-download}}\label{\detokenize{technical/installation/download::doc}}
+\sphinxAtStartPar
+The OpihiExarata software is stored its
+\sphinxhref{https://github.com/psmd-iberutaru/OpihiExarata}{Github software repository}%
+\begin{footnote}[27]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://github.com/psmd-iberutaru/OpihiExarata}
+%
+\end{footnote}.
+It needs to be downloaded from there, there are two main methods of doing that.
+Both are detailed here.
+
+\sphinxAtStartPar
+Throughout the installation tutorial we refer to the internal OpihiExarata
+directory as \sphinxcode{\sphinxupquote{OpihiExarata/}}. This allows for the instructions to be
+general. Please adapt any absolute paths as needed.
+
 
 \subparagraph{Via git (Recommended)}
 \label{\detokenize{technical/installation/download:via-git-recommended}}
@@ -1972,12 +2021,8 @@ The best way to download OpihiExarata is to clone the repository:
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-The location where you download OpihiExarata is relatively irrelevant.
-
-\sphinxAtStartPar
-Throughout the installation tutorial we refer to the internal OpihiExarata
-directory as \sphinxcode{\sphinxupquote{OpihiExarata/}}. This allows for the instructions to be
-general. Please adapt any absolute paths as needed.
+The location where you download the OpihiExarata repository is relatively
+irrelevant.
 
 
 \subparagraph{Via .zip Archive}
@@ -1999,11 +2044,6 @@ A zip archive of the git repository can be downloaded via:
 \PYG{n}{rm} \PYG{n}{master}\PYG{o}{.}\PYG{n}{zip}
 \end{sphinxVerbatim}
 
-\sphinxAtStartPar
-Throughout the installation tutorial we refer to the internal OpihiExarata
-directory as \sphinxcode{\sphinxupquote{OpihiExarata/}}. This allows for the instructions to be
-general. Please adapt any absolute paths as needed.
-
 \sphinxstepscope
 
 
@@ -2011,7 +2051,7 @@ general. Please adapt any absolute paths as needed.
 \label{\detokenize{technical/installation/python:install-python-part}}\label{\detokenize{technical/installation/python:technical-installation-python-part}}\label{\detokenize{technical/installation/python::doc}}
 \sphinxAtStartPar
 The Python part of OpihiExarata is the primary part of OpihiExarata. Luckily,
-it is likely also the simplest.
+it is also likely the simplest.
 
 \sphinxAtStartPar
 You will build the Python wheel from the source and install it.
@@ -2022,7 +2062,7 @@ You will build the Python wheel from the source and install it.
 \sphinxAtStartPar
 Download and install a current release of Python if you have not already. You
 can find the latest releases at: \sphinxhref{https://www.python.org/downloads/}{Python Releases}%
-\begin{footnote}[27]\sphinxAtStartFootnote
+\begin{footnote}[28]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.python.org/downloads/}
 %
 \end{footnote}.
@@ -2057,7 +2097,7 @@ Install the wheel package.
 
 \sphinxAtStartPar
 You will need to modify this command to the proper wheel that you generated
-from before. Because this project using date\sphinxhyphen{}based versioning, your package
+from before. Because this project uses date\sphinxhyphen{}based versioning, your package
 will likely be that of the date that you build the wheel.
 
 \sphinxAtStartPar
@@ -2065,7 +2105,8 @@ will likely be that of the date that you build the wheel.
 version.)
 
 \sphinxAtStartPar
-You can install the wheel using while in \sphinxcode{\sphinxupquote{OpihiExarata/}}:
+You can install the wheel using while in the \sphinxcode{\sphinxupquote{OpihiExarata/}} directory
+with:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{pip} \PYG{n}{install} \PYG{o}{.}\PYG{o}{/}\PYG{n}{dist}\PYG{o}{/}\PYG{n}{OpihiExarata}\PYG{o}{\PYGZhy{}}\PYG{n}{YYYY}\PYG{o}{.}\PYG{n}{MM}\PYG{o}{.}\PYG{n}{DD}\PYG{o}{\PYGZhy{}}\PYG{n}{py3}\PYG{o}{\PYGZhy{}}\PYG{n}{none}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{any}\PYG{o}{.}\PYG{n}{whl} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{upgrade}
@@ -2078,7 +2119,8 @@ You can install the wheel using while in \sphinxcode{\sphinxupquote{OpihiExarata
 \label{\detokenize{technical/installation/documentation:optional-documentation}}\label{\detokenize{technical/installation/documentation:technical-installation-documentation}}\label{\detokenize{technical/installation/documentation::doc}}
 \sphinxAtStartPar
 Building the documentation is relatively simple as we leverage Sphinx to
-build it.
+build it. This is also done when the \sphinxcode{\sphinxupquote{auxiliary.ps1}} auxillary script is
+run.
 
 
 \subparagraph{Prerequisites}
@@ -2087,8 +2129,8 @@ build it.
 \subparagraph{Sphinx}
 \label{\detokenize{technical/installation/documentation:sphinx}}
 \sphinxAtStartPar
-To build the Sphinx documentation, Python needs to be installed (the Python
-version installed in this installation procedure can be used).
+To build the Sphinx documentation, Python needs to be installed. (The Python
+version installed in {\hyperref[\detokenize{technical/installation/python:technical-installation-python-part}]{\sphinxcrossref{\DUrole{std,std-ref}{Install: Python Part}}}} can be used.)
 
 \sphinxAtStartPar
 The following packages must be installed:
@@ -2104,10 +2146,10 @@ The following packages must be installed:
 If a PDF version of the documentation is desired, Sphinx can build it via
 LaTeX. LaTeX must be installed. We suggest installing the
 \sphinxhref{https://tug.org/texlive/}{TeX Live distribution}%
-\begin{footnote}[28]\sphinxAtStartFootnote
+\begin{footnote}[29]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://tug.org/texlive/}
 %
-\end{footnote} and installing the full install. Instructions on
+\end{footnote} and selecting the full install. Instructions on
 how to install TeX Live is beyond the scope of this documentation.
 
 
@@ -2178,7 +2220,7 @@ suggestions below:
 \sphinxAtStartPar
 The documentation can be built to other different forms, see the
 \sphinxhref{https://www.sphinx-doc.org/en/master/man/sphinx-build.html}{sphinx\sphinxhyphen{}build documentation}%
-\begin{footnote}[29]\sphinxAtStartFootnote
+\begin{footnote}[30]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.sphinx-doc.org/en/master/man/sphinx-build.html}
 %
 \end{footnote}.
@@ -2213,11 +2255,11 @@ enable scripts, do the following command in an administrator Powershell shell:
 \sphinxAtStartPar
 See Microsoft’s documentation for more information on
 \sphinxhref{https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy}{setting Powershell execution policies}%
-\begin{footnote}[30]\sphinxAtStartFootnote
+\begin{footnote}[31]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy}
 %
 \end{footnote} and \sphinxhref{https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about\_execution\_policies}{what policies are available}%
-\begin{footnote}[31]\sphinxAtStartFootnote
+\begin{footnote}[32]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about\_execution\_policies}
 %
 \end{footnote}.
@@ -2258,7 +2300,7 @@ In an administrator Powershell, run the following:
 \sphinxAtStartPar
 This installs Ubuntu as the WSL distribution by default. See the
 \sphinxhref{https://docs.microsoft.com/en-us/windows/wsl/install}{WSL install documentation}%
-\begin{footnote}[32]\sphinxAtStartFootnote
+\begin{footnote}[33]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://docs.microsoft.com/en-us/windows/wsl/install}
 %
 \end{footnote} for more information.
@@ -2268,7 +2310,7 @@ This installs Ubuntu as the WSL distribution by default. See the
 \label{\detokenize{technical/installation/windows:manual-install}}
 \sphinxAtStartPar
 These installation instructions was taken from the \sphinxhref{https://docs.microsoft.com/en-us/windows/wsl/install-manual}{manual installation documentation}%
-\begin{footnote}[33]\sphinxAtStartFootnote
+\begin{footnote}[34]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://docs.microsoft.com/en-us/windows/wsl/install-manual}
 %
 \end{footnote}
@@ -2300,7 +2342,7 @@ In an administrator Powershell, enable the virtual machine platform:
 \sphinxAtStartPar
 You can download the latest kernel package from:
 \sphinxhref{https://wslstorestorage.blob.core.windows.net/wslblob/wsl\_update\_x64.msi}{WSL2 Linux kernel update package for x64 machines}%
-\begin{footnote}[34]\sphinxAtStartFootnote
+\begin{footnote}[35]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://wslstorestorage.blob.core.windows.net/wslblob/wsl\_update\_x64.msi}
 %
 \end{footnote}.
@@ -2330,7 +2372,7 @@ compatibility layer.
 \sphinxAtStartPar
 Download your desired Linux distribution from the Windows store, we
 suggest \sphinxhref{https://www.microsoft.com/store/apps/9n6svws3rx71}{WSL Ubuntu}%
-\begin{footnote}[35]\sphinxAtStartFootnote
+\begin{footnote}[36]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.microsoft.com/store/apps/9n6svws3rx71}
 %
 \end{footnote}:
@@ -2379,7 +2421,7 @@ Orbfit is one of the available asteroid orbit determiners.
 \sphinxAtStartPar
 The instructions of installing Orbfit is derived from the
 \sphinxhref{http://adams.dm.unipi.it/~orbmaint/orbfit/OrbFit/doc/help.html\#install}{Orbfit installation documentation}%
-\begin{footnote}[36]\sphinxAtStartFootnote
+\begin{footnote}[37]\sphinxAtStartFootnote
 \sphinxnolinkurl{http://adams.dm.unipi.it/~orbmaint/orbfit/OrbFit/doc/help.html\#install}
 %
 \end{footnote}.
@@ -2429,7 +2471,7 @@ different compilers available, we document here how to use the Intel Fortran
 compiler. The method of install is OS dependent, or more specifically, package
 manager dependent. Other installation method exist, see
 \sphinxhref{https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top/installation.html}{Intel Fortran compiler install}%
-\begin{footnote}[37]\sphinxAtStartFootnote
+\begin{footnote}[38]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top/installation.html}
 %
 \end{footnote} for more information (these instructions were
@@ -2543,7 +2585,7 @@ For Zypper, both is done via:
 \sphinxAtStartPar
 Set the environment variables for command\sphinxhyphen{}line development. This command sets
 the variables for the current session only. (For persistent environment
-variable set up,consider adding it to your startup script.):
+variable set up, consider adding it to your startup script.):
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{o}{.} \PYG{o}{/}\PYG{n}{opt}\PYG{o}{/}\PYG{n}{intel}\PYG{o}{/}\PYG{n}{oneapi}\PYG{o}{/}\PYG{n}{setvars}\PYG{o}{.}\PYG{n}{sh}
@@ -2557,18 +2599,18 @@ The software needs to be downloaded.
 
 \sphinxAtStartPar
 You can likely find the software package on the \sphinxhref{http://adams.dm.unipi.it/orbfit/}{OrbFit website}%
-\begin{footnote}[38]\sphinxAtStartFootnote
+\begin{footnote}[39]\sphinxAtStartFootnote
 \sphinxnolinkurl{http://adams.dm.unipi.it/orbfit/}
 %
 \end{footnote}. Otherwise,
-a download command may work:
+the download command should work:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{curl} \PYG{o}{\PYGZhy{}}\PYG{n}{O} \PYG{n}{http}\PYG{p}{:}\PYG{o}{/}\PYG{o}{/}\PYG{n}{adams}\PYG{o}{.}\PYG{n}{dm}\PYG{o}{.}\PYG{n}{unipi}\PYG{o}{.}\PYG{n}{it}\PYG{o}{/}\PYG{n}{orbfit}\PYG{o}{/}\PYG{n}{OrbFit5}\PYG{l+m+mf}{.0}\PYG{l+m+mf}{.7}\PYG{o}{.}\PYG{n}{tar}\PYG{o}{.}\PYG{n}{gz}
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-And it can thus be extracted:
+It can then be extracted using:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{tar} \PYG{o}{\PYGZhy{}}\PYG{n}{xvzf} \PYG{n}{OrbFit5}\PYG{l+m+mf}{.0}\PYG{l+m+mf}{.7}\PYG{o}{.}\PYG{n}{tar}\PYG{o}{.}\PYG{n}{gz}
@@ -2580,7 +2622,7 @@ And it can thus be extracted:
 \sphinxAtStartPar
 To configure the compilation flags, OrbFit comes with a set of files which
 describe the flags. Initialize the proper compilation flags via the
-\sphinxstyleliteralstrong{\sphinxupquote{config}} command, (flags for an optimized build using the Intel
+\sphinxstyleliteralstrong{\sphinxupquote{config}} script, (flags for an optimized build using the Intel
 compiler):
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
@@ -2592,7 +2634,7 @@ The generated compilation flags, however, needs to be changed. The generated
 compilation flags can be found in the file \sphinxcode{\sphinxupquote{Orbfit/src/make.flags}}, as
 generated by the \sphinxstyleliteralstrong{\sphinxupquote{config}} script. The options should be
 (see \sphinxhref{https://www.intel.com/content/www/us/en/develop/documentation/fortran-compiler-oneapi-dev-guide-and-reference/top/compiler-reference/compiler-options/alphabetical-list-of-compiler-options.html}{Intel Fortran compiler options}%
-\begin{footnote}[39]\sphinxAtStartFootnote
+\begin{footnote}[40]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.intel.com/content/www/us/en/develop/documentation/fortran-compiler-oneapi-dev-guide-and-reference/top/compiler-reference/compiler-options/alphabetical-list-of-compiler-options.html}
 %
 \end{footnote} for more information):
@@ -2626,15 +2668,16 @@ The compiled programs should exist in \sphinxcode{\sphinxupquote{Orbfit/bin/}}.
 \label{\detokenize{technical/installation/orbfit:download-jpl-ephemerides-file}}
 \sphinxAtStartPar
 The OrbFit package uses the JPL ephemerides file for its calculations, it
-requires the binary ephemerides files. Current documentation suggests using
-the 405 ephemerides set, but more updated sets (DE 407) also exist. For Linux,
-precomputed binaries can be found at \sphinxhref{https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/}{JPL Ephemerides binary files for Linux}%
-\begin{footnote}[40]\sphinxAtStartFootnote
+requires the binary ephemerides files. Current OrbFit documentation suggests
+using the 405 ephemerides set, but more updated sets (DE 407) also exist. For
+Linux, precomputed binaries can be found at
+\sphinxhref{https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/}{JPL Ephemerides binary files for Linux}%
+\begin{footnote}[41]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/}
 %
-\end{footnote}
-and the \sphinxhref{https://ssd.jpl.nasa.gov/planets/eph\_export.html}{JPL Ephemerides descriptions}%
-\begin{footnote}[41]\sphinxAtStartFootnote
+\end{footnote}  and the
+\sphinxhref{https://ssd.jpl.nasa.gov/planets/eph\_export.html}{JPL Ephemerides descriptions}%
+\begin{footnote}[42]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://ssd.jpl.nasa.gov/planets/eph\_export.html}
 %
 \end{footnote}.
@@ -2662,7 +2705,7 @@ command below should be changed to fit your file):
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{cd} \PYG{o}{.}\PYG{o}{/}\PYG{n}{lib}\PYG{o}{/}
 \PYG{n}{ln} \PYG{o}{\PYGZhy{}}\PYG{n}{s} \PYG{o}{.}\PYG{o}{/}\PYG{o}{.}\PYG{o}{.}\PYG{o}{/}\PYG{n}{linux\PYGZus{}p1550p2650}\PYG{l+m+mf}{.440} \PYG{n}{jpleph}
-\PYG{c+c1}{\PYGZsh{} Back to Orbfit/.}
+\PYG{c+c1}{\PYGZsh{} Back to the Orbfit/ directory.}
 \PYG{n}{cd} \PYG{o}{.}\PYG{o}{.}
 \end{sphinxVerbatim}
 
@@ -2670,7 +2713,7 @@ command below should be changed to fit your file):
 \subparagraph{Testing Suite}
 \label{\detokenize{technical/installation/orbfit:testing-suite}}
 \sphinxAtStartPar
-The software’s test suit can be executed from \sphinxcode{\sphinxupquote{Orbfit/}} via:
+The OrbFit software’s test suit can be executed from \sphinxcode{\sphinxupquote{Orbfit/}} via:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{make} \PYG{n}{tests}
@@ -2808,7 +2851,130 @@ point to the right location.
 \subsection{Architecture}
 \label{\detokenize{technical/architecture/index:architecture}}\label{\detokenize{technical/architecture/index:technical-architecture}}\label{\detokenize{technical/architecture/index::doc}}
 \sphinxAtStartPar
-hello
+In brief, the OpihiExarata software was created with the following requirements
+in mind to guide its architectural design:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+It must be able to accommodate and provide for the use cases of the Opihi telescope, (see {\hyperref[\detokenize{user/index:user-index}]{\sphinxcrossref{\DUrole{std,std-ref}{User Manual}}}}).
+
+\item {} 
+\sphinxAtStartPar
+The requirements for the user for interaction must be minimal in complexity but feature complete.
+
+\item {} 
+\sphinxAtStartPar
+The software should be robust and allow for components to be interchangeable with each other.
+
+\item {} 
+\sphinxAtStartPar
+The software should be easily maintainable, well documented, and use established technologies over custom implementation.
+
+\end{itemize}
+
+\sphinxAtStartPar
+We thus designed the parts of the OpihiExarata software package to follow
+these principles. A visual overview is given in
+\hyperref[\detokenize{technical/architecture/index:figure-software-framework-diagram}]{Fig.\@ \ref{\detokenize{technical/architecture/index:figure-software-framework-diagram}}}.
+
+\begin{figure}[H]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{software-framework-diagram}.pdf}
+\caption{A comprehensive single image overview of the main components of the
+OpihiExarata software and all of the parts which make it work. Each of the
+boxes within OpihiSolution represent an attribute of the overall class
+while the black arrows detail their interactions. The other interaction
+lines detail external (primarily GUI and internet service) interaction
+with the attributes.}\label{\detokenize{technical/architecture/index:id1}}\label{\detokenize{technical/architecture/index:figure-software-framework-diagram}}\end{figure}
+
+\sphinxAtStartPar
+To best construct the software with interchangeability and maintainability in
+mind, we often on modularized and abstracted where possible.
+
+\sphinxAtStartPar
+The OpihiExarata software handles the analysis of images one at a time.
+All relevant data and results of a given image are stored in a container
+class called OpihiSolution. Historical observational information is also
+provided and used in the OpihiSolution class.
+
+\sphinxAtStartPar
+As described in {\hyperref[\detokenize{user/system_framework:user-system-framework}]{\sphinxcrossref{\DUrole{std,std-ref}{System Framework}}}}, there are five main problems
+which this software is to solve for each given image: astrometric plate
+solving, photometric calibration, orbit determination, ephemeris calculation,
+and asteroid on\sphinxhyphen{}sky propagation. These five problems are distinct and thus we
+developed five different solution classes to contain the results of each of
+these problems for every image. These solution classes are unimaginatively
+named AstrometricSolution, PhotometricSolution, OrbitalSolution,
+EphemeriticSolution, and PropagativeSolution respectively.
+
+\sphinxAtStartPar
+In order for a given solution class to have results to store, we need to
+actually solve the main five problems. We utilize external services and
+other established programs to solve them. In order to use these services to
+obtain the desired results, we use a function to mimic a user using the
+service. We call these functions “vehicle functions”. Each service has their
+own vehicle function because each service is different.
+
+\sphinxAtStartPar
+The results derived from vehicle functions are stored in the solution classes
+which themselves are ultimately stored in the overarching OpihiSolution class.
+More information about the vehicle functions and solution classes can be found
+in {\hyperref[\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions}]{\sphinxcrossref{\DUrole{std,std-ref}{Vehicles and Solutions}}}}.
+
+\sphinxAtStartPar
+In order for the software to interact with a given service (through its
+corresponding vehicle function) we need to have an API to interact with.
+ALthough many services provide their own API, others do not. Therefore, we
+built custom APIs for each and every supported service. We call our custom
+APIs “engines”. Each engine is specifically curtailed for handling Opihi
+data and extracting the needed information from whatever service or program it
+was specifically made for. A list of available engines and other information
+is provided in {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines}]{\sphinxcrossref{\DUrole{std,std-ref}{Services and Engines}}}}.
+
+\sphinxAtStartPar
+All implemented engines solve one of the five main problems. Along with their
+corresponding vehicle functions, there is a standard data input (i.e. to be
+solved) and standard output of results (to be stored in the solution classes),
+as detailed in
+{\hyperref[\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions}]{\sphinxcrossref{\DUrole{std,std-ref}{Vehicles and Solutions}}}}. Because of this
+standardization, all engines (technically engine\sphinxhyphen{}vehicle pairs) which all
+solve the same problem are interchangeable with each other. The user can
+select between different implemented engines/services best suited for their
+particular object. This property is also useful if one of the engines/services
+break, Opihi would not become useless.
+
+\sphinxAtStartPar
+The user should not need to deal with all of this detail as to keep it simple
+in usage. All that is relevant for the user is picking the appropriate
+engine\sphinxhyphen{}vehicle pairs based on their applicability to the user’s data. They
+should interact with OpihiExarata via the graphical user interface depending
+on the modes of operation (see {\hyperref[\detokenize{user/automatic_mode:user-automatic-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Automatic Mode}}}} and
+{\hyperref[\detokenize{user/manual_mode:user-manual-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Manual Mode}}}}). More information on how this GUI was built and
+related information can be found in
+{\hyperref[\detokenize{technical/architecture/graphical_user_interface:technical-architecture-graphical-user-interface}]{\sphinxcrossref{\DUrole{std,std-ref}{Graphical User Interface}}}}.
+
+\sphinxAtStartPar
+For ease of maintainability, specific conventions were adopted to both increase
+speed and compatibility between different sections of the code. These
+conventions also assist with making the software easy to maintain. More
+information about these conventions are provided in
+{\hyperref[\detokenize{technical/conventions:technical-conventions}]{\sphinxcrossref{\DUrole{std,std-ref}{Conventions}}}}. Moreover, functions which are commonly used
+across the entire software package are collected in a library for reusability
+and consistency; the available functionality provided by the library is
+detailed in {\hyperref[\detokenize{technical/architecture/library:technical-architecture-library}]{\sphinxcrossref{\DUrole{std,std-ref}{Library}}}}.
+
+\sphinxAtStartPar
+Overall, we created wrapper code around the available services which solve
+one of the five problems to have a more maintainable and replaceable codebase.
+These services (through the “engine” and “vehicle function” wrapper code) take
+a standardized input and provide a standard set of outputs which the software
+uses to generate classes which contain these results and others (as another
+layer of abstraction). We use the results of the five main problems, as
+calculated from a specific Opihi image and other historical observations, to
+determine the needed results (to modify the telescope control or to monitor
+the atmospheric conditions).
 
 \sphinxstepscope
 
@@ -2847,7 +3013,7 @@ that are able to solve the above problems. We decided that it is good to
 allow the user (or the program in general) to be able to customize/swap which
 service they use to process their data. This interchangeability also allows
 for OpihiExarata to be more stable as if a given service fails, a different
-one can be selected to continue instead of said inability breaking the
+one can be selected to continue instead of said failure breaking the
 software and workflow.
 
 \sphinxAtStartPar
@@ -2866,7 +3032,7 @@ classified under
 {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-photometryengines}]{\sphinxcrossref{\DUrole{std,std-ref}{PhotometryEngines}}}},
 {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-orbitengines}]{\sphinxcrossref{\DUrole{std,std-ref}{OrbitEngines}}}},
 {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-ephemerisengines}]{\sphinxcrossref{\DUrole{std,std-ref}{EphemerisEngines}}}},
-{\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-propagateengines}]{\sphinxcrossref{\DUrole{std,std-ref}{PropagateEngines}}}}
+{\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-propagationengines}]{\sphinxcrossref{\DUrole{std,std-ref}{PropagationEngine}}}}
 depending on the problem it solves.
 
 \sphinxAtStartPar
@@ -2875,8 +3041,8 @@ Note that the names of the engines themselves (when in the code or otherwise)
 are case insensitive.
 
 \sphinxAtStartPar
-A lot of these engines use other external services, see {\hyperref[\detokenize{user/citations:user-citations}]{\sphinxcrossref{\DUrole{std,std-ref}{Citations}}}}
-for our references.
+A lot of these engines use other external services cited in
+{\hyperref[\detokenize{user/citations:user-citations}]{\sphinxcrossref{\DUrole{std,std-ref}{Citations}}}} for our references.
 
 
 \paragraph{AstrometryEngines}
@@ -2893,7 +3059,7 @@ Implementation: {\hyperref[\detokenize{code/opihiexarata.astrometry.webclient:op
 \sphinxAtStartPar
 This allows for the leveraging of the
 \sphinxhref{https://nova.astrometry.net/}{Astrometry.net Nova online service}%
-\begin{footnote}[42]\sphinxAtStartFootnote
+\begin{footnote}[43]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://nova.astrometry.net/}
 %
 \end{footnote} for
@@ -2902,15 +3068,15 @@ However, as it is a public system, there is a queue so solving a particular
 image may take longer from your perspective because of the added wait time.
 This implementation is based off of the
 \sphinxhref{https://github.com/dstndstn/astrometry.net/blob/main/net/client/client.py}{official version}%
-\begin{footnote}[43]\sphinxAtStartFootnote
+\begin{footnote}[44]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://github.com/dstndstn/astrometry.net/blob/main/net/client/client.py}
 %
 \end{footnote}.
 
 \sphinxAtStartPar
 The images taken are uploaded to the service to be solved, OpihiExarata
-periodically requests the solution, parsing it when the image is astrometrically
-solved successfully.
+periodically requests the solution, parsing it when the image is
+astrometrically solved successfully.
 
 
 \paragraph{PhotometryEngines}
@@ -2929,7 +3095,7 @@ This specifies that the photometric database to be used for photometric
 calibration should be Pan\sphinxhyphen{}STARRS 3pi Data Release 2. We access it via a web
 interface using the
 \sphinxhref{https://catalogs.mast.stsci.edu/docs/panstarrs.html}{Pan\sphinxhyphen{}STARRS MAST API}%
-\begin{footnote}[44]\sphinxAtStartFootnote
+\begin{footnote}[45]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://catalogs.mast.stsci.edu/docs/panstarrs.html}
 %
 \end{footnote}.
@@ -2955,7 +3121,7 @@ Implementation: {\hyperref[\detokenize{code/opihiexarata.orbit.orbfit:opihiexara
 
 \sphinxAtStartPar
 This utilizes the \sphinxhref{http://adams.dm.unipi.it/orbfit/}{OrbFit software system}%
-\begin{footnote}[45]\sphinxAtStartFootnote
+\begin{footnote}[46]\sphinxAtStartFootnote
 \sphinxnolinkurl{http://adams.dm.unipi.it/orbfit/}
 %
 \end{footnote}
@@ -2986,33 +3152,33 @@ Keplerian orbital elements.
 
 
 \subparagraph{JPL Horizons}
-\label{\detokenize{technical/architecture/services_engines:jpl-horizons}}
+\label{\detokenize{technical/architecture/services_engines:jpl-horizons}}\label{\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-ephemerisengines-jpl-horizons}}
 \sphinxAtStartPar
 Implementation: {\hyperref[\detokenize{code/opihiexarata.ephemeris.jplhorizons:opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine}}}}}
 
 \sphinxAtStartPar
 This utilizes the \sphinxhref{https://ssd.jpl.nasa.gov/horizons/}{JPL Horizons System}%
-\begin{footnote}[46]\sphinxAtStartFootnote
+\begin{footnote}[47]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://ssd.jpl.nasa.gov/horizons/}
 %
 \end{footnote}
 from the \sphinxhref{https://ssd.jpl.nasa.gov/}{JPL Solar Systems Dynamics}%
-\begin{footnote}[47]\sphinxAtStartFootnote
+\begin{footnote}[48]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://ssd.jpl.nasa.gov/}
 %
 \end{footnote} group for
 the determination of an ephemeris from a set of Keplerian orbital elements.
-This software sends the orbital elements (and other observatory parameters)
+This software sends the orbital elements (and other observatory information)
 via the \sphinxhref{https://ssd-api.jpl.nasa.gov/doc/horizons.html}{Horizons API}%
-\begin{footnote}[48]\sphinxAtStartFootnote
+\begin{footnote}[49]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://ssd-api.jpl.nasa.gov/doc/horizons.html}
 %
 \end{footnote}
 service and parses the returned ephemeris.
 
 
-\paragraph{PropagateEngines}
-\label{\detokenize{technical/architecture/services_engines:propagateengines}}\label{\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-propagateengines}}
+\paragraph{PropagationEngine}
+\label{\detokenize{technical/architecture/services_engines:propagationengine}}\label{\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-propagationengines}}
 \sphinxAtStartPar
 These engines solve for an asteroid’s (or other target’s) on\sphinxhyphen{}sky track from a
 set of recent observations.
@@ -3027,7 +3193,7 @@ Implementation: {\hyperref[\detokenize{code/opihiexarata.propagate.polynomial:op
 This takes the most recent (within a few hours) observations and fits a
 first order (linear) polynomial function to both the RA and DEC as a function
 of time. This method assumes a tangent plane projection and so is not suited
-for propagations on long timescales. See
+for propagations on long timescales (greater than a few hours). See
 {\hyperref[\detokenize{technical/algorithms/polynomial_propagation:technical-algorithms-polynomial-propagation}]{\sphinxcrossref{\DUrole{std,std-ref}{Polynomial Propagation}}}} for more information on the
 algorithm used.
 
@@ -3041,7 +3207,7 @@ Implementation: {\hyperref[\detokenize{code/opihiexarata.propagate.polynomial:op
 This takes the most recent (within a few hours) observations and fits a
 second order (quadratic) polynomial function to both the RA and DEC as a
 function of time. This method assumes a tangent plane projection and so is not
-suited for propagations on long timescales. See
+suited for propagations on long timescales (greater than a few hours). See
 {\hyperref[\detokenize{technical/algorithms/polynomial_propagation:technical-algorithms-polynomial-propagation}]{\sphinxcrossref{\DUrole{std,std-ref}{Polynomial Propagation}}}} for more information on the
 algorithm used.
 
@@ -3050,6 +3216,304 @@ algorithm used.
 
 \subsubsection{Vehicles and Solutions}
 \label{\detokenize{technical/architecture/vehicles_solutions:vehicles-and-solutions}}\label{\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions}}\label{\detokenize{technical/architecture/vehicles_solutions::doc}}
+
+\paragraph{Vehicles}
+\label{\detokenize{technical/architecture/vehicles_solutions:vehicles}}
+\sphinxAtStartPar
+The input and output of each of the engines are curtailed to each service.
+(See {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines}]{\sphinxcrossref{\DUrole{std,std-ref}{Services and Engines}}}} for the engines.)
+However, the solution classes all expect exactly the same input regardless
+of which engine/service is used. To extract the needed information from an
+engine for the instantiation of the solution class, we mimic the usage of an
+engine (by a user) via what we call a vehicle function.
+
+\sphinxAtStartPar
+A vehicle function is just a section of code which mimics the usage of the
+engines that access the service, using it to determine the required results
+for the solutions. All vehicle functions have the same input (additional
+arguments may be provided in rare cases for special engines, details are
+engine specific and may be found in
+{\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines}]{\sphinxcrossref{\DUrole{std,std-ref}{Services and Engines}}}}) and the exact same output
+depending on the solution class it services. We detail the inputs
+and outputs here for vehicle functions corresponding to the solutions,
+exceptions (like additional arguments).
+
+
+\subparagraph{Astrometry Vehicle Functions}
+\label{\detokenize{technical/architecture/vehicles_solutions:astrometry-vehicle-functions}}
+\begin{figure}[H]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{vehicle-function-astrometry}.pdf}
+\caption{A somewhat visual description of the input arguments used by
+astrometric vehicle functions and their respective engines to
+provide the information for astrometric solutions.}\label{\detokenize{technical/architecture/vehicles_solutions:id1}}\label{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-astrometry}}\end{figure}
+
+\sphinxAtStartPar
+As shown in \hyperref[\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-astrometry}]{Fig.\@ \ref{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-astrometry}}}, the astrometric
+vehicle functions and engines generally require the input of the image data.
+They are required to return the on\sphinxhyphen{}sky position of the image, its orientation,
+and pixel scale. They also must provide a table of all of the stars which are
+within the field along with a
+\sphinxhref{https://fits.gsfc.nasa.gov/fits\_wcs.html}{FITS world coordinate system (WCS)}%
+\begin{footnote}[50]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://fits.gsfc.nasa.gov/fits\_wcs.html}
+%
+\end{footnote}
+solution as implemented via Astropy.
+
+
+\subparagraph{Photometry Vehicle Functions}
+\label{\detokenize{technical/architecture/vehicles_solutions:photometry-vehicle-functions}}
+\begin{figure}[H]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{vehicle-function-photometry}.pdf}
+\caption{A somewhat visual description of the input arguments used by
+photometric vehicle functions and their respective engines to
+provide the information for photometric solutions.}\label{\detokenize{technical/architecture/vehicles_solutions:id2}}\label{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-photometry}}\end{figure}
+
+\sphinxAtStartPar
+As shown in \hyperref[\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-photometry}]{Fig.\@ \ref{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-photometry}}}, the photometric
+vehicle functions and engines generally require the input of parameters (RA,
+DEC, and search radius) to do a cone search of a photometric catalog. They are
+required to return a table detailing the location and filter magnitudes of all
+found stars within the search radius along with a list of filters which the
+table contains data for.
+
+
+\subparagraph{Orbit Vehicle Functions}
+\label{\detokenize{technical/architecture/vehicles_solutions:orbit-vehicle-functions}}
+\begin{figure}[H]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{vehicle-function-orbit}.pdf}
+\caption{A somewhat visual description of the input arguments used by
+orbital vehicle functions and their respective engines to
+provide the information for orbital solutions.}\label{\detokenize{technical/architecture/vehicles_solutions:id3}}\label{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-orbit}}\end{figure}
+
+\sphinxAtStartPar
+As shown in \hyperref[\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-orbit}]{Fig.\@ \ref{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-orbit}}}, the orbital vehicle
+functions and engines generally require the input of asteroid observations
+in the 80\sphinxhyphen{}column Minor Planet Center format. They are required to output
+(from their calculations) the six Keplerian orbital elements are calculated
+(along with their errors) as outputs; the epoch of these orbital elements
+must also be returned.
+
+
+\subparagraph{Ephemeris Vehicle Functions}
+\label{\detokenize{technical/architecture/vehicles_solutions:ephemeris-vehicle-functions}}
+\begin{figure}[H]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{vehicle-function-ephemeris}.pdf}
+\caption{A somewhat visual description of the input arguments used by
+ephemeris vehicle functions and their respective engines to
+provide the information for ephemeris solutions.}\label{\detokenize{technical/architecture/vehicles_solutions:id4}}\label{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-ephemeris}}\end{figure}
+
+\sphinxAtStartPar
+As shown in \hyperref[\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-ephemeris}]{Fig.\@ \ref{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-ephemeris}}}, the ephemeris
+vehicle functions and engines generally require the input of the six
+Keplerian orbital elements and the epoch that they were determined for.
+They are required to output the on\sphinxhyphen{}sky rates (both first order, “velocity”,
+and second order, “acceleration”) of an asteroid (or other target) and a
+function which, when specified a time of observation, gives the predicted
+on\sphinxhyphen{}sky position from the ephemeris.
+
+
+\subparagraph{Propagation Vehicle Functions}
+\label{\detokenize{technical/architecture/vehicles_solutions:propagation-vehicle-functions}}
+\begin{figure}[H]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{vehicle-function-propagate}.pdf}
+\caption{A somewhat visual description of the input arguments used by
+propagation vehicle functions and their respective engines to
+provide the information for propagation solutions.}\label{\detokenize{technical/architecture/vehicles_solutions:id5}}\label{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-propagate}}\end{figure}
+
+\sphinxAtStartPar
+As shown in \hyperref[\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-propagate}]{Fig.\@ \ref{\detokenize{technical/architecture/vehicles_solutions:figure-vehicle-function-propagate}}}, the propagation
+vehicle functions and engines generally require the input of on\sphinxhyphen{}sky
+observations (RA, DEC, and observational time) of an asteroid. They are
+required to output the on\sphinxhyphen{}sky rates (both first order, “velocity”, and
+second order, “acceleration”) of an asteroid (or other target) and a function
+which, when specified a time of observation, gives the predicted on\sphinxhyphen{}sky
+position from propagating the on\sphinxhyphen{}sky motion.
+
+
+\paragraph{Solution}
+\label{\detokenize{technical/architecture/vehicles_solutions:solution}}
+\sphinxAtStartPar
+Solutions classes incorporate information extracted from the engines and
+vehicles. These classes also calculates other values which are derived from
+the results of the engine and vehicle functions.
+
+
+\subparagraph{OpihiSolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:opihisolution}}
+\sphinxAtStartPar
+The OpihiSolution is a class which is built to conveniently store and interface
+with all of the of the other solution classes provided by OpihiExarata for a
+single image. This grouping is beneficial because a single image and its
+associated solutions can remain together and saving the newly solved data is
+a lot easier.
+
+\sphinxAtStartPar
+The OpihiSolution class, which contains all of the functionality which
+OpihiExarata has to offer for a single image from Opihi, is also a helpful
+abstraction for developing the interactions between the GUI and an image and
+its data.
+
+
+\subparagraph{AstrometrySolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:astrometrysolution}}
+\sphinxAtStartPar
+Implementation: {\hyperref[\detokenize{code/opihiexarata.astrometry.solution:opihiexarata.astrometry.solution.AstrometricSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.astrometry.solution.AstrometricSolution}}}}}
+
+\sphinxAtStartPar
+The AstrometrySolution contains the results and other related functions
+which are derived from the astrometry engines and converted to a standard
+form from their appropriate vehicle functions.
+
+\sphinxAtStartPar
+Primarily, it contains the on\sphinxhyphen{}sky location of an image along with its pixel
+scale. It also contains a table listing the stars which were observed to be
+in the field and their pixel location. A way to convert between pixel and
+on\sphinxhyphen{}sky coordinates or vice\sphinxhyphen{}verse is implemented utilizing the WCS solution.
+
+
+\subparagraph{PhotometrySolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:photometrysolution}}
+\sphinxAtStartPar
+Implementation: {\hyperref[\detokenize{code/opihiexarata.photometry.solution:opihiexarata.photometry.solution.PhotometricSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.photometry.solution.PhotometricSolution}}}}}
+
+\sphinxAtStartPar
+The PhotometrySolution contains the results and other related functions
+which are derived from the photometry engines and converted to a standard
+form from their appropriate vehicle functions.
+
+\sphinxAtStartPar
+Primarily, it contains a table listing the stars which are detected within the
+astrometric solution and it also has their filter magnitudes as provided by the
+photometric database; aperture DN counts are also given. An average sky value
+is calculated from sky regions, i.e. not including the stellar regions and
+other regions on the detector. This average sky value is used to correct the
+aperture DN counts. From this table and the corrected DN counts, the filter
+zero point and its error are also calculated.
+
+
+\subparagraph{OrbitalSolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:orbitalsolution}}
+\sphinxAtStartPar
+Implementation: {\hyperref[\detokenize{code/opihiexarata.orbit.solution:opihiexarata.orbit.solution.OrbitalSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.orbit.solution.OrbitalSolution}}}}}
+
+\sphinxAtStartPar
+The OrbitalSolution contains the results and other related functions
+which are derived from the orbit engines and converted to a standard
+form from their appropriate vehicle functions.
+
+\sphinxAtStartPar
+Primarily, it contains the siz primary Keplerian orbital elements along with
+the epoch that these orbital elements. The mean anomaly \(M\) is the
+primary anomaly used. However, the eccentric anomaly \(E\) is also
+calculated using Newton’s method to solve Kepler’s equation:
+\(M = E - e \sin E\). The true anomaly \(\nu\) is then calculated
+from the eccentric anomaly and the eccentricity using the geometrically
+derived formula: (See
+\sphinxhref{https://ui.adsabs.harvard.edu/abs/1973CeMec...7..388B}{Broucke, R. Celestial Mechanics p. 388}%
+\begin{footnote}[51]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://ui.adsabs.harvard.edu/abs/1973CeMec...7..388B}
+%
+\end{footnote}.)
+\begin{equation*}
+\begin{split}\tan\left( \frac{\nu - E}{2} \right) = \frac{\beta \sin E}{1 - \beta \cos E}\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Where \(\beta\) is:
+\begin{equation*}
+\begin{split}\beta \triangleq \frac{e}{1 + \sqrt{1 - e^2}}\end{split}
+\end{equation*}
+
+\subparagraph{EphemeriticSolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:ephemeriticsolution}}
+\sphinxAtStartPar
+Implementation: {\hyperref[\detokenize{code/opihiexarata.ephemeris.solution:opihiexarata.ephemeris.solution.EphemeriticSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.ephemeris.solution.EphemeriticSolution}}}}}
+
+\sphinxAtStartPar
+The EphemeriticSolution contains the results and other related functions
+which are derived from the ephemeris engines and converted to a standard
+form from their appropriate vehicle functions.
+
+\sphinxAtStartPar
+Primarily, it contains the ephemeris function. This function provides for the
+on\sphinxhyphen{}sky coordinates of an asteroid at a (provided) future time based on the
+ephemeris. It also contains the on\sphinxhyphen{}sky first\sphinxhyphen{}order and second\sphinxhyphen{}order rates of
+an asteroid. The ephemeris itself is derived from the orbital elements as
+provided by the OrbitalSolution.
+
+
+\subparagraph{PropagativeSolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:propagativesolution}}
+\sphinxAtStartPar
+Implementation: {\hyperref[\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution.PropagativeSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.PropagativeSolution}}}}}
+
+\sphinxAtStartPar
+The PropagativeSolution contains the results and other related functions
+which are derived from the propagation engines and converted to a standard
+form from their appropriate vehicle functions.
+
+\sphinxAtStartPar
+Primarily, it contains the propagation function. This function provides for
+the on\sphinxhyphen{}sky coordinates of an asteroid at a (provided) future time based on
+the propagation of the asteroid’s path on the sky.  It also contains the
+on\sphinxhyphen{}sky first\sphinxhyphen{}order and second\sphinxhyphen{}order rates of an asteroid. The propagation of
+the path is determined by extrapolating the motion of the asteroid on the
+sky based on a sequence of recent images.
+
+
+\subparagraph{PreprocessSolution}
+\label{\detokenize{technical/architecture/vehicles_solutions:preprocesssolution}}\label{\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions-preprocesssolution}}
+\sphinxAtStartPar
+The data that comes from the Opihi camera is considered raw data, it has many
+systematic artifacts like hot pixels, dark current, and bias to name a few.
+We reduce this data using standard array processing procedures.
+
+\sphinxAtStartPar
+We can remove these using preprocessing calibration images. These images
+are taken before hand. For the use case for Opihi, using archive calibration
+files are more than satisfactory and avoiding the need for the user to
+take calibration images on their own reduces the overhead.
+
+\sphinxAtStartPar
+An explanation on the procedure and methodology of data preprocessing is
+assumed by this manual, but a brief summary may be
+\sphinxhref{https://wiki.digiultsparrow.space/en/academic/notes/astronomical-ccd-image-preprocessing}{obtained from here}%
+\begin{footnote}[52]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://wiki.digiultsparrow.space/en/academic/notes/astronomical-ccd-image-preprocessing}
+%
+\end{footnote}.
+
+\sphinxAtStartPar
+The implementation of image preprocessing is done by the PreprocessSolution
+class (see {\hyperref[\detokenize{code/opihiexarata.opihi.preprocess:opihiexarata.opihi.preprocess.OpihiPreprocessSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.opihi.preprocess.OpihiPreprocessSolution}}}}}).
+However, because the preprocessing of CCD images is pretty standard and simple
+and involves only one method, this solution does not require an engine and
+instead implements it itself.
+
+\sphinxAtStartPar
+Moreover, because many of the image calibration files used are generally the
+same from image to image, this solution is also not image specific unlike the
+other solution classes. Instead, it contains a function which will take an
+image (either an array or a fits file) and pre\sphinxhyphen{}process it. It is built like
+this so that the large preprocessing calibration images (which are cached
+within the class to avoid disk utilization) does not take up a too much
+memory as opposed if the class was duplicated per image.
+
 \sphinxstepscope
 
 
@@ -3089,13 +3553,14 @@ When a user specifies a configuration file to be applied to this software, the
 file is loaded and its parameters and values are loaded into the the
 namespace of this module. Therefore, the software internally can call these
 configurations as variables in this module; an example,
-\sphinxcode{\sphinxupquote{library.config.SQUARE}} would correspond to the \sphinxcode{\sphinxupquote{SQUARE}} configuration
-in the configuration YAML file.
+\sphinxcode{\sphinxupquote{library.config.LYCANROC}} would correspond to the \sphinxcode{\sphinxupquote{LYCANROC}}
+configuration parameter in the configuration YAML file.
 
 \sphinxAtStartPar
 Both normal configuration parameters and secret parameters (detailed in
 {\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}}) are taken from their respective files and placed
-into this same namespace. Therefore, the parameters must be uniquely named.
+into this same namespace. Therefore, all of the configuration parameters must
+be uniquely named.
 
 \sphinxAtStartPar
 The loading and applying of a configuration file (either secret or not),
@@ -3105,7 +3570,7 @@ this will only apply the configuration to the current Python session.
 
 
 \paragraph{Conversion}
-\label{\detokenize{technical/architecture/library:conversion}}
+\label{\detokenize{technical/architecture/library:conversion}}\label{\detokenize{technical/architecture/library:technical-architecture-library-conversion}}
 \sphinxAtStartPar
 See {\hyperref[\detokenize{code/opihiexarata.library.conversion:module-opihiexarata.library.conversion}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.library.conversion}}}}}.
 
@@ -3133,7 +3598,7 @@ See {\hyperref[\detokenize{code/opihiexarata.library.engine:module-opihiexarata.
 
 \sphinxAtStartPar
 Base classes for different engines and solution implementations exist here.
-They are typically subclassed for the actual implemented engines
+They are typically subclassed for the actual implementation of the engines
 ({\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines}]{\sphinxcrossref{\DUrole{std,std-ref}{Services and Engines}}}}) and solutions
 ({\hyperref[\detokenize{technical/architecture/vehicles_solutions:technical-architecture-vehicles-solutions}]{\sphinxcrossref{\DUrole{std,std-ref}{Vehicles and Solutions}}}}). These are also useful for
 type checking.
@@ -3160,29 +3625,31 @@ See {\hyperref[\detokenize{code/opihiexarata.library.fits:module-opihiexarata.li
 This implements functions which assist in the reading and writing of image and
 table FITS files. Astropy has a lot of functionality for this, and these
 functions wrap around their implementation so that it is more specialized for
-OpihiExarata and so the reading and writing of FITS files are uniformly applied.
+OpihiExarata and so that the reading and writing of FITS files are uniformly
+applied across the software.
 
 
-\paragraph{Type Hint}
-\label{\detokenize{technical/architecture/library:type-hint}}
+\paragraph{Type Hinting}
+\label{\detokenize{technical/architecture/library:type-hinting}}\label{\detokenize{technical/architecture/library:technical-architecture-library-hint}}
 \sphinxAtStartPar
 See {\hyperref[\detokenize{code/opihiexarata.library.hint:module-opihiexarata.library.hint}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.library.hint}}}}}.
 
 \sphinxAtStartPar
 Python is a dynamically typed language. However it implements type hints
 (see \index{Python Enhancement Proposals@\spxentry{Python Enhancement Proposals}!PEP 483@\spxentry{PEP 483}}\sphinxhref{https://peps.python.org/pep-0483/}{\sphinxstylestrong{PEP 483}}%
-\begin{footnote}[49]\sphinxAtStartFootnote
+\begin{footnote}[53]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://peps.python.org/pep-0483/}
 %
 \end{footnote} and \index{Python Enhancement Proposals@\spxentry{Python Enhancement Proposals}!PEP 484@\spxentry{PEP 484}}\sphinxhref{https://peps.python.org/pep-0484/}{\sphinxstylestrong{PEP 484}}%
-\begin{footnote}[50]\sphinxAtStartFootnote
+\begin{footnote}[54]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://peps.python.org/pep-0484/}
 %
 \end{footnote}) so that text editors and other development
-tools and features are more accurate and detailed. OpihiExarata uses type hints
-throughout and highly recommends them. However, to avoid extremely long
-object calls and unnecessary importing, object types that otherwise need an
-import are all imported in this one namespace to be used across the codebase.
+tools and features can be more accurate and detailed. OpihiExarata uses type
+hints throughout and highly recommends their usage. However, to avoid
+extremely long object calls and unnecessary importing, object types that
+would otherwise need to be imported to be used are instead all imported into
+this one namespace to be used across the codebase.
 
 
 \paragraph{HTTP Calls}
@@ -3207,7 +3674,7 @@ See {\hyperref[\detokenize{code/opihiexarata.library.image:module-opihiexarata.l
 Opihi is an imaging telescope and images are often represented as arrays.
 However, there are some functionality that make sense in terms of images but
 have more involved implementations when using arrays as images. Functions
-here implement common manipulations of images.
+here implement common manipulations of images represented as arrays.
 
 
 \paragraph{JSON Parsing}
@@ -3230,18 +3697,26 @@ See {\hyperref[\detokenize{code/opihiexarata.library.mpcrecord:module-opihiexara
 \sphinxAtStartPar
 One of the most ubiquitous ways of representing an observation of an asteroid
 is using the
-\sphinxhref{https://www.minorplanetcenter.net/iau/info/OpticalObs.html}{MPC 80\sphinxhyphen{}column record}%
-\begin{footnote}[51]\sphinxAtStartFootnote
+\sphinxhref{https://www.minorplanetcenter.net/iau/info/OpticalObs.html}{MPC 80\sphinxhyphen{}column foarmat record}%
+\begin{footnote}[55]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://www.minorplanetcenter.net/iau/info/OpticalObs.html}
 %
 \end{footnote}.
 However, it is not a very connivent format for Python to use and so
 functions which convert between the 80\sphinxhyphen{}column format and an Astropy table
-(see \sphinxcode{\sphinxupquote{astropy.table}}, or more specifically,
-\sphinxcode{\sphinxupquote{astropy.table.Table}}). In general, the table format is better for
+(see \sphinxhref{https://docs.astropy.org/en/stable/table/index.html\#module-astropy.table}{\sphinxcode{\sphinxupquote{astropy.table}}}%
+\begin{footnote}[56]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://docs.astropy.org/en/stable/table/index.html\#module-astropy.table}
+%
+\end{footnote}, or more specifically,
+\sphinxhref{https://docs.astropy.org/en/stable/api/astropy.table.Table.html\#astropy.table.Table}{\sphinxcode{\sphinxupquote{astropy.table.Table}}}%
+\begin{footnote}[57]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://docs.astropy.org/en/stable/api/astropy.table.Table.html\#astropy.table.Table}
+%
+\end{footnote}). In general, the table format is better for
 internal manipulation while the 80\sphinxhyphen{}column format is used primarily to record
 and send asteroid observations to other services (including, obviously, the
-Minor Planet Center.)
+Minor Planet Center).
 
 
 \paragraph{File and Directory Path Manipulations}
@@ -3267,7 +3742,8 @@ The astrometric solution and the photometric solution
 similar information in tables. Older versions of this software had two
 different tables which were very unwieldy as progress continued. As such,
 this class implements a photometry table which is more coherent and
-comprehensive. Feature expansion in this region is unlikely.
+comprehensive to better harmonize the interplay between the astrometric and
+photometric solutions. Feature expansion in this region is unlikely.
 
 
 \paragraph{Temporary Directory}
@@ -3278,8 +3754,8 @@ processing data and reading the results. In order for these files not to
 mess up anything on the system this software is installed on, a temporary
 directory is created where the files can be created and utilized. The exact
 place where this directory is created is given by the configuration parameter
-\sphinxcode{\sphinxupquote{TEMPORARY\_DIRECTORY}} (see {\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}}) Functions are
-implemented here which help with the management of this temporary directory.
+\sphinxcode{\sphinxupquote{TEMPORARY\_DIRECTORY}} (see {\hyperref[\detokenize{user/configuration:user-configuration}]{\sphinxcrossref{\DUrole{std,std-ref}{Configuration}}}}) Functions implemented
+here help with the management of this temporary directory.
 
 \sphinxstepscope
 
@@ -3299,12 +3775,13 @@ likely to be supported for longer.
 (The PySide6 is LGPL licensed. Qt Designer is GPL licensed but we only use it
 as a connivent tool and do not bundle or have our program require it. As far
 at PySide6 is concerned, we are dynamically linking it and are bound only by
-LGPL.)
+LGPL. See {\hyperref[\detokenize{technical/license:technical-architecture-license}]{\sphinxcrossref{\DUrole{std,std-ref}{License}}}}.)
 
 \sphinxAtStartPar
-The exact shape and form of the GUIs are a byproduct of the feature sets in
-{\hyperref[\detokenize{user/manual_mode:user-manual-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Manual Mode}}}} and {\hyperref[\detokenize{user/automatic_mode:user-automatic-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Automatic Mode}}}}. The interface is
-optimized to those use cases and does not otherwise follow a rigid theme.
+The exact shape and form of the GUIs are a byproduct of the features required
+for the {\hyperref[\detokenize{user/manual_mode:user-manual-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Manual Mode}}}} and {\hyperref[\detokenize{user/automatic_mode:user-automatic-mode}]{\sphinxcrossref{\DUrole{std,std-ref}{Automatic Mode}}}} operations.
+The interface is optimized to those use cases and does not otherwise follow
+a rigid theme.
 
 
 \paragraph{Qt Designer}
@@ -3312,13 +3789,13 @@ optimized to those use cases and does not otherwise follow a rigid theme.
 \sphinxAtStartPar
 To design the GUIs, we use
 \sphinxhref{https://doc.qt.io/qt-6/qtdesigner-manual.html}{Qt Designer}%
-\begin{footnote}[52]\sphinxAtStartFootnote
+\begin{footnote}[58]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://doc.qt.io/qt-6/qtdesigner-manual.html}
 %
 \end{footnote} as it is an
 easy interface. This program can be downloaded via the
 \sphinxhref{https://doc.qt.io/qtdesignstudio/studio-installation.html}{Qt installer}%
-\begin{footnote}[53]\sphinxAtStartFootnote
+\begin{footnote}[59]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://doc.qt.io/qtdesignstudio/studio-installation.html}
 %
 \end{footnote}.
@@ -3346,7 +3823,7 @@ It is part of development (not installation) to develop the Python versions of
 the GUI files. The UI files created via Qt Designer can be converted to their
 Python versions using \sphinxstyleliteralstrong{\sphinxupquote{pyside6\sphinxhyphen{}uic}}. (See
 \sphinxhref{https://doc.qt.io/qtforpython/tutorials/basictutorial/uifiles.html\#using-ui-files-from-designer-or-qtcreator-with-quiloader-and-pyside6-uic}{Qt’s documentation}%
-\begin{footnote}[54]\sphinxAtStartFootnote
+\begin{footnote}[60]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://doc.qt.io/qtforpython/tutorials/basictutorial/uifiles.html\#using-ui-files-from-designer-or-qtcreator-with-quiloader-and-pyside6-uic}
 %
 \end{footnote}
@@ -3355,8 +3832,8 @@ for more information.)
 \sphinxAtStartPar
 The UI files are stored in \sphinxcode{\sphinxupquote{/OpihiExarata/src/opihiexarata/gui/qtui/}}
 and it is expected that the generated Python equivalent files will also be
-written there as \sphinxcode{\sphinxupquote{qtui\_*.py}}, where the original UI filename fills the
-wildcard.
+written there as \sphinxcode{\sphinxupquote{qtui\_*.py}}, where the original UI filename replaces
+the wildcard.
 
 \sphinxAtStartPar
 For example, for a file \sphinxcode{\sphinxupquote{manual.ui}}, it can be converted to the proper
@@ -3380,6 +3857,227 @@ found in the same directory and is executed by:
 
 \subsection{Conventions}
 \label{\detokenize{technical/conventions:conventions}}\label{\detokenize{technical/conventions:technical-conventions}}\label{\detokenize{technical/conventions::doc}}
+\sphinxAtStartPar
+In order for the entire software to be self\sphinxhyphen{}consistent, a few conventions
+have been established to help develop it. We detail these conventions here.
+
+
+\subsubsection{Units}
+\label{\detokenize{technical/conventions:units}}
+\sphinxAtStartPar
+Although there are many packages like Astropy which help deal with different
+units and the conversion between the two, we decided that it is easier to
+conform to a single set of units for the values within the software and
+converting only where needed via a module (see
+{\hyperref[\detokenize{technical/architecture/library:technical-architecture-library-conversion}]{\sphinxcrossref{\DUrole{std,std-ref}{Conversion}}}}). We describe the units used
+in the following table.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily 
+\sphinxAtStartPar
+Quantity
+&\sphinxstyletheadfamily 
+\sphinxAtStartPar
+Unit
+\\
+\hline
+\sphinxAtStartPar
+Angles
+&
+\sphinxAtStartPar
+Degrees
+\\
+\hline
+\sphinxAtStartPar
+Date\sphinxhyphen{}time
+&
+\sphinxAtStartPar
+Julian days
+\\
+\hline
+\sphinxAtStartPar
+Time difference
+&
+\sphinxAtStartPar
+Days or seconds
+\\
+\hline
+\sphinxAtStartPar
+Orbital elements
+&
+\sphinxAtStartPar
+(Convention, see below)
+\\
+\hline
+\sphinxAtStartPar
+Pixel scale
+&
+\sphinxAtStartPar
+Arcseconds per pixel
+\\
+\hline
+\sphinxAtStartPar
+On\sphinxhyphen{}sky velocity
+&
+\sphinxAtStartPar
+Degrees per second
+\\
+\hline
+\sphinxAtStartPar
+On\sphinxhyphen{}sky acceleration
+&
+\sphinxAtStartPar
+Degrees per second squared
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+We use degrees for angles because, unlike angular hours, it is much easier to use mathematically. Radians were considered but were ultimately not used because declination already used degrees and it is far less prevalent than degrees in astronomy.
+
+\item {} 
+\sphinxAtStartPar
+Date time, the measurement of an absolute time relative to an epoch, uses Julian days (JD). UNIX time is not as prevalent in astronomy compared to JD and MJD for the services encountered. JPL Horizons (see {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines-ephemerisengines-jpl-horizons}]{\sphinxcrossref{\DUrole{std,std-ref}{JPL Horizons}}}}) uses JD and because conversion between JD and MJD is trivial; we stuck with JD.
+
+\item {} 
+\sphinxAtStartPar
+Time difference, the measurement of time between two different date times, is either in days (for times on the order of hours or days) or seconds (for times on the order of seconds or minutes). We primarily use days except in cases where the numerical value is too small (for example, with {\hyperref[\detokenize{technical/algorithms/polynomial_propagation:technical-algorithms-polynomial-propagation}]{\sphinxcrossref{\DUrole{std,std-ref}{Polynomial Propagation}}}}). The usage of which unit is documented.
+
+\item {} 
+\sphinxAtStartPar
+The Keplerian orbital elements are in the units that they are conventionally in. The semi\sphinxhyphen{}major axis \(a\) is in AU, the eccentricity \(e\) is unit\sphinxhyphen{}less, the inclination \(i\) is in degrees, the longitude of ascending node \(\Omega\) is in degrees, the argument of perihelion \(\omega\) is in degrees, and the mean anomaly \(M\) is in degrees. The epoch of these orbital elements is in Julian days, as is the convention for date\sphinxhyphen{}times.
+
+\item {} 
+\sphinxAtStartPar
+The pixel scale, as is traditionally given in most other contexts, is provided as arcseconds per pixel.
+
+\item {} 
+\sphinxAtStartPar
+The on\sphinxhyphen{}sky first order motion (i.e. the “velocity”) in RA and DEC of an asteroid or other target is given in degrees per second. Degrees are used to keep both the angular units the same as the standard convention and seconds are use because they are a much more reasonable unit for the motion than days (the other time difference unit.)
+
+\item {} 
+\sphinxAtStartPar
+The on\sphinxhyphen{}sky second order motion (i.e. the “acceleration”) in RA and DEC of an asteroid or other target is given in degrees per second squared. The reasoning for using both degrees and seconds is the same as provided for the on\sphinxhyphen{}sky first order motion.
+
+\end{itemize}
+
+
+\subsubsection{Code Style}
+\label{\detokenize{technical/conventions:code-style}}
+
+\paragraph{Formatting Style}
+\label{\detokenize{technical/conventions:formatting-style}}
+\sphinxAtStartPar
+For consistency, the Python code style that this project uses is the
+\sphinxhref{https://pypi.org/project/black/}{black}%
+\begin{footnote}[61]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://pypi.org/project/black/}
+%
+\end{footnote} code style. This style is enforced
+by the aforementioned package, the auxillary script from
+{\hyperref[\detokenize{technical/installation/index:technical-installation-automated-scripts}]{\sphinxcrossref{\DUrole{std,std-ref}{Automated Scripts}}}} will trigger automated code
+formatting.
+
+
+\paragraph{Type Hinting}
+\label{\detokenize{technical/conventions:type-hinting}}
+\sphinxAtStartPar
+Type hinting allows for many text and development environments to infer
+specific properties of code to provide better suggestions and other
+programming tools. Python supports type hinting (see \index{Python Enhancement Proposals@\spxentry{Python Enhancement Proposals}!PEP 483@\spxentry{PEP 483}}\sphinxhref{https://peps.python.org/pep-0483/}{\sphinxstylestrong{PEP 483}}%
+\begin{footnote}[62]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://peps.python.org/pep-0483/}
+%
+\end{footnote} and \index{Python Enhancement Proposals@\spxentry{Python Enhancement Proposals}!PEP 484@\spxentry{PEP 484}}\sphinxhref{https://peps.python.org/pep-0484/}{\sphinxstylestrong{PEP 484}}%
+\begin{footnote}[63]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://peps.python.org/pep-0484/}
+%
+\end{footnote})
+and this software adapts type hinting. Although it is not required for the
+program to run, it both makes the code easier to work with because of the
+added programming tool functionality along with conveying more information
+about the code to future maintainers. There is very little downside. There
+is existing infrastructure for making using type hinting easier to use from
+{\hyperref[\detokenize{technical/architecture/library:technical-architecture-library-hint}]{\sphinxcrossref{\DUrole{std,std-ref}{Type Hinting}}}}.
+
+
+\subsubsection{Documentation Files}
+\label{\detokenize{technical/conventions:documentation-files}}
+\sphinxAtStartPar
+The documentation is automatically generated using Sphinx. Because of this,
+there are some peculiarities when writing the documentation, we document them
+here.
+
+
+\paragraph{Main Body Files}
+\label{\detokenize{technical/conventions:main-body-files}}
+\sphinxAtStartPar
+The main body of documentation uses reStructuredText files as markup. A
+Sphinx specific primer can be found on
+\sphinxhref{https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html}{their website}%
+\begin{footnote}[64]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html}
+%
+\end{footnote}. A more complete reference for reStructuredText can be found in
+\sphinxhref{https://docutils.sourceforge.io/rst.html}{their documentation}%
+\begin{footnote}[65]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://docutils.sourceforge.io/rst.html}
+%
+\end{footnote}.
+
+
+\paragraph{Image Files}
+\label{\detokenize{technical/conventions:image-files}}
+\sphinxAtStartPar
+Images are important in providing additional information in documentation.
+Because the documentation can be built into either HTML or LaTeX forms, special
+care should be exercised for images as both take different file formats.
+
+\sphinxAtStartPar
+When calling an image or figure file, the file path in the reStructuredText
+should have the file extension as a wildcard so that the Sphinx builders
+can choose the file format best suited for the form the documentation is
+going to be built into.
+
+\sphinxAtStartPar
+When creating images, please adhere to the following:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+If the image is a raster image, save the image as a PNG file.
+
+\item {} 
+\sphinxAtStartPar
+If the image is a vector graphics file, save the image as both a SVG and PDF file. (HTML supports only SVG and LaTeX supports only PDF, so both are needed.)
+
+\end{itemize}
+
+
+\paragraph{Python Docstrings}
+\label{\detokenize{technical/conventions:python-docstrings}}
+\sphinxAtStartPar
+For Sphinx to properly load and process the documentation strings from the
+Python files themselves, they need to be marked up in a specific way. Natively
+it would be in reStructuredText, but it looks ugly. Instead, we use the
+Napoleon extension for Sphinx to allow for the usage of
+\sphinxhref{https://numpydoc.readthedocs.io/}{NumPy docstring formatting}%
+\begin{footnote}[66]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpydoc.readthedocs.io/}
+%
+\end{footnote}.
+\sphinxhref{https://www.sphinx-doc.org/en/master/usage/extensions/example\_numpy.html}{An example of Numpy formatting is also provided by Sphinx}%
+\begin{footnote}[67]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://www.sphinx-doc.org/en/master/usage/extensions/example\_numpy.html}
+%
+\end{footnote}.
+
 \sphinxstepscope
 
 
@@ -3388,15 +4086,15 @@ found in the same directory and is executed by:
 \sphinxAtStartPar
 Here we detail the methods behind a few of the algorithms that we have
 implemented ourselves. The algorithms and implementations of other systems
-(especially the engines and services of
+(especially some of the engines and services of
 {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines}]{\sphinxcrossref{\DUrole{std,std-ref}{Services and Engines}}}}) are outside the scope of this
 documentation. See {\hyperref[\detokenize{user/citations:user-citations}]{\sphinxcrossref{\DUrole{std,std-ref}{Citations}}}} for further references on algorithms
 implemented by others that we use.
 
 \sphinxAtStartPar
-We detail the algorithms here so that its methods (and some particularities)
-are documented and some of the choice made are not lost in future development
-and upkeep of this software.
+We detail the algorithms here so that its methods (and some particularities
+thereof) are documented and some of the choice made are not lost in future
+development and upkeep of this software.
 
 \sphinxAtStartPar
 See the sidebar (for the web version of this documentation) for the details on
@@ -3405,17 +4103,139 @@ specific algorithms.
 \sphinxstepscope
 
 
-\subsubsection{Preprocessing}
-\label{\detokenize{technical/algorithms/preprocessing:preprocessing}}\label{\detokenize{technical/algorithms/preprocessing:technical-algorithms-preprocessing}}\label{\detokenize{technical/algorithms/preprocessing::doc}}
-\sphinxAtStartPar
-The data that comes from the Opihi camera is considered raw data, it has many
-systematic artifacts like hot pixels, dark current, and bias to name a few.
-
-\sphinxstepscope
-
-
 \subsubsection{Polynomial Propagation}
 \label{\detokenize{technical/algorithms/polynomial_propagation:polynomial-propagation}}\label{\detokenize{technical/algorithms/polynomial_propagation:technical-algorithms-polynomial-propagation}}\label{\detokenize{technical/algorithms/polynomial_propagation::doc}}
+\sphinxAtStartPar
+Polynomial propagation is one of the different implemented propagation engines
+(see {\hyperref[\detokenize{technical/architecture/services_engines:technical-architecture-services-engines}]{\sphinxcrossref{\DUrole{std,std-ref}{Services and Engines}}}}). Conceptually it is one
+of the easiest methods. Simply put, it just computes the rate of right
+ascension and declination change as independent rates from a collection of
+previous observations.
+
+\sphinxAtStartPar
+The use of polynomial propagation assumes the following:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+The set of taken asteroid observations (and desired future positions) are within a relatively short timespan, usually within 24 hours.
+
+\item {} 
+\sphinxAtStartPar
+The tangent plane projection of the sky is valid and the effects of curvature because of the spherical sky are negligible.
+
+\item {} 
+\sphinxAtStartPar
+The motion of the asteroid across the sky within the provided time span is small enough such that the aforementioned tangent plane projection still holds.
+
+\end{itemize}
+
+
+\paragraph{Coordinate Conversion}
+\label{\detokenize{technical/algorithms/polynomial_propagation:coordinate-conversion}}
+\sphinxAtStartPar
+The only required observational data for this method of propagation is the
+RA and DEC of the observations, \(\alpha\) and \(\delta\), along with
+the time of observations \(t\). Because of the conventions of OpihiExarata
+(see {\hyperref[\detokenize{technical/conventions:technical-conventions}]{\sphinxcrossref{\DUrole{std,std-ref}{Conventions}}}}) the units of these are degrees and Julian
+days. (For notation purposes, the variables stand for all taken observations.)
+
+\sphinxAtStartPar
+We found that using these units for fitting the rates were inadequate and
+suffered from two different problems.
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+The Julian day time difference was often much less than one and so the fitting algorithms became unstable and could properly not fit the observations.
+
+\item {} 
+\sphinxAtStartPar
+Angles are cyclical and the fitting a function to cyclical points are not stable using quick methods.
+
+\end{enumerate}
+
+\sphinxAtStartPar
+To solve the first problem, we converted the time of observations to UNIX time.
+Because it is in seconds, the numerical difference between each data point is
+much larger and it seems that this change produces more accurate results. Of
+course the propagation function itself (which has Julian days as input) needs
+to covert the input date to UNIX time as the fitting constants are now in
+the UNIX time domain.
+
+\sphinxAtStartPar
+To solve the second problem, we convert the angles so that they can be treated
+linearly. More specifically, as the angular coordinates provided are between
+\(0 \leq \angle \leq 360\) or \(-90 \leq \angle \leq 90\), if the
+maximum difference is (numerically) greater than \(\approx 135\) degrees
+in either coordinate, then it guaranteed that a loop around happened for that
+coordinate. If it was motion that caused this difference, then it must have
+violated one of the assumptions and so this method is useless for propagation.
+We use the most recent observation to set the range, the other points are
+cycled until no wrap around occurs.
+
+
+\paragraph{Fitting Coordinates}
+\label{\detokenize{technical/algorithms/polynomial_propagation:fitting-coordinates}}
+\sphinxAtStartPar
+We treat both \(\alpha\) and \(\delta\) as separate and independent
+coordinates and we also treat their on\sphinxhyphen{}sky rates as independent of each other.
+This is valid as long as the timescales are relatively small and the
+tangent plane projection of the sky holds.
+
+\sphinxAtStartPar
+As such, we have two functions \(A(f)\) and \(D(f)\) which is the
+path of the asteroid across the sky over time \(f\) in right ascension
+(\(A\)) and declination (\(D\)).
+
+\sphinxAtStartPar
+We can approximate these functions using polynomials. We fit our \(n\)
+order polynomial \(P_n\) for both right ascension and declination to get
+approximations to these functions:
+\begin{equation*}
+\begin{split}\text{fit}[P_n(t) = \alpha] \implies A(f) \approx P_{n,A}(f) \mapsto (f, \alpha) \\
+\text{fit}[P_n(t) = \delta] \implies D(f) \approx P_{n,D}(f) \mapsto (f, \delta)\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Simply put, when we have a fit to the \((t, \alpha)\) and
+\((t, \delta)\) pairs using polynomial functions, we use these functions as
+approximations to \(A\) and \(D\) and use these approximations to
+derive the future location.
+
+\sphinxAtStartPar
+Provided the future time \(f\) where the user wants to predict the future
+right ascension \(\alpha_f\) and declination \(\delta_f\), we can
+easily compute our estimations as:
+\begin{equation*}
+\begin{split}P_{n,A}(f) = \alpha_f \\
+P_{n,D}(f) = \delta_f\end{split}
+\end{equation*}
+\sphinxAtStartPar
+We use low order polynomials as they are simple functions to both fit and
+interpret. We implement both first order (linear) polynomial
+({\hyperref[\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.LinearPropagationEngine}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.propagate.polynomial.LinearPropagationEngine}}}}}) and
+second order (quadratic) polynomial
+({\hyperref[\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.QuadraticPropagationEngine}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{opihiexarata.propagate.polynomial.QuadraticPropagationEngine}}}}}).
+Higher order polynomials and more complicated functions often over\sphinxhyphen{}fit (and
+are otherwise overcomplicated) as typically there are only a few observations
+and thus few \((\alpha, \delta, t)\) sets for fitting.
+
+
+\subparagraph{Wrap Around}
+\label{\detokenize{technical/algorithms/polynomial_propagation:wrap-around}}
+\sphinxAtStartPar
+In some cases, the approximate angular coordinates given by \(P_{n,A}(f)\)
+and \(P_{n,D}(f)\) may exceed the standard angular bounds of
+\(0 \leq \angle \leq 360\) or \(-90 \leq \angle \leq 90\) for right
+ascension and declination respectively. As such, we can convert the angles
+back into this range \(R\) (in degrees) using:
+\begin{equation*}
+\begin{split}\alpha_{f,R} = (\alpha_f + 360) \mod 360 \\
+\delta_{f,R} = \left| ((\delta_f - 90) \mod 360) - 180 \right| - 90\end{split}
+\end{equation*}
+\sphinxAtStartPar
+These values, still in degrees per {\hyperref[\detokenize{technical/conventions:technical-conventions}]{\sphinxcrossref{\DUrole{std,std-ref}{Conventions}}}}, are then
+passed to the systems which need this prediction of the asteroid’s location.
+
 \sphinxstepscope
 
 
@@ -3450,11 +4270,11 @@ time works best.
 
 \sphinxAtStartPar
 Moreover, in spherical coordinates, the position, velocity, and acceleration
-vectors are given as: (see \sphinxhref{http://www.worldcat.org/oclc/1104053368}{Keplerian Ellipses Chapter 2 Reed 2019}%
-\begin{footnote}[55]\sphinxAtStartFootnote
+vectors are given as: (See \sphinxhref{http://www.worldcat.org/oclc/1104053368}{Keplerian Ellipses Chapter 2 Reed 2019}%
+\begin{footnote}[68]\sphinxAtStartFootnote
 \sphinxnolinkurl{http://www.worldcat.org/oclc/1104053368}
 %
-\end{footnote})
+\end{footnote}.)
 \begin{equation*}
 \begin{split}\mathbf{r} &= r \mathbf{\hat r} \\
 \mathbf{v} &= \dot{r} \mathbf{\hat r} + r \dot\theta \hat{\boldsymbol\theta } + r \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
@@ -3484,8 +4304,8 @@ And thus the kinematic vectors are:
 \mathbf{a} &= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}
 \end{equation*}
 \sphinxAtStartPar
-We can convert these vectors to Cartesian coordinates using the matrix
-transformation. The spherical to Cartesian transformation matrix
+We can convert these vectors to Cartesian coordinates using the following
+matrix transformation. The spherical to Cartesian transformation matrix
 \(\mathbf{R}\) can be derived from the defining angles of the spherical
 coordinate system \(\theta\) and \(\phi\). Where
 \(\mathbf{u}_\text{cart} = \mathbf{R} \mathbf{u}_\text{sph}\).:
@@ -3523,11 +4343,12 @@ observation to the current time.
 Multiple observations from Opihi provides multiple sightings of an asteroid at
 many different points in the sky, providing multiple RA and DEC coordinates,
 \(\alpha_n\) and \(\delta_n\) at time \(t_n\). We have a total of
-\(N\) RA DEC observations. (The propagation calculation will need to be redone for
-a new observation set \(N' = N + 1\).)
+\(N\) RA\sphinxhyphen{}DEC observations. (The propagation calculation will need to be
+redone for a new observation set \(N' = N + 1\).)
 
 \sphinxAtStartPar
-We can convert this to spherical coordinates with \(\phi_n = \alpha_n\) and \(\theta_n = \frac{\pi}{2} - \delta_n\).
+We can convert this to spherical coordinates with \(\phi_n = \alpha_n\)
+and \(\theta_n = \frac{\pi}{2} - \delta_n\).
 
 \sphinxAtStartPar
 These multiple observations allows for the determination of the rates of
@@ -3539,7 +4360,7 @@ difference \(t_\Delta = t_{n+1} - t_n\).)
 t'_p = \frac{1}{2} \left( t_{n+1} + t_n \right)\\
 \end{aligned}\end{align*}
 \sphinxAtStartPar
-…and…
+and,
 \begin{align*}\!\begin{aligned}
 \ddot\theta_q = \frac{\dot\theta_{p+1} - \dot\theta_{p}}{t'_{p+1} - t'_p}\\
 \ddot\phi_q = \frac{\dot\phi_{p+1} - \dot\phi_{p}}{t'_{p+1} - t'_p}\\
@@ -3694,6 +4515,84 @@ Thus, the total valid solution is:
 \begin{equation*}
 \begin{split}\mathbf{r} = \mathbf{r_0} + \mathbf{v_0} t + \frac{1}{2} \mathbf{a} t^2\end{split}
 \end{equation*}
+\sphinxstepscope
+
+
+\subsection{License}
+\label{\detokenize{technical/license:license}}\label{\detokenize{technical/license:technical-architecture-license}}\label{\detokenize{technical/license::doc}}
+\sphinxAtStartPar
+This software is currently licensed under the
+\sphinxhref{https://opensource.org/licenses/MIT}{MIT License}%
+\begin{footnote}[69]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/MIT}
+%
+\end{footnote}.
+(See the \sphinxcode{\sphinxupquote{LICENSE}} file in the main \sphinxcode{\sphinxupquote{OpihiExarata/}} directory.)
+
+\sphinxAtStartPar
+For license considerations because of the dependencies of OpihiExarata.
+
+\sphinxAtStartPar
+This software makes use of \sphinxhref{https://wiki.qt.io/Qt\_for\_Python}{Pyside6}%
+\begin{footnote}[70]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://wiki.qt.io/Qt\_for\_Python}
+%
+\end{footnote} which
+is licensed using the LGPL license. As we use it as a library and do not
+change its internals, this software is not bound by the
+\sphinxhref{https://opensource.org/licenses/LGPL-3.0}{LGPL license}%
+\begin{footnote}[71]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/LGPL-3.0}
+%
+\end{footnote}.
+(See {\hyperref[\detokenize{technical/architecture/graphical_user_interface:technical-architecture-graphical-user-interface}]{\sphinxcrossref{\DUrole{std,std-ref}{Graphical User Interface}}}}.)
+
+\sphinxAtStartPar
+This software makes use of Astrometry.net services which are licensed
+under the
+\sphinxhref{https://opensource.org/licenses/BSD-3-Clause}{3\sphinxhyphen{}clause BSD\sphinxhyphen{}style license}%
+\begin{footnote}[72]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/BSD-3-Clause}
+%
+\end{footnote}.
+We do not redistribute that software but instead require its separate
+installation. Therefore, we are not bound by the
+\sphinxhref{https://opensource.org/licenses/GPL-3.0}{GPLv3}%
+\begin{footnote}[73]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/GPL-3.0}
+%
+\end{footnote} requirements which
+Astrometry.net is bound by for some of its components.
+
+\sphinxAtStartPar
+This software makes use of OrbFit software which are licensed under the
+\sphinxhref{https://opensource.org/licenses/GPL-3.0}{GPLv3 license}%
+\begin{footnote}[74]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/GPL-3.0}
+%
+\end{footnote}. We do not
+redistribute that software but instead require its separate installation.
+Therefore, we are not bound by the GPLv3 requirements.
+
+\sphinxAtStartPar
+Python, and all of the package dependencies used, utilize
+\sphinxhref{https://opensource.org/licenses/BSD-3-Clause}{BSD 3\sphinxhyphen{}clause}%
+\begin{footnote}[75]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/BSD-3-Clause}
+%
+\end{footnote},
+\sphinxhref{https://opensource.org/licenses/Apache-2.0}{Apache 2.0}%
+\begin{footnote}[76]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/Apache-2.0}
+%
+\end{footnote},
+\sphinxhref{https://opensource.org/licenses/HPND}{HPND licenses}%
+\begin{footnote}[77]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://opensource.org/licenses/HPND}
+%
+\end{footnote},
+or similar MIT\sphinxhyphen{}like licenses and are compatible.
+
 
 \chapter{Code Manual}
 \label{\detokenize{index:code-manual}}\label{\detokenize{index:home-code-manual}}
@@ -3706,7 +4605,7 @@ class documentation of the software (generated by Sphinx).
 
 \sphinxAtStartPar
 \sphinxhref{https://psmd-iberutaru.github.io/OpihiExarata/build/html/code/coverage/index.html}{Code coverage}%
-\begin{footnote}[56]\sphinxAtStartFootnote
+\begin{footnote}[78]\sphinxAtStartFootnote
 \sphinxnolinkurl{https://psmd-iberutaru.github.io/OpihiExarata/build/html/code/coverage/index.html}
 %
 \end{footnote} is available in html. The code manual (and overall
@@ -4006,7 +4905,23 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.astrometry.solution:opihiexarata.astrometry.solution.AstrometricSolution.pixel_to_sky_coordinates}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{pixel\_to\_sky\_coordinates}}}{\emph{\DUrole{n}{x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }ndarray\DUrole{p}{{]}}}}, \emph{\DUrole{n}{y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }ndarray\DUrole{p}{{]}}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}\DUrole{p}{,}\DUrole{w}{  }Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{pixel\_to\_sky\_coordinates}}}{\emph{\DUrole{n}{x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[79]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}, \emph{\DUrole{n}{y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[80]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[81]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}\DUrole{p}{,}\DUrole{w}{  }Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[82]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the RA and DEC sky coordinates of this image provided
@@ -4049,7 +4964,23 @@ This is a wrapper around the WCS\sphinxhyphen{}based method.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.astrometry.solution:opihiexarata.astrometry.solution.AstrometricSolution.sky_to_pixel_coordinates}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sky\_to\_pixel\_coordinates}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }ndarray\DUrole{p}{{]}}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }ndarray\DUrole{p}{{]}}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}\DUrole{p}{,}\DUrole{w}{  }Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sky\_to\_pixel\_coordinates}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[83]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[84]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[85]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}\DUrole{p}{,}\DUrole{w}{  }Union\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[86]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the x and y pixel coordinates of this image provided
@@ -5411,7 +6342,19 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.ephemeris.solution:opihiexarata.ephemeris.solution.EphemeriticSolution.forward_ephemeris}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_ephemeris}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}numpy.ndarray\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_ephemeris}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[87]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[88]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[89]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 A wrapper call around the engine’s ephemeris function. This
@@ -7040,7 +7983,11 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.gui.selector:opihiexarata.gui.selector.TargetSelectorWindow.__connect_matplotlib_mouse_press_event}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_connect\_matplotlib\_mouse\_press\_event}}}{\emph{\DUrole{n}{event}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{MouseEvent}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_connect\_matplotlib\_mouse\_press\_event}}}{\emph{\DUrole{n}{event}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://matplotlib.org/stable/api/backend\_bases\_api.html\#matplotlib.backend\_bases.MouseEvent}{MouseEvent}%
+\begin{footnote}[90]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://matplotlib.org/stable/api/backend\_bases\_api.html\#matplotlib.backend\_bases.MouseEvent}
+%
+\end{footnote}}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
 A function to describe what would happen when a mouse press is
@@ -7067,7 +8014,11 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.gui.selector:opihiexarata.gui.selector.TargetSelectorWindow.__connect_matplotlib_mouse_release_event}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_connect\_matplotlib\_mouse\_release\_event}}}{\emph{\DUrole{n}{event}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{MouseEvent}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_connect\_matplotlib\_mouse\_release\_event}}}{\emph{\DUrole{n}{event}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://matplotlib.org/stable/api/backend\_bases\_api.html\#matplotlib.backend\_bases.MouseEvent}{MouseEvent}%
+\begin{footnote}[91]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://matplotlib.org/stable/api/backend\_bases\_api.html\#matplotlib.backend\_bases.MouseEvent}
+%
+\end{footnote}}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
 A function to describe what would happen when a mouse press is
@@ -8789,7 +9740,11 @@ Astropy Header
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.fits:opihiexarata.library.fits.read_fits_image_file}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.fits.}}\sphinxbfcode{\sphinxupquote{read\_fits\_image\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{extension}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}int\DUrole{p}{,}\DUrole{w}{  }str\DUrole{p}{{]}}}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}astropy.io.fits.header.Header\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.fits.}}\sphinxbfcode{\sphinxupquote{read\_fits\_image\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{extension}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Union\DUrole{p}{{[}}int\DUrole{p}{,}\DUrole{w}{  }str\DUrole{p}{{]}}}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}astropy.io.fits.header.Header\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[92]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 This reads fits files, assuming that the fits file is an image. It is a
@@ -8907,7 +9862,11 @@ data entries. This is not for comment cards.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.fits:opihiexarata.library.fits.write_fits_image_file}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.fits.}}\sphinxbfcode{\sphinxupquote{write\_fits\_image\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{header}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Header}}, \emph{\DUrole{n}{data}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{overwrite}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{bool}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{False}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.fits.}}\sphinxbfcode{\sphinxupquote{write\_fits\_image\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{header}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Header}}, \emph{\DUrole{n}{data}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[93]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{overwrite}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{bool}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{False}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
 This writes fits image files to disk. Acting as a wrapper around the
@@ -9115,7 +10074,15 @@ Functions to help with image and array manipulations.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.image:opihiexarata.library.image.create_circular_mask}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{create\_circular\_mask}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{center\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{center\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{radius}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{create\_circular\_mask}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[94]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{center\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{center\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{radius}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[95]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Creates an array which is a circular mask of some radius centered at a
@@ -9164,7 +10131,11 @@ array\sphinxhyphen{}like
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.image:opihiexarata.library.image.save_array_as_png_grayscale}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{save\_array\_as\_png\_grayscale}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{overwrite}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{bool}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{False}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{save\_array\_as\_png\_grayscale}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[96]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{overwrite}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{bool}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{False}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
 This converts an array to a grayscale PNG file.
@@ -9199,7 +10170,15 @@ the appropriate filename extension, it will be appended.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.image:opihiexarata.library.image.scale_image_array}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{scale\_image\_array}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{minimum}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{maximum}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{lower\_percent\_cut}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}, \emph{\DUrole{n}{upper\_percent\_cut}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{scale\_image\_array}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[97]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{minimum}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{maximum}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{lower\_percent\_cut}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}, \emph{\DUrole{n}{upper\_percent\_cut}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[98]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 This function scales the array to the provided minimum and maximum
@@ -9251,7 +10230,15 @@ array\sphinxhyphen{}like
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.image:opihiexarata.library.image.slice_array_boundary}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{slice\_array\_boundary}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{x\_min}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{x\_max}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{y\_min}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{y\_max}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{slice\_array\_boundary}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[99]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{x\_min}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{x\_max}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{y\_min}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{y\_max}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[100]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Slice an image array such that it stops at the boundaries and does not
@@ -9301,7 +10288,15 @@ array\sphinxhyphen{}like
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.library.image:opihiexarata.library.image.translate_image_array}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{translate\_image\_array}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{shift\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}, \emph{\DUrole{n}{shift\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}, \emph{\DUrole{n}{pad\_value}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{nan}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.library.image.}}\sphinxbfcode{\sphinxupquote{translate\_image\_array}}}{\emph{\DUrole{n}{array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[101]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{shift\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}, \emph{\DUrole{n}{shift\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{0}}, \emph{\DUrole{n}{pad\_value}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{nan}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[102]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 This function translates an image or array in some direction. The image
@@ -9641,7 +10636,7 @@ off of modification time. The most recent modified file is thus
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{extension}} (\sphinxstyleliteralemphasis{\sphinxupquote{string}}\sphinxstyleliteralemphasis{\sphinxupquote{ or }}\sphinxstyleliteralemphasis{\sphinxupquote{list}}) – The extension by which to filter for. It is often the case that some
+\sphinxstyleliteralstrong{\sphinxupquote{extension}} (\sphinxstyleliteralemphasis{\sphinxupquote{string}}\sphinxstyleliteralemphasis{\sphinxupquote{ or }}\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{default = None}}) – The extension by which to filter for. It is often the case that some
 files are created but the most recent file of some type is desired.
 Only files which match the included extensions will be considered.
 
@@ -10627,7 +11622,15 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.opihi.preprocess:opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_data_image}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{preprocess\_data\_image}}}{\emph{\DUrole{n}{raw\_data}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{exposure\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{filter\_name}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{preprocess\_data\_image}}}{\emph{\DUrole{n}{raw\_data}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[103]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{exposure\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{filter\_name}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[104]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 The formal reduction algorithm for data from Opihi. It follows
@@ -10666,7 +11669,11 @@ array
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.opihi.preprocess:opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_fits_file}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{preprocess\_fits\_file}}}{\emph{\DUrole{n}{raw\_filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{out\_filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Optional\DUrole{p}{{[}}str\DUrole{p}{{]}}}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{None}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}astropy.io.fits.header.Header\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{preprocess\_fits\_file}}}{\emph{\DUrole{n}{raw\_filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{out\_filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Optional\DUrole{p}{{[}}str\DUrole{p}{{]}}}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{None}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}astropy.io.fits.header.Header\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[105]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Preprocess an Opihi image, the provided fits filename is read, the
@@ -12485,6 +13492,14 @@ float
 \sphinxAtStartPar
 Calculate the true anomaly from the mean anomaly and eccentricity
 of an orbit.
+
+\sphinxAtStartPar
+We use the more numerically stable equation from
+\sphinxhref{https://ui.adsabs.harvard.edu/abs/1973CeMec...7..388B}{https://ui.adsabs.harvard.edu/abs/1973CeMec…7..388B}%
+\begin{footnote}[106]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://ui.adsabs.harvard.edu/abs/1973CeMec...7..388B}
+%
+\end{footnote}.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -13048,7 +14063,11 @@ Table
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.photometry.solution:opihiexarata.photometry.solution.PhotometricSolution.__calculate_sky_counts_mask}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_calculate\_sky\_counts\_mask}}}{}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_calculate\_sky\_counts\_mask}}}{}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[107]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Calculate a mask which blocks out all but the sky for sky counts
@@ -13366,7 +14385,19 @@ are written.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.LinearPropagationEngine}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{opihiexarata.propagate.polynomial.}}\sphinxbfcode{\sphinxupquote{LinearPropagationEngine}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{opihiexarata.propagate.polynomial.}}\sphinxbfcode{\sphinxupquote{LinearPropagationEngine}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[108]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[109]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[110]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: {\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.PropagationEngine}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{PropagationEngine}}}}}
@@ -13470,7 +14501,15 @@ tuple
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.LinearPropagationEngine.__fit_polynomial_function}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_fit\_polynomial\_function}}}{\emph{\DUrole{n}{fit\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{fit\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}tuple\DUrole{p}{,}\DUrole{w}{  }tuple\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_fit\_polynomial\_function}}}{\emph{\DUrole{n}{fit\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[111]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{fit\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[112]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}tuple\DUrole{p}{,}\DUrole{w}{  }tuple\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 A wrapper class for fitting the defined specific polynomial function.
@@ -13510,7 +14549,19 @@ Determined by the order of the polynomial function.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.LinearPropagationEngine.__init__}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_\_}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_\_}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[113]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[114]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[115]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Instantiation of the propagation engine.
@@ -13546,7 +14597,11 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.LinearPropagationEngine.__linear_function}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_linear\_function}}}{\emph{\DUrole{n}{c0}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{c1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_linear\_function}}}{\emph{\DUrole{n}{c0}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{c1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[116]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 The linear polynomial function that will be used.
@@ -13589,7 +14644,19 @@ array\sphinxhyphen{}like
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.LinearPropagationEngine.forward_propagate}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_propagate}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}numpy.ndarray\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_propagate}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[117]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[118]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[119]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Determine a new location(s) based on the polynomial propagation,
@@ -13628,7 +14695,19 @@ degrees.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.QuadraticPropagationEngine}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{opihiexarata.propagate.polynomial.}}\sphinxbfcode{\sphinxupquote{QuadraticPropagationEngine}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{opihiexarata.propagate.polynomial.}}\sphinxbfcode{\sphinxupquote{QuadraticPropagationEngine}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[120]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[121]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[122]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: {\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.PropagationEngine}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{PropagationEngine}}}}}
@@ -13732,7 +14811,15 @@ tuple
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__fit_polynomial_function}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_fit\_polynomial\_function}}}{\emph{\DUrole{n}{fit\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{fit\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}tuple\DUrole{p}{,}\DUrole{w}{  }tuple\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_fit\_polynomial\_function}}}{\emph{\DUrole{n}{fit\_x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[123]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{fit\_y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[124]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}tuple\DUrole{p}{,}\DUrole{w}{  }tuple\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 A wrapper class for fitting the defined specific polynomial function.
@@ -13772,7 +14859,19 @@ Determined by the order of the polynomial function.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__init__}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_\_}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_\_}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[125]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[126]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[127]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Instantiation of the propagation engine.
@@ -13808,7 +14907,11 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.QuadraticPropagationEngine.__quadratic_function}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_quadratic\_function}}}{\emph{\DUrole{n}{c0}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{c1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{c2}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ ndarray}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_quadratic\_function}}}{\emph{\DUrole{n}{c0}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{c1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{c2}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ \sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[128]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 The polynomial function that will be used.
@@ -13855,7 +14958,19 @@ array\sphinxhyphen{}like
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.polynomial:opihiexarata.propagate.polynomial.QuadraticPropagationEngine.forward_propagate}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_propagate}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}numpy.ndarray\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_propagate}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[129]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[130]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[131]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Determine a new location(s) based on the polynomial propagation,
@@ -13902,7 +15017,15 @@ The main solution class for propagations.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution.PropagativeSolution}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.}}\sphinxbfcode{\sphinxupquote{PropagativeSolution}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{solver\_engine}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{{\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.PropagationEngine}]{\sphinxcrossref{PropagationEngine}}}}}, \emph{\DUrole{n}{vehicle\_args}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dict}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{\{\}}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.}}\sphinxbfcode{\sphinxupquote{PropagativeSolution}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[132]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[133]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{solver\_engine}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{{\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.PropagationEngine}]{\sphinxcrossref{PropagationEngine}}}}}, \emph{\DUrole{n}{vehicle\_args}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dict}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{\{\}}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: {\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.ExarataSolution}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{ExarataSolution}}}}}
@@ -14132,7 +15255,15 @@ float
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution.PropagativeSolution.__init__}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_\_}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{solver\_engine}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{{\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.PropagationEngine}]{\sphinxcrossref{PropagationEngine}}}}}, \emph{\DUrole{n}{vehicle\_args}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dict}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{\{\}}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_\_}}}{\emph{\DUrole{n}{ra}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[134]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[135]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{solver\_engine}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{{\hyperref[\detokenize{code/opihiexarata.library.engine:opihiexarata.library.engine.PropagationEngine}]{\sphinxcrossref{PropagationEngine}}}}}, \emph{\DUrole{n}{vehicle\_args}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dict}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{\{\}}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 The instantiation of the propagation solution.
@@ -14179,7 +15310,11 @@ None
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution.PropagativeSolution.__init_compute_propagation_motion}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_compute\_propagation\_motion}}}{\emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_compute\_propagation\_motion}}}{\emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[136]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the raw velocities and accelerations of RA and DEC.
@@ -14229,7 +15364,19 @@ degrees per second squared.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution.PropagativeSolution.__init_compute_raw_motion}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_compute\_raw\_motion}}}{\emph{\DUrole{n}{ra\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{\_\_init\_compute\_raw\_motion}}}{\emph{\DUrole{n}{ra\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[137]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[138]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[139]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{,}\DUrole{w}{  }float\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the raw velocities and accelerations of RA and DEC.
@@ -14291,7 +15438,19 @@ degrees per second squared.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution.PropagativeSolution.forward_propagate}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_propagate}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}numpy.ndarray\DUrole{p}{,}\DUrole{w}{  }numpy.ndarray\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{forward\_propagate}}}{\emph{\DUrole{n}{future\_time}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[140]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ tuple\DUrole{p}{{[}}\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[141]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{,}\DUrole{w}{  }\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{numpy.ndarray}%
+\begin{footnote}[142]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 A wrapper call around the engine’s propagation function. This
@@ -14331,7 +15490,19 @@ degrees.
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution._vehicle_linear_propagation}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.}}\sphinxbfcode{\sphinxupquote{\_vehicle\_linear\_propagation}}}{\emph{\DUrole{n}{ra\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ dict}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.}}\sphinxbfcode{\sphinxupquote{\_vehicle\_linear\_propagation}}}{\emph{\DUrole{n}{ra\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[143]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[144]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[145]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ dict}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Derive the propagation from 1st order polynomial extrapolation methods.
@@ -14371,7 +15542,19 @@ dictionary
 \begin{savenotes}\begin{fulllineitems}
 \phantomsection\label{\detokenize{code/opihiexarata.propagate.solution:opihiexarata.propagate.solution._vehicle_quadratic_propagation}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.}}\sphinxbfcode{\sphinxupquote{\_vehicle\_quadratic\_propagation}}}{\emph{\DUrole{n}{ra\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{dec\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}, \emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{ndarray}}}{{ $\rightarrow$ dict}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{opihiexarata.propagate.solution.}}\sphinxbfcode{\sphinxupquote{\_vehicle\_quadratic\_propagation}}}{\emph{\DUrole{n}{ra\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[146]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{dec\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[147]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}, \emph{\DUrole{n}{obs\_time\_array}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{\sphinxhref{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}{ndarray}%
+\begin{footnote}[148]\sphinxAtStartFootnote
+\sphinxnolinkurl{https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html\#numpy.ndarray}
+%
+\end{footnote}}}}{{ $\rightarrow$ dict}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Derive the propagation from 2nd order polynomial extrapolation methods.

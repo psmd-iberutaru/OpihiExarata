@@ -5,7 +5,8 @@ Optional: Documentation
 =======================
 
 Building the documentation is relatively simple as we leverage Sphinx to 
-build it.
+build it. This is also done when the ``auxiliary.ps1`` auxillary script is 
+run.
 
 Prerequisites
 =============
@@ -13,8 +14,8 @@ Prerequisites
 Sphinx
 ------
 
-To build the Sphinx documentation, Python needs to be installed (the Python 
-version installed in this installation procedure can be used). 
+To build the Sphinx documentation, Python needs to be installed. (The Python 
+version installed in :ref:`technical-installation-python-part` can be used.)
 
 The following packages must be installed::
 
@@ -25,7 +26,7 @@ LaTeX
 
 If a PDF version of the documentation is desired, Sphinx can build it via 
 LaTeX. LaTeX must be installed. We suggest installing the 
-`TeX Live distribution`_ and installing the full install. Instructions on 
+`TeX Live distribution`_ and selecting the full install. Instructions on 
 how to install TeX Live is beyond the scope of this documentation.
 
 .. _TeX Live distribution: https://tug.org/texlive/

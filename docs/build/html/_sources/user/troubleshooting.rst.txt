@@ -19,16 +19,18 @@ when the code was changed. The loop will run forever until stopped as per the
 design of the automatic mode.
 
 You can force the loop to stop gracefully by creating a file named 
-:file:`opihiexarata_automatic.stop` in the same data directory that the automatic 
-loop is fetching the most recent images from. The loop checks for the 
+:file:`opihiexarata_automatic.stop` in the same data directory that the 
+automatic loop is fetching the most recent images from. The loop checks for the 
 existence of this file and it will stop in a similar way to if the stop button 
-was pressed. The loop will be considered :guilabel:`Halted`.
+was pressed. The loop will be considered :guilabel:`Halted` as it stopped via 
+a method other than the :guilabel:`Stop` button.
 
 If this fails, then the suggested remedy is to ungracefully stop or crash the 
 process that OpihiExarata is running in. 
 
 In either case, this is an error with the code of OpihiExarata and the 
 maintainers of the software should be contacted.
+
 
 .. _user-troubleshooting-pyside-gui-does-not-match-documentation-or-ui-files:
 

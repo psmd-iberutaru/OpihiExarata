@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>System Framework &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>System Framework &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -210,21 +210,36 @@
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
@@ -241,10 +256,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -258,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -347,9 +383,9 @@
              
   <section id="system-framework">
 <span id="user-system-framework"></span><h1>System Framework<a class="headerlink" href="#system-framework" title="Permalink to this heading"></a></h1>
-<p>We briefly cover a few terms and processes necessary for usage of this software.
-This does not go into more detail than is needed by a standard user; for more
-information, see the <a class="reference internal" href="../technical/index.html#technical-index"><span class="std std-ref">Technical Manual</span></a>.</p>
+<p>We briefly cover a few terms and processes necessary for usage of this
+software. This does not go into more detail than is needed by a standard user;
+for more information, see the <a class="reference internal" href="../technical/index.html#technical-index"><span class="std std-ref">Technical Manual</span></a>.</p>
 <section id="engines">
 <h2>Engines<a class="headerlink" href="#engines" title="Permalink to this heading"></a></h2>
 <p>For processing of Opihi data, there are four problems which the OpihiExarata
@@ -369,7 +405,7 @@ OpihiExarata could not solve it on its own:</p>
 utilizing their APIs to compute a solution. (See our <a class="reference internal" href="citations.html#user-citations"><span class="std std-ref">Citations</span></a> for
 more references.)</p>
 <p>Each of these services are made by different organizations. We access the
-capabilities of theses service by what is called an “engine”. Each service has
+capabilities of theses service by what we call an “engine”. Each service has
 their own custom implemented engine. Selecting a given engine (as you use this
 program) means that your data will be processed by the service the engine
 corresponds to.</p>
@@ -378,11 +414,11 @@ corresponds to.</p>
 <section id="vehicles-and-solutions">
 <h3>Vehicles and Solutions<a class="headerlink" href="#vehicles-and-solutions" title="Permalink to this heading"></a></h3>
 <p>There may be multiple engines for solving one of the five problems. Different
-datasets may be predisposed to work better with one engine than another. As an
+datasets may be predisposed to work better with one engine over another. As an
 implementation detail, we also built wrappers around the engines called
 vehicle functions and solution classes for ease of use. More detail about these
 wrappers can be found in <a class="reference internal" href="../technical/architecture/vehicles_solutions.html#technical-architecture-vehicles-solutions"><span class="std std-ref">Vehicles and Solutions</span></a>, but
-it likely is particularly of little concern to the average user.</p>
+it likely is of little concern to the average user.</p>
 <p>Conceptually, you may think of the engine as synonymous with the service; the
 rest are just unnecessary details.</p>
 </section>

@@ -4,6 +4,15 @@
 Install: Download
 =================
 
+The OpihiExarata software is stored its 
+`Github software repository <https://github.com/psmd-iberutaru/OpihiExarata>`_. 
+It needs to be downloaded from there, there are two main methods of doing that.
+Both are detailed here.
+
+Throughout the installation tutorial we refer to the internal OpihiExarata 
+directory as :file:`OpihiExarata/`. This allows for the instructions to be 
+general. Please adapt any absolute paths as needed.
+
 Via git (Recommended)
 =====================
 
@@ -11,12 +20,8 @@ The best way to download OpihiExarata is to clone the repository::
 
     git clone https://github.com/psmd-iberutaru/OpihiExarata.git
 
-The location where you download OpihiExarata is relatively irrelevant. 
-
-Throughout the installation tutorial we refer to the internal OpihiExarata 
-directory as :file:`OpihiExarata/`. This allows for the instructions to be 
-general. Please adapt any absolute paths as needed.
-
+The location where you download the OpihiExarata repository is relatively 
+irrelevant. 
 
 
 Via .zip Archive
@@ -34,7 +39,3 @@ A zip archive of the git repository can be downloaded via::
     mv OpihiExarata-master OpihiExarata
     # The zip is no longer needed.
     rm master.zip
-
-Throughout the installation tutorial we refer to the internal OpihiExarata 
-directory as :file:`OpihiExarata/`. This allows for the instructions to be 
-general. Please adapt any absolute paths as needed.

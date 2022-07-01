@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install: Orbfit &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>Install: Orbfit &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -210,21 +210,36 @@
 <li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../architecture/services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/library.html">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#json-parsing">JSON Parsing</a></li>
@@ -241,10 +256,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -258,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -462,7 +498,7 @@ requirement:</p>
 <h4>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading"></a></h4>
 <p>Set the environment variables for command-line development. This command sets
 the variables for the current session only. (For persistent environment
-variable set up,consider adding it to your startup script.):</p>
+variable set up, consider adding it to your startup script.):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">oneapi</span><span class="o">/</span><span class="n">setvars</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
@@ -473,11 +509,11 @@ variable set up,consider adding it to your startup script.):</p>
 <h2>Download OrbFit<a class="headerlink" href="#download-orbfit" title="Permalink to this heading"></a></h2>
 <p>The software needs to be downloaded.</p>
 <p>You can likely find the software package on the <a class="reference external" href="http://adams.dm.unipi.it/orbfit/">OrbFit website</a>. Otherwise,
-a download command may work:</p>
+the download command should work:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">adams</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">unipi</span><span class="o">.</span><span class="n">it</span><span class="o">/</span><span class="n">orbfit</span><span class="o">/</span><span class="n">OrbFit5</span><span class="mf">.0.7</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
-<p>And it can thus be extracted:</p>
+<p>It can then be extracted using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvzf</span> <span class="n">OrbFit5</span><span class="mf">.0.7</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
@@ -486,7 +522,7 @@ a download command may work:</p>
 <h2>Compile<a class="headerlink" href="#compile" title="Permalink to this heading"></a></h2>
 <p>To configure the compilation flags, OrbFit comes with a set of files which
 describe the flags. Initialize the proper compilation flags via the
-<strong class="command">config</strong> command, (flags for an optimized build using the Intel
+<strong class="command">config</strong> script, (flags for an optimized build using the Intel
 compiler):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">config</span> <span class="o">-</span><span class="n">O</span> <span class="n">intel</span>
 </pre></div>
@@ -516,10 +552,11 @@ determination part of the program.</p>
 <section id="download-jpl-ephemerides-file">
 <h2>Download JPL Ephemerides File<a class="headerlink" href="#download-jpl-ephemerides-file" title="Permalink to this heading"></a></h2>
 <p>The OrbFit package uses the JPL ephemerides file for its calculations, it
-requires the binary ephemerides files. Current documentation suggests using
-the 405 ephemerides set, but more updated sets (DE 407) also exist. For Linux,
-precomputed binaries can be found at <a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a>
-and the <a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
+requires the binary ephemerides files. Current OrbFit documentation suggests
+using the 405 ephemerides set, but more updated sets (DE 407) also exist. For
+Linux, precomputed binaries can be found at
+<a class="reference external" href="https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/">JPL Ephemerides binary files for Linux</a>  and the
+<a class="reference external" href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL Ephemerides descriptions</a>.</p>
 <p>For DE405:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ssd</span><span class="o">.</span><span class="n">jpl</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">eph</span><span class="o">/</span><span class="n">planets</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">de405</span><span class="o">/</span><span class="n">lnxp1600p2200</span><span class="mf">.405</span>
 </pre></div>
@@ -534,14 +571,14 @@ program can properly utilize it; using a symbolic link in the
 command below should be changed to fit your file):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">lib</span><span class="o">/</span>
 <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">./../</span><span class="n">linux_p1550p2650</span><span class="mf">.440</span> <span class="n">jpleph</span>
-<span class="c1"># Back to Orbfit/.</span>
+<span class="c1"># Back to the Orbfit/ directory.</span>
 <span class="n">cd</span> <span class="o">..</span>
 </pre></div>
 </div>
 </section>
 <section id="testing-suite">
 <h2>Testing Suite<a class="headerlink" href="#testing-suite" title="Permalink to this heading"></a></h2>
-<p>The software’s test suit can be executed from <code class="file docutils literal notranslate"><span class="pre">Orbfit/</span></code> via:</p>
+<p>The OrbFit software’s test suit can be executed from <code class="file docutils literal notranslate"><span class="pre">Orbfit/</span></code> via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">tests</span>
 </pre></div>
 </div>

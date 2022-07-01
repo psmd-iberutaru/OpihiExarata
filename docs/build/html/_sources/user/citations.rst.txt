@@ -6,7 +6,7 @@ Citations
 
 If you use the Opihi telescope or its accompanying OpihiExarata software, please cite your usage using the following citation information:
 
-(The citation information, here, will be updated as more publication 
+(The citation information here will be updated as more publication 
 information is provided.)
 
 
@@ -21,10 +21,8 @@ in no particular order.
 NASA Infrared Telescope Facility
 --------------------------------
 This work utilizes, is utilized by, is built for, and is funded by the NASA 
-Infrared Telescope Facility (IRTF), which is operated by the University of 
-Hawaii under Cooperative Agreement no. NNX-08AE38A with the National 
-Aeronautics and Space Administration, Science Mission Directorate, Planetary 
-Astronomy Program.
+Infrared Telescope Facility is operated by the University of Hawaii under 
+contract 80HQTR19D0030 with the National Aeronautics and Space Administration.
 
 
 MAST
@@ -50,7 +48,8 @@ This work makes use of SciPy
 
 Matplotlib
 ----------
-This work makes use of matplotlib, a Python library for publication quality graphics 
+This work makes use of matplotlib, a Python library for publication quality 
+graphics 
 (`Hunter 2007 <https://doi.ieeecomputersociety.org/10.1109/MCSE.2007.55>`_).
 
 

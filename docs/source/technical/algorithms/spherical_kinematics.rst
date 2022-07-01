@@ -29,7 +29,7 @@ temporal spherical coordinates :math:`(r=1, \phi_n, \delta_n, t_n)`. For
 time works best.
 
 Moreover, in spherical coordinates, the position, velocity, and acceleration 
-vectors are given as: (see `Keplerian Ellipses Chapter 2 Reed 2019`_)
+vectors are given as: (See `Keplerian Ellipses Chapter 2 Reed 2019`_.)
 
 .. math::
 
@@ -63,8 +63,8 @@ And thus the kinematic vectors are:
     \mathbf{v} &=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
     \mathbf{a} &= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}
 
-We can convert these vectors to Cartesian coordinates using the matrix 
-transformation. The spherical to Cartesian transformation matrix 
+We can convert these vectors to Cartesian coordinates using the following 
+matrix transformation. The spherical to Cartesian transformation matrix 
 :math:`\mathbf{R}` can be derived from the defining angles of the spherical 
 coordinate system :math:`\theta` and :math:`\phi`. Where 
 :math:`\mathbf{u}_\text{cart} = \mathbf{R} \mathbf{u}_\text{sph}`.:
@@ -110,10 +110,11 @@ Deriving Rates
 Multiple observations from Opihi provides multiple sightings of an asteroid at 
 many different points in the sky, providing multiple RA and DEC coordinates, 
 :math:`\alpha_n` and :math:`\delta_n` at time :math:`t_n`. We have a total of 
-:math:`N` RA DEC observations. (The propagation calculation will need to be redone for 
-a new observation set :math:`N' = N + 1`.)
+:math:`N` RA-DEC observations. (The propagation calculation will need to be 
+redone for a new observation set :math:`N' = N + 1`.)
 
-We can convert this to spherical coordinates with :math:`\phi_n = \alpha_n` and :math:`\theta_n = \frac{\pi}{2} - \delta_n`.
+We can convert this to spherical coordinates with :math:`\phi_n = \alpha_n` 
+and :math:`\theta_n = \frac{\pi}{2} - \delta_n`.
 
 These multiple observations allows for the determination of the rates of 
 change of spherical coordinates for the asteroid, namely: (For the time 
@@ -127,7 +128,7 @@ difference :math:`t_\Delta = t_{n+1} - t_n`.)
 
     t'_p = \frac{1}{2} \left( t_{n+1} + t_n \right)
 
-...and...
+and,
 
 .. math::
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command Line &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>Command Line &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -210,21 +210,36 @@
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
@@ -241,10 +256,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -258,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -410,7 +446,8 @@ Typically, this user would be a telescope operator.</p>
 functionality of OpihiExarata. There are two different configuration files.
 Which type of configuration file, and where it is saved are determined by the
 specification of the optional parameters
-For more information about configuration, see <a class="reference internal" href="configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a>.</p>
+For more information about configuration and configuration files, see
+<a class="reference internal" href="configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a>.</p>
 </section>
 <section id="help">
 <span id="user-command-line-available-actions-help"></span><h3>Help<a class="headerlink" href="#help" title="Permalink to this heading"></a></h3>
@@ -426,7 +463,7 @@ specified action.</p>
 <p class="admonition-title">Warning</p>
 <p>If any action is specified that does not match any of the expected actions,
 the program will raise a Python exception as opposed to ignoring it or
-strictly a shell error.</p>
+raising a shell error.</p>
 </div>
 </section>
 </section>
@@ -524,9 +561,9 @@ file already exists at a given path.</p>
 <p>The normal operation of OpihiExarata requires the writing of temporary files.
 A temporary directory is created (as specified by the configuration file) and
 is then purged and deleted. Using this flag prevents the cleanup of the
-temporary directory on the program’s exit. However, as the software itself often
-cleans up before exiting, this option is not very useful for the end user. It
-is more for debugging purposes.</p>
+temporary directory on the program’s exit. However, as the software itself
+often cleans up after itself periodically during usage, this option is not
+very useful for the end user. It is more for debugging purposes.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If any option is specified that does not match any of the expected option,

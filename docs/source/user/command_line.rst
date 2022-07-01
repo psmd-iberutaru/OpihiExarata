@@ -77,7 +77,8 @@ This generates configuration files to allow a user to edit and customize the
 functionality of OpihiExarata. There are two different configuration files.
 Which type of configuration file, and where it is saved are determined by the 
 specification of the optional parameters 
-For more information about configuration, see :ref:`user-configuration`. 
+For more information about configuration and configuration files, see 
+:ref:`user-configuration`. 
 
 
 .. _user-command-line-available-actions-help:
@@ -95,7 +96,7 @@ specified action.
 .. warning::
     If any action is specified that does not match any of the expected actions, 
     the program will raise a Python exception as opposed to ignoring it or 
-    strictly a shell error.
+    raising a shell error.
 
 
 .. _user-command-line-available-options:
@@ -194,9 +195,9 @@ Keep Temporary
 The normal operation of OpihiExarata requires the writing of temporary files.
 A temporary directory is created (as specified by the configuration file) and 
 is then purged and deleted. Using this flag prevents the cleanup of the 
-temporary directory on the program's exit. However, as the software itself often
-cleans up before exiting, this option is not very useful for the end user. It 
-is more for debugging purposes.
+temporary directory on the program's exit. However, as the software itself 
+often cleans up after itself periodically during usage, this option is not 
+very useful for the end user. It is more for debugging purposes.
 
 
 

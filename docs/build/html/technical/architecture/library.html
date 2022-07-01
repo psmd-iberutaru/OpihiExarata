@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Library &mdash; OpihiExarata 2022.6.23 documentation</title>
+  <title>Library &mdash; OpihiExarata 2022.6.30 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -210,21 +210,36 @@
 <li class="toctree-l5"><a class="reference internal" href="services_engines.html#jpl-horizons">JPL Horizons</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="services_engines.html#propagateengines">PropagateEngines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="services_engines.html#propagationengine">PropagationEngine</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="services_engines.html#linear">Linear</a></li>
 <li class="toctree-l5"><a class="reference internal" href="services_engines.html#quadratic">Quadratic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="vehicles_solutions.html">Vehicles and Solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Library</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conversion">Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#engines">Engines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#error">Error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fits-file-handing">FITS File Handing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#type-hint">Type Hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-hinting">Type Hinting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#http-calls">HTTP Calls</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#image-array-processing">Image Array Processing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#json-parsing">JSON Parsing</a></li>
@@ -241,10 +256,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/preprocessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
@@ -258,6 +293,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -370,18 +406,19 @@ functionality.</p>
 file is loaded and its parameters and values are loaded into the the
 namespace of this module. Therefore, the software internally can call these
 configurations as variables in this module; an example,
-<code class="code docutils literal notranslate"><span class="pre">library.config.SQUARE</span></code> would correspond to the <code class="docutils literal notranslate"><span class="pre">SQUARE</span></code> configuration
-in the configuration YAML file.</p>
+<code class="code docutils literal notranslate"><span class="pre">library.config.LYCANROC</span></code> would correspond to the <code class="docutils literal notranslate"><span class="pre">LYCANROC</span></code>
+configuration parameter in the configuration YAML file.</p>
 <p>Both normal configuration parameters and secret parameters (detailed in
 <a class="reference internal" href="../../user/configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a>) are taken from their respective files and placed
-into this same namespace. Therefore, the parameters must be uniquely named.</p>
+into this same namespace. Therefore, all of the configuration parameters must
+be uniquely named.</p>
 <p>The loading and applying of a configuration file (either secret or not),
 provided by the user via regular methods, is done via
 <a class="reference internal" href="../../code/opihiexarata.library.config.html#opihiexarata.library.config.load_then_apply_configuration" title="opihiexarata.library.config.load_then_apply_configuration"><code class="xref py py-func docutils literal notranslate"><span class="pre">opihiexarata.library.config.load_then_apply_configuration()</span></code></a>. Note that
 this will only apply the configuration to the current Python session.</p>
 </section>
 <section id="conversion">
-<h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this heading"></a></h2>
+<span id="technical-architecture-library-conversion"></span><h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.conversion.html#module-opihiexarata.library.conversion" title="opihiexarata.library.conversion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.conversion</span></code></a>.</p>
 <p>All types of required conversions are implemented here. The OpihiExarata
 software has specific conventions (see <a class="reference internal" href="../conventions.html#technical-conventions"><span class="std std-ref">Conventions</span></a>) for units
@@ -398,7 +435,7 @@ be converted back to degrees.</p>
 <h2>Engines<a class="headerlink" href="#engines" title="Permalink to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.engine.html#module-opihiexarata.library.engine" title="opihiexarata.library.engine"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.engine</span></code></a>.</p>
 <p>Base classes for different engines and solution implementations exist here.
-They are typically subclassed for the actual implemented engines
+They are typically subclassed for the actual implementation of the engines
 (<a class="reference internal" href="services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a>) and solutions
 (<a class="reference internal" href="vehicles_solutions.html#technical-architecture-vehicles-solutions"><span class="std std-ref">Vehicles and Solutions</span></a>). These are also useful for
 type checking.</p>
@@ -417,17 +454,19 @@ specify that the issue comes from OpihiExarata.</p>
 <p>This implements functions which assist in the reading and writing of image and
 table FITS files. Astropy has a lot of functionality for this, and these
 functions wrap around their implementation so that it is more specialized for
-OpihiExarata and so the reading and writing of FITS files are uniformly applied.</p>
+OpihiExarata and so that the reading and writing of FITS files are uniformly
+applied across the software.</p>
 </section>
-<section id="type-hint">
-<h2>Type Hint<a class="headerlink" href="#type-hint" title="Permalink to this heading"></a></h2>
+<section id="type-hinting">
+<span id="technical-architecture-library-hint"></span><h2>Type Hinting<a class="headerlink" href="#type-hinting" title="Permalink to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.hint.html#module-opihiexarata.library.hint" title="opihiexarata.library.hint"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.hint</span></code></a>.</p>
 <p>Python is a dynamically typed language. However it implements type hints
 (see <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0483/"><strong>PEP 483</strong></a> and <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0484/"><strong>PEP 484</strong></a>) so that text editors and other development
-tools and features are more accurate and detailed. OpihiExarata uses type hints
-throughout and highly recommends them. However, to avoid extremely long
-object calls and unnecessary importing, object types that otherwise need an
-import are all imported in this one namespace to be used across the codebase.</p>
+tools and features can be more accurate and detailed. OpihiExarata uses type
+hints throughout and highly recommends their usage. However, to avoid
+extremely long object calls and unnecessary importing, object types that
+would otherwise need to be imported to be used are instead all imported into
+this one namespace to be used across the codebase.</p>
 </section>
 <section id="http-calls">
 <h2>HTTP Calls<a class="headerlink" href="#http-calls" title="Permalink to this heading"></a></h2>
@@ -444,7 +483,7 @@ here.</p>
 <p>Opihi is an imaging telescope and images are often represented as arrays.
 However, there are some functionality that make sense in terms of images but
 have more involved implementations when using arrays as images. Functions
-here implement common manipulations of images.</p>
+here implement common manipulations of images represented as arrays.</p>
 </section>
 <section id="json-parsing">
 <h2>JSON Parsing<a class="headerlink" href="#json-parsing" title="Permalink to this heading"></a></h2>
@@ -459,14 +498,14 @@ is implemented here as wrapper functions.</p>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.mpcrecord.html#module-opihiexarata.library.mpcrecord" title="opihiexarata.library.mpcrecord"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.mpcrecord</span></code></a>.</p>
 <p>One of the most ubiquitous ways of representing an observation of an asteroid
 is using the
-<a class="reference external" href="https://www.minorplanetcenter.net/iau/info/OpticalObs.html">MPC 80-column record</a>.
+<a class="reference external" href="https://www.minorplanetcenter.net/iau/info/OpticalObs.html">MPC 80-column foarmat record</a>.
 However, it is not a very connivent format for Python to use and so
 functions which convert between the 80-column format and an Astropy table
-(see <code class="xref py py-mod docutils literal notranslate"><span class="pre">astropy.table</span></code>, or more specifically,
-<code class="xref py py-class docutils literal notranslate"><span class="pre">astropy.table.Table</span></code>). In general, the table format is better for
+(see <a class="reference external" href="https://docs.astropy.org/en/stable/table/index.html#module-astropy.table" title="(in Astropy v5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">astropy.table</span></code></a>, or more specifically,
+<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">astropy.table.Table</span></code></a>). In general, the table format is better for
 internal manipulation while the 80-column format is used primarily to record
 and send asteroid observations to other services (including, obviously, the
-Minor Planet Center.)</p>
+Minor Planet Center).</p>
 </section>
 <section id="file-and-directory-path-manipulations">
 <h2>File and Directory Path Manipulations<a class="headerlink" href="#file-and-directory-path-manipulations" title="Permalink to this heading"></a></h2>
@@ -484,7 +523,8 @@ strings and not objects.</p>
 similar information in tables. Older versions of this software had two
 different tables which were very unwieldy as progress continued. As such,
 this class implements a photometry table which is more coherent and
-comprehensive. Feature expansion in this region is unlikely.</p>
+comprehensive to better harmonize the interplay between the astrometric and
+photometric solutions. Feature expansion in this region is unlikely.</p>
 </section>
 <section id="temporary-directory">
 <h2>Temporary Directory<a class="headerlink" href="#temporary-directory" title="Permalink to this heading"></a></h2>
@@ -493,8 +533,8 @@ processing data and reading the results. In order for these files not to
 mess up anything on the system this software is installed on, a temporary
 directory is created where the files can be created and utilized. The exact
 place where this directory is created is given by the configuration parameter
-<code class="docutils literal notranslate"><span class="pre">TEMPORARY_DIRECTORY</span></code> (see <a class="reference internal" href="../../user/configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a>) Functions are
-implemented here which help with the management of this temporary directory.</p>
+<code class="docutils literal notranslate"><span class="pre">TEMPORARY_DIRECTORY</span></code> (see <a class="reference internal" href="../../user/configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a>) Functions implemented
+here help with the management of this temporary directory.</p>
 </section>
 </section>
 

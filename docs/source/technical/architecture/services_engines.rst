@@ -18,7 +18,7 @@ that are able to solve the above problems. We decided that it is good to
 allow the user (or the program in general) to be able to customize/swap which 
 service they use to process their data. This interchangeability also allows 
 for OpihiExarata to be more stable as if a given service fails, a different 
-one can be selected to continue instead of said inability breaking the 
+one can be selected to continue instead of said failure breaking the 
 software and workflow.
 
 Each service has different interfaces and protocols for communication between 
@@ -35,15 +35,15 @@ classified under
 :ref:`technical-architecture-services-engines-photometryengines`, 
 :ref:`technical-architecture-services-engines-orbitengines`, 
 :ref:`technical-architecture-services-engines-ephemerisengines`, 
-:ref:`technical-architecture-services-engines-propagateengines`
+:ref:`technical-architecture-services-engines-propagationengines` 
 depending on the problem it solves.
 
 We detail all of the available engines (which solve the five problems) here. 
 Note that the names of the engines themselves (when in the code or otherwise) 
 are case insensitive.
 
-A lot of these engines use other external services, see :ref:`user-citations` 
-for our references.
+A lot of these engines use other external services cited in 
+:ref:`user-citations` for our references.
 
 .. _technical-architecture-services-engines-astrometryengines:
 
@@ -67,9 +67,8 @@ This implementation is based off of the
 `official version <https://github.com/dstndstn/astrometry.net/blob/main/net/client/client.py>`_.
 
 The images taken are uploaded to the service to be solved, OpihiExarata 
-periodically requests the solution, parsing it when the image is astrometrically 
-solved successfully.
-
+periodically requests the solution, parsing it when the image is 
+astrometrically solved successfully.
 
 
 
@@ -151,16 +150,16 @@ Implementation: :py:class:`opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIE
 This utilizes the `JPL Horizons System <https://ssd.jpl.nasa.gov/horizons/>`_
 from the `JPL Solar Systems Dynamics <https://ssd.jpl.nasa.gov/>`_ group for 
 the determination of an ephemeris from a set of Keplerian orbital elements.
-This software sends the orbital elements (and other observatory parameters) 
+This software sends the orbital elements (and other observatory information) 
 via the `Horizons API <https://ssd-api.jpl.nasa.gov/doc/horizons.html>`_ 
 service and parses the returned ephemeris.
 
 
 
-.. _technical-architecture-services-engines-propagateengines:
+.. _technical-architecture-services-engines-propagationengines:
 
-PropagateEngines
-================
+PropagationEngine
+=================
 
 These engines solve for an asteroid's (or other target's) on-sky track from a 
 set of recent observations.
@@ -173,7 +172,7 @@ Implementation: :py:class:`opihiexarata.propagate.polynomial.LinearPropagationEn
 This takes the most recent (within a few hours) observations and fits a 
 first order (linear) polynomial function to both the RA and DEC as a function 
 of time. This method assumes a tangent plane projection and so is not suited 
-for propagations on long timescales. See 
+for propagations on long timescales (greater than a few hours). See 
 :ref:`technical-algorithms-polynomial-propagation` for more information on the 
 algorithm used.
 
@@ -186,7 +185,7 @@ Implementation: :py:class:`opihiexarata.propagate.polynomial.QuadraticPropagatio
 This takes the most recent (within a few hours) observations and fits a 
 second order (quadratic) polynomial function to both the RA and DEC as a 
 function of time. This method assumes a tangent plane projection and so is not 
-suited for propagations on long timescales. See 
+suited for propagations on long timescales (greater than a few hours). See 
 :ref:`technical-algorithms-polynomial-propagation` for more information on the 
 algorithm used.
 

@@ -8,12 +8,13 @@ The manual mode of OpihiExarata is its asteroid view-finding mode. Although,
 photometric monitoring can be done manually, and the manual mode is well 
 equipped for said use case, it is not the primary use case for the manual mode.
 
-The user uses the Opihi instrument to take images of asteroids. They then 
+The user uses the Opihi instrument to take images of an asteroid. Then they 
 specify the location of the asteroid using a GUI (usually with help from 
-comparing it to a reference image). An astrometric solution can convert the 
-asteroid's pixel location to an on-sky location, and using previous 
-observations, its path across the sky can be determined. This information is 
-used to properly point the IRTF telescope to the desired asteroid target.
+comparing their image to a reference image). An astrometric solution can 
+convert the asteroid's pixel location to an on-sky location. Then by 
+utilizing previous observations, its path across the sky can be determined. 
+This information is used to properly point the IRTF telescope to the desired 
+asteroid target.
 
 We present the procedure for operating OpihiExarata in its manual mode, 
 please also reference the GUI figure provided for reference. We also summarize 
@@ -51,7 +52,8 @@ plotted here along with the image data. There is a navigation bar for
 manipulating the image, including zooming, panning, saving, and configuring 
 other options. This functionality makes use of matplotlib, see 
 `Interactive navigation (outdated) <https://matplotlib.org/3.2.2/users/navigation_toolbar.html>`_ 
-or `Interactive figures <https://matplotlib.org/stable/users/explain/interactive.html>`_.
+or `Interactive figures <https://matplotlib.org/stable/users/explain/interactive.html>`_
+for more information.
 
 There is also a :guilabel:`Refresh Window` button to redraw the image in the 
 viewer and to also refresh the information in the tabs. This should not be 
@@ -80,7 +82,7 @@ command-line interface with::
 
     opihiexarata manual --config=config.yaml --secret=secrets.yaml
 
-Please replace the configuration parameters with the correct path to your 
+Please replace the configuration file names with the correct path to your 
 configuration and secrets file; see :ref:`user-configuration` for more 
 information.
 
@@ -92,12 +94,13 @@ Specify New Target Name
 
 The OpihiExarata manual mode software groups sequential images as belonging to 
 a set of observations of a single target. In order to tell the software what 
-target/asteroid you are observing you need to provide it. 
+target/asteroid you are observing you need to provide its name.
 
-Use the :guilabel:`New Target` button, it will open a small prompt for you to enter the 
-name of the asteroid/target you are observing. From this point on, all images 
-loaded (either manually or automatically fetched) will be assumed to be of the 
-target you provided (until you change it by clicking the button again).
+Use the :guilabel:`New Target` button, it will open a small prompt for you to 
+enter the name of the asteroid/target you are observing. From this point on, 
+all images loaded (either manually or automatically fetched) will be assumed 
+to be of the target you provided (until you change it by clicking the button 
+again).
 
 .. note::
     If you are observing an asteroid, this target name should also be the name 
@@ -148,32 +151,32 @@ Target Selector GUI
     The GUI for finding the pixel location of a target in the image. The 
     targets are typically asteroids.
 
-The target selector GUI allows you to select a specific target location in 
-an image, see :numref:`figure-target-selector-gui`.
+The target selector GUI allows you to select a specific target (generally an 
+asteroid) location in an image, see :numref:`figure-target-selector-gui`.
 
 The current file which you are determining the location of a target in is 
-given by :guilabel:`Current:`. A reference image (if provided) to compare against is 
-given by :guilabel:`Reference:`. Both of these files can be changed using their 
-respective :guilabel:`Change` buttons; a file dialog will be opened so you can specify 
-the new FITS files.
+given by :guilabel:`Current:`. The reference image (if provided) used to 
+compare against is given by :guilabel:`Reference:`. Both of these files can 
+be changed using their respective :guilabel:`Change` buttons; a file dialog 
+will be opened so you can specify the new FITS files.
 
 There is a data viewer similar to the one specified in 
 :ref:`user-manual-mode-graphical-user-interface`. However, in addition, if you 
 drag a box (left click and hold, drag, then release) without any tool selected 
-in toolbar, then the software will search within the drawn (blue) box and 
+in toolbar, the software will search within the drawn (blue) box and 
 extract the brightest object within the box. It will mark this target with a 
-(red) triangle. It will assume that this is the desired target and update the 
+red triangle. It will assume that this is the desired target and update the 
 :guilabel:`Target X` and :guilabel:`Target Y` fields with its pixel coordinates. 
 
 .. note::
-    This box drawing method  finds the brightest object in the current image. It ignores the 
-    subtractive comparison method and its result as such comparisons do not 
-    affect the actual current image.
+    This box drawing method finds the brightest object in the current image. 
+    It ignores the subtractive comparison method and its result as such 
+    comparisons do not affect the actual current image.
 
-You can compare your current image file $C$ with your reference image $R$ file 
-in two subtractive ways using the two labeled buttons under 
-:guilabel:`Subtraction Method`. (There are also buttons for simply viewing the images.) 
-These four ways are:
+You can compare your current image file :math:`C` with your reference image 
+:math:`R` file in two subtractive ways using the two labeled buttons under 
+:guilabel:`Subtraction Method`. (There are also buttons for simply viewing 
+the images.) Therefore, the two (plus two) ways of viewing the data are:
 
 - :guilabel:`None`, :math:`C-0``: The current image is not compared with the reference image.
 - :guilabel:`Reference`, :math:`R-0`: The reference image is shown rather than the current image. 
@@ -204,6 +207,7 @@ Compute Astrometric Solution
 .. figure:: /assets/images/manual-mode-gui-astrometry.*
 
     The astrometry GUI tab for customizing and executing astrometric solutions.
+    This is the default view before any values have been calculated.
 
 The astrometric solution of the image is next to be solved. The pattern of 
 stars within the image is compared with known patterns in astrometric star 
@@ -217,10 +221,11 @@ the desired astrometric engine from the drop down menu then click on the
 (See :ref:`technical-architecture-services-engines` for more information on 
 the available engines.)
 
-The pixel location (X,Y) of the center of the image, given by :guilabel:`Opihi Center`, 
-and the specified target, given by :guilabel:`Target/Asteroid`, is provided 
-with or without an astrometric solution. When the astrometric solution is 
-provided, the right ascension and declination of these will also be provided.
+The pixel location (X,Y) of the center of the image, given by 
+:guilabel:`Opihi Center`, and the specified target, given by 
+:guilabel:`Target/Asteroid`, is provided with or without an astrometric 
+solution. When the astrometric solution is provided, the right ascension and 
+declination of these will also be provided.
 
 Custom pixel coordinate (X,Y) can be provided in the boxes to be translated to 
 the sky coordinates that they correspond to. Alternatively, if sky coordinates 
@@ -242,12 +247,13 @@ Compute Photometric Solution
 .. figure:: /assets/images/manual-mode-gui-photometry.*
 
     The photometry GUI tab for customizing and executing photometric solutions.
+    This is the default view before any values have been calculated.
 
 The photometric solution of the image is next to be solved. The brightness of 
 the stars in the image is compared to known filter magnitudes from a 
 photometric database to derive a photometric calibration solution. 
-See :numref:`figure-manual-mode-gui-photometry` for the interface for photometric 
-solutions.
+See :numref:`figure-manual-mode-gui-photometry` for the interface for 
+photometric solutions.
 
 This is an optional step and is not related to asteroid finding in of itself. 
 This operation can be skipped entirely if a photometric solution is not 
@@ -263,7 +269,8 @@ The filter that the image was taken in is noted by :guilabel:`Filter`, this is
 determined by the FITS file header.
 
 Once a photometric solution has been solved, the corresponding filter zero 
-point magnitude of the image is provided by :guilabel:`Zero Point`.
+point magnitude (and its error) of the image is provided by 
+:guilabel:`Zero Point`.
 
 .. note::
     Execution of the photometric solution requires a completed astrometric 
@@ -291,7 +298,8 @@ The software will attempt to use the target/asteroid name provided in
 :ref:`user-manual-mode-procedure-specify-new-target-name`
 to obtain the set of historical observations from the Minor Planet Center.
 
-Older images will also be considered part of the set of historical observations.
+Recently taken images will also be considered part of the set of historical 
+observations.
 
 
 .. _user-manual-mode-procedure-asteroid-observation-record:
@@ -325,12 +333,14 @@ Asteroid Position Propagation
 .. figure:: /assets/images/manual-mode-gui-propagate.*
 
     The propagation GUI tab for customizing and executing propagation solutions.
+    This is the default view before any values have been calculated.
 
 Propagating the on-sky motion of the asteroid is done by taking the 
 observational record from 
 :ref:`user-manual-mode-procedure-asteroid-observation-record` and propagating 
 only the most recent observations forward in time. See 
-:numref:`figure-manual-mode-gui-propagate` for the interface for propagation solutions.
+:numref:`figure-manual-mode-gui-propagate` for the interface for propagation 
+solutions.
 
 To solve for the propagation solution from the observations, you will need to 
 select the desired propagation engine from the drop down menu then click on the 
@@ -341,15 +351,15 @@ the available engines.)
 If a propagation solution is done, the on-sky rates will be provided under 
 :guilabel:`Propagate Rate [ "/s | "/s²]`. Both the first order (velocity) and 
 second order (acceleration) on-sky rates in RA and DEC are given in arcseconds 
-per second, or arcseconds per second squared. The RA is given on the right and 
+per second or arcseconds per second squared. The RA is given on the right and 
 DEC on the left within the first or second order pairs.
 
-You may also provide a custom date and time, in 
-(`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_) the 
-provided dialog box. You can specify the timezone that the provided date and 
-time corresponds to using the dropdown menu. When you click 
-:guilabel:`Custom Solve`, the displayed RA and DEC coordinate is the estimated 
-sky coordinates for the asteroid at the provided time.
+You may also provide a custom date and time, in the provided dialog box (using 
+(`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_). You 
+can specify the timezone that the provided date and time corresponds to using 
+the dropdown menu. When you click :guilabel:`Custom Solve`, the displayed RA 
+and DEC coordinates are the estimated sky coordinates for the asteroid at the 
+provided input time.
 
 .. note::
     Execution of the propagation solution requires a completed astrometric 
@@ -367,6 +377,7 @@ Orbital Elements
 .. figure:: /assets/images/manual-mode-gui-orbit.*
 
     The orbit GUI tab for customizing and executing orbital solutions.
+    This is the default view before any values have been calculated.
 
 Provided a list of historical observations, we can solve for the Keplerian 
 orbital elements using preliminary orbit determination for osculating elements.
@@ -380,8 +391,9 @@ select the desired orbit engine from the drop down menu then click on the
 the available engines.)
 
 The six Keplerian orbital elements (plus the epoch) are provided after the 
-orbital solutions is solved. They are:
+orbital solution is solved. They are:
 
+- :guilabel:`SM-Axis`: The semi-major axis of the orbit, this is in AU.
 - :guilabel:`Ecc.`: The eccentricity of the orbit, this is unit-less.
 - :guilabel:`Incli.`: The inclination of the orbit, in degrees.
 - :guilabel:`As-Node`: The longitude of the ascending node, in degrees.
@@ -413,9 +425,10 @@ Ephemeris
 .. figure:: /assets/images/manual-mode-gui-ephemeris.*
 
     The ephemeris GUI tab for customizing and executing ephemeris solutions.
+    This is the default view before any values have been calculated.
 
 The orbital elements derived in :ref:`user-manual-mode-procedure-orbital-elements`
-are then used to derive the ephemeris of the asteroid. See 
+can then be used to derive an ephemeris of an asteroid. See 
 :numref:`figure-manual-mode-gui-ephemeris` for the interface for ephemeris 
 solutions.
 
@@ -431,12 +444,12 @@ second order (acceleration) on-sky rates in RA and DEC are given in arcseconds
 per second, or arcseconds per second squared. The RA is given on the right and 
 DEC on the left within the first or second order pairs.
 
-You may also provide a custom date and time, in 
-(`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_) the 
-provided dialog box. You can specify the timezone that the provided date and 
-time corresponds to using the dropdown menu. When you click 
-:guilabel:`Custom Solve`, the displayed RA and DEC coordinate is the estimated 
-sky coordinates for the asteroid at the provided time.
+You may also provide a custom date and time, in the provided dialog box (using 
+(`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_). You 
+can specify the timezone that the provided date and time corresponds to using 
+the dropdown menu. When you click :guilabel:`Custom Solve`, the displayed RA 
+and DEC coordinates are the estimated sky coordinates for the asteroid at the 
+provided input time.
 
 .. note::
     Execution of the ephemeris solution requires a completed orbital 
