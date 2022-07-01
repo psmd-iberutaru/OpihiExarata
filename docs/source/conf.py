@@ -78,7 +78,7 @@ napoleon_include_special_with_doc = True
 # types should already be known and because the footnote links in the LaTeX
 # file, get super out of hand.
 intersphinx_mapping = {
-    #    "python": ("https://docs.python.org/3", None),
+    #"python": ("https://docs.python.org/3", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "matplotlib": ("https://matplotlib.org/stable/", None),
