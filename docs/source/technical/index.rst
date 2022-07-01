@@ -23,3 +23,4 @@ audiences.
     architecture/index
     conventions
     algorithms/index
+    license

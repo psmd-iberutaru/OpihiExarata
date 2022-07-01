@@ -36,7 +36,12 @@ Astrometry Vehicle Functions
     astrometric vehicle functions and their respective engines to 
     provide the information for astrometric solutions.
     
-As shown in :numref:`figure-vehicle-function-astrometry`, the astrometric vehicle functions and engines generally require the input of the image data. They are required to return the on-sky position of the image, its orientation, and pixel scale. They also must provide a table of all of the stars which are within the field along with a FITS world coordinate system (WCS) as implimented via Astropy.
+As shown in :numref:`figure-vehicle-function-astrometry`, the astrometric 
+vehicle functions and engines generally require the input of the image data. 
+They are required to return the on-sky position of the image, its orientation, 
+and pixel scale. They also must provide a table of all of the stars which are 
+within the field along with a FITS world coordinate system (WCS) as 
+implemented via Astropy.
 
 
 Photometry Vehicle Functions
@@ -50,7 +55,12 @@ Photometry Vehicle Functions
     photometric vehicle functions and their respective engines to 
     provide the information for photometric solutions.
 
-As shown in :numref:`figure-vehicle-function-photometry`, the photometric vehicle functions and engines generally require the input of parameters (RA, DEC, and search radius) to do a cone search of a photometric catalog. They are required to return a table detailing the location and filter magnitudes of all found stars within the search radius along with a list of filters which the table contains data for.
+As shown in :numref:`figure-vehicle-function-photometry`, the photometric 
+vehicle functions and engines generally require the input of parameters (RA, 
+DEC, and search radius) to do a cone search of a photometric catalog. They are 
+required to return a table detailing the location and filter magnitudes of all 
+found stars within the search radius along with a list of filters which the 
+table contains data for.
 
 
 Orbit Vehicle Functions
@@ -64,7 +74,12 @@ Orbit Vehicle Functions
     orbital vehicle functions and their respective engines to 
     provide the information for orbital solutions.
 
-As shown in :numref:`figure-vehicle-function-orbit`, the orbital vehicle functions and engines generally require the input of asteroid observations in the 80-column Minor Planet Center format. They are required to output (from their calculations) the six Keplerian orbital elements are calculated (along with their errors) as outputs; the epoch of these orbital elements must also be returned. 
+As shown in :numref:`figure-vehicle-function-orbit`, the orbital vehicle 
+functions and engines generally require the input of asteroid observations 
+in the 80-column Minor Planet Center format. They are required to output 
+(from their calculations) the six Keplerian orbital elements are calculated 
+(along with their errors) as outputs; the epoch of these orbital elements 
+must also be returned. 
 
 
 Ephemeris Vehicle Functions
@@ -78,7 +93,13 @@ Ephemeris Vehicle Functions
     ephemeris vehicle functions and their respective engines to 
     provide the information for ephemeris solutions.
 
-As shown in :numref:`figure-vehicle-function-ephemeris`, the ephemeris vehicle functions and engines generally require the input of the six Keplerian orbital elements and the epoch that they were determined for. They are required to output the on-sky rates (both first order, "velocity", and second order, "acceleration") of an asteroid (or other target) and a function which, when specified a time of observation, gives the predicted on-sky position from the ephemeris.
+As shown in :numref:`figure-vehicle-function-ephemeris`, the ephemeris 
+vehicle functions and engines generally require the input of the six 
+Keplerian orbital elements and the epoch that they were determined for. 
+They are required to output the on-sky rates (both first order, "velocity", 
+and second order, "acceleration") of an asteroid (or other target) and a 
+function which, when specified a time of observation, gives the predicted 
+on-sky position from the ephemeris.
 
 
 
@@ -93,7 +114,13 @@ Propagation Vehicle Functions
     propagation vehicle functions and their respective engines to 
     provide the information for propagation solutions.
 
-As shown in :numref:`figure-vehicle-function-propagate`, the propagation vehicle functions and engines generally require the input of on-sky observations (RA, DEC, and observational time) of an asteroid. They are required to output the on-sky rates (both first order, "velocity", and second order, "acceleration") of an asteroid (or other target) and a function which, when specified a time of observation, gives the predicted on-sky position from propagating the on-sky motion. 
+As shown in :numref:`figure-vehicle-function-propagate`, the propagation 
+vehicle functions and engines generally require the input of on-sky 
+observations (RA, DEC, and observational time) of an asteroid. They are 
+required to output the on-sky rates (both first order, "velocity", and 
+second order, "acceleration") of an asteroid (or other target) and a function 
+which, when specified a time of observation, gives the predicted on-sky 
+position from propagating the on-sky motion. 
 
 
 Solution
@@ -195,7 +222,7 @@ path is determined by extrapolating the motion of the asteroid on the
 sky based on a sequence of recent images.
 
 
-.. _technical-architecture-vehicles-solutions-preprocesssolution:
+.. _technical-architecture-vehicles-solutions-calibrationsolution:
 
 PreprocessSolution
 ------------------
