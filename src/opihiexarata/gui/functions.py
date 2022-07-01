@@ -1,7 +1,6 @@
 """Where helpful functions which otherwise do not belong in the library, 
 for the GUIs, exist."""
 
-from sklearn.decomposition import dict_learning
 import opihiexarata
 import opihiexarata.library as library
 import opihiexarata.library.error as error
