@@ -114,6 +114,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         super(TargetSelectorWindow, self).__init__()
         self.ui = gui.qtui.Ui_SelectorWindow()
         self.ui.setupUi(self)
+        # Window icon, we use the default for now.
+        gui.functions.apply_window_icon(window=self, icon_path=None)
 
         # Window design parameters, just for show.
         self.setWindowTitle("OpihiExarata Target Selector")

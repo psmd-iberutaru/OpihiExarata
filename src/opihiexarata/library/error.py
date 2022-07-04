@@ -46,9 +46,9 @@ class LogicFlowError(ExarataBaseException):
     to the code do not screw up the logical flow of the program."""
 
 
-class PracticalityError(ExarataBaseException):
+class BeyondScopeError(ExarataBaseException):
     """This is an error to be used when what is trying to be done does not
-    seem reasonable. Usually warnings are the better vehicle for this but
+    seem reasonable. Usually warnings are the better thing for this but
     this error is used when the assumptions for reasonability guided
     development and what the user is trying to do is not currently supported
     by the software."""
@@ -134,6 +134,13 @@ class IntentionalError(ExarataException):
     generally should always be caught by the code in context."""
 
 
+class PracticalityError(ExarataException):
+    """This is an error to be used when what is trying to be done does not
+    seem reasonable. Usually warnings are the better thing for this. However,
+    this error should be used (as opposed to BeyondScopeError) when what 
+    is being attempted is within the design specifications of this software."""
+
+
 class ReadOnlyError(ExarataException):
     """An error where variables or files are assumed to be read only, this
     enforces that notion."""
@@ -141,7 +148,7 @@ class ReadOnlyError(ExarataException):
 
 class SequentialOrderError(ExarataException):
     """An error used when something is happening out of the expected required
-    order. This order being in place for specific publically communicated
+    order. This order being in place for specific publicly communicated
     reasons."""
 
 
@@ -197,5 +204,5 @@ def warn(
 ####################
 
 
-# Context manegers
+# Context managers
 ####################

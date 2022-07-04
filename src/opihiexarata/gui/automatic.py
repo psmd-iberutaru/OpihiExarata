@@ -77,6 +77,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         super(OpihiAutomaticWindow, self).__init__()
         self.ui = gui.qtui.Ui_AutomaticWindow()
         self.ui.setupUi(self)
+        # Window icon, we use the default for now.
+        gui.functions.apply_window_icon(window=self, icon_path=None)
 
         # Establishing the defaults for all of the relevant attributes.
         self.fits_fetch_directory = None

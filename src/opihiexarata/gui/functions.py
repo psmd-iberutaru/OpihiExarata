@@ -1,6 +1,10 @@
 """Where helpful functions which otherwise do not belong in the library, 
 for the GUIs, exist."""
 
+import os
+
+from PySide6 import QtCore, QtWidgets, QtGui
+
 import opihiexarata
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -11,6 +15,38 @@ import opihiexarata.photometry as photometry
 import opihiexarata.propagate as propagate
 import opihiexarata.orbit as orbit
 import opihiexarata.ephemeris as ephemeris
+
+
+def apply_window_icon(window:hint.Union[hint.widget, hint.window], icon_path:str=None) -> None:
+    """This function just applies the window icon to the GUI interfaces.
+    We break it out as a function so that it is much easier to change the 
+    window icons uniformly.
+    
+    Parameters
+    ----------
+    window : QtWidget, QtMainWindow
+        The window which the image will be applied to.
+    icon_path : str, default = None
+        The path of the icon file. If None, then we default to the 
+        ``window_icon.png`` file in the qtui directory.
+
+    Returns
+    -------
+    None
+    """
+    if icon_path is not None:
+        icon_path = os.path.abspath(icon_path)
+    else:
+        self_dir = os.path.dirname(os.path.abspath(__file__))
+        icon_path = library.path.merge_pathname(directory=[self_dir, "qtui"], filename="window_icon", extension="png")
+    # We set the window icon.
+    window.setWindowIcon(QtGui.QIcon(icon_path))
+    # All done.
+    return None
+
+
+
+
 
 
 def pick_engine_class_from_name(
@@ -99,3 +135,4 @@ def pick_engine_class_from_name(
     )
     # All done.
     return None
+

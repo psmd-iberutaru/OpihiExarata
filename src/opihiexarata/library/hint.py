@@ -29,6 +29,11 @@ from numpy.typing import ArrayLike, DTypeLike
 
 array = ndarray
 
+# The windows.
+from PySide6 import QtCore, QtWidgets, QtGui
+widget = QtWidgets.QWidget
+window = QtWidgets.QMainWindow
+
 # Importing the engines and the solutions. It is important that all other
 # third-party type definitions are before this to prevent circular imports.
 from opihiexarata.library.engine import *

@@ -2,7 +2,6 @@
 and run it from your PATH."""
 
 import datetime
-from types import GetSetDescriptorType
 import setuptools
 
 NAME = "OpihiExarata"
@@ -83,7 +82,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
-    package_data={"": ["*.yaml", "*.ui"]},
+    package_data={"": ["*.yaml", "*.ui", "*.png"]},
     packages=setuptools.find_packages(where="src"),
     install_requires=DEPENDENCIES,
     python_requires=">=3.6",

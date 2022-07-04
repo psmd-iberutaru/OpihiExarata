@@ -77,6 +77,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         super(OpihiManualWindow, self).__init__()
         self.ui = gui.qtui.Ui_ManualWindow()
         self.ui.setupUi(self)
+        # Window icon, we use the default for now.
+        gui.functions.apply_window_icon(window=self, icon_path=None)
 
         # Establishing the defaults for all of the relevant attributes.
         self.asteroid_set_name = None
@@ -1695,9 +1697,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         def _save_results_mpcrecord() -> None:
             """Second, the MPC record historical data."""
             # The current record to add.
-            mpc_record = self.opihi_solution.mpc_record_row()
-            # Adding the new line character as write lines do not do this.
-            mpc_record = mpc_record + "\n"
+            try:
+                mpc_record = self.opihi_solution.mpc_record_row()
+            except error.PracticalityError:
+                # If the user did not solve for astrometry, this will raise 
+                # because it cannot properly make an MPC row. We ignore it 
+                # and we do not add any observational data.
+                return None
+            else:
+                # Adding the new line character as write lines do not do this.
+                mpc_record = mpc_record + "\n"
             # If the record file already exists, append this information to it.
             with open(self.__get_mpc_record_filename(), "a") as mpcfile:
                 mpcfile.writelines([mpc_record])

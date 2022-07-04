@@ -33,8 +33,8 @@ When a user specifies a configuration file to be applied to this software, the
 file is loaded and its parameters and values are loaded into the the 
 namespace of this module. Therefore, the software internally can call these 
 configurations as variables in this module; an example, 
-:code:`library.config.LYCANROC` would correspond to the ``LYCANROC`` 
-configuration parameter in the configuration YAML file.
+:code:`opihiexarata.library.config.LYCANROC` would correspond to the 
+``LYCANROC`` configuration parameter in the configuration YAML file.
 
 Both normal configuration parameters and secret parameters (detailed in 
 :ref:`user-configuration`) are taken from their respective files and placed 

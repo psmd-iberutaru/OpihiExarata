@@ -734,8 +734,8 @@ class OpihiSolution(library.engine.ExarataSolution):
             # created without astrometry.
             raise error.PracticalityError(
                 "A MPC table row is trying to be derived without an astrometric"
-                " solution being solved first. There is no use for an observation"
-                " without astrometry."
+                " solution being solved first. An observation cannot be recorded"
+                "without an astrometric solution."
             )
 
         # This is a blank region according to the specification. Although it
@@ -756,7 +756,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         current_data["bandpass"] = bandpass
 
         # This is another blank region according to the specification. Some
-        # people use it; Sparrow
+        # people use it; Sparrow does not know what to do with it.
         current_data["blank_2"] = ""
 
         # The MPC observatory code. This is something that is specified in the

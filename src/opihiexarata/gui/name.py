@@ -46,6 +46,8 @@ class TargetNameWindow(QtWidgets.QWidget):
         """
         # Initialization of the parent class window.
         super().__init__()
+        # Window icon, we use the default for now.
+        gui.functions.apply_window_icon(window=self, icon_path=None)
 
         # Preparing the input dialog which we wrap around.
         input_dialog = QtWidgets.QInputDialog(self)
