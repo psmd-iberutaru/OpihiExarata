@@ -67,6 +67,9 @@ Functions for formatting RA and DEC from degrees (convention) to sexagesimal
 string formatting are implemented. Specifically formatted sexagesimal can also 
 be converted back to degrees.
 
+Functions related to the conversion of different (but equivalent) names for 
+things like filter or engine names are also provided.
+
 
 Engines
 =======

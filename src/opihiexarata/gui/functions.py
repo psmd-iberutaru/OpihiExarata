@@ -52,7 +52,8 @@ def pick_engine_class_from_name(
     """This returns a specific engine class provided its user friendly name.
     This is a convince function for both development and implementation.
 
-    If an engine name provided is not present, this raises.
+    If an engine name provided is not present, this raises. This is not a 
+    matter of conversion because user friendly names are specific 
 
     Parameters
     ----------

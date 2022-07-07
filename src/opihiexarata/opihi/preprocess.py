@@ -509,9 +509,10 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         raw_header, raw_data = library.fits.read_fits_image_file(filename=raw_filename)
         # The exposure time is needed for reducing the image data. (The fits
         # file uses integration time as the name.)
-        raw_exposure_time = float(raw_header["itime"])
-        # filter_name = str(raw_header[""])
-        filter_name = "g"
+        raw_exposure_time = float(raw_header["ITIME"])
+        # Filter name.
+        filter_position_string = str(raw_header["FWHL"])
+        filter_name = library.conversion.filter_position_string_to_filter_name(position_string=filter_position_string)
 
         # Preprocessing the data.
         preprocess_data = self.preprocess_data_image(
