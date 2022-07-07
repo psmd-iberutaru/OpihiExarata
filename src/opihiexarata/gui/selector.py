@@ -359,13 +359,18 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             dir="./",
             filter="FITS Files (*.fits)",
         )
-        # Extracted the needed information provided this new fits file.
-        current_header, current_data = library.fits.read_fits_image_file(
-            filename=new_current_filename
-        )
-        self.current_filename = new_current_filename
-        self.current_header = current_header
-        self.current_data = current_data
+        # If no file was provided, then there is nothing to do.
+        if os.path.isfile(new_current_filename):
+            # Extracted the needed information provided this new fits file.
+            current_header, current_data = library.fits.read_fits_image_file(
+                filename=new_current_filename
+            )
+            self.current_filename = new_current_filename
+            self.current_header = current_header
+            self.current_data = current_data
+        else:
+            # Nothing to do.
+            pass
 
         # Precompute the translated image array values to ensure the
         # cache speedup and subtraction capability.
@@ -393,13 +398,18 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             dir="./",
             filter="FITS Files (*.fits)",
         )
-        # Extracted the needed information provided this new fits file.
-        reference_header, reference_data = library.fits.read_fits_image_file(
-            filename=new_reference_filename
-        )
-        self.reference_filename = new_reference_filename
-        self.reference_header = reference_header
-        self.reference_data = reference_data
+        # If no file was provided, then there is nothing to do.
+        if os.path.isfile(new_reference_filename):
+            # Extracted the needed information provided this new fits file.
+            reference_header, reference_data = library.fits.read_fits_image_file(
+                filename=new_reference_filename
+            )
+            self.reference_filename = new_reference_filename
+            self.reference_header = reference_header
+            self.reference_data = reference_data
+        else:
+            # Nothing to do.
+            pass
 
         # Precompute the translated image array values to ensure the
         # cache speedup and subtraction capability.

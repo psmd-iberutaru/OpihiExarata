@@ -13,6 +13,8 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+import opihiexarata.gui as gui
+
 
 class TargetNameWindow(QtWidgets.QWidget):
     """This is the pop up window which will ask for the name of the target.

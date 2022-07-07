@@ -46,9 +46,6 @@ def apply_window_icon(window:hint.Union[hint.widget, hint.window], icon_path:str
 
 
 
-
-
-
 def pick_engine_class_from_name(
     engine_name: str, engine_type: hint.ExarataEngine = library.engine.ExarataEngine
 ) -> hint.ExarataEngine:
@@ -82,7 +79,7 @@ def pick_engine_class_from_name(
     }
     orbit_engines = {
         "orbfit": orbit.OrbfitOrbitDeterminerEngine,
-        "custom orbit": orbit.CustomOrbitEngine,
+        "custom": orbit.CustomOrbitEngine,
     }
     ephemeris_engines = {
         "jpl horizons": ephemeris.JPLHorizonsWebAPIEngine,
