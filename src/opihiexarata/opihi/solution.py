@@ -6,6 +6,7 @@ import copy
 import numpy as np
 
 import opihiexarata.library as library
+from opihiexarata.library import conversion
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
@@ -61,22 +62,18 @@ class OpihiSolution(library.engine.ExarataSolution):
         The astrometric solution; if it has not been solved yet, this is None.
     photometrics : PhotometricSolution
         The photometric solution; if it has not been solved yet, this is None.
-    propagatives : PropagativeSolution
-        The propagation solution; if it has not been solved yet, this is None.
     orbitals : OrbitalSolution
         The orbit solution; if it has not been solved yet, this is None.
     ephemeritics : EphemeriticSolution
         The ephemeris solution; if it has not been solved yet, this is None.
+    propagatives : PropagativeSolution
+        The propagation solution; if it has not been solved yet, this is None.
     astrometrics_status : bool, None
         The status of the solving of the astrometric solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
     photometrics_status : bool, None
         The status of the solving of the photometric solution. It is True or
-        False based on the success of the solve, None if a solve has not
-        been attempted.
-    propagatives_status : bool, None
-        The status of the solving of the propagative solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
     orbitals_status : bool, None
@@ -87,6 +84,20 @@ class OpihiSolution(library.engine.ExarataSolution):
         The status of the solving of the ephemeris solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
+    propagatives_status : bool, None
+        The status of the solving of the propagative solution. It is True or
+        False based on the success of the solve, None if a solve has not
+        been attempted.
+    astrometrics_engine_class : ExarataEngine, None
+        The engine class used for the solving of the astrometric solution.
+    photometrics_engine_class : ExarataEngine, None
+        The engine class used for the solving of the photometric solution.
+    orbitals_engine_class : ExarataEngine, None
+        The engine class used for the solving of the orbital solution.
+    ephemeritics_engine_class : ExarataEngine, None
+        The engine class used for the solving of the ephemeritic solution.
+    propagatives_engine_class : ExarataEngine, None
+        The engine class used for the solving of the propagative solution.
     """
 
     # https://www.adsabs.harvard.edu/full/1895PA......3...17S
@@ -144,7 +155,9 @@ class OpihiSolution(library.engine.ExarataSolution):
         # header file.
         if filter_name is None:
             filter_position_string = str(header["FWHL"])
-            self.filter_name = library.conversion.filter_position_string_to_filter_name(position_string=filter_position_string)
+            self.filter_name = library.conversion.filter_position_string_to_filter_name(
+                position_string=filter_position_string
+            )
         else:
             self.filter_name = filter_name
         if exposure_time is None:
@@ -185,14 +198,21 @@ class OpihiSolution(library.engine.ExarataSolution):
         # Just creating the initial placeholders for the solution.
         self.astrometrics = None
         self.photometrics = None
-        self.propagatives = None
         self.orbitals = None
         self.ephemeritics = None
+        self.propagatives = None
+        # Status.
         self.astrometrics_status = None
         self.photometrics_status = None
-        self.propagatives_status = None
         self.orbitals_status = None
         self.ephemeritics_status = None
+        self.propagatives_status = None
+        # Engines.
+        self.astrometrics_engine_class = None
+        self.photometrics_engine_class = None
+        self.orbitals_engine_class = None
+        self.ephemeritics_engine_class = None
+        self.propagatives_engine_class = None
         return None
 
     def solve_astrometry(
@@ -247,6 +267,7 @@ class OpihiSolution(library.engine.ExarataSolution):
             if overwrite:
                 self.astrometrics = astrometry_solution
                 self.astrometrics_status = solve_status
+                self.astrometrics_engine_class = solver_engine
         return astrometry_solution, solve_status
 
     def solve_photometry(
@@ -329,141 +350,8 @@ class OpihiSolution(library.engine.ExarataSolution):
             if overwrite:
                 self.photometrics = photometric_solution
                 self.photometrics_status = solve_status
+                self.photometrics_engine_class = solver_engine
         return photometric_solution, solve_status
-
-    def solve_propagate(
-        self,
-        solver_engine: hint.PropagationEngine,
-        overwrite: bool = True,
-        raise_on_error: bool = False,
-        asteroid_location: tuple[float, float] = None,
-        vehicle_args: dict = {},
-    ) -> hint.PropagativeSolution:
-        """Solve for the location of an asteroid using a method of propagation.
-
-        Parameters
-        ----------
-        solver_engine : PropagationEngine
-            The propagative engine which the propagation solver will use.
-        overwrite : bool, default = True
-            Overwrite and replace the information of this class with the new
-            values. If False, the returned solution is not also applied.
-        asteroid_location : tuple, default = None
-            The pixel location of the asteroid in the image. Defaults to the
-            value provided at instantiation.
-        raise_on_error : bool, default = False
-            If True, this disables the error handing and allows for errors from
-            the solving engines/solutions to be propagated out.
-        vehicle_args : dictionary, default = {}
-            If the vehicle function for the provided solver engine needs
-            extra parameters not otherwise provided by the standard input,
-            they are given here.
-
-        Returns
-        -------
-        propagative_solution : PropagativeSolution
-            The propagation solution for the asteroid and image.
-        solve_status : bool
-            The status of the solve. If True, the solving was successful.
-
-        Warning ..
-            This requires that the astrometric solution be computed
-            before-hand. It will not be precomputed automatically; without it
-            being called explicitly, this will instead raise an error.
-        """
-        # The propagation solution requires the astrometric solution to be
-        # computed first.
-        if not isinstance(self.astrometrics, astrometry.AstrometricSolution):
-            raise error.SequentialOrderError(
-                "The propagation solution requires an astrometric solution. The"
-                " astrometric solution needs to be called and run first."
-            )
-        # The observation time of this asteroid.
-        asteroid_time = self.observing_time
-        # Using the defaults if an overriding value was not provided.
-        asteroid_location = (
-            self.asteroid_location if asteroid_location is None else asteroid_location
-        )
-
-        # If asteroid information is not provided, then nothing can be solved.
-        # As there is no information.
-        if asteroid_location is None:
-            raise error.InputError(
-                "The propagation of an asteroid cannot be solved as no asteroid"
-                " location parameters have been provided."
-            )
-        else:
-            # Splitting it up is easier notionally.
-            asteroid_x, asteroid_y = asteroid_location
-            # The location of the asteroid needs to be transformed to RA and DEC.
-            asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
-                x=asteroid_x, y=asteroid_y
-            )
-
-        # Extracting historical information from which to calculate the
-        # propagation from.
-        past_asteroid_ra = self.asteroid_observations["ra"]
-        past_asteroid_dec = self.asteroid_observations["dec"]
-        # Converting the decimal days to the required Julian day time. This
-        # function seems to be vectorized to handle arrays.
-        past_asteroid_time = library.conversion.decimal_day_to_julian_day(
-            year=self.asteroid_observations["year"],
-            month=self.asteroid_observations["month"],
-            day=self.asteroid_observations["day"],
-        )
-        # As arrays.
-        past_asteroid_ra = np.asarray(past_asteroid_ra, dtype=float)
-        past_asteroid_dec = np.asarray(past_asteroid_dec, dtype=float)
-        past_asteroid_time = np.asarray(past_asteroid_time, dtype=float)
-        # Propagation only works with really recent observations so we only
-        # include those done within some number of hours. The Julian day system
-        # is in days.
-        EXPIRE_HOURS = library.config.OPIHI_PROPAGATION_OBSERVATION_EXPIRATION_HOURS
-        EXPIRE_DAYS = EXPIRE_HOURS / 24
-        valid_observation_index = np.where(
-            (asteroid_time - past_asteroid_time) <= EXPIRE_DAYS, True, False
-        )
-        valid_past_asteroid_ra = np.asarray(
-            past_asteroid_ra[valid_observation_index], dtype=float
-        )
-        valid_past_asteroid_dec = np.asarray(
-            past_asteroid_dec[valid_observation_index], dtype=float
-        )
-        valid_past_asteroid_time = np.asarray(
-            past_asteroid_time[valid_observation_index], dtype=float
-        )
-
-        # Add the current observation to the previous observations.
-        asteroid_ra = np.append(valid_past_asteroid_ra, asteroid_ra)
-        asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec)
-        asteroid_time = np.append(valid_past_asteroid_time, asteroid_time)
-
-        # Computing the propagation solution.
-        try:
-            propagative_solution = propagate.PropagativeSolution(
-                ra=asteroid_ra,
-                dec=asteroid_dec,
-                obs_time=asteroid_time,
-                solver_engine=solver_engine,
-                vehicle_args=vehicle_args,
-            )
-        except Exception as _exception:
-            # The solving failed.
-            propagative_solution = None
-            solve_status = False
-            # If the user wants a re-raised exception.
-            if raise_on_error:
-                raise _exception
-        else:
-            # The solving was completed.
-            solve_status = True
-        finally:
-            # See if the current propagation solution should be replaced.
-            if overwrite:
-                self.propagatives = propagative_solution
-                self.propagatives_status = solve_status
-        # All done.
-        return propagative_solution, solve_status
 
     def solve_orbit(
         self,
@@ -594,6 +482,7 @@ class OpihiSolution(library.engine.ExarataSolution):
             if overwrite:
                 self.orbitals = orbital_solution
                 self.orbitals_status = solve_status
+                self.orbitals_engine_class = solver_engine
         return orbital_solution, solve_status
 
     def solve_ephemeris(
@@ -664,8 +553,146 @@ class OpihiSolution(library.engine.ExarataSolution):
             if overwrite:
                 self.ephemeritics = ephemeritics_solution
                 self.ephemeritics_status = solve_status
+                self.ephemeritics_engine_class = solver_engine
         # All done.
         return ephemeritics_solution, solve_status
+
+    def solve_propagate(
+        self,
+        solver_engine: hint.PropagationEngine,
+        overwrite: bool = True,
+        raise_on_error: bool = False,
+        asteroid_location: tuple[float, float] = None,
+        vehicle_args: dict = {},
+    ) -> hint.PropagativeSolution:
+        """Solve for the location of an asteroid using a method of propagation.
+
+        Parameters
+        ----------
+        solver_engine : PropagationEngine
+            The propagative engine which the propagation solver will use.
+        overwrite : bool, default = True
+            Overwrite and replace the information of this class with the new
+            values. If False, the returned solution is not also applied.
+        asteroid_location : tuple, default = None
+            The pixel location of the asteroid in the image. Defaults to the
+            value provided at instantiation.
+        raise_on_error : bool, default = False
+            If True, this disables the error handing and allows for errors from
+            the solving engines/solutions to be propagated out.
+        vehicle_args : dictionary, default = {}
+            If the vehicle function for the provided solver engine needs
+            extra parameters not otherwise provided by the standard input,
+            they are given here.
+
+        Returns
+        -------
+        propagative_solution : PropagativeSolution
+            The propagation solution for the asteroid and image.
+        solve_status : bool
+            The status of the solve. If True, the solving was successful.
+
+        Warning ..
+            This requires that the astrometric solution be computed
+            before-hand. It will not be precomputed automatically; without it
+            being called explicitly, this will instead raise an error.
+        """
+        # The propagation solution requires the astrometric solution to be
+        # computed first.
+        if not isinstance(self.astrometrics, astrometry.AstrometricSolution):
+            raise error.SequentialOrderError(
+                "The propagation solution requires an astrometric solution. The"
+                " astrometric solution needs to be called and run first."
+            )
+        # The observation time of this asteroid.
+        asteroid_time = self.observing_time
+        # Using the defaults if an overriding value was not provided.
+        asteroid_location = (
+            self.asteroid_location if asteroid_location is None else asteroid_location
+        )
+
+        # If asteroid information is not provided, then nothing can be solved.
+        # As there is no information.
+        if asteroid_location is None:
+            raise error.InputError(
+                "The propagation of an asteroid cannot be solved as no asteroid"
+                " location parameters have been provided."
+            )
+        else:
+            # Splitting it up is easier notionally.
+            asteroid_x, asteroid_y = asteroid_location
+            # The location of the asteroid needs to be transformed to RA and DEC.
+            asteroid_ra, asteroid_dec = self.astrometrics.pixel_to_sky_coordinates(
+                x=asteroid_x, y=asteroid_y
+            )
+
+        # Extracting historical information from which to calculate the
+        # propagation from.
+        past_asteroid_ra = self.asteroid_observations["ra"]
+        past_asteroid_dec = self.asteroid_observations["dec"]
+        # Converting the decimal days to the required Julian day time. This
+        # function seems to be vectorized to handle arrays.
+        past_asteroid_time = library.conversion.decimal_day_to_julian_day(
+            year=self.asteroid_observations["year"],
+            month=self.asteroid_observations["month"],
+            day=self.asteroid_observations["day"],
+        )
+        # As arrays.
+        past_asteroid_ra = np.asarray(past_asteroid_ra, dtype=float)
+        past_asteroid_dec = np.asarray(past_asteroid_dec, dtype=float)
+        past_asteroid_time = np.asarray(past_asteroid_time, dtype=float)
+        # Propagation only works with really recent observations so we only
+        # include those done within some number of hours. The Julian day system
+        # is in days.
+        EXPIRE_HOURS = (
+            library.config.OPIHISOLUTION_PROPAGATION_OBSERVATION_EXPIRATION_HOURS
+        )
+        EXPIRE_DAYS = EXPIRE_HOURS / 24
+        valid_observation_index = np.where(
+            (asteroid_time - past_asteroid_time) <= EXPIRE_DAYS, True, False
+        )
+        valid_past_asteroid_ra = np.asarray(
+            past_asteroid_ra[valid_observation_index], dtype=float
+        )
+        valid_past_asteroid_dec = np.asarray(
+            past_asteroid_dec[valid_observation_index], dtype=float
+        )
+        valid_past_asteroid_time = np.asarray(
+            past_asteroid_time[valid_observation_index], dtype=float
+        )
+
+        # Add the current observation to the previous observations.
+        asteroid_ra = np.append(valid_past_asteroid_ra, asteroid_ra)
+        asteroid_dec = np.append(valid_past_asteroid_dec, asteroid_dec)
+        asteroid_time = np.append(valid_past_asteroid_time, asteroid_time)
+
+        # Computing the propagation solution.
+        try:
+            propagative_solution = propagate.PropagativeSolution(
+                ra=asteroid_ra,
+                dec=asteroid_dec,
+                obs_time=asteroid_time,
+                solver_engine=solver_engine,
+                vehicle_args=vehicle_args,
+            )
+        except Exception as _exception:
+            # The solving failed.
+            propagative_solution = None
+            solve_status = False
+            # If the user wants a re-raised exception.
+            if raise_on_error:
+                raise _exception
+        else:
+            # The solving was completed.
+            solve_status = True
+        finally:
+            # See if the current propagation solution should be replaced.
+            if overwrite:
+                self.propagatives = propagative_solution
+                self.propagatives_status = solve_status
+                self.propagatives_engine_class = solver_engine
+        # All done.
+        return propagative_solution, solve_status
 
     def mpc_table_row(self) -> hint.Table:
         """An MPC table of the current observation with information provided
@@ -800,3 +827,233 @@ class OpihiSolution(library.engine.ExarataSolution):
                 "For some reason, this MPC record row is not exactly 80-characters."
             )
         return mpc_record_row
+
+    def mpc_record_full(self) -> list[str]:
+        """This creates a full MPC record from all observations, including the
+        history and this current observation.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        mpc_record : list
+            The MPC record as a list where each entry is a row.
+        """
+        # Extract the historical information that was picked up. We do not
+        # want to mess up the history itself just in case.
+        if self.asteroid_history is None:
+            # No history has been provided, but the current record may still
+            # exist to give results.
+            asteroid_history = []
+        else:
+            asteroid_history = copy.deepcopy(self.asteroid_history)
+        # Extracting the current observational record.
+        try:
+            asteroid_current = [self.mpc_record_row()]
+        except error.PracticalityError:
+            # The MPC row could not be derived because the lack of data
+            # (typically the lack of an astrometric solution.)
+            asteroid_current = []
+
+        # Combining the two.
+        mpc_record = asteroid_history + asteroid_current
+        return mpc_record
+
+    def save_to_fits_file(self, filename: str, overwrite: bool = False) -> None:
+        """We save all of the information that we can from this solution to
+        a FITS file.
+
+        Parameters
+        ----------
+        filename : string
+            The name of the fits file to save all of this data to.
+        overwrite : bool, default = False
+            If True, this overwrites the file if there is a conflict.
+
+        Returns
+        -------
+        None
+        """
+        # The data and the header to save the data as.
+        raw_header = self.header
+        data = self.data
+
+        # Information which is contained within the solutions of OpihiExarata
+        # should also be save via the header file. We extract the parameters
+        # where we are able to.
+        try:
+            available_entries = self._generate_opihiexarata_fits_entries_dictionary()
+            updated_header = library.fits.update_opihiexarata_fits_header(
+                header=raw_header, entries=available_entries
+            )
+        except error.InputError:
+            raise error.DevelopmentError(
+                "The OpihiSolution generated FITS header dictionary does not conform to"
+                " the standards expected by the OpihiExarata FITS library function."
+                " Something out of sync."
+            )
+
+        # Saving the file.
+        library.fits.write_fits_image_file(
+            filename=filename, header=updated_header, data=data, overwrite=overwrite
+        )
+        # All done.
+        return None
+
+    def _generate_opihiexarata_fits_entries_dictionary(self):
+        """We determine the OpihiExarata header entries here. We follow the
+        specification for the OpihiExarata FITS header. We only add values
+        which we have proper data for to the dictionary.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        available_entries : dict
+            The available entries which there exists
+        """
+        # Initial beginning.
+        available_entries = {}
+
+        # We are processing the data.
+        available_entries["OX_BEGIN"] = True
+
+        # Target/asteroid information.
+        if self.asteroid_location is not None:
+            # The pixel location.
+            target_x, target_y = self.asteroid_location
+            available_entries["OXT_PX_X"] = target_x
+            available_entries["OXT_PX_Y"] = target_y
+            # If a valid astrometric solution exists, we can also get the
+            # RA and DEC.
+            if self.astrometrics_status and isinstance(
+                self.astrometrics, astrometry.AstrometricSolution
+            ):
+                (
+                    target_ra_deg,
+                    target_dec_deg,
+                ) = self.astrometrics.pixel_to_sky_coordinates(x=target_x, y=target_y)
+                # Converting to sexagesimal as is typical for FITS files.
+                (
+                    target_ra_sex,
+                    target_dec_sex,
+                ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                    ra_deg=target_ra_deg, dec_deg=target_dec_deg
+                )
+                available_entries["OXT___RA"] = target_ra_sex
+                available_entries["OXT__DEC"] = target_dec_sex
+
+        # Metadata information.
+        available_entries["OXM_ORFN"] = self.fits_filename
+        # We can never know if this was preprocessed or not.
+
+        # Astrometric information.
+        available_entries["OXA_SLVD"] = self.astrometrics_status
+        if self.astrometrics_status and isinstance(
+            self.astrometrics, astrometry.AstrometricSolution
+        ):
+            # The engine.
+            available_entries["OXA__ENG"] = self.astrometrics_engine_class.__name__
+            # And the results.
+            (
+                metric_ra_sex,
+                metric_dec_sex,
+            ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                ra_deg=self.astrometrics.ra, dec_deg=self.astrometrics.dec
+            )
+            available_entries["OXA___RA"] = metric_ra_sex
+            available_entries["OXA__DEC"] = metric_dec_sex
+            available_entries["OXA_ANGL"] = self.astrometrics.orientation
+            available_entries["OXA_RADI"] = self.astrometrics.radius
+            available_entries["OXA_PXSC"] = self.astrometrics.pixel_scale
+
+        # Photometric information.
+        available_entries["OXP_SLVD"] = self.photometrics_status
+        if self.photometrics_status and isinstance(
+            self.photometrics, photometry.PhotometricSolution
+        ):
+            # The engine.
+            available_entries["OXP__ENG"] = self.photometrics_engine_class.__name__
+            # And the results.
+            available_entries["OXPSKYCT"] = self.photometrics.sky_counts
+            available_entries["OXP_ZP_M"] = self.photometrics.zero_point
+            available_entries["OXP_ZP_E"] = self.photometrics.zero_point_error
+        # This does not depend on a photometric solution itself but it is
+        # photometrically related.
+        available_entries["OXM_FILT"] = self.filter_name
+
+        # Orbital element information.
+        available_entries["OXO_SLVD"] = self.orbitals_status
+        if self.orbitals_status and isinstance(self.orbitals, orbit.OrbitalSolution):
+            # The engine.
+            available_entries["OXO__ENG"] = self.orbitals_engine_class.__name__
+            # The solved or derived values.
+            available_entries["OXO_A__S"] = self.orbitals.semimajor_axis
+            available_entries["OXO_E__S"] = self.orbitals.eccentricity
+            available_entries["OXO_IN_S"] = self.orbitals.inclination
+            available_entries["OXO_OM_S"] = self.orbitals.longitude_ascending_node
+            available_entries["OXO__W_S"] = self.orbitals.inclination
+            available_entries["OXO_MA_S"] = self.orbitals.mean_anomaly
+            available_entries["OXO_EA_D"] = self.orbitals.eccentric_anomaly
+            available_entries["OXO_TA_D"] = self.orbitals.true_anomaly
+            # ...and their errors.
+            available_entries["OXO_A__E"] = self.orbitals.semimajor_axis_error
+            available_entries["OXO_E__E"] = self.orbitals.eccentricity_error
+            available_entries["OXO_IN_E"] = self.orbitals.inclination_error
+            available_entries["OXO_OM_E"] = self.orbitals.longitude_ascending_node_error
+            available_entries["OXO__W_E"] = self.orbitals.inclination_error
+            available_entries["OXO_MA_E"] = self.orbitals.mean_anomaly_error
+            available_entries["OXO_EA_E"] = self.orbitals.eccentric_anomaly_error
+            available_entries["OXO_TA_E"] = self.orbitals.true_anomaly_error
+            # The epoch.
+            available_entries["OXO_EPCH"] = self.orbitals.epoch_julian_day
+
+        # Ephemeris information.
+        available_entries["OXE_SLVD"] = self.ephemeritics_status
+        if self.ephemeritics_status and isinstance(
+            self.ephemeritics, ephemeris.EphemeriticSolution
+        ):
+            # The engine.
+            available_entries["OXE__ENG"] = self.ephemeritics_engine_class.__name__
+            # The results, and a function to convert between the two,
+            # shorthanded. This works for both because the unit of time is the
+            # same for both conversions.
+            deg2as = (
+                lambda d: library.conversion.degrees_per_second_to_arcsec_per_second(
+                    degree_per_second=d
+                )
+            )
+            available_entries["OXE_RA_V"] = deg2as(d=self.ephemeritics.ra_velocity)
+            available_entries["OXE_DECV"] = deg2as(d=self.ephemeritics.dec_velocity)
+            available_entries["OXE_RA_A"] = deg2as(d=self.ephemeritics.ra_acceleration)
+            available_entries["OXE_DECA"] = deg2as(d=self.ephemeritics.dec_acceleration)
+
+        # Propagation information.
+        available_entries["OXR_SLVD"] = self.propagatives_status
+        if self.propagatives_status and isinstance(
+            self.propagatives, propagate.PropagativeSolution
+        ):
+            # The engine.
+            available_entries["OXR__ENG"] = self.propagatives_engine_class.__name__
+            # The results, and a function to convert between the two,
+            # shorthanded. This works for both because the unit of time is the
+            # same for both conversions.
+            deg2as = (
+                lambda d: library.conversion.degrees_per_second_to_arcsec_per_second(
+                    degree_per_second=d
+                )
+            )
+            available_entries["OXR_RA_V"] = deg2as(d=self.propagatives.ra_velocity)
+            available_entries["OXR_DECV"] = deg2as(d=self.propagatives.dec_velocity)
+            available_entries["OXR_RA_A"] = deg2as(d=self.propagatives.ra_acceleration)
+            available_entries["OXR_DECA"] = deg2as(d=self.propagatives.dec_acceleration)
+
+        # The ending part.
+        available_entries["OX___END"] = True
+
+        # All done.
+        return available_entries

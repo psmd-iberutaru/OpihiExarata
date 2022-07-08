@@ -10,6 +10,71 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+# This is structured as {key:(default, comment)}.
+_OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
+    # Beginning.
+    "OX_BEGIN": (True, "OX: If True, image has been processed by OpihiExarata (OX)."),
+    # Target/asteroid information; T.
+    "OXT_PX_X": (None, "OX: The X pixel location of the target/asteroid in the image."),
+    "OXT_PX_Y": (None, "OX: The Y pixel location of the target/asteroid in the image."),
+    "OXT___RA": (None, "OX: The RA of the target or asteroid in the image."),
+    "OXT__DEC": (None, "OX: The DEC of the target or asteroid in the image."),
+    # Metadata; M.
+    "OXM_ORFN": (None, "OX: The original filename of the FITS file read."),
+    "OXM_REDU": (False, "OX: If True, this array has been preprocessed/reduced."),
+    # Astrometry; A.
+    "OXA_SLVD": (False, "OX: If True, the astrometry for this image has been solved."),
+    "OXA__ENG": (None, "OX: The used astrometric engine to solve for the astrometry."),
+    "OXA___RA": (None, "OX: The RA of the center of the image from astrometry."),
+    "OXA__DEC": (None, "OX: The DEC of the center of the image from astrometry."),
+    "OXA_ANGL": (None, "OX: The orientation of the image from astrometry, degree."),
+    "OXA_RADI": (None, "OX: The radius of the image."),
+    "OXA_PXSC": (None, "OX: The pixel scale of the image, arcsec/pixel."),
+    # Photometry; P.
+    "OXP_SLVD": (False, "OX: If True, the photometry for this image has been solved."),
+    "OXP__ENG": (None, "OX: The used photometric engine to solve for the photometry."),
+    "OXP_FILT": (None, "OX: The name of the filter based on the filter position."),
+    "OXPSKYCT": (None, "OX: The average sky counts per pixel of the image."),
+    "OXP_ZP_M": (None, "OX: The zero point magnitude of the image for the filter."),
+    "OXP_ZP_E": (None, "OX: The error on the zero point magnitude of the image."),
+    # Orbital elements; O.
+    "OXO_SLVD": (False, "OX: If True, the orbital for the target has been solved."),
+    "OXO__ENG": (None, "OX: The used orbit engine to solve for the orbital elements."),
+    "OXO_A__S": (None, "OX: The solved semi-major axis of the orbit, AU."),
+    "OXO_E__S": (None, "OX: The solved eccentricity of the orbit, 1."),
+    "OXO_IN_S": (None, "OX: The solved inclination angle of the orbit, degree."),
+    "OXO_OM_S": (None, "OX: The solved ascending node of the orbit, degree."),
+    "OXO__W_S": (None, "OX: The solved perihelion of the orbit, degree."),
+    "OXO_MA_S": (None, "OX: The solved mean anomaly of the orbit, degree."),
+    "OXO_EA_D": (None, "OX: The derived eccentric anomaly of the orbit, degree."),
+    "OXO_TA_D": (None, "OX: The derived true anomaly of the orbit, degree."),
+    "OXO_A__E": (None, "OX: The error on the semi-major axis, AU."),
+    "OXO_E__E": (None, "OX: The error on the eccentricity, 1."),
+    "OXO_IN_E": (None, "OX: The error on the inclination angle, degree."),
+    "OXO_OM_E": (None, "OX: The error on the ascending node, degree."),
+    "OXO__W_E": (None, "OX: The error on the perihelion, degree."),
+    "OXO_MA_E": (None, "OX: The error on the mean anomaly, degree."),
+    "OXO_EA_E": (None, "OX: The error on the eccentric anomaly, degree."),
+    "OXO_TA_E": (None, "OX: The error on the true anomaly, degree."),
+    "OXO_EPCH": (None, "OX: The epoch of the orbital elements, Julia days."),
+    # Ephemeris; E.
+    "OXE_SLVD": (False, "OX: If True, the ephemeris for the target has been solved."),
+    "OXE__ENG": (None, "OX: The used ephemeris engine to solve for the ephemeris."),
+    "OXE_RA_V": (None, "OX: The ephemeris 1st order (vel.) rate for RA, arcsec/s."),
+    "OXE_DECV": (None, "OX: The ephemeris 1st order (vel.) rate for DEC, arcsec/s."),
+    "OXE_RA_A": (None, "OX: The ephemeris 2nd order (accel.) rate for RA, arcsec/s^2."),
+    "OXE_DECA": (None, "OX: The ephemeris 2nd order (accel.) rate for DEC, arcsec/s^2."),
+    # Propagation; R.
+    "OXR_SLVD": (False, "OX: If True, the propagation for the target has been solved."),
+    "OXR__ENG": (None, "OX: The used propagation engine to solve for the propagation."),
+    "OXR_RA_V": (None, "OX: The propagate 1st order (vel.) rate for RA, arcsec/s."),
+    "OXR_DECV": (None, "OX: The propagate 1st order (vel.) rate for DEC, arcsec/s."),
+    "OXR_RA_A": (None, "OX: The propagate 2nd order (accel.) rate for RA, arcsec/s^2."),
+    "OXR_DECA": (None, "OX: The propagate 2nd order (accel.) rate for DEC, arcsec/s^2."),
+    # End.
+    "OX___END": (False, "OX: If True, saving this file had no errors."),
+}
+
 
 def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint.Header:
     """This reads the header of fits files only. This should be used only if
@@ -43,16 +108,17 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
     return header
 
 
-def update_fits_header(
-    header: hint.Header, entries: dict, comments: dict = {}
+def update_opihiexarata_fits_header(
+    header: hint.Header,
+    entries: dict,
 ) -> hint.Header:
     """This appends entries from a dictionary to an Astropy header.
 
-    This function is preferred to adding using standard methods as it performs
-    checks to make sure it only uses header keys reserved for OpihiExarata.
-    This function raises an error upon attempting to add an entry which does
-    not conform to fits standards and is not keyed with the "OX######"
-    template.
+    This function is specifically for OpihiExarata data entries. All other 
+    entries or header keyword value pairs are ignored. The OpihiExarata 
+    results (or header information per say) are appended or updated.
+
+    Comments are provided by the standard OpihiExarata form.
 
     Parameters
     ----------
@@ -60,43 +126,49 @@ def update_fits_header(
         The header which the entries will be added to.
     entries : dictionary
         The new entries to the header.
-    comments : dictionary, default = {}
-        If comments are to be added to data entries, then they may be
-        provided as a dictionary here with keys exactly the same as the
-        data entries. This is not for comment cards.
+
+    Returns
+    -------
+    opihiexarata_header : Astropy Header
+        The header which OpihiExarata entries have been be added to.
     """
     # Working on a copy of the header just in case.
+    opihiexarata_header = copy.deepcopy(header)
     # Type checking.
-    header = copy.deepcopy(header)
     entries = entries if isinstance(entries, dict) else dict(entries)
-    # Search through the dictionary provided to check that all of the
-    # entries are correctly formatted.
-    for keydex, valuedex in entries.items():
-        # Extracting the comment if needed.
-        commentdex = comments.get(keydex, None)
-        # By default, the fits header and Astropy use capital letters. This
-        # must be done after the comments in case they used lower case letters.
-        keydex = str(keydex).upper()
 
-        # Checking the entire slew of checks to make sure that the values are
-        # all correct.
-        # Length check.
-        if len(keydex) > 8:
+    # We assume the defaults at first and see if the provided header or the 
+    # provided entries have overridden us. This ensures that the defaults 
+    # are always there.
+    for keydex in _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY.keys():
+        # Extracting the default values and the comment.
+        defaultdex, commentdex = _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY[keydex]
+        # We attempt to get a value, either from the supplied header or the 
+        # entries provided, to override our default.
+        if entries.get(keydex, None) is not None:
+            # We first check for a new value provided.
+            valuedex = entries[keydex]
+        elif opihiexarata_header.get(keydex, None) is not None:
+            # Then if a value already existed in the old header, there is 
+            # nothing to change or a default to add.
+            continue
+        else:
+            # Otherwise, we just use the default.
+            valuedex = defaultdex
+
+        # We type check as FITS header files are picky about the object types 
+        # they get FITS headers really only support some specific basic types.
+        if not isinstance(valuedex, (int, float, bool, str)):
             raise error.InputError(
-                "The fits header key {k} is longer than the 8 characters as defined by"
-                " the fits standard.".format(k=keydex)
+                "The input value {v} has a type of {t}. FITS file headers really"
+                " only accept strings or numbers.".format(v=valuedex, t=type(valuedex))
             )
-        # OpihiExarata namespace check.
-        if keydex[:2] != "OX":
-            raise error.DevelopmentError(
-                "The fits header key {k} is not of the OpihiExarata reserved namespace"
-                " OX######. Please change it.".format(k=keydex)
-            )
-
-        # It seemed to pass validation. Adding.
-        header.set(keyword=keydex, value=valuedex, comment=commentdex)
+        # Adding this record to the row.
+        opihiexarata_header.set(
+            keyword=keydex, value=valuedex, comment=commentdex
+        )
     # All done.
-    return header
+    return opihiexarata_header
 
 
 def read_fits_image_file(
@@ -192,7 +264,7 @@ def write_fits_image_file(
     # Type checking, ensuring that this function is being used for images only.
     if not isinstance(header, (dict, ap_fits.Header)):
         raise error.InputError(
-            "The header must either be an astropy Header class or something convertable"
+            "The header must either be an astropy Header class or something convertible"
             " to it."
         )
     if not isinstance(data, np.ndarray):
@@ -230,7 +302,7 @@ def write_fits_table_file(
     # Type checking, ensuring that this function is being used for images only.
     if not isinstance(header, (dict, ap_fits.Header)):
         raise error.InputError(
-            "The header must either be an astropy Header class or something convertable"
+            "The header must either be an astropy Header class or something convertible"
             " to it."
         )
     if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):

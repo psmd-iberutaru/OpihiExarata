@@ -467,7 +467,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
                 " reduction arrays."
             )
 
-        # Reducing it based on the documentation method. Inversing the
+        # Reducing it based on the documentation method. Inverting  the
         # linearity and then removing the dark and bias then flat field
         # correction.
         unmasked_preprocess_data = (
@@ -512,24 +512,24 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         raw_exposure_time = float(raw_header["ITIME"])
         # Filter name.
         filter_position_string = str(raw_header["FWHL"])
-        filter_name = library.conversion.filter_position_string_to_filter_name(position_string=filter_position_string)
+        filter_name = library.conversion.filter_position_string_to_filter_name(
+            position_string=filter_position_string
+        )
 
         # Preprocessing the data.
         preprocess_data = self.preprocess_data_image(
             raw_data=raw_data, exposure_time=raw_exposure_time, filter_name=filter_name
         )
 
-        # Adding helpful preprocessing information to the header, just in the
-        # event it may be needed. Using a copy just in case. It is formatted
-        # this way so it is easy to add extra items if needed.
-        entry_assortment = [
-            # ("OX______", 0, "Filler"),
-        ]
-        # Adding it using the written function.
-        data_enteries = {rowdex[0]: rowdex[1] for rowdex in entry_assortment}
-        comment_enteries = {rowdex[0]: rowdex[1] for rowdex in entry_assortment}
-        preprocess_header = library.fits.update_fits_header(
-            header=raw_header, entries=data_enteries, comments=comment_enteries
+        # Adding helpful preprocessing information to the header, we follow
+        # the convention for all OpihiExarata data.
+        preprocess_header_entries = {
+            "OXM_PPRO": True,
+        }
+        # Adding it using the library function so that the defaults may be 
+        # added as well.
+        preprocess_header = library.fits.update_opihiexarata_fits_header(
+            header=raw_header, entries=preprocess_header_entries
         )
         # If the user wanted to save the preprocessed data as a file.
         if isinstance(out_filename, str):

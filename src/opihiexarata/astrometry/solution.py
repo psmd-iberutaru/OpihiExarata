@@ -15,7 +15,7 @@ class AstrometricSolution(library.engine.ExarataSolution):
     """The primary class describing an astrometric solution, based on an image
     provided.
 
-    This class is the middlewere class between the engines which solve the
+    This class is the middleware class between the engines which solve the
     astrometry, and the rest of the OpihiExarata code.
 
     Attributes

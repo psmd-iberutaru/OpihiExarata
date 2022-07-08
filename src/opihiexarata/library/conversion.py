@@ -11,6 +11,24 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 
+def degrees_per_second_to_arcsec_per_second(degree_per_second:float) -> float:
+    """This converts from degrees per second to arcseconds per second.
+    
+    Parameters
+    ----------
+    degree_per_second : float
+        The value, in degrees per second, which you want to convert from.
+
+    Returns
+    -------
+    arcsec_per_second : float
+        The value, in arcseconds per second, which you converted to.
+    """
+    # A simple multiplicative conversion.
+    arcsec_per_second = degree_per_second * 3600
+    return arcsec_per_second
+
+
 def degrees_to_sexagesimal_ra_dec(
     ra_deg: float, dec_deg: float, precision: int = 2
 ) -> tuple[str, str]:
@@ -70,6 +88,7 @@ def sexagesimal_ra_dec_to_degrees(ra_sex: str, dec_sex: str) -> tuple[float, flo
     ra_deg = float(skycoord.ra.degree)
     dec_deg = float(skycoord.dec.degree)
     return ra_deg, dec_deg
+
 
 
 def decimal_day_to_julian_day(year: int, month: int, day: float):

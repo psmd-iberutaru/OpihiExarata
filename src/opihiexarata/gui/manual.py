@@ -312,7 +312,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Fetch a file from the directory where files are to be fetched.
         try:
             new_fits_filename = library.path.get_most_recent_filename_in_directory(
-                self.automatic_fetch_directory, "fits"
+                directory=self.automatic_fetch_directory, extension="fits"
             )
         except Exception:
             # Something happened and a new fits file cannot be properly
@@ -828,7 +828,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             The filename of the MPC record for this object/image.
         """
         mpc_target_name = self.asteroid_set_name
-        mpc_record_filename = "{an}__exarata_mpcrecord".format(an=mpc_target_name)
+        suffix = str(library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX)
+        mpc_record_filename = mpc_target_name + suffix
         # Search the same directory as the fits file for this information as
         # that is currently the expected location.
         # Preferring the preprocessed filename if it exists, have a fall back.
@@ -842,6 +843,36 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             directory=fits_directory, filename=mpc_record_filename, extension="txt"
         )
         return mpc_record_filename
+
+    def __get_saving_fits_filename(self) -> str:
+        """This is a function which derives the FITS filename which will be 
+        used to save the results of the many computations done for this given 
+        image.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        saving_fits_filename : str
+            The filename of the MPC record for this object/image.
+        """
+        # We can use OpihiSolution's built-in function, but we need to 
+        # define the filename. Adding a suffix is sufficient here.
+        if self.process_fits_filename is not None:
+            reference_fits_filename = self.process_fits_filename
+        else:
+            reference_fits_filename = self.raw_fits_filename
+        # Extracting the entire path from the current name, we are saving it 
+        # to the same location.
+        directory, basename, extension = library.path.split_pathname(pathname=reference_fits_filename)
+        # We are just adding the suffix to the filename.
+        suffix = str(library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX)
+        new_filename = basename + suffix
+        # Recombining the path.
+        saving_fits_filename = library.path.merge_pathname(directory=directory, filename=new_filename, extension=extension)
+        return saving_fits_filename
 
     def _preprocess_fits_file(
         self, raw_filename: str, process_filename: str = None
@@ -1692,33 +1723,38 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # There are two primary things to save, the image and solution
         # information and the MPC record as retrievable historical data.
-        def _save_results_fits_image() -> None:
-            """First, doing the image data."""
 
-        def _save_results_mpcrecord() -> None:
-            """Second, the MPC record historical data."""
-            # The current record to add.
-            try:
-                mpc_record = self.opihi_solution.mpc_record_row()
-            except error.PracticalityError:
-                # If the user did not solve for astrometry, this will raise 
-                # because it cannot properly make an MPC row. We ignore it 
-                # and we do not add any observational data.
-                return None
-            else:
-                # Adding the new line character as write lines do not do this.
-                mpc_record = mpc_record + "\n"
-            # If the record file already exists, append this information to it.
-            with open(self.__get_mpc_record_filename(), "a") as mpcfile:
-                mpcfile.writelines([mpc_record])
-            # All done.
-            return None
+        # First, doing the image FITS data. We can use the OpihiSolution 
+        # built-in method.
+        # The filename which to save the fits file as.
+        saving_fits_filename = self.__get_saving_fits_filename()
+        # Saving.
+        self.opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=False)
 
-        # Executing the saving functions.
-        _save_results_fits_image()
-        _save_results_mpcrecord()
+
+        # Second, the MPC record historical data.
+        # The current record to add.
+        try:
+            mpc_record = self.opihi_solution.mpc_record_full()
+        except error.PracticalityError:
+            # If the user did not solve for astrometry, this will raise 
+            # because it cannot properly make an MPC row. We ignore it 
+            # and we do not add any observational data. We just return it 
+            # to the state it was.
+            mpc_record = self.opihi_solution.asteroid_history
+        finally:
+            # Adding the new line character as write lines do not do this
+            # to make the multi-rowed file.
+            mpc_record = [rowdex + "\n" for rowdex in mpc_record]
+        # If the record file already exists, replace our information with 
+        # it. We can do this because we already are using their data.
+        with open(self.__get_mpc_record_filename(), "w") as mpcfile:
+            mpcfile.writelines([mpc_record])
+
         # All done.
         return None
+
+
 
 
 def start_manual_window() -> None:
