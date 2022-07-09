@@ -781,9 +781,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 pass
             else:
                 # The currently derived values are incorrect. Falling back on
-                # assumption that the center as the target.
-                using_pixel_x = self.current_data.shape[1] / 2
-                using_pixel_y = self.current_data.shape[0] / 2
+                # an assumption of the origin to signify that it was not 
+                # provided while still giving a numerical value to work with.
+                using_pixel_x = 0
+                using_pixel_y = 0
 
         # The target values updated to reflect this prioritization and
         # conversation.
@@ -794,7 +795,27 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.close_window()
         return None
 
-    def _refresh_image(self) -> None:
+    def refresh_window(self) -> None:
+        """Refresh the text content of the window given new information.
+        This refreshes both the dynamic label text and redraws the image.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Rewriting the text...
+        self.__refresh_image()
+        # ...redrawing the image plot...
+        self.__refresh_text()
+        # All done.
+        return None
+
+
+    def __refresh_image(self) -> None:
         """Redraw and refresh the image, this is mostly used to allow for the
         program to update where the user selected.
 
@@ -880,7 +901,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # All done.
         return None
 
-    def _refresh_text(self) -> None:
+    def __refresh_text(self) -> None:
         """This function just refreshes the GUI text based on the current
         actual values.
 
@@ -920,24 +941,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # All done.
         return None
 
-    def refresh_window(self) -> None:
-        """Refresh the text content of the window given new information.
-        This refreshes both the dynamic label text and redraws the image.
 
-        Parameters
-        ----------
-        None
 
-        Returns
-        -------
-        None
-        """
-        # Rewriting the text...
-        self._refresh_image()
-        # ...redrawing the image plot...
-        self._refresh_text()
-        # All done.
-        return None
 
     def close_window(self) -> None:
         """Closes the window. Generally called when it is all done.

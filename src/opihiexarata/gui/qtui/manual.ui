@@ -200,7 +200,7 @@
           </font>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="iconSize">
           <size>
@@ -212,6 +212,88 @@
           <attribute name="title">
            <string>Summary</string>
           </attribute>
+          <widget class="QWidget" name="verticalLayoutWidget_7">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>581</width>
+             <height>251</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="vertical_layout_summary">
+            <item>
+             <layout class="QGridLayout" name="grid_layout_target_image_names">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_static_summary_target_name">
+                <property name="text">
+                 <string>Target Name:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_static_summary_fits_file">
+                <property name="text">
+                 <string>FITS File:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_dynamic_summary_target_name">
+                <property name="text">
+                 <string>DEFAULT</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_dynamic_summary_fits_file">
+                <property name="text">
+                 <string>opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_static_summary_directory">
+                <property name="text">
+                 <string>Directory:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_dynamic_summary_directory">
+                <property name="text">
+                 <string>/path/to/dir/</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontal_layout_save_file">
+              <item>
+               <widget class="QLineEdit" name="line_edit_summary_save_filename"/>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="check_box_summary_autosave">
+                <property name="text">
+                 <string>Auto</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="push_button_summary_save">
+                <property name="text">
+                 <string>Save</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_astrometry">
           <attribute name="title">

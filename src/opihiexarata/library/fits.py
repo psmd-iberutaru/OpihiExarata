@@ -13,66 +13,67 @@ import opihiexarata.library.hint as hint
 # This is structured as {key:(default, comment)}.
 _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
     # Beginning.
-    "OX_BEGIN": (True, "OX: If True, image has been processed by OpihiExarata (OX)."),
+    "OX_BEGIN": (True, "OX: True if OpihiExarata (OX) processed."),
     # Target/asteroid information; T.
-    "OXT_PX_X": (None, "OX: The X pixel location of the target/asteroid in the image."),
-    "OXT_PX_Y": (None, "OX: The Y pixel location of the target/asteroid in the image."),
-    "OXT___RA": (None, "OX: The RA of the target or asteroid in the image."),
-    "OXT__DEC": (None, "OX: The DEC of the target or asteroid in the image."),
+    "OXT_NAME": (None, "OX: Target/asteroid name."),
+    "OXT_PX_X": (None, "OX: Target pixel x location."),
+    "OXT_PX_Y": (None, "OX: Target pixel y location."),
+    "OXT___RA": (None, "OX: Target RA coordinate."),
+    "OXT__DEC": (None, "OX: Target DEC coordinate."),
     # Metadata; M.
-    "OXM_ORFN": (None, "OX: The original filename of the FITS file read."),
-    "OXM_REDU": (False, "OX: If True, this array has been preprocessed/reduced."),
+    "OXM_ORFN": (None, "OX: Original FITS filename."),
+    "OXM_REDU": (False, "OX: True if image preprocessed."),
     # Astrometry; A.
-    "OXA_SLVD": (False, "OX: If True, the astrometry for this image has been solved."),
-    "OXA__ENG": (None, "OX: The used astrometric engine to solve for the astrometry."),
-    "OXA___RA": (None, "OX: The RA of the center of the image from astrometry."),
-    "OXA__DEC": (None, "OX: The DEC of the center of the image from astrometry."),
-    "OXA_ANGL": (None, "OX: The orientation of the image from astrometry, degree."),
-    "OXA_RADI": (None, "OX: The radius of the image."),
-    "OXA_PXSC": (None, "OX: The pixel scale of the image, arcsec/pixel."),
+    "OXA_SLVD": (False, "OX: True if astrometry solved."),
+    "OXA__ENG": (None, "OX: Astrometry engine."),
+    "OXA___RA": (None, "OX: Center RA coordinate."),
+    "OXA__DEC": (None, "OX: Center DEC coordinate."),
+    "OXA_ANGL": (None, "OX: Image orientation, degree."),
+    "OXA_RADI": (None, "OX: Image radius, degree."),
+    "OXA_PXSC": (None, "OX: Pixel scale, arcsec/pix."),
     # Photometry; P.
-    "OXP_SLVD": (False, "OX: If True, the photometry for this image has been solved."),
-    "OXP__ENG": (None, "OX: The used photometric engine to solve for the photometry."),
-    "OXP_FILT": (None, "OX: The name of the filter based on the filter position."),
-    "OXPSKYCT": (None, "OX: The average sky counts per pixel of the image."),
-    "OXP_ZP_M": (None, "OX: The zero point magnitude of the image for the filter."),
-    "OXP_ZP_E": (None, "OX: The error on the zero point magnitude of the image."),
+    "OXP_SLVD": (False, "OX: True if photometry solved."),
+    "OXP__ENG": (None, "OX: Photometry engine."),
+    "OXP_FILT": (None, "OX: Filter name."),
+    "OXPSKYCT": (None, "OX: Average sky counts."),
+    "OXP_ZP_M": (None, "OX: Zero point magnitude."),
+    "OXP_ZP_E": (None, "OX: Zero point error."),
     # Orbital elements; O.
-    "OXO_SLVD": (False, "OX: If True, the orbital for the target has been solved."),
-    "OXO__ENG": (None, "OX: The used orbit engine to solve for the orbital elements."),
-    "OXO_A__S": (None, "OX: The solved semi-major axis of the orbit, AU."),
-    "OXO_E__S": (None, "OX: The solved eccentricity of the orbit, 1."),
-    "OXO_IN_S": (None, "OX: The solved inclination angle of the orbit, degree."),
-    "OXO_OM_S": (None, "OX: The solved ascending node of the orbit, degree."),
-    "OXO__W_S": (None, "OX: The solved perihelion of the orbit, degree."),
-    "OXO_MA_S": (None, "OX: The solved mean anomaly of the orbit, degree."),
-    "OXO_EA_D": (None, "OX: The derived eccentric anomaly of the orbit, degree."),
-    "OXO_TA_D": (None, "OX: The derived true anomaly of the orbit, degree."),
-    "OXO_A__E": (None, "OX: The error on the semi-major axis, AU."),
-    "OXO_E__E": (None, "OX: The error on the eccentricity, 1."),
-    "OXO_IN_E": (None, "OX: The error on the inclination angle, degree."),
-    "OXO_OM_E": (None, "OX: The error on the ascending node, degree."),
-    "OXO__W_E": (None, "OX: The error on the perihelion, degree."),
-    "OXO_MA_E": (None, "OX: The error on the mean anomaly, degree."),
-    "OXO_EA_E": (None, "OX: The error on the eccentric anomaly, degree."),
-    "OXO_TA_E": (None, "OX: The error on the true anomaly, degree."),
-    "OXO_EPCH": (None, "OX: The epoch of the orbital elements, Julia days."),
+    "OXO_SLVD": (False, "OX: True if orbit solved."),
+    "OXO__ENG": (None, "OX: The orbit engine."),
+    "OXO_A__S": (None, "OX: Semi-major axis, AU."),
+    "OXO_E__S": (None, "OX: Eccentricity, 1."),
+    "OXO_IN_S": (None, "OX: Inclination, degree."),
+    "OXO_OM_S": (None, "OX: Ascending node, degree."),
+    "OXO__W_S": (None, "OX: Perihelion, degree."),
+    "OXO_MA_S": (None, "OX: Mean anomaly, degree."),
+    "OXO_EA_D": (None, "OX: Eccentric anomaly, degree."),
+    "OXO_TA_D": (None, "OX: True anomaly, degree."),
+    "OXO_A__E": (None, "OX: Semi-major axis error, AU."),
+    "OXO_E__E": (None, "OX: Eccentricity error, 1."),
+    "OXO_IN_E": (None, "OX: Inclination angle error, degree."),
+    "OXO_OM_E": (None, "OX: Ascending node error, degree."),
+    "OXO__W_E": (None, "OX: Perihelion error, degree."),
+    "OXO_MA_E": (None, "OX: Mean anomaly error, degree."),
+    "OXO_EA_E": (None, "OX: Eccentric anomaly error, degree."),
+    "OXO_TA_E": (None, "OX: True anomaly error, degree."),
+    "OXO_EPCH": (None, "OX: Epoch, Julian days."),
     # Ephemeris; E.
-    "OXE_SLVD": (False, "OX: If True, the ephemeris for the target has been solved."),
-    "OXE__ENG": (None, "OX: The used ephemeris engine to solve for the ephemeris."),
-    "OXE_RA_V": (None, "OX: The ephemeris 1st order (vel.) rate for RA, arcsec/s."),
-    "OXE_DECV": (None, "OX: The ephemeris 1st order (vel.) rate for DEC, arcsec/s."),
-    "OXE_RA_A": (None, "OX: The ephemeris 2nd order (accel.) rate for RA, arcsec/s^2."),
-    "OXE_DECA": (None, "OX: The ephemeris 2nd order (accel.) rate for DEC, arcsec/s^2."),
+    "OXE_SLVD": (False, "OX: True if ephemeris solved."),
+    "OXE__ENG": (None, "OX: Ephemeritic engine."),
+    "OXE_RA_V": (None, "OX: Ephem. RA vel., arcsec/s."),
+    "OXE_DECV": (None, "OX: Ephem. DEC vel., arcsec/s."),
+    "OXE_RA_A": (None, "OX: Ephem. RA acc., arcsec/s^2."),
+    "OXE_DECA": (None, "OX: Ephem. DEC acc., arcsec/s^2."),
     # Propagation; R.
-    "OXR_SLVD": (False, "OX: If True, the propagation for the target has been solved."),
-    "OXR__ENG": (None, "OX: The used propagation engine to solve for the propagation."),
-    "OXR_RA_V": (None, "OX: The propagate 1st order (vel.) rate for RA, arcsec/s."),
-    "OXR_DECV": (None, "OX: The propagate 1st order (vel.) rate for DEC, arcsec/s."),
-    "OXR_RA_A": (None, "OX: The propagate 2nd order (accel.) rate for RA, arcsec/s^2."),
-    "OXR_DECA": (None, "OX: The propagate 2nd order (accel.) rate for DEC, arcsec/s^2."),
+    "OXR_SLVD": (False, "OX: True if propagate solved."),
+    "OXR__ENG": (None, "OX: The propagation engine."),
+    "OXR_RA_V": (None, "OX: Prop. RA vel., arcsec/s."),
+    "OXR_DECV": (None, "OX: Prop. DEC vel., arcsec/s."),
+    "OXR_RA_A": (None, "OX: Prop. RA acc., arcsec/s^2."),
+    "OXR_DECA": (None, "OX: Prop. DEC acc., arcsec/s^2."),
     # End.
-    "OX___END": (False, "OX: If True, saving this file had no errors."),
+    "OX___END": (False, "OX: True if no error on save."),
 }
 
 
@@ -158,7 +159,13 @@ def update_opihiexarata_fits_header(
 
         # We type check as FITS header files are picky about the object types 
         # they get FITS headers really only support some specific basic types.
-        if not isinstance(valuedex, (int, float, bool, str)):
+        if isinstance(valuedex, (int, float, bool, str)):
+            # These are generally accepted types.
+            pass
+        elif valuedex is None:
+            # Astropy may be able to handle it.
+            pass
+        else:
             raise error.InputError(
                 "The input value {v} has a type of {t}. FITS file headers really"
                 " only accept strings or numbers.".format(v=valuedex, t=type(valuedex))

@@ -895,6 +895,12 @@ class OpihiSolution(library.engine.ExarataSolution):
                 " Something out of sync."
             )
 
+        # We also add WCS header information from the astrometric solution, 
+        # if it exists.
+        if isinstance(self.astrometrics, astrometry.AstrometricSolution):
+            wcs_header = self.astrometrics.wcs.to_header()
+            updated_header.update(wcs_header)
+
         # Saving the file.
         library.fits.write_fits_image_file(
             filename=filename, header=updated_header, data=data, overwrite=overwrite
@@ -923,6 +929,9 @@ class OpihiSolution(library.engine.ExarataSolution):
         available_entries["OX_BEGIN"] = True
 
         # Target/asteroid information.
+        if self.asteroid_name is not None:
+            # If the name was provided.
+            available_entries["OXT_NAME"] = self.asteroid_name
         if self.asteroid_location is not None:
             # The pixel location.
             target_x, target_y = self.asteroid_location
@@ -948,7 +957,7 @@ class OpihiSolution(library.engine.ExarataSolution):
                 available_entries["OXT__DEC"] = target_dec_sex
 
         # Metadata information.
-        available_entries["OXM_ORFN"] = self.fits_filename
+        available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(pathname=self.fits_filename)
         # We can never know if this was preprocessed or not.
 
         # Astrometric information.
