@@ -11,6 +11,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 # The general template of the photometric table.
+OPIHI_FILTERS = ("c", "g", "r", "i", "z", "1", "2", "3")
 __PHOTOMETRY_TABLE_NAME_TYPE_PAIR = {
     "ra_photo": float,
     "dec_photo": float,

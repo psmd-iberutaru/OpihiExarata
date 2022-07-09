@@ -1,8 +1,8 @@
 """The general photometric solver."""
 
 import astropy.table as ap_table
-from matplotlib.style import available
 import numpy as np
+import scipy.stats as sp_stats
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -76,7 +76,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
             solution.
         solver_engine : PhotometryEngine
             The photometric solver engine class. This is what will act as the
-            "behind the scenes" and solve the field, using this middlewhere to
+            "behind the scenes" and solve the field, using this middleware to
             translate it into something that is easier.
         astrometrics : AstrometricSolution, default = None
             A precomputed astrometric solution which belongs to this image.
@@ -549,19 +549,19 @@ class PhotometricSolution(library.engine.ExarataSolution):
 
         # The filter name, check that it is a valid expected filter which the
         # photometric engines and vehicle functions are expected to deal with.
-        ACCEPTED_FILTERS = ("g", "r", "i", "z")
+        
         if filter_name is None:
             # The filter is not provided and thus photometry cannot be
             # performed.
             zero_point = self.zero_point
             zero_point_error = self.zero_point_error
             return zero_point, zero_point_error
-        elif filter_name not in ACCEPTED_FILTERS:
+        elif filter_name not in library.phototable.OPIHI_FILTERS:
             raise error.InputError(
                 "The filter name provided `{f}` is not a filter that is supported by"
                 " OpihiExarata's supported photometric engines and vehicle functions"
                 " and therefore cannot be used to derive a photometric solution."
-                " Accepted filters: {af}".format(f=filter_name, af=ACCEPTED_FILTERS)
+                " Opihi's filters: {of}".format(f=filter_name, of=library.phototable.OPIHI_FILTERS)
             )
         elif filter_name not in self.available_filters:
             raise error.InputError(
@@ -580,14 +580,15 @@ class PhotometricSolution(library.engine.ExarataSolution):
         magnitude = inter_star_table[filter_table_header]
         # And the count data.
         counts = inter_star_table["counts"]
-
         # Instrument magnitudes.
         inst_magnitude = -2.5 * np.log10(counts / exposure_time)
 
+        # If filtering needs to be done, it is done here.
+
         # Zero points via the definition equation
         zero_points = magnitude - inst_magnitude
-        zero_point = np.mean(zero_points)
-        zero_point_error = np.std(zero_points)
+        zero_point = np.median(zero_points)
+        zero_point_error = sp_stats.median_abs_deviation(zero_points, nan_policy="omit")
         return zero_point, zero_point_error
 
 
