@@ -135,7 +135,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
 
         # Summary-specific buttons.
-        self.ui.push_button_summary_save.clicked.connect(self.__connect_push_button_summary_save)
+        self.ui.push_button_summary_save.clicked.connect(
+            self.__connect_push_button_summary_save
+        )
 
         # Astrometry-specific buttons.
         self.ui.push_button_astrometry_solve_astrometry.clicked.connect(
@@ -314,7 +316,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Fetch a file from the directory where files are to be fetched.
         try:
             # We assume the last image is the directory to fetch from.
-            automatic_fetch_directory = library.path.get_directory(pathname=self.raw_fits_filename)
+            automatic_fetch_directory = library.path.get_directory(
+                pathname=self.raw_fits_filename
+            )
             new_fits_filename = library.path.get_most_recent_filename_in_directory(
                 directory=automatic_fetch_directory, extension="fits"
             )
@@ -372,7 +376,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         else:
             # Exit!
             return None
-
 
         # Process the file first so that what the user sees is closer to
         # what it really is.
@@ -439,8 +442,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.save_all_results()
         # All done.
         return None
-
-
 
     def __connect_push_button_astrometry_solve_astrometry(self) -> None:
         """The button to instruct on the solving of the astrometric solution.
@@ -855,7 +856,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             The filename of the MPC record for this object/image.
         """
         if self.asteroid_set_name is None:
-            raise error.SequentialOrderError("There is no asteroid name to derive the MPC record filename from.")
+            raise error.SequentialOrderError(
+                "There is no asteroid name to derive the MPC record filename from."
+            )
         else:
             mpc_target_name = self.asteroid_set_name
 
@@ -865,22 +868,23 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # that is currently the expected location.
         # Preferring the preprocessed filename if it exists, have a fall back.
         fits_pathname = (
-            self.raw_fits_filename
-            if self.fits_filename is None
-            else self.fits_filename
+            self.raw_fits_filename if self.fits_filename is None else self.fits_filename
         )
         if fits_pathname is None:
             fits_directory = library.path.get_directory(pathname=fits_pathname)
         else:
-             raise error.SequentialOrderError("There is no FITS file to derive the directory where the MPC record file should go.")
+            raise error.SequentialOrderError(
+                "There is no FITS file to derive the directory where the MPC record"
+                " file should go."
+            )
         mpc_record_filename = library.path.merge_pathname(
             directory=fits_directory, filename=mpc_record_filename, extension="txt"
         )
         return mpc_record_filename
 
     def __get_saving_fits_filename(self) -> str:
-        """This is a function which derives the FITS filename which will be 
-        used to save the results of the many computations done for this given 
+        """This is a function which derives the FITS filename which will be
+        used to save the results of the many computations done for this given
         image.
 
         Parameters
@@ -892,7 +896,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         saving_fits_filename : str
             The filename of the MPC record for this object/image.
         """
-        # We can use OpihiSolution's built-in function, but we need to 
+        # We can use OpihiSolution's built-in function, but we need to
         # define the filename. Adding a suffix is sufficient here.
         if self.fits_filename is not None:
             reference_fits_filename = self.fits_filename
@@ -900,16 +904,22 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             reference_fits_filename = self.raw_fits_filename
         # Check if a proper filename exists.
         if reference_fits_filename is None:
-            raise error.SequentialOrderError("There is no fits filename to derive the saving fits filename.")
+            raise error.SequentialOrderError(
+                "There is no fits filename to derive the saving fits filename."
+            )
 
-        # Extracting the entire path from the current name, we are saving it 
+        # Extracting the entire path from the current name, we are saving it
         # to the same location.
-        directory, basename, extension = library.path.split_pathname(pathname=reference_fits_filename)
+        directory, basename, extension = library.path.split_pathname(
+            pathname=reference_fits_filename
+        )
         # We are just adding the suffix to the filename.
         suffix = str(library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX)
         new_filename = basename + suffix
         # Recombining the path.
-        saving_fits_filename = library.path.merge_pathname(directory=directory, filename=new_filename, extension=extension)
+        saving_fits_filename = library.path.merge_pathname(
+            directory=directory, filename=new_filename, extension=extension
+        )
         return saving_fits_filename
 
     def _preprocess_fits_file(
@@ -974,7 +984,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The filter which image is in, extracted from the fits file,
         # assuming standard form.
         filter_position_string = str(header["FWHL"])
-        filter_name = library.conversion.filter_position_string_to_filter_name(position_string=filter_position_string)
+        filter_name = library.conversion.filter_position_string_to_filter_name(
+            position_string=filter_position_string
+        )
 
         # The exposure time of the image, extracted from the fits file,
         # assuming standard form.
@@ -1006,11 +1018,13 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 # Read the historical data.
                 with open(mpcrecord_filename, "r") as mpcfile:
                     raw_lines = mpcfile.readlines()
-                    # The files have new line characters on them, they need 
+                    # The files have new line characters on them, they need
                     # to be removed to have the normal 80 characters.
-                    asteroid_history = [linedex.removesuffix("\n") for linedex in raw_lines]
+                    asteroid_history = [
+                        linedex.removesuffix("\n") for linedex in raw_lines
+                    ]
             else:
-                # The MPC record filename does not exist because there is 
+                # The MPC record filename does not exist because there is
                 # no specified asteroid name.
                 asteroid_history = None
         else:
@@ -1168,7 +1182,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # not reset just because of a new image.
         # self.ui.label_dynamic_summary_target_name.setText("DEFAULT")
         # self.ui.label_dynamic_summary_directory.setText("/path/to/dir/")
-        self.ui.label_dynamic_summary_fits_file.setText("opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits")
+        self.ui.label_dynamic_summary_fits_file.setText(
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
+        )
         self.ui.line_edit_summary_save_filename.setText("")
 
         ## Resetting Astrometry information.
@@ -1257,17 +1273,25 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         # Refreshing the target name and the FITS filename.
         if self.asteroid_set_name is not None:
-            self.ui.label_dynamic_summary_target_name.setText(str(self.asteroid_set_name))
+            self.ui.label_dynamic_summary_target_name.setText(
+                str(self.asteroid_set_name)
+            )
 
-        # A FITS filename has to have been provided to fill in the file 
+        # A FITS filename has to have been provided to fill in the file
         # path location of it.
         if self.fits_filename is not None:
-            self.ui.label_dynamic_summary_directory.setText(library.path.get_directory(pathname=self.fits_filename))
-            self.ui.label_dynamic_summary_fits_file.setText(library.path.get_filename_with_extension(pathname=self.fits_filename))
+            self.ui.label_dynamic_summary_directory.setText(
+                library.path.get_directory(pathname=self.fits_filename)
+            )
+            self.ui.label_dynamic_summary_fits_file.setText(
+                library.path.get_filename_with_extension(pathname=self.fits_filename)
+            )
 
         # Refreshing the saving filename if possible.
         try:
-            self.ui.line_edit_summary_save_filename.setText(self.__get_saving_fits_filename())
+            self.ui.line_edit_summary_save_filename.setText(
+                self.__get_saving_fits_filename()
+            )
         except error.SequentialOrderError:
             # There is no FITS filename to update with.
             pass
@@ -1664,19 +1688,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         def empty_string(string: str) -> str:
             return str()
 
-
         # There is no solution and thus no image can be plotted.
         if self.opihi_solution is None:
             return None
-
-
 
         # These are points in future time which will be used to plot the
         # ephemeris and propagation solutions, if they exist. However,
         # as the time step is in seconds, and the standard time of this
         # system is in Julian days, we convert.
         if isinstance(self.opihi_solution.observing_time, (int, float)):
-            # We can only do this if we know the time that the image was taken 
+            # We can only do this if we know the time that the image was taken
             # at.
             TIMESTEP_JD = (
                 library.config.GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS / 86400
@@ -1717,7 +1738,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             # Disable their formatting in favor of ours.
             target_marker.format_cursor_data = empty_string
         except Exception:
-            # It does not work, something is wrong with the asteroid location 
+            # It does not work, something is wrong with the asteroid location
             # provided.
             pass
 
@@ -1785,13 +1806,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.opihi_canvas.draw()
         return None
 
-
     def save_auto_save(self) -> None:
-        """This function should be used when auto save is active across 
+        """This function should be used when auto save is active across
         every and all aspects of the GUI where automatic saving is desired.
 
         Auto-saving is enabled by the checkbox.
-        
+
         Parameters
         ----------
         None
@@ -1812,7 +1832,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-
     def save_all_results(self) -> None:
         """Save all of the results of the solutions to date. This is especially
         done upon selecting a new image, the previous image results are
@@ -1829,16 +1848,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Beginning with the FITS file. We get the filename to save the FITS 
+        # Beginning with the FITS file. We get the filename to save the FITS
         # file as and try to save it.
         saving_fits_filename = str(self.ui.line_edit_summary_save_filename.text())
         if len(saving_fits_filename) == 0:
-            # If the saving filename is blank then we ought to try an 
+            # If the saving filename is blank then we ought to try an
             # alternative by trying to derive the name from the fits file.
             try:
                 saving_fits_filename = self.__get_saving_fits_filename()
             except error.SequentialOrderError:
-                # There is no FITS file to even derive the filename. We cannot 
+                # There is no FITS file to even derive the filename. We cannot
                 # save the FITS file.
                 saving_fits_filename = None
         # Attempt to save the file.
@@ -1849,18 +1868,17 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             # Attempt to save the file.
             self._save_fits_file_results(fits_filename=saving_fits_filename)
 
-
-        # Next the MPC record file. We get the filename to save the mpc 
+        # Next the MPC record file. We get the filename to save the mpc
         # record file as and try to save it.
         try:
             saving_mpcrecord_filename = self.__get_mpc_record_filename()
         except error.SequentialOrderError:
-            # There is no FITS file to even derive the filename. We cannot 
+            # There is no FITS file to even derive the filename. We cannot
             # save the FITS file.
             saving_mpcrecord_filename = None
         # Attempt to save the file.
         if saving_mpcrecord_filename is None:
-            # There is no MPC record filename to save as. We cannot save the 
+            # There is no MPC record filename to save as. We cannot save the
             # file.
             print("warn mpc not save.")
         else:
@@ -1870,10 +1888,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def _save_fits_file_results(self, fits_filename:str) -> None:
-        """We save the results which can be stored in a FITS file, this is 
+    def _save_fits_file_results(self, fits_filename: str) -> None:
+        """We save the results which can be stored in a FITS file, this is
         typically the data and other related information.
-        
+
         Parameters
         ----------
         fits_filename : string
@@ -1887,16 +1905,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # early.
         if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
             return None
-        # Saving, it should be fine as we overwrite as only more data will 
+        # Saving, it should be fine as we overwrite as only more data will
         # be added.
         self.opihi_solution.save_to_fits_file(filename=fits_filename, overwrite=True)
         # All done.
         return None
 
-    def _save_mpc_record_results(self, record_filename:str) -> None:
-        """We save the MPC record information which can be saved as a 
+    def _save_mpc_record_results(self, record_filename: str) -> None:
+        """We save the MPC record information which can be saved as a
         text file.
-        
+
         Parameters
         ----------
         record_filename : string
@@ -1907,11 +1925,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # The OpihiSolution class does not exist so there is nothing for it 
+        # The OpihiSolution class does not exist so there is nothing for it
         # to provide. However, if there is no file, we still can create it.
         if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
             if os.path.isfile(record_filename):
-                # We do not want to overwrite something if we have nothing to 
+                # We do not want to overwrite something if we have nothing to
                 # provide it.
                 return None
             else:
@@ -1922,16 +1940,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         try:
             mpc_record = self.opihi_solution.mpc_record_full()
         except error.PracticalityError:
-            # If the user did not solve for astrometry, this will raise 
-            # because it cannot properly make an MPC row. We ignore it 
-            # and we do not add any observational data. We just return it 
+            # If the user did not solve for astrometry, this will raise
+            # because it cannot properly make an MPC row. We ignore it
+            # and we do not add any observational data. We just return it
             # to the state it was.
             mpc_record = self.opihi_solution.asteroid_history
         finally:
             # Adding the new line character as write lines do not do this
             # to make the multi-rowed file.
             mpc_record = [rowdex + "\n" for rowdex in mpc_record]
-        # If the record file already exists, replace our information with 
+        # If the record file already exists, replace our information with
         # it. We can do this because we already are using their data.
         with open(record_filename, "w") as mpcfile:
             mpcfile.writelines(mpc_record)

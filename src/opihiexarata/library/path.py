@@ -102,8 +102,9 @@ def get_filename_without_extension(pathname: str) -> str:
         The filename without the file extension.
     """
     # In the event that there are more than one period in the full filename.
+    # We only remove last one as is the conventions for extensions.
     file_components = os.path.basename(pathname).split(".")[:-1]
-    filename = "".join(file_components)
+    filename = ".".join(file_components)
     return filename
 
 

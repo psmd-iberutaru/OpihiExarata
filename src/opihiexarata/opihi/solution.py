@@ -969,13 +969,13 @@ class OpihiSolution(library.engine.ExarataSolution):
             available_entries["OXA__ENG"] = self.astrometrics_engine_class.__name__
             # And the results.
             (
-                metric_ra_sex,
-                metric_dec_sex,
+                center_ra_sex,
+                center_dec_sex,
             ) = library.conversion.degrees_to_sexagesimal_ra_dec(
                 ra_deg=self.astrometrics.ra, dec_deg=self.astrometrics.dec
             )
-            available_entries["OXA___RA"] = metric_ra_sex
-            available_entries["OXA__DEC"] = metric_dec_sex
+            available_entries["OXA___RA"] = center_ra_sex
+            available_entries["OXA__DEC"] = center_dec_sex
             available_entries["OXA_ANGL"] = self.astrometrics.orientation
             available_entries["OXA_RADI"] = self.astrometrics.radius
             available_entries["OXA_PXSC"] = self.astrometrics.pixel_scale
@@ -1001,20 +1001,20 @@ class OpihiSolution(library.engine.ExarataSolution):
             # The engine.
             available_entries["OXO__ENG"] = self.orbitals_engine_class.__name__
             # The solved or derived values.
-            available_entries["OXO_A__S"] = self.orbitals.semimajor_axis
-            available_entries["OXO_E__S"] = self.orbitals.eccentricity
+            available_entries["OXO_SM_S"] = self.orbitals.semimajor_axis
+            available_entries["OXO_EC_S"] = self.orbitals.eccentricity
             available_entries["OXO_IN_S"] = self.orbitals.inclination
-            available_entries["OXO_OM_S"] = self.orbitals.longitude_ascending_node
-            available_entries["OXO__W_S"] = self.orbitals.inclination
+            available_entries["OXO_AN_S"] = self.orbitals.longitude_ascending_node
+            available_entries["OXO_PH_S"] = self.orbitals.argument_perihelion
             available_entries["OXO_MA_S"] = self.orbitals.mean_anomaly
             available_entries["OXO_EA_D"] = self.orbitals.eccentric_anomaly
             available_entries["OXO_TA_D"] = self.orbitals.true_anomaly
             # ...and their errors.
-            available_entries["OXO_A__E"] = self.orbitals.semimajor_axis_error
-            available_entries["OXO_E__E"] = self.orbitals.eccentricity_error
+            available_entries["OXO_SM_E"] = self.orbitals.semimajor_axis_error
+            available_entries["OXO_EC_E"] = self.orbitals.eccentricity_error
             available_entries["OXO_IN_E"] = self.orbitals.inclination_error
-            available_entries["OXO_OM_E"] = self.orbitals.longitude_ascending_node_error
-            available_entries["OXO__W_E"] = self.orbitals.inclination_error
+            available_entries["OXO_AN_E"] = self.orbitals.longitude_ascending_node_error
+            available_entries["OXO_PH_E"] = self.orbitals.argument_perihelion_error
             available_entries["OXO_MA_E"] = self.orbitals.mean_anomaly_error
             available_entries["OXO_EA_E"] = self.orbitals.eccentric_anomaly_error
             available_entries["OXO_TA_E"] = self.orbitals.true_anomaly_error

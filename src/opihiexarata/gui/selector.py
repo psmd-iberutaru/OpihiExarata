@@ -781,10 +781,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 pass
             else:
                 # The currently derived values are incorrect. Falling back on
-                # an assumption of the origin to signify that it was not 
-                # provided while still giving a numerical value to work with.
-                using_pixel_x = 0
-                using_pixel_y = 0
+                # an assumption of the beyond the origin to signify that it 
+                # was not provided while still giving a numerical value to 
+                # work with.
+                using_pixel_x = -1
+                using_pixel_y = -1
 
         # The target values updated to reflect this prioritization and
         # conversation.
