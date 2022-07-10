@@ -581,7 +581,8 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # And the count data.
         counts = inter_star_table["counts"]
         # Instrument magnitudes.
-        inst_magnitude = -2.5 * np.log10(counts / exposure_time)
+        sqrt5_100 = 2.51188643151
+        inst_magnitude = -sqrt5_100 * np.log10(counts / exposure_time)
 
         # We filter the stars so that we avoid using stars and targets 
         # which otherwise would skew our results.
