@@ -179,9 +179,10 @@ PHOTOMETRY_SCIENCE_RADIUS_MASK_PIXELS : 500
 PHOTOMETRY_EDGE_WIDTH_MASK_PIXELS : 100
 
 # Photometry does not work well when using highly satuated stars or 
-# under saturated stars in the calculation. As such, we provide a maximum 
-# and minimum "per-pixel" bound for how bright 
-
+# under saturated stars in the calculation. As such, we... 
+# ... limit the stars used to those only dimmer than some apparent magnitude;
+# ... (others);
+PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE : 6
 
 
 ############################################################

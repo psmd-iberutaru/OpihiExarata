@@ -22,8 +22,31 @@ photometric database gives us the magnitudes for a given band and we can
 use aperture photometry to determine the total counts of the objects.
 
 This way, we can calculate an average zero point value :math:`Z_p` which can 
-be used for other photometric calculations. 
+be used for other photometric calculations. We use medians to avoid issues 
+with outliers.
 
 Important considerations must be taken to remove overly bright and overly dim 
 objects. These otherwise skew the zero-point measurement because of saturation
 or noise effects.
+
+
+Filtering Considerations
+========================
+
+We account for overly bright and overly dim stars and other problematic 
+targets by filtering the results from the photometric database 
+(the PhotometryEngine). We describe the methods that we use to filter the 
+inappropriate stars. Configuring these methods can be done by tuning their 
+corresponding configuration files.
+
+Limiting by Magnitude
+---------------------
+
+We limit the stars considered for calculating the zero point based on 
+magnitude. If a star has a filter magnitude (as determined by the 
+photometric database) exceeding :math:`m_\text{max}`, then it is not included
+in the determination of the zero point. They are excluded from the set which 
+when averaged determines the zero point and its errors.
+
+(To "exceed" a filter magnitude, the magnitude must be less than the reference 
+one because magnitudes are a backwards system.)

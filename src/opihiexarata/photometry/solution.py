@@ -583,10 +583,23 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # Instrument magnitudes.
         inst_magnitude = -2.5 * np.log10(counts / exposure_time)
 
-        # If filtering needs to be done, it is done here.
+        # We filter the stars so that we avoid using stars and targets 
+        # which otherwise would skew our results.
+        # Stars which are too bright saturate our detector. We limit based on 
+        # the magnitude as specified. A dimmer object has a higher magnitude.
+        LIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
+        invalid_filter_magnitude = np.where(magnitude <= LIM_MAG, True, False)
+
+        # The valid points that we can use are those not caught with the 
+        # filter.
+        valid_points = ~(invalid_filter_magnitude)
+        # Using only the remaining/valid targets for the photometric 
+        # calculation.
+        valid_magnitude = magnitude[valid_points]
+        valid_inst_magnitude = inst_magnitude[valid_points]
 
         # Zero points via the definition equation
-        zero_points = magnitude - inst_magnitude
+        zero_points = valid_magnitude - valid_inst_magnitude
         zero_point = np.median(zero_points)
         zero_point_error = sp_stats.median_abs_deviation(zero_points, nan_policy="omit")
         return zero_point, zero_point_error
