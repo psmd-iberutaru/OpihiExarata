@@ -18,8 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
     QFrame, QGraphicsView, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QMainWindow, QPushButton,
-    QSizePolicy, QStatusBar, QTabWidget, QTextBrowser,
-    QVBoxLayout, QWidget)
+    QSizePolicy, QStatusBar, QTabWidget, QVBoxLayout,
+    QWidget)
 
 class Ui_ManualWindow(object):
     def setupUi(self, ManualWindow):
@@ -173,6 +173,11 @@ class Ui_ManualWindow(object):
 
         self.vertical_layout_summary.addLayout(self.grid_layout_target_image_names)
 
+        self.push_button_send_target_to_tcs = QPushButton(self.verticalLayoutWidget_7)
+        self.push_button_send_target_to_tcs.setObjectName(u"push_button_send_target_to_tcs")
+
+        self.vertical_layout_summary.addWidget(self.push_button_send_target_to_tcs)
+
         self.horizontal_layout_save_file = QHBoxLayout()
         self.horizontal_layout_save_file.setObjectName(u"horizontal_layout_save_file")
         self.line_edit_summary_save_filename = QLineEdit(self.verticalLayoutWidget_7)
@@ -199,7 +204,7 @@ class Ui_ManualWindow(object):
         self.tab_astrometry.setObjectName(u"tab_astrometry")
         self.verticalLayoutWidget = QWidget(self.tab_astrometry)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 581, 241))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 581, 251))
         self.verticalLayoutWidget.setFont(font)
         self.vertical_layout_astrometry = QVBoxLayout(self.verticalLayoutWidget)
         self.vertical_layout_astrometry.setObjectName(u"vertical_layout_astrometry")
@@ -343,7 +348,7 @@ class Ui_ManualWindow(object):
         self.tab_photometry.setObjectName(u"tab_photometry")
         self.verticalLayoutWidget_2 = QWidget(self.tab_photometry)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(10, 10, 581, 241))
+        self.verticalLayoutWidget_2.setGeometry(QRect(10, 10, 581, 251))
         self.verticalLayoutWidget_2.setFont(font)
         self.vertical_layout_photometry = QVBoxLayout(self.verticalLayoutWidget_2)
         self.vertical_layout_photometry.setObjectName(u"vertical_layout_photometry")
@@ -416,7 +421,7 @@ class Ui_ManualWindow(object):
         self.tab_orbit.setObjectName(u"tab_orbit")
         self.verticalLayoutWidget_5 = QWidget(self.tab_orbit)
         self.verticalLayoutWidget_5.setObjectName(u"verticalLayoutWidget_5")
-        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 581, 241))
+        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 581, 251))
         self.verticalLayoutWidget_5.setFont(font)
         self.vertical_layout_orbit = QVBoxLayout(self.verticalLayoutWidget_5)
         self.vertical_layout_orbit.setObjectName(u"vertical_layout_orbit")
@@ -556,7 +561,7 @@ class Ui_ManualWindow(object):
         self.tab_ephemeris.setObjectName(u"tab_ephemeris")
         self.verticalLayoutWidget_6 = QWidget(self.tab_ephemeris)
         self.verticalLayoutWidget_6.setObjectName(u"verticalLayoutWidget_6")
-        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 581, 241))
+        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 581, 251))
         self.verticalLayoutWidget_6.setFont(font)
         self.vertical_layout_ephemeris = QVBoxLayout(self.verticalLayoutWidget_6)
         self.vertical_layout_ephemeris.setObjectName(u"vertical_layout_ephemeris")
@@ -632,6 +637,11 @@ class Ui_ManualWindow(object):
 
 
         self.vertical_layout_ephemeris.addLayout(self.grid_layout_ephemeris_rate_results)
+
+        self.push_button_ephemeris_update_tcs_rate = QPushButton(self.verticalLayoutWidget_6)
+        self.push_button_ephemeris_update_tcs_rate.setObjectName(u"push_button_ephemeris_update_tcs_rate")
+
+        self.vertical_layout_ephemeris.addWidget(self.push_button_ephemeris_update_tcs_rate)
 
         self.line_6 = QFrame(self.verticalLayoutWidget_6)
         self.line_6.setObjectName(u"line_6")
@@ -761,25 +771,17 @@ class Ui_ManualWindow(object):
 
         self.vertical_layout_propagate.addLayout(self.grid_layout_propagate_rate_results)
 
+        self.push_button_propagate_update_tcs_rate = QPushButton(self.verticalLayoutWidget_4)
+        self.push_button_propagate_update_tcs_rate.setObjectName(u"push_button_propagate_update_tcs_rate")
+
+        self.vertical_layout_propagate.addWidget(self.push_button_propagate_update_tcs_rate)
+
         self.line_10 = QFrame(self.verticalLayoutWidget_4)
         self.line_10.setObjectName(u"line_10")
         self.line_10.setFrameShape(QFrame.HLine)
         self.line_10.setFrameShadow(QFrame.Sunken)
 
         self.vertical_layout_propagate.addWidget(self.line_10)
-
-        self.text_browser_propagate_future_results = QTextBrowser(self.verticalLayoutWidget_4)
-        self.text_browser_propagate_future_results.setObjectName(u"text_browser_propagate_future_results")
-        self.text_browser_propagate_future_results.setAcceptRichText(True)
-
-        self.vertical_layout_propagate.addWidget(self.text_browser_propagate_future_results)
-
-        self.line_4 = QFrame(self.verticalLayoutWidget_4)
-        self.line_4.setObjectName(u"line_4")
-        self.line_4.setFrameShape(QFrame.HLine)
-        self.line_4.setFrameShadow(QFrame.Sunken)
-
-        self.vertical_layout_propagate.addWidget(self.line_4)
 
         self.grid_layout_propagate_custom_entry = QGridLayout()
         self.grid_layout_propagate_custom_entry.setObjectName(u"grid_layout_propagate_custom_entry")
@@ -852,6 +854,7 @@ class Ui_ManualWindow(object):
         self.label_dynamic_summary_fits_file.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None))
         self.label_static_summary_directory.setText(QCoreApplication.translate("ManualWindow", u"Directory:", None))
         self.label_dynamic_summary_directory.setText(QCoreApplication.translate("ManualWindow", u"/path/to/dir/", None))
+        self.push_button_send_target_to_tcs.setText(QCoreApplication.translate("ManualWindow", u"Send Target to TCS", None))
         self.check_box_summary_autosave.setText(QCoreApplication.translate("ManualWindow", u"Auto", None))
         self.push_button_summary_save.setText(QCoreApplication.translate("ManualWindow", u"Save", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_summary), QCoreApplication.translate("ManualWindow", u"Summary", None))
@@ -906,6 +909,7 @@ class Ui_ManualWindow(object):
         self.label_dynamic_ephemeris_dec_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_dynamic_ephemeris_ra_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_static_ephemeris_rate.setText(QCoreApplication.translate("ManualWindow", u"<html><head/><body><p>Ephemeris Rate [ &quot;/s | &quot;/s<span style=\" vertical-align:super;\">2</span> ]</p></body></html>", None))
+        self.push_button_ephemeris_update_tcs_rate.setText(QCoreApplication.translate("ManualWindow", u"Update TCS Rate", None))
         self.label_dynamic_ephemeris_custom_ra.setText(QCoreApplication.translate("ManualWindow", u"HH:MM:SS.SS", None))
         self.date_time_edit_ephemeris_date_time.setDisplayFormat(QCoreApplication.translate("ManualWindow", u"yyyy-MM-dd HH:mm:ss", None))
         self.label_dynamic_ephemeris_custom_dec.setText(QCoreApplication.translate("ManualWindow", u"+DD:MM:SS.SS", None))
@@ -923,11 +927,7 @@ class Ui_ManualWindow(object):
         self.label_dynamic_propagate_dec_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_dynamic_propagate_ra_velocity.setText(QCoreApplication.translate("ManualWindow", u"+VV.VVV", None))
         self.label_static_propagate_rate.setText(QCoreApplication.translate("ManualWindow", u"<html><head/><body><p>Propagate Rate [ &quot;/s | &quot;/s<span style=\" vertical-align:super;\">2</span> ]</p></body></html>", None))
-        self.text_browser_propagate_future_results.setHtml(QCoreApplication.translate("ManualWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sylfaen'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS</p></body></html>", None))
+        self.push_button_propagate_update_tcs_rate.setText(QCoreApplication.translate("ManualWindow", u"Update TCS Rate", None))
         self.date_time_edit_propagate_date_time.setDisplayFormat(QCoreApplication.translate("ManualWindow", u"yyyy-MM-dd HH:mm:ss", None))
         self.label_dynamic_propagate_custom_dec.setText(QCoreApplication.translate("ManualWindow", u"+DD:MM:SS.SS", None))
         self.label_dynamic_propagate_custom_ra.setText(QCoreApplication.translate("ManualWindow", u"HH:MM:SS.SS", None))

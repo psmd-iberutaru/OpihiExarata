@@ -149,7 +149,7 @@ def t3io_tcs_next(
     t3io_command_arguments = [
         BINARY_PATH,
         "-h {h}".format(h=TCS_HOST),
-        "next",
+        "Next",
         ra_sex,
         deg_sex,
         ra_proper_motion,
@@ -161,6 +161,7 @@ def t3io_tcs_next(
         magnitude,
         ra_vel_as_s,
         dec_vel_as_s,
+        "opihiexarata"
     ]
     t3io_response = subprocess.run(t3io_command_arguments)
     return t3io_response
@@ -216,7 +217,7 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     t3io_command_arguments = [
         BINARY_PATH,
         "-h {h}".format(h=TCS_HOST),
-        "ns.rate",
+        "NS.rate",
         ra_vel_as_s,
         dec_vel_as_s,
     ]

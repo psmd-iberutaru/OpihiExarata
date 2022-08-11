@@ -269,6 +269,13 @@
              </layout>
             </item>
             <item>
+             <widget class="QPushButton" name="push_button_send_target_to_tcs">
+              <property name="text">
+               <string>Send Target to TCS</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <layout class="QHBoxLayout" name="horizontal_layout_save_file">
               <item>
                <widget class="QLineEdit" name="line_edit_summary_save_filename"/>
@@ -305,7 +312,7 @@
              <x>10</x>
              <y>10</y>
              <width>581</width>
-             <height>241</height>
+             <height>251</height>
             </rect>
            </property>
            <property name="font">
@@ -509,7 +516,7 @@
              <x>10</x>
              <y>10</y>
              <width>581</width>
-             <height>241</height>
+             <height>251</height>
             </rect>
            </property>
            <property name="font">
@@ -611,7 +618,7 @@
              <x>10</x>
              <y>10</y>
              <width>581</width>
-             <height>241</height>
+             <height>251</height>
             </rect>
            </property>
            <property name="font">
@@ -823,7 +830,7 @@
              <x>10</x>
              <y>10</y>
              <width>581</width>
-             <height>241</height>
+             <height>251</height>
             </rect>
            </property>
            <property name="font">
@@ -930,6 +937,13 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="push_button_ephemeris_update_tcs_rate">
+              <property name="text">
+               <string>Update TCS Rate</string>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="Line" name="line_6">
@@ -1129,28 +1143,14 @@
              </layout>
             </item>
             <item>
+             <widget class="QPushButton" name="push_button_propagate_update_tcs_rate">
+              <property name="text">
+               <string>Update TCS Rate</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="Line" name="line_10">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTextBrowser" name="text_browser_propagate_future_results">
-              <property name="html">
-               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sylfaen'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="acceptRichText">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
