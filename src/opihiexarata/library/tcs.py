@@ -8,9 +8,9 @@ values from the conventions of OpihiExarata (as the expected input) to the
 expected input for the TCS.
 """
 
+import os
 import subprocess
 import string
-from unicodedata import name
 
 
 import opihiexarata.library as library
@@ -81,6 +81,13 @@ def t3io_tcs_next(
     # To use the TCS, we utilize the t3io program. Its location is determined
     # by the configuration file.
     BINARY_PATH = str(library.config.GUI_MANUAL_T3IO_PROGRAM_BINARY_PATH)
+    # If the t3io program does not exist, then we cannot send a command to the
+    # TCS.
+    if not os.path.exists(BINARY_PATH):
+        raise error.InstallError(
+            "The t3io program does not exist at the path provided in the configuration."
+            " This software cannot properly execute TCS commands."
+        )
     # The hostname to be used, this matters as sometimes the hostname to be
     # used is the testing TCS hostname.
     TCS_HOST = str(library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME)
@@ -183,6 +190,13 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     # To use the TCS, we utilize the t3io program. Its location is determined
     # by the configuration file.
     BINARY_PATH = str(library.config.GUI_MANUAL_T3IO_PROGRAM_BINARY_PATH)
+    # If the t3io program does not exist, then we cannot send a command to the
+    # TCS.
+    if not os.path.exists(BINARY_PATH):
+        raise error.InstallError(
+            "The t3io program does not exist at the path provided in the configuration."
+            " This software cannot properly execute TCS commands."
+        )
     # The hostname to be used, this matters as sometimes the hostname to be
     # used is the testing TCS hostname.
     TCS_HOST = str(library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME)
