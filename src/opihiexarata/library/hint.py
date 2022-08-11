@@ -22,6 +22,8 @@ from astropy.wcs import WCS
 
 from matplotlib.backend_bases import MouseEvent
 
+from subprocess import CompletedProcess
+
 # Arrays. This is done because ArrayLike casts a rather larger union
 # documentation.
 from numpy import ndarray
