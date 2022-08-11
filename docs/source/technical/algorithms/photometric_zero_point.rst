@@ -15,7 +15,7 @@ DN counts of an object. It is given by:
 Where :math:`m` is the magnitude of an object which has a total integrated
 signal of :math:`D` over some time :math:`t`. The magnitude zero point is 
 given by :math:`Z_p`. (The actual multiplicative constant is 
-:math:`100^\frac{1}{2}`.)
+:math:`100^\frac{1}{5}`.)
 
 We can reverse this calculation by consulting a photometric database. The 
 photometric database gives us the magnitudes for a given band and we can 
