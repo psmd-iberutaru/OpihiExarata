@@ -32,7 +32,7 @@ def t3io_tcs_next(
     epoch: int = 2000,
     equinox: int = 2000,
     coordinate_system: str = "fk5",
-    target_name: str = "pyukumuku",
+    target_name: str = None,
     magnitude: float = 0,
     ra_velocity: float = 0,
     dec_velocity: float = 0,
@@ -63,8 +63,9 @@ def t3io_tcs_next(
     coordinate_system : string, default = "fk5"
         The coordinate system which the RA and DEC is using. Must be either
         FK5, FK4, or APP, which is the topocentric apparent coordinate system.
-    target_name : string, default = "opihiexarata"
-        The name of the target.
+    target_name : string, default = None
+        The name of the target. If not provided, it defaults to the
+        default name found in the configuration file for TCS requests.
     magnitude : float, default = 0
         The magnitude of the target.
     ra_velocity : float, default = 0
@@ -119,6 +120,11 @@ def t3io_tcs_next(
     # We assume the object name is case sensitive. However, spaces must be
     # encoded using percent encoding. We will only accept latin characters
     # as well and encode the space as we go.
+    target_name = (
+        target_name
+        if target_name is not None
+        else library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
+    )
     if set(target_name) <= LATIN_ASCII_CHARACTER_SET:
         # If there are any spaces, we need to re-encode them as %20 as the
         # space is the delimiter for different arguments in the t3io command.
@@ -161,7 +167,7 @@ def t3io_tcs_next(
         magnitude,
         ra_vel_as_s,
         dec_vel_as_s,
-        "opihiexarata"
+        "opihiexarata",
     ]
     t3io_response = subprocess.run(t3io_command_arguments)
     return t3io_response

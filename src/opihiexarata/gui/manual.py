@@ -12,6 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from sklearn.feature_selection import SelectFromModel
 
 import opihiexarata
 from opihiexarata import opihi
@@ -138,6 +139,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.push_button_summary_save.clicked.connect(
             self.__connect_push_button_summary_save
         )
+        self.ui.push_button_send_target_to_tcs.clicked.connect(
+            self.__connect_push_button_summary_send_target_to_tcs
+        )
 
         # Astrometry-specific buttons.
         self.ui.push_button_astrometry_solve_astrometry.clicked.connect(
@@ -161,10 +165,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.push_button_ephemeris_solve_ephemeris.clicked.connect(
             self.__connect_push_button_orbit_solve_ephemeris
         )
+        self.ui.push_button_ephemeris_update_tcs_rate.clicked.connect(
+            self.__connect_push_button_ephemeris_update_tcs_rate
+        )
+        self.ui.push_button_ephemeris_custom_solve.clicked.connect(
+            self.__connect_push_button_ephemeris_custom_solve
+        )
 
         # Propagate-specific buttons.
         self.ui.push_button_propagate_solve_propagation.clicked.connect(
             self.__connect_push_button_propagate_solve_propagation
+        )
+        self.ui.push_button_propagate_update_tcs_rate.clicked.connect(
+            self.__connect_push_button_propagate_update_tcs_rate
         )
         self.ui.push_button_propagate_custom_solve.clicked.connect(
             self.__connect_push_button_propagate_custom_solve
@@ -427,6 +440,84 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.refresh_dynamic_label_text()
         return None
 
+    def __connect_push_button_summary_send_target_to_tcs(self) -> None:
+        """This function serves to implement sending target information to the
+        TCS. All information that can be provided will be provided to the TCS.
+
+        Astronomical coordinates (and thus an astrometric solution) is
+        required.
+
+        If both an ephemeritic solution and a propagation solution exists
+        for providing the non-sidereal rates, we prioritize those from
+        the propagation.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
+        # The name of the target/asteroid. If it is None, we just default to
+        # whatever is in the configuration file.
+        target_name = self.opihi_solution.asteroid_name
+        DEFAULT_TCS_NAME = library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
+        target_name = DEFAULT_TCS_NAME if target_name is None else target_name
+
+        # We require astrometric coordinates, and thus an astrometric solution.
+        # If there are none, then there is nothing we can do.
+        if not isinstance(
+            self.opihi_solution.astrometrics, astrometry.AstrometricSolution
+        ):
+            return None
+        else:
+            ra_deg = self.opihi_solution.astrometrics.ra
+            dec_deg = self.opihi_solution.astrometrics.dec
+
+        # If there is a photometric solution that exists, we can obtain the
+        # magnitude.
+        if not isinstance(
+            self.opihi_solution.photometrics, photometry.PhotometricSolution
+        ):
+            magnitude = 0
+        else:
+            magnitude = 0
+
+        # If there is a propagative or ephemeritic solution, we can apply the
+        # non-sidereal rates as well. We prioritize propagative solutions.
+        if isinstance(self.opihi_solution.propagatives, propagate.PropagativeSolution):
+            ra_velocity = self.opihi_solution.propagatives.ra_velocity
+            dec_velocity = self.opihi_solution.propagatives.dec_velocity
+        elif isinstance(
+            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        ):
+            ra_velocity = self.opihi_solution.ephemeritics.ra_velocity
+            dec_velocity = self.opihi_solution.ephemeritics.dec_velocity
+        else:
+            # There are no valid solutions to extract the non-sidereal rates
+            # from.
+            ra_velocity = 0
+            dec_velocity = 0
+
+        # We send all of the information that we could to the TCS. We do not
+        # really care about the response just yet.
+        __ = library.tcs.t3io_tcs_next(
+            ra=ra_deg,
+            dec=dec_deg,
+            target_name=target_name,
+            magnitude=magnitude,
+            ra_velocity=ra_velocity,
+            dec_velocity=dec_velocity,
+        )
+        # All done.
+        return None
+
     def __connect_push_button_summary_save(self) -> None:
         """The function serving to save the fits file.
 
@@ -686,7 +777,37 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_propagate_custom_solve(self) -> None:
+    def __connect_push_button_ephemeris_update_tcs_rate(self) -> None:
+        """A routine to update the non-sidereal rates of the TCS as provided
+        by the ephemeritic solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no ephemeritic solution, there is nothing to be done.
+        if not isinstance(
+            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        ):
+            return None
+
+        # We use the ephemeritic solution rates to update the TCS, the
+        # function provided already converts the values as needed
+        # so we can provide the units as per convention.
+        # We do not care about the response for now.
+        __ = library.tcs.t3io_tcs_ns_rate(
+            ra_velocity=self.opihi_solution.ephemeritics.ra_velocity,
+            dec_velocity=self.opihi_solution.ephemeritics.dec_velocity,
+        )
+
+        # All done.
+        return None
+
+    def __connect_push_button_ephemeris_custom_solve(self) -> None:
         """Solving for the location of the target through the ephemeris based
         on the time and date provided by the user.
 
@@ -698,7 +819,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no propagation solution, there is nothing to be done.
+        # If there is no ephemeris solution, there is nothing to be done.
         if not isinstance(
             self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
         ):
@@ -706,7 +827,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # Get the time and date from the user input.
         datetime_input = self.ui.date_time_edit_ephemeris_date_time.dateTime()
-        # Getting the timezone, as the propagation requires UTC/JD time, a
+        # Getting the timezone, as the ephemeris requires UTC/JD time, a
         # conversion is needed. Qt uses IANA timezone IDs so we convert from
         # the human readable ones to it. We only deal with current timezones.
         timezone_input = self.ui.combo_box_ephemeris_timezone.currentText()
@@ -731,7 +852,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             unix_time=unix_time_input
         )
 
-        # Using this unique time provided to solve the propagation.
+        # Using this unique time provided to solve the forward ephemeris.
         ra_deg, dec_deg = self.opihi_solution.ephemeritics.forward_ephemeris(
             future_time=julian_day_input
         )
@@ -781,6 +902,36 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
         self.save_auto_save()
+        return None
+
+    def __connect_push_button_propagate_update_tcs_rate(self) -> None:
+        """A routine to update the non-sidereal rates of the TCS as provided
+        by the propagation solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no propagative solution, there is nothing to be done.
+        if not isinstance(
+            self.opihi_solution.propagatives, propagate.PropagativeSolution
+        ):
+            return None
+
+        # We use the propagative solution rates to update the TCS, the
+        # function provided already converts the values as needed
+        # so we can provide the units as per convention.
+        # We do not care about the response for now.
+        __ = library.tcs.t3io_tcs_ns_rate(
+            ra_velocity=self.opihi_solution.propagatives.ra_velocity,
+            dec_velocity=self.opihi_solution.propagatives.dec_velocity,
+        )
+
+        # All done.
         return None
 
     def __connect_push_button_propagate_custom_solve(self) -> None:
