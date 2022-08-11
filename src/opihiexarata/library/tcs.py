@@ -84,7 +84,7 @@ def t3io_tcs_next(
     # If the t3io program does not exist, then we cannot send a command to the
     # TCS.
     if not os.path.exists(BINARY_PATH):
-        raise error.InstallError(
+        raise error.ConfigurationError(
             "The t3io program does not exist at the path provided in the configuration."
             " This software cannot properly execute TCS commands."
         )
@@ -193,7 +193,7 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     # If the t3io program does not exist, then we cannot send a command to the
     # TCS.
     if not os.path.exists(BINARY_PATH):
-        raise error.InstallError(
+        raise error.ConfigurationError(
             "The t3io program does not exist at the path provided in the configuration."
             " This software cannot properly execute TCS commands."
         )
