@@ -1374,9 +1374,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_propagate_dec_velocity.setText("+VV.VVV")
         self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAAeXX")
         self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAAeXX")
-        self.ui.text_browser_propagate_future_results.setPlainText(
-            "YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS"
-        )
         # Keeping the timezone and time information for convenience.
         self.ui.label_dynamic_propagate_custom_ra.setText("HH:MM:SS.SS")
         self.ui.label_dynamic_propagate_custom_dec.setText("+DD:MM:SS.SS")
