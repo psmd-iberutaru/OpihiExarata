@@ -12,7 +12,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-from sklearn.feature_selection import SelectFromModel
 
 import opihiexarata
 from opihiexarata import opihi
