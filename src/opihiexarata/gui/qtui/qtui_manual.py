@@ -396,6 +396,23 @@ class Ui_ManualWindow(object):
 
         self.horizonta_layout_photometry_results.addWidget(self.line_13)
 
+        self.label_static_photometry_magnitude = QLabel(self.verticalLayoutWidget_2)
+        self.label_static_photometry_magnitude.setObjectName(u"label_static_photometry_magnitude")
+
+        self.horizonta_layout_photometry_results.addWidget(self.label_static_photometry_magnitude)
+
+        self.label_dynamic_photometry_magnitude = QLabel(self.verticalLayoutWidget_2)
+        self.label_dynamic_photometry_magnitude.setObjectName(u"label_dynamic_photometry_magnitude")
+
+        self.horizonta_layout_photometry_results.addWidget(self.label_dynamic_photometry_magnitude)
+
+        self.line_4 = QFrame(self.verticalLayoutWidget_2)
+        self.line_4.setObjectName(u"line_4")
+        self.line_4.setFrameShape(QFrame.VLine)
+        self.line_4.setFrameShadow(QFrame.Sunken)
+
+        self.horizonta_layout_photometry_results.addWidget(self.line_4)
+
         self.label_static_photometry_zero_point_label = QLabel(self.verticalLayoutWidget_2)
         self.label_static_photometry_zero_point_label.setObjectName(u"label_static_photometry_zero_point_label")
 
@@ -835,7 +852,7 @@ class Ui_ManualWindow(object):
 
         self.retranslateUi(ManualWindow)
 
-        self.tabs_solutions.setCurrentIndex(0)
+        self.tabs_solutions.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(ManualWindow)
@@ -879,6 +896,8 @@ class Ui_ManualWindow(object):
         self.push_button_photometry_solve_photometry.setText(QCoreApplication.translate("ManualWindow", u"Solve Photometry", None))
         self.label_static_photometry_filter_label.setText(QCoreApplication.translate("ManualWindow", u"Filter", None))
         self.label_dynamic_photometry_filter_name.setText(QCoreApplication.translate("ManualWindow", u"FF", None))
+        self.label_static_photometry_magnitude.setText(QCoreApplication.translate("ManualWindow", u"Magnitude", None))
+        self.label_dynamic_photometry_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MM + E.EEE", None))
         self.label_static_photometry_zero_point_label.setText(QCoreApplication.translate("ManualWindow", u"Zero Point ", None))
         self.label_dynamic_photometry_zero_point_value.setText(QCoreApplication.translate("ManualWindow", u"ZZ.ZZ + E.EEE", None))
         self.tabs_solutions.setTabText(self.tabs_solutions.indexOf(self.tab_photometry), QCoreApplication.translate("ManualWindow", u"Photometry", None))

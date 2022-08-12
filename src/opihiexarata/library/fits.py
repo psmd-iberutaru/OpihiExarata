@@ -38,6 +38,8 @@ _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
     "OXPSKYCT": (None, "OX: Average sky counts."),
     "OXP_ZP_M": (None, "OX: Zero point magnitude."),
     "OXP_ZP_E": (None, "OX: Zero point error."),
+    "OXP__MAG": (None, "OX: Aperture magnitude."),
+    "OXP_MAGE": (None, "OX: Aperture magnitude error."),
     # Orbital elements; O.
     "OXO_SLVD": (False, "OX: True if orbit solved."),
     "OXO__ENG": (None, "OX: The orbit engine."),

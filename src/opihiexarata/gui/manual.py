@@ -1553,12 +1553,22 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         else:
             photometrics = self.opihi_solution.photometrics
 
+        # Obtaining the computed magnitude of the target as computed. Some 
+        # rounding is needed so it can properly fit in the GUI.
+        asteroid_magnitude = round(opihi_solution.asteroid_magnitude, 2)
+        asteroid_magnitude_error = round(opihi_solution.asteroid_magnitude_error, 3)
+        # Building the string for display and updating the text.
+        pm_sym = "\u00B1"
+        magnitude_str = "{mag} {pm} {err}".format(
+            mag=asteroid_magnitude, pm=pm_sym, err=asteroid_magnitude_error
+        )
+        self.ui.label_dynamic_photometry_magnitude.setText(magnitude_str)
+
         # Obtaining the computed zero point of the image. Some rounding is
         # needed so it can properly fit in the GUI.
         zero_point = round(photometrics.zero_point, 2)
         zero_point_error = round(photometrics.zero_point_error, 3)
         # Building the string for display and updating the text.
-        pm_sym = "\u00B1"
         zero_point_str = "{zp} {pm} {err}".format(
             zp=zero_point, pm=pm_sym, err=zero_point_error
         )
