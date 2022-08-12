@@ -1788,43 +1788,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_propagate_ra_acceleration.setText(ra_a_arcsec_str)
         self.ui.label_dynamic_propagate_dec_acceleration.setText(dec_a_arcsec_str)
 
-        # Use the current time and date to determine the future positions with
-        # the time interval provided.
-        ENTRY_COUNT = library.config.GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT
-        INTERVAL = library.config.GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS
-        INTERVAL_DAYS = INTERVAL / 86400
-        current_julian_day = library.conversion.current_utc_to_julian_day()
-        precomputed_future_text = ""
-        for countdex in range(int(ENTRY_COUNT)):
-            # The future Julian day time for this future, as the Julian time
-            # scale is in days.
-            future_julian_day = current_julian_day + INTERVAL_DAYS * countdex
-            # Converting this to the date and time string for this entry.
-            # As this is UNIX time, the date is in UTC or Zulu time.
-            yr, mh, dy, hr, mn, sc = library.conversion.julian_day_to_full_date(
-                jd=future_julian_day
-            )
-            datetime_str = "{yr}-{mh}-{dy}  {hr}:{mn}:{sc}  Z".format(
-                yr=int(yr), mh=int(mh), dy=int(dy), hr=int(hr), mn=int(mn), sc=int(sc)
-            )
-            # Using the Julian day time to compute the propagated solution for
-            # this time and formatting this as the needed string.
-            ra_deg, dec_deg = propagatives.forward_propagate(
-                future_time=future_julian_day
-            )
-            ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-                ra_deg=ra_deg, dec_deg=dec_deg, precision=2
-            )
-            ra_dec_str = "{ra}   {dec}".format(ra=ra_sex, dec=dec_sex)
-            # The final format for this line per the GUI specification, just
-            # adding some space and the new line
-            entry_line = "{dt}   |   {rd} \n".format(dt=datetime_str, rd=ra_dec_str)
-            precomputed_future_text = precomputed_future_text + entry_line
-        # Set the text for the set of future solutions.
-        self.ui.text_browser_propagate_future_results.setPlainText(
-            precomputed_future_text
-        )
-
         # All done.
         return None
 
