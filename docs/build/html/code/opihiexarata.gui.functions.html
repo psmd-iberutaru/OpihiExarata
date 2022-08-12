@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.functions module &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.gui.functions module &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -114,6 +114,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -246,6 +250,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -257,6 +262,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -272,6 +278,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -388,11 +402,32 @@
 <p>Where helpful functions which otherwise do not belong in the library,
 for the GUIs, exist.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.gui.functions.apply_window_icon">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.functions.</span></span><span class="sig-name descname"><span class="pre">apply_window_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">QWidget</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">QMainWindow</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/functions.html#apply_window_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.functions.apply_window_icon" title="Permalink to this definition"></a></dt>
+<dd><p>This function just applies the window icon to the GUI interfaces.
+We break it out as a function so that it is much easier to change the
+window icons uniformly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window</strong> (<em>QtWidget</em><em>, </em><em>QtMainWindow</em>) – The window which the image will be applied to.</p></li>
+<li><p><strong>icon_path</strong> (<em>str</em><em>, </em><em>default = None</em>) – The path of the icon file. If None, then we default to the
+<code class="docutils literal notranslate"><span class="pre">window_icon.png</span></code> file in the qtui directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.gui.functions.pick_engine_class_from_name">
 <span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.functions.</span></span><span class="sig-name descname"><span class="pre">pick_engine_class_from_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">engine_name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine_type:</span> <span class="pre">~opihiexarata.library.engine.ExarataEngine</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'opihiexarata.library.engine.ExarataEngine'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataEngine" title="opihiexarata.library.engine.ExarataEngine"><span class="pre">ExarataEngine</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/functions.html#pick_engine_class_from_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.functions.pick_engine_class_from_name" title="Permalink to this definition"></a></dt>
 <dd><p>This returns a specific engine class provided its user friendly name.
 This is a convince function for both development and implementation.</p>
-<p>If an engine name provided is not present, this raises.</p>
+<p>If an engine name provided is not present, this raises. This is not a
+matter of conversion because user friendly names are specific</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

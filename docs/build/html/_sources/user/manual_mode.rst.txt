@@ -60,6 +60,15 @@ viewer and to also refresh the information in the tabs. This should not be
 needed too much as the program should automatically refresh itself if there 
 is new information.
 
+Supplementary information is provided in the summary tab. This includes 
+information about the path of the file, the filename, and methods to save the 
+file. 
+
+A :guilabel:`Send Target to TCS` button allows for the user to send the target 
+location (after astrometry has been executed) to the telescope operator and 
+the telescope control software. Non-sidereal rates are sent as well if they 
+were calculated via 
+
 Procedure
 =========
 
@@ -352,7 +361,9 @@ If a propagation solution is done, the on-sky rates will be provided under
 :guilabel:`Propagate Rate [ "/s | "/s²]`. Both the first order (velocity) and 
 second order (acceleration) on-sky rates in RA and DEC are given in arcseconds 
 per second or arcseconds per second squared. The RA is given on the right and 
-DEC on the left within the first or second order pairs.
+DEC on the left within the first or second order pairs. These rates may be 
+sent to the TCS to update its non-sidereal rates vai the 
+:guilabel:`Update TCS Rate` button after they are derived.
 
 You may also provide a custom date and time, in the provided dialog box (using 
 (`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_). You 
@@ -442,10 +453,12 @@ If an ephemeris solution is done, the on-sky rates will be provided under
 :guilabel:`Ephemeris Rate [ "/s | "/s²]`. Both the first order (velocity) and 
 second order (acceleration) on-sky rates in RA and DEC are given in arcseconds 
 per second, or arcseconds per second squared. The RA is given on the right and 
-DEC on the left within the first or second order pairs.
+DEC on the left within the first or second order pairs. These rates may be 
+sent to the TCS to update its non-sidereal rates vai the 
+:guilabel:`Update TCS Rate` button after they are derived.
 
 You may also provide a custom date and time, in the provided dialog box (using 
-(`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_). You 
+`ISO-8601 like formatting <https://www.iso.org/standard/70907.html>`_). You 
 can specify the timezone that the provided date and time corresponds to using 
 the dropdown menu. When you click :guilabel:`Custom Solve`, the displayed RA 
 and DEC coordinates are the estimated sky coordinates for the asteroid at the 

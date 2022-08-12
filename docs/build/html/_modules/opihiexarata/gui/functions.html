@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.functions &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.gui.functions &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -111,6 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -243,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -254,6 +259,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -269,6 +275,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -381,7 +395,10 @@
 <span></span><span class="sd">&quot;&quot;&quot;Where helpful functions which otherwise do not belong in the library, </span>
 <span class="sd">for the GUIs, exist.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">dict_learning</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
+
 <span class="kn">import</span> <span class="nn">opihiexarata</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
@@ -394,13 +411,46 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.ephemeris</span> <span class="k">as</span> <span class="nn">ephemeris</span>
 
 
+<div class="viewcode-block" id="apply_window_icon"><a class="viewcode-back" href="../../../code/opihiexarata.gui.functions.html#opihiexarata.gui.functions.apply_window_icon">[docs]</a><span class="k">def</span> <span class="nf">apply_window_icon</span><span class="p">(</span>
+    <span class="n">window</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">window</span><span class="p">],</span> <span class="n">icon_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This function just applies the window icon to the GUI interfaces.</span>
+<span class="sd">    We break it out as a function so that it is much easier to change the</span>
+<span class="sd">    window icons uniformly.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    window : QtWidget, QtMainWindow</span>
+<span class="sd">        The window which the image will be applied to.</span>
+<span class="sd">    icon_path : str, default = None</span>
+<span class="sd">        The path of the icon file. If None, then we default to the</span>
+<span class="sd">        ``window_icon.png`` file in the qtui directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">icon_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">icon_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">self_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+        <span class="n">icon_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="p">[</span><span class="n">self_dir</span><span class="p">,</span> <span class="s2">&quot;qtui&quot;</span><span class="p">],</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;window_icon&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;png&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># We set the window icon.</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">icon_path</span><span class="p">))</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
 <div class="viewcode-block" id="pick_engine_class_from_name"><a class="viewcode-back" href="../../../code/opihiexarata.gui.functions.html#opihiexarata.gui.functions.pick_engine_class_from_name">[docs]</a><span class="k">def</span> <span class="nf">pick_engine_class_from_name</span><span class="p">(</span>
     <span class="n">engine_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">engine_type</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ExarataEngine</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataEngine</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ExarataEngine</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This returns a specific engine class provided its user friendly name.</span>
 <span class="sd">    This is a convince function for both development and implementation.</span>
 
-<span class="sd">    If an engine name provided is not present, this raises.</span>
+<span class="sd">    If an engine name provided is not present, this raises. This is not a</span>
+<span class="sd">    matter of conversion because user friendly names are specific</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -427,7 +477,7 @@
     <span class="p">}</span>
     <span class="n">orbit_engines</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;orbfit&quot;</span><span class="p">:</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbfitOrbitDeterminerEngine</span><span class="p">,</span>
-        <span class="s2">&quot;custom orbit&quot;</span><span class="p">:</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">,</span>
+        <span class="s2">&quot;custom&quot;</span><span class="p">:</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">ephemeris_engines</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;jpl horizons&quot;</span><span class="p">:</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">JPLHorizonsWebAPIEngine</span><span class="p">,</span>

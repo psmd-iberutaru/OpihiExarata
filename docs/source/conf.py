@@ -120,6 +120,8 @@ latex_engine = "lualatex"
 latex_show_urls = "footnote"
 
 latex_elements = {
+    # Allow for nesting.
+    "preamble": r"\usepackage{enumitem}",
     # A little bigger font to be more readable.
     "pointsize": "11pt",
     # Single column index.

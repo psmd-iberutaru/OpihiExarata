@@ -33,8 +33,8 @@ When a user specifies a configuration file to be applied to this software, the
 file is loaded and its parameters and values are loaded into the the 
 namespace of this module. Therefore, the software internally can call these 
 configurations as variables in this module; an example, 
-:code:`library.config.LYCANROC` would correspond to the ``LYCANROC`` 
-configuration parameter in the configuration YAML file.
+:code:`opihiexarata.library.config.LYCANROC` would correspond to the 
+``LYCANROC`` configuration parameter in the configuration YAML file.
 
 Both normal configuration parameters and secret parameters (detailed in 
 :ref:`user-configuration`) are taken from their respective files and placed 
@@ -66,6 +66,9 @@ formats are implemented.
 Functions for formatting RA and DEC from degrees (convention) to sexagesimal 
 string formatting are implemented. Specifically formatted sexagesimal can also 
 be converted back to degrees.
+
+Functions related to the conversion of different (but equivalent) names for 
+things like filter or engine names are also provided.
 
 
 Engines
@@ -194,9 +197,24 @@ this class implements a photometry table which is more coherent and
 comprehensive to better harmonize the interplay between the astrometric and 
 photometric solutions. Feature expansion in this region is unlikely.
 
+Telescope Control Software
+==========================
+
+See :py:mod:`opihiexarata.library.tcs`.
+
+It is important for the OpihiExarata software to talk to the telescope 
+control software to give it the needed information to correct the pointing. It
+is unnecessary to always bother the telescope controller and so functions 
+which call and execute the telescope control software are written here. Only 
+those functions which are needed for OpihiExarata are implemented. The 
+implementation is specific for the IRTF TCS and it requires the installation 
+of the t3io software.
+
 
 Temporary Directory
 ===================
+
+See :py:mod:`opihiexarata.library.temporary`.
 
 Sometimes the OpihiExarata software needs to save temporary files when 
 processing data and reading the results. In order for these files not to 

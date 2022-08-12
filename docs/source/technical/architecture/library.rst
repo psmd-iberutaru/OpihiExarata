@@ -197,9 +197,24 @@ this class implements a photometry table which is more coherent and
 comprehensive to better harmonize the interplay between the astrometric and 
 photometric solutions. Feature expansion in this region is unlikely.
 
+Telescope Control Software
+==========================
+
+See :py:mod:`opihiexarata.library.tcs`.
+
+It is important for the OpihiExarata software to talk to the telescope 
+control software to give it the needed information to correct the pointing. It
+is unnecessary to always bother the telescope controller and so functions 
+which call and execute the telescope control software are written here. Only 
+those functions which are needed for OpihiExarata are implemented. The 
+implementation is specific for the IRTF TCS and it requires the installation 
+of the t3io software.
+
 
 Temporary Directory
 ===================
+
+See :py:mod:`opihiexarata.library.temporary`.
 
 Sometimes the OpihiExarata software needs to save temporary files when 
 processing data and reading the results. In order for these files not to 

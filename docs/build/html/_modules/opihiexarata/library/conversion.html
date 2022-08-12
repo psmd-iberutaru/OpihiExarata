@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -111,6 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -243,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -254,6 +259,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -269,6 +275,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -389,6 +403,24 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+
+<div class="viewcode-block" id="degrees_per_second_to_arcsec_per_second"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.degrees_per_second_to_arcsec_per_second">[docs]</a><span class="k">def</span> <span class="nf">degrees_per_second_to_arcsec_per_second</span><span class="p">(</span><span class="n">degree_per_second</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This converts from degrees per second to arcseconds per second.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    degree_per_second : float</span>
+<span class="sd">        The value, in degrees per second, which you want to convert from.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    arcsec_per_second : float</span>
+<span class="sd">        The value, in arcseconds per second, which you converted to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># A simple multiplicative conversion.</span>
+    <span class="n">arcsec_per_second</span> <span class="o">=</span> <span class="n">degree_per_second</span> <span class="o">*</span> <span class="mi">3600</span>
+    <span class="k">return</span> <span class="n">arcsec_per_second</span></div>
 
 
 <div class="viewcode-block" id="degrees_to_sexagesimal_ra_dec"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec">[docs]</a><span class="k">def</span> <span class="nf">degrees_to_sexagesimal_ra_dec</span><span class="p">(</span>
@@ -738,6 +770,67 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">month_int</span> <span class="o">=</span> <span class="n">month_dict</span><span class="p">[</span><span class="n">month_str</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">month_int</span></div>
+
+
+<div class="viewcode-block" id="filter_position_to_filter_name"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.filter_position_to_filter_name">[docs]</a><span class="k">def</span> <span class="nf">filter_position_to_filter_name</span><span class="p">(</span><span class="n">position</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This converts the filter position of Opihi into the name of the filter.</span>
+<span class="sd">    The FITS file only provides the position, but all of the software</span>
+<span class="sd">    expects its name.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : int</span>
+<span class="sd">        The filter position, must be a number between 0-7 inclusively as there</span>
+<span class="sd">        are only 8 filter positions.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    filter_name : str</span>
+<span class="sd">        The name of the filter that corresponds to the given filter position.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The filters and their positions as it currently exists in Opihi.</span>
+    <span class="n">opihi_filter_positions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+        <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+        <span class="mi">7</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># Extract the filter fro the position.</span>
+    <span class="n">filter_name</span> <span class="o">=</span> <span class="n">opihi_filter_positions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+            <span class="s2">&quot;The filter position provided `</span><span class="si">{p}</span><span class="s2">` is not a valid filter position, it must&quot;</span>
+            <span class="s2">&quot; be the filter position number.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">filter_name</span></div>
+
+
+<div class="viewcode-block" id="filter_position_string_to_filter_name"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.filter_position_string_to_filter_name">[docs]</a><span class="k">def</span> <span class="nf">filter_position_string_to_filter_name</span><span class="p">(</span><span class="n">position_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The filter position string is exactly how it exists in the header files.</span>
+<span class="sd">    This converts from the string as it exists in the header file to the filter</span>
+<span class="sd">    name.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position_string : str</span>
+<span class="sd">        The string as recorded in the header file which describes the filter</span>
+<span class="sd">        position.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    filter_name : str</span>
+<span class="sd">        The name of the filter that corresponds to the given filter position.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># As the filter position string and the actual numbered position is just</span>
+    <span class="c1"># has the pattern of posX:</span>
+    <span class="n">position_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">position_string</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;pos&quot;</span><span class="p">))</span>
+    <span class="c1"># Using the main filter determining function.</span>
+    <span class="n">filter_name</span> <span class="o">=</span> <span class="n">filter_position_to_filter_name</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position_number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filter_name</span></div>
 </pre></div>
 
            </div>

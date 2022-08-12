@@ -16,7 +16,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
     """The primary class describing an photometric solution, based on an image
     provided and catalog data provided from the photometric engine.
 
-    This class is the middlewere class between the engines which solve the
+    This class is the middleware class between the engines which solve the
     photometry, and the rest of the OpihiExarata code.
 
     Attributes
@@ -48,6 +48,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         A single character string describing the name of the filter band that
         this image was taken in. Currently, it assumes the MKO/SDSS visual
         filters.
+    aperture_radius : float
+        The aperture radius that defines the aperture for aperture photometry,
+        in arcseconds.
     available_filters : tuple
         The list of filter names which the star table currently covers and has
         data for.
@@ -179,6 +182,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
                     " incorrect names."
                 )
 
+        # The aperture size as determined by the configuration file.
+        self.aperture_radius = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
+
         # Determine the average sky contribution per pixel.
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
         self.sky_counts = self.__calculate_sky_counts_value()
@@ -260,8 +266,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         MAX_SEP_DEG = MAX_SEP_AECSEC / 3600
 
         # The size of a star, used for the photometric count determination. As
-        # the star photon counts function uses degrees, a conversion is done.
-        STAR_RADIUS_DEG = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND * (1 / 3600)
+        # the star photon counts function uses degrees, a conversion is done
+        # to convert from arcseconds to degrees.
+        STAR_RADIUS_DEG = self.aperture_radius / 3600
 
         # Find the closest star within the photometric table for each
         # astrometric star. It is assumed that the two closest entries are
@@ -294,7 +301,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
                 # The total counts of this star. This table is going to be
                 # used for photometric calculations so having this in the table
                 # is a useful convince.
-                dn_counts = self._calculate_star_photon_counts_coordinate(
+                dn_counts = self.calculate_star_photon_counts_coordinate(
                     ra=ra_astro_row, dec=dec_astro_row, radius=STAR_RADIUS_DEG
                 )
 
@@ -352,7 +359,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
         stars_y = np.append(photo_y, astro_y)
         # The length of the masking box region for a star, being generous on
         # the half definition for odd sized boxes.
-        STAR_RADIUS_AS = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
+        STAR_RADIUS_AS = self.aperture_radius
         STAR_RADIUS_PIXEL = STAR_RADIUS_AS / arcsec_pixel_scale
         HALF_BOX_LENGTH = int(STAR_RADIUS_PIXEL) + 1
         # Defining the star mask to mask regions where stars have been
@@ -390,7 +397,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
         edge_mask = np.ones_like(data_array, dtype=bool)
         edge_mask[EDGE_WIDTH:-EDGE_WIDTH, EDGE_WIDTH:-EDGE_WIDTH] = False
         # Finally, making any values which do not really make any sense or are
-        # already nans.
+        # already NaN.
         nan_mask = ~(np.isfinite(data_array))
 
         # Adding all of the masks.
@@ -432,7 +439,99 @@ class PhotometricSolution(library.engine.ExarataSolution):
         sky_counts = np.ma.median(sky_data_values)
         return sky_counts
 
-    def _calculate_star_photon_counts_coordinate(
+    def _calculate_zero_point(
+        self, exposure_time: float, filter_name: str = None
+    ) -> float:
+        """This function calculates the photometric zero-point of the image
+        provided the data in the intersection star table.
+
+        This function uses the set exposure time and the intersection star
+        table. The band is also assumed from the initial parameters.
+
+        Parameters
+        ----------
+        exposure_time : float
+            How long, in seconds, the image in question was exposed for.
+        filter_name : string, default = None
+            A single character string describing the name of the filter band that
+            this image was taken in. Currently, it assumes the MKO/SDSS visual
+            filters. If it is None, then this function does nothing.
+
+        Returns
+        -------
+        zero_point : float
+            The zero point of this image. This is computed as a mean of all of
+            the calculated zero points.
+        zero_point_error : float
+            The standard deviation of the zero points calculated.
+        """
+        # Obtaining the needed information.
+        inter_star_table = self.intersection_star_table
+
+        # The exposure time information.
+        self.exposure_time = float(exposure_time)
+
+        # The filter name, check that it is a valid expected filter which the
+        # photometric engines and vehicle functions are expected to deal with.
+
+        if filter_name is None:
+            # The filter is not provided and thus photometry cannot be
+            # performed.
+            zero_point = self.zero_point
+            zero_point_error = self.zero_point_error
+            return zero_point, zero_point_error
+        elif filter_name not in library.phototable.OPIHI_FILTERS:
+            raise error.InputError(
+                "The filter name provided `{f}` is not a filter that is supported by"
+                " OpihiExarata's supported photometric engines and vehicle functions"
+                " and therefore cannot be used to derive a photometric solution."
+                " Opihi's filters: {of}".format(
+                    f=filter_name, of=library.phototable.OPIHI_FILTERS
+                )
+            )
+        elif filter_name not in self.available_filters:
+            raise error.InputError(
+                "The filter name provided `{f}` is not a filter with photometry data"
+                " available from the given photometry engine and vehicle. There is no"
+                " data from the photometric database(s) to derive a photometric"
+                " solution. Available filters: {af}".format(
+                    f=filter_name, af=self.available_filters
+                )
+            )
+        else:
+            self.filter_name = str(filter_name)
+
+        # Extract the proper photometric values for the filter being used.
+        filter_table_header = "{f}_mag".format(f=filter_name)
+        magnitude = inter_star_table[filter_table_header]
+        # And the count data.
+        counts = inter_star_table["counts"]
+        # Instrument magnitudes.
+        sqrt5_100 = 2.51188643151
+        inst_magnitude = -sqrt5_100 * np.log10(counts / exposure_time)
+
+        # We filter the stars so that we avoid using stars and targets
+        # which otherwise would skew our results.
+        # Stars which are too bright saturate our detector. We limit based on
+        # the magnitude as specified. A dimmer object has a higher magnitude.
+        LIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
+        invalid_filter_magnitude = np.where(magnitude <= LIM_MAG, True, False)
+
+        # The valid points that we can use are those not caught with the
+        # filter.
+        valid_points = ~(invalid_filter_magnitude)
+        # Using only the remaining/valid targets for the photometric
+        # calculation.
+        valid_magnitude = magnitude[valid_points]
+        valid_inst_magnitude = inst_magnitude[valid_points]
+
+        # Zero points via the definition equation
+        zero_points = valid_magnitude - valid_inst_magnitude
+        zero_point = np.median(zero_points)
+        zero_point_error = sp_stats.median_abs_deviation(zero_points, nan_policy="omit")
+        return zero_point, zero_point_error
+
+    def calculate_star_photon_counts_coordinate(
         self, ra: float, dec: float, radius: float
     ) -> float:
         """Calculate the total number of photometric counts at an RA DEC. The
@@ -469,12 +568,12 @@ class PhotometricSolution(library.engine.ExarataSolution):
 
         # Using the pixel version because there is little need to implement
         # it all again.
-        photon_counts = self._calculate_star_photon_counts_pixel(
+        photon_counts = self.calculate_star_photon_counts_pixel(
             pixel_x=photo_x, pixel_y=photo_y, radius=pixel_radius
         )
         return photon_counts
 
-    def _calculate_star_photon_counts_pixel(
+    def calculate_star_photon_counts_pixel(
         self, pixel_x: int, pixel_y: int, radius: float
     ) -> float:
         """Calculate the total number of photometric counts at a pixel
@@ -490,7 +589,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
             The y coordinate of the center pixel.
         radius : float
             The radius of the circular aperture to be considered in pixel
-            counts.
+            counts. This is in pixel units.
 
         Returns
         -------
@@ -515,95 +614,62 @@ class PhotometricSolution(library.engine.ExarataSolution):
         photon_counts = np.nansum(star_array_nosky)
         return photon_counts
 
-    def _calculate_zero_point(
-        self, exposure_time: float, filter_name: str = None
-    ) -> float:
-        """This function calculates the photometric zero-point of the image
-        provided the data in the intersection star table.
-
-        This function uses the set exposure time and the intersection star
-        table. The band is also assumed from the initial parameters.
+    def calculate_star_aperture_magnitude(
+        self, pixel_x: int, pixel_y: int
+    ) -> tuple[float, float]:
+        """This function calculates the photometric aperture magnitude of a
+        star (or any PSF-like object) from the zero-point as provided by the
+        photometric solution.
 
         Parameters
         ----------
-        exposure_time : float
-            How long, in seconds, the image in question was exposed for.
-        filter_name : string, default = None
-            A single character string describing the name of the filter band that
-            this image was taken in. Currently, it assumes the MKO/SDSS visual
-            filters. If it is None, then this function does nothing.
+        pixel_x : int
+            The x coordinate of the center pixel of the star/target.
+        pixel_y : int
+            The y coordinate of the center pixel of the star/target.
 
         Returns
         -------
-        zero_point : float
-            The zero point of this image. This is computed as a mean of all of
-            the calculated zero points.
-        zero_point_error : float
-            The standard deviation of the zero points calculated.
+        star_magnitude : float
+            The magnitude of the star/PSF as determined by aperture photometry.
+        star_magnitude_error : float
+            The error on the magnitude after errors have been propagated.
         """
-        # Obtaining the needed information.
-        inter_star_table = self.intersection_star_table
+        # The radius of the PSF for calculating the magnitude of a target
+        # must be the same as those which was used to derive the phototable
+        # and the zero-point. We need to convert the configuration
+        # parameter from arcseconds to pixels.
+        arcsec_pixel_scale = self.astrometrics.pixel_scale
+        pixel_radius = self.aperture_radius / (arcsec_pixel_scale)
 
         # The exposure time information.
-        self.exposure_time = float(exposure_time)
+        exposure_time = self.exposure_time
 
-        # The filter name, check that it is a valid expected filter which the
-        # photometric engines and vehicle functions are expected to deal with.
-        
-        if filter_name is None:
-            # The filter is not provided and thus photometry cannot be
-            # performed.
-            zero_point = self.zero_point
-            zero_point_error = self.zero_point_error
-            return zero_point, zero_point_error
-        elif filter_name not in library.phototable.OPIHI_FILTERS:
-            raise error.InputError(
-                "The filter name provided `{f}` is not a filter that is supported by"
-                " OpihiExarata's supported photometric engines and vehicle functions"
-                " and therefore cannot be used to derive a photometric solution."
-                " Opihi's filters: {of}".format(f=filter_name, of=library.phototable.OPIHI_FILTERS)
-            )
-        elif filter_name not in self.available_filters:
-            raise error.InputError(
-                "The filter name provided `{f}` is not a filter with photometry data"
-                " available from the given photometry engine and vehicle. There is no"
-                " data from the photometric database(s) to derive a photometric"
-                " solution. Available filters: {af}".format(
-                    f=filter_name, af=self.available_filters
-                )
-            )
-        else:
-            self.filter_name = str(filter_name)
+        # Obtain the number of counts which this star/PSF has.
+        star_counts = self.calculate_star_photon_counts_pixel(
+            pixel_x=pixel_x, pixel_y=pixel_y, radius=pixel_radius
+        )
+        # Assuming Poisson statistics for the photon counting of the star's
+        # aperture.
+        star_counts_error = np.sqrt(star_counts)
 
-        # Extract the proper photometric values for the filter being used.
-        filter_table_header = "{f}_mag".format(f=filter_name)
-        magnitude = inter_star_table[filter_table_header]
-        # And the count data.
-        counts = inter_star_table["counts"]
-        # Instrument magnitudes.
+        # Provided the zero point and its error.
+        zero_point = self.zero_point
+        zero_point_error = self.zero_point_error
+
+        # Calculating the magnitude.
         sqrt5_100 = 2.51188643151
-        inst_magnitude = -sqrt5_100 * np.log10(counts / exposure_time)
+        star_magnitude = -sqrt5_100 * np.log10(star_counts / exposure_time) + zero_point
 
-        # We filter the stars so that we avoid using stars and targets 
-        # which otherwise would skew our results.
-        # Stars which are too bright saturate our detector. We limit based on 
-        # the magnitude as specified. A dimmer object has a higher magnitude.
-        LIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
-        invalid_filter_magnitude = np.where(magnitude <= LIM_MAG, True, False)
+        # Calculating the error as propagated.
+        ln10 = 2.302585092994046
+        star_magnitude_variance = (
+            sqrt5_100 * star_counts_error / (star_counts * ln10)
+        ) ** 2 + zero_point_error**2
+        star_magnitude_error = np.sqrt(star_magnitude_variance)
 
-        # The valid points that we can use are those not caught with the 
-        # filter.
-        valid_points = ~(invalid_filter_magnitude)
-        # Using only the remaining/valid targets for the photometric 
-        # calculation.
-        valid_magnitude = magnitude[valid_points]
-        valid_inst_magnitude = inst_magnitude[valid_points]
-
-        # Zero points via the definition equation
-        zero_points = valid_magnitude - valid_inst_magnitude
-        zero_point = np.median(zero_points)
-        zero_point_error = sp_stats.median_abs_deviation(zero_points, nan_policy="omit")
-        return zero_point, zero_point_error
+        # All done.
+        return star_magnitude, star_magnitude_error
 
 
 def _vehicle_panstarrs_mast_web_api(ra: float, dec: float, radius: float) -> dict:

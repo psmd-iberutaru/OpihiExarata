@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -111,6 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -243,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -254,6 +259,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -269,6 +275,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -494,6 +508,8 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">TargetSelectorWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">qtui</span><span class="o">.</span><span class="n">Ui_SelectorWindow</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Window icon, we use the default for now.</span>
+        <span class="n">gui</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">apply_window_icon</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># Window design parameters, just for show.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;OpihiExarata Target Selector&quot;</span><span class="p">)</span>
@@ -664,9 +680,6 @@
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># The connections for the fits file selection.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_change_current_filename</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_change_current_filename</span>
-        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_change_reference_filename</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_change_reference_filename</span>
         <span class="p">)</span>
@@ -718,40 +731,6 @@
 
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__connect_push_button_change_current_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This function provides a popup dialog to prompt the user to change</span>
-<span class="sd">        the current fits filename.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        None</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Use the build-in OS dialog box.</span>
-        <span class="n">new_current_filename</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Open New Current Opihi Image&quot;</span><span class="p">,</span>
-            <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span>
-            <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;FITS Files (*.fits)&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="c1"># Extracted the needed information provided this new fits file.</span>
-        <span class="n">current_header</span><span class="p">,</span> <span class="n">current_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">new_current_filename</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_filename</span> <span class="o">=</span> <span class="n">new_current_filename</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_header</span> <span class="o">=</span> <span class="n">current_header</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">=</span> <span class="n">current_data</span>
-
-        <span class="c1"># Precompute the translated image array values to ensure the</span>
-        <span class="c1"># cache speedup and subtraction capability.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_recompute_subtraction_arrays</span><span class="p">()</span>
-        <span class="c1"># Redraw and refresh the window to use this new updated information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
     <span class="k">def</span> <span class="nf">__connect_push_button_change_reference_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This function provides a popup dialog to prompt the user to change</span>
 <span class="sd">        the reference fits filename.</span>
@@ -771,13 +750,18 @@
             <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span>
             <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;FITS Files (*.fits)&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="c1"># Extracted the needed information provided this new fits file.</span>
-        <span class="n">reference_header</span><span class="p">,</span> <span class="n">reference_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">new_reference_filename</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reference_filename</span> <span class="o">=</span> <span class="n">new_reference_filename</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reference_header</span> <span class="o">=</span> <span class="n">reference_header</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
+        <span class="c1"># If no file was provided, then there is nothing to do.</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">new_reference_filename</span><span class="p">):</span>
+            <span class="c1"># Extracted the needed information provided this new fits file.</span>
+            <span class="n">reference_header</span><span class="p">,</span> <span class="n">reference_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">new_reference_filename</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_filename</span> <span class="o">=</span> <span class="n">new_reference_filename</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_header</span> <span class="o">=</span> <span class="n">reference_header</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Nothing to do.</span>
+            <span class="k">pass</span>
 
         <span class="c1"># Precompute the translated image array values to ensure the</span>
         <span class="c1"># cache speedup and subtraction capability.</span>
@@ -1149,9 +1133,11 @@
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># The currently derived values are incorrect. Falling back on</span>
-                <span class="c1"># assumption that the center as the target.</span>
-                <span class="n">using_pixel_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
-                <span class="n">using_pixel_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="c1"># an assumption of the beyond the origin to signify that it</span>
+                <span class="c1"># was not provided while still giving a numerical value to</span>
+                <span class="c1"># work with.</span>
+                <span class="n">using_pixel_x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">using_pixel_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
         <span class="c1"># The target values updated to reflect this prioritization and</span>
         <span class="c1"># conversation.</span>
@@ -1162,7 +1148,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">close_window</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="TargetSelectorWindow._refresh_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._refresh_image">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TargetSelectorWindow.refresh_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.refresh_window">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Refresh the text content of the window given new information.</span>
+<span class="sd">        This refreshes both the dynamic label text and redraws the image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Rewriting the text...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh_image</span><span class="p">()</span>
+        <span class="c1"># ...redrawing the image plot...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh_text</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__refresh_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Redraw and refresh the image, this is mostly used to allow for the</span>
 <span class="sd">        program to update where the user selected.</span>
 
@@ -1246,9 +1251,9 @@
         <span class="c1"># And finally, drawing the image.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="TargetSelectorWindow._refresh_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._refresh_text">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This function just refreshes the GUI text based on the current</span>
 <span class="sd">        actual values.</span>
 
@@ -1286,26 +1291,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_dynamic_target_y</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">target_y_str</span><span class="p">)</span>
 
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
-
-<div class="viewcode-block" id="TargetSelectorWindow.refresh_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.refresh_window">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Refresh the text content of the window given new information.</span>
-<span class="sd">        This refreshes both the dynamic label text and redraws the image.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        None</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Rewriting the text...</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_image</span><span class="p">()</span>
-        <span class="c1"># ...redrawing the image plot...</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_text</span><span class="p">()</span>
-        <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="TargetSelectorWindow.close_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.close_window">[docs]</a>    <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Closes the window. Generally called when it is all done.</span>

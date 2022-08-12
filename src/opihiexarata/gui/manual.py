@@ -138,6 +138,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.push_button_summary_save.clicked.connect(
             self.__connect_push_button_summary_save
         )
+        self.ui.push_button_send_target_to_tcs.clicked.connect(
+            self.__connect_push_button_summary_send_target_to_tcs
+        )
 
         # Astrometry-specific buttons.
         self.ui.push_button_astrometry_solve_astrometry.clicked.connect(
@@ -161,10 +164,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.push_button_ephemeris_solve_ephemeris.clicked.connect(
             self.__connect_push_button_orbit_solve_ephemeris
         )
+        self.ui.push_button_ephemeris_update_tcs_rate.clicked.connect(
+            self.__connect_push_button_ephemeris_update_tcs_rate
+        )
+        self.ui.push_button_ephemeris_custom_solve.clicked.connect(
+            self.__connect_push_button_ephemeris_custom_solve
+        )
 
         # Propagate-specific buttons.
         self.ui.push_button_propagate_solve_propagation.clicked.connect(
             self.__connect_push_button_propagate_solve_propagation
+        )
+        self.ui.push_button_propagate_update_tcs_rate.clicked.connect(
+            self.__connect_push_button_propagate_update_tcs_rate
         )
         self.ui.push_button_propagate_custom_solve.clicked.connect(
             self.__connect_push_button_propagate_custom_solve
@@ -427,6 +439,84 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.refresh_dynamic_label_text()
         return None
 
+    def __connect_push_button_summary_send_target_to_tcs(self) -> None:
+        """This function serves to implement sending target information to the
+        TCS. All information that can be provided will be provided to the TCS.
+
+        Astronomical coordinates (and thus an astrometric solution) is
+        required.
+
+        If both an ephemeritic solution and a propagation solution exists
+        for providing the non-sidereal rates, we prioritize those from
+        the propagation.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no image (and thus no solution class), there is nothing
+        # to do.
+        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            return None
+
+        # The name of the target/asteroid. If it is None, we just default to
+        # whatever is in the configuration file.
+        target_name = self.opihi_solution.asteroid_name
+        DEFAULT_TCS_NAME = library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
+        target_name = DEFAULT_TCS_NAME if target_name is None else target_name
+
+        # We require astrometric coordinates, and thus an astrometric solution.
+        # If there are none, then there is nothing we can do.
+        if not isinstance(
+            self.opihi_solution.astrometrics, astrometry.AstrometricSolution
+        ):
+            return None
+        else:
+            ra_deg = self.opihi_solution.astrometrics.ra
+            dec_deg = self.opihi_solution.astrometrics.dec
+
+        # If there is a photometric solution that exists, we can obtain the
+        # magnitude.
+        if not isinstance(
+            self.opihi_solution.photometrics, photometry.PhotometricSolution
+        ):
+            magnitude = 0
+        else:
+            magnitude = 0
+
+        # If there is a propagative or ephemeritic solution, we can apply the
+        # non-sidereal rates as well. We prioritize propagative solutions.
+        if isinstance(self.opihi_solution.propagatives, propagate.PropagativeSolution):
+            ra_velocity = self.opihi_solution.propagatives.ra_velocity
+            dec_velocity = self.opihi_solution.propagatives.dec_velocity
+        elif isinstance(
+            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        ):
+            ra_velocity = self.opihi_solution.ephemeritics.ra_velocity
+            dec_velocity = self.opihi_solution.ephemeritics.dec_velocity
+        else:
+            # There are no valid solutions to extract the non-sidereal rates
+            # from.
+            ra_velocity = 0
+            dec_velocity = 0
+
+        # We send all of the information that we could to the TCS. We do not
+        # really care about the response just yet.
+        __ = library.tcs.t3io_tcs_next(
+            ra=ra_deg,
+            dec=dec_deg,
+            target_name=target_name,
+            magnitude=magnitude,
+            ra_velocity=ra_velocity,
+            dec_velocity=dec_velocity,
+        )
+        # All done.
+        return None
+
     def __connect_push_button_summary_save(self) -> None:
         """The function serving to save the fits file.
 
@@ -686,7 +776,37 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_propagate_custom_solve(self) -> None:
+    def __connect_push_button_ephemeris_update_tcs_rate(self) -> None:
+        """A routine to update the non-sidereal rates of the TCS as provided
+        by the ephemeritic solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no ephemeritic solution, there is nothing to be done.
+        if not isinstance(
+            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        ):
+            return None
+
+        # We use the ephemeritic solution rates to update the TCS, the
+        # function provided already converts the values as needed
+        # so we can provide the units as per convention.
+        # We do not care about the response for now.
+        __ = library.tcs.t3io_tcs_ns_rate(
+            ra_velocity=self.opihi_solution.ephemeritics.ra_velocity,
+            dec_velocity=self.opihi_solution.ephemeritics.dec_velocity,
+        )
+
+        # All done.
+        return None
+
+    def __connect_push_button_ephemeris_custom_solve(self) -> None:
         """Solving for the location of the target through the ephemeris based
         on the time and date provided by the user.
 
@@ -698,7 +818,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no propagation solution, there is nothing to be done.
+        # If there is no ephemeris solution, there is nothing to be done.
         if not isinstance(
             self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
         ):
@@ -706,7 +826,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # Get the time and date from the user input.
         datetime_input = self.ui.date_time_edit_ephemeris_date_time.dateTime()
-        # Getting the timezone, as the propagation requires UTC/JD time, a
+        # Getting the timezone, as the ephemeris requires UTC/JD time, a
         # conversion is needed. Qt uses IANA timezone IDs so we convert from
         # the human readable ones to it. We only deal with current timezones.
         timezone_input = self.ui.combo_box_ephemeris_timezone.currentText()
@@ -731,7 +851,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             unix_time=unix_time_input
         )
 
-        # Using this unique time provided to solve the propagation.
+        # Using this unique time provided to solve the forward ephemeris.
         ra_deg, dec_deg = self.opihi_solution.ephemeritics.forward_ephemeris(
             future_time=julian_day_input
         )
@@ -781,6 +901,36 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.redraw_opihi_image()
         self.refresh_dynamic_label_text()
         self.save_auto_save()
+        return None
+
+    def __connect_push_button_propagate_update_tcs_rate(self) -> None:
+        """A routine to update the non-sidereal rates of the TCS as provided
+        by the propagation solution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # If there is no propagative solution, there is nothing to be done.
+        if not isinstance(
+            self.opihi_solution.propagatives, propagate.PropagativeSolution
+        ):
+            return None
+
+        # We use the propagative solution rates to update the TCS, the
+        # function provided already converts the values as needed
+        # so we can provide the units as per convention.
+        # We do not care about the response for now.
+        __ = library.tcs.t3io_tcs_ns_rate(
+            ra_velocity=self.opihi_solution.propagatives.ra_velocity,
+            dec_velocity=self.opihi_solution.propagatives.dec_velocity,
+        )
+
+        # All done.
         return None
 
     def __connect_push_button_propagate_custom_solve(self) -> None:
@@ -870,7 +1020,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         fits_pathname = (
             self.raw_fits_filename if self.fits_filename is None else self.fits_filename
         )
-        if fits_pathname is None:
+        if fits_pathname is not None:
             fits_directory = library.path.get_directory(pathname=fits_pathname)
         else:
             raise error.SequentialOrderError(
@@ -1223,9 +1373,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_propagate_dec_velocity.setText("+VV.VVV")
         self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAAeXX")
         self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAAeXX")
-        self.ui.text_browser_propagate_future_results.setPlainText(
-            "YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS"
-        )
         # Keeping the timezone and time information for convenience.
         self.ui.label_dynamic_propagate_custom_ra.setText("HH:MM:SS.SS")
         self.ui.label_dynamic_propagate_custom_dec.setText("+DD:MM:SS.SS")
@@ -1402,12 +1549,22 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         else:
             photometrics = self.opihi_solution.photometrics
 
+        # Obtaining the computed magnitude of the target as computed. Some
+        # rounding is needed so it can properly fit in the GUI.
+        asteroid_magnitude = round(opihi_solution.asteroid_magnitude, 2)
+        asteroid_magnitude_error = round(opihi_solution.asteroid_magnitude_error, 3)
+        # Building the string for display and updating the text.
+        pm_sym = "\u00B1"
+        magnitude_str = "{mag} {pm} {err}".format(
+            mag=asteroid_magnitude, pm=pm_sym, err=asteroid_magnitude_error
+        )
+        self.ui.label_dynamic_photometry_magnitude.setText(magnitude_str)
+
         # Obtaining the computed zero point of the image. Some rounding is
         # needed so it can properly fit in the GUI.
         zero_point = round(photometrics.zero_point, 2)
         zero_point_error = round(photometrics.zero_point_error, 3)
         # Building the string for display and updating the text.
-        pm_sym = "\u00B1"
         zero_point_str = "{zp} {pm} {err}".format(
             zp=zero_point, pm=pm_sym, err=zero_point_error
         )
@@ -1626,43 +1783,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_propagate_dec_velocity.setText(dec_v_arcsec_str)
         self.ui.label_dynamic_propagate_ra_acceleration.setText(ra_a_arcsec_str)
         self.ui.label_dynamic_propagate_dec_acceleration.setText(dec_a_arcsec_str)
-
-        # Use the current time and date to determine the future positions with
-        # the time interval provided.
-        ENTRY_COUNT = library.config.GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT
-        INTERVAL = library.config.GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS
-        INTERVAL_DAYS = INTERVAL / 86400
-        current_julian_day = library.conversion.current_utc_to_julian_day()
-        precomputed_future_text = ""
-        for countdex in range(int(ENTRY_COUNT)):
-            # The future Julian day time for this future, as the Julian time
-            # scale is in days.
-            future_julian_day = current_julian_day + INTERVAL_DAYS * countdex
-            # Converting this to the date and time string for this entry.
-            # As this is UNIX time, the date is in UTC or Zulu time.
-            yr, mh, dy, hr, mn, sc = library.conversion.julian_day_to_full_date(
-                jd=future_julian_day
-            )
-            datetime_str = "{yr}-{mh}-{dy}  {hr}:{mn}:{sc}  Z".format(
-                yr=int(yr), mh=int(mh), dy=int(dy), hr=int(hr), mn=int(mn), sc=int(sc)
-            )
-            # Using the Julian day time to compute the propagated solution for
-            # this time and formatting this as the needed string.
-            ra_deg, dec_deg = propagatives.forward_propagate(
-                future_time=future_julian_day
-            )
-            ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-                ra_deg=ra_deg, dec_deg=dec_deg, precision=2
-            )
-            ra_dec_str = "{ra}   {dec}".format(ra=ra_sex, dec=dec_sex)
-            # The final format for this line per the GUI specification, just
-            # adding some space and the new line
-            entry_line = "{dt}   |   {rd} \n".format(dt=datetime_str, rd=ra_dec_str)
-            precomputed_future_text = precomputed_future_text + entry_line
-        # Set the text for the set of future solutions.
-        self.ui.text_browser_propagate_future_results.setPlainText(
-            precomputed_future_text
-        )
 
         # All done.
         return None

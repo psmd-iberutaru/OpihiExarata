@@ -33,9 +33,9 @@ vectors are given as: (See `Keplerian Ellipses Chapter 2 Reed 2019`_.)
 
 .. math::
 
-    \mathbf{r} &= r \mathbf{\hat r} \\
-    \mathbf{v} &= \dot{r} \mathbf{\hat r} + r \dot\theta \hat{\boldsymbol\theta } + r \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
-    \mathbf{a} &= \left(\ddot{r} - r\dot\theta^2 - r\dot\phi^2\sin^2\theta \right)\mathbf{\hat r} \\
+    \mathbf{r} &= r \hat{\mathbf{r}} \\
+    \mathbf{v} &= \dot{r} \hat{\mathbf{r}} + r \dot\theta \hat{\boldsymbol\theta } + r \dot\phi \sin\theta \hat{\boldsymbol\phi} \\
+    \mathbf{a} &= \left(\ddot{r} - r\dot\theta^2 - r\dot\phi^2\sin^2\theta \right) \hat{\mathbf{r}} \\
      &\quad + \left( r\ddot\theta + 2\dot{r}\dot\theta - r\dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } \\
      &\quad + \left( r\ddot\phi\sin\theta + 2\dot{r}\dot\phi\sin\theta + 2 r\dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}
 
@@ -59,9 +59,9 @@ And thus the kinematic vectors are:
 
 .. math::
 
-    \mathbf{r} &= \mathbf{\hat r} \\
-    \mathbf{v} &=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
-    \mathbf{a} &= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}
+    \mathbf{r} &= \hat{\mathbf{r}} \\
+    \mathbf{v} &=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \hat{\boldsymbol\phi} \\
+    \mathbf{a} &= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \hat{\mathbf{r}} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}
 
 We can convert these vectors to Cartesian coordinates using the following 
 matrix transformation. The spherical to Cartesian transformation matrix 
@@ -219,7 +219,7 @@ Each position vector can be represented as:
 
 .. math::
 
-    \mathbf{r}^+_i = X_i \mathbf{\hat x} + Y_i \mathbf{\hat y} + Z_i \mathbf{\hat z} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}
+    \mathbf{r}^+_i = X_i \hat{\mathbf{x}} + Y_i \hat{\mathbf{y}} + Z_i \hat{\mathbf{z}} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}
 
 These Cartesian coordinate position vectors, centered on the origin, represents 
 where the asteroid is on the celestial sphere in the future at an observation 

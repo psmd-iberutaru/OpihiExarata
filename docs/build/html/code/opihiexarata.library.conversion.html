@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -114,6 +114,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -246,6 +250,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -257,6 +262,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -272,6 +278,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -427,6 +441,23 @@ values are just passed down.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.degrees_per_second_to_arcsec_per_second">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">degrees_per_second_to_arcsec_per_second</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degree_per_second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#degrees_per_second_to_arcsec_per_second"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.degrees_per_second_to_arcsec_per_second" title="Permalink to this definition"></a></dt>
+<dd><p>This converts from degrees per second to arcseconds per second.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>degree_per_second</strong> (<em>float</em>) – The value, in degrees per second, which you want to convert from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>arcsec_per_second</strong> – The value, in arcseconds per second, which you converted to.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec">
 <span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">degrees_to_sexagesimal_ra_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#degrees_to_sexagesimal_ra_dec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.degrees_to_sexagesimal_ra_dec" title="Permalink to this definition"></a></dt>
 <dd><p>Convert RA and DEC degree measurements to the more familiar HMSDMS
@@ -446,6 +477,46 @@ are used.</p></li>
 <li><p><strong>dec_sex</strong> (<em>str</em>) – The declination in degree:minute:second sexagesimal.</p></li>
 </ul>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.filter_position_string_to_filter_name">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">filter_position_string_to_filter_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#filter_position_string_to_filter_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.filter_position_string_to_filter_name" title="Permalink to this definition"></a></dt>
+<dd><p>The filter position string is exactly how it exists in the header files.
+This converts from the string as it exists in the header file to the filter
+name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position_string</strong> (<em>str</em>) – The string as recorded in the header file which describes the filter
+position.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>filter_name</strong> – The name of the filter that corresponds to the given filter position.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.filter_position_to_filter_name">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">filter_position_to_filter_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#filter_position_to_filter_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.filter_position_to_filter_name" title="Permalink to this definition"></a></dt>
+<dd><p>This converts the filter position of Opihi into the name of the filter.
+The FITS file only provides the position, but all of the software
+expects its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position</strong> (<em>int</em>) – The filter position, must be a number between 0-7 inclusively as there
+are only 8 filter positions.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>filter_name</strong> – The name of the filter that corresponds to the given filter position.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>

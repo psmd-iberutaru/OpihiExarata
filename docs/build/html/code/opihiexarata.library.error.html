@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.library.error module &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -114,6 +114,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -246,6 +250,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -257,6 +262,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -272,6 +278,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -386,6 +400,17 @@
   <section id="module-opihiexarata.library.error">
 <span id="opihiexarata-library-error-module"></span><h1>opihiexarata.library.error module<a class="headerlink" href="#module-opihiexarata.library.error" title="Permalink to this heading"></a></h1>
 <p>Error, warning, and logging functionality pertinent to the function of Exarata.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.BeyondScopeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">BeyondScopeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#BeyondScopeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.BeyondScopeError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
+<p>This is an error to be used when what is trying to be done does not
+seem reasonable. Usually warnings are the better thing for this but
+this error is used when the assumptions for reasonability guided
+development and what the user is trying to do is not currently supported
+by the software.</p>
+</dd></dl>
+
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.CommandLineError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">CommandLineError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#CommandLineError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.CommandLineError" title="Permalink to this definition"></a></dt>
@@ -527,12 +552,11 @@ to the code do not screw up the logical flow of the program.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.PracticalityError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">PracticalityError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#PracticalityError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.PracticalityError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>This is an error to be used when what is trying to be done does not
-seem reasonable. Usually warnings are the better vehicle for this but
-this error is used when the assumptions for reasonability guided
-development and what the user is trying to do is not currently supported
-by the software.</p>
+seem reasonable. Usually warnings are the better thing for this. However,
+this error should be used (as opposed to BeyondScopeError) when what
+is being attempted is within the design specifications of this software.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -548,7 +572,7 @@ enforces that notion.</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">SequentialOrderError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#SequentialOrderError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.SequentialOrderError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error used when something is happening out of the expected required
-order. This order being in place for specific publically communicated
+order. This order being in place for specific publicly communicated
 reasons.</p>
 </dd></dl>
 

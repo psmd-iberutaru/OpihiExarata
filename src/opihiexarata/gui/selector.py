@@ -286,9 +286,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         None
         """
         # The connections for the fits file selection.
-        self.ui.push_button_change_current_filename.clicked.connect(
-            self.__connect_push_button_change_current_filename
-        )
         self.ui.push_button_change_reference_filename.clicked.connect(
             self.__connect_push_button_change_reference_filename
         )
@@ -338,45 +335,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             self.__connect_push_button_submit_target
         )
 
-        return None
-
-    def __connect_push_button_change_current_filename(self) -> None:
-        """This function provides a popup dialog to prompt the user to change
-        the current fits filename.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Use the build-in OS dialog box.
-        new_current_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
-            parent=self,
-            caption="Open New Current Opihi Image",
-            dir="./",
-            filter="FITS Files (*.fits)",
-        )
-        # If no file was provided, then there is nothing to do.
-        if os.path.isfile(new_current_filename):
-            # Extracted the needed information provided this new fits file.
-            current_header, current_data = library.fits.read_fits_image_file(
-                filename=new_current_filename
-            )
-            self.current_filename = new_current_filename
-            self.current_header = current_header
-            self.current_data = current_data
-        else:
-            # Nothing to do.
-            pass
-
-        # Precompute the translated image array values to ensure the
-        # cache speedup and subtraction capability.
-        self._recompute_subtraction_arrays()
-        # Redraw and refresh the window to use this new updated information.
-        self.refresh_window()
         return None
 
     def __connect_push_button_change_reference_filename(self) -> None:
@@ -781,8 +739,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 pass
             else:
                 # The currently derived values are incorrect. Falling back on
-                # an assumption of the beyond the origin to signify that it 
-                # was not provided while still giving a numerical value to 
+                # an assumption of the beyond the origin to signify that it
+                # was not provided while still giving a numerical value to
                 # work with.
                 using_pixel_x = -1
                 using_pixel_y = -1
@@ -814,7 +772,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.__refresh_text()
         # All done.
         return None
-
 
     def __refresh_image(self) -> None:
         """Redraw and refresh the image, this is mostly used to allow for the
@@ -941,9 +898,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # All done.
         return None
-
-
-
 
     def close_window(self) -> None:
         """Closes the window. Generally called when it is all done.

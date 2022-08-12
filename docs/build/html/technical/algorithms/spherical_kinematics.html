@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spherical Kinematics &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>Spherical Kinematics &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -115,6 +115,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -247,6 +251,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -258,6 +263,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
@@ -273,6 +279,14 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Algorithms</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -408,9 +422,9 @@ time works best.</p>
 <p>Moreover, in spherical coordinates, the position, velocity, and acceleration
 vectors are given as: (See <a class="reference external" href="http://www.worldcat.org/oclc/1104053368">Keplerian Ellipses Chapter 2 Reed 2019</a>.)</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{r} &amp;= r \mathbf{\hat r} \\
-\mathbf{v} &amp;= \dot{r} \mathbf{\hat r} + r \dot\theta \hat{\boldsymbol\theta } + r \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
-\mathbf{a} &amp;= \left(\ddot{r} - r\dot\theta^2 - r\dot\phi^2\sin^2\theta \right)\mathbf{\hat r} \\
+\[\begin{split}\mathbf{r} &amp;= r \hat{\mathbf{r}} \\
+\mathbf{v} &amp;= \dot{r} \hat{\mathbf{r}} + r \dot\theta \hat{\boldsymbol\theta } + r \dot\phi \sin\theta \hat{\boldsymbol\phi} \\
+\mathbf{a} &amp;= \left(\ddot{r} - r\dot\theta^2 - r\dot\phi^2\sin^2\theta \right) \hat{\mathbf{r}} \\
  &amp;\quad + \left( r\ddot\theta + 2\dot{r}\dot\theta - r\dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } \\
  &amp;\quad + \left( r\ddot\phi\sin\theta + 2\dot{r}\dot\phi\sin\theta + 2 r\dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
 <p>Where the basis vectors of the spherical coordinates are:</p>
@@ -425,9 +439,9 @@ The distance from the origin of the coordinate system does not change. Thus:</p>
 \[r = 1 \qquad \dot{r} = \ddot{r} = 0\]</div>
 <p>And thus the kinematic vectors are:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{r} &amp;= \mathbf{\hat r} \\
-\mathbf{v} &amp;=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \mathbf{\hat{\boldsymbol\phi}} \\
-\mathbf{a} &amp;= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \mathbf{\hat r} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
+\[\begin{split}\mathbf{r} &amp;= \hat{\mathbf{r}} \\
+\mathbf{v} &amp;=  \dot\theta \hat{\boldsymbol\theta } + \dot\phi \sin\theta \hat{\boldsymbol\phi} \\
+\mathbf{a} &amp;= \left(-\dot\theta^2 - \dot\phi^2\sin^2\theta \right) \hat{\mathbf{r}} + \left(\ddot\theta - \dot\phi^2\sin\theta\cos\theta \right) \hat{\boldsymbol\theta } + \left(\ddot\phi\sin\theta  + 2 \dot\theta\dot\phi\cos\theta \right) \hat{\boldsymbol\phi}\end{split}\]</div>
 <p>We can convert these vectors to Cartesian coordinates using the following
 matrix transformation. The spherical to Cartesian transformation matrix
 <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> can be derived from the defining angles of the spherical
@@ -532,7 +546,7 @@ coordinates. The calculations should be done in Cartesian, provided the
 conversion earlier.</p>
 <p>Each position vector can be represented as:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{r}^+_i = X_i \mathbf{\hat x} + Y_i \mathbf{\hat y} + Z_i \mathbf{\hat z} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}\end{split}\]</div>
+\[\begin{split}\mathbf{r}^+_i = X_i \hat{\mathbf{x}} + Y_i \hat{\mathbf{y}} + Z_i \hat{\mathbf{z}} = \begin{bmatrix} X_i \\ Y_i \\ Z_i \end{bmatrix}\end{split}\]</div>
 <p>These Cartesian coordinate position vectors, centered on the origin, represents
 where the asteroid is on the celestial sphere in the future at an observation
 time of <span class="math notranslate nohighlight">\(t^+_i\)</span>. From these Cartesian coordinates, we can extract their

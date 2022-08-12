@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution module &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.photometry.solution module &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -114,6 +114,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -246,6 +250,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -257,6 +262,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -272,6 +278,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -392,7 +406,7 @@
 <dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution" title="opihiexarata.library.engine.ExarataSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataSolution</span></code></a></p>
 <p>The primary class describing an photometric solution, based on an image
 provided and catalog data provided from the photometric engine.</p>
-<p>This class is the middlewere class between the engines which solve the
+<p>This class is the middleware class between the engines which solve the
 photometry, and the rest of the OpihiExarata code.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution._original_filename">
@@ -498,6 +512,18 @@ filters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.aperture_radius">
+<span class="sig-name descname"><span class="pre">aperture_radius</span></span><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.aperture_radius" title="Permalink to this definition"></a></dt>
+<dd><p>The aperture radius that defines the aperture for aperture photometry,
+in arcseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -612,7 +638,7 @@ contributes per pixel.</p>
 <li><p><strong>fits_filename</strong> (<em>string</em>) – The path of the fits file that contains the data for the astrometric
 solution.</p></li>
 <li><p><strong>solver_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><em>PhotometryEngine</em></a>) – The photometric solver engine class. This is what will act as the
-“behind the scenes” and solve the field, using this middlewhere to
+“behind the scenes” and solve the field, using this middleware to
 translate it into something that is easier.</p></li>
 <li><p><strong>astrometrics</strong> (<a class="reference internal" href="opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution" title="opihiexarata.astrometry.solution.AstrometricSolution"><em>AstrometricSolution</em></a><em>, </em><em>default = None</em>) – A precomputed astrometric solution which belongs to this image.</p></li>
 <li><p><strong>exposure_time</strong> (<em>float</em><em>, </em><em>default = None</em>) – How long, in seconds, the image in question was exposed for. If
@@ -627,54 +653,6 @@ they are given here.</p></li>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_coordinate">
-<span class="sig-name descname"><span class="pre">_calculate_star_photon_counts_coordinate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution._calculate_star_photon_counts_coordinate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_coordinate" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the total number of photometric counts at an RA DEC. The
-counts are already corrected for the sky counts.</p>
-<p>This function does not check if a star is actually there. This function
-is a wrapper around its pixel version, converting via the WCS solution.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ra</strong> (<em>float</em>) – The right ascension in degrees.</p></li>
-<li><p><strong>dec</strong> (<em>float</em>) – The declination in degrees.</p></li>
-<li><p><strong>radius</strong> (<em>float</em>) – The radius of the circular aperture to be considered, in degrees.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>photon_counts</strong> – The sum of the sky corrected counts for the region defined.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_pixel">
-<span class="sig-name descname"><span class="pre">_calculate_star_photon_counts_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution._calculate_star_photon_counts_pixel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_pixel" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the total number of photometric counts at a pixel
-location. The counts are already corrected for the sky counts.</p>
-<p>This function does not check if a star is actually there.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pixel_x</strong> (<em>int</em>) – The x coordinate of the center pixel.</p></li>
-<li><p><strong>pixel_y</strong> (<em>int</em>) – The y coordinate of the center pixel.</p></li>
-<li><p><strong>radius</strong> (<em>float</em>) – The radius of the circular aperture to be considered in pixel
-counts.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>photon_counts</strong> – The sum of the sky corrected counts for the region defined.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -702,6 +680,77 @@ the calculated zero points.</p></li>
 <li><p><strong>zero_point_error</strong> (<em>float</em>) – The standard deviation of the zero points calculated.</p></li>
 </ul>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.calculate_star_aperture_magnitude">
+<span class="sig-name descname"><span class="pre">calculate_star_aperture_magnitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution.calculate_star_aperture_magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_aperture_magnitude" title="Permalink to this definition"></a></dt>
+<dd><p>This function calculates the photometric aperture magnitude of a
+star (or any PSF-like object) from the zero-point as provided by the
+photometric solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_x</strong> (<em>int</em>) – The x coordinate of the center pixel of the star/target.</p></li>
+<li><p><strong>pixel_y</strong> (<em>int</em>) – The y coordinate of the center pixel of the star/target.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>star_magnitude</strong> (<em>float</em>) – The magnitude of the star/PSF as determined by aperture photometry.</p></li>
+<li><p><strong>star_magnitude_error</strong> (<em>float</em>) – The error on the magnitude after errors have been propagated.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_coordinate">
+<span class="sig-name descname"><span class="pre">calculate_star_photon_counts_coordinate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution.calculate_star_photon_counts_coordinate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_coordinate" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the total number of photometric counts at an RA DEC. The
+counts are already corrected for the sky counts.</p>
+<p>This function does not check if a star is actually there. This function
+is a wrapper around its pixel version, converting via the WCS solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>float</em>) – The right ascension in degrees.</p></li>
+<li><p><strong>dec</strong> (<em>float</em>) – The declination in degrees.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – The radius of the circular aperture to be considered, in degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>photon_counts</strong> – The sum of the sky corrected counts for the region defined.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_pixel">
+<span class="sig-name descname"><span class="pre">calculate_star_photon_counts_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opihiexarata/photometry/solution.html#PhotometricSolution.calculate_star_photon_counts_pixel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_pixel" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the total number of photometric counts at a pixel
+location. The counts are already corrected for the sky counts.</p>
+<p>This function does not check if a star is actually there.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_x</strong> (<em>int</em>) – The x coordinate of the center pixel.</p></li>
+<li><p><strong>pixel_y</strong> (<em>int</em>) – The y coordinate of the center pixel.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – The radius of the circular aperture to be considered in pixel
+counts. This is in pixel units.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>photon_counts</strong> – The sum of the sky corrected counts for the region defined.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>

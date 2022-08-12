@@ -7,6 +7,17 @@ Conventions
 In order for the entire software to be self-consistent, a few conventions 
 have been established to help develop it. We detail these conventions here.
 
+Sky-Coordinate Systems
+======================
+
+By convention, and for future proofing, we use and rely on the International 
+Celestial Reference System (ICRS) to define our coordinates. 
+
+For the purposes of this project we assume that the ICRS system and the 
+FK5 J2000 system are equivalent. Converting between these two systems is 
+seen as a waste of time and unnecessary complexity provided the small 
+difference between the two.
+
 
 Units
 =====

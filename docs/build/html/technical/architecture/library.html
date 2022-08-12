@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Library &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>Library &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -114,6 +114,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -246,6 +250,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -257,6 +262,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../conventions.html#formatting-style">Formatting Style</a></li>
@@ -272,6 +278,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -406,8 +420,8 @@ functionality.</p>
 file is loaded and its parameters and values are loaded into the the
 namespace of this module. Therefore, the software internally can call these
 configurations as variables in this module; an example,
-<code class="code docutils literal notranslate"><span class="pre">library.config.LYCANROC</span></code> would correspond to the <code class="docutils literal notranslate"><span class="pre">LYCANROC</span></code>
-configuration parameter in the configuration YAML file.</p>
+<code class="code docutils literal notranslate"><span class="pre">opihiexarata.library.config.LYCANROC</span></code> would correspond to the
+<code class="docutils literal notranslate"><span class="pre">LYCANROC</span></code> configuration parameter in the configuration YAML file.</p>
 <p>Both normal configuration parameters and secret parameters (detailed in
 <a class="reference internal" href="../../user/configuration.html#user-configuration"><span class="std std-ref">Configuration</span></a>) are taken from their respective files and placed
 into this same namespace. Therefore, all of the configuration parameters must
@@ -430,6 +444,8 @@ formats are implemented.</p>
 <p>Functions for formatting RA and DEC from degrees (convention) to sexagesimal
 string formatting are implemented. Specifically formatted sexagesimal can also
 be converted back to degrees.</p>
+<p>Functions related to the conversion of different (but equivalent) names for
+things like filter or engine names are also provided.</p>
 </section>
 <section id="engines">
 <h2>Engines<a class="headerlink" href="#engines" title="Permalink to this heading"></a></h2>
@@ -526,8 +542,20 @@ this class implements a photometry table which is more coherent and
 comprehensive to better harmonize the interplay between the astrometric and
 photometric solutions. Feature expansion in this region is unlikely.</p>
 </section>
+<section id="telescope-control-software">
+<h2>Telescope Control Software<a class="headerlink" href="#telescope-control-software" title="Permalink to this heading"></a></h2>
+<p>See <a class="reference internal" href="../../code/opihiexarata.library.tcs.html#module-opihiexarata.library.tcs" title="opihiexarata.library.tcs"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.tcs</span></code></a>.</p>
+<p>It is important for the OpihiExarata software to talk to the telescope
+control software to give it the needed information to correct the pointing. It
+is unnecessary to always bother the telescope controller and so functions
+which call and execute the telescope control software are written here. Only
+those functions which are needed for OpihiExarata are implemented. The
+implementation is specific for the IRTF TCS and it requires the installation
+of the t3io software.</p>
+</section>
 <section id="temporary-directory">
 <h2>Temporary Directory<a class="headerlink" href="#temporary-directory" title="Permalink to this heading"></a></h2>
+<p>See <a class="reference internal" href="../../code/opihiexarata.library.temporary.html#module-opihiexarata.library.temporary" title="opihiexarata.library.temporary"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.temporary</span></code></a>.</p>
 <p>Sometimes the OpihiExarata software needs to save temporary files when
 processing data and reading the results. In order for these files not to
 mess up anything on the system this software is installed on, a temporary

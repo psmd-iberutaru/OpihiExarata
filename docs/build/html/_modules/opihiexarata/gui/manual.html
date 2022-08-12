@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -111,6 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -243,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -254,6 +259,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -269,6 +275,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -392,8 +406,10 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="n">FigureCanvasQTAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span>
 <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="n">NavigationToolbar2QT</span> <span class="k">as</span> <span class="n">NavigationToolbar</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectFromModel</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata</span>
+<span class="kn">from</span> <span class="nn">opihiexarata</span> <span class="kn">import</span> <span class="n">opihi</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
@@ -424,14 +440,10 @@
 <span class="sd">    raw_record_filename : string</span>
 <span class="sd">        The raw MPC record filename. This contains historical asteroid</span>
 <span class="sd">        information collected (with the unique identifier being the name).</span>
-<span class="sd">    process_fits_filename : string</span>
+<span class="sd">    fits_filename : string</span>
 <span class="sd">        The filename of the preprocessed image, this is generally generated</span>
 <span class="sd">        automatically by the preprocess solution. This file is generally used</span>
 <span class="sd">        for analysis.</span>
-<span class="sd">    automatic_fetch_directory : string</span>
-<span class="sd">        The directory where fits files are to be automatically fetched from.</span>
-<span class="sd">        Getting a file using the manual method updates this to the directory</span>
-<span class="sd">        of the manual file.</span>
 <span class="sd">    preprocess_solution : OpihiPreprocessSolution</span>
 <span class="sd">        The preprocessing solution which is used to convert raw images to</span>
 <span class="sd">        preprocessed files.</span>
@@ -457,13 +469,14 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">OpihiManualWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">qtui</span><span class="o">.</span><span class="n">Ui_ManualWindow</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Window icon, we use the default for now.</span>
+        <span class="n">gui</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">apply_window_icon</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># Establishing the defaults for all of the relevant attributes.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_record_filename</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">process_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -516,6 +529,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_refresh_window</span>
         <span class="p">)</span>
 
+        <span class="c1"># Summary-specific buttons.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_summary_save</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_summary_save</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_send_target_to_tcs</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_summary_send_target_to_tcs</span>
+        <span class="p">)</span>
+
         <span class="c1"># Astrometry-specific buttons.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_astrometry_solve_astrometry</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_astrometry_solve_astrometry</span>
@@ -538,10 +559,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_ephemeris_solve_ephemeris</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_orbit_solve_ephemeris</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_ephemeris_update_tcs_rate</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_ephemeris_update_tcs_rate</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_ephemeris_custom_solve</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_ephemeris_custom_solve</span>
+        <span class="p">)</span>
 
         <span class="c1"># Propagate-specific buttons.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_propagate_solve_propagation</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_propagate_solve_propagation</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_propagate_update_tcs_rate</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_propagate_update_tcs_rate</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_propagate_custom_solve</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_propagate_custom_solve</span>
@@ -687,10 +717,17 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Auto saving first, if enabled.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+
         <span class="c1"># Fetch a file from the directory where files are to be fetched.</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># We assume the last image is the directory to fetch from.</span>
+            <span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span>
+                <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span>
+            <span class="p">)</span>
             <span class="n">new_fits_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_most_recent_filename_in_directory</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span><span class="p">,</span> <span class="s2">&quot;fits&quot;</span>
+                <span class="n">directory</span><span class="o">=</span><span class="n">automatic_fetch_directory</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="c1"># Something happened and a new fits file cannot be properly</span>
@@ -708,9 +745,10 @@
 
         <span class="c1"># Process the file first so that what the user sees is closer to</span>
         <span class="c1"># what it really is.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span>
 
         <span class="c1"># Load up the new file.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_load_fits_file</span><span class="p">(</span><span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_fits_file</span><span class="p">(</span><span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -727,6 +765,9 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Auto saving first, if enabled.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+
         <span class="c1"># Ask the user for the filename via a dialog.</span>
         <span class="n">new_fits_filename</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
@@ -743,17 +784,12 @@
             <span class="c1"># Exit!</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="c1"># We update the automatic fetching directory with the path from this</span>
-        <span class="c1"># manual file. It is usually the case that the user expects updates</span>
-        <span class="c1"># from their same directory.</span>
-        <span class="n">new_fits_directory</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">automatic_fetch_directory</span> <span class="o">=</span> <span class="n">new_fits_directory</span>
-
         <span class="c1"># Process the file first so that what the user sees is closer to</span>
         <span class="c1"># what it really is.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span>
 
         <span class="c1"># Load up the new file.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_load_fits_file</span><span class="p">(</span><span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_fits_file</span><span class="p">(</span><span class="n">fits_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -778,8 +814,8 @@
 
         <span class="c1"># Reset the previous text as it is all going to be a new target.</span>
         <span class="c1"># It is expected after this a new image would be selected.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_dynamic_label_text</span><span class="p">()</span>
-
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -796,6 +832,100 @@
         <span class="c1"># Just redraw the plot and redo the dynamic text.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_summary_send_target_to_tcs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function serves to implement sending target information to the</span>
+<span class="sd">        TCS. All information that can be provided will be provided to the TCS.</span>
+
+<span class="sd">        Astronomical coordinates (and thus an astrometric solution) is</span>
+<span class="sd">        required.</span>
+
+<span class="sd">        If both an ephemeritic solution and a propagation solution exists</span>
+<span class="sd">        for providing the non-sidereal rates, we prioritize those from</span>
+<span class="sd">        the propagation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no image (and thus no solution class), there is nothing</span>
+        <span class="c1"># to do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># The name of the target/asteroid. If it is None, we just default to</span>
+        <span class="c1"># whatever is in the configuration file.</span>
+        <span class="n">target_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_name</span>
+        <span class="n">DEFAULT_TCS_NAME</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME</span>
+        <span class="n">target_name</span> <span class="o">=</span> <span class="n">DEFAULT_TCS_NAME</span> <span class="k">if</span> <span class="n">target_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">target_name</span>
+
+        <span class="c1"># We require astrometric coordinates, and thus an astrometric solution.</span>
+        <span class="c1"># If there are none, then there is nothing we can do.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span><span class="p">,</span> <span class="n">astrometry</span><span class="o">.</span><span class="n">AstrometricSolution</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ra_deg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">ra</span>
+            <span class="n">dec_deg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">dec</span>
+
+        <span class="c1"># If there is a photometric solution that exists, we can obtain the</span>
+        <span class="c1"># magnitude.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="p">,</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PhotometricSolution</span>
+        <span class="p">):</span>
+            <span class="n">magnitude</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">magnitude</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># If there is a propagative or ephemeritic solution, we can apply the</span>
+        <span class="c1"># non-sidereal rates as well. We prioritize propagative solutions.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PropagativeSolution</span><span class="p">):</span>
+            <span class="n">ra_velocity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="o">.</span><span class="n">ra_velocity</span>
+            <span class="n">dec_velocity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="o">.</span><span class="n">dec_velocity</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="p">,</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span>
+        <span class="p">):</span>
+            <span class="n">ra_velocity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="o">.</span><span class="n">ra_velocity</span>
+            <span class="n">dec_velocity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="o">.</span><span class="n">dec_velocity</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># There are no valid solutions to extract the non-sidereal rates</span>
+            <span class="c1"># from.</span>
+            <span class="n">ra_velocity</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">dec_velocity</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># We send all of the information that we could to the TCS. We do not</span>
+        <span class="c1"># really care about the response just yet.</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">tcs</span><span class="o">.</span><span class="n">t3io_tcs_next</span><span class="p">(</span>
+            <span class="n">ra</span><span class="o">=</span><span class="n">ra_deg</span><span class="p">,</span>
+            <span class="n">dec</span><span class="o">=</span><span class="n">dec_deg</span><span class="p">,</span>
+            <span class="n">target_name</span><span class="o">=</span><span class="n">target_name</span><span class="p">,</span>
+            <span class="n">magnitude</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">ra_velocity</span><span class="o">=</span><span class="n">ra_velocity</span><span class="p">,</span>
+            <span class="n">dec_velocity</span><span class="o">=</span><span class="n">dec_velocity</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_summary_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The function serving to save the fits file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We get the filename to save the fits file as and try to save it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_all_results</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_astrometry_solve_astrometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -831,6 +961,7 @@
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_astrometry_custom_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -954,6 +1085,7 @@
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_orbit_solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -996,6 +1128,7 @@
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -1034,10 +1167,41 @@
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__connect_push_button_propagate_custom_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__connect_push_button_ephemeris_update_tcs_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A routine to update the non-sidereal rates of the TCS as provided</span>
+<span class="sd">        by the ephemeritic solution.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no ephemeritic solution, there is nothing to be done.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="p">,</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># We use the ephemeritic solution rates to update the TCS, the</span>
+        <span class="c1"># function provided already converts the values as needed</span>
+        <span class="c1"># so we can provide the units as per convention.</span>
+        <span class="c1"># We do not care about the response for now.</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">tcs</span><span class="o">.</span><span class="n">t3io_tcs_ns_rate</span><span class="p">(</span>
+            <span class="n">ra_velocity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="o">.</span><span class="n">ra_velocity</span><span class="p">,</span>
+            <span class="n">dec_velocity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="o">.</span><span class="n">dec_velocity</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_ephemeris_custom_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Solving for the location of the target through the ephemeris based</span>
 <span class="sd">        on the time and date provided by the user.</span>
 
@@ -1049,7 +1213,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># If there is no propagation solution, there is nothing to be done.</span>
+        <span class="c1"># If there is no ephemeris solution, there is nothing to be done.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="p">,</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">EphemeriticSolution</span>
         <span class="p">):</span>
@@ -1057,7 +1221,7 @@
 
         <span class="c1"># Get the time and date from the user input.</span>
         <span class="n">datetime_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">date_time_edit_ephemeris_date_time</span><span class="o">.</span><span class="n">dateTime</span><span class="p">()</span>
-        <span class="c1"># Getting the timezone, as the propagation requires UTC/JD time, a</span>
+        <span class="c1"># Getting the timezone, as the ephemeris requires UTC/JD time, a</span>
         <span class="c1"># conversion is needed. Qt uses IANA timezone IDs so we convert from</span>
         <span class="c1"># the human readable ones to it. We only deal with current timezones.</span>
         <span class="n">timezone_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_ephemeris_timezone</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -1082,7 +1246,7 @@
             <span class="n">unix_time</span><span class="o">=</span><span class="n">unix_time_input</span>
         <span class="p">)</span>
 
-        <span class="c1"># Using this unique time provided to solve the propagation.</span>
+        <span class="c1"># Using this unique time provided to solve the forward ephemeris.</span>
         <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">ephemeritics</span><span class="o">.</span><span class="n">forward_ephemeris</span><span class="p">(</span>
             <span class="n">future_time</span><span class="o">=</span><span class="n">julian_day_input</span>
         <span class="p">)</span>
@@ -1131,6 +1295,37 @@
         <span class="c1"># Update all of the necessary information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_propagate_update_tcs_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A routine to update the non-sidereal rates of the TCS as provided</span>
+<span class="sd">        by the propagation solution.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no propagative solution, there is nothing to be done.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="p">,</span> <span class="n">propagate</span><span class="o">.</span><span class="n">PropagativeSolution</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># We use the propagative solution rates to update the TCS, the</span>
+        <span class="c1"># function provided already converts the values as needed</span>
+        <span class="c1"># so we can provide the units as per convention.</span>
+        <span class="c1"># We do not care about the response for now.</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">tcs</span><span class="o">.</span><span class="n">t3io_tcs_ns_rate</span><span class="p">(</span>
+            <span class="n">ra_velocity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="o">.</span><span class="n">ra_velocity</span><span class="p">,</span>
+            <span class="n">dec_velocity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">propagatives</span><span class="o">.</span><span class="n">dec_velocity</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_propagate_custom_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1205,21 +1400,72 @@
 <span class="sd">        mpc_record_filename : str</span>
 <span class="sd">            The filename of the MPC record for this object/image.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mpc_target_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span>
-        <span class="n">mpc_record_filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{an}</span><span class="s2">__exarata_mpcrecord&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">an</span><span class="o">=</span><span class="n">mpc_target_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">(</span>
+                <span class="s2">&quot;There is no asteroid name to derive the MPC record filename from.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mpc_target_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span>
+
+        <span class="n">suffix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX</span><span class="p">)</span>
+        <span class="n">mpc_record_filename</span> <span class="o">=</span> <span class="n">mpc_target_name</span> <span class="o">+</span> <span class="n">suffix</span>
         <span class="c1"># Search the same directory as the fits file for this information as</span>
         <span class="c1"># that is currently the expected location.</span>
         <span class="c1"># Preferring the preprocessed filename if it exists, have a fall back.</span>
         <span class="n">fits_pathname</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_fits_filename</span> <span class="ow">is</span> <span class="kc">None</span>
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_fits_filename</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span>
         <span class="p">)</span>
-        <span class="n">fits_directory</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">fits_pathname</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fits_pathname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fits_directory</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">fits_pathname</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">(</span>
+                <span class="s2">&quot;There is no FITS file to derive the directory where the MPC record&quot;</span>
+                <span class="s2">&quot; file should go.&quot;</span>
+            <span class="p">)</span>
         <span class="n">mpc_record_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
             <span class="n">directory</span><span class="o">=</span><span class="n">fits_directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">mpc_record_filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;txt&quot;</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">mpc_record_filename</span>
+
+    <span class="k">def</span> <span class="nf">__get_saving_fits_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This is a function which derives the FITS filename which will be</span>
+<span class="sd">        used to save the results of the many computations done for this given</span>
+<span class="sd">        image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        saving_fits_filename : str</span>
+<span class="sd">            The filename of the MPC record for this object/image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We can use OpihiSolution&#39;s built-in function, but we need to</span>
+        <span class="c1"># define the filename. Adding a suffix is sufficient here.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reference_fits_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">reference_fits_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span>
+        <span class="c1"># Check if a proper filename exists.</span>
+        <span class="k">if</span> <span class="n">reference_fits_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">(</span>
+                <span class="s2">&quot;There is no fits filename to derive the saving fits filename.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Extracting the entire path from the current name, we are saving it</span>
+        <span class="c1"># to the same location.</span>
+        <span class="n">directory</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split_pathname</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="o">=</span><span class="n">reference_fits_filename</span>
+        <span class="p">)</span>
+        <span class="c1"># We are just adding the suffix to the filename.</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX</span><span class="p">)</span>
+        <span class="n">new_filename</span> <span class="o">=</span> <span class="n">basename</span> <span class="o">+</span> <span class="n">suffix</span>
+        <span class="c1"># Recombining the path.</span>
+        <span class="n">saving_fits_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">new_filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extension</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">saving_fits_filename</span>
 
 <div class="viewcode-block" id="OpihiManualWindow._preprocess_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._preprocess_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">_preprocess_fits_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">raw_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">process_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1253,9 +1499,6 @@
             <span class="c1"># TODO</span>
             <span class="n">process_filename</span> <span class="o">=</span> <span class="s2">&quot;./process.fits&quot;</span>
 
-        <span class="c1"># Saving for later.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">process_fits_filename</span> <span class="o">=</span> <span class="n">process_filename</span>
-
         <span class="c1"># Process the fits file.</span>
         <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span><span class="o">.</span><span class="n">preprocess_fits_file</span><span class="p">(</span>
             <span class="n">raw_filename</span><span class="o">=</span><span class="n">raw_filename</span><span class="p">,</span> <span class="n">out_filename</span><span class="o">=</span><span class="n">process_filename</span>
@@ -1278,8 +1521,6 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Saving the previous file and other information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_results</span><span class="p">()</span>
 
         <span class="c1"># Extracting the header of this fits file to get the observing</span>
         <span class="c1"># metadata from it.</span>
@@ -1287,7 +1528,10 @@
 
         <span class="c1"># The filter which image is in, extracted from the fits file,</span>
         <span class="c1"># assuming standard form.</span>
-        <span class="n">filter_name</span> <span class="o">=</span> <span class="s2">&quot;g&quot;</span>
+        <span class="n">filter_position_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;FWHL&quot;</span><span class="p">])</span>
+        <span class="n">filter_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">filter_position_string_to_filter_name</span><span class="p">(</span>
+            <span class="n">position_string</span><span class="o">=</span><span class="n">filter_position_string</span>
+        <span class="p">)</span>
 
         <span class="c1"># The exposure time of the image, extracted from the fits file,</span>
         <span class="c1"># assuming standard form.</span>
@@ -1310,16 +1554,24 @@
             <span class="p">)</span>
             <span class="c1"># If there exists a MPC record of previous observations, use it</span>
             <span class="c1"># for the history. If it does not exist, make one.</span>
-            <span class="n">mpcrecord_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_mpc_record_filename</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">mpcrecord_filename</span><span class="p">):</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">mpcrecord_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">):</span>
-                    <span class="k">pass</span>
-            <span class="c1"># Read the historical data.</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">mpcrecord_filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mpcfile</span><span class="p">:</span>
-                <span class="n">raw_lines</span> <span class="o">=</span> <span class="n">mpcfile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-            <span class="c1"># The files have new line characters on them, they need to be</span>
-            <span class="c1"># removed to have the normal 80 characters.</span>
-            <span class="n">asteroid_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">raw_lines</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">mpcrecord_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_mpc_record_filename</span><span class="p">()</span>
+                <span class="c1"># Reading the file, or making one if it does not already exist.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">mpcrecord_filename</span><span class="p">):</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">mpcrecord_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">):</span>
+                        <span class="k">pass</span>
+                <span class="c1"># Read the historical data.</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">mpcrecord_filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mpcfile</span><span class="p">:</span>
+                    <span class="n">raw_lines</span> <span class="o">=</span> <span class="n">mpcfile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                    <span class="c1"># The files have new line characters on them, they need</span>
+                    <span class="c1"># to be removed to have the normal 80 characters.</span>
+                    <span class="n">asteroid_history</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">linedex</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">raw_lines</span>
+                    <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># The MPC record filename does not exist because there is</span>
+                <span class="c1"># no specified asteroid name.</span>
+                <span class="n">asteroid_history</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">asteroid_name</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">asteroid_location</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1471,6 +1723,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">## Resetting Summary information.</span>
         <span class="c1">#####</span>
+        <span class="c1"># The target name and the directory the images are in should</span>
+        <span class="c1"># not reset just because of a new image.</span>
+        <span class="c1"># self.ui.label_dynamic_summary_target_name.setText(&quot;DEFAULT&quot;)</span>
+        <span class="c1"># self.ui.label_dynamic_summary_directory.setText(&quot;/path/to/dir/&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_summary_save_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
         <span class="c1">## Resetting Astrometry information.</span>
         <span class="c1">#####</span>
@@ -1508,9 +1768,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_velocity</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+VV.VVV&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_ra_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAAeXX&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+AA.AAAeXX&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span>
-            <span class="s2">&quot;YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS    +DD:MM:SS.SS&quot;</span>
-        <span class="p">)</span>
         <span class="c1"># Keeping the timezone and time information for convenience.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_custom_ra</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;HH:MM:SS.SS&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_custom_dec</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+DD:MM:SS.SS&quot;</span><span class="p">)</span>
@@ -1530,6 +1787,8 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># All of this information does not depend on an OpihiSolution.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh_dynamic_label_text_summary</span><span class="p">()</span>
 
         <span class="c1"># These values are only to be done if the OpihiSolution actually</span>
         <span class="c1"># exists, otherwise, there is nothing to update in the text.</span>
@@ -1542,6 +1801,45 @@
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__refresh_dynamic_label_text_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Refresh all of the dynamic label text for the summary.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Refreshing the target name and the FITS filename.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_summary_target_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asteroid_set_name</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># A FITS filename has to have been provided to fill in the file</span>
+        <span class="c1"># path location of it.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_summary_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_filename</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Refreshing the saving filename if possible.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_summary_save_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__get_saving_fits_filename</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">:</span>
+            <span class="c1"># There is no FITS filename to update with.</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__refresh_dynamic_label_text_astrometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Refresh all of the dynamic label text for astrometry.</span>
@@ -1646,12 +1944,22 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">photometrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span>
 
+        <span class="c1"># Obtaining the computed magnitude of the target as computed. Some</span>
+        <span class="c1"># rounding is needed so it can properly fit in the GUI.</span>
+        <span class="n">asteroid_magnitude</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_magnitude</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">asteroid_magnitude_error</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_magnitude_error</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Building the string for display and updating the text.</span>
+        <span class="n">pm_sym</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u00B1</span><span class="s2">&quot;</span>
+        <span class="n">magnitude_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{mag}</span><span class="s2"> </span><span class="si">{pm}</span><span class="s2"> </span><span class="si">{err}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">mag</span><span class="o">=</span><span class="n">asteroid_magnitude</span><span class="p">,</span> <span class="n">pm</span><span class="o">=</span><span class="n">pm_sym</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">asteroid_magnitude_error</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_photometry_magnitude</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">magnitude_str</span><span class="p">)</span>
+
         <span class="c1"># Obtaining the computed zero point of the image. Some rounding is</span>
         <span class="c1"># needed so it can properly fit in the GUI.</span>
         <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point_error</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
         <span class="c1"># Building the string for display and updating the text.</span>
-        <span class="n">pm_sym</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u00B1</span><span class="s2">&quot;</span>
         <span class="n">zero_point_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{zp}</span><span class="s2"> </span><span class="si">{pm}</span><span class="s2"> </span><span class="si">{err}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">zp</span><span class="o">=</span><span class="n">zero_point</span><span class="p">,</span> <span class="n">pm</span><span class="o">=</span><span class="n">pm_sym</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">zero_point_error</span>
         <span class="p">)</span>
@@ -1871,43 +2179,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_ra_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">ra_a_arcsec_str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_propagate_dec_acceleration</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dec_a_arcsec_str</span><span class="p">)</span>
 
-        <span class="c1"># Use the current time and date to determine the future positions with</span>
-        <span class="c1"># the time interval provided.</span>
-        <span class="n">ENTRY_COUNT</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_ENTRY_COUNT</span>
-        <span class="n">INTERVAL</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_PROPAGATE_FUTURE_COMPUTE_TIMESTEP_SECONDS</span>
-        <span class="n">INTERVAL_DAYS</span> <span class="o">=</span> <span class="n">INTERVAL</span> <span class="o">/</span> <span class="mi">86400</span>
-        <span class="n">current_julian_day</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">()</span>
-        <span class="n">precomputed_future_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">countdex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ENTRY_COUNT</span><span class="p">)):</span>
-            <span class="c1"># The future Julian day time for this future, as the Julian time</span>
-            <span class="c1"># scale is in days.</span>
-            <span class="n">future_julian_day</span> <span class="o">=</span> <span class="n">current_julian_day</span> <span class="o">+</span> <span class="n">INTERVAL_DAYS</span> <span class="o">*</span> <span class="n">countdex</span>
-            <span class="c1"># Converting this to the date and time string for this entry.</span>
-            <span class="c1"># As this is UNIX time, the date is in UTC or Zulu time.</span>
-            <span class="n">yr</span><span class="p">,</span> <span class="n">mh</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">hr</span><span class="p">,</span> <span class="n">mn</span><span class="p">,</span> <span class="n">sc</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
-                <span class="n">jd</span><span class="o">=</span><span class="n">future_julian_day</span>
-            <span class="p">)</span>
-            <span class="n">datetime_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{yr}</span><span class="s2">-</span><span class="si">{mh}</span><span class="s2">-</span><span class="si">{dy}</span><span class="s2">  </span><span class="si">{hr}</span><span class="s2">:</span><span class="si">{mn}</span><span class="s2">:</span><span class="si">{sc}</span><span class="s2">  Z&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">yr</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">yr</span><span class="p">),</span> <span class="n">mh</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mh</span><span class="p">),</span> <span class="n">dy</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">dy</span><span class="p">),</span> <span class="n">hr</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">hr</span><span class="p">),</span> <span class="n">mn</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mn</span><span class="p">),</span> <span class="n">sc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="c1"># Using the Julian day time to compute the propagated solution for</span>
-            <span class="c1"># this time and formatting this as the needed string.</span>
-            <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span> <span class="o">=</span> <span class="n">propagatives</span><span class="o">.</span><span class="n">forward_propagate</span><span class="p">(</span>
-                <span class="n">future_time</span><span class="o">=</span><span class="n">future_julian_day</span>
-            <span class="p">)</span>
-            <span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">degrees_to_sexagesimal_ra_dec</span><span class="p">(</span>
-                <span class="n">ra_deg</span><span class="o">=</span><span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span><span class="o">=</span><span class="n">dec_deg</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">2</span>
-            <span class="p">)</span>
-            <span class="n">ra_dec_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{ra}</span><span class="s2">   </span><span class="si">{dec}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_sex</span><span class="p">)</span>
-            <span class="c1"># The final format for this line per the GUI specification, just</span>
-            <span class="c1"># adding some space and the new line</span>
-            <span class="n">entry_line</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{dt}</span><span class="s2">   |   </span><span class="si">{rd}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="n">datetime_str</span><span class="p">,</span> <span class="n">rd</span><span class="o">=</span><span class="n">ra_dec_str</span><span class="p">)</span>
-            <span class="n">precomputed_future_text</span> <span class="o">=</span> <span class="n">precomputed_future_text</span> <span class="o">+</span> <span class="n">entry_line</span>
-        <span class="c1"># Set the text for the set of future solutions.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span>
-            <span class="n">precomputed_future_text</span>
-        <span class="p">)</span>
-
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -1932,25 +2203,28 @@
         <span class="k">def</span> <span class="nf">empty_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">()</span>
 
-        <span class="c1"># These are points in future time which will be used to plot the</span>
-        <span class="c1"># ephemeris and propagation solutions, if they exist. However,</span>
-        <span class="c1"># as the time step is in seconds, and the standard time of this</span>
-        <span class="c1"># system is in Julian days, convert.</span>
-        <span class="n">TIMESTEP_JD</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS</span> <span class="o">/</span> <span class="mi">86400</span>
-        <span class="p">)</span>
-        <span class="n">N_POINTS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT</span>
-        <span class="c1"># Numpy says linspace is more stable for decimal non-integer steps.</span>
-        <span class="n">future_time_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span> <span class="o">+</span> <span class="n">TIMESTEP_JD</span> <span class="o">*</span> <span class="n">N_POINTS</span><span class="p">,</span>
-            <span class="n">N_POINTS</span><span class="p">,</span>
-            <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="p">)</span>
-
         <span class="c1"># There is no solution and thus no image can be plotted.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># These are points in future time which will be used to plot the</span>
+        <span class="c1"># ephemeris and propagation solutions, if they exist. However,</span>
+        <span class="c1"># as the time step is in seconds, and the standard time of this</span>
+        <span class="c1"># system is in Julian days, we convert.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="c1"># We can only do this if we know the time that the image was taken</span>
+            <span class="c1"># at.</span>
+            <span class="n">TIMESTEP_JD</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS</span> <span class="o">/</span> <span class="mi">86400</span>
+            <span class="p">)</span>
+            <span class="n">N_POINTS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT</span>
+            <span class="c1"># Numpy says linspace is more stable for decimal non-integer steps.</span>
+            <span class="n">future_time_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span> <span class="o">+</span> <span class="n">TIMESTEP_JD</span> <span class="o">*</span> <span class="n">N_POINTS</span><span class="p">,</span>
+                <span class="n">N_POINTS</span><span class="p">,</span>
+                <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="c1"># The data that will be plotted.</span>
         <span class="n">plotting_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">data</span>
@@ -1979,7 +2253,8 @@
             <span class="c1"># Disable their formatting in favor of ours.</span>
             <span class="n">target_marker</span><span class="o">.</span><span class="n">format_cursor_data</span> <span class="o">=</span> <span class="n">empty_string</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="c1"># It does not work.</span>
+            <span class="c1"># It does not work, something is wrong with the asteroid location</span>
+            <span class="c1"># provided.</span>
             <span class="k">pass</span>
 
         <span class="c1"># If there is an ephemeris solution, it is helpful to trace out the</span>
@@ -2046,7 +2321,33 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.save_results"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_results">[docs]</a>    <span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow.save_auto_save"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_auto_save">[docs]</a>    <span class="k">def</span> <span class="nf">save_auto_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function should be used when auto save is active across</span>
+<span class="sd">        every and all aspects of the GUI where automatic saving is desired.</span>
+
+<span class="sd">        Auto-saving is enabled by the checkbox.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">autosave_bool</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">check_box_summary_autosave</span><span class="o">.</span><span class="n">isChecked</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">autosave_bool</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_all_results</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No auto-save.</span>
+            <span class="k">pass</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiManualWindow.save_all_results"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_all_results">[docs]</a>    <span class="k">def</span> <span class="nf">save_all_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Save all of the results of the solutions to date. This is especially</span>
 <span class="sd">        done upon selecting a new image, the previous image results are</span>
 <span class="sd">        saved.</span>
@@ -2062,32 +2363,111 @@
 <span class="sd">        -------</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Beginning with the FITS file. We get the filename to save the FITS</span>
+        <span class="c1"># file as and try to save it.</span>
+        <span class="n">saving_fits_filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">line_edit_summary_save_filename</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">saving_fits_filename</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If the saving filename is blank then we ought to try an</span>
+            <span class="c1"># alternative by trying to derive the name from the fits file.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">saving_fits_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_saving_fits_filename</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">:</span>
+                <span class="c1"># There is no FITS file to even derive the filename. We cannot</span>
+                <span class="c1"># save the FITS file.</span>
+                <span class="n">saving_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Attempt to save the file.</span>
+        <span class="k">if</span> <span class="n">saving_fits_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># There is no FITS filename to save as. We cannot save the file.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;warn fits not save.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Attempt to save the file.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_fits_file_results</span><span class="p">(</span><span class="n">fits_filename</span><span class="o">=</span><span class="n">saving_fits_filename</span><span class="p">)</span>
+
+        <span class="c1"># Next the MPC record file. We get the filename to save the mpc</span>
+        <span class="c1"># record file as and try to save it.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">saving_mpcrecord_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_mpc_record_filename</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">SequentialOrderError</span><span class="p">:</span>
+            <span class="c1"># There is no FITS file to even derive the filename. We cannot</span>
+            <span class="c1"># save the FITS file.</span>
+            <span class="n">saving_mpcrecord_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Attempt to save the file.</span>
+        <span class="k">if</span> <span class="n">saving_mpcrecord_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># There is no MPC record filename to save as. We cannot save the</span>
+            <span class="c1"># file.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;warn mpc not save.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Attempt to save the file.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_mpc_record_results</span><span class="p">(</span><span class="n">record_filename</span><span class="o">=</span><span class="n">saving_mpcrecord_filename</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiManualWindow._save_fits_file_results"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._save_fits_file_results">[docs]</a>    <span class="k">def</span> <span class="nf">_save_fits_file_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;We save the results which can be stored in a FITS file, this is</span>
+<span class="sd">        typically the data and other related information.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fits_filename : string</span>
+<span class="sd">            The fits filename which it will be saved to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># If there is no solution class, there is nothing to save. Exiting</span>
         <span class="c1"># early.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="c1"># There are two primary things to save, the image and solution</span>
-        <span class="c1"># information and the MPC record as retrievable historical data.</span>
-        <span class="k">def</span> <span class="nf">_save_results_fits_image</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;First, doing the image data.&quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">_save_results_mpcrecord</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;Second, the MPC record historical data.&quot;&quot;&quot;</span>
-            <span class="c1"># The current record to add.</span>
-            <span class="n">mpc_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">mpc_record_row</span><span class="p">()</span>
-            <span class="c1"># Adding the new line character as write lines do not do this.</span>
-            <span class="n">mpc_record</span> <span class="o">=</span> <span class="n">mpc_record</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="c1"># If the record file already exists, append this information to it.</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__get_mpc_record_filename</span><span class="p">(),</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mpcfile</span><span class="p">:</span>
-                <span class="n">mpcfile</span><span class="o">.</span><span class="n">writelines</span><span class="p">([</span><span class="n">mpc_record</span><span class="p">])</span>
-            <span class="c1"># All done.</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="c1"># Executing the saving functions.</span>
-        <span class="n">_save_results_fits_image</span><span class="p">()</span>
-        <span class="n">_save_results_mpcrecord</span><span class="p">()</span>
+        <span class="c1"># Saving, it should be fine as we overwrite as only more data will</span>
+        <span class="c1"># be added.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">save_to_fits_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">fits_filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiManualWindow._save_mpc_record_results"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._save_mpc_record_results">[docs]</a>    <span class="k">def</span> <span class="nf">_save_mpc_record_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;We save the MPC record information which can be saved as a</span>
+<span class="sd">        text file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        record_filename : string</span>
+<span class="sd">            The text filename which will contain the 80-column MPC formatted</span>
+<span class="sd">            list of asteroid observations.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The OpihiSolution class does not exist so there is nothing for it</span>
+        <span class="c1"># to provide. However, if there is no file, we still can create it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">record_filename</span><span class="p">):</span>
+                <span class="c1"># We do not want to overwrite something if we have nothing to</span>
+                <span class="c1"># provide it.</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">record_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mpcfile</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+        <span class="c1"># The current record to add.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mpc_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">mpc_record_full</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">PracticalityError</span><span class="p">:</span>
+            <span class="c1"># If the user did not solve for astrometry, this will raise</span>
+            <span class="c1"># because it cannot properly make an MPC row. We ignore it</span>
+            <span class="c1"># and we do not add any observational data. We just return it</span>
+            <span class="c1"># to the state it was.</span>
+            <span class="n">mpc_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_history</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Adding the new line character as write lines do not do this</span>
+            <span class="c1"># to make the multi-rowed file.</span>
+            <span class="n">mpc_record</span> <span class="o">=</span> <span class="p">[</span><span class="n">rowdex</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">rowdex</span> <span class="ow">in</span> <span class="n">mpc_record</span><span class="p">]</span>
+        <span class="c1"># If the record file already exists, replace our information with</span>
+        <span class="c1"># it. We can do this because we already are using their data.</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">record_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mpcfile</span><span class="p">:</span>
+            <span class="n">mpcfile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">mpc_record</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span></div></div>
 
 

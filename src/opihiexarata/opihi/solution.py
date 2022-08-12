@@ -3,6 +3,7 @@ with and acts as the complete solver. There is not engine as it just shuffles
 the solutions."""
 
 import copy
+from matplotlib.pyplot import magnitude_spectrum
 import numpy as np
 
 import opihiexarata.library as library
@@ -39,6 +40,8 @@ class OpihiSolution(library.engine.ExarataSolution):
         The pixel location of the asteroid. (Usually determined by a centroid
         around a user specified location.) If this is None, then asteroid
         calculations are disabled as there is no asteroid.
+    asteroid_radius : float
+        The pixel radius of the asteroid. This is used for aperture photometry.
     asteroid_history : list
         The total observational history of the asteroid provided. This includes
         previous observations done by Opihi and processed by OpihiExarata, but
@@ -57,6 +60,14 @@ class OpihiSolution(library.engine.ExarataSolution):
     data : array
         The image data of the fits file itself.
 
+    asteroid_magnitude : float
+        The magnitude of the asteroid as determined by aperture photometry
+        using the photometric solution. If there is no photometric solution,
+        this is None.
+    asteroid_magnitude_error : float
+        The error of the magnitude, as propagated. If there is no photometric
+        solution, this is None.
+
 
     astrometrics : AstrometricSolution
         The astrometric solution; if it has not been solved yet, this is None.
@@ -68,35 +79,35 @@ class OpihiSolution(library.engine.ExarataSolution):
         The ephemeris solution; if it has not been solved yet, this is None.
     propagatives : PropagativeSolution
         The propagation solution; if it has not been solved yet, this is None.
-    astrometrics_status : bool, None
+    astrometrics_status : bool
         The status of the solving of the astrometric solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
-    photometrics_status : bool, None
+    photometrics_status : bool
         The status of the solving of the photometric solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
-    orbitals_status : bool, None
+    orbitals_status : bool
         The status of the solving of the orbital solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
-    ephemeritics_status : bool, None
+    ephemeritics_status : bool
         The status of the solving of the ephemeris solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
-    propagatives_status : bool, None
+    propagatives_status : bool
         The status of the solving of the propagative solution. It is True or
         False based on the success of the solve, None if a solve has not
         been attempted.
-    astrometrics_engine_class : ExarataEngine, None
+    astrometrics_engine_class : ExarataEngine
         The engine class used for the solving of the astrometric solution.
-    photometrics_engine_class : ExarataEngine, None
+    photometrics_engine_class : ExarataEngine
         The engine class used for the solving of the photometric solution.
-    orbitals_engine_class : ExarataEngine, None
+    orbitals_engine_class : ExarataEngine
         The engine class used for the solving of the orbital solution.
-    ephemeritics_engine_class : ExarataEngine, None
+    ephemeritics_engine_class : ExarataEngine
         The engine class used for the solving of the ephemeritic solution.
-    propagatives_engine_class : ExarataEngine, None
+    propagatives_engine_class : ExarataEngine
         The engine class used for the solving of the propagative solution.
     """
 
@@ -110,6 +121,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         observing_time: float = None,
         asteroid_name: str = None,
         asteroid_location: tuple[float, float] = None,
+        asteroid_radius: float = None,
         asteroid_history: list[str] = None,
     ) -> None:
         """Creating the main solution class.
@@ -140,6 +152,8 @@ class OpihiSolution(library.engine.ExarataSolution):
             The name of the asteroid.
         asteroid_location : tuple, default = None
             The pixel location of the asteroid.
+        asteroid_radius : float
+            The pixel radius of the asteroid. This is used for aperture photometry.
         asteroid_history : list, default = None
             The history of observations of an asteroid written in a standard
             80-column MPC record.
@@ -183,6 +197,11 @@ class OpihiSolution(library.engine.ExarataSolution):
             self.asteroid_location = asteroid_location
         except Exception:
             self.asteroid_location = None
+        # Formatting the radius of the asteroid or the target in general.
+        try:
+            self.asteroid_radius = asteroid_radius
+        except Exception:
+            self.asteroid_radius = None
         # Formatting the historical locations of the asteroid or the target
         # in general.
         try:
@@ -194,6 +213,10 @@ class OpihiSolution(library.engine.ExarataSolution):
         except Exception:
             self.asteroid_history = None
             self.asteroid_observations = None
+
+        # Dummy values for asteroid photometry.
+        self.asteroid_magnitude = None
+        self.asteroid_magnitude_error = None
 
         # Just creating the initial placeholders for the solution.
         self.astrometrics = None
@@ -348,9 +371,27 @@ class OpihiSolution(library.engine.ExarataSolution):
         finally:
             # Check if the solution should overwrite the current one.
             if overwrite:
+                # Overwriting the photometrics.
                 self.photometrics = photometric_solution
                 self.photometrics_status = solve_status
                 self.photometrics_engine_class = solver_engine
+
+        # If the solving completed properly, then we can attempt to solve for
+        # the photometric magnitude of the target/asteroid. We do the
+        # overwrite check here for simplicity.
+        if solve_status and overwrite:
+            asteroid_x, asteroid_y = self.asteroid_location
+            (
+                magnitude,
+                magnitude_error,
+            ) = self.photometrics.calculate_star_aperture_magnitude(
+                pixel_x=asteroid_x, pixel_y=asteroid_y
+            )
+            # We only actually apply the values if the user wants to
+            # overwrite the values, which is common.
+            self.asteroid_magnitude = magnitude
+            self.asteroid_magnitude_error = magnitude_error
+
         return photometric_solution, solve_status
 
     def solve_orbit(
@@ -895,7 +936,7 @@ class OpihiSolution(library.engine.ExarataSolution):
                 " Something out of sync."
             )
 
-        # We also add WCS header information from the astrometric solution, 
+        # We also add WCS header information from the astrometric solution,
         # if it exists.
         if isinstance(self.astrometrics, astrometry.AstrometricSolution):
             wcs_header = self.astrometrics.wcs.to_header()
@@ -956,8 +997,21 @@ class OpihiSolution(library.engine.ExarataSolution):
                 available_entries["OXT___RA"] = target_ra_sex
                 available_entries["OXT__DEC"] = target_dec_sex
 
+            # The magnitude and error of the target, as determined by a
+            # photometric solution. Requires the asteroid location and a
+            # photometric solution.
+            if self.photometrics_status and isinstance(
+                self.photometrics, photometry.PhotometricSolution
+            ):
+                # The photometric solution exists and the magnitude and error
+                # has likely been calculated.
+                available_entries["OXT__MAG"] = self.asteroid_magnitude
+                available_entries["OXT_MAGE"] = self.asteroid_magnitude_error
+
         # Metadata information.
-        available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(pathname=self.fits_filename)
+        available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(
+            pathname=self.fits_filename
+        )
         # We can never know if this was preprocessed or not.
 
         # Astrometric information.
@@ -989,11 +1043,12 @@ class OpihiSolution(library.engine.ExarataSolution):
             available_entries["OXP__ENG"] = self.photometrics_engine_class.__name__
             # And the results.
             available_entries["OXPSKYCT"] = self.photometrics.sky_counts
+            available_entries["OXP_APTR"] = self.photometrics.aperture_radius
             available_entries["OXP_ZP_M"] = self.photometrics.zero_point
             available_entries["OXP_ZP_E"] = self.photometrics.zero_point_error
-        # This does not depend on a photometric solution itself but it is
+        # These do not depend on a photometric solution itself but it is
         # photometrically related.
-        available_entries["OXM_FILT"] = self.filter_name
+        available_entries["OXP_FILT"] = self.filter_name
 
         # Orbital element information.
         available_entries["OXO_SLVD"] = self.orbitals_status

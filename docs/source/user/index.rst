@@ -87,6 +87,7 @@ acknowledge your usage in any projects or publications; see
     manual_mode
     automatic_mode
     configuration
+    recording_fits_file
     troubleshooting
     citations
     trivia
