@@ -20,6 +20,8 @@ _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
     "OXT_PX_Y": (None, "OX: Target pixel y location."),
     "OXT___RA": (None, "OX: Target RA coordinate."),
     "OXT__DEC": (None, "OX: Target DEC coordinate."),
+    "OXT__MAG": (None, "OX: Aperture magnitude."),
+    "OXT_MAGE": (None, "OX: Aperture magnitude error."),
     # Metadata; M.
     "OXM_ORFN": (None, "OX: Original FITS filename."),
     "OXM_REDU": (False, "OX: True if image preprocessed."),
@@ -38,8 +40,7 @@ _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
     "OXPSKYCT": (None, "OX: Average sky counts."),
     "OXP_ZP_M": (None, "OX: Zero point magnitude."),
     "OXP_ZP_E": (None, "OX: Zero point error."),
-    "OXP__MAG": (None, "OX: Aperture magnitude."),
-    "OXP_MAGE": (None, "OX: Aperture magnitude error."),
+    "OXP_APTR": (None, "OX: Aperture radius, arcsec."),
     # Orbital elements; O.
     "OXO_SLVD": (False, "OX: True if orbit solved."),
     "OXO__ENG": (None, "OX: The orbit engine."),

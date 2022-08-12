@@ -992,6 +992,16 @@ class OpihiSolution(library.engine.ExarataSolution):
                 available_entries["OXT___RA"] = target_ra_sex
                 available_entries["OXT__DEC"] = target_dec_sex
 
+            # The magnitude and error of the target, as determined by a 
+            # photometric solution. Requires the asteroid location and a 
+            # photometric solution.
+            if self.photometrics_status and isinstance(self.photometrics, photometry.PhotometricSolution):
+                # The photometric solution exists and the magnitude and error
+                # has likely been calculated.
+                available_entries["OXT__MAG"] = self.asteroid_magnitude
+                available_entries["OXT_MAGE"] = self.asteroid_magnitude_error
+
+
         # Metadata information.
         available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(pathname=self.fits_filename)
         # We can never know if this was preprocessed or not.
@@ -1025,15 +1035,12 @@ class OpihiSolution(library.engine.ExarataSolution):
             available_entries["OXP__ENG"] = self.photometrics_engine_class.__name__
             # And the results.
             available_entries["OXPSKYCT"] = self.photometrics.sky_counts
+            available_entries["OXP_APTR"] = self.photometrics.aperture_radius
             available_entries["OXP_ZP_M"] = self.photometrics.zero_point
             available_entries["OXP_ZP_E"] = self.photometrics.zero_point_error
-            # The magnitude requires photometry so it is best here even 
-            # though the general Opihi solution class is what calculates it.
-            available_entries["OXP__MAG"] = self.asteroid_magnitude
-            available_entries["OXP_MAGE"] = self.asteroid_magnitude_error
-        # This does not depend on a photometric solution itself but it is
+        # These do not depend on a photometric solution itself but it is
         # photometrically related.
-        available_entries["OXM_FILT"] = self.filter_name
+        available_entries["OXP_FILT"] = self.filter_name
 
         # Orbital element information.
         available_entries["OXO_SLVD"] = self.orbitals_status

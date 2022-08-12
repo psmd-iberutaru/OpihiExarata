@@ -48,11 +48,6 @@ class Ui_SelectorWindow(object):
 
         self.grid_layout_file_selection.addWidget(self.label_dynamic_reference_fits_filename, 1, 1, 1, 1)
 
-        self.push_button_change_current_filename = QPushButton(self.verticalLayoutWidget)
-        self.push_button_change_current_filename.setObjectName(u"push_button_change_current_filename")
-
-        self.grid_layout_file_selection.addWidget(self.push_button_change_current_filename, 0, 2, 1, 1)
-
         self.push_button_change_reference_filename = QPushButton(self.verticalLayoutWidget)
         self.push_button_change_reference_filename.setObjectName(u"push_button_change_reference_filename")
 
@@ -217,7 +212,6 @@ class Ui_SelectorWindow(object):
         SelectorWindow.setWindowTitle(QCoreApplication.translate("SelectorWindow", u"OpihiExarata Target Selector", None))
         self.label_dynamic_current_fits_filename.setText(QCoreApplication.translate("SelectorWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None))
         self.label_dynamic_reference_fits_filename.setText(QCoreApplication.translate("SelectorWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits", None))
-        self.push_button_change_current_filename.setText(QCoreApplication.translate("SelectorWindow", u"Change", None))
         self.push_button_change_reference_filename.setText(QCoreApplication.translate("SelectorWindow", u"Change", None))
         self.label_static_current_fits_filename.setText(QCoreApplication.translate("SelectorWindow", u"Current:", None))
         self.label_static_reference_fits_filename.setText(QCoreApplication.translate("SelectorWindow", u"Reference:", None))

@@ -48,6 +48,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         A single character string describing the name of the filter band that
         this image was taken in. Currently, it assumes the MKO/SDSS visual
         filters.
+    aperture_radius : float
+        The aperture radius that defines the aperture for aperture photometry, 
+        in arcseconds.
     available_filters : tuple
         The list of filter names which the star table currently covers and has
         data for.
@@ -179,6 +182,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
                     " incorrect names."
                 )
 
+        # The aperture size as determined by the configuration file.
+        self.aperture_radius = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
+
         # Determine the average sky contribution per pixel.
         self.sky_counts_mask = self.__calculate_sky_counts_mask()
         self.sky_counts = self.__calculate_sky_counts_value()
@@ -260,8 +266,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         MAX_SEP_DEG = MAX_SEP_AECSEC / 3600
 
         # The size of a star, used for the photometric count determination. As
-        # the star photon counts function uses degrees, a conversion is done.
-        STAR_RADIUS_DEG = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND * (1 / 3600)
+        # the star photon counts function uses degrees, a conversion is done
+        # to convert from arcseconds to degrees.
+        STAR_RADIUS_DEG = self.aperture_radius / 3600
 
         # Find the closest star within the photometric table for each
         # astrometric star. It is assumed that the two closest entries are
@@ -352,7 +359,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
         stars_y = np.append(photo_y, astro_y)
         # The length of the masking box region for a star, being generous on
         # the half definition for odd sized boxes.
-        STAR_RADIUS_AS = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
+        STAR_RADIUS_AS = self.aperture_radius
         STAR_RADIUS_PIXEL = STAR_RADIUS_AS / arcsec_pixel_scale
         HALF_BOX_LENGTH = int(STAR_RADIUS_PIXEL) + 1
         # Defining the star mask to mask regions where stars have been
@@ -630,9 +637,8 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # must be the same as those which was used to derive the phototable
         # and the zero-point. We need to convert the configuration
         # parameter from arcseconds to pixels.
-        STAR_RADIUS_ARCSEC = library.config.PHOTOMETRY_STAR_RADIUS_ARCSECOND
         arcsec_pixel_scale = self.astrometrics.pixel_scale
-        pixel_radius = STAR_RADIUS_ARCSEC / (arcsec_pixel_scale)
+        pixel_radius = self.aperture_radius / (arcsec_pixel_scale)
 
         # The exposure time information.
         exposure_time = self.exposure_time

@@ -1021,7 +1021,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         fits_pathname = (
             self.raw_fits_filename if self.fits_filename is None else self.fits_filename
         )
-        if fits_pathname is None:
+        if fits_pathname is not None:
             fits_directory = library.path.get_directory(pathname=fits_pathname)
         else:
             raise error.SequentialOrderError(
