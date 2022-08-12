@@ -526,7 +526,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         preprocess_header_entries = {
             "OXM_PPRO": True,
         }
-        # Adding it using the library function so that the defaults may be 
+        # Adding it using the library function so that the defaults may be
         # added as well.
         preprocess_header = library.fits.update_opihiexarata_fits_header(
             header=raw_header, entries=preprocess_header_entries

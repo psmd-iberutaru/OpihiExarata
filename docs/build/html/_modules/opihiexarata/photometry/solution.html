@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -111,6 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -243,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -254,6 +259,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -269,6 +275,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -381,8 +395,8 @@
 <span></span><span class="sd">&quot;&quot;&quot;The general photometric solver.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
-<span class="kn">from</span> <span class="nn">matplotlib.style</span> <span class="kn">import</span> <span class="n">available</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sp_stats</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
@@ -396,7 +410,7 @@
     <span class="sd">&quot;&quot;&quot;The primary class describing an photometric solution, based on an image</span>
 <span class="sd">    provided and catalog data provided from the photometric engine.</span>
 
-<span class="sd">    This class is the middlewere class between the engines which solve the</span>
+<span class="sd">    This class is the middleware class between the engines which solve the</span>
 <span class="sd">    photometry, and the rest of the OpihiExarata code.</span>
 
 <span class="sd">    Attributes</span>
@@ -428,6 +442,9 @@
 <span class="sd">        A single character string describing the name of the filter band that</span>
 <span class="sd">        this image was taken in. Currently, it assumes the MKO/SDSS visual</span>
 <span class="sd">        filters.</span>
+<span class="sd">    aperture_radius : float</span>
+<span class="sd">        The aperture radius that defines the aperture for aperture photometry,</span>
+<span class="sd">        in arcseconds.</span>
 <span class="sd">    available_filters : tuple</span>
 <span class="sd">        The list of filter names which the star table currently covers and has</span>
 <span class="sd">        data for.</span>
@@ -456,7 +473,7 @@
 <span class="sd">            solution.</span>
 <span class="sd">        solver_engine : PhotometryEngine</span>
 <span class="sd">            The photometric solver engine class. This is what will act as the</span>
-<span class="sd">            &quot;behind the scenes&quot; and solve the field, using this middlewhere to</span>
+<span class="sd">            &quot;behind the scenes&quot; and solve the field, using this middleware to</span>
 <span class="sd">            translate it into something that is easier.</span>
 <span class="sd">        astrometrics : AstrometricSolution, default = None</span>
 <span class="sd">            A precomputed astrometric solution which belongs to this image.</span>
@@ -559,6 +576,9 @@
                     <span class="s2">&quot; incorrect names.&quot;</span>
                 <span class="p">)</span>
 
+        <span class="c1"># The aperture size as determined by the configuration file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aperture_radius</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_STAR_RADIUS_ARCSECOND</span>
+
         <span class="c1"># Determine the average sky contribution per pixel.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sky_counts_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_sky_counts_mask</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sky_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_sky_counts_value</span><span class="p">()</span>
@@ -640,8 +660,9 @@
         <span class="n">MAX_SEP_DEG</span> <span class="o">=</span> <span class="n">MAX_SEP_AECSEC</span> <span class="o">/</span> <span class="mi">3600</span>
 
         <span class="c1"># The size of a star, used for the photometric count determination. As</span>
-        <span class="c1"># the star photon counts function uses degrees, a conversion is done.</span>
-        <span class="n">STAR_RADIUS_DEG</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_STAR_RADIUS_ARCSECOND</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">)</span>
+        <span class="c1"># the star photon counts function uses degrees, a conversion is done</span>
+        <span class="c1"># to convert from arcseconds to degrees.</span>
+        <span class="n">STAR_RADIUS_DEG</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aperture_radius</span> <span class="o">/</span> <span class="mi">3600</span>
 
         <span class="c1"># Find the closest star within the photometric table for each</span>
         <span class="c1"># astrometric star. It is assumed that the two closest entries are</span>
@@ -674,7 +695,7 @@
                 <span class="c1"># The total counts of this star. This table is going to be</span>
                 <span class="c1"># used for photometric calculations so having this in the table</span>
                 <span class="c1"># is a useful convince.</span>
-                <span class="n">dn_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_star_photon_counts_coordinate</span><span class="p">(</span>
+                <span class="n">dn_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_star_photon_counts_coordinate</span><span class="p">(</span>
                     <span class="n">ra</span><span class="o">=</span><span class="n">ra_astro_row</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_astro_row</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">STAR_RADIUS_DEG</span>
                 <span class="p">)</span>
 
@@ -732,7 +753,7 @@
         <span class="n">stars_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">photo_y</span><span class="p">,</span> <span class="n">astro_y</span><span class="p">)</span>
         <span class="c1"># The length of the masking box region for a star, being generous on</span>
         <span class="c1"># the half definition for odd sized boxes.</span>
-        <span class="n">STAR_RADIUS_AS</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_STAR_RADIUS_ARCSECOND</span>
+        <span class="n">STAR_RADIUS_AS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aperture_radius</span>
         <span class="n">STAR_RADIUS_PIXEL</span> <span class="o">=</span> <span class="n">STAR_RADIUS_AS</span> <span class="o">/</span> <span class="n">arcsec_pixel_scale</span>
         <span class="n">HALF_BOX_LENGTH</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">STAR_RADIUS_PIXEL</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="c1"># Defining the star mask to mask regions where stars have been</span>
@@ -770,7 +791,7 @@
         <span class="n">edge_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="n">edge_mask</span><span class="p">[</span><span class="n">EDGE_WIDTH</span><span class="p">:</span><span class="o">-</span><span class="n">EDGE_WIDTH</span><span class="p">,</span> <span class="n">EDGE_WIDTH</span><span class="p">:</span><span class="o">-</span><span class="n">EDGE_WIDTH</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># Finally, making any values which do not really make any sense or are</span>
-        <span class="c1"># already nans.</span>
+        <span class="c1"># already NaN.</span>
         <span class="n">nan_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">data_array</span><span class="p">))</span>
 
         <span class="c1"># Adding all of the masks.</span>
@@ -812,7 +833,99 @@
         <span class="n">sky_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">sky_data_values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sky_counts</span>
 
-<div class="viewcode-block" id="PhotometricSolution._calculate_star_photon_counts_coordinate"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_coordinate">[docs]</a>    <span class="k">def</span> <span class="nf">_calculate_star_photon_counts_coordinate</span><span class="p">(</span>
+<div class="viewcode-block" id="PhotometricSolution._calculate_zero_point"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._calculate_zero_point">[docs]</a>    <span class="k">def</span> <span class="nf">_calculate_zero_point</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function calculates the photometric zero-point of the image</span>
+<span class="sd">        provided the data in the intersection star table.</span>
+
+<span class="sd">        This function uses the set exposure time and the intersection star</span>
+<span class="sd">        table. The band is also assumed from the initial parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            How long, in seconds, the image in question was exposed for.</span>
+<span class="sd">        filter_name : string, default = None</span>
+<span class="sd">            A single character string describing the name of the filter band that</span>
+<span class="sd">            this image was taken in. Currently, it assumes the MKO/SDSS visual</span>
+<span class="sd">            filters. If it is None, then this function does nothing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        zero_point : float</span>
+<span class="sd">            The zero point of this image. This is computed as a mean of all of</span>
+<span class="sd">            the calculated zero points.</span>
+<span class="sd">        zero_point_error : float</span>
+<span class="sd">            The standard deviation of the zero points calculated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Obtaining the needed information.</span>
+        <span class="n">inter_star_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intersection_star_table</span>
+
+        <span class="c1"># The exposure time information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">exposure_time</span><span class="p">)</span>
+
+        <span class="c1"># The filter name, check that it is a valid expected filter which the</span>
+        <span class="c1"># photometric engines and vehicle functions are expected to deal with.</span>
+
+        <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># The filter is not provided and thus photometry cannot be</span>
+            <span class="c1"># performed.</span>
+            <span class="n">zero_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span>
+            <span class="n">zero_point_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_error</span>
+            <span class="k">return</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_error</span>
+        <span class="k">elif</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">library</span><span class="o">.</span><span class="n">phototable</span><span class="o">.</span><span class="n">OPIHI_FILTERS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The filter name provided `</span><span class="si">{f}</span><span class="s2">` is not a filter that is supported by&quot;</span>
+                <span class="s2">&quot; OpihiExarata&#39;s supported photometric engines and vehicle functions&quot;</span>
+                <span class="s2">&quot; and therefore cannot be used to derive a photometric solution.&quot;</span>
+                <span class="s2">&quot; Opihi&#39;s filters: </span><span class="si">{of}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">of</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">phototable</span><span class="o">.</span><span class="n">OPIHI_FILTERS</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_filters</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The filter name provided `</span><span class="si">{f}</span><span class="s2">` is not a filter with photometry data&quot;</span>
+                <span class="s2">&quot; available from the given photometry engine and vehicle. There is no&quot;</span>
+                <span class="s2">&quot; data from the photometric database(s) to derive a photometric&quot;</span>
+                <span class="s2">&quot; solution. Available filters: </span><span class="si">{af}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">available_filters</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
+
+        <span class="c1"># Extract the proper photometric values for the filter being used.</span>
+        <span class="n">filter_table_header</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{f}</span><span class="s2">_mag&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">)</span>
+        <span class="n">magnitude</span> <span class="o">=</span> <span class="n">inter_star_table</span><span class="p">[</span><span class="n">filter_table_header</span><span class="p">]</span>
+        <span class="c1"># And the count data.</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">inter_star_table</span><span class="p">[</span><span class="s2">&quot;counts&quot;</span><span class="p">]</span>
+        <span class="c1"># Instrument magnitudes.</span>
+        <span class="n">sqrt5_100</span> <span class="o">=</span> <span class="mf">2.51188643151</span>
+        <span class="n">inst_magnitude</span> <span class="o">=</span> <span class="o">-</span><span class="n">sqrt5_100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">counts</span> <span class="o">/</span> <span class="n">exposure_time</span><span class="p">)</span>
+
+        <span class="c1"># We filter the stars so that we avoid using stars and targets</span>
+        <span class="c1"># which otherwise would skew our results.</span>
+        <span class="c1"># Stars which are too bright saturate our detector. We limit based on</span>
+        <span class="c1"># the magnitude as specified. A dimmer object has a higher magnitude.</span>
+        <span class="n">LIM_MAG</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE</span>
+        <span class="n">invalid_filter_magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="n">LIM_MAG</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># The valid points that we can use are those not caught with the</span>
+        <span class="c1"># filter.</span>
+        <span class="n">valid_points</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">invalid_filter_magnitude</span><span class="p">)</span>
+        <span class="c1"># Using only the remaining/valid targets for the photometric</span>
+        <span class="c1"># calculation.</span>
+        <span class="n">valid_magnitude</span> <span class="o">=</span> <span class="n">magnitude</span><span class="p">[</span><span class="n">valid_points</span><span class="p">]</span>
+        <span class="n">valid_inst_magnitude</span> <span class="o">=</span> <span class="n">inst_magnitude</span><span class="p">[</span><span class="n">valid_points</span><span class="p">]</span>
+
+        <span class="c1"># Zero points via the definition equation</span>
+        <span class="n">zero_points</span> <span class="o">=</span> <span class="n">valid_magnitude</span> <span class="o">-</span> <span class="n">valid_inst_magnitude</span>
+        <span class="n">zero_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">zero_points</span><span class="p">)</span>
+        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="n">sp_stats</span><span class="o">.</span><span class="n">median_abs_deviation</span><span class="p">(</span><span class="n">zero_points</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s2">&quot;omit&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_error</span></div>
+
+<div class="viewcode-block" id="PhotometricSolution.calculate_star_photon_counts_coordinate"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_coordinate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_star_photon_counts_coordinate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Calculate the total number of photometric counts at an RA DEC. The</span>
@@ -849,12 +962,12 @@
 
         <span class="c1"># Using the pixel version because there is little need to implement</span>
         <span class="c1"># it all again.</span>
-        <span class="n">photon_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_star_photon_counts_pixel</span><span class="p">(</span>
+        <span class="n">photon_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_star_photon_counts_pixel</span><span class="p">(</span>
             <span class="n">pixel_x</span><span class="o">=</span><span class="n">photo_x</span><span class="p">,</span> <span class="n">pixel_y</span><span class="o">=</span><span class="n">photo_y</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">pixel_radius</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">photon_counts</span></div>
 
-<div class="viewcode-block" id="PhotometricSolution._calculate_star_photon_counts_pixel"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._calculate_star_photon_counts_pixel">[docs]</a>    <span class="k">def</span> <span class="nf">_calculate_star_photon_counts_pixel</span><span class="p">(</span>
+<div class="viewcode-block" id="PhotometricSolution.calculate_star_photon_counts_pixel"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_pixel">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_star_photon_counts_pixel</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">pixel_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pixel_y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Calculate the total number of photometric counts at a pixel</span>
@@ -870,7 +983,7 @@
 <span class="sd">            The y coordinate of the center pixel.</span>
 <span class="sd">        radius : float</span>
 <span class="sd">            The radius of the circular aperture to be considered in pixel</span>
-<span class="sd">            counts.</span>
+<span class="sd">            counts. This is in pixel units.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -895,80 +1008,62 @@
         <span class="n">photon_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">star_array_nosky</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">photon_counts</span></div>
 
-<div class="viewcode-block" id="PhotometricSolution._calculate_zero_point"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution._calculate_zero_point">[docs]</a>    <span class="k">def</span> <span class="nf">_calculate_zero_point</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This function calculates the photometric zero-point of the image</span>
-<span class="sd">        provided the data in the intersection star table.</span>
-
-<span class="sd">        This function uses the set exposure time and the intersection star</span>
-<span class="sd">        table. The band is also assumed from the initial parameters.</span>
+<div class="viewcode-block" id="PhotometricSolution.calculate_star_aperture_magnitude"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_aperture_magnitude">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_star_aperture_magnitude</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">pixel_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pixel_y</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;This function calculates the photometric aperture magnitude of a</span>
+<span class="sd">        star (or any PSF-like object) from the zero-point as provided by the</span>
+<span class="sd">        photometric solution.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        exposure_time : float</span>
-<span class="sd">            How long, in seconds, the image in question was exposed for.</span>
-<span class="sd">        filter_name : string, default = None</span>
-<span class="sd">            A single character string describing the name of the filter band that</span>
-<span class="sd">            this image was taken in. Currently, it assumes the MKO/SDSS visual</span>
-<span class="sd">            filters. If it is None, then this function does nothing.</span>
+<span class="sd">        pixel_x : int</span>
+<span class="sd">            The x coordinate of the center pixel of the star/target.</span>
+<span class="sd">        pixel_y : int</span>
+<span class="sd">            The y coordinate of the center pixel of the star/target.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        zero_point : float</span>
-<span class="sd">            The zero point of this image. This is computed as a mean of all of</span>
-<span class="sd">            the calculated zero points.</span>
-<span class="sd">        zero_point_error : float</span>
-<span class="sd">            The standard deviation of the zero points calculated.</span>
+<span class="sd">        star_magnitude : float</span>
+<span class="sd">            The magnitude of the star/PSF as determined by aperture photometry.</span>
+<span class="sd">        star_magnitude_error : float</span>
+<span class="sd">            The error on the magnitude after errors have been propagated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Obtaining the needed information.</span>
-        <span class="n">inter_star_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intersection_star_table</span>
+        <span class="c1"># The radius of the PSF for calculating the magnitude of a target</span>
+        <span class="c1"># must be the same as those which was used to derive the phototable</span>
+        <span class="c1"># and the zero-point. We need to convert the configuration</span>
+        <span class="c1"># parameter from arcseconds to pixels.</span>
+        <span class="n">arcsec_pixel_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">pixel_scale</span>
+        <span class="n">pixel_radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aperture_radius</span> <span class="o">/</span> <span class="p">(</span><span class="n">arcsec_pixel_scale</span><span class="p">)</span>
 
         <span class="c1"># The exposure time information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">exposure_time</span><span class="p">)</span>
+        <span class="n">exposure_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span>
 
-        <span class="c1"># The filter name, check that it is a valid expected filter which the</span>
-        <span class="c1"># photometric engines and vehicle functions are expected to deal with.</span>
-        <span class="n">ACCEPTED_FILTERS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># The filter is not provided and thus photometry cannot be</span>
-            <span class="c1"># performed.</span>
-            <span class="n">zero_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span>
-            <span class="n">zero_point_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_error</span>
-            <span class="k">return</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_error</span>
-        <span class="k">elif</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ACCEPTED_FILTERS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
-                <span class="s2">&quot;The filter name provided `</span><span class="si">{f}</span><span class="s2">` is not a filter that is supported by&quot;</span>
-                <span class="s2">&quot; OpihiExarata&#39;s supported photometric engines and vehicle functions&quot;</span>
-                <span class="s2">&quot; and therefore cannot be used to derive a photometric solution.&quot;</span>
-                <span class="s2">&quot; Accepted filters: </span><span class="si">{af}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="n">ACCEPTED_FILTERS</span><span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_filters</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
-                <span class="s2">&quot;The filter name provided `</span><span class="si">{f}</span><span class="s2">` is not a filter with photometry data&quot;</span>
-                <span class="s2">&quot; available from the given photometry engine and vehicle. There is no&quot;</span>
-                <span class="s2">&quot; data from the photometric database(s) to derive a photometric&quot;</span>
-                <span class="s2">&quot; solution. Available filters: </span><span class="si">{af}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">available_filters</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">filter_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
+        <span class="c1"># Obtain the number of counts which this star/PSF has.</span>
+        <span class="n">star_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_star_photon_counts_pixel</span><span class="p">(</span>
+            <span class="n">pixel_x</span><span class="o">=</span><span class="n">pixel_x</span><span class="p">,</span> <span class="n">pixel_y</span><span class="o">=</span><span class="n">pixel_y</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">pixel_radius</span>
+        <span class="p">)</span>
+        <span class="c1"># Assuming Poisson statistics for the photon counting of the star&#39;s</span>
+        <span class="c1"># aperture.</span>
+        <span class="n">star_counts_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">star_counts</span><span class="p">)</span>
 
-        <span class="c1"># Extract the proper photometric values for the filter being used.</span>
-        <span class="n">filter_table_header</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{f}</span><span class="s2">_mag&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">)</span>
-        <span class="n">magnitude</span> <span class="o">=</span> <span class="n">inter_star_table</span><span class="p">[</span><span class="n">filter_table_header</span><span class="p">]</span>
-        <span class="c1"># And the count data.</span>
-        <span class="n">counts</span> <span class="o">=</span> <span class="n">inter_star_table</span><span class="p">[</span><span class="s2">&quot;counts&quot;</span><span class="p">]</span>
+        <span class="c1"># Provided the zero point and its error.</span>
+        <span class="n">zero_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span>
+        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_error</span>
 
-        <span class="c1"># Instrument magnitudes.</span>
-        <span class="n">inst_magnitude</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">counts</span> <span class="o">/</span> <span class="n">exposure_time</span><span class="p">)</span>
+        <span class="c1"># Calculating the magnitude.</span>
+        <span class="n">sqrt5_100</span> <span class="o">=</span> <span class="mf">2.51188643151</span>
+        <span class="n">star_magnitude</span> <span class="o">=</span> <span class="o">-</span><span class="n">sqrt5_100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">star_counts</span> <span class="o">/</span> <span class="n">exposure_time</span><span class="p">)</span> <span class="o">+</span> <span class="n">zero_point</span>
 
-        <span class="c1"># Zero points via the definition equation</span>
-        <span class="n">zero_points</span> <span class="o">=</span> <span class="n">magnitude</span> <span class="o">-</span> <span class="n">inst_magnitude</span>
-        <span class="n">zero_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">zero_points</span><span class="p">)</span>
-        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">zero_points</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_error</span></div></div>
+        <span class="c1"># Calculating the error as propagated.</span>
+        <span class="n">ln10</span> <span class="o">=</span> <span class="mf">2.302585092994046</span>
+        <span class="n">star_magnitude_variance</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">sqrt5_100</span> <span class="o">*</span> <span class="n">star_counts_error</span> <span class="o">/</span> <span class="p">(</span><span class="n">star_counts</span> <span class="o">*</span> <span class="n">ln10</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">zero_point_error</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">star_magnitude_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">star_magnitude_variance</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">star_magnitude</span><span class="p">,</span> <span class="n">star_magnitude_error</span></div></div>
 
 
 <div class="viewcode-block" id="_vehicle_panstarrs_mast_web_api"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution._vehicle_panstarrs_mast_web_api">[docs]</a><span class="k">def</span> <span class="nf">_vehicle_panstarrs_mast_web_api</span><span class="p">(</span><span class="n">ra</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>

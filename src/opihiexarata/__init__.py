@@ -37,7 +37,7 @@ library.config.load_then_apply_configuration(
     )
 )
 
-# Lastly, the main file. We only do this so that Sphinx correctly builds the 
-# documentation. (Though this too could be a misunderstanding.) Functionality 
+# Lastly, the main file. We only do this so that Sphinx correctly builds the
+# documentation. (Though this too could be a misunderstanding.) Functionality
 # of __main__ should be done via the command line interface.
 import __main__ as __

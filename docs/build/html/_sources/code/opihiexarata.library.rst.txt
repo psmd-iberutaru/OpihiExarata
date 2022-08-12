@@ -19,6 +19,7 @@ Submodules
    opihiexarata.library.mpcrecord
    opihiexarata.library.path
    opihiexarata.library.phototable
+   opihiexarata.library.tcs
    opihiexarata.library.temporary
 
 Module contents

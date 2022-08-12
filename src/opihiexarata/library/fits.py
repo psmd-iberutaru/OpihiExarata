@@ -118,8 +118,8 @@ def update_opihiexarata_fits_header(
 ) -> hint.Header:
     """This appends entries from a dictionary to an Astropy header.
 
-    This function is specifically for OpihiExarata data entries. All other 
-    entries or header keyword value pairs are ignored. The OpihiExarata 
+    This function is specifically for OpihiExarata data entries. All other
+    entries or header keyword value pairs are ignored. The OpihiExarata
     results (or header information per say) are appended or updated.
 
     Comments are provided by the standard OpihiExarata form.
@@ -141,26 +141,26 @@ def update_opihiexarata_fits_header(
     # Type checking.
     entries = entries if isinstance(entries, dict) else dict(entries)
 
-    # We assume the defaults at first and see if the provided header or the 
-    # provided entries have overridden us. This ensures that the defaults 
+    # We assume the defaults at first and see if the provided header or the
+    # provided entries have overridden us. This ensures that the defaults
     # are always there.
     for keydex in _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY.keys():
         # Extracting the default values and the comment.
         defaultdex, commentdex = _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY[keydex]
-        # We attempt to get a value, either from the supplied header or the 
+        # We attempt to get a value, either from the supplied header or the
         # entries provided, to override our default.
         if entries.get(keydex, None) is not None:
             # We first check for a new value provided.
             valuedex = entries[keydex]
         elif opihiexarata_header.get(keydex, None) is not None:
-            # Then if a value already existed in the old header, there is 
+            # Then if a value already existed in the old header, there is
             # nothing to change or a default to add.
             continue
         else:
             # Otherwise, we just use the default.
             valuedex = defaultdex
 
-        # We type check as FITS header files are picky about the object types 
+        # We type check as FITS header files are picky about the object types
         # they get FITS headers really only support some specific basic types.
         if isinstance(valuedex, (int, float, bool, str)):
             # These are generally accepted types.
@@ -174,9 +174,7 @@ def update_opihiexarata_fits_header(
                 " only accept strings or numbers.".format(v=valuedex, t=type(valuedex))
             )
         # Adding this record to the row.
-        opihiexarata_header.set(
-            keyword=keydex, value=valuedex, comment=commentdex
-        )
+        opihiexarata_header.set(keyword=keydex, value=valuedex, comment=commentdex)
     # All done.
     return opihiexarata_header
 

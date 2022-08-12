@@ -44,7 +44,7 @@ $doc_src = $doc_dir + "source/"
 $doc_bld = $doc_dir + "build/"
 $doc_src_dscd = $doc_src + "code/"
 $doc_bld_html = $doc_bld + "html/"
-$doc_bld_latex = $doc_bld + "latex/"
+$doc_bld_latex = $doc_bld # + "latex/"  It seems like they already add a dir.
 $doc_bld_dscd = $doc_bld_html + "code/"
 
 # Rebuilding the docstring documentation files. Clearing the cache first 

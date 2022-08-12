@@ -49,7 +49,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
         this image was taken in. Currently, it assumes the MKO/SDSS visual
         filters.
     aperture_radius : float
-        The aperture radius that defines the aperture for aperture photometry, 
+        The aperture radius that defines the aperture for aperture photometry,
         in arcseconds.
     available_filters : tuple
         The list of filter names which the star table currently covers and has
@@ -614,7 +614,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         photon_counts = np.nansum(star_array_nosky)
         return photon_counts
 
-    def calculate_star_aperture_magnitude(self, pixel_x: int, pixel_y: int) -> tuple[float, float]:
+    def calculate_star_aperture_magnitude(
+        self, pixel_x: int, pixel_y: int
+    ) -> tuple[float, float]:
         """This function calculates the photometric aperture magnitude of a
         star (or any PSF-like object) from the zero-point as provided by the
         photometric solution.

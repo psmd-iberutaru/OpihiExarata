@@ -58,7 +58,7 @@ in :ref:`technical-architecture-vehicles-solutions`.
 
 In order for the software to interact with a given service (through its 
 corresponding vehicle function) we need to have an API to interact with. 
-ALthough many services provide their own API, others do not. Therefore, we 
+Although many services provide their own API, others do not. Therefore, we 
 built custom APIs for each and every supported service. We call our custom 
 APIs "engines". Each engine is specifically curtailed for handling Opihi 
 data and extracting the needed information from whatever service or program it 

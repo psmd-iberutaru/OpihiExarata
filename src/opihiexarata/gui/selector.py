@@ -739,8 +739,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 pass
             else:
                 # The currently derived values are incorrect. Falling back on
-                # an assumption of the beyond the origin to signify that it 
-                # was not provided while still giving a numerical value to 
+                # an assumption of the beyond the origin to signify that it
+                # was not provided while still giving a numerical value to
                 # work with.
                 using_pixel_x = -1
                 using_pixel_y = -1
@@ -772,7 +772,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.__refresh_text()
         # All done.
         return None
-
 
     def __refresh_image(self) -> None:
         """Redraw and refresh the image, this is mostly used to allow for the
@@ -899,9 +898,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # All done.
         return None
-
-
-
 
     def close_window(self) -> None:
         """Closes the window. Generally called when it is all done.

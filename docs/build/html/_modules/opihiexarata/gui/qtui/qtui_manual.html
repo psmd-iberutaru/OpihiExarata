@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.qtui.qtui_manual &mdash; OpihiExarata 2022.6.30 documentation</title>
+  <title>opihiexarata.gui.qtui.qtui_manual &mdash; OpihiExarata 2022.8.11 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../../_static/pyukumuku_favicon.png"/>
@@ -111,6 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../user/configuration.html">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../user/troubleshooting.html">Troubleshooting</a><ul>
@@ -243,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
 </ul>
 </li>
@@ -254,6 +259,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../technical/conventions.html#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../technical/conventions.html#code-style">Code Style</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
@@ -269,6 +275,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
@@ -422,6 +436,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QApplication</span><span class="p">,</span>
+    <span class="n">QCheckBox</span><span class="p">,</span>
     <span class="n">QComboBox</span><span class="p">,</span>
     <span class="n">QDateTimeEdit</span><span class="p">,</span>
     <span class="n">QFrame</span><span class="p">,</span>
@@ -435,7 +450,6 @@
     <span class="n">QSizePolicy</span><span class="p">,</span>
     <span class="n">QStatusBar</span><span class="p">,</span>
     <span class="n">QTabWidget</span><span class="p">,</span>
-    <span class="n">QTextBrowser</span><span class="p">,</span>
     <span class="n">QVBoxLayout</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
 <span class="p">)</span>
@@ -554,12 +568,107 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tabs_solutions</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_summary</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_summary</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;tab_summary&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_summary</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;verticalLayoutWidget_7&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_summary</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_summary</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_summary&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_summary</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;grid_layout_target_image_names&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_target_name</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_target_name</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_static_summary_target_name&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_target_name</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_fits_file</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_fits_file</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_static_summary_fits_file&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_fits_file</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_target_name</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_target_name</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_dynamic_summary_target_name&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_target_name</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_dynamic_summary_fits_file&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_directory</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_directory</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_static_summary_directory&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_directory</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_directory</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_directory</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_dynamic_summary_directory&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_directory</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_summary</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_target_image_names</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_send_target_to_tcs</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_send_target_to_tcs</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;push_button_send_target_to_tcs&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_summary</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">push_button_send_target_to_tcs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_layout_save_file</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_layout_save_file</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;horizontal_layout_save_file&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_edit_summary_save_filename</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_edit_summary_save_filename</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;line_edit_summary_save_filename&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_layout_save_file</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_edit_summary_save_filename</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_box_summary_autosave</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_box_summary_autosave</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;check_box_summary_autosave&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_box_summary_autosave</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_layout_save_file</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_box_summary_autosave</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_summary_save</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_summary_save</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;push_button_summary_save&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_layout_save_file</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">push_button_summary_save</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_summary</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizontal_layout_save_file</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">tabs_solutions</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_summary</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_astrometry</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_astrometry</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;tab_astrometry&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_astrometry</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;verticalLayoutWidget&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">241</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_astrometry</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_astrometry</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_astrometry&quot;</span><span class="p">)</span>
@@ -787,7 +896,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_photometry</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;tab_photometry&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_photometry</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;verticalLayoutWidget_2&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">241</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_photometry</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_photometry</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_photometry&quot;</span><span class="p">)</span>
@@ -858,6 +967,31 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">horizonta_layout_photometry_results</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_13</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_photometry_magnitude</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_photometry_magnitude</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_static_photometry_magnitude&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizonta_layout_photometry_results</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_photometry_magnitude</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_photometry_magnitude</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_photometry_magnitude</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_dynamic_photometry_magnitude&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizonta_layout_photometry_results</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_photometry_magnitude</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;line_4&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="o">.</span><span class="n">setFrameShape</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">VLine</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="o">.</span><span class="n">setFrameShadow</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">Sunken</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizonta_layout_photometry_results</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_photometry_zero_point_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_2</span>
         <span class="p">)</span>
@@ -896,7 +1030,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_orbit</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;tab_orbit&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_5</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_orbit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_5</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;verticalLayoutWidget_5&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_5</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">241</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_5</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_5</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_orbit</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_5</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_orbit</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_orbit&quot;</span><span class="p">)</span>
@@ -1084,7 +1218,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_ephemeris</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;tab_ephemeris&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_ephemeris</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;verticalLayoutWidget_6&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">241</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">581</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_ephemeris</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_ephemeris</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_ephemeris&quot;</span><span class="p">)</span>
@@ -1195,6 +1329,17 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_ephemeris</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_ephemeris_rate_results</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_ephemeris_update_tcs_rate</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_ephemeris_update_tcs_rate</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;push_button_ephemeris_update_tcs_rate&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_ephemeris</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">push_button_ephemeris_update_tcs_rate</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">line_6</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_6</span><span class="p">)</span>
@@ -1388,31 +1533,23 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_propagate_rate_results</span>
         <span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_propagate_update_tcs_rate</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_4</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_propagate_update_tcs_rate</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;push_button_propagate_update_tcs_rate&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_propagate</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">push_button_propagate_update_tcs_rate</span>
+        <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">line_10</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_4</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_10</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;line_10&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_10</span><span class="o">.</span><span class="n">setFrameShape</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">HLine</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_10</span><span class="o">.</span><span class="n">setFrameShadow</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">Sunken</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_propagate</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_10</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span> <span class="o">=</span> <span class="n">QTextBrowser</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_4</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
-            <span class="s2">&quot;text_browser_propagate_future_results&quot;</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span><span class="o">.</span><span class="n">setAcceptRichText</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_propagate</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span>
-        <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget_4</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;line_4&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="o">.</span><span class="n">setFrameShape</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">HLine</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="o">.</span><span class="n">setFrameShadow</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">Sunken</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_propagate</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_4</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_propagate_custom_entry</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_propagate_custom_entry</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
@@ -1490,7 +1627,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">retranslateUi</span><span class="p">(</span><span class="n">ManualWindow</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs_solutions</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs_solutions</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="n">QMetaObject</span><span class="o">.</span><span class="n">connectSlotsByName</span><span class="p">(</span><span class="n">ManualWindow</span><span class="p">)</span></div>
 
@@ -1516,6 +1653,35 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">push_button_refresh_window</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Refresh Window&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_target_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Target Name:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_fits_file</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;FITS File:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_target_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;DEFAULT&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
+                <span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits&quot;</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_summary_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Directory:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_summary_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;/path/to/dir/&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_send_target_to_tcs</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Send Target to TCS&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_box_summary_autosave</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Auto&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_summary_save</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Save&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tabs_solutions</span><span class="o">.</span><span class="n">setTabText</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tabs_solutions</span><span class="o">.</span><span class="n">indexOf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_summary</span><span class="p">),</span>
@@ -1582,6 +1748,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_photometry_filter_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;FF&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_photometry_magnitude</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Magnitude&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_photometry_magnitude</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;MM.MM + E.EEE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_photometry_zero_point_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Zero Point &quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
@@ -1593,10 +1765,10 @@
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Photometry&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">combo_box_orbit_solve_engine</span><span class="o">.</span><span class="n">setItemText</span><span class="p">(</span>
-            <span class="mi">0</span><span class="p">,</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Orbfit&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="mi">0</span><span class="p">,</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;OrbFit&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">combo_box_orbit_solve_engine</span><span class="o">.</span><span class="n">setItemText</span><span class="p">(</span>
-            <span class="mi">1</span><span class="p">,</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Custom&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="mi">1</span><span class="p">,</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Custom Orbit&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">push_button_orbit_solve_orbit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
@@ -1675,6 +1847,9 @@
                 <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_ephemeris_update_tcs_rate</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Update TCS Rate&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_ephemeris_custom_ra</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;HH:MM:SS.SS&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
@@ -1728,20 +1903,8 @@
                 <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_browser_propagate_future_results</span><span class="o">.</span><span class="n">setHtml</span><span class="p">(</span>
-            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
-                <span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span>
-                <span class="s1">&#39;&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot;&#39;</span>
-                <span class="s1">&#39; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;</span><span class="se">\n</span><span class="s1">&lt;html&gt;&lt;head&gt;&lt;meta&#39;</span>
-                <span class="s1">&#39; name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;</span><span class="se">\n</span><span class="s1">p, li {&#39;</span>
-                <span class="s1">&#39; white-space: pre-wrap; }</span><span class="se">\n</span><span class="s1">&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;&#39;</span>
-                <span class="s2">&quot; font-family:&#39;Sylfaen&#39;; font-size:11pt; font-weight:400;&quot;</span>
-                <span class="s1">&#39; font-style:normal;&quot;&gt;</span><span class="se">\n</span><span class="s1">&lt;p style=&quot; margin-top:0px; margin-bottom:0px;&#39;</span>
-                <span class="s2">&quot; margin-left:0px; margin-right:0px; -qt-block-indent:0;&quot;</span>
-                <span class="s1">&#39; text-indent:0px;&quot;&gt;YYYY-MM-DD  HH:MM:SS  Z   |   HH:MM:SS.SS   &#39;</span>
-                <span class="s2">&quot; +DD:MM:SS.SS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span><span class="p">,</span>
-                <span class="kc">None</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_button_propagate_update_tcs_rate</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Update TCS Rate&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date_time_edit_propagate_date_time</span><span class="o">.</span><span class="n">setDisplayFormat</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>

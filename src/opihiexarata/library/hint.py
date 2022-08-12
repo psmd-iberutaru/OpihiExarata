@@ -33,6 +33,7 @@ array = ndarray
 
 # The windows.
 from PySide6 import QtCore, QtWidgets, QtGui
+
 widget = QtWidgets.QWidget
 window = QtWidgets.QMainWindow
 

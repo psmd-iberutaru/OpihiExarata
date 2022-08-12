@@ -21,5 +21,6 @@ specific algorithms.
     :hidden:
     :caption: Algorithms
     
+    photometric_zero_point
     polynomial_propagation
     spherical_kinematics

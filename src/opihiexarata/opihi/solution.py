@@ -61,11 +61,11 @@ class OpihiSolution(library.engine.ExarataSolution):
         The image data of the fits file itself.
 
     asteroid_magnitude : float
-        The magnitude of the asteroid as determined by aperture photometry 
-        using the photometric solution. If there is no photometric solution, 
+        The magnitude of the asteroid as determined by aperture photometry
+        using the photometric solution. If there is no photometric solution,
         this is None.
     asteroid_magnitude_error : float
-        The error of the magnitude, as propagated. If there is no photometric 
+        The error of the magnitude, as propagated. If there is no photometric
         solution, this is None.
 
 
@@ -376,13 +376,18 @@ class OpihiSolution(library.engine.ExarataSolution):
                 self.photometrics_status = solve_status
                 self.photometrics_engine_class = solver_engine
 
-        # If the solving completed properly, then we can attempt to solve for 
-        # the photometric magnitude of the target/asteroid. We do the 
+        # If the solving completed properly, then we can attempt to solve for
+        # the photometric magnitude of the target/asteroid. We do the
         # overwrite check here for simplicity.
         if solve_status and overwrite:
             asteroid_x, asteroid_y = self.asteroid_location
-            magnitude, magnitude_error = self.photometrics.calculate_star_aperture_magnitude(pixel_x=asteroid_x, pixel_y=asteroid_y)
-            # We only actually apply the values if the user wants to 
+            (
+                magnitude,
+                magnitude_error,
+            ) = self.photometrics.calculate_star_aperture_magnitude(
+                pixel_x=asteroid_x, pixel_y=asteroid_y
+            )
+            # We only actually apply the values if the user wants to
             # overwrite the values, which is common.
             self.asteroid_magnitude = magnitude
             self.asteroid_magnitude_error = magnitude_error
@@ -931,7 +936,7 @@ class OpihiSolution(library.engine.ExarataSolution):
                 " Something out of sync."
             )
 
-        # We also add WCS header information from the astrometric solution, 
+        # We also add WCS header information from the astrometric solution,
         # if it exists.
         if isinstance(self.astrometrics, astrometry.AstrometricSolution):
             wcs_header = self.astrometrics.wcs.to_header()
@@ -992,18 +997,21 @@ class OpihiSolution(library.engine.ExarataSolution):
                 available_entries["OXT___RA"] = target_ra_sex
                 available_entries["OXT__DEC"] = target_dec_sex
 
-            # The magnitude and error of the target, as determined by a 
-            # photometric solution. Requires the asteroid location and a 
+            # The magnitude and error of the target, as determined by a
+            # photometric solution. Requires the asteroid location and a
             # photometric solution.
-            if self.photometrics_status and isinstance(self.photometrics, photometry.PhotometricSolution):
+            if self.photometrics_status and isinstance(
+                self.photometrics, photometry.PhotometricSolution
+            ):
                 # The photometric solution exists and the magnitude and error
                 # has likely been calculated.
                 available_entries["OXT__MAG"] = self.asteroid_magnitude
                 available_entries["OXT_MAGE"] = self.asteroid_magnitude_error
 
-
         # Metadata information.
-        available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(pathname=self.fits_filename)
+        available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(
+            pathname=self.fits_filename
+        )
         # We can never know if this was preprocessed or not.
 
         # Astrometric information.

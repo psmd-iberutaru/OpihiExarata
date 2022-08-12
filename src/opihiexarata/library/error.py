@@ -137,7 +137,7 @@ class IntentionalError(ExarataException):
 class PracticalityError(ExarataException):
     """This is an error to be used when what is trying to be done does not
     seem reasonable. Usually warnings are the better thing for this. However,
-    this error should be used (as opposed to BeyondScopeError) when what 
+    this error should be used (as opposed to BeyondScopeError) when what
     is being attempted is within the design specifications of this software."""
 
 

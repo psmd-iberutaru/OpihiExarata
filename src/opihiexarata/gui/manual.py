@@ -1550,7 +1550,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         else:
             photometrics = self.opihi_solution.photometrics
 
-        # Obtaining the computed magnitude of the target as computed. Some 
+        # Obtaining the computed magnitude of the target as computed. Some
         # rounding is needed so it can properly fit in the GUI.
         asteroid_magnitude = round(opihi_solution.asteroid_magnitude, 2)
         asteroid_magnitude_error = round(opihi_solution.asteroid_magnitude_error, 3)
