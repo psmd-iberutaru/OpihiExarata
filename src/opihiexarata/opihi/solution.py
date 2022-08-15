@@ -3,7 +3,6 @@ with and acts as the complete solver. There is not engine as it just shuffles
 the solutions."""
 
 import copy
-from matplotlib.pyplot import magnitude_spectrum
 import numpy as np
 
 import opihiexarata.library as library
@@ -814,7 +813,7 @@ class OpihiSolution(library.engine.ExarataSolution):
 
         # If there is photometric data, we can add that to the data record.
         if isinstance(self.photometrics, photometry.PhotometricSolution):
-            magnitude = 0
+            magnitude = self.asteroid_magnitude
             bandpass = self.photometrics.filter_name
         else:
             # There is no photometric solution so we cannot provide photometric

@@ -484,7 +484,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         if not isinstance(
             self.opihi_solution.photometrics, photometry.PhotometricSolution
         ):
-            magnitude = 0
+            magnitude = self.opihi_solution.asteroid_magnitude
         else:
             magnitude = 0
 
