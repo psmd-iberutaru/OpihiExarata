@@ -34,7 +34,7 @@ jobs:
     
     - name: Upload package
       env:
-        PYPI_USERNAME: "Sparrows"
+        PYPI_USERNAME: "__token__"
         PYPI_API_KEY: "${{ secrets.PYPI_API_KEY }}"
       run: |
         python -m twine upload --username $PYPI_USERNAME --password $PYPI_API_KEY dist/*
