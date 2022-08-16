@@ -85,6 +85,6 @@ setuptools.setup(
     package_data={"": ["*.yaml", "*.ui", "*.png"]},
     packages=setuptools.find_packages(where="src"),
     install_requires=DEPENDENCIES,
-    python_requires=">=3.6",
+    python_requires=">=3.9",
     entry_points={"console_scripts": ["opihiexarata=opihiexarata:__main__.main"]},
 )

@@ -80,6 +80,32 @@ _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
 }
 
 
+def get_observing_time(filename: str) -> float:
+    """This reads the header of a FITS file and extracts from it the
+    time of observation from the FITS file and returns it. This assumes
+    the header key of the observing time to be pulled is: `MJD_OBS`.
+
+    Parameters
+    ----------
+    filename : string
+        The FITS filename to pull the observing time from.
+
+    Returns
+    -------
+    observing_time_jd : float
+        The time of the observation, in Julian days.
+    """
+    # We pull the header.
+    header = read_fits_header(filename=filename)
+    # Extracting the observing time, it is in modified Julian days.
+    observing_time_mjd = header["MJD_OBS"]
+    # We convert to Julian days as that is the convention of this software.
+    observing_time_jd = library.conversion.modified_julian_day_to_julian_day(
+        mjd=observing_time_mjd
+    )
+    return observing_time_jd
+
+
 def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint.Header:
     """This reads the header of fits files only. This should be used only if
     there is no data.

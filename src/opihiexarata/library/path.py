@@ -27,13 +27,16 @@ def get_directory(pathname: str) -> str:
 
 
 def get_most_recent_filename_in_directory(
-    directory: str, extension: hint.Union[str, list] = None
+    directory: str,
+    extension: hint.Union[str, list] = None,
+    recency_function: hint.Callable[[str], float] = None,
+    exclude_opihiexarata_output_files: bool = False,
 ) -> str:
     """This gets the most recent filename from a directory.
 
     Because of issues with different operating systems having differing
     issues with storing the creation time of a file, this function sorts based
-    off of modification time. The most recent modified file is thus
+    off of modification time.
 
     Parameters
     ----------
@@ -43,6 +46,16 @@ def get_most_recent_filename_in_directory(
         The extension by which to filter for. It is often the case that some
         files are created but the most recent file of some type is desired.
         Only files which match the included extensions will be considered.
+    recency_function : callable, default = None
+        A function which, when provided, provides a sorting index for a given
+        filename. This is used when the default sorting method (modification
+        time) is not desired and a custom function can be provided here. The
+        larger the value returned by this function, the more "recent" a
+        given file will be considered to be.
+    exclude_opihiexarata_output_files : boolean, default = False
+        If True, files which have been marked as being outputs of OpihiExarata
+        (via the file suffixes as per the configuration file) will not be
+        included.
 
     Returns
     -------
@@ -56,6 +69,12 @@ def get_most_recent_filename_in_directory(
             "The directory provided `{d}` does not exist. A most recent file cannot be"
             " obtained.".format(d=str(directory))
         )
+
+    # The default recency function, if not provided, is the modification times
+    # of the files themselves.
+    recency_function = (
+        os.path.getmtime if recency_function is None else recency_function
+    )
 
     # We need to check all of the files matching the provided extension. If
     # none was provided, we use all.
@@ -75,10 +94,25 @@ def get_most_recent_filename_in_directory(
         extension_matching_files = glob.glob(pathname_glob_filter, recursive=False)
         matching_filenames += extension_matching_files
 
+    # If flagged, we do not include files which have been marked as outputs
+    # of OpihiExarata.
+    if exclude_opihiexarata_output_files:
+        # Mark for files which have been preprocessed.
+        PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
+        SOLUTION_SUFFIX = library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX
+        MPCRECORD_SUFFIX = library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
+        for filenamedex in matching_filenames:
+            if (
+                (PREPROCESS_SUFFIX in filenamedex)
+                or (SOLUTION_SUFFIX in filenamedex)
+                or (MPCRECORD_SUFFIX in filenamedex)
+            ):
+                matching_filenames.remove(filenamedex)
+
     # For all of the matching filenames, we need to find the most recent via
     # the modification time. Given that the modification times are a UNIX time,
     # the largest is the most recent.
-    recent_filename = max(matching_filenames, key=lambda f: os.path.getmtime(f))
+    recent_filename = max(matching_filenames, key=lambda f: recency_function(f))
     # Just a quick check to make sure the file exists.
     if not os.path.isfile(recent_filename):
         raise error.DevelopmentError(

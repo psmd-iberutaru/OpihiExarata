@@ -343,7 +343,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         try:
             fits_extension = "fits"
             fetched_filename = library.path.get_most_recent_filename_in_directory(
-                directory=self.fits_fetch_directory, extension=fits_extension
+                directory=self.fits_fetch_directory,
+                extension=fits_extension,
+                exclude_opihiexarata_output_files=True,
             )
         except ValueError:
             # There is likely no actual matching file in the directory.
@@ -438,6 +440,19 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             vehicle_args=photometry_vehicle_args,
         )
 
+        # Saving the file.
+        # Extracting the entire path from the current name, we are saving it
+        # to the same location.
+        directory, basename, extension = library.path.split_pathname(pathname=filename)
+        # We are just adding the suffix to the filename.
+        suffix = str(library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX)
+        new_filename = basename + suffix
+        # Recombining the path.
+        saving_fits_filename = library.path.merge_pathname(
+            directory=directory, filename=new_filename, extension=extension
+        )
+        opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=False)
+
         # All done.
         return opihi_solution
 
@@ -458,7 +473,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # A new image is to be solved. We fetch the new image.
         fetched_filename = self.fetch_new_filename()
-        print(fetched_filename)
+
         # Test to see if we have already processed this file and currently
         # have information about it. This prevents doing too much work.
         def _is_same_file(file_1: str, file_2: str) -> bool:
@@ -495,8 +510,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             self.working_fits_filename = fetched_filename
             # Keeping the GUI up to date while in the loop.
             self.refresh_window()
-
-        print(self.working_fits_filename)
 
         # With this new working fits file, we attempt to solve it.
         working_opihi_solution = self.solve_astrometry_photometry_single_image(

@@ -332,7 +332,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 pathname=self.raw_fits_filename
             )
             new_fits_filename = library.path.get_most_recent_filename_in_directory(
-                directory=automatic_fetch_directory, extension="fits"
+                directory=automatic_fetch_directory,
+                extension="fits",
+                exclude_opihiexarata_output_files=True,
             )
         except Exception:
             # Something happened and a new fits file cannot be properly
