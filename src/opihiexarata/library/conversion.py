@@ -187,7 +187,7 @@ def modified_julian_day_to_julian_day(mjd: float) -> float:
         The Julian day value after conversion.
     """
     time_instance = ap_time.Time(mjd, format="mjd")
-    jd = time_instance.to_value("jd", subfmt="long")
+    jd = float(time_instance.to_value("jd", subfmt="float"))
     return jd
 
 
@@ -205,7 +205,7 @@ def julian_day_to_modified_julian_day(jd: float) -> float:
         The modified Julian day value after conversion.
     """
     time_instance = ap_time.Time(jd, format="mjd")
-    mjd = time_instance.to_value("mjd", subfmt="long")
+    mjd = float(time_instance.to_value("mjd", subfmt="float"))
     return mjd
 
 
