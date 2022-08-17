@@ -83,7 +83,7 @@ def pick_engine_class_from_name(
     }
     orbit_engines = {
         "orbfit": orbit.OrbfitOrbitDeterminerEngine,
-        "custom": orbit.CustomOrbitEngine,
+        "custom orbit": orbit.CustomOrbitEngine,
     }
     ephemeris_engines = {
         "jpl horizons": ephemeris.JPLHorizonsWebAPIEngine,
