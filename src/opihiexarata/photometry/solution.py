@@ -528,7 +528,13 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # Zero points via the definition equation
         zero_points = valid_magnitude - valid_inst_magnitude
         zero_point = np.median(zero_points)
-        zero_point_error = sp_stats.median_abs_deviation(zero_points, nan_policy="omit")
+        # We use the error on the mean, but instead we use medians and its
+        # standard deviation equivalent to be robust to bad data points.
+        n_stars = np.sum(np.isfinite(zero_points))
+        zero_point_deviation = sp_stats.median_abs_deviation(
+            zero_points, nan_policy="omit"
+        )
+        zero_point_error = zero_point_deviation / np.sqrt(n_stars)
         return zero_point, zero_point_error
 
     def calculate_star_photon_counts_coordinate(
