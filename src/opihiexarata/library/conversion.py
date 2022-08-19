@@ -378,51 +378,15 @@ def string_month_to_number(month_str: str) -> int:
     return month_int
 
 
-def filter_position_to_filter_name(position: int) -> str:
-    """This converts the filter position of Opihi into the name of the filter.
-    The FITS file only provides the position, but all of the software
-    expects its name.
-
-    Parameters
-    ----------
-    position : int
-        The filter position, must be a number between 0-7 inclusively as there
-        are only 8 filter positions.
-
-    Returns
-    -------
-    filter_name : str
-        The name of the filter that corresponds to the given filter position.
-    """
-    # The filters and their positions as it currently exists in Opihi.
-    opihi_filter_positions = {
-        0: "3",
-        1: "2",
-        2: "1",
-        3: "z",
-        4: "i",
-        5: "r",
-        6: "g",
-        7: "c",
-    }
-    # Extract the filter fro the position.
-    filter_name = opihi_filter_positions.get(position, None)
-    if filter_name is None:
-        raise error.InputError(
-            "The filter position provided `{p}` is not a valid filter position, it must"
-            " be the filter position number.".format(p=position)
-        )
-    return filter_name
-
-
-def filter_position_string_to_filter_name(position_string: str) -> str:
+def filter_header_string_to_filter_name(header_string: str) -> str:
     """The filter position string is exactly how it exists in the header files.
     This converts from the string as it exists in the header file to the filter
     name.
+    The filter set: {0: 3, 1: 2, 2: 1, 3: z, 4: i, 5: r, 6: g, 7: c}
 
     Parameters
     ----------
-    position_string : str
+    header_string : str
         The string as recorded in the header file which describes the filter
         position.
 
@@ -431,9 +395,29 @@ def filter_position_string_to_filter_name(position_string: str) -> str:
     filter_name : str
         The name of the filter that corresponds to the given filter position.
     """
-    # As the filter position string and the actual numbered position is just
-    # has the pattern of posX:
-    position_number = int(position_string.removeprefix("pos"))
-    # Using the main filter determining function.
-    filter_name = filter_position_to_filter_name(position=position_number)
+    # As the filter position string from the camera controller and the
+    # corresponding names for OpihiExarata.
+    filter_header_string_dictionary = {
+        "open3": "3",
+        "open2": "2",
+        "open": "1",
+        "z": "z",
+        "i": "i",
+        "r": "r",
+        "g": "g",
+        "clear": "c",
+    }
+    # Getting the OpihiExarata filter name from the string in the FITS header
+    # file. We do not worry about case.
+    header_string = header_string.casefold()
+    filter_name = filter_header_string_dictionary.get(header_string, None)
+    # Double check that a proper filter name was found from the dictionary.
+    if filter_name is None:
+        raise error.InputError(
+            "The header string provided to determine the filter name is not a valid"
+            " filter name. It was `{filter}`, supported header strings are `{f_set}`"
+            .format(
+                filter=header_string, f_set=list(filter_header_string_dictionary.keys())
+            )
+        )
     return filter_name

@@ -1135,9 +1135,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # The filter which image is in, extracted from the fits file,
         # assuming standard form.
-        filter_position_string = str(header["FWHL"])
-        filter_name = library.conversion.filter_position_string_to_filter_name(
-            position_string=filter_position_string
+        filter_header_string = str(header["FWHL"])
+        filter_name = library.conversion.filter_header_string_to_filter_name(
+            header_string=filter_header_string
         )
 
         # The exposure time of the image, extracted from the fits file,

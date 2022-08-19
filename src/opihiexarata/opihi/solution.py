@@ -167,9 +167,9 @@ class OpihiSolution(library.engine.ExarataSolution):
         # If none of the metadata are provided, we try and get it from the
         # header file.
         if filter_name is None:
-            filter_position_string = str(header["FWHL"])
-            self.filter_name = library.conversion.filter_position_string_to_filter_name(
-                position_string=filter_position_string
+            filter_header_string = str(header["FWHL"])
+            self.filter_name = library.conversion.filter_header_string_to_filter_name(
+                header_string=filter_header_string
             )
         else:
             self.filter_name = filter_name

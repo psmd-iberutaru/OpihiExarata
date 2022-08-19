@@ -511,9 +511,9 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         # file uses integration time as the name.)
         raw_exposure_time = float(raw_header["ITIME"])
         # Filter name.
-        filter_position_string = str(raw_header["FWHL"])
-        filter_name = library.conversion.filter_position_string_to_filter_name(
-            position_string=filter_position_string
+        filter_header_string = str(raw_header["FWHL"])
+        filter_name = library.conversion.filter_header_string_to_filter_name(
+            header_string=filter_header_string
         )
 
         # Preprocessing the data.
