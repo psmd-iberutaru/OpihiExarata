@@ -4,6 +4,7 @@ The manual GUI window.
 
 import sys
 import os
+import threading
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -14,7 +15,6 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 import opihiexarata
-from opihiexarata import opihi
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
@@ -561,14 +561,26 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
         vehicle_args = {}
 
-        # Solve the field using the provided engine.
-        __ = self.opihi_solution.solve_astrometry(
-            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-        )
-        # Update all of the necessary information.
-        self.redraw_opihi_image()
-        self.refresh_dynamic_label_text()
-        self.save_auto_save()
+        # Note that we are busy solving the solution via the engine.
+        self.__configuration_draw_busy_image()
+
+        # Solve the field using the provided engine. We need to break this out
+        # into its own thread so that the busy plot notification can be shown
+        # to the user. The GUI thread is otherwise blocked.
+        def astrometry_solving_function():
+            """The function to solve the astrometry and refresh the plots."""
+            __ = self.opihi_solution.solve_astrometry(
+                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+            )
+            # Update all of the necessary information.
+            self.redraw_opihi_image()
+            self.refresh_dynamic_label_text()
+            self.save_auto_save()
+            return None
+
+        astrometry_thread = threading.Thread(target=astrometry_solving_function)
+        astrometry_thread.start()
+        # All done.
         return None
 
     def __connect_push_button_astrometry_custom_solve(self) -> None:
@@ -684,15 +696,27 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
         vehicle_args = {}
 
-        # Solve.
-        __ = self.opihi_solution.solve_photometry(
-            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-        )
+        # Note that we are busy solving the solution via the engine.
+        self.__configuration_draw_busy_image()
 
-        # Update all of the necessary information.
-        self.redraw_opihi_image()
-        self.refresh_dynamic_label_text()
-        self.save_auto_save()
+        # Solve the field using the provided engine. We need to break this out
+        # into its own thread so that the busy plot notification can be shown
+        # to the user. The GUI thread is otherwise blocked.
+        def photometry_solving_function():
+            """The function to solve the photometry and refresh the plots."""
+            # Solve.
+            __ = self.opihi_solution.solve_photometry(
+                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+            )
+            # Update all of the necessary information.
+            self.redraw_opihi_image()
+            self.refresh_dynamic_label_text()
+            self.save_auto_save()
+            return None
+
+        photometry_thread = threading.Thread(target=photometry_solving_function)
+        photometry_thread.start()
+        # All done.
         return None
 
     def __connect_push_button_orbit_solve_orbit(self) -> None:
@@ -727,15 +751,25 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             custom_orbit_elements = self._parse_custom_orbital_elements()
             vehicle_args = custom_orbit_elements
 
-        # Solve.
-        __ = self.opihi_solution.solve_orbit(
-            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-        )
+        # Note that we are busy solving the solution via the engine.
+        self.__configuration_draw_busy_image()
 
-        # Update all of the necessary information.
-        self.redraw_opihi_image()
-        self.refresh_dynamic_label_text()
-        self.save_auto_save()
+        # Solve the field using the provided engine. We need to break this out
+        # into its own thread so that the busy plot notification can be shown
+        # to the user. The GUI thread is otherwise blocked.
+        def orbit_solving_function():
+            """The function to solve the orbit and refresh the plots."""
+            __ = self.opihi_solution.solve_orbit(
+                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+            )
+            # Update all of the necessary information.
+            self.redraw_opihi_image()
+            self.refresh_dynamic_label_text()
+            self.save_auto_save()
+            return None
+
+        orbit_thread = threading.Thread(target=orbit_solving_function)
+        orbit_thread.start()
         # All done.
         return None
 
@@ -766,15 +800,25 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
         vehicle_args = {}
 
-        # Solve.
-        __ = self.opihi_solution.solve_ephemeris(
-            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-        )
+        # Note that we are busy solving the solution via the engine.
+        self.__configuration_draw_busy_image()
 
-        # Update all of the necessary information.
-        self.redraw_opihi_image()
-        self.refresh_dynamic_label_text()
-        self.save_auto_save()
+        # Solve the field using the provided engine. We need to break this out
+        # into its own thread so that the busy plot notification can be shown
+        # to the user. The GUI thread is otherwise blocked.
+        def ephemeris_solving_function():
+            """The function to solve the ephemeris and refresh the plots."""
+            __ = self.opihi_solution.solve_ephemeris(
+                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+            )
+            # Update all of the necessary information.
+            self.redraw_opihi_image()
+            self.refresh_dynamic_label_text()
+            self.save_auto_save()
+            return None
+
+        ephemeris_thread = threading.Thread(target=ephemeris_solving_function)
+        ephemeris_thread.start()
         # All done.
         return None
 
@@ -894,15 +938,26 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
         vehicle_args = {}
 
-        # Solve.
-        __ = self.opihi_solution.solve_propagate(
-            solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-        )
+        # Note that we are busy solving the solution via the engine.
+        self.__configuration_draw_busy_image()
 
-        # Update all of the necessary information.
-        self.redraw_opihi_image()
-        self.refresh_dynamic_label_text()
-        self.save_auto_save()
+        # Solve the field using the provided engine. We need to break this out
+        # into its own thread so that the busy plot notification can be shown
+        # to the user. The GUI thread is otherwise blocked.
+        def propagate_solving_function():
+            """The function to solve the propagation and refresh the plots."""
+            __ = self.opihi_solution.solve_propagate(
+                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
+            )
+            # Update all of the necessary information.
+            self.redraw_opihi_image()
+            self.refresh_dynamic_label_text()
+            self.save_auto_save()
+            return None
+
+        propagate_thread = threading.Thread(target=propagate_solving_function)
+        propagate_thread.start()
+        # All done.
         return None
 
     def __connect_push_button_propagate_update_tcs_rate(self) -> None:
@@ -1564,8 +1619,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # Obtaining the computed zero point of the image. Some rounding is
         # needed so it can properly fit in the GUI.
-        zero_point = round(photometrics.zero_point, 2)
-        zero_point_error = round(photometrics.zero_point_error, 3)
+        zero_point = round(photometrics.zero_point, 3)
+        zero_point_error = round(photometrics.zero_point_error, 4)
         # Building the string for display and updating the text.
         zero_point_str = "{zp} {pm} {err}".format(
             zp=zero_point, pm=pm_sym, err=zero_point_error
@@ -1926,6 +1981,108 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.opihi_axes.format_coord = self._opihi_coordinate_formatter
         # Update and redraw the image via redrawing the canvas.
         self.opihi_canvas.draw()
+        return None
+
+    def draw_busy_image(self, replace: bool = True, transparency: float = 1) -> None:
+        """This draws the busy image.
+
+        We draw the busy image on top of the Opihi image to signify that
+        the software is going to be doing something and will be busy for a
+        short time. As the window will be frozen for a period of time, the
+        plot will not be intractable so it does not matter that we use that
+        space. It also means that a separate window won't be needed and the
+        user would not get confused or miss it.
+
+        Parameters
+        ----------
+        replace : bool, default = True
+            If True, we replace the Opihi image with the busy image instead
+            of over-plotting it. This does not affect the Opihi image in
+            general and it can be restored with a redraw.
+        transparency : float, default = 1
+            If `replace` is False, the image is instead over-plotted with the
+            transparency provided here.
+
+        Returns
+        -------
+        None
+        """
+        # If we replace the image, there is no need for transparency to be
+        # anything but one. We also clear the plot at this step.
+        if replace:
+            # Clearing the plot as we are replacing it with the busy image.
+            self.opihi_axes.clear()
+            # Doesn't really make sense to have a transparency when replacing
+            # the image.
+            transparency = 1
+        else:
+            # We do a transparency value check to make sure it is between the
+            # values as described.
+            if 0 <= transparency <= 1:
+                # All good.
+                transparency = float(transparency)
+            else:
+                raise error.InputError(
+                    "The transparency value {alpha} provided is not a number between 0"
+                    " and 1.".format(alpha=transparency)
+                )
+
+        # We load the busy image.
+        busy_image = gui.functions.get_busy_image_array()
+
+        # Determining the width/height shape of the image.
+        busy_height, busy_width, __ = busy_image.shape
+        # From the shape of the image, and the shape of the array, we pin the
+        # origin of the image. We desired a centered image.
+        data_height, data_width = self.opihi_solution.data.shape
+
+        # Defining the extents.
+        left_extent = (
+            0 if busy_width > data_width else data_width // 2 - busy_width // 2
+        )
+        right_extent = (
+            data_width if busy_width > data_width else data_width // 2 + busy_width // 2
+        )
+        bottom_extent = (
+            0 if busy_height > data_height else data_height // 2 - busy_height // 2
+        )
+        top_extent = (
+            data_height
+            if busy_height > data_height
+            else data_height // 2 + busy_height // 2
+        )
+
+        # Showing the image.
+        self.opihi_axes.imshow(
+            busy_image,
+            aspect="equal",
+            alpha=transparency,
+            extent=(left_extent, right_extent, bottom_extent, top_extent),
+            zorder=10,
+        )
+        # Redraw the canvas.
+        self.opihi_canvas.draw()
+        # All done.
+        return None
+
+    def __configuration_draw_busy_image(self) -> None:
+        """Exactly the same as `draw_busy_image`, but we use the settings
+        as per the configuration. This function is just a connivent wrapper.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Getting the configuration values.
+        config_replace = library.config.GUI_MANUAL_BUSY_ALERT_IMAGE_REPLACEMENT
+        config_transparency = library.config.GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY
+        # Executing the plotting.
+        self.draw_busy_image(replace=config_replace, transparency=config_transparency)
+        # All done.
         return None
 
     def save_auto_save(self) -> None:

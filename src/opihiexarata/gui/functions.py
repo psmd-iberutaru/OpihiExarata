@@ -3,6 +3,8 @@ for the GUIs, exist."""
 
 import os
 
+import matplotlib.pyplot as plt
+
 from PySide6 import QtCore, QtWidgets, QtGui
 
 import opihiexarata
@@ -47,6 +49,29 @@ def apply_window_icon(
     window.setWindowIcon(QtGui.QIcon(icon_path))
     # All done.
     return None
+
+
+def get_busy_image_array() -> hint.array:
+    """This function gets the busy image and returns it in the form of a
+    color array which can be plot with matplotlib. The image file is stored
+    as per convention.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    busy_image : array
+        The image array which is the busy image.
+    """
+    # Getting the busy file image.
+    self_dir = os.path.dirname(os.path.abspath(__file__))
+    busy_image_path = library.path.merge_pathname(
+        directory=[self_dir, "qtui"], filename="busy_image", extension="png"
+    )
+    busy_image = plt.imread(busy_image_path)
+    return busy_image
 
 
 def pick_engine_class_from_name(

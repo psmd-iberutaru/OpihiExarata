@@ -136,6 +136,15 @@ GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT : 60
 GUI_MANUAL_FUTURE_TIME_PLOT_EPHEMERIS_LINE_COLOR : "#78C850"
 GUI_MANUAL_FUTURE_TIME_PLOT_PROPAGATE_LINE_COLOR : "#F85888"
 
+# When the program is busy, it plots an image which tells the user such. If 
+# is it not (temporarily) replacing the main FITS image and results, it is 
+# overplotted instead with a transparancy as specified here, it should be 
+# between 0 and 1. Both the replacement and transparency is controlled here. 
+# Setting transparency to 0 and replacement to False is equivilant to removing 
+# this alert feature. Transparency is 1 if replacement is True.
+GUI_MANUAL_BUSY_ALERT_IMAGE_REPLACEMENT : True
+GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY : 1
+
 ############################################################
 ##########     Opihi Target Selector Configuration
 ############################################################

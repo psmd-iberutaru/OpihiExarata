@@ -331,7 +331,8 @@ def string_month_to_number(month_str: str) -> int:
     Parameters
     ----------
     month_str : string
-        The month name.
+        The month name. If it is exactly three characters in length, we assume
+        it is abbreviated month names and search through that instead.
 
     Returns
     -------
@@ -415,8 +416,7 @@ def filter_header_string_to_filter_name(header_string: str) -> str:
     if filter_name is None:
         raise error.InputError(
             "The header string provided to determine the filter name is not a valid"
-            " filter name. It was `{filter}`, supported header strings are `{f_set}`"
-            .format(
+            " filter name. It was `{filter}`, supported header strings are `{f_set}`".format(
                 filter=header_string, f_set=list(filter_header_string_dictionary.keys())
             )
         )
