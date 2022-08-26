@@ -7,6 +7,7 @@ this class should monitor its own database."""
 import os
 import datetime
 import glob
+import astropy.table as ap_table
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -14,6 +15,7 @@ import opihiexarata.library.hint as hint
 
 DATABASE_CHECK_FILE_BASENAME = "exarata_zero_point_database"
 DATABASE_CHECK_FILE_EXTENSION = "check"
+
 
 class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
     """The flat file database solution which provides an API-like solution to
@@ -50,7 +52,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # checking if the check file is there. If it is not, then we may need
         # format the database ourselves.
         check_filename = library.path.merge_pathname(
-            directory=database_directory, filename=DATABASE_CHECK_FILE_BASENAME, extension=DATABASE_CHECK_FILE_EXTENSION
+            directory=database_directory,
+            filename=DATABASE_CHECK_FILE_BASENAME,
+            extension=DATABASE_CHECK_FILE_EXTENSION,
         )
         if os.path.isfile(check_filename):
             pass
@@ -75,17 +79,18 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # All done.
         return None
 
-
     @classmethod
-    def clean_text_record_file(cls, filename: str, garbage_filename: str = None) -> None:
+    def clean_record_text_file(
+        cls, filename: str, garbage_filename: str = None
+    ) -> None:
         """This function takes a record file and cleans it up. Sorting it by
         time and deleting any lines which do not conform to the expected
         formatting.
 
-        This is a class method because cleaning the database files does not 
-        rely on the database per-say or adding data to it. It could be 
-        performed by a third-party script without issue. It can also be 
-        dangerous to clean a database so we detach ourselves from the 
+        This is a class method because cleaning the database files does not
+        rely on the database per-say or adding data to it. It could be
+        performed by a third-party script without issue. It can also be
+        dangerous to clean a database so we detach ourselves from the
         database we are managing just in case.
 
         Parameters
@@ -154,14 +159,16 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         return None
 
     @classmethod
-    def clean_database_files(cls, database_directory:str, garbage_filename: str = None) -> None:
+    def clean_database_text_files(
+        cls, database_directory: str, garbage_filename: str = None
+    ) -> None:
         """This function cleans each and every file inside of the the database
         provided by the inputted database directory.
 
-        This is a class method because cleaning the database files does not 
-        rely on the database per-say or adding data to it. It could be 
-        performed by a third-party script without issue. It can also be 
-        dangerous to clean a database so we detach ourselves from the 
+        This is a class method because cleaning the database files does not
+        rely on the database per-say or adding data to it. It could be
+        performed by a third-party script without issue. It can also be
+        dangerous to clean a database so we detach ourselves from the
         database we are managing just in case.
 
         Parameters
@@ -180,23 +187,30 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We need to make sure that the directory itself exists and it is a
         # database directory.
         check_filename = library.path.merge_pathname(
-            directory=database_directory, filename=DATABASE_CHECK_FILE_BASENAME, extension=DATABASE_CHECK_FILE_EXTENSION
+            directory=database_directory,
+            filename=DATABASE_CHECK_FILE_BASENAME,
+            extension=DATABASE_CHECK_FILE_EXTENSION,
         )
         if not os.path.isfile(check_filename):
-            raise error.DirectoryError("The directory {dir} provided is not a valid OpihiExarata zero point database directory as it is missing the check file. We will not attempt to clean it.".format(dir=database_directory))
+            raise error.DirectoryError(
+                "The directory {dir} provided is not a valid OpihiExarata zero point"
+                " database directory as it is missing the check file. We will not"
+                " attempt to clean it.".format(dir=database_directory)
+            )
 
-        # We search through all of the database files. We do not try and 
+        # We search through all of the database files. We do not try and
         # clean non-database files.
-        database_glob_search = library.path.merge_pathname(directory=database_directory, filename="*.zp_ox", extension="txt")
+        database_glob_search = library.path.merge_pathname(
+            directory=database_directory, filename="*.zp_ox", extension="txt"
+        )
         database_files = glob.glob(database_glob_search)
         # Clean every file.
         for filedex in database_files:
-            cls.clean_text_record_file(filename=filedex, garbage_filename=garbage_filename)
+            cls.clean_record_text_file(
+                filename=filedex, garbage_filename=garbage_filename
+            )
         # All done.
         return None
-
-
-
 
     def _generate_text_record_filename(self, year: int, month: int, day: int) -> str:
         """The text records which stores all of the information of the
@@ -227,7 +241,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # All done.
         return text_record_filename
 
-    def _generate_zero_point_record(
+    def _generate_zero_point_record_line(
         self,
         year: int,
         month: int,
@@ -305,7 +319,54 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # All done.
         return zero_point_record
 
-    def add_zero_point_record(
+    def _parse_zero_point_record_line(self, record: str) -> dict:
+        """This function parses the zero point record line to return a
+        dictionary which is much more helpful in working with the data.
+
+        Parameters
+        ----------
+        record : string
+            The record line which will be converted to a dictionary.
+
+        Returns
+        -------
+        record_dictionary : dictionary
+            The record dictionary containing the information from the record
+            line.
+        """
+        # We break up the record into its parts. We do not care about the
+        # plus minus symbol.
+        (
+            datetime_str,
+            zero_point_str,
+            __,
+            zero_point_error_str,
+            filter_name_str,
+        ) = record.split()
+
+        # We use datetime to better format the ISO date time string.
+        record_datetime = datetime.datetime.fromisoformat(datetime_str)
+
+        # Converting to numbers.
+        zero_point = float(zero_point_str)
+        zero_point_error = float(zero_point_error_str)
+
+        # We can compile the dictionary from here.
+        record_dictionary = {
+            "year": record_datetime.year,
+            "month": record_datetime.month,
+            "day": record_datetime.day,
+            "hour": record_datetime.hour,
+            "minute": record_datetime.minute,
+            "second": record_datetime.second,
+            "zero_point": zero_point,
+            "zero_point_error": zero_point_error,
+            "filter_name": filter_name_str,
+        }
+        # All done
+        return record_dictionary
+
+    def write_zero_point_record(
         self,
         year: int,
         month: int,
@@ -351,7 +412,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         None
         """
         # We need to compose the record from the information provided.
-        zero_point_record = self._generate_zero_point_record(
+        zero_point_record = self._generate_zero_point_record_line(
             year=year,
             month=month,
             day=day,
@@ -374,7 +435,45 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
 
         # If the file is to be cleaned up.
         if clean_file:
-            self.clean_text_record_file(filename=record_filename)
+            self.clean_record_text_file(filename=record_filename)
 
         # All done.
         return None
+
+    def read_zero_point_record_file(self, filename: str) -> hint.Table:
+        """This reads a zero point record file and converts it into a nice
+        table for easier reading and manipulation.
+
+        Parameters
+        ----------
+        filename : string
+            The zero point record filename to be read.
+
+        Returns
+        -------
+        zero_point_table : Table
+            The representation of all of the zero point data in a table.
+        """
+        # Check that the file is a zero point record file assuming the
+        # extension.
+        if filename[-10:] != ".zp_ox.txt":
+            raise error.FileError(
+                "The filename {f} is not detected to be an OpihiExarata zero point"
+                " record file based on its extension.".format(f=filename)
+            )
+        # We need to read the zero point record file.
+        with open(filename, "r") as file:
+            record_lines = file.readlines()
+        # We do not need the new line characters.
+        record_lines = [linedex.removesuffix("\n") for linedex in record_lines]
+
+        # We use Astropy data tables as we already have them as a requirement.
+        # Constructing the rows.
+        record_dict_rows = [
+            self._parse_zero_point_record_line(record=linedex)
+            for linedex in record_lines
+        ]
+        # Creating the table.
+        zero_point_table = ap_table.Table(rows=record_dict_rows)
+        # All done.
+        return zero_point_table
