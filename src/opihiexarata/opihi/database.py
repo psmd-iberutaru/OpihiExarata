@@ -6,11 +6,14 @@ this class should monitor its own database."""
 
 import os
 import datetime
+import glob
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
+DATABASE_CHECK_FILE_BASENAME = "exarata_zero_point_database"
+DATABASE_CHECK_FILE_EXTENSION = "check"
 
 class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
     """The flat file database solution which provides an API-like solution to
@@ -47,7 +50,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # checking if the check file is there. If it is not, then we may need
         # format the database ourselves.
         check_filename = library.path.merge_pathname(
-            directory=database_directory, filename="exarata_database", extension="check"
+            directory=database_directory, filename=DATABASE_CHECK_FILE_BASENAME, extension=DATABASE_CHECK_FILE_EXTENSION
         )
         if os.path.isfile(check_filename):
             pass
@@ -68,6 +71,132 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
                 )
         # Keeping the record.
         self.database_directory = database_directory
+
+        # All done.
+        return None
+
+
+    @classmethod
+    def clean_text_record_file(cls, filename: str, garbage_filename: str = None) -> None:
+        """This function takes a record file and cleans it up. Sorting it by
+        time and deleting any lines which do not conform to the expected
+        formatting.
+
+        This is a class method because cleaning the database files does not 
+        rely on the database per-say or adding data to it. It could be 
+        performed by a third-party script without issue. It can also be 
+        dangerous to clean a database so we detach ourselves from the 
+        database we are managing just in case.
+
+        Parameters
+        ----------
+        filename : str
+            The text record filename which will have its entries cleaned up.
+        garbage_filename : str, default = None
+            A path to a text file where all of the garbage lines detected by
+            this cleaning routine should be saved to instead of being deleted
+            as default.
+
+        Returns
+        -------
+        None
+        """
+        # We need to read every line.
+        with open(filename, "r") as file:
+            record_lines = file.readlines()
+        # The extra new line characters get in the way of cleaning and we
+        # will add them back later.
+        record_lines = [linedex.removesuffix("\n") for linedex in record_lines]
+
+        # We check if the record is the correct line length, if not, return
+        # False.
+        RECORD_LINE_LENGTH = 60
+
+        def __record_check_line_length(record: str) -> bool:
+            """Checking that the line record is the correct length."""
+            return len(record) == RECORD_LINE_LENGTH
+
+        # We go through every line, checking for many things which would make
+        # it a bad line. The checking functions have been written above.
+        valid_records = []
+        garbage_records = []
+        for linedex in record_lines:
+            # Each of these if statements check one aspect of the lines to
+            # ensure only valid records are passed through.
+            if not __record_check_line_length(record=linedex):
+                # The record is the wrong length and thus it is bad.
+                garbage_records.append(linedex)
+            else:
+                valid_records.append(linedex)
+
+        # We sort the valid records via time. Conveniently, ISO formatted
+        # times makes this equivalent to sorting strings.
+        sorted_records = sorted(valid_records)
+
+        # There is no other cleaning that is needed.
+        cleaned_records = sorted_records
+
+        # The records are cleaned and thus we can save them back to their
+        # original file, overwriting everything else. We need to add the
+        # newline characters as well.
+        cleaned_records = [linedex + "\n" for linedex in cleaned_records]
+        with open(filename, "w") as file:
+            file.writelines(cleaned_records)
+
+        # If a bad record outfile was provided, we also save that as well.
+        if garbage_filename is not None:
+            # Still need the new lines.
+            garbage_records = [linedex + "\n" for linedex in garbage_records]
+            with open(garbage_filename, "a") as garbage_file:
+                garbage_file.writelines(garbage_records)
+
+        # All done.
+        return None
+
+    @classmethod
+    def clean_database_files(cls, database_directory:str, garbage_filename: str = None) -> None:
+        """This function cleans each and every file inside of the the database
+        provided by the inputted database directory.
+
+        This is a class method because cleaning the database files does not 
+        rely on the database per-say or adding data to it. It could be 
+        performed by a third-party script without issue. It can also be 
+        dangerous to clean a database so we detach ourselves from the 
+        database we are managing just in case.
+
+        Parameters
+        ----------
+        database_directory : str
+            We clean all database files within the directory provided.
+        garbage_filename : str, default = None
+            A path to a text file where all of the garbage lines detected by
+            this cleaning routine should be saved to instead of being deleted
+            as default.
+
+        Returns
+        -------
+        None
+        """
+        # We need to make sure that the directory itself exists and it is a
+        # database directory.
+        check_filename = library.path.merge_pathname(
+            directory=database_directory, filename=DATABASE_CHECK_FILE_BASENAME, extension=DATABASE_CHECK_FILE_EXTENSION
+        )
+        if not os.path.isfile(check_filename):
+            raise error.DirectoryError("The directory {dir} provided is not a valid OpihiExarata zero point database directory as it is missing the check file. We will not attempt to clean it.".format(dir=database_directory))
+
+        # We search through all of the database files. We do not try and 
+        # clean non-database files.
+        database_glob_search = library.path.merge_pathname(directory=database_directory, filename="*.zp_ox", extension="txt")
+        database_files = glob.glob(database_glob_search)
+        # Clean every file.
+        for filedex in database_files:
+            cls.clean_text_record_file(filename=filedex, garbage_filename=garbage_filename)
+        # All done.
+        return None
+
+
+
 
     def _generate_text_record_filename(self, year: int, month: int, day: int) -> str:
         """The text records which stores all of the information of the
@@ -246,77 +375,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # If the file is to be cleaned up.
         if clean_file:
             self.clean_text_record_file(filename=record_filename)
-
-        # All done.
-        return None
-
-    @staticmethod
-    def clean_text_record_file(filename: str, garbage_filename: str = None) -> None:
-        """This function takes a record file and cleans it up. Sorting it by
-        time and deleting any lines which do not conform to the expected
-        formatting.
-
-        Parameters
-        ----------
-        filename : str
-            The text record filename which will have its entries cleaned up.
-        garbage_filename : str, default = None
-            A path to a text file where all of the garbage lines detected by
-            this cleaning routine should be saved to instead of being deleted
-            as default.
-
-        Returns
-        -------
-        None
-        """
-        # We need to read every line.
-        with open(filename, "r") as file:
-            record_lines = file.readlines()
-        # The extra new line characters get in the way of cleaning and we
-        # will add them back later.
-        record_lines = [linedex.removesuffix("\n") for linedex in record_lines]
-
-        # We check if the record is the correct line length, if not, return
-        # False.
-        RECORD_LINE_LENGTH = 60
-
-        def __record_check_line_length(record: str) -> bool:
-            """Checking that the line record is the correct length."""
-            return len(record) == RECORD_LINE_LENGTH
-
-        # We go through every line, checking for many things which would make
-        # it a bad line. The checking functions have been written above.
-        valid_records = []
-        garbage_records = []
-        for linedex in record_lines:
-            # Each of these if statements check one aspect of the lines to
-            # ensure only valid records are passed through.
-            if not __record_check_line_length(record=linedex):
-                # The record is the wrong length and thus it is bad.
-                garbage_records.append(linedex)
-            else:
-                valid_records.append(linedex)
-
-        # We sort the valid records via time. Conveniently, ISO formatted
-        # times makes this equivalent to sorting strings.
-        sorted_records = sorted(valid_records)
-
-        # There is no other cleaning that is needed.
-        cleaned_records = sorted_records
-
-        # The records are cleaned and thus we can save them back to their
-        # original file, overwriting everything else. We need to add the
-        # newline characters as well.
-        cleaned_records = [linedex + "\n" for linedex in cleaned_records]
-        with open(filename, "w") as file:
-            file.writelines(cleaned_records)
-
-        # If a bad record outfile was provided, we also save that as well.
-        if garbage_filename is not None:
-            # Still need the new lines.
-            garbage_records = [linedex + "\n" for linedex in garbage_records]
-            with open(garbage_filename, "a") as garbage_file:
-                garbage_file.writelines(garbage_records)
 
         # All done.
         return None
