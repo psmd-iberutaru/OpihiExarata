@@ -80,7 +80,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         The filename for the per-pixel rate values of the dark data,
         stored in a fits file.
     _linearity_fits_filename : string
-        The filename for the linearity responce of the CCD. This should be a
+        The filename for the linearity response of the CCD. This should be a
         1D fits file detailing counts as a function of time for the saturation
         curve of the CCD.
 
@@ -232,7 +232,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             The filename for the per-pixel rate values of the dark data,
             stored in a fits file.
         linearity_fits_filename : string
-            The filename for the linearity responce of the CCD, stored as a
+            The filename for the linearity response of the CCD, stored as a
             text file.
 
         Returns
@@ -434,7 +434,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             The data, after it has been preprocessed.
         """
         # Get the needed mask and flat files based on the provided filter.
-        # Being a little clever so a very long if/else statememt is not used.
+        # Being a little clever so a very long if/else statement is not used.
         try:
             mask = self.__dict__.get("mask_{f}".format(f=filter_name), None)
             flat = self.__dict__.get("flat_{f}".format(f=filter_name), None)
