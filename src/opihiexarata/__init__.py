@@ -15,9 +15,6 @@ import opihiexarata.propagate as propagate
 # The section for the user interface.
 import opihiexarata.gui as gui
 
-# The monitoring instance, database, and webpage creation packages.
-import opihiexarata.monitor as monitor
-
 # The primary collective solutions for OpihiExarata.
 import opihiexarata.opihi as opihi
 from opihiexarata.opihi import OpihiPreprocessSolution

@@ -225,7 +225,7 @@ def julian_day_to_unix_time(jd: float) -> float:
     # This could eventually be replaced with multiplication and addition, but
     # this is a convenient way of doing it.
     time_instance = ap_time.Time(jd, format="jd")
-    unix_time = time_instance.to_value("unix")
+    unix_time = float(time_instance.to_value("unix"))
     return unix_time
 
 
@@ -276,7 +276,7 @@ def julian_day_to_decimal_day(jd: float) -> tuple:
     return year, month, day
 
 
-def julian_day_to_full_date(jd: float) -> tuple:
+def julian_day_to_full_date(jd: float) -> tuple[int, int, int, int, int, float]:
     """A function to convert the Julian day to a full date time.
 
     Parameters
@@ -301,7 +301,7 @@ def julian_day_to_full_date(jd: float) -> tuple:
     """
     time_instance = ap_time.Time(jd, format="jd")
     # It is faster to not unpack, even though it is less readable.
-    return time_instance.to_value("ymdhms")
+    return tuple(time_instance.to_value("ymdhms"))
 
 
 def current_utc_to_julian_day() -> float:
@@ -383,7 +383,7 @@ def filter_header_string_to_filter_name(header_string: str) -> str:
     """The filter position string is exactly how it exists in the header files.
     This converts from the string as it exists in the header file to the filter
     name.
-    The filter set: {0: 3, 1: 2, 2: 1, 3: z, 4: i, 5: r, 6: g, 7: c}
+    The filter position set: {0: 3, 1: 2, 2: 1, 3: z, 4: i, 5: r, 6: g, 7: c}
 
     Parameters
     ----------

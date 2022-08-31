@@ -7,3 +7,4 @@ from opihiexarata.opihi.solution import OpihiSolution
 from opihiexarata.opihi.preprocess import OpihiPreprocessSolution
 
 # The database solution for holding zero point data.
+from opihiexarata.opihi.database import OpihiZeroPointDatabaseSolution

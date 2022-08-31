@@ -1387,7 +1387,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         #####
         # The target name and the directory the images are in should
         # not reset just because of a new image.
-        # self.ui.label_dynamic_summary_target_name.setText("DEFAULT")
+        # self.ui.label_dynamic_summary_target_name.setText("None")
         # self.ui.label_dynamic_summary_directory.setText("/path/to/dir/")
         self.ui.label_dynamic_summary_fits_file.setText(
             "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"

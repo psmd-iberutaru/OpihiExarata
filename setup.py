@@ -24,6 +24,7 @@ DEPENDENCIES = [
     "requests",
     "scipy",
     "matplotlib",
+    "plotly",
 ]
 
 
