@@ -31,7 +31,7 @@ class OpihiSolution(library.engine.ExarataSolution):
     exposure_time : float
         The exposure time of the image, in seconds.
     observing_time : float
-        The time of observation, this must be a Julian day time.
+        The time of observation, this is in Julian days.
     asteroid_name : str
         The name of the asteroid. This is used to group similar observations
         and to also retrieve data from the MPC.

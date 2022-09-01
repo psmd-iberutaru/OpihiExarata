@@ -21,6 +21,16 @@ MPC_OBSERVATORY_CODE : "568"
 ##########     Opihi Manual GUI Configuration
 ############################################################
 
+# If True, then whenever an observation has been completed, if it has a 
+# valid photometric solution, then the measurement is added to the database 
+# as specified.
+GUI_MANUAL_DATABASE_SAVE_OBSERVATIONS : True
+
+# The rate at which the database should be instructed to clean up its files 
+# is provided by the percentage rate given. 
+# This value should be between 0 and 1.
+GUI_MANUAL_DATABASE_CLEAN_FILE_RATE : 0.25
+
 # This is the full binary path for the t3io program command. It must be 
 # an absolute path and lead to the binary program itself so that the 
 # OpihiExarata software can call it. The hostname is also the TCS host, as 
@@ -96,6 +106,16 @@ GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL : 0.94
 ##########     Opihi Automatic GUI Configuration
 ############################################################
 
+# If True, then whenever an observation has been completed, if it has a 
+# valid photometric solution, then the measurement is added to the database 
+# as specified.
+GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS : True
+
+# The rate at which the database should be instructed to clean up its files 
+# is provided by the percentage rate given. 
+# This value should be between 0 and 1.
+GUI_AUTOMATIC_DATABASE_CLEAN_FILE_RATE : 0.25
+
 # This is the directory for where the automatic image finder should look for 
 # the new images. It works best if this is an absolute directory.
 GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
@@ -109,6 +129,9 @@ GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS : 0.42
 ############################################################
 ##########     Opihi Database Monitoring Configuration
 ############################################################
+
+# This is the directory of the monitoring database.
+MONITOR_DATABASE_DIRECTORY : "./exarata_zeropoint_database/"
 
 # The path where the interactive html plot file should be saved to. We 
 # suggest an absolute path if you are saving it to a webserver.

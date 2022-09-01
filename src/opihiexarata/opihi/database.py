@@ -80,7 +80,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
                     )
                 )
         # Keeping the record.
-        self.database_directory = database_directory
+        self.database_directory = os.path.abspath(database_directory)
 
         # All done.
         return None
