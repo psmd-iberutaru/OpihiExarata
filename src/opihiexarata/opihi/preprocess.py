@@ -44,8 +44,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
     _mask_2_fits_filename : string
         The filename for the pixel mask for the 2 filter stored in a
         fits file.
-    _mask_3_fits_filename : string
-        The filename for the pixel mask for the 3 filter stored in a
+    _mask_b_fits_filename : string
+        The filename for the pixel mask for the b filter stored in a
         fits file.
 
     _flat_c_fits_filename : string
@@ -69,8 +69,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
     _flat_2_fits_filename : string
         The filename for the flat field for the 2 filter stored in a
         fits file.
-    _flat_3_fits_filename : string
-        The filename for the flat field for the 3 filter stored in a
+    _flat_b_fits_filename : string
+        The filename for the flat field for the b filter stored in a
         fits file.
 
     _bias_fits_filename : string
@@ -106,8 +106,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
     mask_2 : array
         The pixel mask for the 2 filter as determined by the provided
         fits file.
-    mask_3 : array
-        The pixel mask for the 3 filter as determined by the provided
+    mask_b : array
+        The pixel mask for the b filter as determined by the provided
         fits file.
 
     flat_c : array
@@ -131,8 +131,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
     flat_2 : array
         The flat field for the 2 filter as determined by the provided
         fits file.
-    flat_3 : array
-        The flat field for the 3 filter as determined by the provided
+    flat_b : array
+        The flat field for the b filter as determined by the provided
         fits file.
 
 
@@ -157,7 +157,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         mask_z_fits_filename: str,
         mask_1_fits_filename: str,
         mask_2_fits_filename: str,
-        mask_3_fits_filename: str,
+        mask_b_fits_filename: str,
         flat_c_fits_filename: str,
         flat_g_fits_filename: str,
         flat_r_fits_filename: str,
@@ -165,7 +165,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         flat_z_fits_filename: str,
         flat_1_fits_filename: str,
         flat_2_fits_filename: str,
-        flat_3_fits_filename: str,
+        flat_b_fits_filename: str,
         bias_fits_filename: str,
         dark_current_fits_filename: str,
         linearity_fits_filename: str,
@@ -195,8 +195,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         mask_2_fits_filename : string
             The filename for the pixel mask in the 2 filter stored in a
             fits file.
-        mask_3_fits_filename : string
-            The filename for the pixel mask in the 3 filter stored in a
+        mask_b_fits_filename : string
+            The filename for the pixel mask in the b filter stored in a
             fits file.
 
         flat_c_fits_filename : string
@@ -220,8 +220,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         flat_2_fits_filename : string
             The filename for the flat field in the 2 filter stored in a
             fits file.
-        flat_3_fits_filename : string
-            The filename for the flat field in the 3 filter stored in a
+        flat_b_fits_filename : string
+            The filename for the flat field in the b filter stored in a
             fits file.
 
 
@@ -248,7 +248,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self._mask_z_fits_filename = mask_z_fits_filename
         self._mask_1_fits_filename = mask_1_fits_filename
         self._mask_2_fits_filename = mask_2_fits_filename
-        self._mask_3_fits_filename = mask_3_fits_filename
+        self._mask_b_fits_filename = mask_b_fits_filename
         # Flat files, per filter.
         self._flat_c_fits_filename = flat_c_fits_filename
         self._flat_g_fits_filename = flat_g_fits_filename
@@ -257,7 +257,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self._flat_z_fits_filename = flat_z_fits_filename
         self._flat_1_fits_filename = flat_1_fits_filename
         self._flat_2_fits_filename = flat_2_fits_filename
-        self._flat_3_fits_filename = flat_3_fits_filename
+        self._flat_b_fits_filename = flat_b_fits_filename
         # Bias, filter independent.
         self._bias_fits_filename = bias_fits_filename
         # Dark rate, filter independent.
@@ -315,8 +315,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         __, mask_2 = library.fits.read_fits_image_file(
             filename=self._mask_2_fits_filename
         )
-        __, mask_3 = library.fits.read_fits_image_file(
-            filename=self._mask_3_fits_filename
+        __, mask_b = library.fits.read_fits_image_file(
+            filename=self._mask_b_fits_filename
         )
         # Adding the masks to this solution so the fits files need not be
         # accessed again. A pixel is considered mask if the value is True.
@@ -327,7 +327,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self.mask_z = np.array(mask_z, dtype=bool)
         self.mask_1 = np.array(mask_1, dtype=bool)
         self.mask_2 = np.array(mask_2, dtype=bool)
-        self.mask_3 = np.array(mask_3, dtype=bool)
+        self.mask_b = np.array(mask_b, dtype=bool)
         # All done.
         return None
 
@@ -366,8 +366,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         __, flat_2 = library.fits.read_fits_image_file(
             filename=self._flat_2_fits_filename
         )
-        __, flat_3 = library.fits.read_fits_image_file(
-            filename=self._flat_3_fits_filename
+        __, flat_b = library.fits.read_fits_image_file(
+            filename=self._flat_b_fits_filename
         )
         # Adding the flats to this solution so the fits files need not be
         # accessed again.
@@ -378,7 +378,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self.flat_z = np.array(flat_z)
         self.flat_1 = np.array(flat_1)
         self.flat_2 = np.array(flat_2)
-        self.flat_3 = np.array(flat_3)
+        self.flat_b = np.array(flat_b)
         # All done.
         return None
 

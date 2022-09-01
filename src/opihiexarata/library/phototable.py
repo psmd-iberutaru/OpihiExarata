@@ -11,7 +11,7 @@ import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
 # The general template of the photometric table.
-OPIHI_FILTERS = ("c", "g", "r", "i", "z", "1", "2", "3")
+OPIHI_FILTERS = ("c", "g", "r", "i", "z", "1", "2", "b")
 __PHOTOMETRY_TABLE_NAME_TYPE_PAIR = {
     "ra_photo": float,
     "dec_photo": float,
@@ -29,8 +29,8 @@ __PHOTOMETRY_TABLE_NAME_TYPE_PAIR = {
     "1_err": float,
     "2_mag": float,
     "2_err": float,
-    "3_mag": float,
-    "3_err": float,
+    "b_mag": float,
+    "b_err": float,
 }
 PHOTOMETRY_TABLE_COLUMN_NAMES = list(__PHOTOMETRY_TABLE_NAME_TYPE_PAIR.keys())
 PHOTOMETRY_TABLE_COLUMN_TYPES = list(__PHOTOMETRY_TABLE_NAME_TYPE_PAIR.values())
@@ -60,8 +60,8 @@ __INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR = {
     "1_err": float,
     "2_mag": float,
     "2_err": float,
-    "3_mag": float,
-    "3_err": float,
+    "b_mag": float,
+    "b_err": float,
     "counts": float,
 }
 INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES = list(

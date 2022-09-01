@@ -882,13 +882,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             "z": library.config.MONITOR_PLOT_FILTER_Z_LINE_COLOR,
             "1": library.config.MONITOR_PLOT_FILTER_1_LINE_COLOR,
             "2": library.config.MONITOR_PLOT_FILTER_2_LINE_COLOR,
-            "3": library.config.MONITOR_PLOT_FILTER_3_LINE_COLOR,
+            "b": library.config.MONITOR_PLOT_FILTER_B_LINE_COLOR,
         }
 
         # We define the order the filters are plotted just by the verbal
         # order of their name. Done as per `category_orders` documentation.
         line_order_specification = {
-            "filter_name": ["c", "g", "r", "i", "z", "1", "2", "3"]
+            "filter_name": ["c", "g", "r", "i", "z", "1", "2", "b"]
         }
 
         # The symbol for plotting. Large markers are not needed and the
