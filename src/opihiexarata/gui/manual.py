@@ -109,7 +109,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # Preparing the zero point database if the user desired the database
         # to record observations.
-        if library.config.GUI_MANUAL_SAVE_OBSERVATIONS_TO_MONITORING_DATABASE:
+        if library.config.GUI_MANUAL_DATABASE_SAVE_OBSERVATIONS:
             database = opihiexarata.OpihiZeroPointDatabaseSolution(
                 database_directory=library.config.MONITOR_DATABASE_DIRECTORY
             )
