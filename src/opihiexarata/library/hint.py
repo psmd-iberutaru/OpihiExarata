@@ -48,3 +48,4 @@ from opihiexarata.propagate.solution import PropagativeSolution
 # And the solutions themselves.
 from opihiexarata.opihi.preprocess import OpihiPreprocessSolution
 from opihiexarata.opihi.solution import OpihiSolution
+from opihiexarata.opihi.database import OpihiZeroPointDatabaseSolution

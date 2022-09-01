@@ -241,10 +241,10 @@ the path is determined by extrapolating the motion of the asteroid on the
 sky based on a sequence of recent images.
 
 
-.. _technical-architecture-vehicles-solutions-preprocesssolution:
+.. _technical-architecture-vehicles-solutions-opihipreprocesssolution:
 
-PreprocessSolution
-------------------
+OpihiPreprocessSolution
+-----------------------
 
 The data that comes from the Opihi camera is considered raw data, it has many
 systematic artifacts like hot pixels, dark current, and bias to name a few.
@@ -259,7 +259,7 @@ An explanation on the procedure and methodology of data preprocessing is
 assumed by this manual, but a brief summary may be 
 `obtained from here <https://wiki.digiultsparrow.space/en/academic/notes/astronomical-ccd-image-preprocessing>`_.
 
-The implementation of image preprocessing is done by the PreprocessSolution 
+The implementation of image preprocessing is done by the OpihiPreprocessSolution 
 class (see :py:class:`opihiexarata.opihi.preprocess.OpihiPreprocessSolution`). 
 However, because the preprocessing of CCD images is pretty standard and simple
 and involves only one method, this solution does not require an engine and 
@@ -272,3 +272,20 @@ image (either an array or a fits file) and pre-process it. It is built like
 this so that the large preprocessing calibration images (which are cached 
 within the class to avoid disk utilization) does not take up a too much 
 memory as opposed if the class was duplicated per image.
+
+
+.. _technical-architecture-vehicles-solutions-opihizeropointdatabasesolution:
+
+OpihiZeroPointDatabaseSolution
+------------------------------
+
+In order to properly manage and store zero point observations, we utilize a 
+solution which provides us an API-like interface to the zero point database.
+The implementation of this interface is done by the 
+OpihiZeroPointDatabaseSolution 
+(see :py:class:`opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution`).
+
+The specifics of the database are explained in 
+:ref:`technical-architecture-monitor-database`. The monitoring webpage which 
+shows recent information added to the database to a user is described in 
+:ref:`user-zero-point-monitoring`.

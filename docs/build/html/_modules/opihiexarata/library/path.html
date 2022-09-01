@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.path &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.library.path &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -135,6 +136,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +234,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -256,6 +262,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
@@ -272,6 +283,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
@@ -421,13 +433,16 @@
 
 
 <div class="viewcode-block" id="get_most_recent_filename_in_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_most_recent_filename_in_directory">[docs]</a><span class="k">def</span> <span class="nf">get_most_recent_filename_in_directory</span><span class="p">(</span>
-    <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">extension</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">recency_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exclude_opihiexarata_output_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This gets the most recent filename from a directory.</span>
 
 <span class="sd">    Because of issues with different operating systems having differing</span>
 <span class="sd">    issues with storing the creation time of a file, this function sorts based</span>
-<span class="sd">    off of modification time. The most recent modified file is thus</span>
+<span class="sd">    off of modification time.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -437,6 +452,16 @@
 <span class="sd">        The extension by which to filter for. It is often the case that some</span>
 <span class="sd">        files are created but the most recent file of some type is desired.</span>
 <span class="sd">        Only files which match the included extensions will be considered.</span>
+<span class="sd">    recency_function : callable, default = None</span>
+<span class="sd">        A function which, when provided, provides a sorting index for a given</span>
+<span class="sd">        filename. This is used when the default sorting method (modification</span>
+<span class="sd">        time) is not desired and a custom function can be provided here. The</span>
+<span class="sd">        larger the value returned by this function, the more &quot;recent&quot; a</span>
+<span class="sd">        given file will be considered to be.</span>
+<span class="sd">    exclude_opihiexarata_output_files : boolean, default = False</span>
+<span class="sd">        If True, files which have been marked as being outputs of OpihiExarata</span>
+<span class="sd">        (via the file suffixes as per the configuration file) will not be</span>
+<span class="sd">        included.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -450,6 +475,12 @@
             <span class="s2">&quot;The directory provided `</span><span class="si">{d}</span><span class="s2">` does not exist. A most recent file cannot be&quot;</span>
             <span class="s2">&quot; obtained.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
         <span class="p">)</span>
+
+    <span class="c1"># The default recency function, if not provided, is the modification times</span>
+    <span class="c1"># of the files themselves.</span>
+    <span class="n">recency_function</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span> <span class="k">if</span> <span class="n">recency_function</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">recency_function</span>
+    <span class="p">)</span>
 
     <span class="c1"># We need to check all of the files matching the provided extension. If</span>
     <span class="c1"># none was provided, we use all.</span>
@@ -469,10 +500,25 @@
         <span class="n">extension_matching_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pathname_glob_filter</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">matching_filenames</span> <span class="o">+=</span> <span class="n">extension_matching_files</span>
 
+    <span class="c1"># If flagged, we do not include files which have been marked as outputs</span>
+    <span class="c1"># of OpihiExarata.</span>
+    <span class="k">if</span> <span class="n">exclude_opihiexarata_output_files</span><span class="p">:</span>
+        <span class="c1"># Mark for files which have been preprocessed.</span>
+        <span class="n">PREPROCESS_SUFFIX</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DEFAULT_SAVING_SUFFIX</span>
+        <span class="n">SOLUTION_SUFFIX</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX</span>
+        <span class="n">MPCRECORD_SUFFIX</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX</span>
+        <span class="k">for</span> <span class="n">filenamedex</span> <span class="ow">in</span> <span class="n">matching_filenames</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">PREPROCESS_SUFFIX</span> <span class="ow">in</span> <span class="n">filenamedex</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="n">SOLUTION_SUFFIX</span> <span class="ow">in</span> <span class="n">filenamedex</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="n">MPCRECORD_SUFFIX</span> <span class="ow">in</span> <span class="n">filenamedex</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">matching_filenames</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filenamedex</span><span class="p">)</span>
+
     <span class="c1"># For all of the matching filenames, we need to find the most recent via</span>
     <span class="c1"># the modification time. Given that the modification times are a UNIX time,</span>
     <span class="c1"># the largest is the most recent.</span>
-    <span class="n">recent_filename</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">matching_filenames</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    <span class="n">recent_filename</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">matching_filenames</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">recency_function</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
     <span class="c1"># Just a quick check to make sure the file exists.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">recent_filename</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>

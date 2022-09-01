@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automatic Mode &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>Automatic Mode &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -120,6 +120,7 @@
 <li class="toctree-l3"><a class="reference internal" href="recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -138,6 +139,10 @@
 <li class="toctree-l4"><a class="reference internal" href="citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -232,7 +237,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -259,6 +265,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
@@ -275,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
@@ -481,7 +493,7 @@ the same directory you specified for this program to fetch from.</p>
 automatically, without the need for user intervention:</p>
 <ol class="arabic simple">
 <li><p>It will fetch the most recent fits image as determined by the modification timestamp of all fits files within the specified directory as provided by the operating system.</p></li>
-<li><p>It will pre-process the fetched image according to the preprocessing algorithm, see <a class="reference internal" href="../technical/architecture/vehicles_solutions.html#technical-architecture-vehicles-solutions-preprocesssolution"><span class="std std-ref">PreprocessSolution</span></a>.</p></li>
+<li><p>It will pre-process the fetched image according to the preprocessing algorithm, see <a class="reference internal" href="../technical/architecture/vehicles_solutions.html#technical-architecture-vehicles-solutions-opihipreprocesssolution"><span class="std std-ref">OpihiPreprocessSolution</span></a>.</p></li>
 <li><p>It will solve for the astrometric solution of the pre-processed image via the specified AstrometryEngine. The results of the solution will be displayed in the GUI.</p></li>
 <li><p>It will solve for the photometric solution of the pre-processed image via the specified PhotometryEngine. The results of the solution will be displayed in the GUI.</p></li>
 <li><p>It will add this result (the filter zero point measurement) to the archive of observations. The monitoring webpage uses this archive to derive its figures.</p></li>

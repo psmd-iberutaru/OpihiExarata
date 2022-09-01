@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.polynomial module &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.propagate.polynomial module &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -120,6 +120,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -138,6 +139,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -232,7 +237,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -259,6 +265,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
@@ -275,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
@@ -467,6 +479,18 @@ taken at. The values are in Julian days.</p>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_wrap_around">
+<span class="sig-name descname"><span class="pre">ra_wrap_around</span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_wrap_around" title="Permalink to this definition"></a></dt>
+<dd><p>A flag which signifies that the RA values, as given, wraps around the
+0/360 point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine.__fit_polynomial_function">
 <span class="sig-name descname"><span class="pre">__fit_polynomial_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fit_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine.__fit_polynomial_function" title="Permalink to this definition"></a></dt>
@@ -531,6 +555,49 @@ coefficients.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_inverse_rotation">
+<span class="sig-name descname"><span class="pre">_right_ascension_inverse_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotated_ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#LinearPropagationEngine._right_ascension_inverse_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_inverse_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>This function inverses the rotation done because of the
+transformation to avoid the wraparound in the 0/360 region if it
+exists.</p>
+<p>If there was no wraparound present, then this function just passes the
+input untouched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rotation_ra</strong> (<em>array-like</em>) – The RA array, after the rotation has been done by the rotation
+function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>inverse_rotated_ra</strong> – The array after the inverse rotation, if a wraparound is present.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_rotation">
+<span class="sig-name descname"><span class="pre">_right_ascension_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#LinearPropagationEngine._right_ascension_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>If the RA loops around the 0/360 region, this function transforms
+it via a rotation to +/- 180 so that the polynomial fitting is not
+problematic.</p>
+<p>If there was no wraparound present, then this function just passes the
+input untouched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ra</strong> (<em>array-like</em>) – The RA without the rotation where there is a possible wraparound.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rotated_ra</strong> – The array after the rotation, if a wraparound is present.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -686,6 +753,49 @@ coefficients.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_inverse_rotation">
+<span class="sig-name descname"><span class="pre">_right_ascension_inverse_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotated_ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#QuadraticPropagationEngine._right_ascension_inverse_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_inverse_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>This function inverses the rotation done because of the
+transformation to avoid the wraparound in the 0/360 region if it
+exists.</p>
+<p>If there was no wraparound present, then this function just passes the
+input untouched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rotation_ra</strong> (<em>array-like</em>) – The RA array, after the rotation has been done by the rotation
+function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>inverse_rotated_ra</strong> – The array after the inverse rotation, if a wraparound is present.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_rotation">
+<span class="sig-name descname"><span class="pre">_right_ascension_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/propagate/polynomial.html#QuadraticPropagationEngine._right_ascension_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>If the RA loops around the 0/360 region, this function transforms
+it via a rotation to +/- 180 so that the polynomial fitting is not
+problematic.</p>
+<p>If there was no wraparound present, then this function just passes the
+input untouched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ra</strong> (<em>array-like</em>) – The RA without the rotation where there is a possible wraparound.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rotated_ra</strong> – The array after the rotation, if a wraparound is present.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
 </dd>
 </dl>
 </dd></dl>

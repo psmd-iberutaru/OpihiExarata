@@ -108,3 +108,12 @@ This work makes use of the Astrometry.net Nova web service and installable
 programs 
 (`Lang et. al 2010 <https://ui.adsabs.harvard.edu/abs/2010AJ....139.1782L>`_, 
 `Hogg et. al. 2008 <https://ui.adsabs.harvard.edu/abs/2008ASPC..394...27H>`_).
+
+
+Acknowledgements
+================
+
+OpihiExarata Processing Image
+-----------------------------
+The image used for OpihiExarata when it is busy processing was drawn by 
+`Joel Paye <https://payeitforward.com/>`_.

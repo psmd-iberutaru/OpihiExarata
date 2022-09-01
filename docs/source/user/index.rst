@@ -88,6 +88,7 @@ acknowledge your usage in any projects or publications; see
     automatic_mode
     configuration
     recording_fits_file
+    zero_point_monitoring
     troubleshooting
     citations
     trivia

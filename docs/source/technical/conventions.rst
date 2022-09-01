@@ -123,3 +123,34 @@ it would be in reStructuredText, but it looks ugly. Instead, we use the
 Napoleon extension for Sphinx to allow for the usage of 
 `NumPy docstring formatting <https://numpydoc.readthedocs.io/>`_.
 `An example of Numpy formatting is also provided by Sphinx <https://www.sphinx-doc.org/en/master/usage/extensions/example_numpy.html>`_.
+
+
+.. _technical-conventions-filter-names:
+
+Filter Names
+============
+
+Although the filter wheel has its own description of the filter names, for 
+ease of programming, we define the following filter names to use throughout 
+the software. They are typically single characters indicative of the actual 
+filter name.
+
++--------------------------+--------------------+
+| OpihiExarata Filter Name | Normal Filter Name |
++==========================+====================+
+| c                        | clear              |
++--------------------------+--------------------+
+| g                        | g'                 |
++--------------------------+--------------------+
+| r                        | r'                 |
++--------------------------+--------------------+
+| i                        | i'                 |
++--------------------------+--------------------+
+| z                        | z'                 |
++--------------------------+--------------------+
+| 1                        | (A filler value.)  |
++--------------------------+--------------------+
+| 2                        | (A filler value.)  |
++--------------------------+--------------------+
+| b                        | blank              |
++--------------------------+--------------------+

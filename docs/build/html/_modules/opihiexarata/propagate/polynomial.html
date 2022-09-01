@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.propagate.polynomial &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -135,6 +136,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +234,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -256,6 +262,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
@@ -272,6 +283,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
@@ -424,9 +436,12 @@
 <span class="sd">        The array of observation times which the RA and DEC measurements were</span>
 <span class="sd">        taken at. The values are in Julian days.</span>
 <span class="sd">    ra_poly_param : tuple</span>
-<span class="sd">            The polynomial fit parameters for the RA(time) propagation.</span>
+<span class="sd">        The polynomial fit parameters for the RA(time) propagation.</span>
 <span class="sd">    dec_poly_param : tuple</span>
-<span class="sd">            The polynomial fit parameters for the DEC(time) propagation.</span>
+<span class="sd">        The polynomial fit parameters for the DEC(time) propagation.</span>
+<span class="sd">    ra_wrap_around : boolean</span>
+<span class="sd">        A flag which signifies that the RA values, as given, wraps around the</span>
+<span class="sd">        0/360 point.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="LinearPropagationEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">dec</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">obs_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -470,10 +485,21 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span> <span class="o">=</span> <span class="n">obs_time</span>
 
+        <span class="c1"># We need to determine if the RA values loop around the angle value.</span>
+        <span class="c1"># If so, we need to perform a transformation to and from an alternative</span>
+        <span class="c1"># coordinate system 180 degrees offset.</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="c1"># The angles is almost guaranteed to have wrapped around.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="c1"># Computing the fitting parameters. That is, the polynomial fit of both</span>
         <span class="c1"># RA and DEC as a function of time.</span>
+        <span class="c1"># If there is a wraparound, we need to account for that.</span>
+        <span class="n">fixed_ra_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_ascension_rotation</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">ra</span><span class="p">)</span>
         <span class="n">ra_param</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fit_polynomial_function</span><span class="p">(</span>
-            <span class="n">fit_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unix_obs_time_array</span><span class="p">,</span> <span class="n">fit_y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span>
+            <span class="n">fit_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unix_obs_time_array</span><span class="p">,</span> <span class="n">fit_y</span><span class="o">=</span><span class="n">fixed_ra_array</span>
         <span class="p">)</span>
         <span class="n">dec_param</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fit_polynomial_function</span><span class="p">(</span>
             <span class="n">fit_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unix_obs_time_array</span><span class="p">,</span> <span class="n">fit_y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span>
@@ -563,6 +589,62 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">fit_param</span><span class="p">,</span> <span class="n">fit_error</span>
 
+<div class="viewcode-block" id="LinearPropagationEngine._right_ascension_rotation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">_right_ascension_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;If the RA loops around the 0/360 region, this function transforms</span>
+<span class="sd">        it via a rotation to +/- 180 so that the polynomial fitting is not</span>
+<span class="sd">        problematic.</span>
+
+<span class="sd">        If there was no wraparound present, then this function just passes the</span>
+<span class="sd">        input untouched.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ra : array-like</span>
+<span class="sd">            The RA without the rotation where there is a possible wraparound.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        rotated_ra : array</span>
+<span class="sd">            The array after the rotation, if a wraparound is present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If a wraparound was detected, we need to do a rotation.</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span><span class="p">:</span>
+            <span class="n">rotated_ra</span> <span class="o">=</span> <span class="p">(</span><span class="n">ra</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No rotation is required.</span>
+            <span class="n">rotated_ra</span> <span class="o">=</span> <span class="n">ra</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">rotated_ra</span></div>
+
+<div class="viewcode-block" id="LinearPropagationEngine._right_ascension_inverse_rotation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_inverse_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">_right_ascension_inverse_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotated_ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function inverses the rotation done because of the</span>
+<span class="sd">        transformation to avoid the wraparound in the 0/360 region if it</span>
+<span class="sd">        exists.</span>
+
+<span class="sd">        If there was no wraparound present, then this function just passes the</span>
+<span class="sd">        input untouched.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rotation_ra : array-like</span>
+<span class="sd">            The RA array, after the rotation has been done by the rotation</span>
+<span class="sd">            function.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        inverse_rotated_ra : array</span>
+<span class="sd">            The array after the inverse rotation, if a wraparound is present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If a wrap around was detected, we need to do the inverse rotation.</span>
+        <span class="n">rotated_ra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rotated_ra</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span><span class="p">:</span>
+            <span class="n">inverse_rotated_ra</span> <span class="o">=</span> <span class="p">(</span><span class="n">rotated_ra</span> <span class="o">-</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">inverse_rotated_ra</span> <span class="o">=</span> <span class="n">rotated_ra</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">inverse_rotated_ra</span></div>
+
 <div class="viewcode-block" id="LinearPropagationEngine.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
@@ -591,7 +673,13 @@
         <span class="c1"># fitted parameters.</span>
         <span class="n">new_ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__linear_function</span><span class="p">(</span><span class="n">future_time_unix</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="p">)</span>
         <span class="n">new_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__linear_function</span><span class="p">(</span><span class="n">future_time_unix</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="p">)</span>
-        <span class="c1"># Apply wrap around for the angles.</span>
+        <span class="c1"># If a wraparound is present in the original data, then the data that</span>
+        <span class="c1"># was fit was rotated. So, the fit values provided are in that rotated</span>
+        <span class="c1"># coordinate space. We revert it back to the original coordinates</span>
+        <span class="c1"># before the rotation.</span>
+        <span class="n">new_ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_ascension_inverse_rotation</span><span class="p">(</span><span class="n">rotated_ra</span><span class="o">=</span><span class="n">new_ra</span><span class="p">)</span>
+        <span class="c1"># Apply wrap around for the angles for any exceeding the standard</span>
+        <span class="c1"># conventional limits.</span>
         <span class="n">future_ra</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_ra</span> <span class="o">+</span> <span class="mi">360</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
         <span class="n">future_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(((</span><span class="n">new_dec</span> <span class="o">-</span> <span class="mi">90</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span> <span class="o">-</span> <span class="mi">180</span><span class="p">)</span> <span class="o">-</span> <span class="mi">90</span>
         <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span></div></div>
@@ -657,10 +745,21 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obs_time_array</span> <span class="o">=</span> <span class="n">obs_time</span>
 
+        <span class="c1"># We need to determine if the RA values loop around the angle value.</span>
+        <span class="c1"># If so, we need to perform a transformation to and from an alternative</span>
+        <span class="c1"># coordinate system 180 degrees offset.</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="c1"># The angles is almost guaranteed to have wrapped around.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="c1"># Computing the fitting parameters. That is, the polynomial fit of both</span>
         <span class="c1"># RA and DEC as a function of time.</span>
+        <span class="c1"># If there is a wraparound, we need to account for that.</span>
+        <span class="n">fixed_ra_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_ascension_rotation</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">ra</span><span class="p">)</span>
         <span class="n">ra_param</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fit_polynomial_function</span><span class="p">(</span>
-            <span class="n">fit_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unix_obs_time_array</span><span class="p">,</span> <span class="n">fit_y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_array</span>
+            <span class="n">fit_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unix_obs_time_array</span><span class="p">,</span> <span class="n">fit_y</span><span class="o">=</span><span class="n">fixed_ra_array</span>
         <span class="p">)</span>
         <span class="n">dec_param</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fit_polynomial_function</span><span class="p">(</span>
             <span class="n">fit_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unix_obs_time_array</span><span class="p">,</span> <span class="n">fit_y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_array</span>
@@ -752,6 +851,62 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">fit_param</span><span class="p">,</span> <span class="n">fit_error</span>
 
+<div class="viewcode-block" id="QuadraticPropagationEngine._right_ascension_rotation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">_right_ascension_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;If the RA loops around the 0/360 region, this function transforms</span>
+<span class="sd">        it via a rotation to +/- 180 so that the polynomial fitting is not</span>
+<span class="sd">        problematic.</span>
+
+<span class="sd">        If there was no wraparound present, then this function just passes the</span>
+<span class="sd">        input untouched.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ra : array-like</span>
+<span class="sd">            The RA without the rotation where there is a possible wraparound.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        rotated_ra : array</span>
+<span class="sd">            The array after the rotation, if a wraparound is present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If a wraparound was detected, we need to do a rotation.</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span><span class="p">:</span>
+            <span class="n">rotated_ra</span> <span class="o">=</span> <span class="p">(</span><span class="n">ra</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No rotation is required.</span>
+            <span class="n">rotated_ra</span> <span class="o">=</span> <span class="n">ra</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">rotated_ra</span></div>
+
+<div class="viewcode-block" id="QuadraticPropagationEngine._right_ascension_inverse_rotation"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_inverse_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">_right_ascension_inverse_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotated_ra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function inverses the rotation done because of the</span>
+<span class="sd">        transformation to avoid the wraparound in the 0/360 region if it</span>
+<span class="sd">        exists.</span>
+
+<span class="sd">        If there was no wraparound present, then this function just passes the</span>
+<span class="sd">        input untouched.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rotation_ra : array-like</span>
+<span class="sd">            The RA array, after the rotation has been done by the rotation</span>
+<span class="sd">            function.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        inverse_rotated_ra : array</span>
+<span class="sd">            The array after the inverse rotation, if a wraparound is present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If a wrap around was detected, we need to do the inverse rotation.</span>
+        <span class="n">rotated_ra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rotated_ra</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra_wraparound</span><span class="p">:</span>
+            <span class="n">inverse_rotated_ra</span> <span class="o">=</span> <span class="p">(</span><span class="n">rotated_ra</span> <span class="o">-</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">inverse_rotated_ra</span> <span class="o">=</span> <span class="n">rotated_ra</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">inverse_rotated_ra</span></div>
+
 <div class="viewcode-block" id="QuadraticPropagationEngine.forward_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine.forward_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">forward_propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
@@ -778,9 +933,15 @@
         <span class="n">future_time_unix</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_unix_time</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">future_time</span><span class="p">)</span>
         <span class="c1"># Determining the RA and DEC via the polynomial function based on the</span>
         <span class="c1"># fitted parameters.</span>
-        <span class="n">new_ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__quadratic_function</span><span class="p">(</span><span class="n">future_time</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="p">)</span>
-        <span class="n">new_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__quadratic_function</span><span class="p">(</span><span class="n">future_time</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="p">)</span>
-        <span class="c1"># Apply wrap around for the angles.</span>
+        <span class="n">new_ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__quadratic_function</span><span class="p">(</span><span class="n">future_time_unix</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_poly_param</span><span class="p">)</span>
+        <span class="n">new_dec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__quadratic_function</span><span class="p">(</span><span class="n">future_time_unix</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_poly_param</span><span class="p">)</span>
+        <span class="c1"># If a wraparound is present in the original data, then the data that</span>
+        <span class="c1"># was fit was rotated. So, the fit values provided are in that rotated</span>
+        <span class="c1"># coordinate space. We revert it back to the original coordinates</span>
+        <span class="c1"># before the rotation.</span>
+        <span class="n">new_ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_ascension_inverse_rotation</span><span class="p">(</span><span class="n">rotated_ra</span><span class="o">=</span><span class="n">new_ra</span><span class="p">)</span>
+        <span class="c1"># Apply wrap around for the angles for any exceeding the standard</span>
+        <span class="c1"># conventional limits.</span>
         <span class="n">future_ra</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_ra</span> <span class="o">+</span> <span class="mi">360</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
         <span class="n">future_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(((</span><span class="n">new_dec</span> <span class="o">-</span> <span class="mi">90</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span> <span class="o">-</span> <span class="mi">180</span><span class="p">)</span> <span class="o">-</span> <span class="mi">90</span>
         <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span></div></div>

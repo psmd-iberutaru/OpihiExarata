@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.opihi.database module &mdash; OpihiExarata 2022.8.31 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.opihi.preprocess module" href="opihiexarata.opihi.preprocess.html" />
+    <link rel="prev" title="opihiexarata.opihi package" href="opihiexarata.opihi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/manual_mode.html">Manual Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/manual_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/manual_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#specify-new-target-name">Specify New Target Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#take-and-image">Take and Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#find-asteroid-location">Find Asteroid Location</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../user/manual_mode.html#target-selector-gui">Target Selector GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#compute-astrometric-solution">Compute Astrometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#compute-photometric-solution">Compute Photometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-on-sky-position">Asteroid On-Sky Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#historical-observations">Historical Observations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-observation-record">Asteroid Observation Record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-position-propagation">Asteroid Position Propagation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#orbital-elements">Orbital Elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#ephemeris">Ephemeris</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-on-sky-future-track">Asteroid On-Sky Future Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#telescope-control-software-update">Telescope Control Software: Update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#gaia">Gaia</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#filter-names">Filter Names</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">opihiexarata</a> &raquo;</li>
+          <li><a href="opihiexarata.html">opihiexarata package</a> &raquo;</li>
+          <li><a href="opihiexarata.opihi.html">opihiexarata.opihi package</a> &raquo;</li>
+      <li>opihiexarata.opihi.database module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/opihiexarata.opihi.database.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-opihiexarata.opihi.database">
+<span id="opihiexarata-opihi-database-module"></span><h1>opihiexarata.opihi.database module<a class="headerlink" href="#module-opihiexarata.opihi.database" title="Permalink to this heading"></a></h1>
+<p>The database solution for storing and recording zero point data.
+We use a flat file database here with ordered directories to make it easily
+transversal by other tools and to have it be simple. A single instance of
+this class should monitor its own database.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.opihi.database.</span></span><span class="sig-name descname"><span class="pre">OpihiZeroPointDatabaseSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution" title="opihiexarata.library.engine.ExarataSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataSolution</span></code></a></p>
+<p>The flat file database solution which provides an API-like solution to
+interacting with a flat-file database with nested folders for all of the
+zero point entries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.database_directory">
+<span class="sig-name descname"><span class="pre">database_directory</span></span><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.database_directory" title="Permalink to this definition"></a></dt>
+<dd><p>The path to the directory where the flat file database is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Creating the instance of the database for which we will use to
+manage the directory.</p>
+<p>We check if the directory provided is a valid directory by checking for
+the existence of a file that indicates so. If the directory is
+blank, we assume a new database is to be created and so we add the
+file ourselves.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>database_directory</strong> (<em>string</em>) – The path to the directory where the flat file database is. A database
+check file exists to ensure that it is a directory which follows
+the conventions of this class.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_text_record_filename">
+<span class="sig-name descname"><span class="pre">_generate_text_record_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution._generate_text_record_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_text_record_filename" title="Permalink to this definition"></a></dt>
+<dd><p>The text records which stores all of the information of the
+zero points are created in a specific way to allow for the user to
+manually navigate it with ease.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the data for this record.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the data for this record.</p></li>
+<li><p><strong>day</strong> (<em>int</em>) – The day of the data for this record.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>text_record_filename</strong> – The filename where the record should go in.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_zero_point_record_line">
+<span class="sig-name descname"><span class="pre">_generate_zero_point_record_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution._generate_zero_point_record_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_zero_point_record_line" title="Permalink to this definition"></a></dt>
+<dd><p>This function creates the string representation of a zero point
+record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the time of this zero point measurement.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the time of this zero point measurement.</p></li>
+<li><p><strong>day</strong> (<em>int</em>) – The day of the time of this zero point measurement.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the time of this zero point measurement.</p></li>
+<li><p><strong>minute</strong> (<em>int</em>) – The minute of the time of this zero point measurement.</p></li>
+<li><p><strong>second</strong> (<em>int</em>) – The second of the time of this zero point measurement.</p></li>
+<li><p><strong>zero_point</strong> (<em>float</em>) – The zero point measurement value</p></li>
+<li><p><strong>zero_point_error</strong> (<em>float</em>) – The error of the zero point measurement value.</p></li>
+<li><p><strong>filter_name</strong> (<em>string</em>) – The name of the filter that this zero point corresponds to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>zero_point_record</strong> – The string representation of the zero point record.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._parse_zero_point_record_line">
+<span class="sig-name descname"><span class="pre">_parse_zero_point_record_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution._parse_zero_point_record_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._parse_zero_point_record_line" title="Permalink to this definition"></a></dt>
+<dd><p>This function parses the zero point record line to return a
+dictionary which is much more helpful in working with the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>string</em>) – The record line which will be converted to a dictionary.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>record_dictionary</strong> – The record dictionary containing the information from the record
+line.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_database_text_files">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_database_text_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">garbage_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.clean_database_text_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_database_text_files" title="Permalink to this definition"></a></dt>
+<dd><p>This function cleans each and every file inside of the the database
+provided by the inputted database directory.</p>
+<p>This is a class method because cleaning the database files does not
+rely on the database per-say or adding data to it. It could be
+performed by a third-party script without issue. It can also be
+dangerous to clean a database so we detach ourselves from the
+database we are managing just in case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database_directory</strong> (<em>str</em>) – We clean all database files within the directory provided.</p></li>
+<li><p><strong>garbage_filename</strong> (<em>str</em><em>, </em><em>default = None</em>) – A path to a text file where all of the garbage lines detected by
+this cleaning routine should be saved to instead of being deleted
+as default.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_record_text_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_record_text_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">garbage_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.clean_record_text_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_record_text_file" title="Permalink to this definition"></a></dt>
+<dd><p>This function takes a record file and cleans it up. Sorting it by
+time and deleting any lines which do not conform to the expected
+formatting.</p>
+<p>This is a class method because cleaning the database files does not
+rely on the database per-say or adding data to it. It could be
+performed by a third-party script without issue. It can also be
+dangerous to clean a database so we detach ourselves from the
+database we are managing just in case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The text record filename which will have its entries cleaned up.</p></li>
+<li><p><strong>garbage_filename</strong> (<em>str</em><em>, </em><em>default = None</em>) – A path to a text file where all of the garbage lines detected by
+this cleaning routine should be saved to instead of being deleted
+as default.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">
+<span class="sig-name descname"><span class="pre">create_plotly_monitoring_html_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_query_begin_jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_query_end_jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_plotlyjs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot" title="Permalink to this definition"></a></dt>
+<dd><p>This function creates the monitoring plot for the monitoring
+service webpage. It plots data from the zero point database depending
+on the range of times desires.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>html_filename</strong> (<em>string</em>) – The filename where the html file will be saved to.</p></li>
+<li><p><strong>plot_query_begin_jd</strong> (<em>float</em>) – The starting time from which the database should be queried until
+for plotting. This is in Julian days as per convention.</p></li>
+<li><p><strong>plot_query_end_jd</strong> (<em>float</em>) – The starting time from which the database should be queried until
+for plotting. This is in Julian days as per convention.</p></li>
+<li><p><strong>include_plotlyjs</strong> (<em>string</em><em>, </em><em>default = True</em>) – The setting for how the plotly javascript file will be included.
+Consult the plotly documentation for available options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">
+<span class="sig-name descname"><span class="pre">create_plotly_monitoring_html_plot_via_configuration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration" title="Permalink to this definition"></a></dt>
+<dd><p>This is a wrapper function around
+<cite>create_plotly_monitoring_html_plot</cite> where the parameters of said
+function are supplied by the assumptions in the configuration file.</p>
+<p>Namely, the duration that the database is queried is where the end
+query time is the current time (as of the function call) and the
+beginning time is some amount of hours ago. The resulting html plot
+file is saved to some location specified by the configuration file
+and the handling of the plotly javascript file is also detailed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.drop_database_text_files">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drop_database_text_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.drop_database_text_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.drop_database_text_files" title="Permalink to this definition"></a></dt>
+<dd><p>This function deletes all zero point record files within a given
+database. We use “drop” per database parlance.</p>
+<p>This is a class method because deleting the database files does not
+rely on the database per-say or adding data to it. It could be
+performed by a third-party script without issue. It can also be
+dangerous to clean a database so we detach ourselves from the
+database we are managing just in case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>database_directory</strong> (<em>str</em>) – We delete all database files within the directory provided.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_datetimes">
+<span class="sig-name descname"><span class="pre">query_database_between_datetimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">begin_year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.query_database_between_datetimes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_datetimes" title="Permalink to this definition"></a></dt>
+<dd><p>This queries the database and returns a table with all entries in
+the database in between two given dates and times.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_year</strong> (<em>int</em>) – Begin querying from this year of the date.</p></li>
+<li><p><strong>begin_month</strong> (<em>int</em>) – Begin querying from this month of the date.</p></li>
+<li><p><strong>begin_day</strong> (<em>int</em>) – Begin querying from this day of the date.</p></li>
+<li><p><strong>begin_hour</strong> (<em>int</em>) – Begin querying from this hour of the date.</p></li>
+<li><p><strong>begin_minute</strong> (<em>int</em>) – Begin querying from this minute of the date.</p></li>
+<li><p><strong>begin_second</strong> (<em>int</em>) – Begin querying from this second of the date.</p></li>
+<li><p><strong>end_year</strong> (<em>int</em>) – End querying from this year of the date.</p></li>
+<li><p><strong>end_month</strong> (<em>int</em>) – End querying from this month of the date.</p></li>
+<li><p><strong>end_day</strong> (<em>int</em>) – End querying from this day of the date.</p></li>
+<li><p><strong>end_hour</strong> (<em>int</em>) – End querying from this hour of the date.</p></li>
+<li><p><strong>end_minute</strong> (<em>int</em>) – End querying from this minute of the date.</p></li>
+<li><p><strong>end_second</strong> (<em>int</em>) – End querying from this second of the date.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>query_record_table</strong> – A table containing the data as queried from the database.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_julian_days">
+<span class="sig-name descname"><span class="pre">query_database_between_julian_days</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">begin_jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.query_database_between_julian_days"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_julian_days" title="Permalink to this definition"></a></dt>
+<dd><p>This queries the database and returns a table with all entries in
+the database in between two given dates and times. The date and times
+are given in Julian days as per convention. This is a wrapper around
+the original implementation to account for the needed conversion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_jd</strong> (<em>float</em>) – The Julian day after which, in time, records from the database
+should be returned.</p></li>
+<li><p><strong>end_jd</strong> (<em>float</em>) – The Julian day before which, in time, records from the database
+should be returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>query_record_table</strong> – A table containing the data as queried from the database.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_database">
+<span class="sig-name descname"><span class="pre">read_zero_point_record_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.read_zero_point_record_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_database" title="Permalink to this definition"></a></dt>
+<dd><p>This function reads all record files in the database that the
+instance is managing. Depending on the amount of data, this can be
+a little slow and take up a lot of memory, but it should be fine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>database_table</strong> – A table of all of the zero point data from files contained within
+the database.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_list">
+<span class="sig-name descname"><span class="pre">read_zero_point_record_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.read_zero_point_record_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_list" title="Permalink to this definition"></a></dt>
+<dd><p>This reads a zero point record file and converts it to a list for
+each row is a a row in the record file itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – The zero point record filename to be read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>record_list</strong> – The representation of all of the zero point data in a list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_table">
+<span class="sig-name descname"><span class="pre">read_zero_point_record_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Table</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.read_zero_point_record_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_table" title="Permalink to this definition"></a></dt>
+<dd><p>This reads a zero point record file and converts it into a nice
+table for easier reading and manipulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – The zero point record filename to be read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>record_table</strong> – The representation of all of the zero point data in a table.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record">
+<span class="sig-name descname"><span class="pre">write_zero_point_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.write_zero_point_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record" title="Permalink to this definition"></a></dt>
+<dd><p>This function writes a zero point measurement to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – The year of the time of this zero point measurement.</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – The month of the time of this zero point measurement.</p></li>
+<li><p><strong>day</strong> (<em>int</em>) – The day of the time of this zero point measurement.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the time of this zero point measurement.</p></li>
+<li><p><strong>minute</strong> (<em>int</em>) – The minute of the time of this zero point measurement.</p></li>
+<li><p><strong>second</strong> (<em>int</em>) – The second of the time of this zero point measurement.</p></li>
+<li><p><strong>zero_point</strong> (<em>float</em>) – The zero point measurement value</p></li>
+<li><p><strong>zero_point_error</strong> (<em>float</em>) – The error of the zero point measurement value.</p></li>
+<li><p><strong>filter_name</strong> (<em>string</em>) – The name of the filter that this zero point corresponds to.</p></li>
+<li><p><strong>clean_file</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, along with appending the zero point record to the
+current file, we sort the file by time and clean up any bad
+entries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day">
+<span class="sig-name descname"><span class="pre">write_zero_point_record_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_point_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/database.html#OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day" title="Permalink to this definition"></a></dt>
+<dd><p>This function writes a zero point measurement to the database.
+However, it is also a wrapper around the standard function to allow
+for inputting times as Julian days, the convention for the OpihiExarata
+software.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jd</strong> (<em>float</em>) – The time of the zero point measurement, in Julian days.</p></li>
+<li><p><strong>zero_point</strong> (<em>float</em>) – The zero point of the measurement.</p></li>
+<li><p><strong>zero_point_error</strong> (<em>float</em>) – The error of the zero point measurement.</p></li>
+<li><p><strong>filter_name</strong> (<em>float</em>) – The name of the filter that the zero point measurement
+corresponds to.</p></li>
+<li><p><strong>clean_file</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, along with appending the zero point record to the
+current file, we sort the file by time and clean up any bad
+entries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.opihi.html" class="btn btn-neutral float-left" title="opihiexarata.opihi package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.opihi.preprocess.html" class="btn btn-neutral float-right" title="opihiexarata.opihi.preprocess module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

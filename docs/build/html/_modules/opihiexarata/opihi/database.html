@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.opihi.database &mdash; OpihiExarata 2022.8.31 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/manual_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/manual_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#specify-new-target-name">Specify New Target Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#take-and-image">Take and Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#find-asteroid-location">Find Asteroid Location</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/manual_mode.html#target-selector-gui">Target Selector GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#compute-astrometric-solution">Compute Astrometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#compute-photometric-solution">Compute Photometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-on-sky-position">Asteroid On-Sky Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#historical-observations">Historical Observations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-observation-record">Asteroid Observation Record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-position-propagation">Asteroid Position Propagation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#orbital-elements">Orbital Elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#ephemeris">Ephemeris</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-on-sky-future-track">Asteroid On-Sky Future Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#telescope-control-software-update">Telescope Control Software: Update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">Gaia</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opihiexarata.opihi.database</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.opihi.database</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The database solution for storing and recording zero point data. </span>
+<span class="sd">We use a flat file database here with ordered directories to make it easily </span>
+<span class="sd">transversal by other tools and to have it be simple. A single instance of </span>
+<span class="sd">this class should monitor its own database.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="n">DATABASE_CHECK_FILE_BASENAME</span> <span class="o">=</span> <span class="s2">&quot;exarata_zero_point_database&quot;</span>
+<span class="n">DATABASE_CHECK_FILE_EXTENSION</span> <span class="o">=</span> <span class="s2">&quot;check&quot;</span>
+
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiZeroPointDatabaseSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The flat file database solution which provides an API-like solution to</span>
+<span class="sd">    interacting with a flat-file database with nested folders for all of the</span>
+<span class="sd">    zero point entries.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    database_directory : string</span>
+<span class="sd">        The path to the directory where the flat file database is.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Creating the instance of the database for which we will use to</span>
+<span class="sd">        manage the directory.</span>
+
+<span class="sd">        We check if the directory provided is a valid directory by checking for</span>
+<span class="sd">        the existence of a file that indicates so. If the directory is</span>
+<span class="sd">        blank, we assume a new database is to be created and so we add the</span>
+<span class="sd">        file ourselves.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        database_directory : string</span>
+<span class="sd">            The path to the directory where the flat file database is. A database</span>
+<span class="sd">            check file exists to ensure that it is a directory which follows</span>
+<span class="sd">            the conventions of this class.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the directory does not exist, we assume that we can make it.</span>
+        <span class="c1"># The file checking step will prepare a blank directory.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">database_directory</span><span class="p">):</span>
+            <span class="n">absolute_database_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">database_directory</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">absolute_database_directory</span><span class="p">)</span>
+
+        <span class="c1"># We check if the database follows the expected design assumptions by</span>
+        <span class="c1"># checking if the check file is there. If it is not, then we may need</span>
+        <span class="c1"># format the database ourselves.</span>
+        <span class="n">check_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">database_directory</span><span class="p">,</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">DATABASE_CHECK_FILE_BASENAME</span><span class="p">,</span>
+            <span class="n">extension</span><span class="o">=</span><span class="n">DATABASE_CHECK_FILE_EXTENSION</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">check_filename</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If the directory is empty, we assume to start a new database.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">database_directory</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Creating the check file.</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">check_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">__</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="c1"># We can still continue with the database</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
+                    <span class="s2">&quot;The directory provided </span><span class="si">{dir}</span><span class="s2"> is not a directory which is detected&quot;</span>
+                    <span class="s2">&quot; to be a proper database directory for zero point recording;&quot;</span>
+                    <span class="s2">&quot; neither is it an empty directory to start a new database.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">dir</span><span class="o">=</span><span class="n">database_directory</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="c1"># Keeping the record.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">database_directory</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.clean_record_text_file"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_record_text_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clean_record_text_file</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">garbage_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function takes a record file and cleans it up. Sorting it by</span>
+<span class="sd">        time and deleting any lines which do not conform to the expected</span>
+<span class="sd">        formatting.</span>
+
+<span class="sd">        This is a class method because cleaning the database files does not</span>
+<span class="sd">        rely on the database per-say or adding data to it. It could be</span>
+<span class="sd">        performed by a third-party script without issue. It can also be</span>
+<span class="sd">        dangerous to clean a database so we detach ourselves from the</span>
+<span class="sd">        database we are managing just in case.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The text record filename which will have its entries cleaned up.</span>
+<span class="sd">        garbage_filename : str, default = None</span>
+<span class="sd">            A path to a text file where all of the garbage lines detected by</span>
+<span class="sd">            this cleaning routine should be saved to instead of being deleted</span>
+<span class="sd">            as default.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to read every line.</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">record_lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="c1"># The extra new line characters get in the way of cleaning and we</span>
+        <span class="c1"># will add them back later.</span>
+        <span class="n">record_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">record_lines</span><span class="p">]</span>
+
+        <span class="c1"># We check if the record is the correct line length, if not, return</span>
+        <span class="c1"># False.</span>
+        <span class="n">RECORD_LINE_LENGTH</span> <span class="o">=</span> <span class="mi">60</span>
+
+        <span class="k">def</span> <span class="nf">__record_check_line_length</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;Checking that the line record is the correct length.&quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)</span> <span class="o">==</span> <span class="n">RECORD_LINE_LENGTH</span>
+
+        <span class="c1"># We go through every line, checking for many things which would make</span>
+        <span class="c1"># it a bad line. The checking functions have been written above.</span>
+        <span class="n">valid_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">garbage_records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">record_lines</span><span class="p">:</span>
+            <span class="c1"># Each of these if statements check one aspect of the lines to</span>
+            <span class="c1"># ensure only valid records are passed through.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">__record_check_line_length</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">linedex</span><span class="p">):</span>
+                <span class="c1"># The record is the wrong length and thus it is bad.</span>
+                <span class="n">garbage_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">valid_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span>
+
+        <span class="c1"># We sort the valid records via time. Conveniently, ISO formatted</span>
+        <span class="c1"># times makes this equivalent to sorting strings.</span>
+        <span class="n">sorted_records</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">valid_records</span><span class="p">)</span>
+
+        <span class="c1"># There is no other cleaning that is needed.</span>
+        <span class="n">cleaned_records</span> <span class="o">=</span> <span class="n">sorted_records</span>
+
+        <span class="c1"># The records are cleaned and thus we can save them back to their</span>
+        <span class="c1"># original file, overwriting everything else. We need to add the</span>
+        <span class="c1"># newline characters as well.</span>
+        <span class="n">cleaned_records</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">cleaned_records</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">cleaned_records</span><span class="p">)</span>
+
+        <span class="c1"># If a bad record outfile was provided, we also save that as well.</span>
+        <span class="k">if</span> <span class="n">garbage_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Still need the new lines.</span>
+            <span class="n">garbage_records</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">garbage_records</span><span class="p">]</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">garbage_filename</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">garbage_file</span><span class="p">:</span>
+                <span class="n">garbage_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">garbage_records</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.clean_database_text_files"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_database_text_files">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clean_database_text_files</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">garbage_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function cleans each and every file inside of the the database</span>
+<span class="sd">        provided by the inputted database directory.</span>
+
+<span class="sd">        This is a class method because cleaning the database files does not</span>
+<span class="sd">        rely on the database per-say or adding data to it. It could be</span>
+<span class="sd">        performed by a third-party script without issue. It can also be</span>
+<span class="sd">        dangerous to clean a database so we detach ourselves from the</span>
+<span class="sd">        database we are managing just in case.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        database_directory : str</span>
+<span class="sd">            We clean all database files within the directory provided.</span>
+<span class="sd">        garbage_filename : str, default = None</span>
+<span class="sd">            A path to a text file where all of the garbage lines detected by</span>
+<span class="sd">            this cleaning routine should be saved to instead of being deleted</span>
+<span class="sd">            as default.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to make sure that the directory itself exists and it is a</span>
+        <span class="c1"># database directory.</span>
+        <span class="n">check_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">database_directory</span><span class="p">,</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">DATABASE_CHECK_FILE_BASENAME</span><span class="p">,</span>
+            <span class="n">extension</span><span class="o">=</span><span class="n">DATABASE_CHECK_FILE_EXTENSION</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">check_filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
+                <span class="s2">&quot;The directory </span><span class="si">{dir}</span><span class="s2"> provided is not a valid OpihiExarata zero point&quot;</span>
+                <span class="s2">&quot; database directory as it is missing the check file. We will not&quot;</span>
+                <span class="s2">&quot; attempt to clean it.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">database_directory</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We search through all of the database files. We do not try and</span>
+        <span class="c1"># clean non-database files.</span>
+        <span class="n">database_glob_search</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">database_directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*.zp_ox&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;txt&quot;</span>
+        <span class="p">)</span>
+        <span class="n">database_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">database_glob_search</span><span class="p">)</span>
+        <span class="c1"># Clean every file.</span>
+        <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">database_files</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">clean_record_text_file</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">filedex</span><span class="p">,</span> <span class="n">garbage_filename</span><span class="o">=</span><span class="n">garbage_filename</span>
+            <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.drop_database_text_files"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.drop_database_text_files">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">drop_database_text_files</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function deletes all zero point record files within a given</span>
+<span class="sd">        database. We use &quot;drop&quot; per database parlance.</span>
+
+<span class="sd">        This is a class method because deleting the database files does not</span>
+<span class="sd">        rely on the database per-say or adding data to it. It could be</span>
+<span class="sd">        performed by a third-party script without issue. It can also be</span>
+<span class="sd">        dangerous to clean a database so we detach ourselves from the</span>
+<span class="sd">        database we are managing just in case.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        database_directory : str</span>
+<span class="sd">            We delete all database files within the directory provided.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to make sure that the directory itself exists and it is a</span>
+        <span class="c1"># database directory.</span>
+        <span class="n">check_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">database_directory</span><span class="p">,</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">DATABASE_CHECK_FILE_BASENAME</span><span class="p">,</span>
+            <span class="n">extension</span><span class="o">=</span><span class="n">DATABASE_CHECK_FILE_EXTENSION</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">check_filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DirectoryError</span><span class="p">(</span>
+                <span class="s2">&quot;The directory </span><span class="si">{dir}</span><span class="s2"> provided is not a valid OpihiExarata zero point&quot;</span>
+                <span class="s2">&quot; database directory. There is nothing to delete.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="nb">dir</span><span class="o">=</span><span class="n">database_directory</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We remove the check file as this directory will no longer</span>
+            <span class="c1"># be a database.</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">check_filename</span><span class="p">)</span>
+
+        <span class="c1"># We search through all of the database files. We do not delete</span>
+        <span class="c1"># non-database files.</span>
+        <span class="n">database_glob_search</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">database_directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*.zp_ox&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;txt&quot;</span>
+        <span class="p">)</span>
+        <span class="n">database_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">database_glob_search</span><span class="p">)</span>
+        <span class="c1"># Removing the files.</span>
+        <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">database_files</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filedex</span><span class="p">)</span>
+
+        <span class="c1"># If the directory is empty, we can remove it as well.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">database_directory</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">removedirs</span><span class="p">(</span><span class="n">database_directory</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._generate_text_record_filename"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_text_record_filename">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_text_record_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The text records which stores all of the information of the</span>
+<span class="sd">        zero points are created in a specific way to allow for the user to</span>
+<span class="sd">        manually navigate it with ease.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        year : int</span>
+<span class="sd">            The year of the data for this record.</span>
+<span class="sd">        month : int</span>
+<span class="sd">            The month of the data for this record.</span>
+<span class="sd">        day : int</span>
+<span class="sd">            The day of the data for this record.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        text_record_filename : string</span>
+<span class="sd">            The filename where the record should go in.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The filename is really just the date.</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">)</span>
+        <span class="n">basename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{isodate}</span><span class="s2">.zp_ox&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">isodate</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">isoformat</span><span class="p">())</span>
+        <span class="c1"># Combining it with directory and the expected text file extension.</span>
+        <span class="n">text_record_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database_directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">basename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;txt&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">text_record_filename</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._generate_zero_point_record_line"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_zero_point_record_line">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_zero_point_record_line</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">second</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">zero_point_error</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function creates the string representation of a zero point</span>
+<span class="sd">        record.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        year : int</span>
+<span class="sd">            The year of the time of this zero point measurement.</span>
+<span class="sd">        month : int</span>
+<span class="sd">            The month of the time of this zero point measurement.</span>
+<span class="sd">        day : int</span>
+<span class="sd">            The day of the time of this zero point measurement.</span>
+<span class="sd">        hour : int</span>
+<span class="sd">            The hour of the time of this zero point measurement.</span>
+<span class="sd">        minute : int</span>
+<span class="sd">            The minute of the time of this zero point measurement.</span>
+<span class="sd">        second : int</span>
+<span class="sd">            The second of the time of this zero point measurement.</span>
+<span class="sd">        zero_point : float</span>
+<span class="sd">            The zero point measurement value</span>
+<span class="sd">        zero_point_error : float</span>
+<span class="sd">            The error of the zero point measurement value.</span>
+<span class="sd">        filter_name : string</span>
+<span class="sd">            The name of the filter that this zero point corresponds to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        zero_point_record : string</span>
+<span class="sd">            The string representation of the zero point record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We check that the data provided is a proper date. The smallest</span>
+        <span class="c1"># precision is a second so anything lower than that we do not need.</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">second</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">record_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+                <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="n">second</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                <span class="s2">&quot;The time and date values provided cannot be composed to a real life&quot;</span>
+                <span class="s2">&quot; date and time. Input is: </span><span class="si">{yr}</span><span class="s2">-</span><span class="si">{mn}</span><span class="s2">-</span><span class="si">{dy}</span><span class="s2">  </span><span class="si">{hr}</span><span class="s2">:</span><span class="si">{mi}</span><span class="s2">:</span><span class="si">{sc}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">yr</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">mn</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="n">day</span><span class="p">,</span> <span class="n">hr</span><span class="o">=</span><span class="n">hour</span><span class="p">,</span> <span class="n">mi</span><span class="o">=</span><span class="n">minute</span><span class="p">,</span> <span class="n">sc</span><span class="o">=</span><span class="n">second</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">datetime_string</span> <span class="o">=</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">timespec</span><span class="o">=</span><span class="s2">&quot;seconds&quot;</span><span class="p">)</span>
+
+        <span class="c1"># We compose the zero point string, both the value and the error.</span>
+        <span class="n">ASCII_PLUS_MINUS_SYMBOL</span> <span class="o">=</span> <span class="s2">&quot;+/-&quot;</span>
+        <span class="n">ZERO_POINT_DIGIT_LENGTH</span> <span class="o">=</span> <span class="mi">12</span>
+        <span class="n">zero_point_string</span> <span class="o">=</span> <span class="s2">&quot;{zp:</span><span class="si">{ln}</span><span class="s2">.</span><span class="si">{zp_f}</span><span class="s2">f}  </span><span class="si">{pm}</span><span class="s2">  {zpe:</span><span class="si">{ln}</span><span class="s2">.</span><span class="si">{zpe_f}</span><span class="s2">f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">zp</span><span class="o">=</span><span class="n">zero_point</span><span class="p">,</span>
+            <span class="n">zpe</span><span class="o">=</span><span class="n">zero_point_error</span><span class="p">,</span>
+            <span class="n">pm</span><span class="o">=</span><span class="n">ASCII_PLUS_MINUS_SYMBOL</span><span class="p">,</span>
+            <span class="n">ln</span><span class="o">=</span><span class="n">ZERO_POINT_DIGIT_LENGTH</span><span class="p">,</span>
+            <span class="n">zp_f</span><span class="o">=</span><span class="n">ZERO_POINT_DIGIT_LENGTH</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">zpe_f</span><span class="o">=</span><span class="n">ZERO_POINT_DIGIT_LENGTH</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We compose the filter name string.</span>
+        <span class="n">filter_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{flt:&gt;2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">flt</span><span class="o">=</span><span class="n">filter_name</span><span class="p">)</span>
+
+        <span class="c1"># Combing it all together now.</span>
+        <span class="n">zero_point_record</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{time}</span><span class="s2">    </span><span class="si">{zp_e}</span><span class="s2">    </span><span class="si">{flt}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">datetime_string</span><span class="p">,</span> <span class="n">zp_e</span><span class="o">=</span><span class="n">zero_point_string</span><span class="p">,</span> <span class="n">flt</span><span class="o">=</span><span class="n">filter_string</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">zero_point_record</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._parse_zero_point_record_line"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._parse_zero_point_record_line">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_zero_point_record_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function parses the zero point record line to return a</span>
+<span class="sd">        dictionary which is much more helpful in working with the data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        record : string</span>
+<span class="sd">            The record line which will be converted to a dictionary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        record_dictionary : dictionary</span>
+<span class="sd">            The record dictionary containing the information from the record</span>
+<span class="sd">            line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We break up the record into its parts. We do not care about the</span>
+        <span class="c1"># plus minus symbol.</span>
+        <span class="p">(</span>
+            <span class="n">datetime_str</span><span class="p">,</span>
+            <span class="n">zero_point_str</span><span class="p">,</span>
+            <span class="n">__</span><span class="p">,</span>
+            <span class="n">zero_point_error_str</span><span class="p">,</span>
+            <span class="n">filter_name_str</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+        <span class="c1"># We use datetime to better format the ISO date time string.</span>
+        <span class="n">record_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">datetime_str</span><span class="p">)</span>
+
+        <span class="c1"># Converting to numbers.</span>
+        <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">zero_point_str</span><span class="p">)</span>
+        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">zero_point_error_str</span><span class="p">)</span>
+
+        <span class="c1"># We can compile the dictionary from here. We include the datatime for</span>
+        <span class="c1"># ease of handling.</span>
+        <span class="n">record_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;datetime&quot;</span><span class="p">:</span> <span class="n">datetime_str</span><span class="p">,</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+            <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+            <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+            <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+            <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="n">record_datetime</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+            <span class="s2">&quot;zero_point&quot;</span><span class="p">:</span> <span class="n">zero_point</span><span class="p">,</span>
+            <span class="s2">&quot;zero_point_error&quot;</span><span class="p">:</span> <span class="n">zero_point_error</span><span class="p">,</span>
+            <span class="s2">&quot;filter_name&quot;</span><span class="p">:</span> <span class="n">filter_name_str</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="c1"># All done</span>
+        <span class="k">return</span> <span class="n">record_dictionary</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.write_zero_point_record"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record">[docs]</a>    <span class="k">def</span> <span class="nf">write_zero_point_record</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">second</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">zero_point_error</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">clean_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function writes a zero point measurement to the database.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        year : int</span>
+<span class="sd">            The year of the time of this zero point measurement.</span>
+<span class="sd">        month : int</span>
+<span class="sd">            The month of the time of this zero point measurement.</span>
+<span class="sd">        day : int</span>
+<span class="sd">            The day of the time of this zero point measurement.</span>
+<span class="sd">        hour : int</span>
+<span class="sd">            The hour of the time of this zero point measurement.</span>
+<span class="sd">        minute : int</span>
+<span class="sd">            The minute of the time of this zero point measurement.</span>
+<span class="sd">        second : int</span>
+<span class="sd">            The second of the time of this zero point measurement.</span>
+<span class="sd">        zero_point : float</span>
+<span class="sd">            The zero point measurement value</span>
+<span class="sd">        zero_point_error : float</span>
+<span class="sd">            The error of the zero point measurement value.</span>
+<span class="sd">        filter_name : string</span>
+<span class="sd">            The name of the filter that this zero point corresponds to.</span>
+<span class="sd">        clean_file : bool, default = False</span>
+<span class="sd">            If True, along with appending the zero point record to the</span>
+<span class="sd">            current file, we sort the file by time and clean up any bad</span>
+<span class="sd">            entries.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to compose the record from the information provided.</span>
+        <span class="n">zero_point_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_zero_point_record_line</span><span class="p">(</span>
+            <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
+            <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span>
+            <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span>
+            <span class="n">hour</span><span class="o">=</span><span class="n">hour</span><span class="p">,</span>
+            <span class="n">minute</span><span class="o">=</span><span class="n">minute</span><span class="p">,</span>
+            <span class="n">second</span><span class="o">=</span><span class="n">second</span><span class="p">,</span>
+            <span class="n">zero_point</span><span class="o">=</span><span class="n">zero_point</span><span class="p">,</span>
+            <span class="n">zero_point_error</span><span class="o">=</span><span class="n">zero_point_error</span><span class="p">,</span>
+            <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We need to derive the correct filename.</span>
+        <span class="n">record_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_text_record_filename</span><span class="p">(</span>
+            <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We add our entry to the file, we add the newline here.</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">record_filename</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">zero_point_record</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If the file is to be cleaned up.</span>
+        <span class="k">if</span> <span class="n">clean_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clean_record_text_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">record_filename</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day">[docs]</a>    <span class="k">def</span> <span class="nf">write_zero_point_record_julian_day</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">zero_point_error</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">clean_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function writes a zero point measurement to the database.</span>
+<span class="sd">        However, it is also a wrapper around the standard function to allow</span>
+<span class="sd">        for inputting times as Julian days, the convention for the OpihiExarata</span>
+<span class="sd">        software.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        jd : float</span>
+<span class="sd">            The time of the zero point measurement, in Julian days.</span>
+<span class="sd">        zero_point : float</span>
+<span class="sd">            The zero point of the measurement.</span>
+<span class="sd">        zero_point_error : float</span>
+<span class="sd">            The error of the zero point measurement.</span>
+<span class="sd">        filter_name : float</span>
+<span class="sd">            The name of the filter that the zero point measurement</span>
+<span class="sd">            corresponds to.</span>
+<span class="sd">        clean_file : bool, default = False</span>
+<span class="sd">            If True, along with appending the zero point record to the</span>
+<span class="sd">            current file, we sort the file by time and clean up any bad</span>
+<span class="sd">            entries.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We take the Julian day and convert it to the civil time so we can</span>
+        <span class="c1"># use the other function.</span>
+        <span class="p">(</span>
+            <span class="n">year</span><span class="p">,</span>
+            <span class="n">month</span><span class="p">,</span>
+            <span class="n">day</span><span class="p">,</span>
+            <span class="n">hour</span><span class="p">,</span>
+            <span class="n">minute</span><span class="p">,</span>
+            <span class="n">second</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">jd</span><span class="p">)</span>
+        <span class="c1"># Seconds are minimally an integer. There is no reason to have a higher</span>
+        <span class="c1"># amount of precision. But this function handles it for us anyways.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_zero_point_record</span><span class="p">(</span>
+            <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
+            <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span>
+            <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span>
+            <span class="n">hour</span><span class="o">=</span><span class="n">hour</span><span class="p">,</span>
+            <span class="n">minute</span><span class="o">=</span><span class="n">minute</span><span class="p">,</span>
+            <span class="n">second</span><span class="o">=</span><span class="n">second</span><span class="p">,</span>
+            <span class="n">zero_point</span><span class="o">=</span><span class="n">zero_point</span><span class="p">,</span>
+            <span class="n">zero_point_error</span><span class="o">=</span><span class="n">zero_point_error</span><span class="p">,</span>
+            <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span>
+            <span class="n">clean_file</span><span class="o">=</span><span class="n">clean_file</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_list"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_list">[docs]</a>    <span class="k">def</span> <span class="nf">read_zero_point_record_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;This reads a zero point record file and converts it to a list for</span>
+<span class="sd">        each row is a a row in the record file itself.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : string</span>
+<span class="sd">            The zero point record filename to be read.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        record_list : Table</span>
+<span class="sd">            The representation of all of the zero point data in a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check that the file is a zero point record file assuming the</span>
+        <span class="c1"># extension.</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;.zp_ox.txt&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span>
+                <span class="s2">&quot;The filename </span><span class="si">{f}</span><span class="s2"> is not detected to be an OpihiExarata zero point&quot;</span>
+                <span class="s2">&quot; record file based on its extension.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">(</span>
+                <span class="s2">&quot;The filename </span><span class="si">{f}</span><span class="s2"> does not exist in the database and thus it cannot be&quot;</span>
+                <span class="s2">&quot; read.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We need to read the zero point record file.</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">record_lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="c1"># We do not need the new line characters.</span>
+            <span class="n">record_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">record_lines</span><span class="p">]</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">record_list</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_table"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_table">[docs]</a>    <span class="k">def</span> <span class="nf">read_zero_point_record_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This reads a zero point record file and converts it into a nice</span>
+<span class="sd">        table for easier reading and manipulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : string</span>
+<span class="sd">            The zero point record filename to be read.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        record_table : Table</span>
+<span class="sd">            The representation of all of the zero point data in a table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Pulling all of the lines from the file.</span>
+        <span class="n">record_lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_zero_point_record_list</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># We use Astropy data tables as we already have them as a requirement.</span>
+        <span class="c1"># Constructing the rows.</span>
+        <span class="n">record_dict_rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parse_zero_point_record_line</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">record_lines</span>
+        <span class="p">]</span>
+        <span class="c1"># Creating the table.</span>
+        <span class="n">record_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="n">record_dict_rows</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">record_table</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_database"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_database">[docs]</a>    <span class="k">def</span> <span class="nf">read_zero_point_record_database</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function reads all record files in the database that the</span>
+<span class="sd">        instance is managing. Depending on the amount of data, this can be</span>
+<span class="sd">        a little slow and take up a lot of memory, but it should be fine.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        database_table : Table</span>
+<span class="sd">            A table of all of the zero point data from files contained within</span>
+<span class="sd">            the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to grab all of the zero point files in the database.</span>
+        <span class="n">database_glob_search</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database_directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*.zp_ox&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;txt&quot;</span>
+        <span class="p">)</span>
+        <span class="n">database_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">database_glob_search</span><span class="p">)</span>
+
+        <span class="c1"># Reading every single file. We are basically combining all of the</span>
+        <span class="c1"># files to a single object.</span>
+        <span class="n">database_lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">database_files</span><span class="p">:</span>
+            <span class="n">database_lines</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_zero_point_record_list</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filedex</span><span class="p">)</span>
+
+        <span class="c1"># We parse every single line so that we can arrange it as a table.</span>
+        <span class="n">database_dict_rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parse_zero_point_record_line</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">database_lines</span>
+        <span class="p">]</span>
+        <span class="c1"># We use Astropy data tables as we already have them as a requirement.</span>
+        <span class="n">database_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="n">database_dict_rows</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">database_table</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_between_datetimes"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_datetimes">[docs]</a>    <span class="k">def</span> <span class="nf">query_database_between_datetimes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">begin_year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">begin_month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">begin_day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">begin_hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">begin_minute</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">begin_second</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">end_year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">end_month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">end_day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">end_hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">end_minute</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">end_second</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This queries the database and returns a table with all entries in</span>
+<span class="sd">        the database in between two given dates and times.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        begin_year : int</span>
+<span class="sd">            Begin querying from this year of the date.</span>
+<span class="sd">        begin_month : int</span>
+<span class="sd">            Begin querying from this month of the date.</span>
+<span class="sd">        begin_day : int</span>
+<span class="sd">            Begin querying from this day of the date.</span>
+<span class="sd">        begin_hour : int</span>
+<span class="sd">            Begin querying from this hour of the date.</span>
+<span class="sd">        begin_minute : int</span>
+<span class="sd">            Begin querying from this minute of the date.</span>
+<span class="sd">        begin_second : int</span>
+<span class="sd">            Begin querying from this second of the date.</span>
+<span class="sd">        end_year : int</span>
+<span class="sd">            End querying from this year of the date.</span>
+<span class="sd">        end_month : int</span>
+<span class="sd">            End querying from this month of the date.</span>
+<span class="sd">        end_day : int</span>
+<span class="sd">            End querying from this day of the date.</span>
+<span class="sd">        end_hour : int</span>
+<span class="sd">            End querying from this hour of the date.</span>
+<span class="sd">        end_minute : int</span>
+<span class="sd">            End querying from this minute of the date.</span>
+<span class="sd">        end_second : int</span>
+<span class="sd">            End querying from this second of the date.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        query_record_table : Table</span>
+<span class="sd">            A table containing the data as queried from the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Datetimes are the best way to handle this.</span>
+        <span class="n">begin_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+            <span class="n">year</span><span class="o">=</span><span class="n">begin_year</span><span class="p">,</span>
+            <span class="n">month</span><span class="o">=</span><span class="n">begin_month</span><span class="p">,</span>
+            <span class="n">day</span><span class="o">=</span><span class="n">begin_day</span><span class="p">,</span>
+            <span class="n">hour</span><span class="o">=</span><span class="n">begin_hour</span><span class="p">,</span>
+            <span class="n">minute</span><span class="o">=</span><span class="n">begin_minute</span><span class="p">,</span>
+            <span class="n">second</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">begin_second</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">end_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+            <span class="n">year</span><span class="o">=</span><span class="n">end_year</span><span class="p">,</span>
+            <span class="n">month</span><span class="o">=</span><span class="n">end_month</span><span class="p">,</span>
+            <span class="n">day</span><span class="o">=</span><span class="n">end_day</span><span class="p">,</span>
+            <span class="n">hour</span><span class="o">=</span><span class="n">end_hour</span><span class="p">,</span>
+            <span class="n">minute</span><span class="o">=</span><span class="n">end_minute</span><span class="p">,</span>
+            <span class="n">second</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">end_second</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Something to store all of the record lines in.</span>
+        <span class="n">database_record_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># We loop over all relevant dates to extract all relevant files for</span>
+        <span class="c1"># the query. This allows us to sort for only those days relevant and</span>
+        <span class="c1"># saves us time.</span>
+        <span class="k">def</span> <span class="nf">datetime_range</span><span class="p">(</span><span class="n">start_dt</span><span class="p">,</span> <span class="n">end_dt</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;A generator for iterating between datetimes.&quot;&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">incrementdex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">end_dt</span> <span class="o">-</span> <span class="n">start_dt</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">)):</span>
+                <span class="k">yield</span> <span class="n">start_dt</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">incrementdex</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">datedex</span> <span class="ow">in</span> <span class="n">datetime_range</span><span class="p">(</span><span class="n">start_dt</span><span class="o">=</span><span class="n">begin_datetime</span><span class="p">,</span> <span class="n">end_dt</span><span class="o">=</span><span class="n">end_datetime</span><span class="p">):</span>
+            <span class="c1"># Getting the database file name for this date.</span>
+            <span class="n">database_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_text_record_filename</span><span class="p">(</span>
+                <span class="n">year</span><span class="o">=</span><span class="n">datedex</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">datedex</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">datedex</span><span class="o">.</span><span class="n">day</span>
+            <span class="p">)</span>
+            <span class="c1"># Attempt to read the file.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">database_record_list</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_zero_point_record_list</span><span class="p">(</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="n">database_filename</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">error</span><span class="o">.</span><span class="n">FileError</span><span class="p">:</span>
+                <span class="c1"># The file likely does not exist so there is nothing to read.</span>
+                <span class="k">raise</span>
+
+        <span class="c1"># Fine tune the search for hours, minutes and seconds. Datetimes</span>
+        <span class="c1"># handle the entire date so we can also double check for that.</span>
+        <span class="n">valid_record_rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">recorddex</span> <span class="ow">in</span> <span class="n">database_record_list</span><span class="p">:</span>
+            <span class="n">record_dictionary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_zero_point_record_line</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">recorddex</span><span class="p">)</span>
+            <span class="n">record_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+                <span class="n">year</span><span class="o">=</span><span class="n">record_dictionary</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span>
+                <span class="n">month</span><span class="o">=</span><span class="n">record_dictionary</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">],</span>
+                <span class="n">day</span><span class="o">=</span><span class="n">record_dictionary</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">],</span>
+                <span class="n">hour</span><span class="o">=</span><span class="n">record_dictionary</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">],</span>
+                <span class="n">minute</span><span class="o">=</span><span class="n">record_dictionary</span><span class="p">[</span><span class="s2">&quot;minute&quot;</span><span class="p">],</span>
+                <span class="n">second</span><span class="o">=</span><span class="n">record_dictionary</span><span class="p">[</span><span class="s2">&quot;second&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="c1"># We see if this record is within the date range and thus valid.</span>
+            <span class="k">if</span> <span class="n">begin_datetime</span> <span class="o">&lt;=</span> <span class="n">record_datetime</span> <span class="o">&lt;=</span> <span class="n">end_datetime</span><span class="p">:</span>
+                <span class="c1"># A valid time for the query.</span>
+                <span class="n">valid_record_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record_dictionary</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Not valid.</span>
+                <span class="k">continue</span>
+
+        <span class="c1"># We parse all of these valid entries into a table.</span>
+        <span class="n">query_record_table</span> <span class="o">=</span> <span class="n">ap_table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="n">valid_record_rows</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">query_record_table</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_between_julian_days"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_julian_days">[docs]</a>    <span class="k">def</span> <span class="nf">query_database_between_julian_days</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">begin_jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">end_jd</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This queries the database and returns a table with all entries in</span>
+<span class="sd">        the database in between two given dates and times. The date and times</span>
+<span class="sd">        are given in Julian days as per convention. This is a wrapper around</span>
+<span class="sd">        the original implementation to account for the needed conversion.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        begin_jd : float</span>
+<span class="sd">            The Julian day after which, in time, records from the database</span>
+<span class="sd">            should be returned.</span>
+<span class="sd">        end_jd : float</span>
+<span class="sd">            The Julian day before which, in time, records from the database</span>
+<span class="sd">            should be returned.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        query_record_table : Table</span>
+<span class="sd">            A table containing the data as queried from the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to convert the Julian days to the default full time date</span>
+        <span class="c1"># representation.</span>
+        <span class="n">b_yr</span><span class="p">,</span> <span class="n">b_mn</span><span class="p">,</span> <span class="n">b_dy</span><span class="p">,</span> <span class="n">b_hr</span><span class="p">,</span> <span class="n">b_mi</span><span class="p">,</span> <span class="n">b_sc</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">begin_jd</span>
+        <span class="p">)</span>
+        <span class="n">e_yr</span><span class="p">,</span> <span class="n">e_mn</span><span class="p">,</span> <span class="n">e_dy</span><span class="p">,</span> <span class="n">e_hr</span><span class="p">,</span> <span class="n">e_mi</span><span class="p">,</span> <span class="n">e_sc</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">end_jd</span>
+        <span class="p">)</span>
+        <span class="c1"># Sending it to the original query function.</span>
+        <span class="n">query_record_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_database_between_datetimes</span><span class="p">(</span>
+            <span class="n">begin_year</span><span class="o">=</span><span class="n">b_yr</span><span class="p">,</span>
+            <span class="n">begin_month</span><span class="o">=</span><span class="n">b_mn</span><span class="p">,</span>
+            <span class="n">begin_day</span><span class="o">=</span><span class="n">b_dy</span><span class="p">,</span>
+            <span class="n">begin_hour</span><span class="o">=</span><span class="n">b_hr</span><span class="p">,</span>
+            <span class="n">begin_minute</span><span class="o">=</span><span class="n">b_mi</span><span class="p">,</span>
+            <span class="n">begin_second</span><span class="o">=</span><span class="n">b_sc</span><span class="p">,</span>
+            <span class="n">end_year</span><span class="o">=</span><span class="n">e_yr</span><span class="p">,</span>
+            <span class="n">end_month</span><span class="o">=</span><span class="n">e_mn</span><span class="p">,</span>
+            <span class="n">end_day</span><span class="o">=</span><span class="n">e_dy</span><span class="p">,</span>
+            <span class="n">end_hour</span><span class="o">=</span><span class="n">e_hr</span><span class="p">,</span>
+            <span class="n">end_minute</span><span class="o">=</span><span class="n">e_mi</span><span class="p">,</span>
+            <span class="n">end_second</span><span class="o">=</span><span class="n">e_sc</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">query_record_table</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">[docs]</a>    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">html_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">plot_query_begin_jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">plot_query_end_jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">include_plotlyjs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function creates the monitoring plot for the monitoring</span>
+<span class="sd">        service webpage. It plots data from the zero point database depending</span>
+<span class="sd">        on the range of times desires.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        html_filename : string</span>
+<span class="sd">            The filename where the html file will be saved to.</span>
+<span class="sd">        plot_query_begin_jd : float</span>
+<span class="sd">            The starting time from which the database should be queried until</span>
+<span class="sd">            for plotting. This is in Julian days as per convention.</span>
+<span class="sd">        plot_query_end_jd : float</span>
+<span class="sd">            The starting time from which the database should be queried until</span>
+<span class="sd">            for plotting. This is in Julian days as per convention.</span>
+<span class="sd">        include_plotlyjs : string, default = True</span>
+<span class="sd">            The setting for how the plotly javascript file will be included.</span>
+<span class="sd">            Consult the plotly documentation for available options.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to fetch the data to query. We query just a little outside</span>
+        <span class="c1"># of the range provided so that the plots are continuous and connect</span>
+        <span class="c1"># to points outside of the range. A day is more than enough.</span>
+        <span class="n">zero_point_record_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_database_between_julian_days</span><span class="p">(</span>
+            <span class="n">begin_jd</span><span class="o">=</span><span class="n">plot_query_begin_jd</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end_jd</span><span class="o">=</span><span class="n">plot_query_end_jd</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We group similar filters into lines.</span>
+        <span class="n">line_group_table_key</span> <span class="o">=</span> <span class="s2">&quot;filter_name&quot;</span>
+
+        <span class="c1"># The color of the lines are based on the filter being observed. We</span>
+        <span class="c1"># supply a color map so that it derives the colors from the filter</span>
+        <span class="c1"># names themselves.</span>
+        <span class="n">line_color_table_key</span> <span class="o">=</span> <span class="s2">&quot;filter_name&quot;</span>
+        <span class="n">plot_color_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_C_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;g&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_G_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;r&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_R_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;i&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_I_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_Z_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_1_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_2_LINE_COLOR</span><span class="p">,</span>
+            <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_B_LINE_COLOR</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># We define the order the filters are plotted just by the verbal</span>
+        <span class="c1"># order of their name. Done as per `category_orders` documentation.</span>
+        <span class="n">line_order_specification</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;filter_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># The symbol for plotting. Large markers are not needed and the</span>
+        <span class="c1"># error bars already provide some marker. As we all use the same</span>
+        <span class="c1"># symbol, we do not really need to use an array.</span>
+        <span class="n">marker</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># We provide additional context for custom data that should be</span>
+        <span class="c1"># available to the plotting resources.</span>
+        <span class="n">custom_data_headers</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># The table records for the data and errors.</span>
+        <span class="n">line_x_table_key</span> <span class="o">=</span> <span class="s2">&quot;datetime&quot;</span>
+        <span class="n">line_y_table_key</span> <span class="o">=</span> <span class="s2">&quot;zero_point&quot;</span>
+        <span class="n">line_y_error_table_key</span> <span class="o">=</span> <span class="s2">&quot;zero_point_error&quot;</span>
+
+        <span class="c1"># We make the plot here. Further visual and aesthetic formatting is</span>
+        <span class="c1"># done below.</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+            <span class="n">zero_point_record_table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">(),</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">line_x_table_key</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">line_y_table_key</span><span class="p">,</span>
+            <span class="n">error_y</span><span class="o">=</span><span class="n">line_y_error_table_key</span><span class="p">,</span>
+            <span class="n">line_group</span><span class="o">=</span><span class="n">line_group_table_key</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">line_color_table_key</span><span class="p">,</span>
+            <span class="n">color_discrete_map</span><span class="o">=</span><span class="n">plot_color_map</span><span class="p">,</span>
+            <span class="n">markers</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+            <span class="n">custom_data</span><span class="o">=</span><span class="n">custom_data_headers</span><span class="p">,</span>
+            <span class="n">category_orders</span><span class="o">=</span><span class="n">line_order_specification</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The overall title of the figure. It is helpful to put the UTC time</span>
+        <span class="c1"># of when the figure was made. We are using a more human readable</span>
+        <span class="c1"># version of ISO 8601 time formatting.</span>
+        <span class="n">iso_8601_time_format</span> <span class="o">=</span> <span class="sa">R</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span>
+        <span class="c1"># Datetime only takes seconds as an integer.</span>
+        <span class="n">int_only</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">array</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">valuedex</span><span class="p">)</span> <span class="k">for</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">array</span><span class="p">]</span>
+        <span class="n">utc_now_tuple</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">utc_now_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">utc_now_tuple</span><span class="p">))</span>
+        <span class="n">utc_time_string</span> <span class="o">=</span> <span class="n">utc_now_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">iso_8601_time_format</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+            <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Opihi Zero Point Trends (Now: </span><span class="si">{now}</span><span class="s2"> UTC)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">now</span><span class="o">=</span><span class="n">utc_time_string</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># All datetimes should have the same formatting. We rotate it so it</span>
+        <span class="c1"># is a little more readable.</span>
+        <span class="n">tick_rotation</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">tickformat</span><span class="o">=</span><span class="n">iso_8601_time_format</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="n">tick_rotation</span><span class="p">)</span>
+
+        <span class="c1"># We configure the message when hovering to be a little bit more clear.</span>
+        <span class="n">hover_message_template</span> <span class="o">=</span> <span class="sa">R</span><span class="s2">&quot;%</span><span class="si">{x}</span><span class="s2">&lt;br&gt;     %</span><span class="si">{y}</span><span class="s2">&quot;</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="n">hover_message_template</span><span class="p">)</span>
+
+        <span class="c1"># A unified x-axis label is a little bit more clear to understand</span>
+        <span class="c1"># and locate because of all of the different filters (lines) which</span>
+        <span class="c1"># are plotted.</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">hovermode</span><span class="o">=</span><span class="s2">&quot;x unified&quot;</span><span class="p">)</span>
+        <span class="c1"># We also fix the x-axis and y-axis and legend title.</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+            <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Zero Point&quot;</span><span class="p">,</span> <span class="n">legend_title_text</span><span class="o">=</span><span class="s2">&quot;Filter&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We only want to plot between the provided time range. We queried</span>
+        <span class="c1"># outside of that range so that we could be continuous for our plot</span>
+        <span class="c1"># lines.</span>
+        <span class="n">begin_datetime_tuple</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">plot_query_begin_jd</span>
+        <span class="p">)</span>
+        <span class="n">end_datetime_tuple</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">plot_query_end_jd</span>
+        <span class="p">)</span>
+        <span class="c1"># We use integer seconds only for the datetimes, the best way to do</span>
+        <span class="c1"># this is to just trim off the decimal seconds.</span>
+        <span class="n">datetime_lower_limit</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">begin_datetime_tuple</span><span class="p">))</span>
+        <span class="n">datetime_upper_limit</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">end_datetime_tuple</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis_range</span><span class="o">=</span><span class="p">[</span><span class="n">datetime_lower_limit</span><span class="p">,</span> <span class="n">datetime_upper_limit</span><span class="p">])</span>
+
+        <span class="c1"># The configuration file specifies how to handle the inclusion of the</span>
+        <span class="c1"># Plotly javascript file.</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="n">html_filename</span><span class="p">,</span> <span class="n">include_plotlyjs</span><span class="o">=</span><span class="n">include_plotlyjs</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This is a wrapper function around</span>
+<span class="sd">        `create_plotly_monitoring_html_plot` where the parameters of said</span>
+<span class="sd">        function are supplied by the assumptions in the configuration file.</span>
+
+<span class="sd">        Namely, the duration that the database is queried is where the end</span>
+<span class="sd">        query time is the current time (as of the function call) and the</span>
+<span class="sd">        beginning time is some amount of hours ago. The resulting html plot</span>
+<span class="sd">        file is saved to some location specified by the configuration file</span>
+<span class="sd">        and the handling of the plotly javascript file is also detailed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The current time, as per the function call.</span>
+        <span class="n">current_time_jd</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">()</span>
+        <span class="c1"># The amount of hours (then converted to days to subtract from) ago</span>
+        <span class="c1"># to query the database.</span>
+        <span class="n">QUERY_DAYS_AGO</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_QUERY_X_HOURS_AGO</span> <span class="o">/</span> <span class="mi">24</span>
+        <span class="c1"># The times which to query the database for plotting.</span>
+        <span class="n">query_begin_jd</span> <span class="o">=</span> <span class="n">current_time_jd</span> <span class="o">-</span> <span class="n">QUERY_DAYS_AGO</span>
+        <span class="n">query_end_jd</span> <span class="o">=</span> <span class="n">current_time_jd</span>
+
+        <span class="c1"># The path where the html file will be saved to along with instructions</span>
+        <span class="c1"># on how to handle the javascript file.</span>
+        <span class="n">html_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_HTML_FILENAME</span>
+        <span class="c1"># And, the setting for how to handle the javascript.</span>
+        <span class="n">include_plotlyjs</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_PLOTLY_JAVASCRIPT_METHOD</span>
+
+        <span class="c1"># Create the plot using this configuration parameters.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_plotly_monitoring_html_plot</span><span class="p">(</span>
+            <span class="n">html_filename</span><span class="o">=</span><span class="n">html_filename</span><span class="p">,</span>
+            <span class="n">plot_query_begin_jd</span><span class="o">=</span><span class="n">query_begin_jd</span><span class="p">,</span>
+            <span class="n">plot_query_end_jd</span><span class="o">=</span><span class="n">query_end_jd</span><span class="p">,</span>
+            <span class="n">include_plotlyjs</span><span class="o">=</span><span class="n">include_plotlyjs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.preprocess &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.opihi.preprocess &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -135,6 +136,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +234,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -256,6 +262,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
@@ -272,6 +283,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
@@ -438,8 +450,8 @@
 <span class="sd">    _mask_2_fits_filename : string</span>
 <span class="sd">        The filename for the pixel mask for the 2 filter stored in a</span>
 <span class="sd">        fits file.</span>
-<span class="sd">    _mask_3_fits_filename : string</span>
-<span class="sd">        The filename for the pixel mask for the 3 filter stored in a</span>
+<span class="sd">    _mask_b_fits_filename : string</span>
+<span class="sd">        The filename for the pixel mask for the b filter stored in a</span>
 <span class="sd">        fits file.</span>
 
 <span class="sd">    _flat_c_fits_filename : string</span>
@@ -463,8 +475,8 @@
 <span class="sd">    _flat_2_fits_filename : string</span>
 <span class="sd">        The filename for the flat field for the 2 filter stored in a</span>
 <span class="sd">        fits file.</span>
-<span class="sd">    _flat_3_fits_filename : string</span>
-<span class="sd">        The filename for the flat field for the 3 filter stored in a</span>
+<span class="sd">    _flat_b_fits_filename : string</span>
+<span class="sd">        The filename for the flat field for the b filter stored in a</span>
 <span class="sd">        fits file.</span>
 
 <span class="sd">    _bias_fits_filename : string</span>
@@ -474,7 +486,7 @@
 <span class="sd">        The filename for the per-pixel rate values of the dark data,</span>
 <span class="sd">        stored in a fits file.</span>
 <span class="sd">    _linearity_fits_filename : string</span>
-<span class="sd">        The filename for the linearity responce of the CCD. This should be a</span>
+<span class="sd">        The filename for the linearity response of the CCD. This should be a</span>
 <span class="sd">        1D fits file detailing counts as a function of time for the saturation</span>
 <span class="sd">        curve of the CCD.</span>
 
@@ -500,8 +512,8 @@
 <span class="sd">    mask_2 : array</span>
 <span class="sd">        The pixel mask for the 2 filter as determined by the provided</span>
 <span class="sd">        fits file.</span>
-<span class="sd">    mask_3 : array</span>
-<span class="sd">        The pixel mask for the 3 filter as determined by the provided</span>
+<span class="sd">    mask_b : array</span>
+<span class="sd">        The pixel mask for the b filter as determined by the provided</span>
 <span class="sd">        fits file.</span>
 
 <span class="sd">    flat_c : array</span>
@@ -525,8 +537,8 @@
 <span class="sd">    flat_2 : array</span>
 <span class="sd">        The flat field for the 2 filter as determined by the provided</span>
 <span class="sd">        fits file.</span>
-<span class="sd">    flat_3 : array</span>
-<span class="sd">        The flat field for the 3 filter as determined by the provided</span>
+<span class="sd">    flat_b : array</span>
+<span class="sd">        The flat field for the b filter as determined by the provided</span>
 <span class="sd">        fits file.</span>
 
 
@@ -551,7 +563,7 @@
         <span class="n">mask_z_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">mask_1_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">mask_2_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">mask_3_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mask_b_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">flat_c_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">flat_g_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">flat_r_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -559,7 +571,7 @@
         <span class="n">flat_z_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">flat_1_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">flat_2_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">flat_3_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flat_b_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">bias_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">dark_current_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">linearity_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -589,8 +601,8 @@
 <span class="sd">        mask_2_fits_filename : string</span>
 <span class="sd">            The filename for the pixel mask in the 2 filter stored in a</span>
 <span class="sd">            fits file.</span>
-<span class="sd">        mask_3_fits_filename : string</span>
-<span class="sd">            The filename for the pixel mask in the 3 filter stored in a</span>
+<span class="sd">        mask_b_fits_filename : string</span>
+<span class="sd">            The filename for the pixel mask in the b filter stored in a</span>
 <span class="sd">            fits file.</span>
 
 <span class="sd">        flat_c_fits_filename : string</span>
@@ -614,8 +626,8 @@
 <span class="sd">        flat_2_fits_filename : string</span>
 <span class="sd">            The filename for the flat field in the 2 filter stored in a</span>
 <span class="sd">            fits file.</span>
-<span class="sd">        flat_3_fits_filename : string</span>
-<span class="sd">            The filename for the flat field in the 3 filter stored in a</span>
+<span class="sd">        flat_b_fits_filename : string</span>
+<span class="sd">            The filename for the flat field in the b filter stored in a</span>
 <span class="sd">            fits file.</span>
 
 
@@ -626,7 +638,7 @@
 <span class="sd">            The filename for the per-pixel rate values of the dark data,</span>
 <span class="sd">            stored in a fits file.</span>
 <span class="sd">        linearity_fits_filename : string</span>
-<span class="sd">            The filename for the linearity responce of the CCD, stored as a</span>
+<span class="sd">            The filename for the linearity response of the CCD, stored as a</span>
 <span class="sd">            text file.</span>
 
 <span class="sd">        Returns</span>
@@ -642,7 +654,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_z_fits_filename</span> <span class="o">=</span> <span class="n">mask_z_fits_filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_1_fits_filename</span> <span class="o">=</span> <span class="n">mask_1_fits_filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_2_fits_filename</span> <span class="o">=</span> <span class="n">mask_2_fits_filename</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_3_fits_filename</span> <span class="o">=</span> <span class="n">mask_3_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_b_fits_filename</span> <span class="o">=</span> <span class="n">mask_b_fits_filename</span>
         <span class="c1"># Flat files, per filter.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flat_c_fits_filename</span> <span class="o">=</span> <span class="n">flat_c_fits_filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flat_g_fits_filename</span> <span class="o">=</span> <span class="n">flat_g_fits_filename</span>
@@ -651,7 +663,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_flat_z_fits_filename</span> <span class="o">=</span> <span class="n">flat_z_fits_filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flat_1_fits_filename</span> <span class="o">=</span> <span class="n">flat_1_fits_filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flat_2_fits_filename</span> <span class="o">=</span> <span class="n">flat_2_fits_filename</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_3_fits_filename</span> <span class="o">=</span> <span class="n">flat_3_fits_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_b_fits_filename</span> <span class="o">=</span> <span class="n">flat_b_fits_filename</span>
         <span class="c1"># Bias, filter independent.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bias_fits_filename</span> <span class="o">=</span> <span class="n">bias_fits_filename</span>
         <span class="c1"># Dark rate, filter independent.</span>
@@ -709,8 +721,8 @@
         <span class="n">__</span><span class="p">,</span> <span class="n">mask_2</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
             <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_2_fits_filename</span>
         <span class="p">)</span>
-        <span class="n">__</span><span class="p">,</span> <span class="n">mask_3</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_3_fits_filename</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">mask_b</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_b_fits_filename</span>
         <span class="p">)</span>
         <span class="c1"># Adding the masks to this solution so the fits files need not be</span>
         <span class="c1"># accessed again. A pixel is considered mask if the value is True.</span>
@@ -721,7 +733,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mask_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mask_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_b</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -760,8 +772,8 @@
         <span class="n">__</span><span class="p">,</span> <span class="n">flat_2</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
             <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_2_fits_filename</span>
         <span class="p">)</span>
-        <span class="n">__</span><span class="p">,</span> <span class="n">flat_3</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_3_fits_filename</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">flat_b</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_b_fits_filename</span>
         <span class="p">)</span>
         <span class="c1"># Adding the flats to this solution so the fits files need not be</span>
         <span class="c1"># accessed again.</span>
@@ -772,7 +784,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">flat_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_z</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flat_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flat_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flat_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_b</span><span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -828,7 +840,7 @@
 <span class="sd">            The data, after it has been preprocessed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get the needed mask and flat files based on the provided filter.</span>
-        <span class="c1"># Being a little clever so a very long if/else statememt is not used.</span>
+        <span class="c1"># Being a little clever so a very long if/else statement is not used.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mask_</span><span class="si">{f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">flat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flat_</span><span class="si">{f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
@@ -905,9 +917,9 @@
         <span class="c1"># file uses integration time as the name.)</span>
         <span class="n">raw_exposure_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">raw_header</span><span class="p">[</span><span class="s2">&quot;ITIME&quot;</span><span class="p">])</span>
         <span class="c1"># Filter name.</span>
-        <span class="n">filter_position_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">raw_header</span><span class="p">[</span><span class="s2">&quot;FWHL&quot;</span><span class="p">])</span>
-        <span class="n">filter_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">filter_position_string_to_filter_name</span><span class="p">(</span>
-            <span class="n">position_string</span><span class="o">=</span><span class="n">filter_position_string</span>
+        <span class="n">filter_header_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">raw_header</span><span class="p">[</span><span class="s2">&quot;FWHL&quot;</span><span class="p">])</span>
+        <span class="n">filter_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">filter_header_string_to_filter_name</span><span class="p">(</span>
+            <span class="n">header_string</span><span class="o">=</span><span class="n">filter_header_string</span>
         <span class="p">)</span>
 
         <span class="c1"># Preprocessing the data.</span>

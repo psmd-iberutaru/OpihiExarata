@@ -5,6 +5,7 @@ import os
 import copy
 import threading
 import time
+import random
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -58,6 +59,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             - failed : An image failed to solve.
             - halted : The automatic mode stopped, but it was not done by the
             active status flag, but a file halt.
+    zero_point_database : OpihiZeroPointDatabaseSolution
+        If a zero point database is going to be constructed, as per the
+        configuration file, this is the instance which manages the database.
     """
 
     def __init__(self) -> None:
@@ -98,6 +102,16 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # Preparing the buttons, GUI, and other functionality.
         self.__init_gui_connections()
+
+        # Preparing the zero point database if the user desired the database
+        # to record observations.
+        if library.config.GUI_AUTOMATIC_SAVE_OBSERVATIONS_TO_MONITORING_DATABASE:
+            database = opihiexarata.OpihiZeroPointDatabaseSolution(
+                database_directory=library.config.MONITOR_DATABASE_DIRECTORY
+            )
+        else:
+            database = None
+        self.zero_point_database = database
 
         # All done.
         return None
@@ -433,7 +447,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             raise_on_error=False,
             vehicle_args=astrometry_vehicle_args,
         )
-        __, __ = opihi_solution.solve_photometry(
+        __, photometry_solve_status = opihi_solution.solve_photometry(
             solver_engine=photometry_engine,
             overwrite=True,
             raise_on_error=False,
@@ -453,8 +467,70 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         )
         opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=False)
 
+        # We attempt to write a zero point record to the database, the wrapper
+        # writing function checks if writing to the database is a valid
+        # operation. We work on a copy of the solution just in case.
+        opihi_solution_copy = copy.deepcopy(opihi_solution)
+        # We thread it away.
+        write_database_thread = threading.Thread(
+            target=self.__write_zero_point_record_to_database,
+            kwargs={"opihi_solution": opihi_solution_copy},
+        )
+        write_database_thread.start()
+
         # All done.
         return opihi_solution
+
+    def __write_zero_point_record_to_database(
+        self, opihi_solution: hint.OpihiSolution
+    ) -> None:
+        """This function writes the zero point information assuming a solved
+        photometric solution. This function is so that threading this process
+        away is a lot easier.
+
+        Parameters
+        ----------
+        opihi_solution : OpihiSolution
+            The solution class of the image.
+
+        Returns
+        -------
+        None
+        """
+        # The photometry solution must exist and it must be properly solved.
+        if not isinstance(opihi_solution.photometrics, photometry.PhotometricSolution):
+            return None
+        if not opihi_solution.photometrics_status:
+            return None
+        # The database solution must exist to write to, and the user must
+        # actually want to write to it.
+        if not isinstance(
+            self.zero_point_database, opihiexarata.OpihiZeroPointDatabaseSolution
+        ):
+            return None
+        if not library.config.GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS:
+            return None
+
+        # Because many files are being written to the database, we do not
+        # want to try and busy the database with cleaning itself up every time
+        # we want to write to it so we do it randomly.
+        CLEAN_RATE = library.config.GUI_AUTOMATIC_DATABASE_CLEAN_FILE_RATE
+        will_clean_record_file = random.random() <= CLEAN_RATE
+
+        # We write the record based on the information from the solution.
+        self.zero_point_database.write_zero_point_record_julian_day(
+            jd=opihi_solution.observing_time,
+            zero_point=opihi_solution.photometrics.zero_point,
+            zero_point_error=opihi_solution.photometrics.zero_point_error,
+            filter_name=opihi_solution.filter_name,
+            clean_file=will_clean_record_file,
+        )
+
+        # We additionally create a new figure for the monitoring webpage.
+        self.zero_point_database.create_plotly_monitoring_html_plot_via_configuration()
+
+        # All done.
+        return None
 
     def trigger_next_image_solve(self) -> None:
         """This function triggers the next iteration of the automatic solving

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.functions &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.gui.functions &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -135,6 +136,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +234,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -256,6 +262,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
@@ -272,6 +283,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
@@ -397,6 +409,8 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata</span>
@@ -443,6 +457,29 @@
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
+<div class="viewcode-block" id="get_busy_image_array"><a class="viewcode-back" href="../../../code/opihiexarata.gui.functions.html#opihiexarata.gui.functions.get_busy_image_array">[docs]</a><span class="k">def</span> <span class="nf">get_busy_image_array</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This function gets the busy image and returns it in the form of a</span>
+<span class="sd">    color array which can be plot with matplotlib. The image file is stored</span>
+<span class="sd">    as per convention.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    busy_image : array</span>
+<span class="sd">        The image array which is the busy image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Getting the busy file image.</span>
+    <span class="n">self_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="n">busy_image_path</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="p">[</span><span class="n">self_dir</span><span class="p">,</span> <span class="s2">&quot;qtui&quot;</span><span class="p">],</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;busy_image&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;png&quot;</span>
+    <span class="p">)</span>
+    <span class="n">busy_image</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">busy_image_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">busy_image</span></div>
+
+
 <div class="viewcode-block" id="pick_engine_class_from_name"><a class="viewcode-back" href="../../../code/opihiexarata.gui.functions.html#opihiexarata.gui.functions.pick_engine_class_from_name">[docs]</a><span class="k">def</span> <span class="nf">pick_engine_class_from_name</span><span class="p">(</span>
     <span class="n">engine_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">engine_type</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ExarataEngine</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataEngine</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ExarataEngine</span><span class="p">:</span>
@@ -477,7 +514,7 @@
     <span class="p">}</span>
     <span class="n">orbit_engines</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;orbfit&quot;</span><span class="p">:</span> <span class="n">orbit</span><span class="o">.</span><span class="n">OrbfitOrbitDeterminerEngine</span><span class="p">,</span>
-        <span class="s2">&quot;custom&quot;</span><span class="p">:</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">,</span>
+        <span class="s2">&quot;custom orbit&quot;</span><span class="p">:</span> <span class="n">orbit</span><span class="o">.</span><span class="n">CustomOrbitEngine</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">ephemeris_engines</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;jpl horizons&quot;</span><span class="p">:</span> <span class="n">ephemeris</span><span class="o">.</span><span class="n">JPLHorizonsWebAPIEngine</span><span class="p">,</span>

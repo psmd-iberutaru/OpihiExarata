@@ -5,6 +5,7 @@ The manual GUI window.
 import sys
 import os
 import threading
+import copy
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -55,6 +56,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
     opihi_solution : OpihiSolution
         The general OpihiExarata solution, the collection class of all other
         solutions.
+    zero_point_database : OpihiZeroPointDatabaseSolution
+        If a zero point database is going to be constructed, as per the
+        configuration file, this is the instance which manages the database.
     """
 
     def __init__(self) -> None:
@@ -102,6 +106,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Preparing the preprocessing solution so that the raw files loaded
         # into Exarata can be instantly turned into reduced images.
         self.__init_preprocess_solution()
+
+        # Preparing the zero point database if the user desired the database
+        # to record observations.
+        if library.config.GUI_MANUAL_SAVE_OBSERVATIONS_TO_MONITORING_DATABASE:
+            database = opihiexarata.OpihiZeroPointDatabaseSolution(
+                database_directory=library.config.MONITOR_DATABASE_DIRECTORY
+            )
+        else:
+            database = None
+        self.zero_point_database = database
 
         # All done.
         return None
@@ -286,7 +300,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 mask_z_fits_filename=library.config.PREPROCESS_MASK_Z_FITS_FILENAME,
                 mask_1_fits_filename=library.config.PREPROCESS_MASK_1_FITS_FILENAME,
                 mask_2_fits_filename=library.config.PREPROCESS_MASK_2_FITS_FILENAME,
-                mask_3_fits_filename=library.config.PREPROCESS_MASK_3_FITS_FILENAME,
+                mask_b_fits_filename=library.config.PREPROCESS_MASK_B_FITS_FILENAME,
                 flat_c_fits_filename=library.config.PREPROCESS_FLAT_C_FITS_FILENAME,
                 flat_g_fits_filename=library.config.PREPROCESS_FLAT_G_FITS_FILENAME,
                 flat_r_fits_filename=library.config.PREPROCESS_FLAT_R_FITS_FILENAME,
@@ -294,7 +308,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 flat_z_fits_filename=library.config.PREPROCESS_FLAT_Z_FITS_FILENAME,
                 flat_1_fits_filename=library.config.PREPROCESS_FLAT_1_FITS_FILENAME,
                 flat_2_fits_filename=library.config.PREPROCESS_FLAT_2_FITS_FILENAME,
-                flat_3_fits_filename=library.config.PREPROCESS_FLAT_3_FITS_FILENAME,
+                flat_b_fits_filename=library.config.PREPROCESS_FLAT_B_FITS_FILENAME,
                 bias_fits_filename=library.config.PREPROCESS_BIAS_FITS_FILENAME,
                 dark_current_fits_filename=library.config.PREPROCESS_DARK_CURRENT_FITS_FILENAME,
                 linearity_fits_filename=library.config.PREPROCESS_LINEARITY_FITS_FILENAME,
@@ -712,6 +726,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             self.redraw_opihi_image()
             self.refresh_dynamic_label_text()
             self.save_auto_save()
+            # Photometry is special as the data may also be saved to the
+            # zero point database. We attempt to write a zero point record to
+            # the database, the wrapper writing function checks if writing to
+            # the database is a valid operation. We work on a copy of the
+            # solution just in case.
+            opihi_solution_copy = copy.deepcopy(self.opihi_solution)
+            # We thread it away.
+            write_database_thread = threading.Thread(
+                target=self.__write_zero_point_record_to_database,
+                kwargs={"opihi_solution": opihi_solution_copy},
+            )
+            write_database_thread.start()
+
             return None
 
         photometry_thread = threading.Thread(target=photometry_solving_function)
@@ -1387,7 +1414,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         #####
         # The target name and the directory the images are in should
         # not reset just because of a new image.
-        # self.ui.label_dynamic_summary_target_name.setText("DEFAULT")
+        # self.ui.label_dynamic_summary_target_name.setText("None")
         # self.ui.label_dynamic_summary_directory.setText("/path/to/dir/")
         self.ui.label_dynamic_summary_fits_file.setText(
             "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
@@ -2232,6 +2259,57 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # it. We can do this because we already are using their data.
         with open(record_filename, "w") as mpcfile:
             mpcfile.writelines(mpc_record)
+        return None
+
+    def __write_zero_point_record_to_database(
+        self, opihi_solution: hint.OpihiSolution
+    ) -> None:
+        """This function writes the zero point information assuming a solved
+        photometric solution. This function is so that threading this process
+        away is a lot easier.
+
+        Parameters
+        ----------
+        opihi_solution : OpihiSolution
+            The solution class of the image.
+
+        Returns
+        -------
+        None
+        """
+        # The photometry solution must exist and it must be properly solved.
+        if not isinstance(opihi_solution.photometrics, photometry.PhotometricSolution):
+            return None
+        if not opihi_solution.photometrics_status:
+            return None
+        # The database solution must exist to write to, and the user must
+        # actually want to write to it.
+        if not isinstance(
+            self.zero_point_database, opihiexarata.OpihiZeroPointDatabaseSolution
+        ):
+            return None
+        if not library.config.GUI_MANUAL_DATABASE_SAVE_OBSERVATIONS:
+            return None
+
+        # Because many files are being written to the database, we do not
+        # want to try and busy the database with cleaning itself up every time
+        # we want to write to it so we do it randomly.
+        CLEAN_RATE = library.config.GUI_MANUAL_DATABASE_CLEAN_FILE_RATE
+        will_clean_record_file = np.random.random() <= CLEAN_RATE
+
+        # We write the record based on the information from the solution.
+        self.zero_point_database.write_zero_point_record_julian_day(
+            jd=opihi_solution.observing_time,
+            zero_point=opihi_solution.photometrics.zero_point,
+            zero_point_error=opihi_solution.photometrics.zero_point_error,
+            filter_name=opihi_solution.filter_name,
+            clean_file=will_clean_record_file,
+        )
+
+        # We additionally create a new figure for the monitoring webpage.
+        self.zero_point_database.create_plotly_monitoring_html_plot_via_configuration()
+
+        # All done.
         return None
 
 

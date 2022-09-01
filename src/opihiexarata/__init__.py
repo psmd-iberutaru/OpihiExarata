@@ -19,6 +19,7 @@ import opihiexarata.gui as gui
 import opihiexarata.opihi as opihi
 from opihiexarata.opihi import OpihiPreprocessSolution
 from opihiexarata.opihi import OpihiSolution
+from opihiexarata.opihi import OpihiZeroPointDatabaseSolution
 
 # Load the default configuration parameters. The user's configurations should
 # overwrite these when supplied.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -135,6 +136,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +234,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -256,6 +262,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
@@ -272,6 +283,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
@@ -398,6 +410,8 @@
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 
 <span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
 
@@ -406,10 +420,8 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="n">FigureCanvasQTAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span>
 <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="n">NavigationToolbar2QT</span> <span class="k">as</span> <span class="n">NavigationToolbar</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectFromModel</span>
 
 <span class="kn">import</span> <span class="nn">opihiexarata</span>
-<span class="kn">from</span> <span class="nn">opihiexarata</span> <span class="kn">import</span> <span class="n">opihi</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
@@ -450,6 +462,9 @@
 <span class="sd">    opihi_solution : OpihiSolution</span>
 <span class="sd">        The general OpihiExarata solution, the collection class of all other</span>
 <span class="sd">        solutions.</span>
+<span class="sd">    zero_point_database : OpihiZeroPointDatabaseSolution</span>
+<span class="sd">        If a zero point database is going to be constructed, as per the</span>
+<span class="sd">        configuration file, this is the instance which manages the database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="OpihiManualWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -497,6 +512,16 @@
         <span class="c1"># Preparing the preprocessing solution so that the raw files loaded</span>
         <span class="c1"># into Exarata can be instantly turned into reduced images.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__init_preprocess_solution</span><span class="p">()</span>
+
+        <span class="c1"># Preparing the zero point database if the user desired the database</span>
+        <span class="c1"># to record observations.</span>
+        <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_SAVE_OBSERVATIONS_TO_MONITORING_DATABASE</span><span class="p">:</span>
+            <span class="n">database</span> <span class="o">=</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiZeroPointDatabaseSolution</span><span class="p">(</span>
+                <span class="n">database_directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_DATABASE_DIRECTORY</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">database</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span> <span class="o">=</span> <span class="n">database</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
@@ -681,7 +706,7 @@
                 <span class="n">mask_z_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_Z_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">mask_1_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_1_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">mask_2_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_2_FITS_FILENAME</span><span class="p">,</span>
-                <span class="n">mask_3_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_3_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_b_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_B_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">flat_c_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_C_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">flat_g_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_G_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">flat_r_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_R_FITS_FILENAME</span><span class="p">,</span>
@@ -689,7 +714,7 @@
                 <span class="n">flat_z_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_Z_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">flat_1_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_1_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">flat_2_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_2_FITS_FILENAME</span><span class="p">,</span>
-                <span class="n">flat_3_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_3_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_b_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_B_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">bias_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_BIAS_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">dark_current_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DARK_CURRENT_FITS_FILENAME</span><span class="p">,</span>
                 <span class="n">linearity_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_LINEARITY_FITS_FILENAME</span><span class="p">,</span>
@@ -727,7 +752,9 @@
                 <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_fits_filename</span>
             <span class="p">)</span>
             <span class="n">new_fits_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_most_recent_filename_in_directory</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">automatic_fetch_directory</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span>
+                <span class="n">directory</span><span class="o">=</span><span class="n">automatic_fetch_directory</span><span class="p">,</span>
+                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
+                <span class="n">exclude_opihiexarata_output_files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="c1"># Something happened and a new fits file cannot be properly</span>
@@ -879,7 +906,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="p">,</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PhotometricSolution</span>
         <span class="p">):</span>
-            <span class="n">magnitude</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">magnitude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">asteroid_magnitude</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">magnitude</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -954,14 +981,26 @@
         <span class="p">)</span>
         <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># Solve the field using the provided engine.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_astrometry</span><span class="p">(</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
-        <span class="p">)</span>
-        <span class="c1"># Update all of the necessary information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+        <span class="c1"># Note that we are busy solving the solution via the engine.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_draw_busy_image</span><span class="p">()</span>
+
+        <span class="c1"># Solve the field using the provided engine. We need to break this out</span>
+        <span class="c1"># into its own thread so that the busy plot notification can be shown</span>
+        <span class="c1"># to the user. The GUI thread is otherwise blocked.</span>
+        <span class="k">def</span> <span class="nf">astrometry_solving_function</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;The function to solve the astrometry and refresh the plots.&quot;&quot;&quot;</span>
+            <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_astrometry</span><span class="p">(</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+            <span class="p">)</span>
+            <span class="c1"># Update all of the necessary information.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">astrometry_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">astrometry_solving_function</span><span class="p">)</span>
+        <span class="n">astrometry_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_astrometry_custom_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1077,15 +1116,40 @@
         <span class="p">)</span>
         <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_photometry</span><span class="p">(</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
-        <span class="p">)</span>
+        <span class="c1"># Note that we are busy solving the solution via the engine.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_draw_busy_image</span><span class="p">()</span>
 
-        <span class="c1"># Update all of the necessary information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+        <span class="c1"># Solve the field using the provided engine. We need to break this out</span>
+        <span class="c1"># into its own thread so that the busy plot notification can be shown</span>
+        <span class="c1"># to the user. The GUI thread is otherwise blocked.</span>
+        <span class="k">def</span> <span class="nf">photometry_solving_function</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;The function to solve the photometry and refresh the plots.&quot;&quot;&quot;</span>
+            <span class="c1"># Solve.</span>
+            <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_photometry</span><span class="p">(</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+            <span class="p">)</span>
+            <span class="c1"># Update all of the necessary information.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+            <span class="c1"># Photometry is special as the data may also be saved to the</span>
+            <span class="c1"># zero point database. We attempt to write a zero point record to</span>
+            <span class="c1"># the database, the wrapper writing function checks if writing to</span>
+            <span class="c1"># the database is a valid operation. We work on a copy of the</span>
+            <span class="c1"># solution just in case.</span>
+            <span class="n">opihi_solution_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="p">)</span>
+            <span class="c1"># We thread it away.</span>
+            <span class="n">write_database_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+                <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__write_zero_point_record_to_database</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;opihi_solution&quot;</span><span class="p">:</span> <span class="n">opihi_solution_copy</span><span class="p">},</span>
+            <span class="p">)</span>
+            <span class="n">write_database_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">photometry_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">photometry_solving_function</span><span class="p">)</span>
+        <span class="n">photometry_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_orbit_solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1120,15 +1184,25 @@
             <span class="n">custom_orbit_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_custom_orbital_elements</span><span class="p">()</span>
             <span class="n">vehicle_args</span> <span class="o">=</span> <span class="n">custom_orbit_elements</span>
 
-        <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_orbit</span><span class="p">(</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
-        <span class="p">)</span>
+        <span class="c1"># Note that we are busy solving the solution via the engine.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_draw_busy_image</span><span class="p">()</span>
 
-        <span class="c1"># Update all of the necessary information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+        <span class="c1"># Solve the field using the provided engine. We need to break this out</span>
+        <span class="c1"># into its own thread so that the busy plot notification can be shown</span>
+        <span class="c1"># to the user. The GUI thread is otherwise blocked.</span>
+        <span class="k">def</span> <span class="nf">orbit_solving_function</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;The function to solve the orbit and refresh the plots.&quot;&quot;&quot;</span>
+            <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_orbit</span><span class="p">(</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+            <span class="p">)</span>
+            <span class="c1"># Update all of the necessary information.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">orbit_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">orbit_solving_function</span><span class="p">)</span>
+        <span class="n">orbit_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -1159,15 +1233,25 @@
         <span class="p">)</span>
         <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_ephemeris</span><span class="p">(</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
-        <span class="p">)</span>
+        <span class="c1"># Note that we are busy solving the solution via the engine.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_draw_busy_image</span><span class="p">()</span>
 
-        <span class="c1"># Update all of the necessary information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+        <span class="c1"># Solve the field using the provided engine. We need to break this out</span>
+        <span class="c1"># into its own thread so that the busy plot notification can be shown</span>
+        <span class="c1"># to the user. The GUI thread is otherwise blocked.</span>
+        <span class="k">def</span> <span class="nf">ephemeris_solving_function</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;The function to solve the ephemeris and refresh the plots.&quot;&quot;&quot;</span>
+            <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_ephemeris</span><span class="p">(</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+            <span class="p">)</span>
+            <span class="c1"># Update all of the necessary information.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">ephemeris_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ephemeris_solving_function</span><span class="p">)</span>
+        <span class="n">ephemeris_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -1287,15 +1371,26 @@
         <span class="p">)</span>
         <span class="n">vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># Solve.</span>
-        <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_propagate</span><span class="p">(</span>
-            <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
-        <span class="p">)</span>
+        <span class="c1"># Note that we are busy solving the solution via the engine.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_draw_busy_image</span><span class="p">()</span>
 
-        <span class="c1"># Update all of the necessary information.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+        <span class="c1"># Solve the field using the provided engine. We need to break this out</span>
+        <span class="c1"># into its own thread so that the busy plot notification can be shown</span>
+        <span class="c1"># to the user. The GUI thread is otherwise blocked.</span>
+        <span class="k">def</span> <span class="nf">propagate_solving_function</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;The function to solve the propagation and refresh the plots.&quot;&quot;&quot;</span>
+            <span class="n">__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_propagate</span><span class="p">(</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vehicle_args</span><span class="o">=</span><span class="n">vehicle_args</span>
+            <span class="p">)</span>
+            <span class="c1"># Update all of the necessary information.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redraw_opihi_image</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_dynamic_label_text</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_auto_save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">propagate_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">propagate_solving_function</span><span class="p">)</span>
+        <span class="n">propagate_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__connect_push_button_propagate_update_tcs_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1528,9 +1623,9 @@
 
         <span class="c1"># The filter which image is in, extracted from the fits file,</span>
         <span class="c1"># assuming standard form.</span>
-        <span class="n">filter_position_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;FWHL&quot;</span><span class="p">])</span>
-        <span class="n">filter_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">filter_position_string_to_filter_name</span><span class="p">(</span>
-            <span class="n">position_string</span><span class="o">=</span><span class="n">filter_position_string</span>
+        <span class="n">filter_header_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;FWHL&quot;</span><span class="p">])</span>
+        <span class="n">filter_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">filter_header_string_to_filter_name</span><span class="p">(</span>
+            <span class="n">header_string</span><span class="o">=</span><span class="n">filter_header_string</span>
         <span class="p">)</span>
 
         <span class="c1"># The exposure time of the image, extracted from the fits file,</span>
@@ -1725,7 +1820,7 @@
         <span class="c1">#####</span>
         <span class="c1"># The target name and the directory the images are in should</span>
         <span class="c1"># not reset just because of a new image.</span>
-        <span class="c1"># self.ui.label_dynamic_summary_target_name.setText(&quot;DEFAULT&quot;)</span>
+        <span class="c1"># self.ui.label_dynamic_summary_target_name.setText(&quot;None&quot;)</span>
         <span class="c1"># self.ui.label_dynamic_summary_directory.setText(&quot;/path/to/dir/&quot;)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_summary_fits_file</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits&quot;</span>
@@ -1957,8 +2052,8 @@
 
         <span class="c1"># Obtaining the computed zero point of the image. Some rounding is</span>
         <span class="c1"># needed so it can properly fit in the GUI.</span>
-        <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point_error</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point_error</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
         <span class="c1"># Building the string for display and updating the text.</span>
         <span class="n">zero_point_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{zp}</span><span class="s2"> </span><span class="si">{pm}</span><span class="s2"> </span><span class="si">{err}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">zp</span><span class="o">=</span><span class="n">zero_point</span><span class="p">,</span> <span class="n">pm</span><span class="o">=</span><span class="n">pm_sym</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">zero_point_error</span>
@@ -2321,6 +2416,108 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
+<div class="viewcode-block" id="OpihiManualWindow.draw_busy_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_busy_image">[docs]</a>    <span class="k">def</span> <span class="nf">draw_busy_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This draws the busy image.</span>
+
+<span class="sd">        We draw the busy image on top of the Opihi image to signify that</span>
+<span class="sd">        the software is going to be doing something and will be busy for a</span>
+<span class="sd">        short time. As the window will be frozen for a period of time, the</span>
+<span class="sd">        plot will not be intractable so it does not matter that we use that</span>
+<span class="sd">        space. It also means that a separate window won&#39;t be needed and the</span>
+<span class="sd">        user would not get confused or miss it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        replace : bool, default = True</span>
+<span class="sd">            If True, we replace the Opihi image with the busy image instead</span>
+<span class="sd">            of over-plotting it. This does not affect the Opihi image in</span>
+<span class="sd">            general and it can be restored with a redraw.</span>
+<span class="sd">        transparency : float, default = 1</span>
+<span class="sd">            If `replace` is False, the image is instead over-plotted with the</span>
+<span class="sd">            transparency provided here.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If we replace the image, there is no need for transparency to be</span>
+        <span class="c1"># anything but one. We also clear the plot at this step.</span>
+        <span class="k">if</span> <span class="n">replace</span><span class="p">:</span>
+            <span class="c1"># Clearing the plot as we are replacing it with the busy image.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="c1"># Doesn&#39;t really make sense to have a transparency when replacing</span>
+            <span class="c1"># the image.</span>
+            <span class="n">transparency</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We do a transparency value check to make sure it is between the</span>
+            <span class="c1"># values as described.</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">transparency</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># All good.</span>
+                <span class="n">transparency</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">transparency</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span>
+                    <span class="s2">&quot;The transparency value </span><span class="si">{alpha}</span><span class="s2"> provided is not a number between 0&quot;</span>
+                    <span class="s2">&quot; and 1.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">transparency</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="c1"># We load the busy image.</span>
+        <span class="n">busy_image</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">get_busy_image_array</span><span class="p">()</span>
+
+        <span class="c1"># Determining the width/height shape of the image.</span>
+        <span class="n">busy_height</span><span class="p">,</span> <span class="n">busy_width</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">busy_image</span><span class="o">.</span><span class="n">shape</span>
+        <span class="c1"># From the shape of the image, and the shape of the array, we pin the</span>
+        <span class="c1"># origin of the image. We desired a centered image.</span>
+        <span class="n">data_height</span><span class="p">,</span> <span class="n">data_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># Defining the extents.</span>
+        <span class="n">left_extent</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">0</span> <span class="k">if</span> <span class="n">busy_width</span> <span class="o">&gt;</span> <span class="n">data_width</span> <span class="k">else</span> <span class="n">data_width</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">busy_width</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="n">right_extent</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">data_width</span> <span class="k">if</span> <span class="n">busy_width</span> <span class="o">&gt;</span> <span class="n">data_width</span> <span class="k">else</span> <span class="n">data_width</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">busy_width</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="n">bottom_extent</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">0</span> <span class="k">if</span> <span class="n">busy_height</span> <span class="o">&gt;</span> <span class="n">data_height</span> <span class="k">else</span> <span class="n">data_height</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">busy_height</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="n">top_extent</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">data_height</span>
+            <span class="k">if</span> <span class="n">busy_height</span> <span class="o">&gt;</span> <span class="n">data_height</span>
+            <span class="k">else</span> <span class="n">data_height</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">busy_height</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Showing the image.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+            <span class="n">busy_image</span><span class="p">,</span>
+            <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
+            <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">left_extent</span><span class="p">,</span> <span class="n">right_extent</span><span class="p">,</span> <span class="n">bottom_extent</span><span class="p">,</span> <span class="n">top_extent</span><span class="p">),</span>
+            <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Redraw the canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__configuration_draw_busy_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Exactly the same as `draw_busy_image`, but we use the settings</span>
+<span class="sd">        as per the configuration. This function is just a connivent wrapper.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Getting the configuration values.</span>
+        <span class="n">config_replace</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_BUSY_ALERT_IMAGE_REPLACEMENT</span>
+        <span class="n">config_transparency</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY</span>
+        <span class="c1"># Executing the plotting.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw_busy_image</span><span class="p">(</span><span class="n">replace</span><span class="o">=</span><span class="n">config_replace</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="n">config_transparency</span><span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
 <div class="viewcode-block" id="OpihiManualWindow.save_auto_save"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_auto_save">[docs]</a>    <span class="k">def</span> <span class="nf">save_auto_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This function should be used when auto save is active across</span>
 <span class="sd">        every and all aspects of the GUI where automatic saving is desired.</span>
@@ -2468,7 +2665,58 @@
         <span class="c1"># it. We can do this because we already are using their data.</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">record_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mpcfile</span><span class="p">:</span>
             <span class="n">mpcfile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">mpc_record</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__write_zero_point_record_to_database</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">opihi_solution</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function writes the zero point information assuming a solved</span>
+<span class="sd">        photometric solution. This function is so that threading this process</span>
+<span class="sd">        away is a lot easier.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        opihi_solution : OpihiSolution</span>
+<span class="sd">            The solution class of the image.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The photometry solution must exist and it must be properly solved.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="p">,</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PhotometricSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics_status</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="c1"># The database solution must exist to write to, and the user must</span>
+        <span class="c1"># actually want to write to it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiZeroPointDatabaseSolution</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DATABASE_SAVE_OBSERVATIONS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Because many files are being written to the database, we do not</span>
+        <span class="c1"># want to try and busy the database with cleaning itself up every time</span>
+        <span class="c1"># we want to write to it so we do it randomly.</span>
+        <span class="n">CLEAN_RATE</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DATABASE_CLEAN_FILE_RATE</span>
+        <span class="n">will_clean_record_file</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">CLEAN_RATE</span>
+
+        <span class="c1"># We write the record based on the information from the solution.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="o">.</span><span class="n">write_zero_point_record_julian_day</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span><span class="p">,</span>
+            <span class="n">zero_point</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point</span><span class="p">,</span>
+            <span class="n">zero_point_error</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point_error</span><span class="p">,</span>
+            <span class="n">filter_name</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">filter_name</span><span class="p">,</span>
+            <span class="n">clean_file</span><span class="o">=</span><span class="n">will_clean_record_file</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We additionally create a new figure for the monitoring webpage.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="o">.</span><span class="n">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="start_manual_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.start_manual_window">[docs]</a><span class="k">def</span> <span class="nf">start_manual_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
