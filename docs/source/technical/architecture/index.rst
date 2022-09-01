@@ -114,3 +114,4 @@ the atmospheric conditions).
     vehicles_solutions
     library
     graphical_user_interface
+    monitor_database

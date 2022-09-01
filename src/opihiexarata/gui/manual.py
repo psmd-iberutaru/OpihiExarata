@@ -726,10 +726,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             self.redraw_opihi_image()
             self.refresh_dynamic_label_text()
             self.save_auto_save()
-            # Photometry is special as the data may also be saved to the 
-            # zero point database. We attempt to write a zero point record to 
-            # the database, the wrapper writing function checks if writing to 
-            # the database is a valid operation. We work on a copy of the 
+            # Photometry is special as the data may also be saved to the
+            # zero point database. We attempt to write a zero point record to
+            # the database, the wrapper writing function checks if writing to
+            # the database is a valid operation. We work on a copy of the
             # solution just in case.
             opihi_solution_copy = copy.deepcopy(self.opihi_solution)
             # We thread it away.
@@ -738,7 +738,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 kwargs={"opihi_solution": opihi_solution_copy},
             )
             write_database_thread.start()
-
 
             return None
 
@@ -2312,6 +2311,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
+
 
 def start_manual_window() -> None:
     """This is the function to create the manual window for usage.
