@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>Index &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/pyukumuku_favicon.png"/>
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -135,6 +136,10 @@
 <li class="toctree-l4"><a class="reference internal" href="user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +234,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -256,6 +262,11 @@
 <li class="toctree-l4"><a class="reference internal" href="technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="technical/conventions.html">Conventions</a><ul>
@@ -272,6 +283,7 @@
 <li class="toctree-l4"><a class="reference internal" href="technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="technical/algorithms/index.html">Algorithms</a><ul>
@@ -505,6 +517,8 @@
 </li>
       <li><a href="code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.__check_installation">__check_installation() (opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine class method)</a>
 </li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__configuration_draw_busy_image">__configuration_draw_busy_image() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
       <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_check_box_autoscale_1_99">__connect_check_box_autoscale_1_99() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
 </li>
       <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__connect_line_edit_dynamic_scale_high">__connect_line_edit_dynamic_scale_high() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
@@ -612,6 +626,8 @@
 </li>
         <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataException.__init__">(opihiexarata.library.error.ExarataException method)</a>
 </li>
+        <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.__init__">(opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
         <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init__">(opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
 </li>
         <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.__init__">(opihiexarata.opihi.solution.OpihiSolution method)</a>
@@ -655,8 +671,6 @@
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init_read_flat_data">__init_read_flat_data() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init_read_linearity_data">__init_read_linearity_data() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init_read_mask_data">__init_read_mask_data() (opihiexarata.opihi.preprocess.OpihiPreprocessSolution method)</a>
@@ -665,6 +679,8 @@
 </li>
       <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine.__linear_function">__linear_function() (opihiexarata.propagate.polynomial.LinearPropagationEngine method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__login">__login() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
 </li>
       <li><a href="code/opihiexarata.__main__.html#opihiexarata.__main__.__main_execute_arguments">__main_execute_arguments() (in module opihiexarata.__main__)</a>
@@ -699,6 +715,12 @@
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.__submission_id">__submission_id (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
 </li>
+      <li><a href="code/opihiexarata.gui.automatic.html#opihiexarata.gui.automatic.OpihiAutomaticWindow.__write_zero_point_record_to_database">__write_zero_point_record_to_database() (opihiexarata.gui.automatic.OpihiAutomaticWindow method)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__write_zero_point_record_to_database">(opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      </ul></li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._apikey">_apikey (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._ASTROMETRY_NET_API_BASE_URL">_ASTROMETRY_NET_API_BASE_URL (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine attribute)</a>
@@ -723,7 +745,7 @@
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._flat_2_fits_filename">_flat_2_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
-      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._flat_3_fits_filename">_flat_3_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
+      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._flat_b_fits_filename">_flat_b_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._flat_c_fits_filename">_flat_c_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
@@ -739,7 +761,11 @@
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_service_url">_generate_service_url() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
 </li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_text_record_filename">_generate_text_record_filename() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine._generate_upload_args">_generate_upload_args() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_zero_point_record_line">_generate_zero_point_record_line() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._linearity_fits_filename">_linearity_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
@@ -749,7 +775,7 @@
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._mask_2_fits_filename">_mask_2_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
-      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._mask_3_fits_filename">_mask_3_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
+      <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._mask_b_fits_filename">_mask_b_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution._mask_c_fits_filename">_mask_c_fits_filename (opihiexarata.opihi.preprocess.OpihiPreprocessSolution attribute)</a>
 </li>
@@ -783,6 +809,8 @@
       </ul></li>
       <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._parse_custom_orbital_elements">_parse_custom_orbital_elements() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
 </li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._parse_zero_point_record_line">_parse_zero_point_record_line() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
       <li><a href="code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._prepare_orbfit_files">_prepare_orbfit_files() (opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine method)</a>
 </li>
       <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._preprocess_fits_file">_preprocess_fits_file() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
@@ -795,6 +823,18 @@
 </li>
       <li><a href="code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._refresh_ephemeris">_refresh_ephemeris() (opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine method)</a>
 </li>
+      <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_inverse_rotation">_right_ascension_inverse_rotation() (opihiexarata.propagate.polynomial.LinearPropagationEngine method)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_inverse_rotation">(opihiexarata.propagate.polynomial.QuadraticPropagationEngine method)</a>
+</li>
+      </ul></li>
+      <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine._right_ascension_rotation">_right_ascension_rotation() (opihiexarata.propagate.polynomial.LinearPropagationEngine method)</a>
+
+      <ul>
+        <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine._right_ascension_rotation">(opihiexarata.propagate.polynomial.QuadraticPropagationEngine method)</a>
+</li>
+      </ul></li>
       <li><a href="code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow._sanitize_input">_sanitize_input() (opihiexarata.gui.name.TargetNameWindow static method)</a>
 </li>
       <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._save_fits_file_results">_save_fits_file_results() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
@@ -924,6 +964,10 @@
 </li>
       <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.calculate_star_photon_counts_pixel">calculate_star_photon_counts_pixel() (opihiexarata.photometry.solution.PhotometricSolution method)</a>
 </li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_database_text_files">clean_database_text_files() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution class method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_record_text_file">clean_record_text_file() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution class method)</a>
+</li>
       <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.clear_dynamic_label_text">clear_dynamic_label_text() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
 </li>
       <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.close_window">close_window() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
@@ -979,6 +1023,10 @@
 </li>
       <li><a href="code/opihiexarata.library.image.html#opihiexarata.library.image.create_circular_mask">create_circular_mask() (in module opihiexarata.library.image)</a>
 </li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">create_plotly_monitoring_html_plot() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">create_plotly_monitoring_html_plot_via_configuration() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
       <li><a href="code/opihiexarata.library.temporary.html#opihiexarata.library.temporary.create_temporary_directory">create_temporary_directory() (in module opihiexarata.library.temporary)</a>
 </li>
       <li><a href="code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.current_utc_to_julian_day">current_utc_to_julian_day() (in module opihiexarata.library.conversion)</a>
@@ -992,6 +1040,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.data">data (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.database_directory">database_directory (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.dec">dec (opihiexarata.astrometry.solution.AstrometricSolution attribute)</a>
 </li>
@@ -1044,6 +1094,10 @@
       <li><a href="code/opihiexarata.library.http.html#opihiexarata.library.http.download_file_from_url">download_file_from_url() (in module opihiexarata.library.http)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.download_result_file">download_result_file() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
+</li>
+      <li><a href="code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_busy_image">draw_busy_image() (opihiexarata.gui.manual.OpihiManualWindow method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.drop_database_text_files">drop_database_text_files() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1109,20 +1163,18 @@
 </li>
       <li><a href="code/opihiexarata.library.phototable.html#opihiexarata.library.phototable.fill_incomplete_photometry_table">fill_incomplete_photometry_table() (in module opihiexarata.library.phototable)</a>
 </li>
+      <li><a href="code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.filter_header_string_to_filter_name">filter_header_string_to_filter_name() (in module opihiexarata.library.conversion)</a>
+</li>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.filter_name">filter_name (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
 
       <ul>
         <li><a href="code/opihiexarata.photometry.solution.html#opihiexarata.photometry.solution.PhotometricSolution.filter_name">(opihiexarata.photometry.solution.PhotometricSolution attribute)</a>
 </li>
       </ul></li>
-      <li><a href="code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.filter_position_string_to_filter_name">filter_position_string_to_filter_name() (in module opihiexarata.library.conversion)</a>
-</li>
-      <li><a href="code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.filter_position_to_filter_name">filter_position_to_filter_name() (in module opihiexarata.library.conversion)</a>
+      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.find_target_location">find_target_location() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.find_target_location">find_target_location() (opihiexarata.gui.selector.TargetSelectorWindow method)</a>
-</li>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.fits_filename">fits_filename (opihiexarata.opihi.solution.OpihiSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.forward_ephemeris">forward_ephemeris() (opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine method)</a>
@@ -1165,6 +1217,8 @@
 </li>
       <li><a href="code/opihiexarata.library.config.html#opihiexarata.library.config.generate_secrets_file_copy">generate_secrets_file_copy() (in module opihiexarata.library.config)</a>
 </li>
+      <li><a href="code/opihiexarata.gui.functions.html#opihiexarata.gui.functions.get_busy_image_array">get_busy_image_array() (in module opihiexarata.gui.functions)</a>
+</li>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.get_directory">get_directory() (in module opihiexarata.library.path)</a>
 </li>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.get_file_extension">get_file_extension() (in module opihiexarata.library.path)</a>
@@ -1182,6 +1236,8 @@
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_job_status">get_job_status() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
 </li>
       <li><a href="code/opihiexarata.library.path.html#opihiexarata.library.path.get_most_recent_filename_in_directory">get_most_recent_filename_in_directory() (in module opihiexarata.library.path)</a>
+</li>
+      <li><a href="code/opihiexarata.library.fits.html#opihiexarata.library.fits.get_observing_time">get_observing_time() (in module opihiexarata.library.fits)</a>
 </li>
       <li><a href="code/opihiexarata.astrometry.webclient.html#opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine.get_reference_star_pixel_correlation">get_reference_star_pixel_correlation() (opihiexarata.astrometry.webclient.AstrometryNetWebAPIEngine method)</a>
 </li>
@@ -1422,6 +1478,8 @@
         <li><a href="code/opihiexarata.library.temporary.html#module-opihiexarata.library.temporary">opihiexarata.library.temporary</a>
 </li>
         <li><a href="code/opihiexarata.opihi.html#module-opihiexarata.opihi">opihiexarata.opihi</a>
+</li>
+        <li><a href="code/opihiexarata.opihi.database.html#module-opihiexarata.opihi.database">opihiexarata.opihi.database</a>
 </li>
         <li><a href="code/opihiexarata.opihi.preprocess.html#module-opihiexarata.opihi.preprocess">opihiexarata.opihi.preprocess</a>
 </li>
@@ -1715,6 +1773,13 @@
 </li>
       </ul></li>
       <li>
+    opihiexarata.opihi.database
+
+      <ul>
+        <li><a href="code/opihiexarata.opihi.database.html#module-opihiexarata.opihi.database">module</a>
+</li>
+      </ul></li>
+      <li>
     opihiexarata.opihi.preprocess
 
       <ul>
@@ -1804,6 +1869,8 @@
 </li>
       <li><a href="code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">OpihiSolution (class in opihiexarata.opihi.solution)</a>
 </li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution">OpihiZeroPointDatabaseSolution (class in opihiexarata.opihi.database)</a>
+</li>
       <li><a href="code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine">OrbfitOrbitDeterminerEngine (class in opihiexarata.orbit.orbfit)</a>
 </li>
       <li><a href="code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.orbital_elements">orbital_elements (opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine attribute)</a>
@@ -1870,6 +1937,12 @@
       <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.QuadraticPropagationEngine">QuadraticPropagationEngine (class in opihiexarata.propagate.polynomial)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_datetimes">query_database_between_datetimes() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_julian_days">query_database_between_julian_days() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
@@ -1907,14 +1980,16 @@
         <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.ra_velocity">(opihiexarata.propagate.solution.PropagativeSolution attribute)</a>
 </li>
       </ul></li>
+      <li><a href="code/opihiexarata.propagate.polynomial.html#opihiexarata.propagate.polynomial.LinearPropagationEngine.ra_wrap_around">ra_wrap_around (opihiexarata.propagate.polynomial.LinearPropagationEngine attribute)</a>
+</li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.radius">radius (opihiexarata.astrometry.solution.AstrometricSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.raw_dec_acceleration">raw_dec_acceleration (opihiexarata.propagate.solution.PropagativeSolution attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.raw_dec_velocity">raw_dec_velocity (opihiexarata.propagate.solution.PropagativeSolution attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.raw_ra_acceleration">raw_ra_acceleration (opihiexarata.propagate.solution.PropagativeSolution attribute)</a>
 </li>
       <li><a href="code/opihiexarata.propagate.solution.html#opihiexarata.propagate.solution.PropagativeSolution.raw_ra_velocity">raw_ra_velocity (opihiexarata.propagate.solution.PropagativeSolution attribute)</a>
@@ -1924,6 +1999,12 @@
       <li><a href="code/opihiexarata.library.fits.html#opihiexarata.library.fits.read_fits_image_file">read_fits_image_file() (in module opihiexarata.library.fits)</a>
 </li>
       <li><a href="code/opihiexarata.library.fits.html#opihiexarata.library.fits.read_fits_table_file">read_fits_table_file() (in module opihiexarata.library.fits)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_database">read_zero_point_record_database() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_list">read_zero_point_record_list() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_table">read_zero_point_record_table() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
 </li>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.ReadOnlyError">ReadOnlyError</a>
 </li>
@@ -2101,13 +2182,17 @@
 </li>
       <li><a href="code/opihiexarata.astrometry.solution.html#opihiexarata.astrometry.solution.AstrometricSolution.wcs">wcs (opihiexarata.astrometry.solution.AstrometricSolution attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.error.html#opihiexarata.library.error.WebRequestError">WebRequestError</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/opihiexarata.library.fits.html#opihiexarata.library.fits.write_fits_image_file">write_fits_image_file() (in module opihiexarata.library.fits)</a>
 </li>
       <li><a href="code/opihiexarata.library.fits.html#opihiexarata.library.fits.write_fits_table_file">write_fits_table_file() (in module opihiexarata.library.fits)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record">write_zero_point_record() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
+</li>
+      <li><a href="code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day">write_zero_point_record_julian_day() (opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution method)</a>
 </li>
   </ul></td>
 </tr></table>

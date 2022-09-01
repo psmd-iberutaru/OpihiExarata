@@ -104,7 +104,7 @@ You will need to start automatic solving by triggering it via the
 automatically, without the need for user intervention:
 
 1.  It will fetch the most recent fits image as determined by the modification timestamp of all fits files within the specified directory as provided by the operating system.
-2.  It will pre-process the fetched image according to the preprocessing algorithm, see :ref:`technical-architecture-vehicles-solutions-preprocesssolution`.
+2.  It will pre-process the fetched image according to the preprocessing algorithm, see :ref:`technical-architecture-vehicles-solutions-opihipreprocesssolution`.
 3.  It will solve for the astrometric solution of the pre-processed image via the specified AstrometryEngine. The results of the solution will be displayed in the GUI.
 4.  It will solve for the photometric solution of the pre-processed image via the specified PhotometryEngine. The results of the solution will be displayed in the GUI.
 5.  It will add this result (the filter zero point measurement) to the archive of observations. The monitoring webpage uses this archive to derive its figures.

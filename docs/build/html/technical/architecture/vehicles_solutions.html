@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vehicles and Solutions &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>Vehicles and Solutions &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -121,6 +121,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -139,6 +140,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -233,7 +238,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -260,6 +266,11 @@
 <li class="toctree-l4"><a class="reference internal" href="graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../conventions.html">Conventions</a><ul>
@@ -276,6 +287,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><ul>
@@ -587,8 +599,8 @@ the path is determined by extrapolating the motion of the asteroid on the
 sky based on a sequence of recent images.</p>
 </section>
 </section>
-<section id="preprocesssolution">
-<span id="technical-architecture-vehicles-solutions-preprocesssolution"></span><h3>PreprocessSolution<a class="headerlink" href="#preprocesssolution" title="Permalink to this heading"></a></h3>
+<section id="opihipreprocesssolution">
+<span id="technical-architecture-vehicles-solutions-opihipreprocesssolution"></span><h3>OpihiPreprocessSolution<a class="headerlink" href="#opihipreprocesssolution" title="Permalink to this heading"></a></h3>
 <p>The data that comes from the Opihi camera is considered raw data, it has many
 systematic artifacts like hot pixels, dark current, and bias to name a few.
 We reduce this data using standard array processing procedures.</p>
@@ -599,7 +611,7 @@ take calibration images on their own reduces the overhead.</p>
 <p>An explanation on the procedure and methodology of data preprocessing is
 assumed by this manual, but a brief summary may be
 <a class="reference external" href="https://wiki.digiultsparrow.space/en/academic/notes/astronomical-ccd-image-preprocessing">obtained from here</a>.</p>
-<p>The implementation of image preprocessing is done by the PreprocessSolution
+<p>The implementation of image preprocessing is done by the OpihiPreprocessSolution
 class (see <a class="reference internal" href="../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution" title="opihiexarata.opihi.preprocess.OpihiPreprocessSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.opihi.preprocess.OpihiPreprocessSolution</span></code></a>).
 However, because the preprocessing of CCD images is pretty standard and simple
 and involves only one method, this solution does not require an engine and
@@ -611,6 +623,18 @@ image (either an array or a fits file) and pre-process it. It is built like
 this so that the large preprocessing calibration images (which are cached
 within the class to avoid disk utilization) does not take up a too much
 memory as opposed if the class was duplicated per image.</p>
+</section>
+<section id="opihizeropointdatabasesolution">
+<span id="technical-architecture-vehicles-solutions-opihizeropointdatabasesolution"></span><h3>OpihiZeroPointDatabaseSolution<a class="headerlink" href="#opihizeropointdatabasesolution" title="Permalink to this heading"></a></h3>
+<p>In order to properly manage and store zero point observations, we utilize a
+solution which provides us an API-like interface to the zero point database.
+The implementation of this interface is done by the
+OpihiZeroPointDatabaseSolution
+(see <a class="reference internal" href="../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution" title="opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution</span></code></a>).</p>
+<p>The specifics of the database are explained in
+<a class="reference internal" href="monitor_database.html#technical-architecture-monitor-database"><span class="std std-ref">Monitor Database</span></a>. The monitoring webpage which
+shows recent information added to the database to a user is described in
+<a class="reference internal" href="../../user/zero_point_monitoring.html#user-zero-point-monitoring"><span class="std std-ref">Zero Point Monitoring</span></a>.</p>
 </section>
 </section>
 </section>

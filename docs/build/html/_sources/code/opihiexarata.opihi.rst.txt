@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   opihiexarata.opihi.database
    opihiexarata.opihi.preprocess
    opihiexarata.opihi.solution
 

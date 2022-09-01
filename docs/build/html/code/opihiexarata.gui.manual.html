@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual module &mdash; OpihiExarata 2022.8.11 documentation</title>
+  <title>opihiexarata.gui.manual module &mdash; OpihiExarata 2022.8.31 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -120,6 +120,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
@@ -138,6 +139,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../user/citations.html#jpl-horizons">JPL Horizons</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
 </ul>
 </li>
 </ul>
@@ -232,7 +237,8 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#preprocesssolution">PreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
 </ul>
 </li>
 </ul>
@@ -259,6 +265,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
@@ -275,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#filter-names">Filter Names</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
@@ -404,6 +416,21 @@
 <dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.manual.</span></span><span class="sig-name descname"><span class="pre">OpihiManualWindow</span></span><a class="reference internal" href="../_modules/opihiexarata/gui/manual.html#OpihiManualWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__configuration_draw_busy_image">
+<span class="sig-name descname"><span class="pre">__configuration_draw_busy_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__configuration_draw_busy_image" title="Permalink to this definition"></a></dt>
+<dd><p>Exactly the same as <cite>draw_busy_image</cite>, but we use the settings
+as per the configuration. This function is just a connivent wrapper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_custom_solve">
 <span class="sig-name descname"><span class="pre">__connect_push_button_astrometry_custom_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__connect_push_button_astrometry_custom_solve" title="Permalink to this definition"></a></dt>
@@ -847,6 +874,22 @@ available and solved.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.__write_zero_point_record_to_database">
+<span class="sig-name descname"><span class="pre">__write_zero_point_record_to_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opihi_solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.__write_zero_point_record_to_database" title="Permalink to this definition"></a></dt>
+<dd><p>This function writes the zero point information assuming a solved
+photometric solution. This function is so that threading this process
+away is a lot easier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>opihi_solution</strong> (<a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><em>OpihiSolution</em></a>) – The solution class of the image.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow._load_fits_file">
 <span class="sig-name descname"><span class="pre">_load_fits_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fits_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/manual.html#OpihiManualWindow._load_fits_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow._load_fits_file" title="Permalink to this definition"></a></dt>
 <dd><p>Load a fits file into the GUI to derive all of the solutions needed.</p>
@@ -949,6 +992,32 @@ just a selection criteria and do not actually provide any information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.manual.OpihiManualWindow.draw_busy_image">
+<span class="sig-name descname"><span class="pre">draw_busy_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/manual.html#OpihiManualWindow.draw_busy_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.manual.OpihiManualWindow.draw_busy_image" title="Permalink to this definition"></a></dt>
+<dd><p>This draws the busy image.</p>
+<p>We draw the busy image on top of the Opihi image to signify that
+the software is going to be doing something and will be busy for a
+short time. As the window will be frozen for a period of time, the
+plot will not be intractable so it does not matter that we use that
+space. It also means that a separate window won’t be needed and the
+user would not get confused or miss it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>replace</strong> (<em>bool</em><em>, </em><em>default = True</em>) – If True, we replace the Opihi image with the busy image instead
+of over-plotting it. This does not affect the Opihi image in
+general and it can be restored with a redraw.</p></li>
+<li><p><strong>transparency</strong> (<em>float</em><em>, </em><em>default = 1</em>) – If <cite>replace</cite> is False, the image is instead over-plotted with the
+transparency provided here.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
