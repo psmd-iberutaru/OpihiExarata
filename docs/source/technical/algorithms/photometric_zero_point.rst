@@ -27,8 +27,23 @@ with outliers. The zero-point itself also has an error of :math:`Z_e` as
 determined from the variation between the different calculated zero-point 
 values from each photometric star.
 
+Specifically for our collective set of zero points :math:`\mathbf{Z} = {{Z_{p,1}, {Z_{p,2}, ...}`, we have our averaged zero point given by the median:
+
+.. math::
+
+    Z_p = \text{median}(\mathbf{Z})
+
+And the error on the average provided by the standard error of the median. To 
+avoid possible contamination from outliers in either the observations or the 
+photometric database, we estimate the deviation using the median absolute 
+deviation, thus (for :math:`n` being the total number of observations)...
+
+.. math::
+
+    \sigma_{Z_p} = \frac{1}{n} \text{MAD}(\mathbf{Z}) 
+
 Important considerations must be taken to remove overly bright and overly dim 
-objects. These otherwise skew the zero-point measurement because of saturation
+objects. These otherwise skew the zero point measurement because of saturation
 or noise effects.
 
 
