@@ -974,7 +974,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         def propagate_solving_function():
             """The function to solve the propagation and refresh the plots."""
             __ = self.opihi_solution.solve_propagate(
-                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args, raise_on_error=True
+                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
             )
             # Update all of the necessary information.
             self.redraw_opihi_image()
