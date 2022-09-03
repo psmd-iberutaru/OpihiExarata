@@ -225,7 +225,7 @@ def julian_day_to_unix_time(jd: float) -> float:
     # This could eventually be replaced with multiplication and addition, but
     # this is a convenient way of doing it.
     time_instance = ap_time.Time(jd, format="jd")
-    unix_time = float(time_instance.to_value("unix"))
+    unix_time = np.asarray(time_instance.to_value("unix"))
     return unix_time
 
 
@@ -245,7 +245,7 @@ def unix_time_to_julian_day(unix_time: float) -> float:
     # This could eventually be replaced with multiplication and addition, but
     # this is a convenient way of doing it.
     time_instance = ap_time.Time(unix_time, format="unix")
-    jd = time_instance.to_value("jd")
+    jd = np.asarray(time_instance.to_value("jd"))
     return jd
 
 
