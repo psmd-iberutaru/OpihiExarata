@@ -3,6 +3,7 @@ with and acts as the complete solver. There is not engine as it just shuffles
 the solutions."""
 
 import copy
+from math import isfinite
 import numpy as np
 
 import opihiexarata.library as library
@@ -1005,9 +1006,16 @@ class OpihiSolution(library.engine.ExarataSolution):
                 self.photometrics, photometry.PhotometricSolution
             ):
                 # The photometric solution exists and the magnitude and error
-                # has likely been calculated.
-                available_entries["OXT__MAG"] = self.asteroid_magnitude
-                available_entries["OXT_MAGE"] = self.asteroid_magnitude_error
+                # has likely been calculated. However, sometimes the 
+                # magnitude was not properly calculated because of the 
+                # asteroid location.
+                if np.isfinite(self.asteroid_magnitude) and np.isfinite(self.asteroid_magnitude_error):
+                    available_entries["OXT__MAG"] = self.asteroid_magnitude
+                    available_entries["OXT_MAGE"] = self.asteroid_magnitude_error
+                else:
+                    # The target magnitude was improperly calculated.
+                    available_entries["OXT__MAG"] = None
+                    available_entries["OXT_MAGE"] = None
 
         # Metadata information.
         available_entries["OXM_ORFN"] = library.path.get_filename_with_extension(
