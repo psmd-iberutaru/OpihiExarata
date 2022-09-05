@@ -910,7 +910,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
 
         # We make the plot here. Further visual and aesthetic formatting is
         # done below.
-        fig = px.line(
+        fig = px.scatter(
             zero_point_record_table.to_pandas(),
             x=line_x_table_key,
             y=line_y_table_key,
@@ -972,6 +972,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         datetime_upper_limit = datetime.datetime(*int_only(end_datetime_tuple))
         fig.update_layout(xaxis_range=[datetime_lower_limit, datetime_upper_limit])
 
+        # The 
 
         # The configuration file specifies how to handle the inclusion of the
         # Plotly javascript file.

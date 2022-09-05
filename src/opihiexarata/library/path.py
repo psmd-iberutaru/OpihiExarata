@@ -3,6 +3,7 @@ As Exarata is going to be cross platform, this is a nice abstraction."""
 
 import os
 import glob
+import copy
 
 import opihiexarata.library as library
 import opihiexarata.library.error as error
@@ -101,7 +102,7 @@ def get_most_recent_filename_in_directory(
         PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
         SOLUTION_SUFFIX = library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX
         MPCRECORD_SUFFIX = library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
-        for filenamedex in matching_filenames:
+        for filenamedex in copy.deepcopy(matching_filenames):
             if (
                 (PREPROCESS_SUFFIX in filenamedex)
                 or (SOLUTION_SUFFIX in filenamedex)
@@ -109,7 +110,7 @@ def get_most_recent_filename_in_directory(
             ):
                 matching_filenames.remove(filenamedex)
             # Also check the .FITS variant.
-            if (
+            elif (
                 (PREPROCESS_SUFFIX + ".fits" in filenamedex)
                 or (SOLUTION_SUFFIX + ".fits" in filenamedex)
                 or (MPCRECORD_SUFFIX + ".fits" in filenamedex)
