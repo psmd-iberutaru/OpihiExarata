@@ -465,7 +465,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         saving_fits_filename = library.path.merge_pathname(
             directory=directory, filename=new_filename, extension=extension
         )
-        opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=False)
+        opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=True)
 
         # We attempt to write a zero point record to the database, the wrapper
         # writing function checks if writing to the database is a valid
