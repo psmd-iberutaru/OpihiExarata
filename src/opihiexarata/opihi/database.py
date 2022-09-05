@@ -951,6 +951,10 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         tick_rotation = 15
         fig.update_xaxes(tickformat=iso_8601_time_format, tickangle=tick_rotation)
 
+        # Zero point magnitudes usually are inverse, as the magnitude system 
+        # is.
+        fig.update_yaxes(autorange="reversed")
+
         # We configure the message when hovering to be a little bit more clear.
         hover_message_template = R"%{x}<br>     %{y}"
         fig.update_traces(hovertemplate=hover_message_template)
