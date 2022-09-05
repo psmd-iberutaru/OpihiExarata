@@ -108,6 +108,14 @@ def get_most_recent_filename_in_directory(
                 or (MPCRECORD_SUFFIX in filenamedex)
             ):
                 matching_filenames.remove(filenamedex)
+            # Also check the .FITS variant.
+            if (
+                (PREPROCESS_SUFFIX + ".fits" in filenamedex)
+                or (SOLUTION_SUFFIX + ".fits" in filenamedex)
+                or (MPCRECORD_SUFFIX + ".fits" in filenamedex)
+            ):
+                matching_filenames.remove(filenamedex)
+
 
     # For all of the matching filenames, we need to find the most recent via
     # the modification time. Given that the modification times are a UNIX time,
