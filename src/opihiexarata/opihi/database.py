@@ -739,10 +739,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # the query. This allows us to sort for only those days relevant and
         # saves us time.
         def datetime_range(start_dt, end_dt):
-            """A generator for iterating between datetimes."""
-            for incrementdex in range(int((end_dt - start_dt).days)):
+            """A generator for iterating between datetimes. We include the 
+            end point."""
+            for incrementdex in range(int((end_dt - start_dt).days) + 1):
                 yield start_dt + datetime.timedelta(days=incrementdex)
 
+        # Search for any other days, other than the beginning day, that we 
+        # need to pull data from.
         for datedex in datetime_range(start_dt=begin_datetime, end_dt=end_datetime):
             # Getting the database file name for this date.
             database_filename = self._generate_text_record_filename(
