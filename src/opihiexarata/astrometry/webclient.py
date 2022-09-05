@@ -677,7 +677,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
             The type of file to be downloaded from astrometry.net. It should
             one of the following:
 
-                - `wcs`: The world corrdinate data table file.
+                - `wcs`: The world coordinate data table file.
                 - `new_fits`, `new_image`: A new fits file, containing the
                   original image, annotations, and WCS header information.
                 - `rdls`: A table of reference stars nearby.

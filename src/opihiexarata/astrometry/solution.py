@@ -328,6 +328,10 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
             elif job_status == "solving":
                 # It is in the process of solving, give it more time.
                 continue
+            elif job_status == "processing":
+                # It is processing, which is basically solving, give it more 
+                # time.
+                continue
             elif job_status == "failure":
                 # The job failed.
                 raise error.EngineError(
