@@ -951,10 +951,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         tick_rotation = 15
         fig.update_xaxes(tickformat=iso_8601_time_format, tickangle=tick_rotation)
 
-        # Zero point magnitudes usually are inverse, as the magnitude system 
-        # is.
-        fig.update_yaxes(autorange="reversed")
-
         # We configure the message when hovering to be a little bit more clear.
         hover_message_template = R"%{x}<br>     %{y}"
         fig.update_traces(hovertemplate=hover_message_template)
@@ -986,6 +982,10 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # The upper and lower zero point plot limits.
         if plot_lower_zero_point is not None and plot_upper_zero_point is not None:
             fig.update_layout(yaxis_range=[plot_lower_zero_point, plot_upper_zero_point])
+        else:
+            # Use Plotly's interpretation, however, with inverted axes.
+            # per the magnitude system.
+            fig.update_yaxes(autorange="reversed")
 
         # The configuration file specifies how to handle the inclusion of the
         # Plotly javascript file.
