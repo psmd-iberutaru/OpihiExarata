@@ -377,8 +377,9 @@ class OpihiSolution(library.engine.ExarataSolution):
 
         # If the solving completed properly, then we can attempt to solve for
         # the photometric magnitude of the target/asteroid. We do the
-        # overwrite check here for simplicity.
-        if solve_status and overwrite:
+        # overwrite check here for simplicity. Of course, this only applies 
+        # if we have an asteroid location.
+        if solve_status and self.asteroid_location is not None:
             asteroid_x, asteroid_y = self.asteroid_location
             (
                 magnitude,
@@ -388,8 +389,9 @@ class OpihiSolution(library.engine.ExarataSolution):
             )
             # We only actually apply the values if the user wants to
             # overwrite the values, which is common.
-            self.asteroid_magnitude = magnitude
-            self.asteroid_magnitude_error = magnitude_error
+            if overwrite:
+                self.asteroid_magnitude = magnitude
+                self.asteroid_magnitude_error = magnitude_error
 
         return photometric_solution, solve_status
 
