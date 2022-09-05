@@ -870,10 +870,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             begin_jd=plot_query_begin_jd - 1, end_jd=plot_query_end_jd + 1
         )
 
+        # We group similar filters into lines.
+        symbol_group_table_key = "filter_name"
+
         # The color of the lines are based on the filter being observed. We
         # supply a color map so that it derives the colors from the filter
         # names themselves.
-        line_color_table_key = "filter_name"
+        symbol_color_table_key = "filter_name"
         plot_color_map = {
             "c": library.config.MONITOR_PLOT_FILTER_C_LINE_COLOR,
             "g": library.config.MONITOR_PLOT_FILTER_G_LINE_COLOR,
@@ -887,14 +890,14 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
 
         # We define the order the filters are plotted just by the verbal
         # order of their name. Done as per `category_orders` documentation.
-        line_order_specification = {
+        symbol_order_specification = {
             "filter_name": ["c", "g", "r", "i", "z", "1", "2", "b"]
         }
 
         # The symbol for plotting. Large markers are not needed and the
         # error bars already provide some marker. As we all use the same
         # symbol, we do not really need to use an array.
-        marker = None
+        #marker = None
 
         # We provide additional context for custom data that should be
         # available to the plotting resources.
@@ -912,11 +915,11 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             x=line_x_table_key,
             y=line_y_table_key,
             error_y=line_y_error_table_key,
-            color=line_color_table_key,
+            symbol=symbol_group_table_key,
+            color=symbol_color_table_key,
             color_discrete_map=plot_color_map,
-            markers=marker,
             custom_data=custom_data_headers,
-            category_orders=line_order_specification,
+            category_orders=symbol_order_specification,
         )
 
         # The overall title of the figure. It is helpful to put the UTC time
