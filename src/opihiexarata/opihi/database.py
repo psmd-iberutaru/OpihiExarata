@@ -870,9 +870,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             begin_jd=plot_query_begin_jd - 1, end_jd=plot_query_end_jd + 1
         )
 
-        # We group similar filters into lines.
-        line_group_table_key = "filter_name"
-
         # The color of the lines are based on the filter being observed. We
         # supply a color map so that it derives the colors from the filter
         # names themselves.
@@ -915,7 +912,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             x=line_x_table_key,
             y=line_y_table_key,
             error_y=line_y_error_table_key,
-            line_group=line_group_table_key,
             color=line_color_table_key,
             color_discrete_map=plot_color_map,
             markers=marker,
