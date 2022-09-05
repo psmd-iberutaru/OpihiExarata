@@ -150,7 +150,13 @@ MONITOR_PLOT_PLOTLY_JAVASCRIPT_METHOD : True
 # monitoring plot webpage. The zero point data that will be plotted will be 
 # from X hours from the current time to the current time. (The current time is 
 # the time as of the function call to make the plot.)
-MONITOR_PLOT_QUERY_X_HOURS_AGO : 48
+MONITOR_PLOT_QUERY_X_HOURS_AGO : 24
+
+# This sets the limits of the y-axis of the zero point monitoring plot. It 
+# must be a float number where the plot can scale to. If either are `null`, 
+# then the plot itself will decide how best to scale itself.
+MONITOR_PLOT_ZERO_POINT_AXIS_LOWER_LIMIT : null
+MONITOR_PLOT_ZERO_POINT_AXIS_UPPER_LIMIT : null
 
 # The interactive zero point figure seperates the plots by the filter name.
 # The colors of each of the lines (representing the filter types) are described

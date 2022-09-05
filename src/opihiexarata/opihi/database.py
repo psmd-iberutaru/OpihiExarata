@@ -839,6 +839,8 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         html_filename: str,
         plot_query_begin_jd: float,
         plot_query_end_jd: float,
+        plot_lower_zero_point:float = None,
+        plot_upper_zero_point:float = None,
         include_plotlyjs: str = True,
     ) -> None:
         """This function creates the monitoring plot for the monitoring
@@ -855,6 +857,12 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         plot_query_end_jd : float
             The starting time from which the database should be queried until
             for plotting. This is in Julian days as per convention.
+        plot_lower_zero_point : float, default = None
+            This sets the lower limit of the zero point plot. If it and the 
+            upper limit is not set, we default to Plotly's best judgement.
+        plot_upper_zero_point : float, default = None
+            This sets the upper limit of the zero point plot. If it and the 
+            lower limit is not set, we default to Plotly's best judgement.
         include_plotlyjs : string, default = True
             The setting for how the plotly javascript file will be included.
             Consult the plotly documentation for available options.
@@ -971,7 +979,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         datetime_upper_limit = datetime.datetime(*int_only(end_datetime_tuple))
         fig.update_layout(xaxis_range=[datetime_lower_limit, datetime_upper_limit])
 
-        # The 
+        # The upper and lower zero point plot limits.
+        if plot_lower_zero_point is not None and plot_upper_zero_point is not None:
+            fig.update_layout(yaxis_range=[plot_lower_zero_point, plot_upper_zero_point])
 
         # The configuration file specifies how to handle the inclusion of the
         # Plotly javascript file.
@@ -1007,6 +1017,10 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         query_begin_jd = current_time_jd - QUERY_DAYS_AGO
         query_end_jd = current_time_jd
 
+        # The zero point y-axis limits.
+        lower_zero_point = library.config.MONITOR_PLOT_ZERO_POINT_AXIS_LOWER_LIMIT
+        upper_zero_point = library.config.MONITOR_PLOT_ZERO_POINT_AXIS_UPPER_LIMIT
+
         # The path where the html file will be saved to along with instructions
         # on how to handle the javascript file.
         html_filename = library.config.MONITOR_PLOT_HTML_FILENAME
@@ -1018,6 +1032,8 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             html_filename=html_filename,
             plot_query_begin_jd=query_begin_jd,
             plot_query_end_jd=query_end_jd,
+            plot_lower_zero_point=lower_zero_point,
+            plot_upper_zero_point=upper_zero_point,
             include_plotlyjs=include_plotlyjs,
         )
         # All done.
