@@ -755,7 +755,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
                 )
             except error.FileError:
                 # The file likely does not exist so there is nothing to read.
-                pass
+                continue
 
         # Fine tune the search for hours, minutes and seconds. Datetimes
         # handle the entire date so we can also double check for that.
