@@ -17,7 +17,7 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
-# Sometimes it is best to limit the user to only use latin  characters (ascii)
+# Sometimes it is best to limit the user to only use latin characters (ascii)
 # because of older software and other conventions.
 LATIN_ASCII_CHARACTER_SET = set(
     string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_" + " "
@@ -91,7 +91,15 @@ def t3io_tcs_next(
         )
     # The hostname to be used, this matters as sometimes the hostname to be
     # used is the testing TCS hostname.
-    TCS_HOST = str(library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME)
+    TCS_HOST = library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME
+    if TCS_HOST is None:
+        # The TCS host specified is None, which means that the system should 
+        # default to the actual TCS. By default, the TCS command already 
+        # does this. A space allows this entry to be passed over when 
+        # the command is parsed.
+        tcs_host_string = ""
+    else:
+        tcs_host_string = "-h {h}".format(h=TCS_HOST)
 
     # The t3io program takes the RA and DECs as sexagesimal.
     ra_sex, deg_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
@@ -134,7 +142,7 @@ def t3io_tcs_next(
         raise error.InputError(
             "There are invalid characters in the target name provided: `{tn}`. The"
             " software only accepts ASCII letters, numbers, and the following symbols:"
-            " `-_`.".format(tn=target_name)
+            " -_ ".format(tn=target_name)
         )
 
     # The magnitude of the object.
@@ -154,7 +162,7 @@ def t3io_tcs_next(
     # This order is specific to the documentation of the TCS.
     t3io_command_arguments = [
         BINARY_PATH,
-        "-h {h}".format(h=TCS_HOST),
+        tcs_host_string,
         "Next",
         ra_sex,
         deg_sex,
@@ -206,7 +214,15 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
         )
     # The hostname to be used, this matters as sometimes the hostname to be
     # used is the testing TCS hostname.
-    TCS_HOST = str(library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME)
+    TCS_HOST = library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME
+    if TCS_HOST is None:
+        # The TCS host specified is None, which means that the system should 
+        # default to the actual TCS. By default, the TCS command already 
+        # does this. A space allows this entry to be passed over when 
+        # the command is parsed.
+        tcs_host_string = " "
+    else:
+        tcs_host_string = "-h {h}".format(h=TCS_HOST)
 
     # The RA and DEC velocities (non-sidereal rates) for the t3io software
     # needs to be in arcseconds per second. By convention we use degrees
@@ -222,7 +238,7 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     # This order is specific to the documentation of the TCS.
     t3io_command_arguments = [
         BINARY_PATH,
-        "-h {h}".format(h=TCS_HOST),
+        tcs_host_string,
         "NS.rate",
         ra_vel_as_s,
         dec_vel_as_s,
