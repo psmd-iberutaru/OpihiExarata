@@ -236,6 +236,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 except AttributeError:
                     # There is no data to index.
                     z_coord_string = "NaN"
+                except IndexError:
+                    # The mouse is just outside of the boundary.
+                    z_coord_string = "NaN"
                 else:
                     # Parse the string from the number provided.
                     z_coord_string = "{z_flt:.2f}".format(z_flt=z_float)
@@ -349,11 +352,16 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         -------
         None
         """
+        # We assume, as a good jumping off point, that the reference filename
+        # is in the same directory as the current image.
+        current_image_directory = library.path.get_directory(
+            pathname=self.current_filename
+        )
         # Use the build-in OS dialog box.
         new_reference_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
             parent=self,
             caption="Open New Reference Opihi Image",
-            dir="./",
+            dir=current_image_directory,
             filter="FITS Files (*.fits)",
         )
         # If no file was provided, then there is nothing to do.

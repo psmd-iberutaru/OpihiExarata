@@ -1392,7 +1392,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return orbital_elements
 
-    def clear_dynamic_label_text(self) -> None:
+    def clear_dynamic_label_text(self, complete: bool = False) -> None:
         """Clear all of the dynamic label text and other related fields,
         this is traditionally done just before a new image is going to be
         introduced.
@@ -1404,7 +1404,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         Parameters
         ----------
-        None
+        complete : bool, default = False
+            Some entries are not cleared because this function is intended for
+            refreshing the GUI for a new image, but, sometimes a more complete
+            reset of the text is needed.
 
         Returns
         -------
@@ -1414,12 +1417,21 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         #####
         # The target name and the directory the images are in should
         # not reset just because of a new image.
-        # self.ui.label_dynamic_summary_target_name.setText("None")
-        # self.ui.label_dynamic_summary_directory.setText("/path/to/dir/")
+        if complete:
+            # A complete cleat.
+            self.ui.label_dynamic_summary_target_name.setText("None")
+            self.ui.label_dynamic_summary_directory.setText("/path/to/dir/")
         self.ui.label_dynamic_summary_fits_file.setText(
             "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
         )
         self.ui.line_edit_summary_save_filename.setText("")
+        # The history of the target is related to the name, so we only reset
+        # it under a complete reset. This is just a dummy 80-column line.
+        if complete:
+            self.ui.plain_text_edit_summary_target_history.setText(
+                R"00001         A1801 01 01.82630 03 38 23.07 +16 17 25.5              "
+                R"   MC004535"
+            )
 
         ## Resetting Astrometry information.
         #####
@@ -1443,13 +1455,30 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         ## Resetting Orbit information.
         #####
+        # We only reset the orbit if the user wanted a complete reset.
+        if complete:
+            self.ui.line_edit_orbit_semimajor_axis.setText("VV.VVV + EE.EEE")
+            self.ui.line_edit_orbit_eccentricity.setText("VV.VVV + EE.EEE")
+            self.ui.line_edit_orbit_inclination.setText("VV.VVV + EE.EEE")
+            self.ui.line_edit_orbit_ascending_node.setText("VV.VVV + EE.EEE")
+            self.ui.line_edit_orbit_perihelion.setText("VV.VVV + EE.EEE")
+            self.ui.line_edit_orbit_mean_anomaly.setText("VV.VVV + EE.EEE")
+            self.ui.line_edit_orbit_epoch.setText("EEEEEEE.EEEEE")
 
         ## Resetting Ephemeris information.
         #####
         self.ui.label_dynamic_ephemeris_ra_velocity.setText("+VV.VVV")
         self.ui.label_dynamic_ephemeris_dec_velocity.setText("+VV.VVV")
-        self.ui.label_dynamic_ephemeris_ra_acceleration.setText("+AA.AAAeXX")
-        self.ui.label_dynamic_ephemeris_dec_acceleration.setText("+AA.AAAeXX")
+        self.ui.label_dynamic_ephemeris_ra_acceleration.setText("+AA.AAA")
+        self.ui.label_dynamic_ephemeris_dec_acceleration.setText("+AA.AAA")
+        # Keeping the timezone and time information for convenience, unless
+        # a complete clear is needed.
+        if complete:
+            default_epoch = QtCore.QDateTime(1900, 1, 1, 0, 0, 0)
+            self.ui.date_time_edit_ephemeris_date_time.setDateTime(default_epoch)
+            self.ui.combo_box_ephemeris_timezone.setCurrentIndex(0)
+        self.ui.label_dynamic_ephemeris_custom_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_ephemeris_custom_dec.setText("+DD:MM:SS.SS")
 
         ## Resetting Propagate information.
         #####
@@ -1457,7 +1486,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_propagate_dec_velocity.setText("+VV.VVV")
         self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAAeXX")
         self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAAeXX")
-        # Keeping the timezone and time information for convenience.
+        # Keeping the timezone and time information for convenience, unless
+        # a complete clear is needed.
+        if complete:
+            default_epoch = QtCore.QDateTime(1900, 1, 1, 0, 0, 0)
+            self.ui.date_time_edit_propagate_date_time.setDateTime(default_epoch)
+            self.ui.combo_box_propagate_timezone.setCurrentIndex(0)
         self.ui.label_dynamic_propagate_custom_ra.setText("HH:MM:SS.SS")
         self.ui.label_dynamic_propagate_custom_dec.setText("+DD:MM:SS.SS")
 
@@ -1526,6 +1560,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         except error.SequentialOrderError:
             # There is no FITS filename to update with.
             pass
+
+        # If the target/asteroid history exists, we can print it into the
+        # history box. If there is no history, we just leave it blank.
+        history_string = ""
+        if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+            # The OpihiSolution exists to potentially provide a history.
+            if isinstance(self.opihi_solution.asteroid_history, list):
+                history_string = "\n".join(self.opihi_solution.asteroid_history)
+
+        self.ui.plain_text_edit_summary_target_history.setPlainText(history_string)
 
         # All done.
         return None

@@ -102,7 +102,7 @@ GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE : 40
 # solution may take a little bit of time, a historical value is provided 
 # here. This is only used for offsetting the images when non-siderial 
 # subtraction is used. It is in units of arcseconds per pixel.
-GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL : 0.94
+GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL : 0.93980
 
 ############################################################
 ##########     Opihi Automatic GUI Configuration
@@ -121,6 +121,11 @@ GUI_AUTOMATIC_DATABASE_CLEAN_FILE_RATE : 0.25
 # This is the directory for where the automatic image finder should look for 
 # the new images. It works best if this is an absolute directory.
 GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
+
+# When OpihiExarata saves a FITS file after being processed, the default, 
+# if a filename has not been provided, is to attach a small suffix to the 
+# original filename to avoid 
+GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX : ".ox"
 
 # This is the cooldown time of the automatic loop; it is the time delay (in
 # seconds) that a loop will take in between checking for solves. This is done

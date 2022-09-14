@@ -459,7 +459,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # to the same location.
         directory, basename, extension = library.path.split_pathname(pathname=filename)
         # We are just adding the suffix to the filename.
-        suffix = str(library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX)
+        suffix = str(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX)
         new_filename = basename + suffix
         # Recombining the path.
         saving_fits_filename = library.path.merge_pathname(

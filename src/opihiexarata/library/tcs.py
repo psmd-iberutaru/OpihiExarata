@@ -93,9 +93,9 @@ def t3io_tcs_next(
     # used is the testing TCS hostname.
     TCS_HOST = library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME
     if TCS_HOST is None:
-        # The TCS host specified is None, which means that the system should 
-        # default to the actual TCS. By default, the TCS command already 
-        # does this. A space allows this entry to be passed over when 
+        # The TCS host specified is None, which means that the system should
+        # default to the actual TCS. By default, the TCS command already
+        # does this. A space allows this entry to be passed over when
         # the command is parsed.
         tcs_host_string = ""
     else:
@@ -216,9 +216,9 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     # used is the testing TCS hostname.
     TCS_HOST = library.config.GUI_MANUAL_T3IO_TCS_HOSTNAME
     if TCS_HOST is None:
-        # The TCS host specified is None, which means that the system should 
-        # default to the actual TCS. By default, the TCS command already 
-        # does this. A space allows this entry to be passed over when 
+        # The TCS host specified is None, which means that the system should
+        # default to the actual TCS. By default, the TCS command already
+        # does this. A space allows this entry to be passed over when
         # the command is parsed.
         tcs_host_string = " "
     else:

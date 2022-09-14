@@ -329,7 +329,7 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
                 # It is in the process of solving, give it more time.
                 continue
             elif job_status == "processing":
-                # It is processing, which is basically solving, give it more 
+                # It is processing, which is basically solving, give it more
                 # time.
                 continue
             elif job_status == "failure":

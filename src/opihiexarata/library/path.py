@@ -98,25 +98,33 @@ def get_most_recent_filename_in_directory(
     # If flagged, we do not include files which have been marked as outputs
     # of OpihiExarata.
     if exclude_opihiexarata_output_files:
+        excluded_matching_filenames = []
         # Mark for files which have been preprocessed.
         PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
-        SOLUTION_SUFFIX = library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX
+        MANUAL_SUFFIX = library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX
+        AUTOMATIC_SUFFIX = library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
         MPCRECORD_SUFFIX = library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
         for filenamedex in copy.deepcopy(matching_filenames):
             if (
                 (PREPROCESS_SUFFIX in filenamedex)
-                or (SOLUTION_SUFFIX in filenamedex)
+                or (MANUAL_SUFFIX in filenamedex)
+                or (AUTOMATIC_SUFFIX in filenamedex)
                 or (MPCRECORD_SUFFIX in filenamedex)
             ):
-                matching_filenames.remove(filenamedex)
+                continue
             # Also check the .FITS variant.
             elif (
                 (PREPROCESS_SUFFIX + ".fits" in filenamedex)
-                or (SOLUTION_SUFFIX + ".fits" in filenamedex)
+                or (MANUAL_SUFFIX + ".fits" in filenamedex)
+                or (AUTOMATIC_SUFFIX + ".fits" in filenamedex)
                 or (MPCRECORD_SUFFIX + ".fits" in filenamedex)
             ):
-                matching_filenames.remove(filenamedex)
-
+                continue
+            else:
+                # All good, this is a valid candidate.
+                excluded_matching_filenames.append(filenamedex)
+        # All done.
+        matching_filenames = excluded_matching_filenames
 
     # For all of the matching filenames, we need to find the most recent via
     # the modification time. Given that the modification times are a UNIX time,

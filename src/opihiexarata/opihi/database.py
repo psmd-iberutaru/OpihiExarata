@@ -739,12 +739,12 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # the query. This allows us to sort for only those days relevant and
         # saves us time.
         def datetime_range(start_dt, end_dt):
-            """A generator for iterating between datetimes. We include the 
+            """A generator for iterating between datetimes. We include the
             end point."""
             for incrementdex in range(int((end_dt - start_dt).days) + 1):
                 yield start_dt + datetime.timedelta(days=incrementdex)
 
-        # Search for any other days, other than the beginning day, that we 
+        # Search for any other days, other than the beginning day, that we
         # need to pull data from.
         for datedex in datetime_range(start_dt=begin_datetime, end_dt=end_datetime):
             # Getting the database file name for this date.
@@ -839,8 +839,8 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         html_filename: str,
         plot_query_begin_jd: float,
         plot_query_end_jd: float,
-        plot_lower_zero_point:float = None,
-        plot_upper_zero_point:float = None,
+        plot_lower_zero_point: float = None,
+        plot_upper_zero_point: float = None,
         include_plotlyjs: str = True,
     ) -> None:
         """This function creates the monitoring plot for the monitoring
@@ -858,10 +858,10 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             The starting time from which the database should be queried until
             for plotting. This is in Julian days as per convention.
         plot_lower_zero_point : float, default = None
-            This sets the lower limit of the zero point plot. If it and the 
+            This sets the lower limit of the zero point plot. If it and the
             upper limit is not set, we default to Plotly's best judgement.
         plot_upper_zero_point : float, default = None
-            This sets the upper limit of the zero point plot. If it and the 
+            This sets the upper limit of the zero point plot. If it and the
             lower limit is not set, we default to Plotly's best judgement.
         include_plotlyjs : string, default = True
             The setting for how the plotly javascript file will be included.
@@ -905,7 +905,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # The symbol for plotting. Large markers are not needed and the
         # error bars already provide some marker. As we all use the same
         # symbol, we do not really need to use an array.
-        #marker = None
+        # marker = None
 
         # We provide additional context for custom data that should be
         # available to the plotting resources.
@@ -981,7 +981,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
 
         # The upper and lower zero point plot limits.
         if plot_lower_zero_point is not None and plot_upper_zero_point is not None:
-            fig.update_layout(yaxis_range=[plot_lower_zero_point, plot_upper_zero_point])
+            fig.update_layout(
+                yaxis_range=[plot_lower_zero_point, plot_upper_zero_point]
+            )
         else:
             # Use Plotly's interpretation, however, with inverted axes.
             # per the magnitude system.

@@ -47,7 +47,7 @@
     <property name="font">
      <font>
       <family>Sylfaen</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <layout class="QVBoxLayout" name="vertical_layout_window">
@@ -58,7 +58,7 @@
          <property name="font">
           <font>
            <family>Sylfaen</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -71,7 +71,7 @@
          <property name="font">
           <font>
            <family>Sylfaen</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="orientation">
@@ -84,7 +84,7 @@
          <property name="font">
           <font>
            <family>Sylfaen</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -97,7 +97,7 @@
          <property name="font">
           <font>
            <family>Sylfaen</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -112,7 +112,7 @@
        <property name="font">
         <font>
          <family>Sylfaen</family>
-         <pointsize>11</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="orientation">
@@ -142,7 +142,7 @@
          <property name="font">
           <font>
            <family>Sylfaen</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
            <kerning>true</kerning>
           </font>
          </property>
@@ -156,6 +156,11 @@
            <height>25</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>DUMMY OPIHI IMAGE NAVIGATION BAR.</string>
          </property>
@@ -168,6 +173,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="push_button_refresh_window">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Refresh Window</string>
        </property>
@@ -178,7 +188,7 @@
        <property name="font">
         <font>
          <family>Sylfaen</family>
-         <pointsize>11</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="frameShadow">
@@ -196,7 +206,7 @@
          <property name="font">
           <font>
            <family>Sylfaen</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="currentIndex">
@@ -231,10 +241,10 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_static_summary_fits_file">
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_dynamic_summary_fits_file">
                 <property name="text">
-                 <string>FITS File:</string>
+                 <string>opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits</string>
                 </property>
                </widget>
               </item>
@@ -245,10 +255,17 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
-               <widget class="QLabel" name="label_dynamic_summary_fits_file">
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_static_summary_fits_file">
                 <property name="text">
-                 <string>opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits</string>
+                 <string>FITS File:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_dynamic_summary_directory">
+                <property name="text">
+                 <string>/path/to/dir/</string>
                 </property>
                </widget>
               </item>
@@ -259,10 +276,25 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
-               <widget class="QLabel" name="label_dynamic_summary_directory">
-                <property name="text">
-                 <string>/path/to/dir/</string>
+              <item row="3" column="0" colspan="2">
+               <widget class="QPlainTextEdit" name="plain_text_edit_summary_target_history">
+                <property name="font">
+                 <font>
+                  <family>Courier New</family>
+                  <pointsize>9</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <kerning>false</kerning>
+                 </font>
+                </property>
+                <property name="lineWrapMode">
+                 <enum>QPlainTextEdit::NoWrap</enum>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="plainText">
+                 <string>00001         A1801 01 01.82630 03 38 23.07 +16 17 25.5                 MC004535</string>
                 </property>
                </widget>
               </item>
@@ -318,7 +350,7 @@
            <property name="font">
             <font>
              <family>Sylfaen</family>
-             <pointsize>11</pointsize>
+             <pointsize>12</pointsize>
             </font>
            </property>
            <layout class="QVBoxLayout" name="vertical_layout_astrometry">
@@ -326,6 +358,11 @@
              <layout class="QHBoxLayout" name="horizontal_layout_solve_astrometry">
               <item>
                <widget class="QComboBox" name="combo_box_astrometry_solve_engine">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <item>
                  <property name="text">
                   <string>Astrometry.net Nova</string>
@@ -343,7 +380,7 @@
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
-                  <pointsize>11</pointsize>
+                  <pointsize>12</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -355,6 +392,11 @@
             </item>
             <item>
              <widget class="Line" name="line_2">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -364,6 +406,11 @@
              <layout class="QGridLayout" name="grid_layout_astrometry_results">
               <item row="1" column="2">
                <widget class="QLabel" name="label_dynamic_astrometry_target_x">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -374,6 +421,11 @@
               </item>
               <item row="1" column="3">
                <widget class="QLabel" name="label_dynamic_astrometry_target_y">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -384,6 +436,11 @@
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_static_astrometry_target_coordinates">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Target/Asteroid:</string>
                 </property>
@@ -394,6 +451,11 @@
               </item>
               <item row="0" column="5" rowspan="3">
                <widget class="Line" name="line_9">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -401,6 +463,11 @@
               </item>
               <item row="0" column="6">
                <widget class="QLabel" name="label_dynamic_astrometry_center_ra">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>HH:MM:SS.SS</string>
                 </property>
@@ -411,6 +478,11 @@
               </item>
               <item row="0" column="0">
                <widget class="QLabel" name="label_static_astrometry_center_coordinates">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Opihi Center:</string>
                 </property>
@@ -421,6 +493,11 @@
               </item>
               <item row="0" column="7">
                <widget class="QLabel" name="label_dynamic_astrometry_center_dec">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>+DD:MM:SS.SS</string>
                 </property>
@@ -431,6 +508,11 @@
               </item>
               <item row="1" column="6">
                <widget class="QLabel" name="label_dynamic_astrometry_target_ra">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>HH:MM:SS.SS</string>
                 </property>
@@ -441,6 +523,11 @@
               </item>
               <item row="1" column="7">
                <widget class="QLabel" name="label_dynamic_astrometry_target_dec">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>+DD:MM:SS.SS</string>
                 </property>
@@ -451,6 +538,11 @@
               </item>
               <item row="0" column="3">
                <widget class="QLabel" name="label_dynamic_astrometry_center_y">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -461,6 +553,11 @@
               </item>
               <item row="0" column="2">
                <widget class="QLabel" name="label_dynamic_astrometry_center_x">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>0000</string>
                 </property>
@@ -477,25 +574,59 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
                </widget>
               </item>
               <item row="2" column="2">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_x"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_x">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+               </widget>
               </item>
               <item row="2" column="3">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_y"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_y">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+               </widget>
               </item>
               <item row="2" column="6">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_ra"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_ra">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+               </widget>
               </item>
               <item row="2" column="7">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_dec"/>
+               <widget class="QLineEdit" name="line_edit_astrometry_custom_dec">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+               </widget>
               </item>
               <item row="2" column="0">
                <widget class="QPushButton" name="push_button_astrometry_custom_solve">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Custom Solve</string>
                 </property>
@@ -906,7 +1037,7 @@
               <item row="0" column="6">
                <widget class="QLabel" name="label_dynamic_ephemeris_ra_acceleration">
                 <property name="text">
-                 <string>+AA.AAAeXX</string>
+                 <string>+AA.AAA</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -916,7 +1047,7 @@
               <item row="0" column="7">
                <widget class="QLabel" name="label_dynamic_ephemeris_dec_acceleration">
                 <property name="text">
-                 <string>+AA.AAAeXX</string>
+                 <string>+AA.AAA</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1110,7 +1241,7 @@
               <item row="0" column="6">
                <widget class="QLabel" name="label_dynamic_propagate_ra_acceleration">
                 <property name="text">
-                 <string>+AA.AAAeXX</string>
+                 <string>+AA.AAA</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1120,7 +1251,7 @@
               <item row="0" column="7">
                <widget class="QLabel" name="label_dynamic_propagate_dec_acceleration">
                 <property name="text">
-                 <string>+AA.AAAeXX</string>
+                 <string>+AA.AAA</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
