@@ -177,7 +177,9 @@ def t3io_tcs_next(
         dec_vel_as_s,
         "opihiexarata",
     ]
-    t3io_response = subprocess.run(t3io_command_arguments)
+    # Subprocess expects only strings.
+    t3io_command_arguments_str = [str(argdex) for argdex in t3io_command_arguments]
+    t3io_response = subprocess.run(t3io_command_arguments_str)
     return t3io_response
 
 
