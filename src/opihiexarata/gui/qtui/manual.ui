@@ -1,76 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ManualWindow</class>
- <widget class="QMainWindow" name="ManualWindow">
+ <class>manual_window</class>
+ <widget class="QMainWindow" name="manual_window">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>873</height>
+    <width>972</width>
+    <height>854</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>Sylfaen</family>
-    <pointsize>11</pointsize>
-   </font>
-  </property>
-  <property name="cursor">
-   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>OpihiExarata Manual Mode</string>
   </property>
-  <property name="windowOpacity">
-   <double>1.000000000000000</double>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <widget class="QWidget" name="verticalLayoutWidget_3">
+  <widget class="QWidget" name="central_widget">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>611</width>
+      <width>951</width>
       <height>831</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Sylfaen</family>
+      <family>Cantarell</family>
       <pointsize>12</pointsize>
      </font>
     </property>
     <layout class="QVBoxLayout" name="vertical_layout_window">
      <item>
-      <layout class="QHBoxLayout" name="horizontal_layout_new_files">
+      <layout class="QHBoxLayout" name="horizontal_layout_image_file">
        <item>
-        <widget class="QPushButton" name="push_button_new_target">
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>New Target</string>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="vertical_layout_image">
+         <item>
+          <widget class="QGraphicsView" name="graphics_view_dummy_opihi_image">
+           <property name="minimumSize">
+            <size>
+             <width>400</width>
+             <height>400</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>400</width>
+             <height>400</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_static_dummy_opihi_navbar">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>DUMMY OPIHI IMAGE NAVIGATION BAR</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="Line" name="line">
          <property name="font">
           <font>
-           <family>Sylfaen</family>
+           <family>Cantarell</family>
            <pointsize>12</pointsize>
           </font>
          </property>
@@ -80,1310 +94,1931 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="push_button_new_image_automatic">
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Automatic New Image</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="push_button_new_image_manual">
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Manual New Image</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_file_image">
-       <property name="font">
-        <font>
-         <family>Sylfaen</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="vertical_layout_image">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QGraphicsView" name="dummy_opihi_image">
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>400</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>400</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>12</pointsize>
-           <kerning>true</kerning>
-          </font>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="dummy_opihi_navbar">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>DUMMY OPIHI IMAGE NAVIGATION BAR.</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="push_button_refresh_window">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Refresh Window</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line_image_solution">
-       <property name="font">
-        <font>
-         <family>Sylfaen</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="vertical_layout_solutions">
-       <item>
-        <widget class="QTabWidget" name="tabs_solutions">
-         <property name="font">
-          <font>
-           <family>Sylfaen</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>16</width>
-           <height>16</height>
-          </size>
-         </property>
-         <widget class="QWidget" name="tab_summary">
-          <attribute name="title">
-           <string>Summary</string>
-          </attribute>
-          <widget class="QWidget" name="verticalLayoutWidget_7">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>581</width>
-             <height>251</height>
-            </rect>
+        <layout class="QGridLayout" name="grid_layout_file_selector">
+         <item row="10" column="3">
+          <widget class="QPushButton" name="push_button_locate_target_location_4">
+           <property name="text">
+            <string>Locate</string>
            </property>
-           <layout class="QVBoxLayout" name="vertical_layout_summary">
-            <item>
-             <layout class="QGridLayout" name="grid_layout_target_image_names">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_static_summary_target_name">
-                <property name="text">
-                 <string>Target Name:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLabel" name="label_dynamic_summary_fits_file">
-                <property name="text">
-                 <string>opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLabel" name="label_dynamic_summary_target_name">
-                <property name="text">
-                 <string>None</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_static_summary_fits_file">
-                <property name="text">
-                 <string>FITS File:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLabel" name="label_dynamic_summary_directory">
-                <property name="text">
-                 <string>/path/to/dir/</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_static_summary_directory">
-                <property name="text">
-                 <string>Directory:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="2">
-               <widget class="QPlainTextEdit" name="plain_text_edit_summary_target_history">
-                <property name="font">
-                 <font>
-                  <family>Courier New</family>
-                  <pointsize>9</pointsize>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                  <kerning>false</kerning>
-                 </font>
-                </property>
-                <property name="lineWrapMode">
-                 <enum>QPlainTextEdit::NoWrap</enum>
-                </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-                <property name="plainText">
-                 <string>00001         A1801 01 01.82630 03 38 23.07 +16 17 25.5                 MC004535</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="push_button_send_target_to_tcs">
-              <property name="text">
-               <string>Send Target to TCS</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_save_file">
-              <item>
-               <widget class="QLineEdit" name="line_edit_summary_save_filename"/>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="check_box_summary_autosave">
-                <property name="text">
-                 <string>Auto</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="push_button_summary_save">
-                <property name="text">
-                 <string>Save</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
           </widget>
-         </widget>
-         <widget class="QWidget" name="tab_astrometry">
-          <attribute name="title">
-           <string>Astrometry</string>
-          </attribute>
-          <widget class="QWidget" name="verticalLayoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>581</width>
-             <height>251</height>
-            </rect>
+         </item>
+         <item row="10" column="1">
+          <widget class="QLabel" name="label_static_target_4_location">
+           <property name="text">
+            <string>Target 4 Location:</string>
            </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_static_target_1_location">
            <property name="font">
             <font>
-             <family>Sylfaen</family>
+             <family>Cantarell</family>
              <pointsize>12</pointsize>
             </font>
            </property>
-           <layout class="QVBoxLayout" name="vertical_layout_astrometry">
-            <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_solve_astrometry">
-              <item>
-               <widget class="QComboBox" name="combo_box_astrometry_solve_engine">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Astrometry.net Nova</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Astrometry.net Host</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="push_button_astrometry_solve_astrometry">
-                <property name="font">
-                 <font>
-                  <family>Sylfaen</family>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Solve Astrometry</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_2">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QGridLayout" name="grid_layout_astrometry_results">
-              <item row="1" column="2">
-               <widget class="QLabel" name="label_dynamic_astrometry_target_x">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>0000</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QLabel" name="label_dynamic_astrometry_target_y">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>0000</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_static_astrometry_target_coordinates">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Target/Asteroid:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="5" rowspan="3">
-               <widget class="Line" name="line_9">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="6">
-               <widget class="QLabel" name="label_dynamic_astrometry_center_ra">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>HH:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_static_astrometry_center_coordinates">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Opihi Center:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="7">
-               <widget class="QLabel" name="label_dynamic_astrometry_center_dec">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>+DD:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="6">
-               <widget class="QLabel" name="label_dynamic_astrometry_target_ra">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>HH:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="7">
-               <widget class="QLabel" name="label_dynamic_astrometry_target_dec">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>+DD:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_astrometry_center_y">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>0000</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_dynamic_astrometry_center_x">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>0000</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="3">
-               <widget class="Line" name="line_8">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_x">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="3">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_y">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="6">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_ra">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="7">
-               <widget class="QLineEdit" name="line_edit_astrometry_custom_dec">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="push_button_astrometry_custom_solve">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Custom Solve</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_photometry">
-          <attribute name="title">
-           <string>Photometry</string>
-          </attribute>
-          <widget class="QWidget" name="verticalLayoutWidget_2">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>581</width>
-             <height>251</height>
-            </rect>
+           <property name="text">
+            <string>Target 1 Location:</string>
            </property>
+          </widget>
+         </item>
+         <item row="3" column="3">
+          <widget class="QPushButton" name="push_button_change_filename_2">
+           <property name="text">
+            <string>Change</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="3">
+          <widget class="QPushButton" name="push_button_change_filename_4">
+           <property name="text">
+            <string>Change</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="label_dynamic_target_1_pixel_location">
+           <property name="text">
+            <string>(XXXX, YYYY)</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="push_button_locate_target_location_1">
            <property name="font">
             <font>
-             <family>Sylfaen</family>
-             <pointsize>11</pointsize>
+             <family>Cantarell</family>
+             <pointsize>12</pointsize>
             </font>
            </property>
-           <layout class="QVBoxLayout" name="vertical_layout_photometry">
+           <property name="text">
+            <string>Locate</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QLabel" name="label_static_target_3_location">
+           <property name="text">
+            <string>Target 3 Location:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1" colspan="2">
+          <widget class="QLabel" name="label_dynamic_filename_3">
+           <property name="text">
+            <string>opi.20XXA999.YYMMDD.AAAAAAAAAA.00003.a.fits</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="3">
+          <widget class="QPushButton" name="push_button_change_filename_3">
+           <property name="text">
+            <string>Change</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="2">
+          <widget class="QLabel" name="label_dynamic_target_4_pixel_location">
+           <property name="text">
+            <string>(XXXX, YYYY)</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1" colspan="2">
+          <widget class="QLabel" name="label_dynamic_filename_4">
+           <property name="text">
+            <string>opi.20XXA999.YYMMDD.AAAAAAAAAA.00004.a.fits</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" colspan="2">
+          <widget class="QLabel" name="label_dynamic_filename_2">
+           <property name="text">
+            <string>opi.20XXA999.YYMMDD.AAAAAAAAAA.00002.a.fits</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QLabel" name="label_dynamic_filename_1">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>opi.20XXA999.YYMMDD.AAAAAAAAAA.00001.a.fits</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="push_button_change_filename_1">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Change</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="2">
+          <widget class="QLabel" name="label_dynamic_target_3_pixel_location">
+           <property name="text">
+            <string>(XXXX, YYYY)</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="label_dynamic_target_2_pixel_location">
+           <property name="text">
+            <string>(XXXX, YYYY)</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="3">
+          <widget class="QPushButton" name="push_button_locate_target_location_3">
+           <property name="text">
+            <string>Locate</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="3">
+          <widget class="QPushButton" name="push_button_locate_target_location_2">
+           <property name="text">
+            <string>Locate</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_static_target_2_location">
+           <property name="text">
+            <string>Target 2 Location:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0" colspan="4">
+          <widget class="Line" name="line_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="4">
+          <widget class="Line" name="line_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="4">
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radio_button_primary_file_1">
+           <property name="text">
+            <string>1</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">button_group_primary_working_file</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QRadioButton" name="radio_button_primary_file_2">
+           <property name="text">
+            <string>2</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">button_group_primary_working_file</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QRadioButton" name="radio_button_primary_file_3">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>3</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">button_group_primary_working_file</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QRadioButton" name="radio_button_primary_file_4">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>4</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">button_group_primary_working_file</string>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTabWidget" name="tab_widget_solutions">
+       <property name="font">
+        <font>
+         <family>Cantarell</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="tab_astrometry">
+        <attribute name="title">
+         <string>Astrometry</string>
+        </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>921</width>
+           <height>321</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="vertical_layout_astrometry">
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_astrometry_solve">
             <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_solve_photometry">
-              <item>
-               <widget class="QComboBox" name="combo_box_photometry_solve_engine">
-                <item>
-                 <property name="text">
-                  <string>Pan-STARRS 3pi DR2 MAST</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="push_button_photometry_solve_photometry">
-                <property name="font">
-                 <font>
-                  <family>Sylfaen</family>
-                  <pointsize>11</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Solve Photometry</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+             <widget class="QLabel" name="label_static_astrometry_engine">
+              <property name="text">
+               <string>Astrometry Engine</string>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizonta_layout_photometry_results">
+             <widget class="QComboBox" name="combo_box_astrometry_engine">
               <item>
-               <widget class="QLabel" name="label_static_photometry_filter_label">
-                <property name="text">
-                 <string>Filter</string>
-                </property>
-               </widget>
+               <property name="text">
+                <string>Astrometry.net Nova</string>
+               </property>
               </item>
               <item>
-               <widget class="QLabel" name="label_dynamic_photometry_filter_name">
-                <property name="text">
-                 <string>FF</string>
-                </property>
-               </widget>
+               <property name="text">
+                <string>Astrometry.net Host</string>
+               </property>
               </item>
-              <item>
-               <widget class="Line" name="line_13">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_static_photometry_magnitude">
-                <property name="text">
-                 <string>Magnitude</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_dynamic_photometry_magnitude">
-                <property name="text">
-                 <string>MM.MM + E.EEE</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="Line" name="line_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_static_photometry_zero_point_label">
-                <property name="text">
-                 <string>Zero Point </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_dynamic_photometry_zero_point_value">
-                <property name="text">
-                 <string>ZZ.ZZ + E.EEE</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="push_button_solve_astrometry">
+              <property name="text">
+               <string>Solve Astrometry</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="grid_layout_astrometry_results">
+            <item row="5" column="2">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_4_center_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="5">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_3_target_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="label_static_astrometry_results_center_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="label_static_astrometry_results_center_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_3_target_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="6">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_4_target_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="5">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_4_target_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" colspan="2">
+             <widget class="QLabel" name="label_static_astrometry_results_center">
+              <property name="text">
+               <string>Center</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_2_center_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_3_center_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_2_target_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_4_center_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="6">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_2_target_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_3_center_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" rowspan="5">
+             <widget class="Line" name="line_7">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6">
+             <widget class="QLabel" name="label_static_astrometry_results_target_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLabel" name="label_static_astrometry_results_target_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_2_center_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" rowspan="5">
+             <widget class="Line" name="line_8">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5" colspan="2">
+             <widget class="QLabel" name="label_static_astrometry_results_target">
+              <property name="text">
+               <string>Target/Asteroid</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_1_center_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_static_astrometry_results_file">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>File</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_1_target_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_1_center_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_static_astrometry_results_file_1">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <widget class="QLabel" name="label_dynamic_astrometry_file_1_target_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_static_astrometry_results_file_3">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>3</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_static_astrometry_results_file_4">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>4</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_static_astrometry_results_file_2">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>2</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="grid_layout_astrometry_custom">
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="line_edit_astrometry_custom_pixel_y"/>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLineEdit" name="line_edit_astrometry_custom_dec"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="line_edit_astrometry_custom_ra"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="line_edit_astrometry_custom_pixel_x"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_static_astrometry_custom_pixel_x">
+              <property name="text">
+               <string>Pixel X</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_static_astrometry_coordinate_solve">
+              <property name="text">
+               <string>Coordinate Solve</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_static_astrometry_custom_pixel_y">
+              <property name="text">
+               <string>Pixel Y</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_static_astrometry_custom_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="label_static_astrometry_custom_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="push_button_astrometry_custom_solve">
+              <property name="text">
+               <string>Solve</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_photometry">
+        <attribute name="title">
+         <string>Photometry</string>
+        </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>921</width>
+           <height>321</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="vertical_layout_photometry">
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_photometry_solve">
+            <item>
+             <widget class="QLabel" name="label_static_photometry_engine">
+              <property name="text">
+               <string>Photometry Engine</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="combo_box_photometry_engine">
+              <item>
+               <property name="text">
+                <string>Pan-STARRS 3pi DR2 MAST</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="push_button_solve_photometry">
+              <property name="text">
+               <string>Solve Photometry</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="grid_layout_photometry_results">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_static_photometry_results_file">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>File</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_static_photometry_results_file_1">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_static_photometry_results_file_3">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>3</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_static_photometry_results_file_2">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>2</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_static_photometry_results_file_4">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>4</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" rowspan="4">
+             <widget class="Line" name="line_11">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="label_static_photometry_results_aperture_magnitude">
+              <property name="text">
+               <string>Aperture Magnitude</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_static_photometry_results_zero_point">
+              <property name="text">
+               <string>Zero Point</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_static_photometry_results_filter_name">
+              <property name="text">
+               <string>Filter Name</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="label_static_photometry_results_file_2_filter_name">
+              <property name="text">
+               <string>FF</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="label_static_photometry_results_file_1_filter_name">
+              <property name="text">
+               <string>FF</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="label_static_photometry_results_file_3_filter_name">
+              <property name="text">
+               <string>FF</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QLabel" name="label_static_photometry_results_file_4_filter_name">
+              <property name="text">
+               <string>FF</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="label_static_photometry_results_file_1_zero_point">
+              <property name="text">
+               <string>ZZ.ZZZ + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLabel" name="label_static_photometry_results_file_2_zero_point">
+              <property name="text">
+               <string>ZZ.ZZZ + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLabel" name="label_static_photometry_results_file_3_zero_point">
+              <property name="text">
+               <string>ZZ.ZZZ + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLabel" name="label_static_photometry_results_file_4_zero_point">
+              <property name="text">
+               <string>ZZ.ZZZ + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="label_static_photometry_results_file_1_magnitude">
+              <property name="text">
+               <string>MM.MM + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="label_static_photometry_results_file_2_magnitude">
+              <property name="text">
+               <string>MM.MM + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLabel" name="label_static_photometry_results_file_3_magnitude">
+              <property name="text">
+               <string>MM.MM + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="4">
+             <widget class="QLabel" name="label_static_photometry_results_file_4_magnitude">
+              <property name="text">
+               <string>MM.MM + E.EEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_orbit">
+        <attribute name="title">
+         <string>Orbit</string>
+        </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>921</width>
+           <height>321</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="vertical_layout_orbit">
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_orbit_solve">
+            <item>
+             <widget class="QLabel" name="label_static_orbit_engine">
+              <property name="text">
+               <string>Orbit Engine</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="combo_box_orbit_engine">
+              <item>
+               <property name="text">
+                <string>OrbFit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Custom Orbit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="push_button_solve_orbit">
+              <property name="text">
+               <string>Solve Orbit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_12">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="grid_layout_orbit_results">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_static_orbit_results_semimajor_axis">
+              <property name="text">
+               <string>Semi-major Axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="label_static_orbit_results_eccentricity">
+              <property name="text">
+               <string>Eccentricity</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_static_orbit_results_inclination">
+              <property name="text">
+               <string>Inclination</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_static_orbit_results_perihelion">
+              <property name="text">
+               <string>Perihelion</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="line_edit_orbit_results_semimajor_axis_value">
+              <property name="text">
+               <string>VV.VVVV</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLabel" name="label_static_orbit_results_mean_anomaly">
+              <property name="text">
+               <string>Mean Anomaly</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLabel" name="label_static_orbit_results_ascending_node">
+              <property name="text">
+               <string>Ascending Node</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_static_orbit_results_epoch">
+              <property name="text">
+               <string>Epoch</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="line_edit_orbit_results_inclination_value">
+              <property name="text">
+               <string>VV.VVVV</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="line_edit_orbit_results_perihelion_value">
+              <property name="text">
+               <string>VV.VVVV</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLineEdit" name="line_edit_orbit_results_inclination_error">
+              <property name="text">
+               <string>EE.EEEE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="line_edit_orbit_results_semimajor_axis_error">
+              <property name="text">
+               <string>EE.EEEE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLineEdit" name="line_edit_orbit_results_perihelion_error">
+              <property name="text">
+               <string>EE.EEEE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLineEdit" name="line_edit_orbit_results_eccentricity_value">
+              <property name="text">
+               <string>VV.VVVV</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLineEdit" name="line_edit_orbit_results_eccentricity_error">
+              <property name="text">
+               <string>EE.EEEE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLineEdit" name="line_edit_orbit_results_mean_anomaly_value">
+              <property name="text">
+               <string>VV.VVVV</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLineEdit" name="line_edit_orbit_results_ascending_node_value">
+              <property name="text">
+               <string>VV.VVVV</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLineEdit" name="line_edit_orbit_results_mean_anomaly_error">
+              <property name="text">
+               <string>EE.EEEE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="line_edit_orbit_results_ascending_node_error">
+              <property name="text">
+               <string>EE.EEEE</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_static_orbit_results_value">
+              <property name="text">
+               <string>Value</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_static_orbit_results_error">
+              <property name="text">
+               <string>± Error</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4" colspan="2">
+             <widget class="QLineEdit" name="line_edit_orbit_results_epoch_value">
+              <property name="text">
+               <string>EEEEEEE.EEEEE</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_ephemeris">
+        <attribute name="title">
+         <string>Ephemeris</string>
+        </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_6">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>921</width>
+           <height>321</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="vertical_layout_ephemeris">
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_ephemeris_solve">
+            <item>
+             <widget class="QLabel" name="label_static_ephemeris_engine">
+              <property name="text">
+               <string>Ephemeris Engine</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="combo_box_ephemeris_engine">
+              <item>
+               <property name="text">
+                <string>JPL Horizons</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="push_button_solve_ephemeris">
+              <property name="text">
+               <string>Solve Ephemeris</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_13">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="grid_layout_ephemeris_results">
+            <item row="0" column="1" colspan="9">
+             <widget class="QLabel" name="label_static_ephemeris_results_nonsiderial_rates">
+              <property name="text">
+               <string>Ephemeris Non-Siderial Rates</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1" colspan="9">
+             <widget class="QPushButton" name="push_button_ephemeris_results_update_tcs_rates">
+              <property name="text">
+               <string>Update TCS Rates</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_first_order_ra_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="8" colspan="2">
+             <widget class="QLabel" name="label_static_ephemeris_results_second_order_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3" colspan="2">
+             <widget class="QLabel" name="label_static_ephemeris_results_first_order_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6" colspan="2">
+             <widget class="QLabel" name="label_static_ephemeris_results_second_order_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6" colspan="4">
+             <widget class="QLabel" name="label_static_ephemeris_results_second_order">
+              <property name="text">
+               <string>2nd Order</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="2">
+             <widget class="QLabel" name="label_static_ephemeris_results_first_order_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="7">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_second_order_ra_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="9">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_second_order_dec_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="8">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_second_order_dec_rate">
+              <property name="text">
+               <string>+AA.AAA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5" rowspan="4">
              <widget class="Line" name="line_14">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Vertical</enum>
               </property>
              </widget>
             </item>
-           </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_orbit">
-          <attribute name="title">
-           <string>Orbit</string>
-          </attribute>
-          <widget class="QWidget" name="verticalLayoutWidget_5">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>581</width>
-             <height>251</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Sylfaen</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <layout class="QVBoxLayout" name="vertical_layout_orbit">
-            <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_solve_orbit">
-              <item>
-               <widget class="QComboBox" name="combo_box_orbit_solve_engine">
-                <item>
-                 <property name="text">
-                  <string>OrbFit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Custom Orbit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="push_button_orbit_solve_orbit">
-                <property name="font">
-                 <font>
-                  <family>Sylfaen</family>
-                  <pointsize>11</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Solve Orbit</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_5">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="1" column="1" colspan="4">
+             <widget class="QLabel" name="label_static_ephemeris_results_first_order">
+              <property name="text">
+               <string>1st Order</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item>
-             <layout class="QGridLayout" name="grid_layout_orbit_elements">
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="line_edit_orbit_inclination">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="line_edit_orbit_perihelion">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QLineEdit" name="line_edit_orbit_epoch">
-                <property name="text">
-                 <string>EEEEEEE.EEEEE</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_static_orbit_inclination">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Incli.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_static_orbit_perihelion">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Peri.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_static_orbit_epoch">
-                <property name="text">
-                 <string>Epoch</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="line_edit_orbit_semimajor_axis">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_static_orbit_semimajor_axis">
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <italic>false</italic>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>SM-Axis</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2" rowspan="4">
-               <widget class="Line" name="line_16">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_static_orbit_eccentricity">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Ecc.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLineEdit" name="line_edit_orbit_eccentricity">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QLabel" name="label_static_orbit_ascending_node">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>As-Node</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="4">
-               <widget class="QLineEdit" name="line_edit_orbit_ascending_node">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="3">
-               <widget class="QLabel" name="label_static_orbit_mean_anomaly">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>M-Anom.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="4">
-               <widget class="QLineEdit" name="line_edit_orbit_mean_anomaly">
-                <property name="text">
-                 <string>VV.VVV + EE.EEE</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="4" column="4">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_first_order_dec_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
-            <item>
+            <item row="4" column="3">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_first_order_dec_rate">
+              <property name="text">
+               <string>+VV.VVV</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_second_order_ra_rate">
+              <property name="text">
+               <string>+AA.AAA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="label_dynamic_ephemeris_results_first_order_ra_rate">
+              <property name="text">
+               <string>+VV.VVV</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" colspan="4">
              <widget class="Line" name="line_15">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_orbit_results"/>
+            <item row="3" column="6" colspan="4">
+             <widget class="Line" name="line_16">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_ephemeris">
-          <attribute name="title">
-           <string>Ephemeris</string>
-          </attribute>
-          <widget class="QWidget" name="verticalLayoutWidget_6">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>581</width>
-             <height>251</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Sylfaen</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <layout class="QVBoxLayout" name="vertical_layout_ephemeris">
+          </item>
+          <item>
+           <widget class="Line" name="line_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_ephemeris_forward">
             <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_solve_ephemeris">
-              <item>
-               <widget class="QComboBox" name="combo_box_ephemeris_solve_engine">
-                <item>
-                 <property name="text">
-                  <string>JPL Horizons</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="push_button_ephemeris_solve_ephemeris">
-                <property name="font">
-                 <font>
-                  <family>Sylfaen</family>
-                  <pointsize>11</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Solve Ephemeris</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QDateTimeEdit" name="combo_box_ephemeris_forward_datetime">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777213</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="displayFormat">
+               <string>yyyy-MM-dd HH:mm:ss</string>
+              </property>
+             </widget>
             </item>
             <item>
+             <widget class="QComboBox" name="combo_box_ephemeris_forward_timezone">
+              <item>
+               <property name="text">
+                <string>UTC+00:00</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>HST-10:00</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="push_button_ephemeris_forward_solve">
+              <property name="text">
+               <string>Forward Solve</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line_18">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_dynamic_ephemeris_forward_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_dynamic_ephemeris_forward_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_propagate">
+        <attribute name="title">
+         <string>Propagate</string>
+        </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_7">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>921</width>
+           <height>321</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="vertical_layout_propagate">
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_propagate_solve">
+            <item>
+             <widget class="QLabel" name="label_static_propagate_engine">
+              <property name="text">
+               <string>Propagation Engine</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="combo_box_propagate_engine">
+              <item>
+               <property name="text">
+                <string>Linear</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Quadratic</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="push_button_solve_propagation">
+              <property name="text">
+               <string>Solve Propagation</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_22">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="grid_layout_propagate_results">
+            <item row="0" column="1" colspan="9">
+             <widget class="QLabel" name="label_static_propagate_results_nonsiderial_rates">
+              <property name="text">
+               <string>Propagation Non-Siderial Rates</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1" colspan="9">
+             <widget class="QPushButton" name="push_button_propagate_results_update_tcs_rates">
+              <property name="text">
+               <string>Update TCS Rates</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QLabel" name="label_dynamic_propagate_results_first_order_ra_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="8" colspan="2">
+             <widget class="QLabel" name="label_static_propagate_results_second_order_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3" colspan="2">
+             <widget class="QLabel" name="label_static_propagate_results_first_order_dec">
+              <property name="text">
+               <string>DEC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6" colspan="2">
+             <widget class="QLabel" name="label_static_propagate_results_second_order_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6" colspan="4">
+             <widget class="QLabel" name="label_static_propagate_results_second_order">
+              <property name="text">
+               <string>2nd Order</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="2">
+             <widget class="QLabel" name="label_static_propagate_results_first_order_ra">
+              <property name="text">
+               <string>RA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="7">
+             <widget class="QLabel" name="label_dynamic_propagate_results_second_order_ra_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="9">
+             <widget class="QLabel" name="label_dynamic_propagate_results_second_order_dec_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="8">
+             <widget class="QLabel" name="label_dynamic_propagate_results_second_order_dec_rate">
+              <property name="text">
+               <string>+AA.AAA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5" rowspan="4">
              <widget class="Line" name="line_19">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Vertical</enum>
               </property>
              </widget>
             </item>
-            <item>
-             <layout class="QGridLayout" name="grid_layout_ephemeris_rate_results">
-              <item row="0" column="5">
-               <widget class="Line" name="line_17">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="6">
-               <widget class="QLabel" name="label_dynamic_ephemeris_ra_acceleration">
-                <property name="text">
-                 <string>+AA.AAA</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="7">
-               <widget class="QLabel" name="label_dynamic_ephemeris_dec_acceleration">
-                <property name="text">
-                 <string>+AA.AAA</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLabel" name="label_dynamic_ephemeris_dec_velocity">
-                <property name="text">
-                 <string>+VV.VVV</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="Line" name="line_18">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_ephemeris_ra_velocity">
-                <property name="text">
-                 <string>+VV.VVV</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_static_ephemeris_rate">
-                <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ephemeris Rate [ &amp;quot;/s | &amp;quot;/s&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="push_button_ephemeris_update_tcs_rate">
+            <item row="1" column="1" colspan="4">
+             <widget class="QLabel" name="label_static_propagate_results_first_order">
               <property name="text">
-               <string>Update TCS Rate</string>
+               <string>1st Order</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="Line" name="line_6">
+            <item row="4" column="4">
+             <widget class="QLabel" name="label_dynamic_propagate_results_first_order_dec_error">
+              <property name="text">
+               <string>+EE.EEEE</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLabel" name="label_dynamic_propagate_results_first_order_dec_rate">
+              <property name="text">
+               <string>+VV.VVV</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="QLabel" name="label_dynamic_propagate_results_second_order_ra_rate">
+              <property name="text">
+               <string>+AA.AAA</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="label_dynamic_propagate_results_first_order_ra_rate">
+              <property name="text">
+               <string>+VV.VVV</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" colspan="4">
+             <widget class="Line" name="line_20">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item>
-             <layout class="QGridLayout" name="grid_layout_ephemeris_custom_entry">
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_ephemeris_custom_ra">
-                <property name="text">
-                 <string>HH:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QDateTimeEdit" name="date_time_edit_ephemeris_date_time">
-                <property name="displayFormat">
-                 <string>yyyy-MM-dd HH:mm:ss</string>
-                </property>
-                <property name="timeSpec">
-                 <enum>Qt::LocalTime</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLabel" name="label_dynamic_ephemeris_custom_dec">
-                <property name="text">
-                 <string>+DD:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="combo_box_ephemeris_timezone">
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
-                <property name="minimumContentsLength">
-                 <number>0</number>
-                </property>
-                <property name="duplicatesEnabled">
-                 <bool>false</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>UTC+00:00</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>HST-10:00</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QPushButton" name="push_button_ephemeris_custom_solve">
-                <property name="text">
-                 <string>Custom Solve</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="3" column="6" colspan="4">
+             <widget class="Line" name="line_21">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_propagate">
-          <attribute name="title">
-           <string>Propagate</string>
-          </attribute>
-          <widget class="QWidget" name="verticalLayoutWidget_4">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>581</width>
-             <height>251</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Sylfaen</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <layout class="QVBoxLayout" name="vertical_layout_propagate">
+          </item>
+          <item>
+           <widget class="Line" name="line_25">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontal_layout_propagate_forward">
             <item>
-             <layout class="QHBoxLayout" name="horizontal_layout_solve_propagation">
-              <item>
-               <widget class="QComboBox" name="combo_box_propagate_solve_engine">
-                <item>
-                 <property name="text">
-                  <string>Linear</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Quadratic</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="push_button_propagate_solve_propagation">
-                <property name="font">
-                 <font>
-                  <family>Sylfaen</family>
-                  <pointsize>11</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Solve Propagation</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_7">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+             <widget class="QDateTimeEdit" name="combo_box_propagate_forward_datetime">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777213</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="displayFormat">
+               <string>yyyy-MM-dd HH:mm:ss</string>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QGridLayout" name="grid_layout_propagate_rate_results">
-              <item row="0" column="5">
-               <widget class="Line" name="line_12">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
+             <widget class="QComboBox" name="combo_box_propagate_forward_timezone">
+              <item>
+               <property name="text">
+                <string>UTC+00:00</string>
+               </property>
               </item>
-              <item row="0" column="6">
-               <widget class="QLabel" name="label_dynamic_propagate_ra_acceleration">
-                <property name="text">
-                 <string>+AA.AAA</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
+              <item>
+               <property name="text">
+                <string>HST-10:00</string>
+               </property>
               </item>
-              <item row="0" column="7">
-               <widget class="QLabel" name="label_dynamic_propagate_dec_acceleration">
-                <property name="text">
-                 <string>+AA.AAA</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLabel" name="label_dynamic_propagate_dec_velocity">
-                <property name="text">
-                 <string>+VV.VVV</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="Line" name="line_11">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_propagate_ra_velocity">
-                <property name="text">
-                 <string>+VV.VVV</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_static_propagate_rate">
-                <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Propagate Rate [ &amp;quot;/s | &amp;quot;/s&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="push_button_propagate_update_tcs_rate">
+             <widget class="QPushButton" name="push_button_propagate_forward_solve">
               <property name="text">
-               <string>Update TCS Rate</string>
+               <string>Forward Solve</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="Line" name="line_10">
+             <widget class="Line" name="line_24">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Vertical</enum>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QGridLayout" name="grid_layout_propagate_custom_entry">
-              <item row="0" column="0">
-               <widget class="QDateTimeEdit" name="date_time_edit_propagate_date_time">
-                <property name="displayFormat">
-                 <string>yyyy-MM-dd HH:mm:ss</string>
-                </property>
-                <property name="timeSpec">
-                 <enum>Qt::LocalTime</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLabel" name="label_dynamic_propagate_custom_dec">
-                <property name="text">
-                 <string>+DD:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_dynamic_propagate_custom_ra">
-                <property name="text">
-                 <string>HH:MM:SS.SS</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QPushButton" name="push_button_propagate_custom_solve">
-                <property name="text">
-                 <string>Custom Solve</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="combo_box_propagate_timezone">
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
-                <property name="minimumContentsLength">
-                 <number>0</number>
-                </property>
-                <property name="duplicatesEnabled">
-                 <bool>false</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>UTC+00:00</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>HST-10:00</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLabel" name="label_dynamic_propagate_forward_ra">
+              <property name="text">
+               <string>HH:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_dynamic_propagate_forward_dec">
+              <property name="text">
+               <string>+DD:MM:SS.SS</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
            </layout>
-          </widget>
-         </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-      </layout>
+       </widget>
+      </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="button_group_primary_working_file"/>
+ </buttongroups>
 </ui>

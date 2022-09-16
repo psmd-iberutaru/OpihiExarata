@@ -68,7 +68,7 @@ def get_busy_image_array() -> hint.array:
     # Getting the busy file image.
     self_dir = os.path.dirname(os.path.abspath(__file__))
     busy_image_path = library.path.merge_pathname(
-        directory=[self_dir, "qtui"], filename="busy_image", extension="png"
+        directory=[self_dir, "qtui"], filename="busy_image_pyukumuku", extension="png"
     )
     busy_image = plt.imread(busy_image_path)
     return busy_image

@@ -482,8 +482,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The name of the target/asteroid. If it is None, we just default to
         # whatever is in the configuration file.
         target_name = self.opihi_solution.asteroid_name
-        DEFAULT_TCS_NAME = library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
-        target_name = DEFAULT_TCS_NAME if target_name is None else target_name
+        DEFAULT_NAME = library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
+        target_name = DEFAULT_NAME if target_name is None else target_name
 
         # We require astrometric coordinates, and thus an astrometric solution.
         # If there are none, then there is nothing we can do.
@@ -497,7 +497,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # If there is a photometric solution that exists, we can obtain the
         # magnitude.
-        if not isinstance(
+        if isinstance(
             self.opihi_solution.photometrics, photometry.PhotometricSolution
         ):
             magnitude = self.opihi_solution.asteroid_magnitude
