@@ -507,7 +507,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # And the count data. We only want actually valid count data so
         # that it does not corrupt everything else down the line.
         counts = inter_star_table["counts"]
-        valid_counts = counts[np.logical_and(np.isfinite(counts), np.greater(counts, 0))]
+        valid_counts = counts[
+            np.logical_and(np.isfinite(counts), np.greater(counts, 0))
+        ]
         # Instrument magnitudes.
         sqrt5_100 = 2.51188643151
         inst_magnitude = -sqrt5_100 * np.log10(valid_counts / exposure_time)

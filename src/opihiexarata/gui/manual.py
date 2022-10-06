@@ -185,6 +185,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.push_button_change_target_name.clicked.connect(
             self.__connect_push_button_change_target_name
         )
+        self.ui.push_button_send_target_to_tcs.clicked.connect(self.__connect_push_button_send_target_to_tcs)
 
         # The astrometry page and other functionality.
         self.ui.push_button_solve_astrometry.clicked.connect(
@@ -614,6 +615,63 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         for index, solutiondex in enumerate(self.opihi_solution_list):
             if isinstance(solutiondex, opihiexarata.OpihiSolution):
                 self.opihi_solution_list[index].asteroid_name = new_target_set_name
+        # All done.
+        return None
+
+    def __connect_push_button_send_target_to_tcs(self) -> None:
+        """The button which extracts the parameters of the primary image and 
+        sends it to the TCS.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        # If there is no astrometric solution, nothing can be done. Exit this
+        # early.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not isinstance(primary_solution, opihiexarata.OpihiSolution):
+            print("warn")
+            return None
+        # In order to send the TCS the target's location, it must have been 
+        # defined already. Otherwise, there is nothing to do.
+        if (primary_solution.asteroid_location is None or primary_solution.asteroid_location == (None, None)):
+            print("warn")
+            return None
+        # The astrometric solution itself is also required.
+        if not (isinstance(primary_solution.astrometrics, astrometry.AstrometricSolution) and primary_solution.astrometrics_status):
+            print("warn")
+            return None
+
+        # Extracting the needed parameters for the TCS command.
+        # Name...
+        target_name = primary_solution.asteroid_name
+        # On-sky location...
+        target_x, target_y = primary_solution.asteroid_location
+        target_ra, target_dec = primary_solution.astrometrics.pixel_to_sky_coordinates(x=target_x, y=target_y)
+        # Photometry...
+        if isinstance(primary_solution.photometrics, photometry.PhotometricSolution) and primary_solution.photometrics_status:
+            magnitude = primary_solution.photometrics.calculate_star_aperture_magnitude(pixel_x=target_x, pixel_y=target_y)
+        else:
+            # No available solution
+            magnitude = 0
+        # On-sky motion, we prioritize propagation.
+        if isinstance(primary_solution.propagatives, propagate.PropagativeSolution) and primary_solution.propagatives_status:
+            ra_velocity = primary_solution.propagatives.ra_velocity
+            dec_velocity = primary_solution.propagatives.dec_velocity
+        elif isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution) and primary_solution.ephemeritics_status:
+            ra_velocity = primary_solution.ephemeritics.ra_velocity
+            dec_velocity = primary_solution.ephemeritics.dec_velocity
+        else:
+            # No available solution
+            ra_velocity = 0
+            dec_velocity = 0
+
+        # Sending the information to the TCS.
+        library.tcs.t3io_tcs_next(ra=target_ra, dec=target_dec, target_name=target_name, magnitude=magnitude,ra_velocity=ra_velocity, dec_velocity=dec_velocity)
         # All done.
         return None
 
