@@ -1,7 +1,6 @@
 """
 The manual GUI window.
 """
-
 import sys
 import os
 import threading
@@ -38,24 +37,32 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
     Attributes
     ----------
-    asteroid_set_name : string
-        The current asteroid name provided by the user.
-    raw_fits_filename : string
-        The raw input filename. This file is usually preprocessed before
-        analysis.
-    raw_record_filename : string
-        The raw MPC record filename. This contains historical asteroid
-        information collected (with the unique identifier being the name).
-    fits_filename : string
-        The filename of the preprocessed image, this is generally generated
-        automatically by the preprocess solution. This file is generally used
-        for analysis.
+    fits_filename_list : string
+        The FITS filenames of the data for the image/files. If
+        any of the entries are None, then no file was specified.
+
+    last_used_directory : string
+        The default directory where the file dialog should open up should be
+        the last directory that the file dialog loaded a file from.
+
+    primary_file_index : int
+        The primary file number which to work on. This is determined by the
+        radio buttons on the GUI and is the file/data which is considered the
+        preferable one for some computations.
+
+    target_set_name : string
+        The name of the target. This is typically extracted from the filenames
+        but may otherwise be manually specified.
+
+
+    opihi_solution_list : list
+        This is a container which contains all of the Opihi solutions for all
+        of the FITS files/images specified. If any of the entries are None,
+        then no file was provided or the solution class could not be created
+        from the file for some reason.
     preprocess_solution : OpihiPreprocessSolution
         The preprocessing solution which is used to convert raw images to
         preprocessed files.
-    opihi_solution : OpihiSolution
-        The general OpihiExarata solution, the collection class of all other
-        solutions.
     zero_point_database : OpihiZeroPointDatabaseSolution
         If a zero point database is going to be constructed, as per the
         configuration file, this is the instance which manages the database.
@@ -81,42 +88,40 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Window icon, we use the default for now.
         gui.functions.apply_window_icon(window=self, icon_path=None)
 
-        # Establishing the defaults for all of the relevant attributes.
-        self.asteroid_set_name = None
-        self.raw_fits_filename = None
-        self.raw_record_filename = None
-        self.fits_filename = None
+        # These defaults are later overwritten with something more clever and
+        # appropriate. Establishing the dummy defaults for....
+        # ...the filenames.
+        self.fits_filename_list = [error.IntentionalError, None, None, None, None]
+        # ...the file dialog.
+        self.last_used_directory = None
+        # ...the file index.
+        self.primary_file_index = None
+        # ...the asteroid/target set name and other information.
+        self.target_set_name = None
+        # ...the solutions. We follow the indexing of the GUI for the
+        # OpihiSolutions. So, to avoid off-by-one errors, we just add a filler
+        # into the 0th index location.
+        self.opihi_solution_list = [error.IntentionalError, None, None, None, None]
         self.preprocess_solution = None
-        self.opihi_solution = None
+        self.zero_point_database = None
 
-        # The automatic fetching directory default is stored in the
-        # configuration file.
-        AF_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
-        if os.path.isdir(AF_DIR):
-            self.automatic_fetch_directory = AF_DIR
-        else:
-            self.automatic_fetch_directory = None
-
-        # Preparing the image area for Opihi sky images.
-        self.__init_opihi_image()
-
-        # Preparing the buttons, GUI, and other functionality.
-        self.__init_gui_connections()
-
+        # True initialization...
         # Preparing the preprocessing solution so that the raw files loaded
         # into Exarata can be instantly turned into reduced images.
         self.__init_preprocess_solution()
+        # Preparing the image area for Opihi sky images.
+        self.__init_opihi_image()
+        # Creating the zero point database. Or more specifically, its API.
+        self.__init_zero_point_database()
 
-        # Preparing the zero point database if the user desired the database
-        # to record observations.
-        if library.config.GUI_MANUAL_DATABASE_SAVE_OBSERVATIONS:
-            database = opihiexarata.OpihiZeroPointDatabaseSolution(
-                database_directory=library.config.MONITOR_DATABASE_DIRECTORY
-            )
-        else:
-            database = None
-        self.zero_point_database = database
+        # Preparing the buttons, GUI, and other functionality.
+        self.__init_gui_connections()
+        # Preparing the radio buttons, or, more specifically, specifying the
+        # primary index. We borrow the connection for this.
+        self.__connect_button_group_primary_working_file()
 
+        # Finally, a reset to bring it all to normal.
+        self.reset_all()
         # All done.
         return None
 
@@ -132,69 +137,97 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # The new file and new object buttons.
-        self.ui.push_button_new_image_automatic.clicked.connect(
-            self.__connect_push_button_new_image_automatic
+        # The total reset button.
+        #####
+        self.ui.push_button_reset.clicked.connect(self.__connect_push_button_reset)
+
+        # The filename and target location changing buttons. The primary
+        # radio button is also defined here.
+        #####
+        self.ui.push_button_change_filename_1.clicked.connect(
+            lambda: self.__connect_push_button_change_filename(index=1)
         )
-        self.ui.push_button_new_image_manual.clicked.connect(
-            self.__connect_push_button_new_image_manual
+        self.ui.push_button_change_filename_2.clicked.connect(
+            lambda: self.__connect_push_button_change_filename(index=2)
         )
-        self.ui.push_button_new_target.clicked.connect(
-            self.__connect_push_button_new_target
+        self.ui.push_button_change_filename_3.clicked.connect(
+            lambda: self.__connect_push_button_change_filename(index=3)
+        )
+        self.ui.push_button_change_filename_4.clicked.connect(
+            lambda: self.__connect_push_button_change_filename(index=4)
+        )
+        self.ui.push_button_locate_target_location_1.clicked.connect(
+            lambda: self.__connect_push_button_locate_target_location(index=1)
+        )
+        self.ui.push_button_locate_target_location_2.clicked.connect(
+            lambda: self.__connect_push_button_locate_target_location(index=2)
+        )
+        self.ui.push_button_locate_target_location_3.clicked.connect(
+            lambda: self.__connect_push_button_locate_target_location(index=3)
+        )
+        self.ui.push_button_locate_target_location_4.clicked.connect(
+            lambda: self.__connect_push_button_locate_target_location(index=4)
+        )
+        self.ui.radio_button_primary_file_1.clicked.connect(
+            self.__connect_button_group_primary_working_file
+        )
+        self.ui.radio_button_primary_file_2.clicked.connect(
+            self.__connect_button_group_primary_working_file
+        )
+        self.ui.radio_button_primary_file_3.clicked.connect(
+            self.__connect_button_group_primary_working_file
+        )
+        self.ui.radio_button_primary_file_4.clicked.connect(
+            self.__connect_button_group_primary_working_file
         )
 
-        # The window and plot refresh button.
-        self.ui.push_button_refresh_window.clicked.connect(
-            self.__connect_push_button_refresh_window
+        # The summary page buttons and other functionality.
+        self.ui.push_button_change_target_name.clicked.connect(
+            self.__connect_push_button_change_target_name
         )
 
-        # Summary-specific buttons.
-        self.ui.push_button_summary_save.clicked.connect(
-            self.__connect_push_button_summary_save
-        )
-        self.ui.push_button_send_target_to_tcs.clicked.connect(
-            self.__connect_push_button_summary_send_target_to_tcs
-        )
-
-        # Astrometry-specific buttons.
-        self.ui.push_button_astrometry_solve_astrometry.clicked.connect(
-            self.__connect_push_button_astrometry_solve_astrometry
+        # The astrometry page and other functionality.
+        self.ui.push_button_solve_astrometry.clicked.connect(
+            self.__connect_push_button_solve_astrometry
         )
         self.ui.push_button_astrometry_custom_solve.clicked.connect(
             self.__connect_push_button_astrometry_custom_solve
         )
 
-        # Photometry-specific buttons.
-        self.ui.push_button_photometry_solve_photometry.clicked.connect(
-            self.__connect_push_button_photometry_solve_photometry
+        # The photometry page and other functionality.
+        self.ui.push_button_solve_photometry.clicked.connect(
+            self.__connect_push_button_solve_photometry
         )
 
-        # Orbit-specific buttons.
-        self.ui.push_button_orbit_solve_orbit.clicked.connect(
+        # The orbit page and other functionality.
+        self.ui.push_button_solve_orbit.clicked.connect(
             self.__connect_push_button_orbit_solve_orbit
         )
 
-        # Ephemeris-specific buttons.
-        self.ui.push_button_ephemeris_solve_ephemeris.clicked.connect(
-            self.__connect_push_button_orbit_solve_ephemeris
+        # The ephemeris page and other functionality.
+        self.ui.push_button_solve_ephemeris.clicked.connect(
+            self.__connect_push_button_solve_ephemeris
         )
-        self.ui.push_button_ephemeris_update_tcs_rate.clicked.connect(
-            self.__connect_push_button_ephemeris_update_tcs_rate
+        self.ui.push_button_ephemeris_results_update_tcs_rates.clicked.connect(
+            self.__connect_push_button_ephemeris_results_update_tcs_rates
         )
-        self.ui.push_button_ephemeris_custom_solve.clicked.connect(
-            self.__connect_push_button_ephemeris_custom_solve
+        self.ui.push_button_ephemeris_forward_solve.clicked.connect(
+            self.__connect_push_button_ephemeris_forward_solve
         )
 
-        # Propagate-specific buttons.
-        self.ui.push_button_propagate_solve_propagation.clicked.connect(
-            self.__connect_push_button_propagate_solve_propagation
+        # The propagation page and other functionality.
+        self.ui.push_button_solve_propagation.clicked.connect(
+            self.__connect_push_button_solve_propagation
         )
-        self.ui.push_button_propagate_update_tcs_rate.clicked.connect(
-            self.__connect_push_button_propagate_update_tcs_rate
+        self.ui.push_button_propagate_results_update_tcs_rates.clicked.connect(
+            self.__connect_push_button_propagate_results_update_tcs_rates
         )
-        self.ui.push_button_propagate_custom_solve.clicked.connect(
-            self.__connect_push_button_propagate_custom_solve
+        self.ui.push_button_propagate_forward_solve.clicked.connect(
+            self.__connect_push_button_propagate_forward_solve
         )
+
+        # All done
+        return None
 
     def __init_opihi_image(self) -> None:
         """Create the image area which will display what Opihi took from the
@@ -211,13 +244,15 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         # Deriving the size of the image from the filler dummy image. The
         # figure should be a square. (Height really is the primary concern.)
-        pix_to_in = lambda p: p / plt.rcParams["figure.dpi"]
-        dummy_edge_size = self.ui.dummy_opihi_image.height()
-        edge_size = pix_to_in(dummy_edge_size)
+        dpi = self.logicalDpiY()
+        pix_to_in = lambda p: p / dpi
+        dummy_edge_size_px = self.ui.graphics_view_dummy_opihi_image.maximumHeight()
+        edge_size_in = pix_to_in(dummy_edge_size_px)
+
         # The figure, canvas, and navigation toolbar of the image plot
         # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
-        fig, ax = plt.subplots(figsize=(edge_size, edge_size), constrained_layout=True)
+        fig, ax = plt.subplots(figsize=(edge_size_in, edge_size_in), dpi=dpi,constrained_layout=True)
         self.opihi_figure = fig
         self.opihi_axes = ax
         self.opihi_canvas = FigureCanvas(self.opihi_figure)
@@ -244,7 +279,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 # Extracting the data.
                 try:
                     z_float = self.gui_instance.opihi_solution.data[y_index, x_index]
-                except AttributeError:
+                except (AttributeError, IndexError):
                     # There is no data to index.
                     z_coord_string = "NaN"
                 else:
@@ -266,15 +301,29 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # event of a mis-click.
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
+
+        # Setting the size of the canvas to be more representative of the 
+        # designer file.
+        self.opihi_canvas.setMinimumHeight(dummy_edge_size_px)
+        self.opihi_canvas.setMaximumHeight(dummy_edge_size_px)
+        self.opihi_canvas.setMinimumWidth(dummy_edge_size_px)
+        self.opihi_canvas.setMaximumWidth(dummy_edge_size_px)
+        # And setting the navigation bar.
+        self.opihi_nav_toolbar.setMaximumWidth(dummy_edge_size_px)
+
         # Remove the dummy spacers otherwise it is just extra unneeded space.
-        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_image)
-        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_opihi_navbar)
-        self.ui.dummy_opihi_image.hide()
-        self.ui.dummy_opihi_navbar.hide()
-        self.ui.dummy_opihi_image.deleteLater()
-        self.ui.dummy_opihi_navbar.deleteLater()
-        del self.ui.dummy_opihi_image
-        del self.ui.dummy_opihi_navbar
+        self.ui.vertical_layout_image.removeWidget(
+            self.ui.graphics_view_dummy_opihi_image
+        )
+        self.ui.vertical_layout_image.removeWidget(
+            self.ui.label_static_dummy_opihi_navbar
+        )
+        self.ui.graphics_view_dummy_opihi_image.hide()
+        self.ui.label_static_dummy_opihi_navbar.hide()
+        self.ui.graphics_view_dummy_opihi_image.deleteLater()
+        self.ui.label_static_dummy_opihi_navbar.deleteLater()
+        del self.ui.graphics_view_dummy_opihi_image
+        del self.ui.label_static_dummy_opihi_navbar
         return None
 
     def __init_preprocess_solution(self):
@@ -323,10 +372,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_new_image_automatic(self):
-        """The automatic method relying on earliest fits file available in
-        the expected directory. This function is a connected function action to
-        a button in the GUI.
+    def __init_zero_point_database(self) -> None:
+        """This function initializes the zero point database as specified
+        by the configuration file.
 
         Parameters
         ----------
@@ -336,205 +384,180 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Auto saving first, if enabled.
-        self.save_auto_save()
-
-        # Fetch a file from the directory where files are to be fetched.
-        try:
-            # We assume the last image is the directory to fetch from.
-            automatic_fetch_directory = library.path.get_directory(
-                pathname=self.raw_fits_filename
+        # Preparing the zero point database if the user desired the database
+        # to record observations.
+        if library.config.GUI_MANUAL_DATABASE_SAVE_OBSERVATIONS:
+            database = opihiexarata.OpihiZeroPointDatabaseSolution(
+                database_directory=library.config.MONITOR_DATABASE_DIRECTORY
             )
-            new_fits_filename = library.path.get_most_recent_filename_in_directory(
-                directory=automatic_fetch_directory,
-                extension="fits",
-                exclude_opihiexarata_output_files=True,
-            )
-        except Exception:
-            # Something happened and a new fits file cannot be properly
-            # derived.
-            new_fits_filename = ""
-
-        # If the user did not provide a file to enter, there is nothing to be
-        # changed.
-        if os.path.isfile(new_fits_filename):
-            # Assign the new fits filename.
-            self.raw_fits_filename = os.path.abspath(new_fits_filename)
         else:
-            # Exit!
-            return None
+            database = None
+        self.zero_point_database = database
+        return None
 
-        # Process the file first so that what the user sees is closer to
-        # what it really is.
-        self.fits_filename = self.raw_fits_filename
+    def __connect_push_button_reset(self) -> None:
+        """This resets the entire GUI, removing all of the information solved
+        or unsolved.
 
-        # Load up the new file.
-        self._load_fits_file(fits_filename=self.fits_filename)
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Just in case, we batch save everything before doing a total reset.
+        self.save_all_fits_files()
+        self.save_target_history_archive(archive_filename=None)
+
+        # Resetting everything.
+        self.reset_all()
+
         # All done.
         return None
 
-    def __connect_push_button_new_image_manual(self):
-        """The manual method relying on earliest fits file available in
-        the expected directory. This function is a connected function action to
-        a button in the GUI.
+    def __connect_push_button_change_filename(self, index: int) -> None:
+        """The method for loading in a new file(name) for a file based on the
+        index.
 
         Parameters
         ----------
-        None
+        index : int
+            The file index of which this loading should be for.
 
         Returns
         -------
         None
         """
-        # Auto saving first, if enabled.
-        self.save_auto_save()
+        # We save the old file before actually changing the file.
+        self.save_index_fits_file(index=index)
 
         # Ask the user for the filename via a dialog.
         new_fits_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
             parent=self,
-            caption="Open Opihi Image",
-            dir="./",
+            caption="Open Opihi Image {i}".format(i=index),
+            dir=self.last_used_directory,
             filter="FITS Files (*.fits)",
         )
         # If the user did not provide a file to enter, there is nothing to be
         # changed.
-        if os.path.isfile(new_fits_filename):
-            # Assign the new fits filename.
-            self.raw_fits_filename = os.path.abspath(new_fits_filename)
-        else:
+        if not os.path.isfile(new_fits_filename):
             # Exit!
             return None
 
-        # Process the file first so that what the user sees is closer to
-        # what it really is.
-        self.fits_filename = self.raw_fits_filename
+        # We desire to reduce the data if a preprocess solution exists to do so.
+        if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
+            # We want to check if the FITS file has already been preprocessed.
+            header, __ = library.fits.read_fits_image_file(filename=new_fits_filename)
+            was_processed = header.get("OXM_REDU", False)
+            if was_processed:
+                # The user already loaded a preprocessed FITS file, there is
+                # no reason to preprocess it again.
+                current_fits_filename = new_fits_filename
+            else:
+                # We derive the FITS filename for the preprocessed solution, if it
+                # exists.
+                nf_dir, nf_base, nf_ext = library.path.split_pathname(
+                    pathname=new_fits_filename
+                )
+                # Appending the preprocessing suffix.
+                PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
+                current_fits_filename = library.path.merge_pathname(
+                    directory=nf_dir,
+                    filename=nf_base + PREPROCESS_SUFFIX,
+                    extension=nf_ext,
+                )
+                # Preprocessing the input file.
+                self.preprocess_solution.preprocess_fits_file(
+                    raw_filename=new_fits_filename, out_filename=current_fits_filename
+                )
+        else:
+            # There is no preprocessing to do.
+            current_fits_filename = new_fits_filename
 
-        # Load up the new file.
-        self._load_fits_file(fits_filename=self.fits_filename)
+        # The load the fits file itself and assign it to the proper file index.
+        self.fits_filename_list[index] = current_fits_filename
+
+        # If this is the first file loaded, the target set name needs to be 
+        # determined.
+        if not isinstance(self.target_set_name, str):
+            self.target_set_name = self._get_target_set_name_guess()
+
+        # Derive the Opihi solution for this file.
+        self.opihi_solution_list[index] = self.load_fits_file(
+            fits_filename=current_fits_filename
+        )
+        # Because a new image was loaded, the previous values and other
+        # information derived from the last image are invalid, reset and
+        # re-plot.
+        self.reset_dynamic_label_text()
+        self.refresh_dynamic_label_text()
+        self.draw_opihi_image()
         # All done.
         return None
 
-    def __connect_push_button_new_target(self) -> None:
-        """The function serving to set the software to be on a new target.
-        A name is prompted from the user.
+    def __connect_push_button_locate_target_location(self, index: int) -> None:
+        """The method for re-determining the location of the asteroid for
+        file/image of the given index.
 
         Parameters
         ----------
-        None
+        index : int
+            The file index of which the target location is being changed for.
 
         Returns
         -------
         None
         """
-        # Find what the new name of the target from the user.
-        previous_set_name = (
-            self.asteroid_set_name if self.asteroid_set_name is not None else str()
-        )
-        new_set_name = gui.name.ask_user_target_name_window(default=previous_set_name)
-        self.asteroid_set_name = new_set_name
-
-        # Reset the previous text as it is all going to be a new target.
-        # It is expected after this a new image would be selected.
-        self.refresh_dynamic_label_text()
-        self.clear_dynamic_label_text()
-        return None
-
-    def __connect_push_button_refresh_window(self) -> None:
-        """The function serving to refresh the window and redrawing the plot.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Just redraw the plot and redo the dynamic text.
-        self.redraw_opihi_image()
-        self.refresh_dynamic_label_text()
-        return None
-
-    def __connect_push_button_summary_send_target_to_tcs(self) -> None:
-        """This function serves to implement sending target information to the
-        TCS. All information that can be provided will be provided to the TCS.
-
-        Astronomical coordinates (and thus an astrometric solution) is
-        required.
-
-        If both an ephemeritic solution and a propagation solution exists
-        for providing the non-sidereal rates, we prioritize those from
-        the propagation.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # If there is no image (and thus no solution class), there is nothing
-        # to do.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+        # We cannot find the asteroid location if there is no image to load
+        # or file to load.
+        if self.fits_filename_list[index] is None:
+            # No file to load, nothing to do.
             return None
-
-        # The name of the target/asteroid. If it is None, we just default to
-        # whatever is in the configuration file.
-        target_name = self.opihi_solution.asteroid_name
-        DEFAULT_NAME = library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
-        target_name = DEFAULT_NAME if target_name is None else target_name
-
-        # We require astrometric coordinates, and thus an astrometric solution.
-        # If there are none, then there is nothing we can do.
-        if not isinstance(
-            self.opihi_solution.astrometrics, astrometry.AstrometricSolution
+        elif not isinstance(
+            self.opihi_solution_list[index], opihiexarata.OpihiSolution
         ):
+            # Nowhere to put the asteroid target location.
             return None
         else:
-            ra_deg = self.opihi_solution.astrometrics.ra
-            dec_deg = self.opihi_solution.astrometrics.dec
+            # Attempt to get the correct filenames for the target selector
+            # window.
+            # First, the current filename for target selection.
+            current_fits_filename = self.fits_filename_list[index]
+            # Second, the reference filename. Assume primary, first, then
+            # last. We cannot have the current filename and reference filename
+            # be the same file.
+            reference_fits_file = self._get_target_selector_reference_filename(
+                current_filename=current_fits_filename
+            )
 
-        # If there is a photometric solution that exists, we can obtain the
-        # magnitude.
-        if isinstance(
-            self.opihi_solution.photometrics, photometry.PhotometricSolution
-        ):
-            magnitude = self.opihi_solution.asteroid_magnitude
-        else:
-            magnitude = 0
-
-        # If there is a propagative or ephemeritic solution, we can apply the
-        # non-sidereal rates as well. We prioritize propagative solutions.
-        if isinstance(self.opihi_solution.propagatives, propagate.PropagativeSolution):
-            ra_velocity = self.opihi_solution.propagatives.ra_velocity
-            dec_velocity = self.opihi_solution.propagatives.dec_velocity
-        elif isinstance(
-            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
-        ):
-            ra_velocity = self.opihi_solution.ephemeritics.ra_velocity
-            dec_velocity = self.opihi_solution.ephemeritics.dec_velocity
-        else:
-            # There are no valid solutions to extract the non-sidereal rates
-            # from.
-            ra_velocity = 0
-            dec_velocity = 0
-
-        # We send all of the information that we could to the TCS. We do not
-        # really care about the response just yet.
-        __ = library.tcs.t3io_tcs_next(
-            ra=ra_deg,
-            dec=dec_deg,
-            target_name=target_name,
-            magnitude=magnitude,
-            ra_velocity=ra_velocity,
-            dec_velocity=dec_velocity,
+        # We use the selector to determine the asteroid location.
+        asteroid_location = gui.selector.ask_user_target_selector_window(
+            current_fits_filename=current_fits_filename,
+            reference_fits_filename=reference_fits_file,
         )
+        
+        # If the new asteroid location was not selected, then the locations 
+        # are Nones and should not be applied.
+        if asteroid_location == (None, None):
+            pass
+        else:
+            # The asteroid location is saved to the proper solution.
+            self.opihi_solution_list[index].asteroid_location = asteroid_location
+        
+        # Because a new asteroid location has been found, the previous values 
+        # and other information derived from the last image are invalid, 
+        # reset and re-plot.
+        self.reset_dynamic_label_text()
+        self.refresh_dynamic_label_text()
+        self.draw_opihi_image()
         # All done.
         return None
 
-    def __connect_push_button_summary_save(self) -> None:
-        """The function serving to save the fits file.
+    def __connect_button_group_primary_working_file(self) -> None:
+        """On any click of the primary working file radio buttons, we
+        find and apply the primary file index.
 
         Parameters
         ----------
@@ -544,12 +567,57 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # We get the filename to save the fits file as and try to save it.
-        self.save_all_results()
+        # We search all of the buttons to see which one is active, and thus
+        # the primary file index.
+        if self.ui.radio_button_primary_file_1.isChecked():
+            primary_file_index = 1
+        elif self.ui.radio_button_primary_file_2.isChecked():
+            primary_file_index = 2
+        elif self.ui.radio_button_primary_file_3.isChecked():
+            primary_file_index = 3
+        elif self.ui.radio_button_primary_file_4.isChecked():
+            primary_file_index = 4
+        else:
+            raise error.InputError(
+                "None of the radio buttons are clicked. The primary file index cannot"
+                " be determined."
+            )
+        # And we set the primary file index to whatever it was that was
+        # determined.
+        self.primary_file_index = primary_file_index
+
+        # Because the primary FITS file has changed, reset and replot.
+        self.reset_dynamic_label_text()
+        self.refresh_dynamic_label_text()
+        self.draw_opihi_image()
         # All done.
         return None
 
-    def __connect_push_button_astrometry_solve_astrometry(self) -> None:
+    def __connect_push_button_change_target_name(self) -> None:
+        """Change the target name of the GUI, and by extension, all of the
+        OpihiSolution instances as well.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Get the name from text box.
+        new_target_set_name = str(self.ui.line_edit_detected_target_name.text())
+        # Setting it on the GUI level.
+        self.target_set_name = new_target_set_name
+        # And changing the target name for all of solution classes where
+        # available.
+        for index, solutiondex in enumerate(self.opihi_solution_list):
+            if isinstance(solutiondex, opihiexarata.OpihiSolution):
+                self.opihi_solution_list[index].asteroid_name = new_target_set_name
+        # All done.
+        return None
+
+    def __connect_push_button_solve_astrometry(self) -> None:
         """The button to instruct on the solving of the astrometric solution.
 
         Parameters
@@ -560,14 +628,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no image (and thus no solution class), there is nothing
-        # to do.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
-        input_engine_name = self.ui.combo_box_astrometry_solve_engine.currentText()
+        input_engine_name = self.ui.combo_box_astrometry_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
         engine = opihiexarata.gui.functions.pick_engine_class_from_name(
@@ -582,26 +645,43 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
         def astrometry_solving_function():
-            """The function to solve the astrometry and refresh the plots."""
-            __ = self.opihi_solution.solve_astrometry(
-                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-            )
-            # Update all of the necessary information.
-            self.redraw_opihi_image()
+            # Cycling through all of the indexes to try and solve the astrometry.
+            # We need to use the index based method because for-loops do copying.
+            for index in range(len(self.opihi_solution_list)):
+                if not isinstance(
+                    self.opihi_solution_list[index], opihiexarata.OpihiSolution
+                ):
+                    # There is nothing to solve.
+                    continue
+                try:
+                    self.opihi_solution_list[index].solve_astrometry(
+                        solver_engine=engine,
+                        overwrite=True,
+                        raise_on_error=True,
+                        vehicle_args=vehicle_args,
+                    )
+                except Exception as _e:
+                    print("warn", _e)
+            # Finally updating all of the needed information.
+            self.draw_opihi_image()
             self.refresh_dynamic_label_text()
-            self.save_auto_save()
+            self.save_all_fits_files()
+            # All done.
             return None
 
+        # Starting the thread.
         astrometry_thread = threading.Thread(target=astrometry_solving_function)
         astrometry_thread.start()
+
         # All done.
         return None
 
     def __connect_push_button_astrometry_custom_solve(self) -> None:
-        """ "The button which uses an astrometric solution to solve for a
+        """The button which uses an astrometric solution to solve for a
         custom pixel location or RA DEC location depending on entry.
 
-        This prioritizes solving RA DEC from pixel location.
+        This prioritizes solving RA DEC from pixel location. The OpihiSolution
+        which is used is the primary solution based on the primary index.
 
         Parameters
         ----------
@@ -613,17 +693,18 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         # If there is no astrometric solution, nothing can be done. Exit this
         # early.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
         if not (
-            isinstance(self.opihi_solution, opihiexarata.OpihiSolution)
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
             and isinstance(
-                self.opihi_solution.astrometrics, astrometry.AstrometricSolution
+                primary_solution.astrometrics, astrometry.AstrometricSolution
             )
         ):
             return None
 
         # Obtain the current values in the entry field.
-        in_custom_x = self.ui.line_edit_astrometry_custom_x.text()
-        in_custom_y = self.ui.line_edit_astrometry_custom_y.text()
+        in_custom_x = self.ui.line_edit_astrometry_custom_pixel_x.text()
+        in_custom_y = self.ui.line_edit_astrometry_custom_pixel_y.text()
         in_custom_ra = self.ui.line_edit_astrometry_custom_ra.text()
         in_custom_dec = self.ui.line_edit_astrometry_custom_dec.text()
 
@@ -639,7 +720,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             (
                 out_custom_ra,
                 out_custom_dec,
-            ) = self.opihi_solution.astrometrics.pixel_to_sky_coordinates(
+            ) = primary_solution.astrometrics.pixel_to_sky_coordinates(
                 x=in_custom_x, y=in_custom_y
             )
             (
@@ -663,7 +744,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             (
                 out_custom_x,
                 out_custom_y,
-            ) = self.opihi_solution.astrometrics.sky_to_pixel_coordinates(
+            ) = primary_solution.astrometrics.sky_to_pixel_coordinates(
                 ra=in_custom_ra_deg, dec=in_custom_dec_deg
             )
             # Needs to be a string.
@@ -677,15 +758,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             out_custom_dec = str(in_custom_dec)
 
         # Finally, set the text on the values.
-        self.ui.line_edit_astrometry_custom_x.setText(out_custom_x)
-        self.ui.line_edit_astrometry_custom_y.setText(out_custom_y)
+        self.ui.line_edit_astrometry_custom_pixel_x.setText(out_custom_x)
+        self.ui.line_edit_astrometry_custom_pixel_y.setText(out_custom_y)
         self.ui.line_edit_astrometry_custom_ra.setText(out_custom_ra)
         self.ui.line_edit_astrometry_custom_dec.setText(out_custom_dec)
         return None
 
-    def __connect_push_button_photometry_solve_photometry(self) -> None:
-        """A routine to use the current observation and historical observations
-        to derive the propagation solution.
+    def __connect_push_button_solve_photometry(self) -> None:
+        """The button to instruct on the solving of the photometric solution.
 
         Parameters
         ----------
@@ -695,14 +775,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no image (and thus no solution class), there is nothing
-        # to do.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
-        input_engine_name = self.ui.combo_box_photometry_solve_engine.currentText()
+        input_engine_name = self.ui.combo_box_photometry_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
         engine = opihiexarata.gui.functions.pick_engine_class_from_name(
@@ -717,32 +792,50 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
         def photometry_solving_function():
-            """The function to solve the photometry and refresh the plots."""
-            # Solve.
-            __ = self.opihi_solution.solve_photometry(
-                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-            )
-            # Update all of the necessary information.
-            self.redraw_opihi_image()
+            # Cycling through all of the indexes to try and solve the astrometry.
+            # We need to use the index based method because for-loops do copying.
+            for index in range(len(self.opihi_solution_list)):
+                if not isinstance(
+                    self.opihi_solution_list[index], opihiexarata.OpihiSolution
+                ):
+                    # There is nothing to solve.
+                    continue
+                try:
+                    self.opihi_solution_list[index].solve_photometry(
+                        solver_engine=engine,
+                        overwrite=True,
+                        raise_on_error=True,
+                        vehicle_args=vehicle_args,
+                    )
+                except Exception as _e:
+                    print("warn", _e)
+                else:
+                    # Photometry is special as the data may also be saved to the
+                    # zero point database. We attempt to write a zero point record to
+                    # the database, the wrapper writing function checks if writing to
+                    # the database is a valid operation. We work on a copy of the
+                    # solution just in case.
+                    opihi_solution_copy = copy.deepcopy(self.opihi_solution_list[index])
+                    # We thread it away just in case.
+                    self.__write_zero_point_record_to_database(
+                        opihi_solution=opihi_solution_copy
+                    )
+                    write_database_thread = threading.Thread(
+                        target=self.__write_zero_point_record_to_database,
+                        kwargs={"opihi_solution": opihi_solution_copy},
+                    )
+                    write_database_thread.start()
+            # Finally updating all of the needed information.
+            self.draw_opihi_image()
             self.refresh_dynamic_label_text()
-            self.save_auto_save()
-            # Photometry is special as the data may also be saved to the
-            # zero point database. We attempt to write a zero point record to
-            # the database, the wrapper writing function checks if writing to
-            # the database is a valid operation. We work on a copy of the
-            # solution just in case.
-            opihi_solution_copy = copy.deepcopy(self.opihi_solution)
-            # We thread it away.
-            write_database_thread = threading.Thread(
-                target=self.__write_zero_point_record_to_database,
-                kwargs={"opihi_solution": opihi_solution_copy},
-            )
-            write_database_thread.start()
-
+            self.save_all_fits_files()
+            # All done.
             return None
 
+        # Starting the thread.
         photometry_thread = threading.Thread(target=photometry_solving_function)
         photometry_thread.start()
+
         # All done.
         return None
 
@@ -758,14 +851,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no image (and thus no solution class), there is nothing
-        # to do.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
-        input_engine_name = self.ui.combo_box_orbit_solve_engine.currentText()
+        input_engine_name = self.ui.combo_box_orbit_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
         engine = opihiexarata.gui.functions.pick_engine_class_from_name(
@@ -786,13 +874,39 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # to the user. The GUI thread is otherwise blocked.
         def orbit_solving_function():
             """The function to solve the orbit and refresh the plots."""
-            __ = self.opihi_solution.solve_orbit(
-                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-            )
-            # Update all of the necessary information.
-            self.redraw_opihi_image()
+            for index in range(len(self.opihi_solution_list)):
+                if not isinstance(
+                    self.opihi_solution_list[index], opihiexarata.OpihiSolution
+                ):
+                    # There is nothing to solve.
+                    continue
+                try:
+                    # The histories provided in the classes are not as complete
+                    # as they should be. We can add the supplemental
+                    # information to the orbit solvers.
+                    replacing_history = (
+                        self.load_target_history_archive()
+                        + self.get_target_history_current()
+                    )
+                    replacing_history = library.mpcrecord.clean_minor_planet_record(
+                        records=replacing_history
+                    )
+                    # Replacing the history.
+                    self.opihi_solution_list[index].asteroid_history = replacing_history
+
+                    self.opihi_solution_list[index].solve_orbit(
+                        solver_engine=engine,
+                        overwrite=True,
+                        raise_on_error=True,
+                        vehicle_args=vehicle_args,
+                    )
+                except Exception as _e:
+                    print("warn", _e)
+            # Finally updating all of the needed information.
+            self.draw_opihi_image()
             self.refresh_dynamic_label_text()
-            self.save_auto_save()
+            self.save_all_fits_files()
+            # All done.
             return None
 
         orbit_thread = threading.Thread(target=orbit_solving_function)
@@ -800,7 +914,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_orbit_solve_ephemeris(self) -> None:
+    def __connect_push_button_solve_ephemeris(self) -> None:
         """A routine to use the current observation and historical observations
         to derive the orbit solution.
 
@@ -812,14 +926,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no image (and thus no solution class), there is nothing
-        # to do.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
-        input_engine_name = self.ui.combo_box_ephemeris_solve_engine.currentText()
+        input_engine_name = self.ui.combo_box_ephemeris_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
         engine = opihiexarata.gui.functions.pick_engine_class_from_name(
@@ -835,13 +944,26 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # to the user. The GUI thread is otherwise blocked.
         def ephemeris_solving_function():
             """The function to solve the ephemeris and refresh the plots."""
-            __ = self.opihi_solution.solve_ephemeris(
-                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-            )
-            # Update all of the necessary information.
-            self.redraw_opihi_image()
+            for index in range(len(self.opihi_solution_list)):
+                if not isinstance(
+                    self.opihi_solution_list[index], opihiexarata.OpihiSolution
+                ):
+                    # There is nothing to solve.
+                    continue
+                try:
+                    self.opihi_solution_list[index].solve_ephemeris(
+                        solver_engine=engine,
+                        overwrite=True,
+                        raise_on_error=True,
+                        vehicle_args=vehicle_args,
+                    )
+                except Exception as _e:
+                    print("warn", _e)
+            # Finally updating all of the needed information.
+            self.draw_opihi_image()
             self.refresh_dynamic_label_text()
-            self.save_auto_save()
+            self.save_all_fits_files()
+            # All done.
             return None
 
         ephemeris_thread = threading.Thread(target=ephemeris_solving_function)
@@ -849,7 +971,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_ephemeris_update_tcs_rate(self) -> None:
+    def __connect_push_button_ephemeris_results_update_tcs_rates(self) -> None:
         """A routine to update the non-sidereal rates of the TCS as provided
         by the ephemeritic solution.
 
@@ -861,9 +983,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no ephemeritic solution, there is nothing to be done.
-        if not isinstance(
-            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        # If there is no ephemeris solution, there is nothing to be done.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution)
         ):
             return None
 
@@ -872,14 +996,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # so we can provide the units as per convention.
         # We do not care about the response for now.
         __ = library.tcs.t3io_tcs_ns_rate(
-            ra_velocity=self.opihi_solution.ephemeritics.ra_velocity,
-            dec_velocity=self.opihi_solution.ephemeritics.dec_velocity,
+            ra_velocity=primary_solution.ephemeritics.ra_velocity,
+            dec_velocity=primary_solution.ephemeritics.dec_velocity,
         )
 
         # All done.
         return None
 
-    def __connect_push_button_ephemeris_custom_solve(self) -> None:
+    def __connect_push_button_ephemeris_forward_solve(self) -> None:
         """Solving for the location of the target through the ephemeris based
         on the time and date provided by the user.
 
@@ -892,17 +1016,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         None
         """
         # If there is no ephemeris solution, there is nothing to be done.
-        if not isinstance(
-            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution)
         ):
             return None
 
         # Get the time and date from the user input.
-        datetime_input = self.ui.date_time_edit_ephemeris_date_time.dateTime()
+        datetime_input = self.ui.combo_box_ephemeris_forward_datetime.dateTime()
         # Getting the timezone, as the ephemeris requires UTC/JD time, a
         # conversion is needed. Qt uses IANA timezone IDs so we convert from
         # the human readable ones to it. We only deal with current timezones.
-        timezone_input = self.ui.combo_box_ephemeris_timezone.currentText()
+        timezone_input = self.ui.combo_box_ephemeris_forward_timezone.currentText()
         timezone_input = timezone_input.casefold()
         if timezone_input == "utc+00:00":
             qt_timezone_str = "Etc/UTC"
@@ -925,20 +1051,20 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
 
         # Using this unique time provided to solve the forward ephemeris.
-        ra_deg, dec_deg = self.opihi_solution.ephemeritics.forward_ephemeris(
+        ra_deg, dec_deg = primary_solution.ephemeritics.forward_ephemeris(
             future_time=julian_day_input
         )
         ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
             ra_deg=ra_deg, dec_deg=dec_deg, precision=2
         )
         # Updating the RA and DEC values.
-        self.ui.label_dynamic_ephemeris_custom_ra.setText(ra_sex)
-        self.ui.label_dynamic_ephemeris_custom_dec.setText(dec_sex)
+        self.ui.label_dynamic_ephemeris_forward_ra.setText(ra_sex)
+        self.ui.label_dynamic_ephemeris_forward_dec.setText(dec_sex)
 
         # All done.
         return None
 
-    def __connect_push_button_propagate_solve_propagation(self) -> None:
+    def __connect_push_button_solve_propagation(self) -> None:
         """A routine to use the current observation and historical observations
         to derive the propagation solution.
 
@@ -950,14 +1076,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no image (and thus no solution class), there is nothing
-        # to do.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-
         # Determine the engine from user input via the drop down menu. The
         # recognizing text ought to be case insensitive, makes life easier.
-        input_engine_name = self.ui.combo_box_propagate_solve_engine.currentText()
+        input_engine_name = self.ui.combo_box_propagate_engine.currentText()
         input_engine_name = input_engine_name.casefold()
         # Search programed engines for the one specified.
         engine = opihiexarata.gui.functions.pick_engine_class_from_name(
@@ -972,14 +1093,40 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
         def propagate_solving_function():
-            """The function to solve the propagation and refresh the plots."""
-            __ = self.opihi_solution.solve_propagate(
-                solver_engine=engine, overwrite=True, vehicle_args=vehicle_args
-            )
-            # Update all of the necessary information.
-            self.redraw_opihi_image()
+            """The function to solve the orbit and refresh the plots."""
+            for index in range(len(self.opihi_solution_list)):
+                if not isinstance(
+                    self.opihi_solution_list[index], opihiexarata.OpihiSolution
+                ):
+                    # There is nothing to solve.
+                    continue
+                try:
+                    # The histories provided in the classes are not as complete
+                    # as they should be. We can add the supplemental
+                    # information to the orbit solvers.
+                    replacing_history = (
+                        self.load_target_history_archive()
+                        + self.get_target_history_current()
+                    )
+                    replacing_history = library.mpcrecord.clean_minor_planet_record(
+                        records=replacing_history
+                    )
+                    # Replacing the history.
+                    self.opihi_solution_list[index].asteroid_history = replacing_history
+
+                    self.opihi_solution_list[index].solve_propagate(
+                        solver_engine=engine,
+                        overwrite=True,
+                        raise_on_error=True,
+                        vehicle_args=vehicle_args,
+                    )
+                except Exception as _e:
+                    print("warn", _e)
+            # Finally updating all of the needed information.
+            self.draw_opihi_image()
             self.refresh_dynamic_label_text()
-            self.save_auto_save()
+            self.save_all_fits_files()
+            # All done.
             return None
 
         propagate_thread = threading.Thread(target=propagate_solving_function)
@@ -987,7 +1134,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_propagate_update_tcs_rate(self) -> None:
+    def __connect_push_button_propagate_results_update_tcs_rates(self) -> None:
         """A routine to update the non-sidereal rates of the TCS as provided
         by the propagation solution.
 
@@ -999,9 +1146,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # If there is no propagative solution, there is nothing to be done.
-        if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagativeSolution
+        # If there is no propagation solution, there is nothing to be done.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.ephemeritics, propagate.PropagativeSolution)
         ):
             return None
 
@@ -1010,16 +1159,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # so we can provide the units as per convention.
         # We do not care about the response for now.
         __ = library.tcs.t3io_tcs_ns_rate(
-            ra_velocity=self.opihi_solution.propagatives.ra_velocity,
-            dec_velocity=self.opihi_solution.propagatives.dec_velocity,
+            ra_velocity=primary_solution.propagatives.ra_velocity,
+            dec_velocity=primary_solution.propagatives.dec_velocity,
         )
 
         # All done.
         return None
 
-    def __connect_push_button_propagate_custom_solve(self) -> None:
-        """Solving for the location of the target through propagation based on
-        the time and date provided by the user.
+    def __connect_push_button_propagate_forward_solve(self) -> None:
+        """Solving for the location of the target through propagation based
+        on the time and date provided by the user.
 
         Parameters
         ----------
@@ -1030,17 +1179,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         None
         """
         # If there is no propagation solution, there is nothing to be done.
-        if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagativeSolution
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.ephemeritics, propagate.PropagativeSolution)
         ):
             return None
 
         # Get the time and date from the user input.
-        datetime_input = self.ui.date_time_edit_propagate_date_time.dateTime()
-        # Getting the timezone, as the propagation requires UTC/JD time, a
+        datetime_input = self.ui.combo_box_propagate_forward_datetime.dateTime()
+        # Getting the timezone, as the ephemeris requires UTC/JD time, a
         # conversion is needed. Qt uses IANA timezone IDs so we convert from
         # the human readable ones to it. We only deal with current timezones.
-        timezone_input = self.ui.combo_box_propagate_timezone.currentText()
+        timezone_input = self.ui.combo_box_propagate_forward_timezone.currentText()
         timezone_input = timezone_input.casefold()
         if timezone_input == "utc+00:00":
             qt_timezone_str = "Etc/UTC"
@@ -1062,23 +1213,172 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             unix_time=unix_time_input
         )
 
-        # Using this unique time provided to solve the propagation.
-        ra_deg, dec_deg = self.opihi_solution.propagatives.forward_propagate(
+        # Using this unique time provided to solve the forward ephemeris.
+        ra_deg, dec_deg = primary_solution.propagatives.forward_propagate(
             future_time=julian_day_input
         )
         ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
             ra_deg=ra_deg, dec_deg=dec_deg, precision=2
         )
         # Updating the RA and DEC values.
-        self.ui.label_dynamic_propagate_custom_ra.setText(ra_sex)
-        self.ui.label_dynamic_propagate_custom_dec.setText(dec_sex)
+        self.ui.label_dynamic_propagate_forward_ra.setText(ra_sex)
+        self.ui.label_dynamic_propagate_forward_dec.setText(dec_sex)
 
         # All done.
         return None
 
-    def __get_mpc_record_filename(self) -> str:
-        """This is a function which derives the MPC record filename from
-        naming conventions and the current fits file name.
+    def _get_target_selector_reference_filename(self, current_filename: int) -> str:
+        """This function gets what the reference filename ought to be based
+        on the current filename provided.
+
+        This function prioritizes using the first image, then the last image
+        as the reference images, cycling through until something is found.
+        If none of said images exist, then None is returned.
+
+        Parameters
+        ----------
+        current_filename : str
+            The "current filename" of which is the filename which is used to
+            determine the location of the target for the target selector.
+            The reference filename cannot be the same file as this filename.
+
+        Returns
+        -------
+        reference_filename : str
+            The reference filename to send to the target selector.
+        """
+        # Using a hard copy, just in case.
+        search_filename_list = copy.deepcopy(self.fits_filename_list)
+
+        # We search through all of the files to find one which works properly.
+        # We get the order here, this is hard coded on the order assumption and
+        # having the origin item.
+        ordered_search_filename_list = (
+            search_filename_list[1:2] + search_filename_list[:1:-1]
+        )
+        reference_filename = None
+        for filedex in ordered_search_filename_list:
+            if current_filename == filedex:
+                # The current file and the reference file should not be the
+                # same file.
+                continue
+            if not isinstance(filedex, str):
+                # The potential file is not even a path string, it cannot be
+                # used as a reference file.
+                continue
+            if not os.path.isfile(filedex):
+                # The path provided by the filename does not lead to a file,
+                # so there is FITS file for it to refer to be used as a
+                # reference file.
+                continue
+            # If it passed all of the above checks, then we found a valid
+            # reference filename. We can stop.
+            reference_filename = filedex
+            break
+
+        # All done
+        return reference_filename
+
+    def _get_target_set_name_guess(self) -> str:
+        """This function attempts to guess the target name from multiple
+        sources in the order of authority.
+
+        The primary file index is preferred, then the order of the files in
+        progressive order. The chain of priority (within each file) goes as:
+        GUI input, OpihiExarata solution, FITS object, Filename.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        guess_target_set_name : str
+            The target set name that this function has found to be the best
+            guess based on the hierarchy.
+        """
+        # Prioritize the primary file before the other files then go in order.
+        file_order_index = [self.primary_file_index] + list(
+            range(len(self.fits_filename_list))
+        )
+
+        # Going through all of the files by the order and then searching
+        # for a good name based on the chain of priority.
+        for index in file_order_index:
+            # For the sake of order, even if we are cycling through all of the
+            # indexes and this would not change with index changes. We pull
+            # from the GUI's interface.
+            guess_target_set_name = self.ui.line_edit_detected_target_name.text()
+            if (
+                isinstance(guess_target_set_name, str)
+                and len(guess_target_set_name) != 0
+            ):
+                # The GUI has a valid target name, we use it.
+                return guess_target_set_name
+
+            # Next we try the solutions.
+            solution = self.opihi_solution_list[index]
+            if not isinstance(solution, opihiexarata.OpihiSolution):
+                # There is no solution to derive it from.
+                pass 
+            else:
+                # See if it is a valid name.
+                guess_target_set_name = solution.asteroid_name
+                if isinstance(guess_target_set_name, str) and len(guess_target_set_name) != 0:
+                    return guess_target_set_name
+
+            # Next, we try to find the target name based on the FITS file
+            # header.
+            filename = self.fits_filename_list[index]
+            # Try and load the FITS file and extract the target name.
+            try:
+                header, __ = library.fits.read_fits_image_file(filename=filename)
+                guess_target_set_name = header.get("OBJECT", None)
+            except Exception:
+                # The FITS file could not be properly read, so a guess cannot
+                # be determined.
+                pass
+            else:
+                # Check if the guess target set name guess is completely
+                # valid.
+                if (
+                    isinstance(guess_target_set_name, str)
+                    and len(guess_target_set_name) != 0
+                ):
+                    # The GUI has a valid target name, we use it.
+                    return guess_target_set_name
+
+            # Next, we try and extract it from the filename based on the
+            # hardcoded assumptions of the filenames.
+            # The filename is an absolute path usually, we only need the name
+            # of the file itself.
+            try:
+                basename = library.path.get_filename_with_extension(pathname=filename)
+            except Exception:
+                # Extracting the basename cannot be done.
+                pass
+            else:
+                # The filename conventions of the Opihi telescope have dots as
+                # subject delimiters. The extension should not be a part of
+                # this.
+                basename_parts = basename.split(".")
+                guess_target_set_name = basename_parts[3]
+                # Check the guess.
+                if (
+                    isinstance(guess_target_set_name, str)
+                    and len(guess_target_set_name) != 0
+                ):
+                    # The GUI has a valid target name, we use it.
+                    return guess_target_set_name
+
+        # If the code has reached here, it means that no guess target name
+        # could be derived. We just use a weird default.
+        guess_target_set_name = library.config.GUI_MANUAL_DEFAULT_TARGET_SET_NAME
+        return guess_target_set_name
+
+    def _get_mpcrecord_archive_filename(self) -> str:
+        """This is a function which gets the MPC record archive filename
+        from naming conventions and the current fits file name.
 
         Parameters
         ----------
@@ -1089,37 +1389,57 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         mpc_record_filename : str
             The filename of the MPC record for this object/image.
         """
-        if self.asteroid_set_name is None:
+        if self.target_set_name is None:
             raise error.SequentialOrderError(
-                "There is no asteroid name to derive the MPC record filename from."
-            )
+                    "There is no target/asteroid name to get the MPC record filename"
+                    " from. Moreover, deriving it from the provided file(s) failed."
+                )
         else:
-            mpc_target_name = self.asteroid_set_name
+            if isinstance(self.target_set_name, str):
+                # All is well and good.
+                pass
+            else:
+                raise error.InputError(
+                    "The target set name provided is not a valid string."
+                )
 
         suffix = str(library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX)
-        mpc_record_filename = mpc_target_name + suffix
-        # Search the same directory as the fits file for this information as
-        # that is currently the expected location.
+        mpc_record_filename = self.target_set_name + suffix
+        # Search the same directory as the primary fits file for this
+        # information as that is currently the expected location.
         # Preferring the preprocessed filename if it exists, have a fall back.
-        fits_pathname = (
-            self.raw_fits_filename if self.fits_filename is None else self.fits_filename
-        )
-        if fits_pathname is not None:
-            fits_directory = library.path.get_directory(pathname=fits_pathname)
+        primary_fits_file = self._get_primary_fits_filename()
+        fits_directory = None
+        if isinstance(primary_fits_file, str) and os.path.isfile(primary_fits_file):
+            fits_directory = library.path.get_directory(pathname=primary_fits_file)
         else:
-            raise error.SequentialOrderError(
-                "There is no FITS file to derive the directory where the MPC record"
-                " file should go."
+            # We just cycle through the filenames in order to figure out what 
+            # we can use.
+            for filedex in self.fits_filename_list:
+                if isinstance(filedex, str):
+                    fits_directory = library.path.get_directory(
+                pathname=filedex
             )
+            # If no FITS directory has been determined by this point, then 
+            # we cannot really derive the MPC record filename without the 
+            # directory component.
+            if fits_directory is None:
+                raise error.DirectoryError("No FITS filename provided can provide a directory for which to derive the MPC record filename.")
+            elif isinstance(fits_directory, str) and os.path.isdir(fits_directory):
+                # All good, one has been determined.
+                pass
+            else:
+                # The code should never reach here.
+                raise error.LogicFlowError("The FITS directory variable should have been covered by other cases by this point.")
+
         mpc_record_filename = library.path.merge_pathname(
             directory=fits_directory, filename=mpc_record_filename, extension="txt"
         )
         return mpc_record_filename
 
-    def __get_saving_fits_filename(self) -> str:
-        """This is a function which derives the FITS filename which will be
-        used to save the results of the many computations done for this given
-        image.
+    def _get_primary_fits_filename(self) -> str:
+        """This function gets the FITS filename of the primary file as
+        determined by the GUI radio buttons.
 
         Parameters
         ----------
@@ -1127,79 +1447,66 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         Returns
         -------
-        saving_fits_filename : str
-            The filename of the MPC record for this object/image.
+        primary_fits_filename : str
+            The primary fits filename. If the selected primary FITS file
+            does not exist, this is None.
         """
-        # We can use OpihiSolution's built-in function, but we need to
-        # define the filename. Adding a suffix is sufficient here.
-        if self.fits_filename is not None:
-            reference_fits_filename = self.fits_filename
+        # Extracting it straight from the list.
+        primary_fits_filename = self.fits_filename_list[self.primary_file_index]
+
+        # If the raws are also not a valid filename, then there is None
+        # chosen.
+        if not isinstance(primary_fits_filename, str):
+            primary_fits_filename = None
+        elif os.path.isfile(primary_fits_filename):
+            primary_fits_filename = None
         else:
-            reference_fits_filename = self.raw_fits_filename
-        # Check if a proper filename exists.
-        if reference_fits_filename is None:
-            raise error.SequentialOrderError(
-                "There is no fits filename to derive the saving fits filename."
-            )
+            # It is all good.
+            primary_fits_filename = primary_fits_filename
 
-        # Extracting the entire path from the current name, we are saving it
-        # to the same location.
-        directory, basename, extension = library.path.split_pathname(
-            pathname=reference_fits_filename
-        )
-        # We are just adding the suffix to the filename.
-        suffix = str(library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX)
-        new_filename = basename + suffix
-        # Recombining the path.
-        saving_fits_filename = library.path.merge_pathname(
-            directory=directory, filename=new_filename, extension=extension
-        )
-        return saving_fits_filename
+        # All done.
+        return primary_fits_filename
 
-    def _preprocess_fits_file(
-        self, raw_filename: str, process_filename: str = None
-    ) -> str:
-        """Using the provided filename, preprocess the fits file listed.
-
-        This is used primarily during the loading of a new fits file.
+    def get_target_history_current(self) -> list[str]:
+        """This function gets the current entries for the target history from
+        the OpihiSolutions and the current data loaded into the GUI.
 
         Parameters
         ----------
-        raw_filename : string
-            The filename of the raw fits file to be preprocessed.
-        process_filename : string, default = None
-            The filename where the processed fits file will be saved to. If
-            None, it defaults to a sensible naming convention to distinguish
-            the two.
+        None
 
         Returns
         -------
-        process_filename : string
-            The filename of the preprocessed file is returned, this is just
-            in case the value was derived from the naming convention. This is
-            an absolute path.
+        target_history_current : list
+            The current history, based off of the results from the solutions
+            provided.
         """
-        # Deriving saving location of the processed fits file.
-        if isinstance(process_filename, str):
-            process_filename = os.path.abspath(process_filename)
-        else:
-            # Use a sensible naming convention to distinguish between the raw
-            # and processed file.
-            # TODO
-            process_filename = "./process.fits"
-
-        # Process the fits file.
-        __ = self.preprocess_solution.preprocess_fits_file(
-            raw_filename=raw_filename, out_filename=process_filename
+        # We add the current history derived from our data to the data of the
+        # MPC record.
+        target_history_current = []
+        for solutiondex in self.opihi_solution_list:
+            if not isinstance(solutiondex, opihiexarata.OpihiSolution):
+                # There is no solution to get the record from.
+                continue
+            # Try and extract the MPC record row.
+            try:
+                record_row = solutiondex.mpc_record_row()
+            except error.PracticalityError:
+                # It is likely that there is no astrometric solution with this 
+                # observation so a record row really cannot be meaningfully 
+                # defined.
+                continue
+            else:
+                target_history_current.append(record_row)
+        
+        # Cleaning up the history.
+        target_history_current = library.mpcrecord.clean_minor_planet_record(
+            records=target_history_current
         )
-        # All done.
-        return process_filename
+        return target_history_current
 
-    def _load_fits_file(self, fits_filename: str) -> None:
-        """Load a fits file into the GUI to derive all of the solutions needed.
-
-        This loads the fits file into an OpihiSolution class for which this
-        GUI interacts with and derives the information from.
+    def load_fits_file(self, fits_filename: str) -> hint.OpihiSolution:
+        """This loads a FITS file and returns an OpihiSolution class.
 
         Parameters
         ----------
@@ -1208,7 +1515,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         Returns
         -------
-        None
+        opihi_solution : OpihiSolution
+            The solution wrapper class for the provided FITS filename.
         """
 
         # Extracting the header of this fits file to get the observing
@@ -1232,39 +1540,25 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             mjd=header["MJD_OBS"]
         )
 
-        # For asteroid information, if we are to prompt the user for
-        # information about the asteroid.
-        if library.config.GUI_MANUAL_PROMPT_FOR_ASTEROID_INFORMATION:
-            # The name is derived from the current object set that we are on.
-            asteroid_name = self.asteroid_set_name
-            # Use the target selector GUI for the position of the asteroid.
-            asteroid_location = gui.selector.ask_user_target_selector_window(
-                current_fits_filename=fits_filename
-            )
-            # If there exists a MPC record of previous observations, use it
-            # for the history. If it does not exist, make one.
-            if isinstance(self.asteroid_set_name, str):
-                mpcrecord_filename = self.__get_mpc_record_filename()
-                # Reading the file, or making one if it does not already exist.
-                if not os.path.isfile(mpcrecord_filename):
-                    with open(mpcrecord_filename, "w"):
-                        pass
-                # Read the historical data.
-                with open(mpcrecord_filename, "r") as mpcfile:
-                    raw_lines = mpcfile.readlines()
-                    # The files have new line characters on them, they need
-                    # to be removed to have the normal 80 characters.
-                    asteroid_history = [
-                        linedex.removesuffix("\n") for linedex in raw_lines
-                    ]
-            else:
-                # The MPC record filename does not exist because there is
-                # no specified asteroid name.
-                asteroid_history = None
+        # The name of the asteroid determined either by the file or the
+        # summary.
+        if isinstance(self.target_set_name, str):
+            asteroid_name = self.target_set_name
         else:
-            asteroid_name = None
-            asteroid_location = None
-            asteroid_history = None
+            # Derive it from the file(s).
+            asteroid_name = self._get_target_set_name_guess()
+
+        # We bring in the target selector to determine the location of the
+        # asteroid.
+        reference_fits_file = self._get_target_selector_reference_filename(
+            current_filename=fits_filename
+        )
+        asteroid_location = gui.selector.ask_user_target_selector_window(
+            current_fits_filename=fits_filename,
+            reference_fits_filename=reference_fits_file,
+        )
+
+        asteroid_history = self.load_target_history_archive()
 
         # Although the OpihiSolution could derive these values from the
         # header of the filename, the solution class is built to be general.
@@ -1278,13 +1572,170 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             asteroid_location=asteroid_location,
             asteroid_history=asteroid_history,
         )
-        self.opihi_solution = opihi_solution
+        return opihi_solution
 
-        # Because a new image was loaded, the previous values and other
-        # information derived from the last image are invalid, reset and replot.
-        self.clear_dynamic_label_text()
-        self.refresh_dynamic_label_text()
-        self.redraw_opihi_image()
+    def load_target_history_archive(self, archive_filename: str = None) -> list[str]:
+        """This loads the target/asteroid history archive file and allows it
+        to be used by the solution classes of all of the other solutions.
+
+        Parameters
+        ----------
+        archive_filename : str, default = None
+            The filename of the archive to load. If it is None, the default
+            one is derived from the target name.
+
+        Returns
+        -------
+        target_history : list
+            The target history in a 80-column MPC format.
+        """
+        # Determining the archive filename.
+        if archive_filename is not None:
+            archive_filename = archive_filename
+        else:
+            archive_filename = self._get_mpcrecord_archive_filename()
+
+        # If the file does not exist, there is nothing to load so a blank
+        # history is returned.
+        if not os.path.isfile(archive_filename):
+            print("warn")
+            target_history = []
+        else:
+            # Read the historical data.
+            with open(archive_filename, "r") as mpcfile:
+                raw_lines = mpcfile.readlines()
+                # The files have new line characters on them, they need
+                # to be removed to have the normal 80 characters.
+                target_history = [linedex.removesuffix("\n") for linedex in raw_lines]
+        # All done.
+        return target_history
+
+    def save_target_history_archive(self, archive_filename: str = None) -> None:
+        """This saves the target history archive into a file which contains
+        all of the history of the asteroid/target observations, both past and
+        the present ones solved for.
+
+        Parameters
+        ----------
+        archive_filename : str, default = None
+            The filename of the archive to load. If it is None, the default
+            one is derived from the target name.
+
+        Returns
+        -------
+        None
+        """
+        # Determining the archive filename.
+        if archive_filename is not None:
+            archive_filename = archive_filename
+        else:
+            try:
+                archive_filename = self._get_mpcrecord_archive_filename()
+            except Exception:
+                print("warn")
+                archive_filename = None
+        # An archive filename cannot be determined, we cannot save the 
+        # observational history. There is no point in continuing.
+        if not isinstance(archive_filename, str):
+            print("warn")
+            return None
+
+        # Loading the old history.
+        archive_history = self.load_target_history_archive(
+            archive_filename=archive_filename
+        )
+
+        # Combining the current history with those from archive.
+        current_history = self.get_target_history_current()
+        total_history = archive_history + current_history
+
+        # The MPC record history ought to be cleaned and sorted. As there are
+        # many sources from which the information is coming from, and there
+        # may be duplicates.
+        clean_total_history = library.mpcrecord.clean_minor_planet_record(
+            records=total_history
+        )
+
+        # Saving the history to the file.
+        # Adding the new line character as write lines do not do this
+        # to make the multi-rowed file.
+        mpc_record = [rowdex + "\n" for rowdex in clean_total_history]
+        # If the record file already exists, replace our information with
+        # it. We can do this because the archive history already contains this
+        # information.
+        with open(archive_filename, "w") as mpcfile:
+            mpcfile.writelines(mpc_record)
+
+        # All done.
+        return None
+
+    def save_all_fits_files(self) -> None:
+        """This function saves all of the FITS files into their respective
+        default locations and configurations.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Saving all of the FITS files.
+        for index in range(len(self.opihi_solution_list)):
+            self.save_index_fits_file(index=index)
+        # All done.
+        return None
+
+    def save_index_fits_file(self, index) -> None:
+        """This function executes the saving of the FITS file based on the
+        provided index.
+
+        Parameters
+        ----------
+        index : int
+            The file index of the OpihiSolution to be saved to a FITS file.
+
+        Returns
+        -------
+        None
+        """
+        # The filenames and solutions.
+        try:
+            filename = self.fits_filename_list[index]
+            solution = self.opihi_solution_list[index]
+        except IndexError:
+            raise error.InputError(
+                "The file index provided is outside of the range of possible file"
+                " indexes which this GUI can allow."
+            )
+
+        if not isinstance(filename, str):
+            # The FITS file path is not even a string path, the location of the
+            # file cannot be determined.
+            return None
+        if not os.path.exists(filename):
+            # The FITS file does not exist. There is nothing to save.
+            return None
+        if not isinstance(solution, opihiexarata.OpihiSolution):
+            # The solution is not actually an OpihiExarata solution, a
+            # FITS file cannot be created to save.
+            return None
+
+        # We determine the saving filename based on the suffix conventions.
+        # Constructing the filename using the suffix methodology.
+        file_dir, file_base, file_ext = library.path.split_pathname(pathname=filename)
+        OX_SUFFIX = library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX
+        saving_filename = library.path.merge_pathname(
+            directory=file_dir,
+            filename=file_base + OX_SUFFIX,
+            extension=file_ext,
+        )
+
+        # Saving the FITS file.
+        solution.save_to_fits_file(filename=saving_filename, overwrite=True)
+
+        # All done.
         return None
 
     def _parse_custom_orbital_elements(self) -> dict:
@@ -1301,99 +1752,86 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             A dictionary of the orbital elements and their errors, if they
             exist.
         """
-        # Extracting all of the values from the text.
-        sm_axis_str = self.ui.line_edit_orbit_semimajor_axis.text().strip()
-        ecc_str = self.ui.line_edit_orbit_eccentricity.text().strip()
-        incli_str = self.ui.line_edit_orbit_inclination.text().strip()
-        as_node_str = self.ui.line_edit_orbit_ascending_node.text().strip()
-        peri_str = self.ui.line_edit_orbit_perihelion.text().strip()
-        m_anom_str = self.ui.line_edit_orbit_mean_anomaly.text().strip()
-        epoch_str = self.ui.line_edit_orbit_epoch.text().strip()
+        # Extracting all of the values from the text. These are all strings.
+        smax_val = self.ui.line_edit_orbit_results_semimajor_axis_value.text().strip()
+        ecci_val = self.ui.line_edit_orbit_results_eccentricity_value.text().strip()
+        incl_val = self.ui.line_edit_orbit_results_inclination_value.text().strip()
+        asnd_val = self.ui.line_edit_orbit_results_ascending_node_value.text().strip()
+        prhe_val = self.ui.line_edit_orbit_results_perihelion_value.text().strip()
+        mnan_val = self.ui.line_edit_orbit_results_mean_anomaly_value.text().strip()
+        epch_val = self.ui.line_edit_orbit_results_epoch_value.text().strip()
+        # And the errors.
+        smax_err = self.ui.line_edit_orbit_results_semimajor_axis_error.text().strip()
+        ecci_err = self.ui.line_edit_orbit_results_eccentricity_error.text().strip()
+        incl_err = self.ui.line_edit_orbit_results_inclination_error.text().strip()
+        asnd_err = self.ui.line_edit_orbit_results_ascending_node_error.text().strip()
+        prhe_err = self.ui.line_edit_orbit_results_perihelion_error.text().strip()
+        mnan_err = self.ui.line_edit_orbit_results_mean_anomaly_error.text().strip()
 
-        # Parse if there is an error bar or not. Writing a function because
-        # this is going to be happening a lot.
-        def error_bar_parse(entry_string: str) -> tuple[float, float]:
-            """The deliminator for an error bar is any non numeric or decimal
-            marker."""
-            entry_string = entry_string.strip()
-            non_demlim_marks = tuple("1234567890.,")
-            # In the event there are more than one character acting as
-            # a deliminator.
-            lower_delim_index = None
-            upper_delim_index = None
-            for index, chardex in enumerate(entry_string):
-                if chardex not in non_demlim_marks:
-                    # This character is a deliminator, mark it.
-                    if lower_delim_index is None:
-                        # This is the first time a deliminator character has
-                        # been encountered.
-                        lower_delim_index = index
-                    else:
-                        # Other deliminator characters have been encountered so
-                        # this is the last known deliminator.
-                        upper_delim_index = index
-            # Split the string based on the deliminator for the value and
-            # error segment.
-            if lower_delim_index is None and upper_delim_index is None:
-                # There was never a deliminator, there is only one value and
-                # no error bars.
-                value_number = float(entry_string)
-                error_number = 0
-            elif lower_delim_index is not None and upper_delim_index is None:
-                # There is only one deliminator character, use this to split
-                # the string.
-                value_string = entry_string[:lower_delim_index].strip()
-                error_string = entry_string[lower_delim_index:].strip()
-                # Converting to values.
-                value_number = float(value_string)
-                error_number = float(error_string)
-            elif lower_delim_index is not None and upper_delim_index is not None:
-                # There are more than one characters for the deliminator.
-                value_string = entry_string[:lower_delim_index].strip()
-                error_string = entry_string[upper_delim_index:].strip()
-                # Converting to values.
-                value_number = float(value_string)
-                error_number = float(error_string)
-            # All done.
-            return value_number, error_number
+        # Making them numbers, values which actual math can be done on them.
+        smax_val = float(smax_val)
+        ecci_val = float(ecci_val)
+        incl_val = float(incl_val)
+        asnd_val = float(asnd_val)
+        prhe_val = float(prhe_val)
+        mnan_val = float(mnan_val)
+        epch_val = float(epch_val)
+        smax_err = float(smax_err)
+        ecci_err = float(ecci_err)
+        incl_err = float(incl_err)
+        asnd_err = float(asnd_err)
+        prhe_err = float(prhe_err)
+        mnan_err = float(mnan_err)
 
-        # Parsing the strings.
-        sm_axis_val, sm_axis_err = error_bar_parse(sm_axis_str)
-        ecc_val, ecc_err = error_bar_parse(ecc_str)
-        incli_val, incli_err = error_bar_parse(incli_str)
-        as_node_val, as_node_err = error_bar_parse(as_node_str)
-        peri_val, peri_err = error_bar_parse(peri_str)
-        m_anom_val, m_anom_err = error_bar_parse(m_anom_str)
-        epoch_val, epoch_err = error_bar_parse(epoch_str)
-        # The Epoch should not have an error.
-        if epoch_err != 0:
-            raise error.InputError(
-                "The Epoch value is detecting that it is specified with an error term"
-                " with a non-numeric deliminator. However, the Epoch should not have an"
-                " error specified."
-            )
         # The orbital element dictionary which would be used for a custom
         # orbit.
         orbital_elements = {
-            "semimajor_axis": sm_axis_val,
-            "semimajor_axis_error": sm_axis_err,
-            "eccentricity": ecc_val,
-            "eccentricity_error": ecc_err,
-            "inclination": incli_val,
-            "inclination_error": incli_err,
-            "longitude_ascending_node": as_node_val,
-            "longitude_ascending_node_error": as_node_err,
-            "argument_perihelion": peri_val,
-            "argument_perihelion_error": peri_err,
-            "mean_anomaly": m_anom_val,
-            "mean_anomaly_error": m_anom_err,
-            "epoch_julian_day": epoch_val,
+            "semimajor_axis": smax_val,
+            "semimajor_axis_error": smax_err,
+            "eccentricity": ecci_val,
+            "eccentricity_error": ecci_err,
+            "inclination": incl_val,
+            "inclination_error": incl_err,
+            "longitude_ascending_node": asnd_val,
+            "longitude_ascending_node_error": asnd_err,
+            "argument_perihelion": prhe_val,
+            "argument_perihelion_error": prhe_err,
+            "mean_anomaly": mnan_val,
+            "mean_anomaly_error": mnan_err,
+            "epoch_julian_day": epch_val,
         }
         # All done.
         return orbital_elements
 
-    def clear_dynamic_label_text(self, complete: bool = False) -> None:
-        """Clear all of the dynamic label text and other related fields,
+    def reset_all(self) -> None:
+        """This function completely resets the GUI into its initial state.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        # Clearing all of the dynamic text.
+        self.reset_dynamic_label_text(complete=True)
+
+        # Clearing the plot.
+        self.draw_nothing()
+
+        # Removing all relevant scientific data, bringing it back to its
+        # defaults.
+        # Removing the filenames as the system has been reset.
+        self.fits_filename_list = [error.IntentionalError, None, None, None, None]
+        # Removing the solutions as well.
+        self.opihi_solution_list = [error.IntentionalError, None, None, None, None]
+
+        # All done.
+        return None
+
+    def reset_dynamic_label_text(self, complete: bool = False) -> None:
+        """Reset all of the dynamic label text and other related fields,
         this is traditionally done just before a new image is going to be
         introduced.
 
@@ -1413,87 +1851,160 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        ## Resetting Summary information.
+
+        ## Resetting File Selector information.
         #####
+
         # The target name and the directory the images are in should
         # not reset just because of a new image.
-        if complete:
-            # A complete cleat.
-            self.ui.label_dynamic_summary_target_name.setText("None")
-            self.ui.label_dynamic_summary_directory.setText("/path/to/dir/")
-        self.ui.label_dynamic_summary_fits_file.setText(
+        self.ui.label_dynamic_filename_1.setText(
             "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
         )
-        self.ui.line_edit_summary_save_filename.setText("")
-        # The history of the target is related to the name, so we only reset
-        # it under a complete reset. This is just a dummy 80-column line.
+        self.ui.label_dynamic_filename_2.setText(
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00002.a.fits"
+        )
+        self.ui.label_dynamic_filename_3.setText(
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00003.a.fits"
+        )
+        self.ui.label_dynamic_filename_4.setText(
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00004.a.fits"
+        )
+        # The asteroid location information.
+        self.ui.label_dynamic_target_1_pixel_location.setText("(XXXX, YYYY)")
+        self.ui.label_dynamic_target_2_pixel_location.setText("(XXXX, YYYY)")
+        self.ui.label_dynamic_target_3_pixel_location.setText("(XXXX, YYYY)")
+        self.ui.label_dynamic_target_4_pixel_location.setText("(XXXX, YYYY)")
+
+        ## Resetting Summary information.
+        #####
+        # A full reset is best for changing the asteroid or target name.
         if complete:
-            self.ui.plain_text_edit_summary_target_history.setText(
-                R"00001         A1801 01 01.82630 03 38 23.07 +16 17 25.5              "
-                R"   MC004535"
-            )
+            self.ui.line_edit_detected_target_name.setText("")
 
         ## Resetting Astrometry information.
         #####
-        self.ui.label_dynamic_astrometry_center_x.setText("0000")
-        self.ui.label_dynamic_astrometry_center_y.setText("0000")
-        self.ui.label_dynamic_astrometry_center_ra.setText("HH:MM:SS.SS")
-        self.ui.label_dynamic_astrometry_center_dec.setText("+DD:MM:SS.SS")
-        self.ui.label_dynamic_astrometry_target_x.setText("0000")
-        self.ui.label_dynamic_astrometry_target_y.setText("0000")
-        self.ui.label_dynamic_astrometry_target_ra.setText("HH:MM:SS.SS")
-        self.ui.label_dynamic_astrometry_target_dec.setText("+DD:MM:SS.SS")
-        self.ui.line_edit_astrometry_custom_x.setText("")
-        self.ui.line_edit_astrometry_custom_y.setText("")
-        self.ui.line_edit_astrometry_custom_ra.setText("")
-        self.ui.line_edit_astrometry_custom_dec.setText("")
+        self.ui.label_dynamic_astrometry_file_1_center_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_1_center_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_2_center_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_2_center_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_3_center_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_3_center_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_4_center_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_4_center_dec.setText("+DD:MM:SS.SS")
+
+        self.ui.label_dynamic_astrometry_file_1_target_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_1_target_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_2_target_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_2_target_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_3_target_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_3_target_dec.setText("+DD:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_4_target_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_astrometry_file_4_target_dec.setText("+DD:MM:SS.SS")
 
         ## Resetting Photometric information.
         #####
-        self.ui.label_dynamic_photometry_filter_name.setText("FF")
-        self.ui.label_dynamic_photometry_zero_point_value.setText("ZZ.ZZ + E.EEE")
+        self.ui.label_static_photometry_results_file_1_filter_name.setText("FF")
+        self.ui.label_static_photometry_results_file_1_zero_point.setText(
+            "ZZ.ZZZ + E.EEE"
+        )
+        self.ui.label_static_photometry_results_file_1_magnitude.setText(
+            "MM.MM + E.EEE"
+        )
+
+        self.ui.label_static_photometry_results_file_2_filter_name.setText("FF")
+        self.ui.label_static_photometry_results_file_2_zero_point.setText(
+            "ZZ.ZZZ + E.EEE"
+        )
+        self.ui.label_static_photometry_results_file_2_magnitude.setText(
+            "MM.MM + E.EEE"
+        )
+
+        self.ui.label_static_photometry_results_file_3_filter_name.setText("FF")
+        self.ui.label_static_photometry_results_file_3_zero_point.setText(
+            "ZZ.ZZZ + E.EEE"
+        )
+        self.ui.label_static_photometry_results_file_3_magnitude.setText(
+            "MM.MM + E.EEE"
+        )
+
+        self.ui.label_static_photometry_results_file_4_filter_name.setText("FF")
+        self.ui.label_static_photometry_results_file_4_zero_point.setText(
+            "ZZ.ZZZ + E.EEE"
+        )
+        self.ui.label_static_photometry_results_file_4_magnitude.setText(
+            "MM.MM + E.EEE"
+        )
 
         ## Resetting Orbit information.
         #####
         # We only reset the orbit if the user wanted a complete reset.
         if complete:
-            self.ui.line_edit_orbit_semimajor_axis.setText("VV.VVV + EE.EEE")
-            self.ui.line_edit_orbit_eccentricity.setText("VV.VVV + EE.EEE")
-            self.ui.line_edit_orbit_inclination.setText("VV.VVV + EE.EEE")
-            self.ui.line_edit_orbit_ascending_node.setText("VV.VVV + EE.EEE")
-            self.ui.line_edit_orbit_perihelion.setText("VV.VVV + EE.EEE")
-            self.ui.line_edit_orbit_mean_anomaly.setText("VV.VVV + EE.EEE")
-            self.ui.line_edit_orbit_epoch.setText("EEEEEEE.EEEEE")
+
+            self.ui.line_edit_orbit_results_semimajor_axis_value.setText("VV.VVV")
+            self.ui.line_edit_orbit_results_semimajor_axis_error.setText("EE.EEE")
+            self.ui.line_edit_orbit_results_eccentricity_value.setText("VV.VVV")
+            self.ui.line_edit_orbit_results_eccentricity_error.setText("EE.EEE")
+            self.ui.line_edit_orbit_results_inclination_value.setText("VV.VVV")
+            self.ui.line_edit_orbit_results_inclination_error.setText("EE.EEE")
+            self.ui.line_edit_orbit_results_ascending_node_value.setText("VV.VVV")
+            self.ui.line_edit_orbit_results_ascending_node_error.setText("EE.EEE")
+            self.ui.line_edit_orbit_results_perihelion_value.setText("VV.VVV")
+            self.ui.line_edit_orbit_results_perihelion_error.setText("EE.EEE")
+            self.ui.line_edit_orbit_results_mean_anomaly_value.setText("VV.VVV")
+            self.ui.line_edit_orbit_results_mean_anomaly_error.setText("EE.EEE")
+            self.ui.line_edit_orbit_results_epoch_value.setText("EEEEEEE.EEEEE")
 
         ## Resetting Ephemeris information.
         #####
-        self.ui.label_dynamic_ephemeris_ra_velocity.setText("+VV.VVV")
-        self.ui.label_dynamic_ephemeris_dec_velocity.setText("+VV.VVV")
-        self.ui.label_dynamic_ephemeris_ra_acceleration.setText("+AA.AAA")
-        self.ui.label_dynamic_ephemeris_dec_acceleration.setText("+AA.AAA")
+        self.ui.label_dynamic_ephemeris_results_first_order_ra_rate.setText("+VV.VVV")
+        self.ui.label_dynamic_ephemeris_results_first_order_ra_error.setText("+EE.EEEE")
+        self.ui.label_dynamic_ephemeris_results_first_order_dec_rate.setText("+VV.VVV")
+        self.ui.label_dynamic_ephemeris_results_first_order_dec_error.setText(
+            "+EE.EEEE"
+        )
+
+        self.ui.label_dynamic_ephemeris_results_second_order_ra_rate.setText("+AA.AAA")
+        self.ui.label_dynamic_ephemeris_results_second_order_ra_error.setText(
+            "+EE.EEEE"
+        )
+        self.ui.label_dynamic_ephemeris_results_second_order_dec_rate.setText("+AA.AAA")
+        self.ui.label_dynamic_ephemeris_results_second_order_dec_error.setText(
+            "+EE.EEEE"
+        )
         # Keeping the timezone and time information for convenience, unless
         # a complete clear is needed.
         if complete:
             default_epoch = QtCore.QDateTime(1900, 1, 1, 0, 0, 0)
-            self.ui.date_time_edit_ephemeris_date_time.setDateTime(default_epoch)
-            self.ui.combo_box_ephemeris_timezone.setCurrentIndex(0)
-        self.ui.label_dynamic_ephemeris_custom_ra.setText("HH:MM:SS.SS")
-        self.ui.label_dynamic_ephemeris_custom_dec.setText("+DD:MM:SS.SS")
+            self.ui.combo_box_ephemeris_forward_datetime.setDateTime(default_epoch)
+            self.ui.combo_box_ephemeris_forward_timezone.setCurrentIndex(0)
+        self.ui.label_dynamic_ephemeris_forward_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_ephemeris_forward_dec.setText("+DD:MM:SS.SS")
 
         ## Resetting Propagate information.
         #####
-        self.ui.label_dynamic_propagate_ra_velocity.setText("+VV.VVV")
-        self.ui.label_dynamic_propagate_dec_velocity.setText("+VV.VVV")
-        self.ui.label_dynamic_propagate_ra_acceleration.setText("+AA.AAAeXX")
-        self.ui.label_dynamic_propagate_dec_acceleration.setText("+AA.AAAeXX")
+        self.ui.label_dynamic_propagate_results_first_order_ra_rate.setText("+VV.VVV")
+        self.ui.label_dynamic_propagate_results_first_order_ra_error.setText("+EE.EEEE")
+        self.ui.label_dynamic_propagate_results_first_order_dec_rate.setText("+VV.VVV")
+        self.ui.label_dynamic_propagate_results_first_order_dec_error.setText(
+            "+EE.EEEE"
+        )
+
+        self.ui.label_dynamic_propagate_results_second_order_ra_rate.setText("+AA.AAA")
+        self.ui.label_dynamic_propagate_results_second_order_ra_error.setText(
+            "+EE.EEEE"
+        )
+        self.ui.label_dynamic_propagate_results_second_order_dec_rate.setText("+AA.AAA")
+        self.ui.label_dynamic_propagate_results_second_order_dec_error.setText(
+            "+EE.EEEE"
+        )
         # Keeping the timezone and time information for convenience, unless
         # a complete clear is needed.
         if complete:
             default_epoch = QtCore.QDateTime(1900, 1, 1, 0, 0, 0)
-            self.ui.date_time_edit_propagate_date_time.setDateTime(default_epoch)
-            self.ui.combo_box_propagate_timezone.setCurrentIndex(0)
-        self.ui.label_dynamic_propagate_custom_ra.setText("HH:MM:SS.SS")
-        self.ui.label_dynamic_propagate_custom_dec.setText("+DD:MM:SS.SS")
+            self.ui.combo_box_propagate_forward_datetime.setDateTime(default_epoch)
+            self.ui.combo_box_propagate_forward_timezone.setCurrentIndex(0)
+        self.ui.label_dynamic_propagate_forward_ra.setText("HH:MM:SS.SS")
+        self.ui.label_dynamic_propagate_forward_dec.setText("+DD:MM:SS.SS")
 
         # All done.
         return None
@@ -1515,12 +2026,80 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # These values are only to be done if the OpihiSolution actually
         # exists, otherwise, there is nothing to update in the text.
-        if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            self.__refresh_dynamic_label_text_astrometry()
-            self.__refresh_dynamic_label_text_photometry()
-            self.__refresh_dynamic_label_text_orbit()
-            self.__refresh_dynamic_label_text_ephemeris()
-            self.__refresh_dynamic_label_text_propagate()
+        self.__refresh_dynamic_label_text_file_selector()
+        self.__refresh_dynamic_label_text_astrometry()
+        self.__refresh_dynamic_label_text_photometry()
+        self.__refresh_dynamic_label_text_orbit()
+        self.__refresh_dynamic_label_text_ephemeris()
+        self.__refresh_dynamic_label_text_propagate()
+
+        # All done.
+        return None
+
+    def __refresh_dynamic_label_text_file_selector(self) -> None:
+        """Refresh all of the dynamic label text for the file selector.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # The filenames, in order. We do not need the directory path in this
+        # area.
+        def _basename_only(pathname: str) -> str:
+            """This function makes sure that only the basename is returned. The
+            path provided is not a valid string, then a blank string is
+            returned."""
+            if isinstance(pathname, str):
+                return library.path.get_filename_with_extension(pathname=pathname)
+            else:
+                return "NaN"
+
+        self.ui.label_dynamic_filename_1.setText(
+            _basename_only(pathname=self.fits_filename_list[1])
+        )
+        self.ui.label_dynamic_filename_2.setText(
+            _basename_only(pathname=self.fits_filename_list[2])
+        )
+        self.ui.label_dynamic_filename_3.setText(
+            _basename_only(pathname=self.fits_filename_list[3])
+        )
+        self.ui.label_dynamic_filename_4.setText(
+            _basename_only(pathname=self.fits_filename_list[4])
+        )
+
+        # The target locations, if they exist. We do not need mutability for
+        # this so going by indexes themselves are inconvenient.
+        target_location_strings = {}
+        for index, solutiondex in enumerate(self.opihi_solution_list):
+            # Check that the solution itself actually is a valid solution class.
+            if not isinstance(solutiondex, opihiexarata.OpihiSolution):
+                target_location_strings[index] = "NaN"
+            else:
+                # Parse the asteroid location into a string.
+                if solutiondex.asteroid_location is None:
+                    target_location_strings[index] = "None"
+                else:
+                    target_location_strings[index] = "({x}, {y})".format(
+                        x=solutiondex.asteroid_location[0],
+                        y=solutiondex.asteroid_location[1],
+                    )
+        # Displaying the information.
+        self.ui.label_dynamic_target_1_pixel_location.setText(
+            target_location_strings[1]
+        )
+        self.ui.label_dynamic_target_2_pixel_location.setText(
+            target_location_strings[2]
+        )
+        self.ui.label_dynamic_target_3_pixel_location.setText(
+            target_location_strings[3]
+        )
+        self.ui.label_dynamic_target_4_pixel_location.setText(
+            target_location_strings[4]
+        )
 
         # All done.
         return None
@@ -1537,39 +2116,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         None
         """
         # Refreshing the target name and the FITS filename.
-        if self.asteroid_set_name is not None:
-            self.ui.label_dynamic_summary_target_name.setText(
-                str(self.asteroid_set_name)
-            )
-
-        # A FITS filename has to have been provided to fill in the file
-        # path location of it.
-        if self.fits_filename is not None:
-            self.ui.label_dynamic_summary_directory.setText(
-                library.path.get_directory(pathname=self.fits_filename)
-            )
-            self.ui.label_dynamic_summary_fits_file.setText(
-                library.path.get_filename_with_extension(pathname=self.fits_filename)
-            )
-
-        # Refreshing the saving filename if possible.
-        try:
-            self.ui.line_edit_summary_save_filename.setText(
-                self.__get_saving_fits_filename()
-            )
-        except error.SequentialOrderError:
-            # There is no FITS filename to update with.
-            pass
-
-        # If the target/asteroid history exists, we can print it into the
-        # history box. If there is no history, we just leave it blank.
-        history_string = ""
-        if isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            # The OpihiSolution exists to potentially provide a history.
-            if isinstance(self.opihi_solution.asteroid_history, list):
-                history_string = "\n".join(self.opihi_solution.asteroid_history)
-
-        self.ui.plain_text_edit_summary_target_history.setPlainText(history_string)
+        if self.target_set_name is not None:
+            self.ui.line_edit_detected_target_name.setText(str(self.target_set_name))
 
         # All done.
         return None
@@ -1589,53 +2137,87 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Everything in this function needs the OpihiSolution, if it does not
-        # exist, then exit early as there is nothing to refresh.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-        else:
-            opihi_solution = self.opihi_solution
+        # We cycle through all of the possible solutions to derive the
+        # needed information.
+        cen_ra_str = {}
+        cen_dec_str = {}
+        trg_ra_str = {}
+        trg_dec_str = {}
 
-        # The pixel center location of the image and the pixel location of
-        # the asteroid does not require the astrometric solution.
-        cen_x, cen_y = [side / 2 for side in opihi_solution.data.shape]
-        trg_x, trg_y = (
-            opihi_solution.asteroid_location
-            if opihi_solution.asteroid_location is not None
-            else (0, 0)
-        )
-        # Replace the text with the new information.
-        self.ui.label_dynamic_astrometry_center_x.setText(str(cen_x))
-        self.ui.label_dynamic_astrometry_center_y.setText(str(cen_y))
-        self.ui.label_dynamic_astrometry_target_x.setText(str(trg_x))
-        self.ui.label_dynamic_astrometry_target_y.setText(str(trg_y))
+        # Finding and solving for the astrometry. We do not need mutability for
+        # this so going by indexes themselves are inconvenient.
+        for index, solutiondex in enumerate(self.opihi_solution_list):
+            # Check that the solution itself actually is a valid solution class.
+            if not isinstance(solutiondex, opihiexarata.OpihiSolution):
+                # It is not, using the same dummy values.
+                cen_ra_str[index] = "NaN"
+                cen_dec_str[index] = "NaN"
+                trg_ra_str[index] = "NaN"
+                trg_dec_str[index] = "NaN"
+            # Check that the solution itself actually is a valid solution class.
+            elif not (isinstance(solutiondex.astrometrics, astrometry.AstrometricSolution) and solutiondex.astrometrics_status):
+                # It is not, using the same dummy values.
+                cen_ra_str[index] = "NaN"
+                cen_dec_str[index] = "NaN"
+                trg_ra_str[index] = "NaN"
+                trg_dec_str[index] = "NaN"
+            else:
+                # Find the center pixel location of the image and solve for the
+                # RA and DEC of it.
+                cen_x, cen_y = [side / 2 for side in solutiondex.data.shape]
+                cen_ra, cen_dec = solutiondex.astrometrics.pixel_to_sky_coordinates(
+                    x=cen_x, y=cen_y
+                )
+                (
+                    cen_ra_sex,
+                    cen_dec_sex,
+                ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                    ra_deg=cen_ra, dec_deg=cen_dec, precision=2
+                )
+                # Saving.
+                cen_ra_str[index] = cen_ra_sex
+                cen_dec_str[index] = cen_dec_sex
 
-        # Everything beyond this point requires an astrometric solution, if
-        # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(
-            self.opihi_solution.astrometrics, astrometry.AstrometricSolution
-        ):
-            return None
-        else:
-            astrometrics = self.opihi_solution.astrometrics
+                # Find the asteroid's location, if it exists.
+                if solutiondex.asteroid_location is None:
+                    # There is no asteroid location to find the coordinates
+                    # for.
+                    trg_ra_str[index] = "NaN"
+                    trg_dec_str[index] = "NaN"
+                else:
+                    # Get the location and solve it.
+                    trg_x, trg_y = solutiondex.asteroid_location
+                    trg_ra, trg_dec = solutiondex.astrometrics.pixel_to_sky_coordinates(
+                        x=trg_x, y=trg_y
+                    )
+                    (
+                        trg_ra_sex,
+                        trg_dec_sex,
+                    ) = library.conversion.degrees_to_sexagesimal_ra_dec(
+                        ra_deg=trg_ra, dec_deg=trg_dec, precision=2
+                    )
+                    # Recording it.
+                    trg_ra_str[index] = trg_ra_sex
+                    trg_dec_str[index] = trg_dec_sex
 
-        # The pixel locations converted to RA DEC via the astrometric solution.
-        cen_ra, cen_dec = astrometrics.pixel_to_sky_coordinates(x=cen_x, y=cen_y)
-        trg_ra, trg_dec = astrometrics.pixel_to_sky_coordinates(x=trg_x, y=trg_y)
+        # Recording it from the dictionaries.
+        self.ui.label_dynamic_astrometry_file_1_center_ra.setText(cen_ra_str[1])
+        self.ui.label_dynamic_astrometry_file_1_center_dec.setText(cen_dec_str[1])
+        self.ui.label_dynamic_astrometry_file_2_center_ra.setText(cen_ra_str[2])
+        self.ui.label_dynamic_astrometry_file_2_center_dec.setText(cen_dec_str[2])
+        self.ui.label_dynamic_astrometry_file_3_center_ra.setText(cen_ra_str[3])
+        self.ui.label_dynamic_astrometry_file_3_center_dec.setText(cen_dec_str[3])
+        self.ui.label_dynamic_astrometry_file_4_center_ra.setText(cen_ra_str[4])
+        self.ui.label_dynamic_astrometry_file_4_center_dec.setText(cen_dec_str[4])
 
-        # The format really ought to be in HMSDMS hexadecimal-like as it
-        # is more familiar to Astronomers.
-        cen_ra_sex, cen_dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-            ra_deg=cen_ra, dec_deg=cen_dec, precision=2
-        )
-        trg_ra_sex, trg_dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-            ra_deg=trg_ra, dec_deg=trg_dec, precision=2
-        )
-        # Replace the text.
-        self.ui.label_dynamic_astrometry_center_ra.setText(cen_ra_sex)
-        self.ui.label_dynamic_astrometry_center_dec.setText(cen_dec_sex)
-        self.ui.label_dynamic_astrometry_target_ra.setText(trg_ra_sex)
-        self.ui.label_dynamic_astrometry_target_dec.setText(trg_dec_sex)
+        self.ui.label_dynamic_astrometry_file_1_target_ra.setText(trg_ra_str[1])
+        self.ui.label_dynamic_astrometry_file_1_target_dec.setText(trg_dec_str[1])
+        self.ui.label_dynamic_astrometry_file_2_target_ra.setText(trg_ra_str[2])
+        self.ui.label_dynamic_astrometry_file_2_target_dec.setText(trg_dec_str[2])
+        self.ui.label_dynamic_astrometry_file_3_target_ra.setText(trg_ra_str[3])
+        self.ui.label_dynamic_astrometry_file_3_target_dec.setText(trg_dec_str[3])
+        self.ui.label_dynamic_astrometry_file_4_target_ra.setText(trg_ra_str[4])
+        self.ui.label_dynamic_astrometry_file_4_target_dec.setText(trg_dec_str[4])
 
         # All done.
         return None
@@ -1655,55 +2237,73 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # We cycle through all of the possible solutions to derive the
+        # needed information.
+        flt_name = {}
+        zp_str = {}
+        mag_str = {}
 
-        # Everything in this function needs the OpihiSolution, if it does not
-        # exist, then exit early as there is nothing to refresh.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-        else:
-            opihi_solution = self.opihi_solution
-
-        # The filter is provided by the image's header, a solution is not
-        # required for displaying this information.
-        filter_name = str(opihi_solution.filter_name)
-        self.ui.label_dynamic_photometry_filter_name.setText(filter_name)
-
-        # Everything beyond this point requires an astrometric solution, if
-        # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(
-            self.opihi_solution.photometrics, photometry.PhotometricSolution
-        ):
-            return None
-        else:
-            photometrics = self.opihi_solution.photometrics
-
-        # Obtaining the computed magnitude of the target as computed. Some
-        # rounding is needed so it can properly fit in the GUI.
-        asteroid_magnitude = round(opihi_solution.asteroid_magnitude, 2)
-        asteroid_magnitude_error = round(opihi_solution.asteroid_magnitude_error, 3)
-        # Building the string for display and updating the text.
+        # The plus minus symbol for errors.
         pm_sym = "\u00B1"
-        magnitude_str = "{mag} {pm} {err}".format(
-            mag=asteroid_magnitude, pm=pm_sym, err=asteroid_magnitude_error
-        )
-        self.ui.label_dynamic_photometry_magnitude.setText(magnitude_str)
 
-        # Obtaining the computed zero point of the image. Some rounding is
-        # needed so it can properly fit in the GUI.
-        zero_point = round(photometrics.zero_point, 3)
-        zero_point_error = round(photometrics.zero_point_error, 4)
-        # Building the string for display and updating the text.
-        zero_point_str = "{zp} {pm} {err}".format(
-            zp=zero_point, pm=pm_sym, err=zero_point_error
-        )
-        self.ui.label_dynamic_photometry_zero_point_value.setText(zero_point_str)
+        # Finding and solving for the photometry. We do not need mutability for
+        # this so going by indexes themselves are inconvenient.
+        for index, solutiondex in enumerate(self.opihi_solution_list):
+            # Check that the solution itself actually is a valid solution class.
+            if not isinstance(solutiondex, opihiexarata.OpihiSolution):
+                # There is nothing to derive.
+                flt_name[index] = "NaN"
+                zp_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
+                mag_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
+                continue
+            
+            # The filter names actually do not really require a photometric 
+            # solution.
+            flt_name[index] = solutiondex.filter_name
+
+            # Checking if a valid photometry solution exists.
+            if not (isinstance(solutiondex.photometrics, photometry.PhotometricSolution) and solutiondex.photometrics_status):
+                # It is not, using the same dummy values.
+                zp_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
+                mag_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
+            else:
+                # Extracting the photometry information.
+                flt_name[index] = solutiondex.photometrics.filter_name
+                # Extracting the zero point information.
+                zp = round(solutiondex.photometrics.zero_point, 3)
+                zpe = round(solutiondex.photometrics.zero_point_error, 4)
+                zp_str[index] = "{v} {pm} {e}".format(v=zp, pm=pm_sym, e=zpe)
+                # Extracting the target's magnitude, if possible.
+                if solutiondex.asteroid_location is not None:
+                    magnitude, magnitude_error = solutiondex.compute_asteroid_magnitude(
+                        asteroid_location=solutiondex.asteroid_location, overwrite=False
+                    )
+                    mag = round(magnitude, 3)
+                    mage = round(magnitude_error, 4)
+                    mag_str[index] = "{v} {pm} {e}".format(v=mag, pm=pm_sym, e=mage)
+                else:
+                    mag_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
+
+        # Applying the values.
+        self.ui.label_static_photometry_results_file_1_filter_name.setText(flt_name[1])
+        self.ui.label_static_photometry_results_file_2_filter_name.setText(flt_name[2])
+        self.ui.label_static_photometry_results_file_3_filter_name.setText(flt_name[3])
+        self.ui.label_static_photometry_results_file_4_filter_name.setText(flt_name[4])
+        self.ui.label_static_photometry_results_file_1_zero_point.setText(zp_str[1])
+        self.ui.label_static_photometry_results_file_2_zero_point.setText(zp_str[2])
+        self.ui.label_static_photometry_results_file_3_zero_point.setText(zp_str[3])
+        self.ui.label_static_photometry_results_file_4_zero_point.setText(zp_str[4])
+        self.ui.label_static_photometry_results_file_1_magnitude.setText(mag_str[1])
+        self.ui.label_static_photometry_results_file_2_magnitude.setText(mag_str[2])
+        self.ui.label_static_photometry_results_file_3_magnitude.setText(mag_str[3])
+        self.ui.label_static_photometry_results_file_4_magnitude.setText(mag_str[4])
 
         # All done.
         return None
 
     def __refresh_dynamic_label_text_orbit(self) -> None:
         """Refresh all of the dynamic label text for orbit.
-        This fills out the information based on the current solutions
+        This fills out the information based on the current primary solution
         available and solved.
 
         An orbital solution must exist.
@@ -1716,76 +2316,76 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Everything in this function needs the OpihiSolution, if it does not
-        # exist, then exit early as there is nothing to refresh.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
+        # If there is no orbit solution, there is nothing to be done.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.orbitals, orbit.OrbitalSolution)
+        ):
             return None
-        else:
-            opihi_solution = self.opihi_solution
-
-        # Nothing so far.
-        pass
-
-        # Everything beyond this point requires an orbital solution, if
-        # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(self.opihi_solution.orbitals, orbit.OrbitalSolution):
-            return None
-        else:
-            orbitals = self.opihi_solution.orbitals
 
         # Refreshing the values of the Keplerian orbital elements.
         # The orbital elements' values and errors should be reported. We define
         # the string formatting here.
-        def orb_str_conv(val: float, err: float) -> str:
+        def vsf(val: float) -> str:
             """Unified string formatting for orbital element values and errors."""
             # Rounding values to sensible values.
-            val = round(val, 7)
-            err = round(err, 3)
-            # Building the string, allowing for the usage of the plus minus
-            # symbol to demark the error.
-            pm_sym = "\u00B1"
-            ele_string = "{v} {pm} {e}".format(v=val, pm=pm_sym, e=err)
-            return ele_string
+            return "{input:.5f}".format(input=val)
 
         # Using the above function to derive the display strings for all of the
         # elements.
-        semimajor_axis_string = orb_str_conv(
-            val=orbitals.semimajor_axis, err=orbitals.semimajor_axis_error
+        self.ui.line_edit_orbit_results_semimajor_axis_value.setText(
+            vsf(primary_solution.orbitals.semimajor_axis)
         )
-        eccentricity_string = orb_str_conv(
-            val=orbitals.eccentricity, err=orbitals.eccentricity_error
+        self.ui.line_edit_orbit_results_semimajor_axis_error.setText(
+            vsf(primary_solution.orbitals.semimajor_axis_error)
         )
-        inclination_string = orb_str_conv(
-            val=orbitals.inclination, err=orbitals.inclination_error
+
+        self.ui.line_edit_orbit_results_eccentricity_value.setText(
+            vsf(primary_solution.orbitals.eccentricity)
         )
-        ascending_node_string = orb_str_conv(
-            val=orbitals.longitude_ascending_node,
-            err=orbitals.longitude_ascending_node_error,
+        self.ui.line_edit_orbit_results_eccentricity_error.setText(
+            vsf(primary_solution.orbitals.eccentricity_error)
         )
-        perihelion_string = orb_str_conv(
-            val=orbitals.argument_perihelion, err=orbitals.argument_perihelion_error
+
+        self.ui.line_edit_orbit_results_inclination_value.setText(
+            vsf(primary_solution.orbitals.inclination)
         )
-        mean_anomaly_string = orb_str_conv(
-            val=orbitals.mean_anomaly, err=orbitals.mean_anomaly_error
+        self.ui.line_edit_orbit_results_inclination_error.setText(
+            vsf(primary_solution.orbitals.inclination_error)
         )
-        # Changing the text using the derived strings.
-        self.ui.line_edit_orbit_semimajor_axis.setText(semimajor_axis_string)
-        self.ui.line_edit_orbit_eccentricity.setText(eccentricity_string)
-        self.ui.line_edit_orbit_inclination.setText(inclination_string)
-        self.ui.line_edit_orbit_ascending_node.setText(ascending_node_string)
-        self.ui.line_edit_orbit_perihelion.setText(perihelion_string)
-        self.ui.line_edit_orbit_mean_anomaly.setText(mean_anomaly_string)
+
+        self.ui.line_edit_orbit_results_ascending_node_value.setText(
+            vsf(primary_solution.orbitals.longitude_ascending_node)
+        )
+        self.ui.line_edit_orbit_results_ascending_node_error.setText(
+            vsf(primary_solution.orbitals.longitude_ascending_node_error)
+        )
+
+        self.ui.line_edit_orbit_results_perihelion_value.setText(
+            vsf(primary_solution.orbitals.argument_perihelion)
+        )
+        self.ui.line_edit_orbit_results_perihelion_error.setText(
+            vsf(primary_solution.orbitals.argument_perihelion_error)
+        )
+
+        self.ui.line_edit_orbit_results_mean_anomaly_value.setText(
+            vsf(primary_solution.orbitals.mean_anomaly)
+        )
+        self.ui.line_edit_orbit_results_mean_anomaly_error.setText(
+            vsf(primary_solution.orbitals.mean_anomaly_error)
+        )
 
         # Maximum precision on the epoch Julian day is desired however.
-        julian_day_string = str(orbitals.epoch_julian_day)
-        self.ui.line_edit_orbit_epoch.setText(julian_day_string)
+        julian_day_string = str(primary_solution.orbitals.epoch_julian_day)
+        self.ui.line_edit_orbit_results_epoch_value.setText(julian_day_string)
 
         # All done.
         return None
 
     def __refresh_dynamic_label_text_ephemeris(self) -> None:
         """Refresh all of the dynamic label text for ephemerides.
-        This fills out the information based on the current solutions
+        This fills out the information based on the current primary solution
         available and solved.
 
         An ephemeritic solution must exist.
@@ -1798,53 +2398,59 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Everything in this function needs the OpihiSolution, if it does not
-        # exist, then exit early as there is nothing to refresh.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-        else:
-            opihi_solution = self.opihi_solution
-
-        # Nothing so far.
-        pass
-
-        # Everything beyond this point requires an orbital solution, if
-        # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(
-            self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution
+        # If there is no ephemeris solution, there is nothing to be done.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution)
         ):
             return None
-        else:
-            ephemeritics = self.opihi_solution.ephemeritics
 
         # Update the rate text with the velocity terms provided by the
         # propagation solution. The propagation solution provides rates as
         # degrees per second.
-        ra_v_deg = ephemeritics.ra_velocity
-        dec_v_deg = ephemeritics.dec_velocity
+        ra_v_deg = primary_solution.ephemeritics.ra_velocity
+        dec_v_deg = primary_solution.ephemeritics.dec_velocity
         # And acceleration, as degrees per second squared.
-        ra_a_deg = ephemeritics.ra_acceleration
-        dec_a_deg = ephemeritics.dec_acceleration
+        ra_a_deg = primary_solution.ephemeritics.ra_acceleration
+        dec_a_deg = primary_solution.ephemeritics.dec_acceleration
         # Converting to the more familiar arcsec/s from deg/s along with
         # arcsec/s/s from deg/s/s. Round after and prepare to make it a
         # string for the GUI.
-        def vel_deg_to_arcsec_str(degree: float) -> str:
-            return str(round(degree * 3600, 5))
+        def vel_dg_to_as_str(degree: float) -> str:
+            """Converting to arcseconds per second then formatting."""
+            arcsecond = library.conversion.degrees_per_second_to_arcsec_per_second(
+                degree_per_second=degree
+            )
+            return "{vel:.3f}".format(vel=arcsecond)
 
-        def accl_deg_to_arcsec_str(degree: float) -> str:
-            # Accelerations are usually a lot less and thus should get their
-            # own method of manipulation.
-            return str("{acc:2.3e}".format(acc=degree))
+        def acc_dg_to_as_str(degree: float) -> str:
+            """Converting to arcseconds per second squared then formatting.
+            Accelerations are usually a lot less and thus should have
+            scientific notation."""
+            # The extra second factor doesn't matter.
+            arcsecond = library.conversion.degrees_per_second_to_arcsec_per_second(
+                degree_per_second=degree
+            )
+            return "{acc:.4e}".format(acc=arcsecond)
 
-        ra_v_arcsec_str = vel_deg_to_arcsec_str(ra_v_deg)
-        dec_v_arcsec_str = vel_deg_to_arcsec_str(dec_v_deg)
-        ra_a_arcsec_str = accl_deg_to_arcsec_str(ra_a_deg)
-        dec_a_arcsec_str = accl_deg_to_arcsec_str(dec_a_deg)
+        ra_v_arcsec_str = vel_dg_to_as_str(ra_v_deg)
+        dec_v_arcsec_str = vel_dg_to_as_str(dec_v_deg)
+        ra_a_arcsec_str = acc_dg_to_as_str(ra_a_deg)
+        dec_a_arcsec_str = acc_dg_to_as_str(dec_a_deg)
         # Update the dynamic text.
-        self.ui.label_dynamic_ephemeris_ra_velocity.setText(ra_v_arcsec_str)
-        self.ui.label_dynamic_ephemeris_dec_velocity.setText(dec_v_arcsec_str)
-        self.ui.label_dynamic_ephemeris_ra_acceleration.setText(ra_a_arcsec_str)
-        self.ui.label_dynamic_ephemeris_dec_acceleration.setText(dec_a_arcsec_str)
+        self.ui.label_dynamic_ephemeris_results_first_order_ra_rate.setText(
+            ra_v_arcsec_str
+        )
+        self.ui.label_dynamic_ephemeris_results_first_order_dec_rate.setText(
+            dec_v_arcsec_str
+        )
+        self.ui.label_dynamic_ephemeris_results_second_order_ra_rate.setText(
+            ra_a_arcsec_str
+        )
+        self.ui.label_dynamic_ephemeris_results_second_order_dec_rate.setText(
+            dec_a_arcsec_str
+        )
 
         # All done.
         return None
@@ -1864,58 +2470,81 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Everything in this function needs the OpihiSolution, if it does not
-        # exist, then exit early as there is nothing to refresh.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-        else:
-            opihi_solution = self.opihi_solution
-
-        # Nothing so far.
-        pass
-
-        # Everything beyond this point requires an astrometric solution, if
-        # it does not exist, there is no point in continuing, exiting early.
-        if not isinstance(
-            self.opihi_solution.propagatives, propagate.PropagativeSolution
+        # If there is no ephemeris solution, there is nothing to be done.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not (
+            isinstance(primary_solution, opihiexarata.OpihiSolution)
+            and isinstance(primary_solution.propagatives, propagate.PropagativeSolution)
         ):
             return None
-        else:
-            propagatives = self.opihi_solution.propagatives
 
         # Update the rate text with the velocity terms provided by the
         # propagation solution. The propagation solution provides rates as
         # degrees per second.
-        ra_v_deg = propagatives.ra_velocity
-        dec_v_deg = propagatives.dec_velocity
+        ra_v_deg = primary_solution.propagatives.ra_velocity
+        dec_v_deg = primary_solution.propagatives.dec_velocity
         # And acceleration, as degrees per second squared.
-        ra_a_deg = propagatives.ra_acceleration
-        dec_a_deg = propagatives.dec_acceleration
+        ra_a_deg = primary_solution.propagatives.ra_acceleration
+        dec_a_deg = primary_solution.propagatives.dec_acceleration
         # Converting to the more familiar arcsec/s from deg/s along with
         # arcsec/s/s from deg/s/s. Round after and prepare to make it a
         # string for the GUI.
-        def vel_deg_to_arcsec_str(degree: float) -> str:
-            return str(round(degree * 3600, 5))
+        def vel_dg_to_as_str(degree: float) -> str:
+            """Converting to arcseconds per second then formatting."""
+            arcsecond = library.conversion.degrees_per_second_to_arcsec_per_second(
+                degree_per_second=degree
+            )
+            return "{vel:.3f}".format(vel=arcsecond)
 
-        def accl_deg_to_arcsec_str(degree: float) -> str:
-            # Accelerations are usually a lot less and thus should get their
-            # own method of manipulation.
-            return str("{acc:2.3e}".format(acc=degree))
+        def acc_dg_to_as_str(degree: float) -> str:
+            """Converting to arcseconds per second squared then formatting.
+            Accelerations are usually a lot less and thus should have
+            scientific notation."""
+            # The extra second factor doesn't matter.
+            arcsecond = library.conversion.degrees_per_second_to_arcsec_per_second(
+                degree_per_second=degree
+            )
+            return "{acc:.4e}".format(acc=arcsecond)
 
-        ra_v_arcsec_str = vel_deg_to_arcsec_str(ra_v_deg)
-        dec_v_arcsec_str = vel_deg_to_arcsec_str(dec_v_deg)
-        ra_a_arcsec_str = accl_deg_to_arcsec_str(ra_a_deg)
-        dec_a_arcsec_str = accl_deg_to_arcsec_str(dec_a_deg)
+        ra_v_arcsec_str = vel_dg_to_as_str(ra_v_deg)
+        dec_v_arcsec_str = vel_dg_to_as_str(dec_v_deg)
+        ra_a_arcsec_str = acc_dg_to_as_str(ra_a_deg)
+        dec_a_arcsec_str = acc_dg_to_as_str(dec_a_deg)
         # Update the dynamic text.
-        self.ui.label_dynamic_propagate_ra_velocity.setText(ra_v_arcsec_str)
-        self.ui.label_dynamic_propagate_dec_velocity.setText(dec_v_arcsec_str)
-        self.ui.label_dynamic_propagate_ra_acceleration.setText(ra_a_arcsec_str)
-        self.ui.label_dynamic_propagate_dec_acceleration.setText(dec_a_arcsec_str)
+        self.ui.label_dynamic_propagate_results_first_order_ra_rate.setText(
+            ra_v_arcsec_str
+        )
+        self.ui.label_dynamic_propagate_results_first_order_dec_rate.setText(
+            dec_v_arcsec_str
+        )
+        self.ui.label_dynamic_propagate_results_second_order_ra_rate.setText(
+            ra_a_arcsec_str
+        )
+        self.ui.label_dynamic_propagate_results_second_order_dec_rate.setText(
+            dec_a_arcsec_str
+        )
 
         # All done.
         return None
 
-    def redraw_opihi_image(self) -> None:
+    def draw_nothing(self) -> None:
+        """This function clears the plot completely and assigns no data to it.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Clear the plot.
+        self.opihi_axes.clear()
+        self.opihi_canvas.draw()
+        # All done.
+        return None
+
+    def draw_opihi_image(self) -> None:
         """Redraw the Opihi image given that new results may have been added
         because some solutions were completed. This modifies the GUI in-place.
 
@@ -1929,22 +2558,24 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         # Clear the information before re-plotting, it is easier just to draw
         # it all again.
-        self.opihi_axes.clear()
+        self.draw_nothing()
 
         # This is a function which allows for the disabling of other axes
         # formatting their data values and messing with the formatter class.
         def empty_string(string: str) -> str:
             return str()
 
-        # There is no solution and thus no image can be plotted.
-        if self.opihi_solution is None:
+        # We plot based on the primary solution as everything which is worth
+        # plotting comes from the primary solution.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if not isinstance(primary_solution, opihiexarata.OpihiSolution):
             return None
 
         # These are points in future time which will be used to plot the
         # ephemeris and propagation solutions, if they exist. However,
         # as the time step is in seconds, and the standard time of this
         # system is in Julian days, we convert.
-        if isinstance(self.opihi_solution.observing_time, (int, float)):
+        if isinstance(primary_solution.observing_time, (int, float)):
             # We can only do this if we know the time that the image was taken
             # at.
             TIMESTEP_JD = (
@@ -1953,14 +2584,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             N_POINTS = library.config.GUI_MANUAL_FUTURE_TIME_PLOT_STEP_COUNT
             # Numpy says linspace is more stable for decimal non-integer steps.
             future_time_plot = np.linspace(
-                self.opihi_solution.observing_time,
-                self.opihi_solution.observing_time + TIMESTEP_JD * N_POINTS,
+                primary_solution.observing_time,
+                primary_solution.observing_time + TIMESTEP_JD * N_POINTS,
                 N_POINTS,
                 endpoint=True,
             )
 
         # The data that will be plotted.
-        plotting_data = self.opihi_solution.data
+        plotting_data = primary_solution.data
         # We set the bounds of the colorbar based on the 1-99 % bounds.
         colorbar_low, colorbar_high = np.nanpercentile(plotting_data, [1, 99])
         # Plotting the image, should be in the background of everything.
@@ -1974,7 +2605,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # not work, it is often because the location of the asteroid was not
         # provided.
         try:
-            target_x, target_y = self.opihi_solution.asteroid_location
+            target_x, target_y = primary_solution.asteroid_location
             target_marker = self.opihi_axes.scatter(
                 target_x,
                 target_y,
@@ -1992,12 +2623,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # If there is an ephemeris solution, it is helpful to trace out the
         # future path predicted by the ephemeris.
-        if isinstance(self.opihi_solution.ephemeritics, ephemeris.EphemeriticSolution):
+        if isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution):
             # The astrometric solution is also needed to convert it back to
             # pixel coordinates. As the ephemeritic solution requires the
             # astrometric solution, this is fine.
-            astrometrics = self.opihi_solution.astrometrics
-            ephemeritics = self.opihi_solution.ephemeritics
+            astrometrics = primary_solution.astrometrics
+            ephemeritics = primary_solution.ephemeritics
             # Find the future coordinates based on the future plot times
             # from the configuration.
             ephemeris_future_ra, ephemeris_future_dec = ephemeritics.forward_ephemeris(
@@ -2021,12 +2652,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # If there is a propagation solution, it is helpful to trace out the
         # future path predicted by the propagation.
-        if isinstance(self.opihi_solution.propagatives, propagate.PropagativeSolution):
+        if isinstance(primary_solution.propagatives, propagate.PropagativeSolution):
             # The astrometric solution is also needed to convert it back to
             # pixel coordinates. As the ephemeritic solution requires the
             # astrometric solution, this is fine.
-            astrometrics = self.opihi_solution.astrometrics
-            propagatives = self.opihi_solution.propagatives
+            astrometrics = primary_solution.astrometrics
+            propagatives = primary_solution.propagatives
             # Find the future coordinates based on the future plot times
             # from the configuration.
             propagate_future_ra, propagate_future_dec = propagatives.forward_propagate(
@@ -2082,7 +2713,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # anything but one. We also clear the plot at this step.
         if replace:
             # Clearing the plot as we are replacing it with the busy image.
-            self.opihi_axes.clear()
+            self.draw_nothing()
             # Doesn't really make sense to have a transparency when replacing
             # the image.
             transparency = 1
@@ -2098,6 +2729,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                     " and 1.".format(alpha=transparency)
                 )
 
+        # This is a function which allows for the disabling of other axes
+        # formatting their data values and messing with the formatter class.
+        def empty_string(string: str) -> str:
+            return str()
+
         # We load the busy image.
         busy_image = gui.functions.get_busy_image_array()
 
@@ -2105,7 +2741,13 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         busy_height, busy_width, __ = busy_image.shape
         # From the shape of the image, and the shape of the array, we pin the
         # origin of the image. We desired a centered image.
-        data_height, data_width = self.opihi_solution.data.shape
+        # We take it from the primary image's shape.
+        primary_solution = self.opihi_solution_list[self.primary_file_index]
+        if isinstance(primary_solution, opihiexarata.OpihiSolution):
+            data_height, data_width = primary_solution.data.shape
+        else:
+            # A rough approximation is good enough.
+            data_height, data_width = (2048, 2048)
 
         # Defining the extents.
         left_extent = (
@@ -2124,13 +2766,15 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
 
         # Showing the image.
-        self.opihi_axes.imshow(
+        image = self.opihi_axes.imshow(
             busy_image,
             aspect="equal",
             alpha=transparency,
             extent=(left_extent, right_extent, bottom_extent, top_extent),
             zorder=10,
         )
+        # Disable their formatting in favor of ours.
+        image.format_cursor_data = empty_string
         # Redraw the canvas.
         self.opihi_canvas.draw()
         # All done.
@@ -2156,155 +2800,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def save_auto_save(self) -> None:
-        """This function should be used when auto save is active across
-        every and all aspects of the GUI where automatic saving is desired.
-
-        Auto-saving is enabled by the checkbox.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        autosave_bool = bool(self.ui.check_box_summary_autosave.isChecked())
-        if autosave_bool:
-            try:
-                self.save_all_results()
-            except Exception:
-                raise
-        else:
-            # No auto-save.
-            pass
-        # All done.
-        return None
-
-    def save_all_results(self) -> None:
-        """Save all of the results of the solutions to date. This is especially
-        done upon selecting a new image, the previous image results are
-        saved.
-
-        If there is no solution class, then there is no results to save either
-        and this function does nothing.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Beginning with the FITS file. We get the filename to save the FITS
-        # file as and try to save it.
-        saving_fits_filename = str(self.ui.line_edit_summary_save_filename.text())
-        if len(saving_fits_filename) == 0:
-            # If the saving filename is blank then we ought to try an
-            # alternative by trying to derive the name from the fits file.
-            try:
-                saving_fits_filename = self.__get_saving_fits_filename()
-            except error.SequentialOrderError:
-                # There is no FITS file to even derive the filename. We cannot
-                # save the FITS file.
-                saving_fits_filename = None
-        # Attempt to save the file.
-        if saving_fits_filename is None:
-            # There is no FITS filename to save as. We cannot save the file.
-            print("warn fits not save.")
-        else:
-            # Attempt to save the file.
-            self._save_fits_file_results(fits_filename=saving_fits_filename)
-
-        # Next the MPC record file. We get the filename to save the mpc
-        # record file as and try to save it.
-        try:
-            saving_mpcrecord_filename = self.__get_mpc_record_filename()
-        except error.SequentialOrderError:
-            # There is no FITS file to even derive the filename. We cannot
-            # save the FITS file.
-            saving_mpcrecord_filename = None
-        # Attempt to save the file.
-        if saving_mpcrecord_filename is None:
-            # There is no MPC record filename to save as. We cannot save the
-            # file.
-            print("warn mpc not save.")
-        else:
-            # Attempt to save the file.
-            self._save_mpc_record_results(record_filename=saving_mpcrecord_filename)
-
-        # All done.
-        return None
-
-    def _save_fits_file_results(self, fits_filename: str) -> None:
-        """We save the results which can be stored in a FITS file, this is
-        typically the data and other related information.
-
-        Parameters
-        ----------
-        fits_filename : string
-            The fits filename which it will be saved to.
-
-        Returns
-        -------
-        None
-        """
-        # If there is no solution class, there is nothing to save. Exiting
-        # early.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            return None
-        # Saving, it should be fine as we overwrite as only more data will
-        # be added.
-        self.opihi_solution.save_to_fits_file(filename=fits_filename, overwrite=True)
-        # All done.
-        return None
-
-    def _save_mpc_record_results(self, record_filename: str) -> None:
-        """We save the MPC record information which can be saved as a
-        text file.
-
-        Parameters
-        ----------
-        record_filename : string
-            The text filename which will contain the 80-column MPC formatted
-            list of asteroid observations.
-
-        Returns
-        -------
-        None
-        """
-        # The OpihiSolution class does not exist so there is nothing for it
-        # to provide. However, if there is no file, we still can create it.
-        if not isinstance(self.opihi_solution, opihiexarata.OpihiSolution):
-            if os.path.isfile(record_filename):
-                # We do not want to overwrite something if we have nothing to
-                # provide it.
-                return None
-            else:
-                with open(record_filename, "w") as mpcfile:
-                    pass
-
-        # The current record to add.
-        try:
-            mpc_record = self.opihi_solution.mpc_record_full()
-        except error.PracticalityError:
-            # If the user did not solve for astrometry, this will raise
-            # because it cannot properly make an MPC row. We ignore it
-            # and we do not add any observational data. We just return it
-            # to the state it was.
-            mpc_record = self.opihi_solution.asteroid_history
-        finally:
-            # Adding the new line character as write lines do not do this
-            # to make the multi-rowed file.
-            mpc_record = [rowdex + "\n" for rowdex in mpc_record]
-        # If the record file already exists, replace our information with
-        # it. We can do this because we already are using their data.
-        with open(record_filename, "w") as mpcfile:
-            mpcfile.writelines(mpc_record)
-        return None
-
     def __write_zero_point_record_to_database(
         self, opihi_solution: hint.OpihiSolution
     ) -> None:
@@ -2321,6 +2816,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+        # We ju
         # The photometry solution must exist and it must be properly solved.
         if not isinstance(opihi_solution.photometrics, photometry.PhotometricSolution):
             return None

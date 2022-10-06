@@ -131,7 +131,7 @@ def t3io_tcs_next(
     target_name = (
         target_name
         if target_name is not None
-        else library.config.GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME
+        else library.config.GUI_MANUAL_DEFAULT_TARGET_SET_NAME
     )
     if set(target_name) <= LATIN_ASCII_CHARACTER_SET:
         # If there are any spaces, we need to re-encode them as %20 as the

@@ -75,6 +75,9 @@ _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
     "OXR_DECV": (None, "OX: Prop. DEC vel., arcsec/s."),
     "OXR_RA_A": (None, "OX: Prop. RA acc., arcsec/s^2."),
     "OXR_DECA": (None, "OX: Prop. DEC acc., arcsec/s^2."),
+    # WCS Astrometry; W.
+    "OXWBEGIN": (None, "OX: Begin WCS entries."),
+    "OXW__END": (None, "OX: End WCS entries."),
     # End.
     "OX___END": (False, "OX: True if no error on save."),
 }

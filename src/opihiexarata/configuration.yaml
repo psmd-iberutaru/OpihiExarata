@@ -40,13 +40,13 @@ GUI_MANUAL_DATABASE_CLEAN_FILE_RATE : 0.25
 GUI_MANUAL_T3IO_PROGRAM_BINARY_PATH : "/usr/local/bin/t3io"
 GUI_MANUAL_T3IO_TCS_HOSTNAME : "t1hilo"
 
-# The T3IO optionally offers a target/asteroid name to be provided. We
-# provided this name as a default.
-GUI_MANUAL_T3IO_DEFAULT_TARGET_NAME : "Pyukumuku"
-
 # This is the directory for where the automatic image finder should look for 
 # the new images. It works best if this is an absolute directory.
 GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY : ""
+
+# If no target set name can be derived at all, for some odd reason, this is
+# the default.
+GUI_MANUAL_DEFAULT_TARGET_SET_NAME : "Pyukumuku"
 
 # When OpihiExarata saves a FITS file after being processed, the default, 
 # if a filename has not been provided, is to attach a small suffix to the 

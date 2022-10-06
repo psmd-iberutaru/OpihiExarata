@@ -366,3 +366,39 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         records.append(temp_record)
     # All done.
     return records
+
+
+def clean_minor_planet_record(records:list[str]) -> list[str]:
+    """This function cleans up an input MPC record. 
+    
+    It...
+
+    - Removes duplicate entries
+    - Entries not 80-characters long.
+    - Sorts based off of observation time.
+
+    Parameters
+    ----------
+    records : list
+        The records to be sorted and cleaned up.
+
+    Returns
+    -------
+    clean_records : list 
+        The records after they have been cleaned.
+    """
+    # First, we remove any duplicate entries.
+    cleaner_records = list(set(records))
+
+    # If any of the entries are not long enough, they are also discarded.
+    cleaner_records = [recorddex for recorddex in cleaner_records if len(recorddex) == 80]
+
+    # It is a lot easier to sort using Astropy tables as the dates are in the 
+    # middle of the entries.
+    cleaner_table = minor_planet_record_to_table(records=cleaner_records)
+    cleaner_table.sort(["year", "month", "day"])
+    # Returning the sorted table back to a record.
+    cleaner_records = minor_planet_table_to_record(table=cleaner_table)
+
+    # All of the cleaning has finished.
+    return cleaner_records

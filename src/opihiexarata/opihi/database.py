@@ -16,6 +16,20 @@ import opihiexarata.library.hint as hint
 DATABASE_CHECK_FILE_BASENAME = "exarata_zero_point_database"
 DATABASE_CHECK_FILE_EXTENSION = "check"
 
+# The headers/keys of the database table and their type.
+DATABASE_TABLE_HEADER_AND_TYPES = {
+    "datetime": str,
+    "year": int,
+    "month": int,
+    "day": int,
+    "hour": int,
+    "minute": int,
+    "second": int,
+    "zero_point": float,
+    "zero_point_error": float,
+    "filter_name": str,
+}
+
 
 class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
     """The flat file database solution which provides an API-like solution to
@@ -91,7 +105,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
     ) -> None:
         """This function takes a record file and cleans it up. Sorting it by
         time and deleting any lines which do not conform to the expected
-        formatting.
+        formatting along with any duplicate lines.
 
         This is a class method because cleaning the database files does not
         rely on the database per-say or adding data to it. It could be
@@ -140,9 +154,12 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             else:
                 valid_records.append(linedex)
 
+        # Any duplicates in the records should be removed.
+        unique_records = list(set(valid_records))
+
         # We sort the valid records via time. Conveniently, ISO formatted
         # times makes this equivalent to sorting strings.
-        sorted_records = sorted(valid_records)
+        sorted_records = sorted(unique_records)
 
         # There is no other cleaning that is needed.
         cleaned_records = sorted_records
@@ -415,9 +432,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         zero_point = float(zero_point_str)
         zero_point_error = float(zero_point_error_str)
 
-        # We can compile the dictionary from here. We include the datatime for
+        # We can compile the dictionary from here. We include the datetime for
         # ease of handling.
-        record_dictionary = {
+        parsed_record_dictionary = {
             "datetime": datetime_str,
             "year": record_datetime.year,
             "month": record_datetime.month,
@@ -429,6 +446,17 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             "zero_point_error": zero_point_error,
             "filter_name": filter_name_str,
         }
+        # Better parsing the record based on the Astropy/table schema defined.
+        # This is just to make sure it follows the definitions.
+        record_dictionary = {}
+        for keydex, typedex in DATABASE_TABLE_HEADER_AND_TYPES.items():
+            parsed_value = parsed_record_dictionary.get(keydex)
+            if isinstance(parsed_value, typedex):
+                record_dictionary[keydex] = parsed_value
+            else:
+                # Try and format it so.
+                record_dictionary[keydex] = typedex(parsed_value)
+            
         # All done
         return record_dictionary
 
@@ -761,7 +789,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
                 continue
 
         # Fine tune the search for hours, minutes and seconds. Datetimes
-        # handle the entire date so we can also double check for that.
+        # handle the entire date so we can also double check using that.
         valid_record_rows = []
         for recorddex in database_record_list:
             record_dictionary = self._parse_zero_point_record_line(record=recorddex)
@@ -782,7 +810,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
                 continue
 
         # We parse all of these valid entries into a table.
-        query_record_table = ap_table.Table(rows=valid_record_rows)
+        if len(valid_record_rows) == 0:
+            # There are no entries, we should provide a blank table.
+            headers = list(DATABASE_TABLE_HEADER_AND_TYPES.keys())
+            types = list(DATABASE_TABLE_HEADER_AND_TYPES.values())
+            query_record_table = ap_table.Table(names=headers, dtype=types)
+        else:
+            query_record_table = ap_table.Table(rows=valid_record_rows)
         # All done.
         return query_record_table
 

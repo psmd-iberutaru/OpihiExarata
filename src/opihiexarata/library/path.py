@@ -30,6 +30,7 @@ def get_directory(pathname: str) -> str:
 def get_most_recent_filename_in_directory(
     directory: str,
     extension: hint.Union[str, list] = None,
+    recursive:bool=False,
     recency_function: hint.Callable[[str], float] = None,
     exclude_opihiexarata_output_files: bool = False,
 ) -> str:
@@ -47,6 +48,9 @@ def get_most_recent_filename_in_directory(
         The extension by which to filter for. It is often the case that some
         files are created but the most recent file of some type is desired.
         Only files which match the included extensions will be considered.
+    recursive : bool, default = False
+        If True, the directory is searched recursively for the most recent file
+        based on the recency function.
     recency_function : callable, default = None
         A function which, when provided, provides a sorting index for a given
         filename. This is used when the default sorting method (modification
@@ -92,7 +96,7 @@ def get_most_recent_filename_in_directory(
         pathname_glob_filter = merge_pathname(
             directory=directory, filename="*", extension=extensiondex
         )
-        extension_matching_files = glob.glob(pathname_glob_filter, recursive=False)
+        extension_matching_files = glob.glob(pathname_glob_filter, recursive=recursive)
         matching_filenames += extension_matching_files
 
     # If flagged, we do not include files which have been marked as outputs
@@ -105,19 +109,24 @@ def get_most_recent_filename_in_directory(
         AUTOMATIC_SUFFIX = library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
         MPCRECORD_SUFFIX = library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
         for filenamedex in copy.deepcopy(matching_filenames):
+            # We only care about the basename in terms of matching suffixes.
+            # Though the extension itself may be a valid suffix as well, for 
+            # some odd reason.
+            basename = get_filename_with_extension(pathname=filenamedex)
+            # Checking if this file is to be excluded.
             if (
-                (PREPROCESS_SUFFIX in filenamedex)
-                or (MANUAL_SUFFIX in filenamedex)
-                or (AUTOMATIC_SUFFIX in filenamedex)
-                or (MPCRECORD_SUFFIX in filenamedex)
+                (PREPROCESS_SUFFIX in basename)
+                or (MANUAL_SUFFIX in basename)
+                or (AUTOMATIC_SUFFIX in basename)
+                or (MPCRECORD_SUFFIX in basename)
             ):
                 continue
             # Also check the .FITS variant.
             elif (
-                (PREPROCESS_SUFFIX + ".fits" in filenamedex)
-                or (MANUAL_SUFFIX + ".fits" in filenamedex)
-                or (AUTOMATIC_SUFFIX + ".fits" in filenamedex)
-                or (MPCRECORD_SUFFIX + ".fits" in filenamedex)
+                (PREPROCESS_SUFFIX + ".fits" in basename)
+                or (MANUAL_SUFFIX + ".fits" in basename)
+                or (AUTOMATIC_SUFFIX + ".fits" in basename)
+                or (MPCRECORD_SUFFIX + ".fits" in basename)
             ):
                 continue
             else:

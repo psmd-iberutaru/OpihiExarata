@@ -406,15 +406,18 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         if self.opihi_nav_toolbar.mode.value != "":
             return None
 
-        # Assign the potential location of the target to the location
-        # of the mouse.
-        if event.xdata is None or event.ydata is None:
-            # The user likely clicked outside of the canvas area. Ignore.
-            pass
-        else:
-            # One of the bounds of the search rectangle.
-            self.box_search_x0 = float(event.xdata)
-            self.box_search_y0 = float(event.ydata)
+        # If the button click was from the middle mouse button, a box is
+        # being drawn for defining the box of the asteroid.
+        if event.button == 2:
+            # Assign the potential location of the target to the location
+            # of the mouse.
+            if event.xdata is None or event.ydata is None:
+                # The user likely clicked outside of the canvas area. Ignore.
+                pass
+            else:
+                # One of the bounds of the search rectangle.
+                self.box_search_x0 = float(event.xdata)
+                self.box_search_y0 = float(event.ydata)
         return None
 
     def __connect_matplotlib_mouse_release_event(self, event: hint.MouseEvent) -> None:
@@ -436,35 +439,38 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         if self.opihi_nav_toolbar.mode.value != "":
             return None
 
-        # Assign the potential location of the target to the location
-        # of the mouse.
-        if event.xdata is None or event.ydata is None:
-            # The user likely clicked outside of the canvas area. Ignore.
-            pass
-        else:
-            # One of the bounds of the search rectangle.
-            self.box_search_x1 = float(event.xdata)
-            self.box_search_y1 = float(event.ydata)
-        # By convention, the x0 <= x1 and vice versa for y. If the user drew
-        # a backwards square, then we fix it here.
-        if self.box_search_x1 < self.box_search_x0:
-            lower_x = min([self.box_search_x0, self.box_search_x1])
-            upper_x = max([self.box_search_x0, self.box_search_x1])
-            self.box_search_x0 = lower_x
-            self.box_search_x1 = upper_x
-        if self.box_search_y1 < self.box_search_y0:
-            lower_y = min([self.box_search_y0, self.box_search_y1])
-            upper_y = max([self.box_search_y0, self.box_search_y1])
-            self.box_search_y0 = lower_y
-            self.box_search_y1 = upper_y
 
-        # Find the target location based on the search area just determined.
-        self.target_x, self.target_y = self.find_target_location(
-            x0=self.box_search_x0,
-            x1=self.box_search_x1,
-            y0=self.box_search_y0,
-            y1=self.box_search_y1,
-        )
+        # If the button click was from the middle mouse button, a box is
+        # being drawn for defining the box of the asteroid.
+        if event.button == 2:
+            # Assign the potential location of the target to the location
+            # of the mouse.
+            if event.xdata is None or event.ydata is None:
+                # The user likely clicked outside of the canvas area. Ignore.
+                pass
+            else:
+                # One of the bounds of the search rectangle.
+                self.box_search_x1 = float(event.xdata)
+                self.box_search_y1 = float(event.ydata)
+            # By convention, the x0 <= x1 and vice versa for y. If the user drew
+            # a backwards square, then we fix it here.
+            if self.box_search_x1 < self.box_search_x0:
+                lower_x = min([self.box_search_x0, self.box_search_x1])
+                upper_x = max([self.box_search_x0, self.box_search_x1])
+                self.box_search_x0 = lower_x
+                self.box_search_x1 = upper_x
+            if self.box_search_y1 < self.box_search_y0:
+                lower_y = min([self.box_search_y0, self.box_search_y1])
+                upper_y = max([self.box_search_y0, self.box_search_y1])
+                self.box_search_y0 = lower_y
+                self.box_search_y1 = upper_y
+            # Find the target location based on the search area just determined.
+            self.target_x, self.target_y = self.find_target_location(
+                x0=self.box_search_x0,
+                x1=self.box_search_x1,
+                y0=self.box_search_y0,
+                y1=self.box_search_y1,
+            )
 
         # Redrawing the image to have the location be visible.
         self.refresh_window()
