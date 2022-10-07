@@ -197,13 +197,15 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         """
         # Deriving the size of the image from the filler dummy image. The
         # figure should be a square. (Height really is the primary concern.)
-        pix_to_in = lambda p: p / plt.rcParams["figure.dpi"]
-        dummy_edge_size = self.ui.dummy_selector_image.height()
-        edge_size = pix_to_in(dummy_edge_size)
+        dpi = self.logicalDpiY()
+        pix_to_in = lambda p: p / dpi
+        dummy_edge_size_px = self.ui.dummy_selector_image.maximumHeight()
+        edge_size_in = pix_to_in(dummy_edge_size_px)
+
         # The figure, canvas, and navigation toolbar of the image plot
         # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
-        fig, ax = plt.subplots(figsize=(edge_size, edge_size), constrained_layout=True)
+        fig, ax = plt.subplots(figsize=(edge_size_in, edge_size_in), constrained_layout=True)
         self.opihi_figure = fig
         self.opihi_axes = ax
         self.opihi_canvas = FigureCanvas(self.opihi_figure)
@@ -258,6 +260,16 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # event of a mis-click.
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
+
+        # Setting the size of the canvas to be more representative of the 
+        # designer file.
+        self.opihi_canvas.setMinimumHeight(dummy_edge_size_px)
+        self.opihi_canvas.setMaximumHeight(dummy_edge_size_px)
+        self.opihi_canvas.setMinimumWidth(dummy_edge_size_px)
+        self.opihi_canvas.setMaximumWidth(dummy_edge_size_px)
+        # And setting the navigation bar.
+        self.opihi_nav_toolbar.setMaximumWidth(dummy_edge_size_px)
+
         # Remove the dummy spacers otherwise it is just extra unneeded space.
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_selector_image)
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_selector_navbar)
@@ -404,6 +416,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.opihi_nav_toolbar.mode.value != "":
+            # We proxy the middle button and left mouse button together for 
+            # zooming. We just allow it in addition. This is a band aid 
+            # solution.
+            print("W", self.opihi_nav_toolbar.mode.value)
+            if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
+                event.button = 1
+                self.opihi_nav_toolbar.press_zoom(event=event)
             return None
 
         # If the button click was from the middle mouse button, a box is
@@ -437,6 +456,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.opihi_nav_toolbar.mode.value != "":
+            # We proxy the middle button and left mouse button together for 
+            # zooming. This is a band aid solution.
+            if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
+                event.button = 1
+                self.opihi_nav_toolbar.release_zoom(event=event)
             return None
 
 
@@ -958,8 +982,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Subtracting non-sidereally means that the centers are offset based
         # on the non-sidereal motion and time difference. We find the 
-        # translation vector between the two images.
-        x_pix_change, y_pix_change = library.image.determine_translation_image_array(translate_array=self.current_data, reference_array=self.reference_data)
+        # translation vector between the two images. Because we are shifting 
+        # the reference image forward, the current data is the reference 
+        # for translation.
+        x_pix_change, y_pix_change = library.image.determine_translation_image_array(translate_array=self.reference_data, reference_array=self.current_data)
         # We shift the reference image forward in time as translation splines
         # and it is best not to interpolate the real data. We assume nothing
         # about the outside parts of the image, so there is no data for them.

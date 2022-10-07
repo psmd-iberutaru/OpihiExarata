@@ -22,6 +22,7 @@ DEPENDENCIES = [
     "pillow",
     "PySide6",
     "requests",
+    "scikit-image",
     "scipy",
     "matplotlib",
     "plotly",

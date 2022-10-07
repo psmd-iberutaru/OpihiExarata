@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'manual.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.3.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -289,6 +289,18 @@ class Ui_ManualWindow(object):
         self.push_button_change_target_name.setObjectName(u"push_button_change_target_name")
 
         self.horizontal_layout_target_name.addWidget(self.push_button_change_target_name)
+
+        self.line_33 = QFrame(self.verticalLayoutWidget_2)
+        self.line_33.setObjectName(u"line_33")
+        self.line_33.setFrameShape(QFrame.VLine)
+        self.line_33.setFrameShadow(QFrame.Sunken)
+
+        self.horizontal_layout_target_name.addWidget(self.line_33)
+
+        self.push_button_send_target_to_tcs = QPushButton(self.verticalLayoutWidget_2)
+        self.push_button_send_target_to_tcs.setObjectName(u"push_button_send_target_to_tcs")
+
+        self.horizontal_layout_target_name.addWidget(self.push_button_send_target_to_tcs)
 
 
         self.vertical_layout_summary.addLayout(self.horizontal_layout_target_name)
@@ -1443,6 +1455,7 @@ class Ui_ManualWindow(object):
         self.push_button_reset.setText(QCoreApplication.translate("ManualWindow", u"Reset", None))
         self.label_static_detected_target_name.setText(QCoreApplication.translate("ManualWindow", u"(Detected) Asteroid/Target Name", None))
         self.push_button_change_target_name.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
+        self.push_button_send_target_to_tcs.setText(QCoreApplication.translate("ManualWindow", u"Send Target to TCS", None))
         self.label.setText(QCoreApplication.translate("ManualWindow", u"TextLabel", None))
         self.tab_widget_solutions.setTabText(self.tab_widget_solutions.indexOf(self.tab_summary), QCoreApplication.translate("ManualWindow", u"Summary", None))
         self.label_static_astrometry_engine.setText(QCoreApplication.translate("ManualWindow", u"Astrometry Engine", None))
