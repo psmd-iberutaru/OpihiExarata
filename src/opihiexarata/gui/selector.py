@@ -957,35 +957,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.subtract_sidereal = self.current_data - self.reference_data
 
         # Subtracting non-sidereally means that the centers are offset based
-        # on the non-sidereal motion and time difference. We use this
-        # information to translate in pixel space before subtraction.
-        # TCS rates, in arcsec per second.
-        ra_rate = self.current_header["TCS_NSRA"]
-        dec_rate = self.current_header["TCS_NSDE"]
-        # Deriving the difference in time between the current data and the
-        # reference data.
-        current_jd = library.conversion.modified_julian_day_to_julian_day(
-            mjd=self.current_header["MJD_OBS"]
-        )
-        reference_jd = library.conversion.modified_julian_day_to_julian_day(
-            mjd=self.reference_header["MJD_OBS"]
-        )
-        # We assume the reference image was taken in the past. As Julian days
-        # are in days, and we want seconds,
-        delta_days = current_jd - reference_jd
-        delta_time = delta_days * 86400
-
-        # The total RA and DEC change.
-        ra_change = ra_rate * delta_time
-        dec_change = dec_rate * delta_time
-
-        # Pixel scale, in arcsec per pixel.
-        PIXEL_SCALE = library.config.GUI_SELECTOR_SUBTRACTION_PIXEL_SCALE_ARCSEC_PIXEL
-        # We assume the image is aligned N/E to Y/X so a simple image
-        # translation can be used.
-        x_pix_change = ra_change / PIXEL_SCALE
-        y_pix_change = -dec_change / PIXEL_SCALE
-
+        # on the non-sidereal motion and time difference. We find the 
+        # translation vector between the two images.
+        x_pix_change, y_pix_change = library.image.determine_translation_image_array(translate_array=self.current_data, reference_array=self.reference_data)
         # We shift the reference image forward in time as translation splines
         # and it is best not to interpolate the real data. We assume nothing
         # about the outside parts of the image, so there is no data for them.
