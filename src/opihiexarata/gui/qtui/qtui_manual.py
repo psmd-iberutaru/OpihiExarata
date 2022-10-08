@@ -17,20 +17,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QDateTimeEdit,
     QFrame, QGraphicsView, QGridLayout, QHBoxLayout,
-    QLabel, QLineEdit, QMainWindow, QPushButton,
-    QRadioButton, QSizePolicy, QTabWidget, QVBoxLayout,
-    QWidget)
+    QLabel, QLayout, QLineEdit, QMainWindow,
+    QPushButton, QRadioButton, QSizePolicy, QTabWidget,
+    QVBoxLayout, QWidget)
 
 class Ui_ManualWindow(object):
     def setupUi(self, ManualWindow):
         if not ManualWindow.objectName():
             ManualWindow.setObjectName(u"ManualWindow")
-        ManualWindow.resize(968, 850)
+        ManualWindow.resize(931, 820)
         self.central_widget = QWidget(ManualWindow)
         self.central_widget.setObjectName(u"central_widget")
         self.verticalLayoutWidget = QWidget(self.central_widget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 951, 831))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 911, 801))
         font = QFont()
         font.setFamilies([u"Cantarell"])
         font.setPointSize(12)
@@ -57,7 +57,13 @@ class Ui_ManualWindow(object):
 
         self.label_static_dummy_opihi_navbar = QLabel(self.verticalLayoutWidget)
         self.label_static_dummy_opihi_navbar.setObjectName(u"label_static_dummy_opihi_navbar")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_static_dummy_opihi_navbar.sizePolicy().hasHeightForWidth())
+        self.label_static_dummy_opihi_navbar.setSizePolicy(sizePolicy1)
         self.label_static_dummy_opihi_navbar.setMinimumSize(QSize(0, 25))
+        self.label_static_dummy_opihi_navbar.setBaseSize(QSize(0, 0))
         self.label_static_dummy_opihi_navbar.setFont(font)
         self.label_static_dummy_opihi_navbar.setAlignment(Qt.AlignCenter)
 
@@ -76,173 +82,216 @@ class Ui_ManualWindow(object):
 
         self.grid_layout_file_selector = QGridLayout()
         self.grid_layout_file_selector.setObjectName(u"grid_layout_file_selector")
-        self.push_button_change_filename_4 = QPushButton(self.verticalLayoutWidget)
-        self.push_button_change_filename_4.setObjectName(u"push_button_change_filename_4")
+        self.radio_button_primary_file_1 = QRadioButton(self.verticalLayoutWidget)
+        self.button_group_primary_working_file = QButtonGroup(ManualWindow)
+        self.button_group_primary_working_file.setObjectName(u"button_group_primary_working_file")
+        self.button_group_primary_working_file.addButton(self.radio_button_primary_file_1)
+        self.radio_button_primary_file_1.setObjectName(u"radio_button_primary_file_1")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.radio_button_primary_file_1.sizePolicy().hasHeightForWidth())
+        self.radio_button_primary_file_1.setSizePolicy(sizePolicy2)
+        self.radio_button_primary_file_1.setMaximumSize(QSize(30, 16777215))
+        self.radio_button_primary_file_1.setChecked(True)
 
-        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_4, 10, 3, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_1, 2, 0, 1, 1)
 
-        self.label_static_target_1_location = QLabel(self.verticalLayoutWidget)
-        self.label_static_target_1_location.setObjectName(u"label_static_target_1_location")
-        self.label_static_target_1_location.setFont(font)
+        self.radio_button_primary_file_2 = QRadioButton(self.verticalLayoutWidget)
+        self.button_group_primary_working_file.addButton(self.radio_button_primary_file_2)
+        self.radio_button_primary_file_2.setObjectName(u"radio_button_primary_file_2")
+        sizePolicy2.setHeightForWidth(self.radio_button_primary_file_2.sizePolicy().hasHeightForWidth())
+        self.radio_button_primary_file_2.setSizePolicy(sizePolicy2)
+        self.radio_button_primary_file_2.setMaximumSize(QSize(30, 16777215))
 
-        self.grid_layout_file_selector.addWidget(self.label_static_target_1_location, 2, 1, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_2, 5, 0, 1, 1)
 
-        self.push_button_locate_target_location_4 = QPushButton(self.verticalLayoutWidget)
-        self.push_button_locate_target_location_4.setObjectName(u"push_button_locate_target_location_4")
+        self.radio_button_primary_file_4 = QRadioButton(self.verticalLayoutWidget)
+        self.button_group_primary_working_file.addButton(self.radio_button_primary_file_4)
+        self.radio_button_primary_file_4.setObjectName(u"radio_button_primary_file_4")
+        self.radio_button_primary_file_4.setEnabled(True)
+        sizePolicy2.setHeightForWidth(self.radio_button_primary_file_4.sizePolicy().hasHeightForWidth())
+        self.radio_button_primary_file_4.setSizePolicy(sizePolicy2)
+        self.radio_button_primary_file_4.setMaximumSize(QSize(30, 16777215))
 
-        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_4, 11, 3, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_4, 11, 0, 1, 1)
 
-        self.label_static_target_4_location = QLabel(self.verticalLayoutWidget)
-        self.label_static_target_4_location.setObjectName(u"label_static_target_4_location")
+        self.push_button_reset = QPushButton(self.verticalLayoutWidget)
+        self.push_button_reset.setObjectName(u"push_button_reset")
+        sizePolicy3 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.push_button_reset.sizePolicy().hasHeightForWidth())
+        self.push_button_reset.setSizePolicy(sizePolicy3)
 
-        self.grid_layout_file_selector.addWidget(self.label_static_target_4_location, 11, 1, 1, 1)
-
-        self.push_button_change_filename_2 = QPushButton(self.verticalLayoutWidget)
-        self.push_button_change_filename_2.setObjectName(u"push_button_change_filename_2")
-
-        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_2, 4, 3, 1, 1)
-
-        self.label_static_target_3_location = QLabel(self.verticalLayoutWidget)
-        self.label_static_target_3_location.setObjectName(u"label_static_target_3_location")
-
-        self.grid_layout_file_selector.addWidget(self.label_static_target_3_location, 8, 1, 1, 1)
-
-        self.label_dynamic_target_1_pixel_location = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_target_1_pixel_location.setObjectName(u"label_dynamic_target_1_pixel_location")
-        self.label_dynamic_target_1_pixel_location.setAlignment(Qt.AlignCenter)
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_1_pixel_location, 2, 2, 1, 1)
-
-        self.label_dynamic_filename_3 = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_filename_3.setObjectName(u"label_dynamic_filename_3")
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_3, 7, 1, 1, 2)
-
-        self.push_button_locate_target_location_1 = QPushButton(self.verticalLayoutWidget)
-        self.push_button_locate_target_location_1.setObjectName(u"push_button_locate_target_location_1")
-        self.push_button_locate_target_location_1.setFont(font)
-
-        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_1, 2, 3, 1, 1)
-
-        self.push_button_change_filename_3 = QPushButton(self.verticalLayoutWidget)
-        self.push_button_change_filename_3.setObjectName(u"push_button_change_filename_3")
-
-        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_3, 7, 3, 1, 1)
-
-        self.label_dynamic_filename_2 = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_filename_2.setObjectName(u"label_dynamic_filename_2")
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_2, 4, 1, 1, 2)
-
-        self.label_dynamic_filename_4 = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_filename_4.setObjectName(u"label_dynamic_filename_4")
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_4, 10, 1, 1, 2)
-
-        self.label_dynamic_filename_1 = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_filename_1.setObjectName(u"label_dynamic_filename_1")
-        self.label_dynamic_filename_1.setFont(font)
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_1, 1, 1, 1, 2)
-
-        self.label_dynamic_target_4_pixel_location = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_target_4_pixel_location.setObjectName(u"label_dynamic_target_4_pixel_location")
-        self.label_dynamic_target_4_pixel_location.setAlignment(Qt.AlignCenter)
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_4_pixel_location, 11, 2, 1, 1)
-
-        self.label_dynamic_target_3_pixel_location = QLabel(self.verticalLayoutWidget)
-        self.label_dynamic_target_3_pixel_location.setObjectName(u"label_dynamic_target_3_pixel_location")
-        self.label_dynamic_target_3_pixel_location.setAlignment(Qt.AlignCenter)
-
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_3_pixel_location, 8, 2, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.push_button_reset, 0, 0, 1, 5)
 
         self.label_dynamic_target_2_pixel_location = QLabel(self.verticalLayoutWidget)
         self.label_dynamic_target_2_pixel_location.setObjectName(u"label_dynamic_target_2_pixel_location")
         self.label_dynamic_target_2_pixel_location.setAlignment(Qt.AlignCenter)
 
-        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_2_pixel_location, 5, 2, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_2_pixel_location, 5, 3, 1, 1)
 
         self.push_button_locate_target_location_3 = QPushButton(self.verticalLayoutWidget)
         self.push_button_locate_target_location_3.setObjectName(u"push_button_locate_target_location_3")
 
-        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_3, 8, 3, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_3, 8, 4, 1, 1)
+
+        self.label_dynamic_target_3_pixel_location = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_target_3_pixel_location.setObjectName(u"label_dynamic_target_3_pixel_location")
+        self.label_dynamic_target_3_pixel_location.setAlignment(Qt.AlignCenter)
+
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_3_pixel_location, 8, 3, 1, 1)
 
         self.push_button_change_filename_1 = QPushButton(self.verticalLayoutWidget)
         self.push_button_change_filename_1.setObjectName(u"push_button_change_filename_1")
         self.push_button_change_filename_1.setFont(font)
 
-        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_1, 1, 3, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_1, 1, 4, 1, 1)
 
-        self.push_button_locate_target_location_2 = QPushButton(self.verticalLayoutWidget)
-        self.push_button_locate_target_location_2.setObjectName(u"push_button_locate_target_location_2")
+        self.label_static_target_2_location = QLabel(self.verticalLayoutWidget)
+        self.label_static_target_2_location.setObjectName(u"label_static_target_2_location")
 
-        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_2, 5, 3, 1, 1)
-
-        self.line_4 = QFrame(self.verticalLayoutWidget)
-        self.line_4.setObjectName(u"line_4")
-        self.line_4.setFrameShape(QFrame.HLine)
-        self.line_4.setFrameShadow(QFrame.Sunken)
-
-        self.grid_layout_file_selector.addWidget(self.line_4, 9, 0, 1, 4)
+        self.grid_layout_file_selector.addWidget(self.label_static_target_2_location, 5, 2, 1, 1)
 
         self.line_3 = QFrame(self.verticalLayoutWidget)
         self.line_3.setObjectName(u"line_3")
         self.line_3.setFrameShape(QFrame.HLine)
         self.line_3.setFrameShadow(QFrame.Sunken)
 
-        self.grid_layout_file_selector.addWidget(self.line_3, 6, 0, 1, 4)
+        self.grid_layout_file_selector.addWidget(self.line_3, 6, 0, 1, 5)
 
-        self.radio_button_primary_file_2 = QRadioButton(self.verticalLayoutWidget)
-        self.button_group_primary_working_file = QButtonGroup(ManualWindow)
-        self.button_group_primary_working_file.setObjectName(u"button_group_primary_working_file")
-        self.button_group_primary_working_file.addButton(self.radio_button_primary_file_2)
-        self.radio_button_primary_file_2.setObjectName(u"radio_button_primary_file_2")
+        self.line_4 = QFrame(self.verticalLayoutWidget)
+        self.line_4.setObjectName(u"line_4")
+        self.line_4.setFrameShape(QFrame.HLine)
+        self.line_4.setFrameShadow(QFrame.Sunken)
 
-        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_2, 4, 0, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.line_4, 9, 0, 1, 5)
+
+        self.push_button_locate_target_location_2 = QPushButton(self.verticalLayoutWidget)
+        self.push_button_locate_target_location_2.setObjectName(u"push_button_locate_target_location_2")
+
+        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_2, 5, 4, 1, 1)
 
         self.line_2 = QFrame(self.verticalLayoutWidget)
         self.line_2.setObjectName(u"line_2")
         self.line_2.setFrameShape(QFrame.HLine)
         self.line_2.setFrameShadow(QFrame.Sunken)
 
-        self.grid_layout_file_selector.addWidget(self.line_2, 3, 0, 1, 4)
+        self.grid_layout_file_selector.addWidget(self.line_2, 3, 0, 1, 5)
 
-        self.label_static_target_2_location = QLabel(self.verticalLayoutWidget)
-        self.label_static_target_2_location.setObjectName(u"label_static_target_2_location")
+        self.push_button_change_filename_4 = QPushButton(self.verticalLayoutWidget)
+        self.push_button_change_filename_4.setObjectName(u"push_button_change_filename_4")
 
-        self.grid_layout_file_selector.addWidget(self.label_static_target_2_location, 5, 1, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_4, 10, 4, 1, 1)
 
-        self.radio_button_primary_file_1 = QRadioButton(self.verticalLayoutWidget)
-        self.button_group_primary_working_file.addButton(self.radio_button_primary_file_1)
-        self.radio_button_primary_file_1.setObjectName(u"radio_button_primary_file_1")
-        self.radio_button_primary_file_1.setChecked(True)
+        self.label_static_target_4_location = QLabel(self.verticalLayoutWidget)
+        self.label_static_target_4_location.setObjectName(u"label_static_target_4_location")
 
-        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_1, 1, 0, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.label_static_target_4_location, 11, 2, 1, 1)
+
+        self.label_static_target_1_location = QLabel(self.verticalLayoutWidget)
+        self.label_static_target_1_location.setObjectName(u"label_static_target_1_location")
+        self.label_static_target_1_location.setFont(font)
+
+        self.grid_layout_file_selector.addWidget(self.label_static_target_1_location, 2, 2, 1, 1)
+
+        self.push_button_change_filename_2 = QPushButton(self.verticalLayoutWidget)
+        self.push_button_change_filename_2.setObjectName(u"push_button_change_filename_2")
+
+        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_2, 4, 4, 1, 1)
+
+        self.push_button_locate_target_location_4 = QPushButton(self.verticalLayoutWidget)
+        self.push_button_locate_target_location_4.setObjectName(u"push_button_locate_target_location_4")
+
+        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_4, 11, 4, 1, 1)
+
+        self.label_static_target_3_location = QLabel(self.verticalLayoutWidget)
+        self.label_static_target_3_location.setObjectName(u"label_static_target_3_location")
+
+        self.grid_layout_file_selector.addWidget(self.label_static_target_3_location, 8, 2, 1, 1)
+
+        self.push_button_change_filename_3 = QPushButton(self.verticalLayoutWidget)
+        self.push_button_change_filename_3.setObjectName(u"push_button_change_filename_3")
+
+        self.grid_layout_file_selector.addWidget(self.push_button_change_filename_3, 7, 4, 1, 1)
+
+        self.label_dynamic_target_1_pixel_location = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_target_1_pixel_location.setObjectName(u"label_dynamic_target_1_pixel_location")
+        self.label_dynamic_target_1_pixel_location.setAlignment(Qt.AlignCenter)
+
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_1_pixel_location, 2, 3, 1, 1)
+
+        self.push_button_locate_target_location_1 = QPushButton(self.verticalLayoutWidget)
+        self.push_button_locate_target_location_1.setObjectName(u"push_button_locate_target_location_1")
+        self.push_button_locate_target_location_1.setFont(font)
+
+        self.grid_layout_file_selector.addWidget(self.push_button_locate_target_location_1, 2, 4, 1, 1)
+
+        self.label_dynamic_target_4_pixel_location = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_target_4_pixel_location.setObjectName(u"label_dynamic_target_4_pixel_location")
+        self.label_dynamic_target_4_pixel_location.setAlignment(Qt.AlignCenter)
+
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_target_4_pixel_location, 11, 3, 1, 1)
+
+        self.label_dynamic_filename_2 = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_filename_2.setObjectName(u"label_dynamic_filename_2")
+
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_2, 4, 0, 1, 4)
+
+        self.label_dynamic_filename_3 = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_filename_3.setObjectName(u"label_dynamic_filename_3")
+
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_3, 7, 0, 1, 4)
 
         self.radio_button_primary_file_3 = QRadioButton(self.verticalLayoutWidget)
         self.button_group_primary_working_file.addButton(self.radio_button_primary_file_3)
         self.radio_button_primary_file_3.setObjectName(u"radio_button_primary_file_3")
         self.radio_button_primary_file_3.setEnabled(True)
+        sizePolicy2.setHeightForWidth(self.radio_button_primary_file_3.sizePolicy().hasHeightForWidth())
+        self.radio_button_primary_file_3.setSizePolicy(sizePolicy2)
+        self.radio_button_primary_file_3.setMaximumSize(QSize(30, 16777215))
 
-        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_3, 7, 0, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_3, 8, 0, 1, 1)
 
-        self.radio_button_primary_file_4 = QRadioButton(self.verticalLayoutWidget)
-        self.button_group_primary_working_file.addButton(self.radio_button_primary_file_4)
-        self.radio_button_primary_file_4.setObjectName(u"radio_button_primary_file_4")
-        self.radio_button_primary_file_4.setEnabled(True)
+        self.label_dynamic_filename_1 = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_filename_1.setObjectName(u"label_dynamic_filename_1")
+        self.label_dynamic_filename_1.setFont(font)
 
-        self.grid_layout_file_selector.addWidget(self.radio_button_primary_file_4, 10, 0, 1, 1)
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_1, 1, 0, 1, 4)
 
-        self.push_button_reset = QPushButton(self.verticalLayoutWidget)
-        self.push_button_reset.setObjectName(u"push_button_reset")
-        sizePolicy1 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.push_button_reset.sizePolicy().hasHeightForWidth())
-        self.push_button_reset.setSizePolicy(sizePolicy1)
+        self.label_dynamic_filename_4 = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_filename_4.setObjectName(u"label_dynamic_filename_4")
 
-        self.grid_layout_file_selector.addWidget(self.push_button_reset, 0, 0, 1, 4)
+        self.grid_layout_file_selector.addWidget(self.label_dynamic_filename_4, 10, 0, 1, 4)
+
+        self.line_34 = QFrame(self.verticalLayoutWidget)
+        self.line_34.setObjectName(u"line_34")
+        self.line_34.setFrameShape(QFrame.VLine)
+        self.line_34.setFrameShadow(QFrame.Sunken)
+
+        self.grid_layout_file_selector.addWidget(self.line_34, 2, 1, 1, 1)
+
+        self.line_35 = QFrame(self.verticalLayoutWidget)
+        self.line_35.setObjectName(u"line_35")
+        self.line_35.setFrameShape(QFrame.VLine)
+        self.line_35.setFrameShadow(QFrame.Sunken)
+
+        self.grid_layout_file_selector.addWidget(self.line_35, 5, 1, 1, 1)
+
+        self.line_36 = QFrame(self.verticalLayoutWidget)
+        self.line_36.setObjectName(u"line_36")
+        self.line_36.setFrameShape(QFrame.VLine)
+        self.line_36.setFrameShadow(QFrame.Sunken)
+
+        self.grid_layout_file_selector.addWidget(self.line_36, 8, 1, 1, 1)
+
+        self.line_37 = QFrame(self.verticalLayoutWidget)
+        self.line_37.setObjectName(u"line_37")
+        self.line_37.setFrameShape(QFrame.VLine)
+        self.line_37.setFrameShadow(QFrame.Sunken)
+
+        self.grid_layout_file_selector.addWidget(self.line_37, 11, 1, 1, 1)
 
 
         self.horizontal_layout_image_file.addLayout(self.grid_layout_file_selector)
@@ -259,17 +308,17 @@ class Ui_ManualWindow(object):
 
         self.tab_widget_solutions = QTabWidget(self.verticalLayoutWidget)
         self.tab_widget_solutions.setObjectName(u"tab_widget_solutions")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.tab_widget_solutions.sizePolicy().hasHeightForWidth())
-        self.tab_widget_solutions.setSizePolicy(sizePolicy2)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.tab_widget_solutions.sizePolicy().hasHeightForWidth())
+        self.tab_widget_solutions.setSizePolicy(sizePolicy4)
         self.tab_widget_solutions.setFont(font)
         self.tab_summary = QWidget()
         self.tab_summary.setObjectName(u"tab_summary")
         self.verticalLayoutWidget_2 = QWidget(self.tab_summary)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(9, 9, 921, 321))
+        self.verticalLayoutWidget_2.setGeometry(QRect(9, 9, 881, 301))
         self.vertical_layout_summary = QVBoxLayout(self.verticalLayoutWidget_2)
         self.vertical_layout_summary.setObjectName(u"vertical_layout_summary")
         self.vertical_layout_summary.setContentsMargins(0, 0, 0, 0)
@@ -315,12 +364,13 @@ class Ui_ManualWindow(object):
         self.tab_astrometry.setObjectName(u"tab_astrometry")
         self.verticalLayoutWidget_3 = QWidget(self.tab_astrometry)
         self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
-        self.verticalLayoutWidget_3.setGeometry(QRect(10, 10, 921, 321))
+        self.verticalLayoutWidget_3.setGeometry(QRect(10, 10, 881, 301))
         self.vertical_layout_astrometry = QVBoxLayout(self.verticalLayoutWidget_3)
         self.vertical_layout_astrometry.setObjectName(u"vertical_layout_astrometry")
         self.vertical_layout_astrometry.setContentsMargins(0, 0, 0, 0)
         self.horizontal_layout_astrometry_solve = QHBoxLayout()
         self.horizontal_layout_astrometry_solve.setObjectName(u"horizontal_layout_astrometry_solve")
+        self.horizontal_layout_astrometry_solve.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.label_static_astrometry_engine = QLabel(self.verticalLayoutWidget_3)
         self.label_static_astrometry_engine.setObjectName(u"label_static_astrometry_engine")
 
@@ -631,7 +681,7 @@ class Ui_ManualWindow(object):
         self.tab_photometry.setObjectName(u"tab_photometry")
         self.verticalLayoutWidget_4 = QWidget(self.tab_photometry)
         self.verticalLayoutWidget_4.setObjectName(u"verticalLayoutWidget_4")
-        self.verticalLayoutWidget_4.setGeometry(QRect(10, 10, 921, 321))
+        self.verticalLayoutWidget_4.setGeometry(QRect(10, 10, 881, 301))
         self.vertical_layout_photometry = QVBoxLayout(self.verticalLayoutWidget_4)
         self.vertical_layout_photometry.setObjectName(u"vertical_layout_photometry")
         self.vertical_layout_photometry.setContentsMargins(0, 0, 0, 0)
@@ -824,7 +874,7 @@ class Ui_ManualWindow(object):
         self.tab_orbit.setObjectName(u"tab_orbit")
         self.verticalLayoutWidget_5 = QWidget(self.tab_orbit)
         self.verticalLayoutWidget_5.setObjectName(u"verticalLayoutWidget_5")
-        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 921, 321))
+        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 881, 301))
         self.vertical_layout_orbit = QVBoxLayout(self.verticalLayoutWidget_5)
         self.vertical_layout_orbit.setObjectName(u"vertical_layout_orbit")
         self.vertical_layout_orbit.setContentsMargins(0, 0, 0, 0)
@@ -999,7 +1049,7 @@ class Ui_ManualWindow(object):
         self.tab_ephemeris.setObjectName(u"tab_ephemeris")
         self.verticalLayoutWidget_6 = QWidget(self.tab_ephemeris)
         self.verticalLayoutWidget_6.setObjectName(u"verticalLayoutWidget_6")
-        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 921, 321))
+        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 881, 301))
         self.vertical_layout_ephemeris = QVBoxLayout(self.verticalLayoutWidget_6)
         self.vertical_layout_ephemeris.setObjectName(u"vertical_layout_ephemeris")
         self.vertical_layout_ephemeris.setContentsMargins(0, 0, 0, 0)
@@ -1207,7 +1257,7 @@ class Ui_ManualWindow(object):
         self.tab_propagate.setObjectName(u"tab_propagate")
         self.verticalLayoutWidget_7 = QWidget(self.tab_propagate)
         self.verticalLayoutWidget_7.setObjectName(u"verticalLayoutWidget_7")
-        self.verticalLayoutWidget_7.setGeometry(QRect(10, 10, 921, 321))
+        self.verticalLayoutWidget_7.setGeometry(QRect(10, 10, 881, 301))
         self.vertical_layout_propagate = QVBoxLayout(self.verticalLayoutWidget_7)
         self.vertical_layout_propagate.setObjectName(u"vertical_layout_propagate")
         self.vertical_layout_propagate.setContentsMargins(0, 0, 0, 0)
@@ -1419,7 +1469,7 @@ class Ui_ManualWindow(object):
 
         self.retranslateUi(ManualWindow)
 
-        self.tab_widget_solutions.setCurrentIndex(0)
+        self.tab_widget_solutions.setCurrentIndex(5)
 
 
         QMetaObject.connectSlotsByName(ManualWindow)
@@ -1428,32 +1478,32 @@ class Ui_ManualWindow(object):
     def retranslateUi(self, ManualWindow):
         ManualWindow.setWindowTitle(QCoreApplication.translate("ManualWindow", u"OpihiExarata Manual Mode", None))
         self.label_static_dummy_opihi_navbar.setText(QCoreApplication.translate("ManualWindow", u"DUMMY OPIHI IMAGE NAVIGATION BAR", None))
-        self.push_button_change_filename_4.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
-        self.label_static_target_1_location.setText(QCoreApplication.translate("ManualWindow", u"Target 1 Location:", None))
-        self.push_button_locate_target_location_4.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
-        self.label_static_target_4_location.setText(QCoreApplication.translate("ManualWindow", u"Target 4 Location:", None))
-        self.push_button_change_filename_2.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
-        self.label_static_target_3_location.setText(QCoreApplication.translate("ManualWindow", u"Target 3 Location:", None))
-        self.label_dynamic_target_1_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
-        self.label_dynamic_filename_3.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.00003.a.fits", None))
-        self.push_button_locate_target_location_1.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
-        self.push_button_change_filename_3.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
-        self.label_dynamic_filename_2.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.00002.a.fits", None))
-        self.label_dynamic_filename_4.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.00004.a.fits", None))
-        self.label_dynamic_filename_1.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.00001.a.fits", None))
-        self.label_dynamic_target_4_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
-        self.label_dynamic_target_3_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
-        self.label_dynamic_target_2_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
-        self.push_button_locate_target_location_3.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
-        self.push_button_change_filename_1.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
-        self.push_button_locate_target_location_2.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
-        self.radio_button_primary_file_2.setText(QCoreApplication.translate("ManualWindow", u"2", None))
-        self.label_static_target_2_location.setText(QCoreApplication.translate("ManualWindow", u"Target 2 Location:", None))
         self.radio_button_primary_file_1.setText(QCoreApplication.translate("ManualWindow", u"1", None))
-        self.radio_button_primary_file_3.setText(QCoreApplication.translate("ManualWindow", u"3", None))
+        self.radio_button_primary_file_2.setText(QCoreApplication.translate("ManualWindow", u"2", None))
         self.radio_button_primary_file_4.setText(QCoreApplication.translate("ManualWindow", u"4", None))
         self.push_button_reset.setText(QCoreApplication.translate("ManualWindow", u"Reset", None))
-        self.label_static_detected_target_name.setText(QCoreApplication.translate("ManualWindow", u"(Detected) Asteroid/Target Name", None))
+        self.label_dynamic_target_2_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
+        self.push_button_locate_target_location_3.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
+        self.label_dynamic_target_3_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
+        self.push_button_change_filename_1.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
+        self.label_static_target_2_location.setText(QCoreApplication.translate("ManualWindow", u"Target 2 Location:", None))
+        self.push_button_locate_target_location_2.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
+        self.push_button_change_filename_4.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
+        self.label_static_target_4_location.setText(QCoreApplication.translate("ManualWindow", u"Target 4 Location:", None))
+        self.label_static_target_1_location.setText(QCoreApplication.translate("ManualWindow", u"Target 1 Location:", None))
+        self.push_button_change_filename_2.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
+        self.push_button_locate_target_location_4.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
+        self.label_static_target_3_location.setText(QCoreApplication.translate("ManualWindow", u"Target 3 Location:", None))
+        self.push_button_change_filename_3.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
+        self.label_dynamic_target_1_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
+        self.push_button_locate_target_location_1.setText(QCoreApplication.translate("ManualWindow", u"Locate", None))
+        self.label_dynamic_target_4_pixel_location.setText(QCoreApplication.translate("ManualWindow", u"(XXXX, YYYY)", None))
+        self.label_dynamic_filename_2.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits", None))
+        self.label_dynamic_filename_3.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits", None))
+        self.radio_button_primary_file_3.setText(QCoreApplication.translate("ManualWindow", u"3", None))
+        self.label_dynamic_filename_1.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits", None))
+        self.label_dynamic_filename_4.setText(QCoreApplication.translate("ManualWindow", u"opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits", None))
+        self.label_static_detected_target_name.setText(QCoreApplication.translate("ManualWindow", u"(Detected) Target Name", None))
         self.push_button_change_target_name.setText(QCoreApplication.translate("ManualWindow", u"Change", None))
         self.push_button_send_target_to_tcs.setText(QCoreApplication.translate("ManualWindow", u"Send Target to TCS", None))
         self.label.setText(QCoreApplication.translate("ManualWindow", u"TextLabel", None))
@@ -1517,10 +1567,10 @@ class Ui_ManualWindow(object):
         self.label_static_photometry_results_file_4_zero_point.setText(QCoreApplication.translate("ManualWindow", u"ZZ.ZZZ + E.EEE", None))
         self.label_static_photometry_results_file_2_zero_point.setText(QCoreApplication.translate("ManualWindow", u"ZZ.ZZZ + E.EEE", None))
         self.label_static_photometry_results_file_3_zero_point.setText(QCoreApplication.translate("ManualWindow", u"ZZ.ZZZ + E.EEE", None))
-        self.label_static_photometry_results_file_1_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MM + E.EEE", None))
-        self.label_static_photometry_results_file_2_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MM + E.EEE", None))
-        self.label_static_photometry_results_file_3_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MM + E.EEE", None))
-        self.label_static_photometry_results_file_4_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MM + E.EEE", None))
+        self.label_static_photometry_results_file_1_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MMM + E.EEE", None))
+        self.label_static_photometry_results_file_2_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MMM + E.EEE", None))
+        self.label_static_photometry_results_file_3_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MMM + E.EEE", None))
+        self.label_static_photometry_results_file_4_magnitude.setText(QCoreApplication.translate("ManualWindow", u"MM.MMM + E.EEE", None))
         self.tab_widget_solutions.setTabText(self.tab_widget_solutions.indexOf(self.tab_photometry), QCoreApplication.translate("ManualWindow", u"Photometry", None))
         self.label_static_orbit_engine.setText(QCoreApplication.translate("ManualWindow", u"Orbit Engine", None))
         self.combo_box_orbit_engine.setItemText(0, QCoreApplication.translate("ManualWindow", u"OrbFit", None))

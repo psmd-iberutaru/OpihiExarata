@@ -922,15 +922,15 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Refreshing the scale value text as set. Formatting the numerical
         # values into strings.
-        scale_low_str = str(self.colorbar_scale_low)
-        scale_high_str = str(self.colorbar_scale_high)
+        scale_low_str = "{lo:.5f}".format(lo=self.colorbar_scale_low)
+        scale_high_str = "{hi:.5f}".format(hi=self.colorbar_scale_high)
         self.ui.line_edit_dynamic_scale_low.setText(scale_low_str)
         self.ui.line_edit_dynamic_scale_high.setText(scale_high_str)
 
         # Refreshing the target pixel location in the manual entry. Formatting
         # the numerical values into strings.
-        target_x_str = str(self.target_x)
-        target_y_str = str(self.target_y)
+        target_x_str = "{x:.3f}".format(x=self.target_x)
+        target_y_str = "{y:.3f}".format(y=self.target_y)
         self.ui.line_edit_dynamic_target_x.setText(target_x_str)
         self.ui.line_edit_dynamic_target_y.setText(target_y_str)
 

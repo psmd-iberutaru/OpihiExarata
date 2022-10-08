@@ -1916,16 +1916,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The target name and the directory the images are in should
         # not reset just because of a new image.
         self.ui.label_dynamic_filename_1.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
         )
         self.ui.label_dynamic_filename_2.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00002.a.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
         )
         self.ui.label_dynamic_filename_3.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00003.a.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
         )
         self.ui.label_dynamic_filename_4.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00004.a.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
         )
         # The asteroid location information.
         self.ui.label_dynamic_target_1_pixel_location.setText("(XXXX, YYYY)")
@@ -1966,7 +1966,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             "ZZ.ZZZ + E.EEE"
         )
         self.ui.label_static_photometry_results_file_1_magnitude.setText(
-            "MM.MM + E.EEE"
+            "MM.MMM + E.EEE"
         )
 
         self.ui.label_static_photometry_results_file_2_filter_name.setText("FF")
@@ -1974,7 +1974,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             "ZZ.ZZZ + E.EEE"
         )
         self.ui.label_static_photometry_results_file_2_magnitude.setText(
-            "MM.MM + E.EEE"
+            "MM.MMM + E.EEE"
         )
 
         self.ui.label_static_photometry_results_file_3_filter_name.setText("FF")
@@ -1982,7 +1982,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             "ZZ.ZZZ + E.EEE"
         )
         self.ui.label_static_photometry_results_file_3_magnitude.setText(
-            "MM.MM + E.EEE"
+            "MM.MMM + E.EEE"
         )
 
         self.ui.label_static_photometry_results_file_4_filter_name.setText("FF")
@@ -1990,7 +1990,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             "ZZ.ZZZ + E.EEE"
         )
         self.ui.label_static_photometry_results_file_4_magnitude.setText(
-            "MM.MM + E.EEE"
+            "MM.MMM + E.EEE"
         )
 
         ## Resetting Orbit information.
@@ -2114,7 +2114,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             if isinstance(pathname, str):
                 return library.path.get_filename_with_extension(pathname=pathname)
             else:
-                return "NaN"
+                return "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
 
         self.ui.label_dynamic_filename_1.setText(
             _basename_only(pathname=self.fits_filename_list[1])
@@ -2135,11 +2135,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         for index, solutiondex in enumerate(self.opihi_solution_list):
             # Check that the solution itself actually is a valid solution class.
             if not isinstance(solutiondex, opihiexarata.OpihiSolution):
-                target_location_strings[index] = "NaN"
+                # Using the GUI defaults.
+                target_location_strings[index] = "(XXXX, YYYY)"
             else:
                 # Parse the asteroid location into a string.
                 if solutiondex.asteroid_location is None:
-                    target_location_strings[index] = "None"
+                    target_location_strings[index] = "(NaN, NaN)"
                 else:
                     target_location_strings[index] = "({x}, {y})".format(
                         x=solutiondex.asteroid_location[0],
@@ -2207,14 +2208,15 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         for index, solutiondex in enumerate(self.opihi_solution_list):
             # Check that the solution itself actually is a valid solution class.
             if not isinstance(solutiondex, opihiexarata.OpihiSolution):
-                # It is not, using the same dummy values.
-                cen_ra_str[index] = "NaN"
-                cen_dec_str[index] = "NaN"
-                trg_ra_str[index] = "NaN"
-                trg_dec_str[index] = "NaN"
+                # It is not, using the default values.
+                cen_ra_str[index] = "HH:MM:SS.SS"
+                cen_dec_str[index] = "+DD:MM:SS.SS"
+                trg_ra_str[index] = "HH:MM:SS.SS"
+                trg_dec_str[index] = "+DD:MM:SS.SS"
             # Check that the solution itself actually is a valid solution class.
             elif not (isinstance(solutiondex.astrometrics, astrometry.AstrometricSolution) and solutiondex.astrometrics_status):
-                # It is not, using the same dummy values.
+                # It is not, using values to indicate that some solving went 
+                # wrong.
                 cen_ra_str[index] = "NaN"
                 cen_dec_str[index] = "NaN"
                 trg_ra_str[index] = "NaN"
@@ -2309,10 +2311,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         for index, solutiondex in enumerate(self.opihi_solution_list):
             # Check that the solution itself actually is a valid solution class.
             if not isinstance(solutiondex, opihiexarata.OpihiSolution):
-                # There is nothing to derive.
-                flt_name[index] = "NaN"
-                zp_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
-                mag_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
+                # There is nothing to derive, we print the GUI defaults as 
+                # there is nothing to do.
+                flt_name[index] = "FF"
+                zp_str[index] = "ZZ.ZZZ {pm} E.EEE".format(pm=pm_sym)
+                mag_str[index] = "MM.MMM {pm} E.EEE".format(pm=pm_sym)
                 continue
             
             # The filter names actually do not really require a photometric 
@@ -2336,7 +2339,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                     magnitude, magnitude_error = solutiondex.compute_asteroid_magnitude(
                         asteroid_location=solutiondex.asteroid_location, overwrite=False
                     )
-                    mag = round(magnitude, 3)
+                    mag = round(magnitude, 4)
                     mage = round(magnitude_error, 4)
                     mag_str[index] = "{v} {pm} {e}".format(v=mag, pm=pm_sym, e=mage)
                 else:
