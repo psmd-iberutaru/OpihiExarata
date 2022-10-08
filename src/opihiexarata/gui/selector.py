@@ -419,7 +419,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             # We proxy the middle button and left mouse button together for 
             # zooming. We just allow it in addition. This is a band aid 
             # solution.
-            print("W", self.opihi_nav_toolbar.mode.value)
             if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
                 event.button = 1
                 self.opihi_nav_toolbar.press_zoom(event=event)
@@ -929,8 +928,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Refreshing the target pixel location in the manual entry. Formatting
         # the numerical values into strings.
-        target_x_str = "{x:.3f}".format(x=self.target_x)
-        target_y_str = "{y:.3f}".format(y=self.target_y)
+        target_x = self.target_x if self.target_x is not None else np.nan
+        target_y = self.target_y if self.target_y is not None else np.nan
+        target_x_str = "{x:.3f}".format(x=target_x)
+        target_y_str = "{y:.3f}".format(y=target_y)
         self.ui.line_edit_dynamic_target_x.setText(target_x_str)
         self.ui.line_edit_dynamic_target_y.setText(target_y_str)
 

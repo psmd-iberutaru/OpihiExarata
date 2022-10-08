@@ -25,7 +25,7 @@ class Ui_ManualWindow(object):
     def setupUi(self, ManualWindow):
         if not ManualWindow.objectName():
             ManualWindow.setObjectName(u"ManualWindow")
-        ManualWindow.resize(931, 820)
+        ManualWindow.resize(931, 821)
         self.central_widget = QWidget(ManualWindow)
         self.central_widget.setObjectName(u"central_widget")
         self.verticalLayoutWidget = QWidget(self.central_widget)
@@ -318,7 +318,7 @@ class Ui_ManualWindow(object):
         self.tab_summary.setObjectName(u"tab_summary")
         self.verticalLayoutWidget_2 = QWidget(self.tab_summary)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(9, 9, 881, 301))
+        self.verticalLayoutWidget_2.setGeometry(QRect(9, 9, 881, 291))
         self.vertical_layout_summary = QVBoxLayout(self.verticalLayoutWidget_2)
         self.vertical_layout_summary.setObjectName(u"vertical_layout_summary")
         self.vertical_layout_summary.setContentsMargins(0, 0, 0, 0)
@@ -364,7 +364,7 @@ class Ui_ManualWindow(object):
         self.tab_astrometry.setObjectName(u"tab_astrometry")
         self.verticalLayoutWidget_3 = QWidget(self.tab_astrometry)
         self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
-        self.verticalLayoutWidget_3.setGeometry(QRect(10, 10, 881, 301))
+        self.verticalLayoutWidget_3.setGeometry(QRect(10, 10, 881, 291))
         self.vertical_layout_astrometry = QVBoxLayout(self.verticalLayoutWidget_3)
         self.vertical_layout_astrometry.setObjectName(u"vertical_layout_astrometry")
         self.vertical_layout_astrometry.setContentsMargins(0, 0, 0, 0)
@@ -681,7 +681,7 @@ class Ui_ManualWindow(object):
         self.tab_photometry.setObjectName(u"tab_photometry")
         self.verticalLayoutWidget_4 = QWidget(self.tab_photometry)
         self.verticalLayoutWidget_4.setObjectName(u"verticalLayoutWidget_4")
-        self.verticalLayoutWidget_4.setGeometry(QRect(10, 10, 881, 301))
+        self.verticalLayoutWidget_4.setGeometry(QRect(10, 10, 881, 291))
         self.vertical_layout_photometry = QVBoxLayout(self.verticalLayoutWidget_4)
         self.vertical_layout_photometry.setObjectName(u"vertical_layout_photometry")
         self.vertical_layout_photometry.setContentsMargins(0, 0, 0, 0)
@@ -874,7 +874,7 @@ class Ui_ManualWindow(object):
         self.tab_orbit.setObjectName(u"tab_orbit")
         self.verticalLayoutWidget_5 = QWidget(self.tab_orbit)
         self.verticalLayoutWidget_5.setObjectName(u"verticalLayoutWidget_5")
-        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 881, 301))
+        self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 881, 291))
         self.vertical_layout_orbit = QVBoxLayout(self.verticalLayoutWidget_5)
         self.vertical_layout_orbit.setObjectName(u"vertical_layout_orbit")
         self.vertical_layout_orbit.setContentsMargins(0, 0, 0, 0)
@@ -1049,7 +1049,7 @@ class Ui_ManualWindow(object):
         self.tab_ephemeris.setObjectName(u"tab_ephemeris")
         self.verticalLayoutWidget_6 = QWidget(self.tab_ephemeris)
         self.verticalLayoutWidget_6.setObjectName(u"verticalLayoutWidget_6")
-        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 881, 301))
+        self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 881, 291))
         self.vertical_layout_ephemeris = QVBoxLayout(self.verticalLayoutWidget_6)
         self.vertical_layout_ephemeris.setObjectName(u"vertical_layout_ephemeris")
         self.vertical_layout_ephemeris.setContentsMargins(0, 0, 0, 0)
@@ -1257,7 +1257,7 @@ class Ui_ManualWindow(object):
         self.tab_propagate.setObjectName(u"tab_propagate")
         self.verticalLayoutWidget_7 = QWidget(self.tab_propagate)
         self.verticalLayoutWidget_7.setObjectName(u"verticalLayoutWidget_7")
-        self.verticalLayoutWidget_7.setGeometry(QRect(10, 10, 881, 301))
+        self.verticalLayoutWidget_7.setGeometry(QRect(10, 10, 881, 291))
         self.vertical_layout_propagate = QVBoxLayout(self.verticalLayoutWidget_7)
         self.vertical_layout_propagate.setObjectName(u"vertical_layout_propagate")
         self.vertical_layout_propagate.setContentsMargins(0, 0, 0, 0)
@@ -1469,7 +1469,7 @@ class Ui_ManualWindow(object):
 
         self.retranslateUi(ManualWindow)
 
-        self.tab_widget_solutions.setCurrentIndex(5)
+        self.tab_widget_solutions.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(ManualWindow)
