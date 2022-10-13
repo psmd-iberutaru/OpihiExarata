@@ -153,10 +153,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         None
         """
         # Ask the user for the filename via a dialog.
+        # We start off from the current one for some semblance of consistency.
         new_fetch_directory = QtWidgets.QFileDialog.getExistingDirectory(
             parent=self,
             caption="Select Opihi Fetch Directory",
-            dir="./",
+            dir=self.fits_fetch_directory,
             options=QtWidgets.QFileDialog.ShowDirsOnly,
         )
         # If the user did not provide a file to enter, there is nothing to be

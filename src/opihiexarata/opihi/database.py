@@ -976,8 +976,8 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         utc_now_datetime = datetime.datetime(*int_only(utc_now_tuple))
         utc_time_string = utc_now_datetime.strftime(iso_8601_time_format)
         fig.update_layout(
-            title_text="Opihi Zero Point Trends (Now: {now} UTC)".format(
-                now=utc_time_string
+            title_text="Opihi Zero Point Trends (Current: {curr} UTC)".format(
+                curr=utc_time_string
             )
         )
         # All datetimes should have the same formatting. We rotate it so it
