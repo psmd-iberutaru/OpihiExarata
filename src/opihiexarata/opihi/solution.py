@@ -308,7 +308,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         overwrite: bool = True,
         raise_on_error: bool = False,
         vehicle_args: dict = {},
-    ) -> hint.AstrometricSolution:
+    ) -> tuple[hint.AstrometricSolution, bool]:
         """Solve the image astrometry by using an astrometric engine.
 
         Parameters
@@ -365,7 +365,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         filter_name: str = None,
         exposure_time: float = None,
         vehicle_args: dict = {},
-    ) -> hint.PhotometricSolution:
+    ) -> tuple[hint.PhotometricSolution, bool]:
         """Solve the image photometry by using a photometric engine.
 
         Parameters
@@ -456,7 +456,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         raise_on_error: bool = False,
         asteroid_location: tuple = None,
         vehicle_args: dict = {},
-    ):
+    ) -> tuple[hint.OrbitalSolution, bool]:
         """Solve for the orbital elements an asteroid using previous
         observations.
 
@@ -593,7 +593,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         overwrite: bool = True,
         raise_on_error: bool = False,
         vehicle_args: dict = {},
-    ):
+    ) -> tuple[hint.EphemeriticSolution, bool]:
         """Solve for the ephemeris solution an asteroid using previous
         observations and derived orbital elements.
 
@@ -666,7 +666,7 @@ class OpihiSolution(library.engine.ExarataSolution):
         raise_on_error: bool = False,
         asteroid_location: tuple[float, float] = None,
         vehicle_args: dict = {},
-    ) -> hint.PropagativeSolution:
+    ) -> tuple[hint.PropagativeSolution, bool]:
         """Solve for the location of an asteroid using a method of propagation.
 
         Parameters

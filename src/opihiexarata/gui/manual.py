@@ -93,7 +93,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # ...the filenames.
         self.fits_filename_list = [error.IntentionalError, None, None, None, None]
         # ...the file dialog.
-        self.last_used_directory = None
+        self.last_used_directory = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
         # ...the file index.
         self.primary_file_index = None
         # ...the asteroid/target set name and other information.

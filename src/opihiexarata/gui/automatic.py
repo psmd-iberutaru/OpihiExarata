@@ -442,18 +442,28 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # Given the engines, solve for both the astrometry and photometry.
         # We rely on the error handling of the OpihiSolution solving itself.
-        __, __ = opihi_solution.solve_astrometry(
+        __, astrometry_solve_status = opihi_solution.solve_astrometry(
             solver_engine=astrometry_engine,
             overwrite=True,
             raise_on_error=False,
             vehicle_args=astrometry_vehicle_args,
         )
-        __, photometry_solve_status = opihi_solution.solve_photometry(
-            solver_engine=photometry_engine,
-            overwrite=True,
-            raise_on_error=False,
-            vehicle_args=photometry_vehicle_args,
-        )
+        # If the astrometry failed, there is no photometry to do.
+        if not astrometry_solve_status:
+            __, photometry_solve_status = opihi_solution.solve_photometry(
+                solver_engine=photometry_engine,
+                overwrite=True,
+                raise_on_error=False,
+                vehicle_args=photometry_vehicle_args,
+            )
+        else:
+            photometry_solve_status = None
+
+        # Check that the filter compatibility. If the photometry failed, this
+        # may be one of the reasons so it is something to warn about.
+        if not photometry_solve_status:
+            if filter_name not in opihi_solution.photometrics.available_filters:
+                print("warn")
 
         # Saving the file.
         # Extracting the entire path from the current name, we are saving it
@@ -461,10 +471,10 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         directory, basename, extension = library.path.split_pathname(pathname=filename)
         # We are just adding the suffix to the filename.
         suffix = str(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX)
-        new_filename = basename + suffix
+        new_basename = basename + suffix
         # Recombining the path.
         saving_fits_filename = library.path.merge_pathname(
-            directory=directory, filename=new_filename, extension=extension
+            directory=directory, filename=new_basename, extension=extension
         )
         opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=True)
 
@@ -677,8 +687,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # If there is no resulting Opihi solution, then there is no data to be
         # extracted for results. The results solution should also be always
-        # solved so we do not need to check for it.
-        if isinstance(self.results_opihi_solution, opihiexarata.OpihiSolution):
+        # solved so we do not need to check for it. We also need to make sure
+        # that the astrometric solution and photometric solution was valid.
+        if (
+            isinstance(self.results_opihi_solution, opihiexarata.OpihiSolution)
+            and self.results_opihi_solution.astrometrics_status
+            and self.results_opihi_solution.photometrics_status
+        ):
             # Obtaining the observing time.
             observing_time_jd = self.results_opihi_solution.observing_time
             (
@@ -713,9 +728,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
             # Refreshing photometry results.
             zero_point = self.results_opihi_solution.photometrics.zero_point
+            zero_point_error = self.results_opihi_solution.photometrics.zero_point_error
             filter_name = self.results_opihi_solution.photometrics.filter_name
             # Formatting the information as a string.
-            zero_point_str = "{zp:.3f}".format(zp=zero_point)
+            pm_sym = "\u00B1"
+            zero_point_str = "{zp:.3f} {pm} {zpe:3.f}".format(
+                zp=zero_point, pm=pm_sym, zpe=zero_point_error
+            )
             filter_name = str(filter_name)
             self.ui.label_dynamic_zero_point.setText(zero_point_str)
             self.ui.label_dynamic_filter.setText(filter_name)
@@ -784,7 +803,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_ra.setText("RR:RR:RR.RRR")
         self.ui.label_dynamic_dec.setText("+DD:DD:DD.DDD")
         # Photometric results.
-        self.ui.label_dynamic_zero_point.setText("ZZZ.ZZZ")
+        self.ui.label_dynamic_zero_point.setText("ZZZ.ZZZ + EE.EEE")
         self.ui.label_dynamic_filter.setText("FF")
         # Operational status.
         self.ui.label_dynamic_operational_status.setText("Default")

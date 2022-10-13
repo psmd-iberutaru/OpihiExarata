@@ -43,6 +43,7 @@ from opihiexarata.library.engine import *
 from opihiexarata.astrometry.solution import AstrometricSolution
 from opihiexarata.photometry.solution import PhotometricSolution
 from opihiexarata.orbit.solution import OrbitalSolution
+from opihiexarata.ephemeris.solution import EphemeriticSolution
 from opihiexarata.propagate.solution import PropagativeSolution
 
 # And the solutions themselves.

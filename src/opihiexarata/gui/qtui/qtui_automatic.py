@@ -302,7 +302,7 @@ class Ui_AutomaticWindow(object):
         self.label_dynamic_date.setText(QCoreApplication.translate("AutomaticWindow", u"YYYY-MM-DD", None))
         self.label_dynamic_time.setText(QCoreApplication.translate("AutomaticWindow", u"HH:MM:SS.S", None))
         self.label_static_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"Zero Point", None))
-        self.label_dynamic_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"ZZZ.ZZZ", None))
+        self.label_dynamic_zero_point.setText(QCoreApplication.translate("AutomaticWindow", u"ZZZ.ZZZ + EE.EEE", None))
         self.label_static_filter.setText(QCoreApplication.translate("AutomaticWindow", u"Filter", None))
         self.label_dynamic_filter.setText(QCoreApplication.translate("AutomaticWindow", u"FF", None))
         self.label_static_operational_status.setText(QCoreApplication.translate("AutomaticWindow", u"Loop Status", None))
