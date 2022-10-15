@@ -3,6 +3,7 @@ import os
 import copy
 
 import numpy as np
+import scipy.optimize as sp_optimize
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -205,7 +206,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # The figure, canvas, and navigation toolbar of the image plot
         # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
-        fig, ax = plt.subplots(figsize=(edge_size_in, edge_size_in), constrained_layout=True)
+        fig, ax = plt.subplots(
+            figsize=(edge_size_in, edge_size_in), constrained_layout=True
+        )
         self.opihi_figure = fig
         self.opihi_axes = ax
         self.opihi_canvas = FigureCanvas(self.opihi_figure)
@@ -261,7 +264,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
 
-        # Setting the size of the canvas to be more representative of the 
+        # Setting the size of the canvas to be more representative of the
         # designer file.
         self.opihi_canvas.setMinimumHeight(dummy_edge_size_px)
         self.opihi_canvas.setMaximumHeight(dummy_edge_size_px)
@@ -416,8 +419,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.opihi_nav_toolbar.mode.value != "":
-            # We proxy the middle button and left mouse button together for 
-            # zooming. We just allow it in addition. This is a band aid 
+            # We proxy the middle button and left mouse button together for
+            # zooming. We just allow it in addition. This is a band aid
             # solution.
             if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
                 event.button = 1
@@ -455,13 +458,12 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.opihi_nav_toolbar.mode.value != "":
-            # We proxy the middle button and left mouse button together for 
+            # We proxy the middle button and left mouse button together for
             # zooming. This is a band aid solution.
             if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
                 event.button = 1
                 self.opihi_nav_toolbar.release_zoom(event=event)
             return None
-
 
         # If the button click was from the middle mouse button, a box is
         # being drawn for defining the box of the asteroid.
@@ -982,11 +984,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.subtract_sidereal = self.current_data - self.reference_data
 
         # Subtracting non-sidereally means that the centers are offset based
-        # on the non-sidereal motion and time difference. We find the 
-        # translation vector between the two images. Because we are shifting 
-        # the reference image forward, the current data is the reference 
+        # on the non-sidereal motion and time difference. We find the
+        # translation vector between the two images. Because we are shifting
+        # the reference image forward, the current data is the reference
         # for translation.
-        x_pix_change, y_pix_change = library.image.determine_translation_image_array(translate_array=self.reference_data, reference_array=self.current_data)
+        x_pix_change, y_pix_change = library.image.determine_translation_image_array(
+            translate_array=self.reference_data, reference_array=self.current_data
+        )
         # We shift the reference image forward in time as translation splines
         # and it is best not to interpolate the real data. We assume nothing
         # about the outside parts of the image, so there is no data for them.
@@ -1053,6 +1057,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         """Find the location of a target by using a guessed location.
         The bounds of the search is specified by the rectangle.
 
+        We use a quick way of finding the centroid based on summations on
+        each axis.
+
         Parameters
         ----------
         x0 : float
@@ -1087,18 +1094,70 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             x0:x1,
         ]
 
-        # Find the location of the target. Using the maximum pixel value as
-        # it.
-        search_y, search_x = np.unravel_index(
+        # We do not care about the baseline of the signal, it only gets in the
+        # way.
+        desky_search_array = search_array - np.nanmedian(search_array)
+
+        # There are two ways we can do the finding of the centroid, either 
+        # using a set of Gaussian functions or just the maximum pixel. 
+        # We use the latter when the former breaks down.
+        try:
+            # Finding the center point based on the sums across each of the 
+            # axises.
+            x_axis_collapse = np.sum(desky_search_array, axis=0)
+            y_axis_collapse = np.sum(desky_search_array, axis=1)
+            # It is a lot faster if we get a good guess as to the parameters.
+            # Therefore, we guess the asteroid's location is the second highest.
+            # The second highest should be close enough to the actual location
+            # while also being robust to a hot pixel screwing things up.
+            guess_search_x = np.argsort(x_axis_collapse)[-2]
+            guess_search_y = np.argsort(y_axis_collapse)[-2]
+            # Formatting the guesses. We use the actual sum value as well for 
+            # an estimation of the amplitude.
+            guess_x_gaussian = [guess_search_x, 1, x_axis_collapse[guess_search_x]]
+            guess_y_gaussian = [guess_search_y, 1, y_axis_collapse[guess_search_y]]
+
+            # Using a 1-D Gaussian fit to determine the actual center along 
+            # each axis.
+            def gaussian_function(x: hint.array, cen: float, std: float, amp: float):
+                return amp * np.exp(-((x - cen) ** 2) / (2 * std**2))
+            # The x-axis is the pixel locations themselves with the y-axis 
+            # being the gaussian. We do not need the errors/covariances for 
+            # this.
+            x_gaussian_param, __ = sp_optimize.curve_fit(
+                gaussian_function,
+                np.arange(len(x_axis_collapse)),
+                x_axis_collapse,
+                p0=guess_x_gaussian,
+                method="trf"
+            )
+            y_gaussian_param, __ = sp_optimize.curve_fit(
+                gaussian_function,
+                np.arange(len(y_axis_collapse)),
+                y_axis_collapse,
+                p0=guess_y_gaussian,
+                method="trf"
+            )
+            # We only need the gaussian centers, the asteroid pixel locations.
+            search_x = float(x_gaussian_param[0])
+            search_y = float(y_gaussian_param[0])
+        except Exception:
+            print("warn")
+            # Something happened and for some reason the Gaussian method did 
+            # not work as intended. We fall back to a far more robust but 
+            # inaccurate approach of determining the center based on the 
+            # maximum pixel.
+            search_y, search_x = np.unravel_index(
             np.nanargmax(search_array), search_array.shape
-        )
-        # Transform it back into the total array coordinates.
-        target_x = x0 + search_x
-        target_y = y0 + search_y
-        # Define the location of the target as the center of the maximum
-        # pixel, not its edge.
-        target_x += 0.5
-        target_y += 0.5
+            )
+            # Define the location of the target as the center of the maximum
+            # pixel, not its edge.
+            search_x = search_x + 0.5
+            search_y = search_y + 0.5
+        finally:
+            # Transform it back into the total array coordinates.
+            target_x = x0 + search_x
+            target_y = y0 + search_y
 
         # All done.
         return target_x, target_y
