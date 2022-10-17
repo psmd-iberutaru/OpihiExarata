@@ -449,7 +449,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             vehicle_args=astrometry_vehicle_args,
         )
         # If the astrometry failed, there is no photometry to do.
-        if not astrometry_solve_status:
+        if astrometry_solve_status:
             __, photometry_solve_status = opihi_solution.solve_photometry(
                 solver_engine=photometry_engine,
                 overwrite=True,
@@ -462,7 +462,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Check that the filter compatibility. If the photometry failed, this
         # may be one of the reasons so it is something to warn about.
         if not photometry_solve_status:
-            if filter_name not in opihi_solution.photometrics.available_filters:
+            if filter_name not in getattr(
+                opihi_solution.photometrics, "available_filters", []
+            ):
                 print("warn")
 
         # Saving the file.

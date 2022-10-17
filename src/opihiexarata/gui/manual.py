@@ -479,6 +479,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # The load the fits file itself and assign it to the proper file index.
         self.fits_filename_list[index] = current_fits_filename
+        # Change the last used directory to where the file was.
+        self.last_used_directory = library.path.get_directory(pathname=new_fits_filename)
 
         # If this is the first file loaded, the target set name needs to be 
         # determined.
