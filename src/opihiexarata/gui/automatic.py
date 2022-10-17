@@ -734,7 +734,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             filter_name = self.results_opihi_solution.photometrics.filter_name
             # Formatting the information as a string.
             pm_sym = "\u00B1"
-            zero_point_str = "{zp:.3f} {pm} {zpe:3.f}".format(
+            zero_point_str = "{zp:.3f} {pm} {zpe:.3f}".format(
                 zp=zero_point, pm=pm_sym, zpe=zero_point_error
             )
             filter_name = str(filter_name)
