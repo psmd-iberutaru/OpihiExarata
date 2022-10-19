@@ -436,7 +436,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
         sky_data_values = masked_data_array.compressed()
 
         # Computing the sky value based on the star-masked array.
-        sky_counts = np.ma.median(sky_data_values)
+        sky_counts = np.median(sky_data_values)
         return sky_counts
 
     def _calculate_zero_point(
@@ -504,15 +504,11 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # Extract the proper photometric values for the filter being used.
         filter_table_header = "{f}_mag".format(f=filter_name)
         magnitude = inter_star_table[filter_table_header]
-        # And the count data. We only want actually valid count data so
-        # that it does not corrupt everything else down the line.
+        # And the count data. 
         counts = inter_star_table["counts"]
-        valid_counts = counts[
-            np.logical_and(np.isfinite(counts), np.greater(counts, 0))
-        ]
         # Instrument magnitudes.
         sqrt5_100 = 2.51188643151
-        inst_magnitude = -sqrt5_100 * np.log10(valid_counts / exposure_time)
+        inst_magnitude = -sqrt5_100 * np.log10(counts / exposure_time)
 
         # We filter the stars so that we avoid using stars and targets
         # which otherwise would skew our results.
@@ -520,10 +516,14 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # the magnitude as specified. A dimmer object has a higher magnitude.
         LIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
         invalid_filter_magnitude = np.where(magnitude <= LIM_MAG, True, False)
+        # We only can use count data which is actually valid, using invalid 
+        # count data corrupts our instrument magnitudes and everything else 
+        # down the line.
+        invalid_instrument_magnitude = ~np.logical_and(np.isfinite(counts), counts > 0)
 
         # The valid points that we can use are those not caught with the
         # filter.
-        valid_points = ~(invalid_filter_magnitude)
+        valid_points = ~(invalid_filter_magnitude | invalid_instrument_magnitude)
         # Using only the remaining/valid targets for the photometric
         # calculation.
         valid_magnitude = magnitude[valid_points]
@@ -531,7 +531,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
 
         # Zero points via the definition equation
         zero_points = valid_magnitude - valid_inst_magnitude
-        zero_point = np.median(zero_points)
+        zero_point = np.nanmedian(zero_points)
         # We use the error on the mean, but instead we use medians and its
         # standard deviation equivalent to be robust to bad data points.
         n_stars = np.sum(np.isfinite(zero_points))

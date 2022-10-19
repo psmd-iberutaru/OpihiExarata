@@ -137,36 +137,38 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # The total reset button.
+        # The reset buttons.
         #####
-        self.ui.push_button_reset.clicked.connect(self.__connect_push_button_reset)
+        self.ui.push_button_save_and_reset.clicked.connect(self.__connect_push_button_save_and_reset)
+
+        self.ui.push_button_force_reset.clicked.connect(self.__connect_push_button_force_reset)
 
         # The filename and target location changing buttons. The primary
         # radio button is also defined here.
         #####
-        self.ui.push_button_change_filename_1.clicked.connect(
-            lambda: self.__connect_push_button_change_filename(index=1)
+        self.ui.push_button_load_filename_1.clicked.connect(
+            lambda: self.__connect_push_button_load_filename(index=1)
         )
-        self.ui.push_button_change_filename_2.clicked.connect(
-            lambda: self.__connect_push_button_change_filename(index=2)
+        self.ui.push_button_load_filename_2.clicked.connect(
+            lambda: self.__connect_push_button_load_filename(index=2)
         )
-        self.ui.push_button_change_filename_3.clicked.connect(
-            lambda: self.__connect_push_button_change_filename(index=3)
+        self.ui.push_button_load_filename_3.clicked.connect(
+            lambda: self.__connect_push_button_load_filename(index=3)
         )
-        self.ui.push_button_change_filename_4.clicked.connect(
-            lambda: self.__connect_push_button_change_filename(index=4)
+        self.ui.push_button_load_filename_4.clicked.connect(
+            lambda: self.__connect_push_button_load_filename(index=4)
         )
-        self.ui.push_button_locate_target_location_1.clicked.connect(
-            lambda: self.__connect_push_button_locate_target_location(index=1)
+        self.ui.push_button_relocate_target_location_1.clicked.connect(
+            lambda: self.__connect_push_button_relocate_target_location(index=1)
         )
-        self.ui.push_button_locate_target_location_2.clicked.connect(
-            lambda: self.__connect_push_button_locate_target_location(index=2)
+        self.ui.push_button_relocate_target_location_2.clicked.connect(
+            lambda: self.__connect_push_button_relocate_target_location(index=2)
         )
-        self.ui.push_button_locate_target_location_3.clicked.connect(
-            lambda: self.__connect_push_button_locate_target_location(index=3)
+        self.ui.push_button_relocate_target_location_3.clicked.connect(
+            lambda: self.__connect_push_button_relocate_target_location(index=3)
         )
-        self.ui.push_button_locate_target_location_4.clicked.connect(
-            lambda: self.__connect_push_button_locate_target_location(index=4)
+        self.ui.push_button_relocate_target_location_4.clicked.connect(
+            lambda: self.__connect_push_button_relocate_target_location(index=4)
         )
         self.ui.radio_button_primary_file_1.clicked.connect(
             self.__connect_button_group_primary_working_file
@@ -396,9 +398,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.zero_point_database = database
         return None
 
-    def __connect_push_button_reset(self) -> None:
+    def __connect_push_button_save_and_reset(self) -> None:
         """This resets the entire GUI, removing all of the information solved
-        or unsolved.
+        or unsolved. However, it saves anything it can.
 
         Parameters
         ----------
@@ -408,7 +410,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
-        # Just in case, we batch save everything before doing a total reset.
+        # As instructed, we save everything before a batch reset.
         self.save_all_fits_files()
         self.save_target_history_archive(archive_filename=None)
 
@@ -418,7 +420,25 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_change_filename(self, index: int) -> None:
+    def __connect_push_button_force_reset(self) -> None:
+        """This resets the entire GUI, removing all of the information solved
+        or unsolved. Nothing is saved at all.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Resetting everything.
+        self.reset_all()
+
+        # All done.
+        return None
+
+    def __connect_push_button_load_filename(self, index: int) -> None:
         """The method for loading in a new file(name) for a file based on the
         index.
 
@@ -480,7 +500,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The load the fits file itself and assign it to the proper file index.
         self.fits_filename_list[index] = current_fits_filename
         # Change the last used directory to where the file was.
-        self.last_used_directory = library.path.get_directory(pathname=new_fits_filename)
+        self.last_used_directory = library.path.get_directory(pathname=current_fits_filename)
 
         # If this is the first file loaded, the target set name needs to be 
         # determined.
@@ -500,7 +520,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __connect_push_button_locate_target_location(self, index: int) -> None:
+    def __connect_push_button_relocate_target_location(self, index: int) -> None:
         """The method for re-determining the location of the asteroid for
         file/image of the given index.
 
@@ -672,8 +692,22 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             ra_velocity = 0
             dec_velocity = 0
 
+        # Because the TCS assumes that the RA and DEC provided correspond to 
+        # the timestamp that it received the command (as opposed to when the 
+        # image was taken), we need to translate it forward in time based 
+        # on the motion.
+        # As motion is in degrees per second, UNIX time is fine.
+        observing_time_unix = library.conversion.julian_day_to_unix_time(jd=        primary_solution.observing_time)
+        current_time_unix = library.conversion.current_utc_to_julian_day()
+        delta_time = current_time_unix - observing_time_unix
+        # Moving the RA and DEC measurements forward based on the time 
+        # difference. We assume a tangent projection and that the cos(RA) term
+        # is not that influential.
+        forward_target_ra = target_ra + ra_velocity * delta_time
+        forward_target_dec = target_dec + dec_velocity * delta_time
+
         # Sending the information to the TCS.
-        library.tcs.t3io_tcs_next(ra=target_ra, dec=target_dec, target_name=target_name, magnitude=magnitude,ra_velocity=ra_velocity, dec_velocity=dec_velocity)
+        library.tcs.t3io_tcs_next(ra=forward_target_ra, dec=forward_target_dec, target_name=target_name, magnitude=magnitude,ra_velocity=ra_velocity, dec_velocity=dec_velocity)
         # All done.
         return None
 
@@ -869,6 +903,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                     )
                 except Exception as _e:
                     print("warn", _e)
+                    raise _e
                 else:
                     # Photometry is special as the data may also be saved to the
                     # zero point database. We attempt to write a zero point record to
@@ -1617,6 +1652,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             current_fits_filename=fits_filename,
             reference_fits_filename=reference_fits_file,
         )
+        # If the asteroid location was not provided, then it should be so.
+        if asteroid_location == (None, None):
+            asteroid_location = None
 
         asteroid_history = self.load_target_history_archive()
 
@@ -2390,7 +2428,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Refreshing the values of the Keplerian orbital elements.
         # The orbital elements' values and errors should be reported. We define
         # the string formatting here.
-        def vsf(val: float) -> str:
+        def usf(val: float) -> str:
             """Unified string formatting for orbital element values and errors."""
             # Rounding values to sensible values.
             return "{input:.5f}".format(input=val)
@@ -2398,45 +2436,45 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Using the above function to derive the display strings for all of the
         # elements.
         self.ui.line_edit_orbit_results_semimajor_axis_value.setText(
-            vsf(primary_solution.orbitals.semimajor_axis)
+            usf(primary_solution.orbitals.semimajor_axis)
         )
         self.ui.line_edit_orbit_results_semimajor_axis_error.setText(
-            vsf(primary_solution.orbitals.semimajor_axis_error)
+            usf(primary_solution.orbitals.semimajor_axis_error)
         )
 
         self.ui.line_edit_orbit_results_eccentricity_value.setText(
-            vsf(primary_solution.orbitals.eccentricity)
+            usf(primary_solution.orbitals.eccentricity)
         )
         self.ui.line_edit_orbit_results_eccentricity_error.setText(
-            vsf(primary_solution.orbitals.eccentricity_error)
+            usf(primary_solution.orbitals.eccentricity_error)
         )
 
         self.ui.line_edit_orbit_results_inclination_value.setText(
-            vsf(primary_solution.orbitals.inclination)
+            usf(primary_solution.orbitals.inclination)
         )
         self.ui.line_edit_orbit_results_inclination_error.setText(
-            vsf(primary_solution.orbitals.inclination_error)
+            usf(primary_solution.orbitals.inclination_error)
         )
 
         self.ui.line_edit_orbit_results_ascending_node_value.setText(
-            vsf(primary_solution.orbitals.longitude_ascending_node)
+            usf(primary_solution.orbitals.longitude_ascending_node)
         )
         self.ui.line_edit_orbit_results_ascending_node_error.setText(
-            vsf(primary_solution.orbitals.longitude_ascending_node_error)
+            usf(primary_solution.orbitals.longitude_ascending_node_error)
         )
 
         self.ui.line_edit_orbit_results_perihelion_value.setText(
-            vsf(primary_solution.orbitals.argument_perihelion)
+            usf(primary_solution.orbitals.argument_perihelion)
         )
         self.ui.line_edit_orbit_results_perihelion_error.setText(
-            vsf(primary_solution.orbitals.argument_perihelion_error)
+            usf(primary_solution.orbitals.argument_perihelion_error)
         )
 
         self.ui.line_edit_orbit_results_mean_anomaly_value.setText(
-            vsf(primary_solution.orbitals.mean_anomaly)
+            usf(primary_solution.orbitals.mean_anomaly)
         )
         self.ui.line_edit_orbit_results_mean_anomaly_error.setText(
-            vsf(primary_solution.orbitals.mean_anomaly_error)
+            usf(primary_solution.orbitals.mean_anomaly_error)
         )
 
         # Maximum precision on the epoch Julian day is desired however.

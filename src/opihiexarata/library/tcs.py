@@ -222,7 +222,7 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
         # default to the actual TCS. By default, the TCS command already
         # does this. A space allows this entry to be passed over when
         # the command is parsed.
-        tcs_host_string = " "
+        tcs_host_string = ""
     else:
         tcs_host_string = "-h {h}".format(h=TCS_HOST)
 
@@ -245,5 +245,6 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
         ra_vel_as_s,
         dec_vel_as_s,
     ]
-    t3io_response = subprocess.run(t3io_command_arguments)
+    t3io_command_arguments_str = [str(argdex) for argdex in t3io_command_arguments]
+    t3io_response = subprocess.run(t3io_command_arguments_str)
     return t3io_response
