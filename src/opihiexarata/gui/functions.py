@@ -51,14 +51,16 @@ def apply_window_icon(
     return None
 
 
-def get_busy_image_array() -> hint.array:
+def get_busy_image_array(progress_index: int = None) -> hint.array:
     """This function gets the busy image and returns it in the form of a
     color array which can be plot with matplotlib. The image file is stored
     as per convention.
 
     Parameters
     ----------
-    None
+    progress_index : int, default = None
+        If provided, and between 1-4 inclusive, the busy image with progress
+        text is output, otherwise, the default image without any text is used.
 
     Returns
     -------
@@ -67,9 +69,41 @@ def get_busy_image_array() -> hint.array:
     """
     # Getting the busy file image.
     self_dir = os.path.dirname(os.path.abspath(__file__))
-    busy_image_path = library.path.merge_pathname(
-        directory=[self_dir, "qtui"], filename="busy_image_pyukumuku", extension="png"
-    )
+    # If a progress image is desired instead, we provide that specific path.
+    # The progress index must be either 1-4.
+    if progress_index == 1:
+        busy_image_path = library.path.merge_pathname(
+            directory=[self_dir, "qtui"],
+            filename="busy_image_pyukumuku_1of4",
+            extension="png",
+        )
+    elif progress_index == 2:
+        busy_image_path = library.path.merge_pathname(
+            directory=[self_dir, "qtui"],
+            filename="busy_image_pyukumuku_2of4",
+            extension="png",
+        )
+    elif progress_index == 3:
+        busy_image_path = library.path.merge_pathname(
+            directory=[self_dir, "qtui"],
+            filename="busy_image_pyukumuku_3of4",
+            extension="png",
+        )
+    elif progress_index == 4:
+        busy_image_path = library.path.merge_pathname(
+            directory=[self_dir, "qtui"],
+            filename="busy_image_pyukumuku_4of4",
+            extension="png",
+        )
+    else:
+        # A valid progress index was not provided, we just default to the 
+        # non-progress bar version.
+        busy_image_path = library.path.merge_pathname(
+            directory=[self_dir, "qtui"],
+            filename="busy_image_pyukumuku",
+            extension="png",
+        )
+    # Load in the image.
     busy_image = plt.imread(busy_image_path)
     return busy_image
 

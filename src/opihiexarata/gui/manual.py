@@ -733,7 +733,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         vehicle_args = {}
 
         # Note that we are busy solving the solution via the engine.
-        self.__configuration_draw_busy_image()
+        self.__configuration_draw_busy_image(progress_index=None)
 
         # Solve the field using the provided engine. We need to break this out
         # into its own thread so that the busy plot notification can be shown
@@ -742,6 +742,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             # Cycling through all of the indexes to try and solve the astrometry.
             # We need to use the index based method because for-loops do copying.
             for index in range(len(self.opihi_solution_list)):
+                # As we are looping across all of the files, we can use the 
+                # progress text version of the busy image.
+                self.__configuration_draw_busy_image(progress_index=index)
+                # Solving the data.
                 if not isinstance(
                     self.opihi_solution_list[index], opihiexarata.OpihiSolution
                 ):
@@ -889,6 +893,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             # Cycling through all of the indexes to try and solve the astrometry.
             # We need to use the index based method because for-loops do copying.
             for index in range(len(self.opihi_solution_list)):
+                # As we are looping across all of the files, we can use the 
+                # progress text version of the busy image.
+                self.__configuration_draw_busy_image(progress_index=index)
+                # Solving the data.
                 if not isinstance(
                     self.opihi_solution_list[index], opihiexarata.OpihiSolution
                 ):
@@ -2786,7 +2794,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.opihi_canvas.draw()
         return None
 
-    def draw_busy_image(self, replace: bool = True, transparency: float = 1) -> None:
+    def draw_busy_image(self, progress_index:int=None, replace: bool = True, transparency: float = 1) -> None:
         """This draws the busy image.
 
         We draw the busy image on top of the Opihi image to signify that
@@ -2798,6 +2806,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         Parameters
         ----------
+        progress_index : int, default = None
+            If provided, and between 1-4 inclusive, the busy image with 
+            progress text is output, otherwise, the default image without 
+            any text is used.
         replace : bool, default = True
             If True, we replace the Opihi image with the busy image instead
             of over-plotting it. This does not affect the Opihi image in
@@ -2836,9 +2848,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             return str()
 
         # We load the busy image.
-        busy_image = gui.functions.get_busy_image_array()
+        busy_image = gui.functions.get_busy_image_array(progress_index=progress_index)
 
-        # Determining the width/height shape of the image.
+        # Determining the width/height shape of the image. We do not need 
+        # to worry about the color axis.
         busy_height, busy_width, __ = busy_image.shape
         # From the shape of the image, and the shape of the array, we pin the
         # origin of the image. We desired a centered image.
@@ -2881,13 +2894,16 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __configuration_draw_busy_image(self) -> None:
+    def __configuration_draw_busy_image(self, progress_index:int=None) -> None:
         """Exactly the same as `draw_busy_image`, but we use the settings
         as per the configuration. This function is just a connivent wrapper.
 
         Parameters
         ----------
-        None
+        progress_index : int, default = None
+            If provided, and between 1-4 inclusive, the busy image with 
+            progress text is output, otherwise, the default image without 
+            any text is used.
 
         Returns
         -------
@@ -2897,7 +2913,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         config_replace = library.config.GUI_MANUAL_BUSY_ALERT_IMAGE_REPLACEMENT
         config_transparency = library.config.GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY
         # Executing the plotting.
-        self.draw_busy_image(replace=config_replace, transparency=config_transparency)
+        self.draw_busy_image(progress_index=progress_index, replace=config_replace, transparency=config_transparency)
         # All done.
         return None
 
