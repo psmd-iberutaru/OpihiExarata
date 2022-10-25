@@ -241,7 +241,7 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     t3io_command_arguments = [
         BINARY_PATH,
         tcs_host_string,
-        "NS.rate",
+        "ns.rate",
         ra_vel_as_s,
         dec_vel_as_s,
     ]
