@@ -175,6 +175,7 @@ class Ui_SelectorWindow(object):
         self.check_box_autoscale_1_99 = QCheckBox(self.verticalLayoutWidget)
         self.check_box_autoscale_1_99.setObjectName(u"check_box_autoscale_1_99")
         self.check_box_autoscale_1_99.setFont(font1)
+        self.check_box_autoscale_1_99.setChecked(True)
 
         self.horizontal_layout_colorbar_scale.addWidget(self.check_box_autoscale_1_99)
 

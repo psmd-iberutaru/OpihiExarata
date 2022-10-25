@@ -93,7 +93,23 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # ...the filenames.
         self.fits_filename_list = [error.IntentionalError, None, None, None, None]
         # ...the file dialog.
-        self.last_used_directory = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
+        CONFIG_INIT_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
+        CONFIG_TRAVERSE = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_TRAVERSE_FETCHING_DIRECTORY
+        
+        # We attempt to get the initial directory from the last used 
+        # FITS file. If it fails, we just use the directory as is.
+        try:
+            if CONFIG_TRAVERSE:
+                recent_fits_pathname = library.path.get_most_recent_filename_in_directory(directory=CONFIG_INIT_DIR, extension="fits", recursive=True, exclude_opihiexarata_output_files=True)
+                # The directory thereof.
+                initial_directory = library.path.get_directory(pathname=recent_fits_pathname)
+            else:
+                initial_directory = CONFIG_INIT_DIR
+        except Exception:
+            print("warn")
+            initial_directory = CONFIG_INIT_DIR
+        finally:
+            self.last_used_directory = initial_directory
         # ...the file index.
         self.primary_file_index = None
         # ...the asteroid/target set name and other information.
@@ -1092,6 +1108,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             isinstance(primary_solution, opihiexarata.OpihiSolution)
             and isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution)
         ):
+            print("warn")
             return None
 
         # We use the ephemeritic solution rates to update the TCS, the
@@ -1253,8 +1270,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         primary_solution = self.opihi_solution_list[self.primary_file_index]
         if not (
             isinstance(primary_solution, opihiexarata.OpihiSolution)
-            and isinstance(primary_solution.ephemeritics, propagate.PropagativeSolution)
+            and isinstance(primary_solution.propagatives, propagate.PropagativeSolution)
         ):
+            print("warn")
             return None
 
         # We use the propagative solution rates to update the TCS, the
