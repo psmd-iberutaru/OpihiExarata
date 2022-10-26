@@ -94,7 +94,7 @@ def get_most_recent_filename_in_directory(
         # Fetch all of the matching files within the directory. We only want
         # files within the directory, not above or below unless recursive is 
         # set
-        directory_list = ["**", directory] if recursive else [directory]
+        directory_list = [directory, "**"] if recursive else [directory]
         pathname_glob_filter = merge_pathname(
             directory=directory_list, filename="*", extension=extensiondex
         )
