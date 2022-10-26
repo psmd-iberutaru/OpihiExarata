@@ -214,8 +214,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.opihi_canvas = FigureCanvas(self.opihi_figure)
         self.opihi_nav_toolbar = NavigationToolbar(self.opihi_canvas, self)
         # The flag for determining if autoscaling should always be applied.
-        # The default, from Qt, is False.
-        self.autoscale_1_99 = False
+        # We default to whatever the Qt display has currently. 
+        self.autoscale_1_99 = bool(self.ui.check_box_autoscale_1_99.isChecked())
 
         # For ease of usage, a custom navigation bar coordinate formatter
         # function/class is used.
