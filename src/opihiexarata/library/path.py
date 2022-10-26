@@ -92,9 +92,11 @@ def get_most_recent_filename_in_directory(
         if extensiondex.startswith("."):
             extensiondex = extensiondex[1:]
         # Fetch all of the matching files within the directory. We only want
-        # files within the directory, not above or below.
+        # files within the directory, not above or below unless recursive is 
+        # set
+        directory_list = ["**", directory] if recursive else [directory]
         pathname_glob_filter = merge_pathname(
-            directory=directory, filename="*", extension=extensiondex
+            directory=directory_list, filename="*", extension=extensiondex
         )
         extension_matching_files = glob.glob(pathname_glob_filter, recursive=recursive)
         matching_filenames += extension_matching_files

@@ -95,18 +95,18 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # ...the file dialog.
         CONFIG_INIT_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
         CONFIG_TRAVERSE = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_TRAVERSE_FETCHING_DIRECTORY
-        
         # We attempt to get the initial directory from the last used 
         # FITS file. If it fails, we just use the directory as is.
         try:
             if CONFIG_TRAVERSE:
-                recent_fits_pathname = library.path.get_most_recent_filename_in_directory(directory=CONFIG_INIT_DIR, extension="fits", recursive=True, exclude_opihiexarata_output_files=True)
+                fits_extension = "fits"
+                recent_fits_pathname = library.path.get_most_recent_filename_in_directory(directory=CONFIG_INIT_DIR, extension=fits_extension, recursive=True, exclude_opihiexarata_output_files=True)
                 # The directory thereof.
                 initial_directory = library.path.get_directory(pathname=recent_fits_pathname)
             else:
                 initial_directory = CONFIG_INIT_DIR
-        except Exception:
-            print("warn")
+        except Exception as _e:
+            print("warn", _e)
             initial_directory = CONFIG_INIT_DIR
         finally:
             self.last_used_directory = initial_directory
