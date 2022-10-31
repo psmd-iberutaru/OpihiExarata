@@ -93,16 +93,29 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # ...the filenames.
         self.fits_filename_list = [error.IntentionalError, None, None, None, None]
         # ...the file dialog.
-        CONFIG_INIT_DIR = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
-        CONFIG_TRAVERSE = library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_TRAVERSE_FETCHING_DIRECTORY
-        # We attempt to get the initial directory from the last used 
+        CONFIG_INIT_DIR = (
+            library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
+        )
+        CONFIG_TRAVERSE = (
+            library.config.GUI_MANUAL_INITIAL_AUTOMATIC_IMAGE_TRAVERSE_FETCHING_DIRECTORY
+        )
+        # We attempt to get the initial directory from the last used
         # FITS file. If it fails, we just use the directory as is.
         try:
             if CONFIG_TRAVERSE:
                 fits_extension = "fits"
-                recent_fits_pathname = library.path.get_most_recent_filename_in_directory(directory=CONFIG_INIT_DIR, extension=fits_extension, recursive=True, exclude_opihiexarata_output_files=True)
+                recent_fits_pathname = (
+                    library.path.get_most_recent_filename_in_directory(
+                        directory=CONFIG_INIT_DIR,
+                        extension=fits_extension,
+                        recursive=True,
+                        exclude_opihiexarata_output_files=True,
+                    )
+                )
                 # The directory thereof.
-                initial_directory = library.path.get_directory(pathname=recent_fits_pathname)
+                initial_directory = library.path.get_directory(
+                    pathname=recent_fits_pathname
+                )
             else:
                 initial_directory = CONFIG_INIT_DIR
         except Exception as _e:
@@ -155,9 +168,13 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         # The reset buttons.
         #####
-        self.ui.push_button_save_and_reset.clicked.connect(self.__connect_push_button_save_and_reset)
+        self.ui.push_button_save_and_reset.clicked.connect(
+            self.__connect_push_button_save_and_reset
+        )
 
-        self.ui.push_button_force_reset.clicked.connect(self.__connect_push_button_force_reset)
+        self.ui.push_button_force_reset.clicked.connect(
+            self.__connect_push_button_force_reset
+        )
 
         # The filename and target location changing buttons. The primary
         # radio button is also defined here.
@@ -203,7 +220,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.push_button_change_target_name.clicked.connect(
             self.__connect_push_button_change_target_name
         )
-        self.ui.push_button_send_target_to_tcs.clicked.connect(self.__connect_push_button_send_target_to_tcs)
+        self.ui.push_button_send_target_to_tcs.clicked.connect(
+            self.__connect_push_button_send_target_to_tcs
+        )
 
         # The astrometry page and other functionality.
         self.ui.push_button_solve_astrometry.clicked.connect(
@@ -271,7 +290,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The figure, canvas, and navigation toolbar of the image plot
         # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
-        fig, ax = plt.subplots(figsize=(edge_size_in, edge_size_in), dpi=dpi,constrained_layout=True)
+        fig, ax = plt.subplots(
+            figsize=(edge_size_in, edge_size_in), dpi=dpi, constrained_layout=True
+        )
         self.opihi_figure = fig
         self.opihi_axes = ax
         self.opihi_canvas = FigureCanvas(self.opihi_figure)
@@ -321,7 +342,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.ui.vertical_layout_image.addWidget(self.opihi_canvas)
         self.ui.vertical_layout_image.addWidget(self.opihi_nav_toolbar)
 
-        # Setting the size of the canvas to be more representative of the 
+        # Setting the size of the canvas to be more representative of the
         # designer file.
         self.opihi_canvas.setMinimumHeight(dummy_edge_size_px)
         self.opihi_canvas.setMaximumHeight(dummy_edge_size_px)
@@ -516,9 +537,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # The load the fits file itself and assign it to the proper file index.
         self.fits_filename_list[index] = current_fits_filename
         # Change the last used directory to where the file was.
-        self.last_used_directory = library.path.get_directory(pathname=current_fits_filename)
+        self.last_used_directory = library.path.get_directory(
+            pathname=current_fits_filename
+        )
 
-        # If this is the first file loaded, the target set name needs to be 
+        # If this is the first file loaded, the target set name needs to be
         # determined.
         if not isinstance(self.target_set_name, str):
             self.target_set_name = self._get_target_set_name_guess()
@@ -576,17 +599,17 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             current_fits_filename=current_fits_filename,
             reference_fits_filename=reference_fits_file,
         )
-        
-        # If the new asteroid location was not selected, then the locations 
+
+        # If the new asteroid location was not selected, then the locations
         # are Nones and should not be applied.
         if asteroid_location == (None, None):
             pass
         else:
             # The asteroid location is saved to the proper solution.
             self.opihi_solution_list[index].asteroid_location = asteroid_location
-        
-        # Because a new asteroid location has been found, the previous values 
-        # and other information derived from the last image are invalid, 
+
+        # Because a new asteroid location has been found, the previous values
+        # and other information derived from the last image are invalid,
         # reset and re-plot.
         self.reset_dynamic_label_text()
         self.refresh_dynamic_label_text()
@@ -657,13 +680,13 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         return None
 
     def __connect_push_button_send_target_to_tcs(self) -> None:
-        """The button which extracts the parameters of the primary image and 
+        """The button which extracts the parameters of the primary image and
         sends it to the TCS.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -674,13 +697,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         if not isinstance(primary_solution, opihiexarata.OpihiSolution):
             print("warn")
             return None
-        # In order to send the TCS the target's location, it must have been 
+        # In order to send the TCS the target's location, it must have been
         # defined already. Otherwise, there is nothing to do.
-        if (primary_solution.asteroid_location is None or primary_solution.asteroid_location == (None, None)):
+        if (
+            primary_solution.asteroid_location is None
+            or primary_solution.asteroid_location == (None, None)
+        ):
             print("warn")
             return None
         # The astrometric solution itself is also required.
-        if not (isinstance(primary_solution.astrometrics, astrometry.AstrometricSolution) and primary_solution.astrometrics_status):
+        if not (
+            isinstance(primary_solution.astrometrics, astrometry.AstrometricSolution)
+            and primary_solution.astrometrics_status
+        ):
             print("warn")
             return None
 
@@ -689,18 +718,31 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         target_name = primary_solution.asteroid_name
         # On-sky location...
         target_x, target_y = primary_solution.asteroid_location
-        target_ra, target_dec = primary_solution.astrometrics.pixel_to_sky_coordinates(x=target_x, y=target_y)
+        target_ra, target_dec = primary_solution.astrometrics.pixel_to_sky_coordinates(
+            x=target_x, y=target_y
+        )
         # Photometry...
-        if isinstance(primary_solution.photometrics, photometry.PhotometricSolution) and primary_solution.photometrics_status:
-            magnitude = primary_solution.photometrics.calculate_star_aperture_magnitude(pixel_x=target_x, pixel_y=target_y)
+        if (
+            isinstance(primary_solution.photometrics, photometry.PhotometricSolution)
+            and primary_solution.photometrics_status
+        ):
+            magnitude = primary_solution.photometrics.calculate_star_aperture_magnitude(
+                pixel_x=target_x, pixel_y=target_y
+            )
         else:
             # No available solution
             magnitude = 0
         # On-sky motion, we prioritize propagation.
-        if isinstance(primary_solution.propagatives, propagate.PropagativeSolution) and primary_solution.propagatives_status:
+        if (
+            isinstance(primary_solution.propagatives, propagate.PropagativeSolution)
+            and primary_solution.propagatives_status
+        ):
             ra_velocity = primary_solution.propagatives.ra_velocity
             dec_velocity = primary_solution.propagatives.dec_velocity
-        elif isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution) and primary_solution.ephemeritics_status:
+        elif (
+            isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution)
+            and primary_solution.ephemeritics_status
+        ):
             ra_velocity = primary_solution.ephemeritics.ra_velocity
             dec_velocity = primary_solution.ephemeritics.dec_velocity
         else:
@@ -708,22 +750,31 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             ra_velocity = 0
             dec_velocity = 0
 
-        # Because the TCS assumes that the RA and DEC provided correspond to 
-        # the timestamp that it received the command (as opposed to when the 
-        # image was taken), we need to translate it forward in time based 
+        # Because the TCS assumes that the RA and DEC provided correspond to
+        # the timestamp that it received the command (as opposed to when the
+        # image was taken), we need to translate it forward in time based
         # on the motion.
         # As motion is in degrees per second, UNIX time is fine.
-        observing_time_unix = library.conversion.julian_day_to_unix_time(jd=        primary_solution.observing_time)
+        observing_time_unix = library.conversion.julian_day_to_unix_time(
+            jd=primary_solution.observing_time
+        )
         current_time_unix = library.conversion.current_utc_to_julian_day()
         delta_time = current_time_unix - observing_time_unix
-        # Moving the RA and DEC measurements forward based on the time 
+        # Moving the RA and DEC measurements forward based on the time
         # difference. We assume a tangent projection and that the cos(RA) term
         # is not that influential.
         forward_target_ra = target_ra + ra_velocity * delta_time
         forward_target_dec = target_dec + dec_velocity * delta_time
 
         # Sending the information to the TCS.
-        library.tcs.t3io_tcs_next(ra=forward_target_ra, dec=forward_target_dec, target_name=target_name, magnitude=magnitude,ra_velocity=ra_velocity, dec_velocity=dec_velocity)
+        library.tcs.t3io_tcs_next(
+            ra=forward_target_ra,
+            dec=forward_target_dec,
+            target_name=target_name,
+            magnitude=magnitude,
+            ra_velocity=ra_velocity,
+            dec_velocity=dec_velocity,
+        )
         # All done.
         return None
 
@@ -758,7 +809,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             # Cycling through all of the indexes to try and solve the astrometry.
             # We need to use the index based method because for-loops do copying.
             for index in range(len(self.opihi_solution_list)):
-                # As we are looping across all of the files, we can use the 
+                # As we are looping across all of the files, we can use the
                 # progress text version of the busy image.
                 self.__configuration_draw_busy_image(progress_index=index)
                 # Solving the data.
@@ -909,7 +960,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             # Cycling through all of the indexes to try and solve the astrometry.
             # We need to use the index based method because for-loops do copying.
             for index in range(len(self.opihi_solution_list)):
-                # As we are looping across all of the files, we can use the 
+                # As we are looping across all of the files, we can use the
                 # progress text version of the busy image.
                 self.__configuration_draw_busy_image(progress_index=index)
                 # Solving the data.
@@ -1441,11 +1492,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             solution = self.opihi_solution_list[index]
             if not isinstance(solution, opihiexarata.OpihiSolution):
                 # There is no solution to derive it from.
-                pass 
+                pass
             else:
                 # See if it is a valid name.
                 guess_target_set_name = solution.asteroid_name
-                if isinstance(guess_target_set_name, str) and len(guess_target_set_name) != 0:
+                if (
+                    isinstance(guess_target_set_name, str)
+                    and len(guess_target_set_name) != 0
+                ):
                     return guess_target_set_name
 
             # Next, we try to find the target name based on the FITS file
@@ -1512,9 +1566,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         """
         if self.target_set_name is None:
             raise error.SequentialOrderError(
-                    "There is no target/asteroid name to get the MPC record filename"
-                    " from. Moreover, deriving it from the provided file(s) failed."
-                )
+                "There is no target/asteroid name to get the MPC record filename"
+                " from. Moreover, deriving it from the provided file(s) failed."
+            )
         else:
             if isinstance(self.target_set_name, str):
                 # All is well and good.
@@ -1534,24 +1588,28 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         if isinstance(primary_fits_file, str) and os.path.isfile(primary_fits_file):
             fits_directory = library.path.get_directory(pathname=primary_fits_file)
         else:
-            # We just cycle through the filenames in order to figure out what 
+            # We just cycle through the filenames in order to figure out what
             # we can use.
             for filedex in self.fits_filename_list:
                 if isinstance(filedex, str):
-                    fits_directory = library.path.get_directory(
-                pathname=filedex
-            )
-            # If no FITS directory has been determined by this point, then 
-            # we cannot really derive the MPC record filename without the 
+                    fits_directory = library.path.get_directory(pathname=filedex)
+            # If no FITS directory has been determined by this point, then
+            # we cannot really derive the MPC record filename without the
             # directory component.
             if fits_directory is None:
-                raise error.DirectoryError("No FITS filename provided can provide a directory for which to derive the MPC record filename.")
+                raise error.DirectoryError(
+                    "No FITS filename provided can provide a directory for which to"
+                    " derive the MPC record filename."
+                )
             elif isinstance(fits_directory, str) and os.path.isdir(fits_directory):
                 # All good, one has been determined.
                 pass
             else:
                 # The code should never reach here.
-                raise error.LogicFlowError("The FITS directory variable should have been covered by other cases by this point.")
+                raise error.LogicFlowError(
+                    "The FITS directory variable should have been covered by other"
+                    " cases by this point."
+                )
 
         mpc_record_filename = library.path.merge_pathname(
             directory=fits_directory, filename=mpc_record_filename, extension="txt"
@@ -1613,13 +1671,13 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             try:
                 record_row = solutiondex.mpc_record_row()
             except error.PracticalityError:
-                # It is likely that there is no astrometric solution with this 
-                # observation so a record row really cannot be meaningfully 
+                # It is likely that there is no astrometric solution with this
+                # observation so a record row really cannot be meaningfully
                 # defined.
                 continue
             else:
                 target_history_current.append(record_row)
-        
+
         # Cleaning up the history.
         target_history_current = library.mpcrecord.clean_minor_planet_record(
             records=target_history_current
@@ -1758,7 +1816,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             except Exception:
                 print("warn")
                 archive_filename = None
-        # An archive filename cannot be determined, we cannot save the 
+        # An archive filename cannot be determined, we cannot save the
         # observational history. There is no point in continuing.
         if not isinstance(archive_filename, str):
             print("warn")
@@ -1929,11 +1987,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
     def reset_all(self) -> None:
         """This function completely resets the GUI into its initial state.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -2208,7 +2266,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 if solutiondex.asteroid_location is None:
                     target_location_strings[index] = "(NaN, NaN)"
                 else:
-                    target_location_strings[index] = "({x}, {y})".format(
+                    target_location_strings[index] = "({x:3.f}, {y:3.f})".format(
                         x=solutiondex.asteroid_location[0],
                         y=solutiondex.asteroid_location[1],
                     )
@@ -2280,8 +2338,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 trg_ra_str[index] = "HH:MM:SS.SS"
                 trg_dec_str[index] = "+DD:MM:SS.SS"
             # Check that the solution itself actually is a valid solution class.
-            elif not (isinstance(solutiondex.astrometrics, astrometry.AstrometricSolution) and solutiondex.astrometrics_status):
-                # It is not, using values to indicate that some solving went 
+            elif not (
+                isinstance(solutiondex.astrometrics, astrometry.AstrometricSolution)
+                and solutiondex.astrometrics_status
+            ):
+                # It is not, using values to indicate that some solving went
                 # wrong.
                 cen_ra_str[index] = "NaN"
                 cen_dec_str[index] = "NaN"
@@ -2377,19 +2438,22 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         for index, solutiondex in enumerate(self.opihi_solution_list):
             # Check that the solution itself actually is a valid solution class.
             if not isinstance(solutiondex, opihiexarata.OpihiSolution):
-                # There is nothing to derive, we print the GUI defaults as 
+                # There is nothing to derive, we print the GUI defaults as
                 # there is nothing to do.
                 flt_name[index] = "FF"
                 zp_str[index] = "ZZ.ZZZ {pm} E.EEE".format(pm=pm_sym)
                 mag_str[index] = "MM.MMM {pm} E.EEE".format(pm=pm_sym)
                 continue
-            
-            # The filter names actually do not really require a photometric 
+
+            # The filter names actually do not really require a photometric
             # solution.
             flt_name[index] = solutiondex.filter_name
 
             # Checking if a valid photometry solution exists.
-            if not (isinstance(solutiondex.photometrics, photometry.PhotometricSolution) and solutiondex.photometrics_status):
+            if not (
+                isinstance(solutiondex.photometrics, photometry.PhotometricSolution)
+                and solutiondex.photometrics_status
+            ):
                 # It is not, using the same dummy values.
                 zp_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
                 mag_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
@@ -2812,7 +2876,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         self.opihi_canvas.draw()
         return None
 
-    def draw_busy_image(self, progress_index:int=None, replace: bool = True, transparency: float = 1) -> None:
+    def draw_busy_image(
+        self, progress_index: int = None, replace: bool = True, transparency: float = 1
+    ) -> None:
         """This draws the busy image.
 
         We draw the busy image on top of the Opihi image to signify that
@@ -2825,8 +2891,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         Parameters
         ----------
         progress_index : int, default = None
-            If provided, and between 1-4 inclusive, the busy image with 
-            progress text is output, otherwise, the default image without 
+            If provided, and between 1-4 inclusive, the busy image with
+            progress text is output, otherwise, the default image without
             any text is used.
         replace : bool, default = True
             If True, we replace the Opihi image with the busy image instead
@@ -2868,7 +2934,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # We load the busy image.
         busy_image = gui.functions.get_busy_image_array(progress_index=progress_index)
 
-        # Determining the width/height shape of the image. We do not need 
+        # Determining the width/height shape of the image. We do not need
         # to worry about the color axis.
         busy_height, busy_width, __ = busy_image.shape
         # From the shape of the image, and the shape of the array, we pin the
@@ -2912,15 +2978,15 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def __configuration_draw_busy_image(self, progress_index:int=None) -> None:
+    def __configuration_draw_busy_image(self, progress_index: int = None) -> None:
         """Exactly the same as `draw_busy_image`, but we use the settings
         as per the configuration. This function is just a connivent wrapper.
 
         Parameters
         ----------
         progress_index : int, default = None
-            If provided, and between 1-4 inclusive, the busy image with 
-            progress text is output, otherwise, the default image without 
+            If provided, and between 1-4 inclusive, the busy image with
+            progress text is output, otherwise, the default image without
             any text is used.
 
         Returns
@@ -2931,7 +2997,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         config_replace = library.config.GUI_MANUAL_BUSY_ALERT_IMAGE_REPLACEMENT
         config_transparency = library.config.GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY
         # Executing the plotting.
-        self.draw_busy_image(progress_index=progress_index, replace=config_replace, transparency=config_transparency)
+        self.draw_busy_image(
+            progress_index=progress_index,
+            replace=config_replace,
+            transparency=config_transparency,
+        )
         # All done.
         return None
 

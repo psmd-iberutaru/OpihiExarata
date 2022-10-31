@@ -930,10 +930,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Refreshing the target pixel location in the manual entry. Formatting
         # the numerical values into strings.
+        PRECISION = library.config.GUI_SELECTOR_TARGET_LOCATION_PIXEL_DECIMAL_PRECISION
         target_x = self.target_x if self.target_x is not None else np.nan
         target_y = self.target_y if self.target_y is not None else np.nan
-        target_x_str = "{x:.3f}".format(x=target_x)
-        target_y_str = "{y:.3f}".format(y=target_y)
+        target_x_str = "{x:.{p}f}".format(x=target_x, p=int(PRECISION))
+        target_y_str = "{y:.{p}f}".format(y=target_y, p=int(PRECISION))
         self.ui.line_edit_dynamic_target_x.setText(target_x_str)
         self.ui.line_edit_dynamic_target_y.setText(target_y_str)
 
