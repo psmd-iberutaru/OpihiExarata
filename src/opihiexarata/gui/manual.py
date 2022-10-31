@@ -1303,7 +1303,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         primary_solution = self.opihi_solution_list[self.primary_file_index]
         if not (
             isinstance(primary_solution, opihiexarata.OpihiSolution)
-            and isinstance(primary_solution.ephemeritics, propagate.PropagativeSolution)
+            and isinstance(primary_solution.propagatives, propagate.PropagativeSolution)
         ):
             return None
 
