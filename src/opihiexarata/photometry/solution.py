@@ -504,7 +504,7 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # Extract the proper photometric values for the filter being used.
         filter_table_header = "{f}_mag".format(f=filter_name)
         magnitude = inter_star_table[filter_table_header]
-        # And the count data. 
+        # And the count data.
         counts = inter_star_table["counts"]
         # Instrument magnitudes.
         sqrt5_100 = 2.51188643151
@@ -516,8 +516,8 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # the magnitude as specified. A dimmer object has a higher magnitude.
         LIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
         invalid_filter_magnitude = np.where(magnitude <= LIM_MAG, True, False)
-        # We only can use count data which is actually valid, using invalid 
-        # count data corrupts our instrument magnitudes and everything else 
+        # We only can use count data which is actually valid, using invalid
+        # count data corrupts our instrument magnitudes and everything else
         # down the line.
         invalid_instrument_magnitude = ~np.logical_and(np.isfinite(counts), counts > 0)
 

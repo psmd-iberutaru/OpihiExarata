@@ -497,9 +497,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # If there is a photometric solution that exists, we can obtain the
         # magnitude.
-        if isinstance(
-            self.opihi_solution.photometrics, photometry.PhotometricSolution
-        ):
+        if isinstance(self.opihi_solution.photometrics, photometry.PhotometricSolution):
             magnitude = self.opihi_solution.asteroid_magnitude
         else:
             magnitude = 0

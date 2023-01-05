@@ -155,44 +155,49 @@ def translate_image_array(
     return shifted_array
 
 
-def determine_translation_image_array(translate_array:hint.array, reference_array:hint.array) -> tuple[float, float]:
-    """This function determines the cross-correlated translation 
-    required to determine the translation which occurred to the translated 
-    array image from the reference array image. 
+def determine_translation_image_array(
+    translate_array: hint.array, reference_array: hint.array
+) -> tuple[float, float]:
+    """This function determines the cross-correlated translation
+    required to determine the translation which occurred to the translated
+    array image from the reference array image.
 
-    This function deals with only translation, it does not handle scaling 
-    or rotation. More sophisticated methods are needed for that. This 
-    algorithm finds the mode of all translation vectors between star-points 
+    This function deals with only translation, it does not handle scaling
+    or rotation. More sophisticated methods are needed for that. This
+    algorithm finds the mode of all translation vectors between star-points
     in the images.
-    
+
     Parameters
     ----------
     translate_array : array-like
-        The array which was translated from the reference array. We are 
+        The array which was translated from the reference array. We are
         computing the translation of this array.
     reference_array : array-like
-        The array before the translation. Inverting the translation on 
+        The array before the translation. Inverting the translation on
         the translate_array returns back to this array.
 
     Returns
     -------
     delta_x : float
-        The x-axis length, in pixels, of the translation vector determined 
+        The x-axis length, in pixels, of the translation vector determined
         which would translate the translation array back onto the reference
         array.
     delta_y : float
-        The y-axis length, in pixels, of the translation vector determined 
+        The y-axis length, in pixels, of the translation vector determined
         which would translate the translation array back onto the reference
         array.
     """
     # Using scikit's implementation of FFT/DFT. Too high of an up-sample factor
-    # leads to slow computation time. 1/100 of a pixel is more than good enough 
+    # leads to slow computation time. 1/100 of a pixel is more than good enough
     # here.
-    translation = ski_registration.phase_cross_correlation(reference_array, translate_array, upsample_factor=100, return_error=False)
-    # The function has the axis order in Numpy's convention, we break it up 
+    translation = ski_registration.phase_cross_correlation(
+        reference_array, translate_array, upsample_factor=100, return_error=False
+    )
+    # The function has the axis order in Numpy's convention, we break it up
     # to match the return signature of this function.
     delta_y, delta_x = translation
     return delta_x, delta_y
+
 
 def create_circular_mask(
     array: hint.array, center_x: int, center_y: int, radius: float

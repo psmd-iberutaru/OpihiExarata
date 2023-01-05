@@ -2266,7 +2266,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 if solutiondex.asteroid_location is None:
                     target_location_strings[index] = "(NaN, NaN)"
                 else:
-                    target_location_strings[index] = "({x:3.f}, {y:3.f})".format(
+                    target_location_strings[index] = "({x:.3f}, {y:.3f})".format(
                         x=solutiondex.asteroid_location[0],
                         y=solutiondex.asteroid_location[1],
                     )
@@ -2461,17 +2461,19 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 # Extracting the photometry information.
                 flt_name[index] = solutiondex.photometrics.filter_name
                 # Extracting the zero point information.
-                zp = round(solutiondex.photometrics.zero_point, 3)
-                zpe = round(solutiondex.photometrics.zero_point_error, 4)
-                zp_str[index] = "{v} {pm} {e}".format(v=zp, pm=pm_sym, e=zpe)
+                zp_str[index] = "{zp:.3f} {pm} {zpe:.4f}".format(
+                    zp=solutiondex.photometrics.zero_point,
+                    pm=pm_sym,
+                    zpe=solutiondex.photometrics.zero_point_error,
+                )
                 # Extracting the target's magnitude, if possible.
                 if solutiondex.asteroid_location is not None:
                     magnitude, magnitude_error = solutiondex.compute_asteroid_magnitude(
                         asteroid_location=solutiondex.asteroid_location, overwrite=False
                     )
-                    mag = round(magnitude, 4)
-                    mage = round(magnitude_error, 4)
-                    mag_str[index] = "{v} {pm} {e}".format(v=mag, pm=pm_sym, e=mage)
+                    mag_str[index] = "{mag:.4f} {pm} {mage:.4f}".format(
+                        mag=magnitude, pm=pm_sym, mage=magnitude_error
+                    )
                 else:
                     mag_str[index] = "NaN {pm} NaN".format(pm=pm_sym)
 
@@ -2520,7 +2522,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # the string formatting here.
         def usf(val: float) -> str:
             """Unified string formatting for orbital element values and errors."""
-            # Rounding values to sensible values.
+            # Truncating values to sensible formatted values.
             return "{input:.5f}".format(input=val)
 
         # Using the above function to derive the display strings for all of the
@@ -2606,7 +2608,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         ra_a_deg = primary_solution.ephemeritics.ra_acceleration
         dec_a_deg = primary_solution.ephemeritics.dec_acceleration
         # Converting to the more familiar arcsec/s from deg/s along with
-        # arcsec/s/s from deg/s/s. Round after and prepare to make it a
+        # arcsec/s/s from deg/s/s. Truncate after and prepare to make it a
         # string for the GUI.
         def vel_dg_to_as_str(degree: float) -> str:
             """Converting to arcseconds per second then formatting."""

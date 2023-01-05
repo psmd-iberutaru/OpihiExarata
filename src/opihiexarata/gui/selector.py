@@ -214,7 +214,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.opihi_canvas = FigureCanvas(self.opihi_figure)
         self.opihi_nav_toolbar = NavigationToolbar(self.opihi_canvas, self)
         # The flag for determining if autoscaling should always be applied.
-        # We default to whatever the Qt display has currently. 
+        # We default to whatever the Qt display has currently.
         self.autoscale_1_99 = bool(self.ui.check_box_autoscale_1_99.isChecked())
 
         # For ease of usage, a custom navigation bar coordinate formatter
@@ -1099,11 +1099,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # way.
         desky_search_array = search_array - np.nanmedian(search_array)
 
-        # There are two ways we can do the finding of the centroid, either 
-        # using a set of Gaussian functions or just the maximum pixel. 
+        # There are two ways we can do the finding of the centroid, either
+        # using a set of Gaussian functions or just the maximum pixel.
         # We use the latter when the former breaks down.
         try:
-            # Finding the center point based on the sums across each of the 
+            # Finding the center point based on the sums across each of the
             # axises.
             x_axis_collapse = np.sum(desky_search_array, axis=0)
             y_axis_collapse = np.sum(desky_search_array, axis=1)
@@ -1113,43 +1113,44 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             # while also being robust to a hot pixel screwing things up.
             guess_search_x = np.argsort(x_axis_collapse)[-2]
             guess_search_y = np.argsort(y_axis_collapse)[-2]
-            # Formatting the guesses. We use the actual sum value as well for 
+            # Formatting the guesses. We use the actual sum value as well for
             # an estimation of the amplitude.
             guess_x_gaussian = [guess_search_x, 1, x_axis_collapse[guess_search_x]]
             guess_y_gaussian = [guess_search_y, 1, y_axis_collapse[guess_search_y]]
 
-            # Using a 1-D Gaussian fit to determine the actual center along 
+            # Using a 1-D Gaussian fit to determine the actual center along
             # each axis.
             def gaussian_function(x: hint.array, cen: float, std: float, amp: float):
                 return amp * np.exp(-((x - cen) ** 2) / (2 * std**2))
-            # The x-axis is the pixel locations themselves with the y-axis 
-            # being the gaussian. We do not need the errors/covariances for 
+
+            # The x-axis is the pixel locations themselves with the y-axis
+            # being the gaussian. We do not need the errors/covariances for
             # this.
             x_gaussian_param, __ = sp_optimize.curve_fit(
                 gaussian_function,
                 np.arange(len(x_axis_collapse)),
                 x_axis_collapse,
                 p0=guess_x_gaussian,
-                method="trf"
+                method="trf",
             )
             y_gaussian_param, __ = sp_optimize.curve_fit(
                 gaussian_function,
                 np.arange(len(y_axis_collapse)),
                 y_axis_collapse,
                 p0=guess_y_gaussian,
-                method="trf"
+                method="trf",
             )
             # We only need the gaussian centers, the asteroid pixel locations.
             search_x = float(x_gaussian_param[0])
             search_y = float(y_gaussian_param[0])
         except Exception:
             print("warn")
-            # Something happened and for some reason the Gaussian method did 
-            # not work as intended. We fall back to a far more robust but 
-            # inaccurate approach of determining the center based on the 
+            # Something happened and for some reason the Gaussian method did
+            # not work as intended. We fall back to a far more robust but
+            # inaccurate approach of determining the center based on the
             # maximum pixel.
             search_y, search_x = np.unravel_index(
-            np.nanargmax(search_array), search_array.shape
+                np.nanargmax(search_array), search_array.shape
             )
             # Define the location of the target as the center of the maximum
             # pixel, not its edge.

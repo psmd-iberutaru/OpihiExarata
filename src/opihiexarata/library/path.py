@@ -30,7 +30,7 @@ def get_directory(pathname: str) -> str:
 def get_most_recent_filename_in_directory(
     directory: str,
     extension: hint.Union[str, list] = None,
-    recursive:bool=False,
+    recursive: bool = False,
     recency_function: hint.Callable[[str], float] = None,
     exclude_opihiexarata_output_files: bool = False,
 ) -> str:
@@ -92,7 +92,7 @@ def get_most_recent_filename_in_directory(
         if extensiondex.startswith("."):
             extensiondex = extensiondex[1:]
         # Fetch all of the matching files within the directory. We only want
-        # files within the directory, not above or below unless recursive is 
+        # files within the directory, not above or below unless recursive is
         # set
         directory_list = [directory, "**"] if recursive else [directory]
         pathname_glob_filter = merge_pathname(
@@ -112,7 +112,7 @@ def get_most_recent_filename_in_directory(
         MPCRECORD_SUFFIX = library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
         for filenamedex in copy.deepcopy(matching_filenames):
             # We only care about the basename in terms of matching suffixes.
-            # Though the extension itself may be a valid suffix as well, for 
+            # Though the extension itself may be a valid suffix as well, for
             # some odd reason.
             basename = get_filename_with_extension(pathname=filenamedex)
             # Checking if this file is to be excluded.

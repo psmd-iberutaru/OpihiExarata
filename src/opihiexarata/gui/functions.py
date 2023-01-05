@@ -96,7 +96,7 @@ def get_busy_image_array(progress_index: int = None) -> hint.array:
             extension="png",
         )
     else:
-        # A valid progress index was not provided, we just default to the 
+        # A valid progress index was not provided, we just default to the
         # non-progress bar version.
         busy_image_path = library.path.merge_pathname(
             directory=[self_dir, "qtui"],

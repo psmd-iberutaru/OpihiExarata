@@ -560,7 +560,9 @@ class OpihiSolution(library.engine.ExarataSolution):
         )
         asteroid_record = asteroid_history + current_mpc_record
         # Clean up the record.
-        asteroid_record = library.mpcrecord.clean_minor_planet_record(records=asteroid_record)
+        asteroid_record = library.mpcrecord.clean_minor_planet_record(
+            records=asteroid_record
+        )
 
         # Solve for the orbital solution.
         try:
@@ -1061,7 +1063,7 @@ class OpihiSolution(library.engine.ExarataSolution):
                 " Something out of sync."
             )
 
-        # Applying the WCS solution. The WCS obeys specific header keyword 
+        # Applying the WCS solution. The WCS obeys specific header keyword
         # conventions so we cannot process it as an OpihiExarata FITS entry
         # but we still group it so it is still within the OX set.
         if isinstance(self.astrometrics, astrometry.AstrometricSolution):
@@ -1252,10 +1254,9 @@ class OpihiSolution(library.engine.ExarataSolution):
             available_entries["OXR_RA_A"] = deg2as(d=self.propagatives.ra_acceleration)
             available_entries["OXR_DECA"] = deg2as(d=self.propagatives.dec_acceleration)
 
-
         # We also add WCS header information from the astrometric solution,
-        # if it exists. We have it here at the end to ensure that the 
-        # many non-conventional header keys are group together and do not 
+        # if it exists. We have it here at the end to ensure that the
+        # many non-conventional header keys are group together and do not
         # interfere with the more common conventional endings.
         # We use these tags to ensure its placement later.
         available_entries["OXWBEGIN"] = ""

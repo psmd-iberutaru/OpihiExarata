@@ -456,7 +456,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             else:
                 # Try and format it so.
                 record_dictionary[keydex] = typedex(parsed_value)
-            
+
         # All done
         return record_dictionary
 
