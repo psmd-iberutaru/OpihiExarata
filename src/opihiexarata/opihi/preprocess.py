@@ -411,8 +411,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self.linearity_factors, __ = sp_optimize.curve_fit(
             _polynomial, saturated_signal, unsaturated_signal
         )
-        
-        # Using the fitted parameters to derive the linearity curve. Using 
+
+        # Using the fitted parameters to derive the linearity curve. Using
         # keywords here may be unnecessary.
         self.linearity_function = lambda r: _polynomial(r, *self.linearity_factors)
         # All done.
@@ -487,7 +487,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         return preprocess_data
 
     def preprocess_fits_file(
-        self, raw_filename: str, out_filename: str = None, overwrite:bool=False
+        self, raw_filename: str, out_filename: str = None, overwrite: bool = False
     ) -> tuple[hint.Header, hint.array]:
         """Preprocess an Opihi image, the provided fits filename is read, the
         needed information extracted from it, and it is processed using
@@ -503,7 +503,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             entries are added to the header. If this is not provided as
             defaults to None, no file is saved.
         overwrite : bool, default = False
-            If overwrite is True, the filename is overwritten in the event of 
+            If overwrite is True, the filename is overwritten in the event of
             a collision.
 
         Returns

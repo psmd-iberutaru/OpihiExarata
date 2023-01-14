@@ -272,6 +272,7 @@ def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> fl
     """
     # Converting first to radians.
     radian_mean_anomaly = mean_anomaly * (np.pi / 180)
+
     # The main equation to solve using the root finding algorithm; as derived
     # from Kepler's equation.
     def root_kepler_equation(ecc_ano=0, mean_ano=0, eccen=0):

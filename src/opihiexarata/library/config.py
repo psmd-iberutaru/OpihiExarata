@@ -1,5 +1,5 @@
 """Controls the inputting of configuration files. This also serves to bring all 
-of the configuration parameters into a more accessable space which other parts 
+of the configuration parameters into a more accessible space which other parts 
 of Exarata can use.
 
 Note these configuration constant parameters are all accessed using capital 

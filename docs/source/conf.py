@@ -25,6 +25,7 @@ project = "OpihiExarata"
 copyright = "2022, Kenji Sparrow Emerson"
 author = "Kenji Sparrow Emerson"
 
+
 # The full version, including alpha/beta/rc tags
 def get_date_version() -> str:
     """The version of the project.

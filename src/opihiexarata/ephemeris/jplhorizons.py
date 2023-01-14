@@ -144,6 +144,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             vel_m1 = velocity[1:-3]
             vel_p1 = velocity[3:-1]
             vel_p2 = velocity[4:]
+
             # Finding the derivative.
             def derivative_function(
                 x_m2: float, x_m1: float, x_p1: float, x_p2: float, h: float

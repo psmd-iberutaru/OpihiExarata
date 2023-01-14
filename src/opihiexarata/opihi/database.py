@@ -763,6 +763,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
 
         # Something to store all of the record lines in.
         database_record_list = []
+
         # We loop over all relevant dates to extract all relevant files for
         # the query. This allows us to sort for only those days relevant and
         # saves us time.

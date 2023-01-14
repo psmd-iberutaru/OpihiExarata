@@ -846,7 +846,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # hit to ensure it all works normally.
         self.opihi_axes.clear()
 
-        # The color map, as we are using grayscale, the bad pixels need to be 
+        # The color map, as we are using grayscale, the bad pixels need to be
         # some other color.
         cmap = mpl_cm.get_cmap("gray")
         cmap.set_bad(color="red")

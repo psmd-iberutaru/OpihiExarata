@@ -108,7 +108,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.__init_gui_connections()
         self.__init_preprocess_solution()
 
-
         # Preparing the zero point database if the user desired the database
         # to record observations.
         if library.config.GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS:
@@ -652,9 +651,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # Keeping the GUI up to date while in the loop.
             self.refresh_window()
 
-
-        # With this new working fits file, we attempt to solve it. 
-        # First preprocessing the file. We desire to reduce the data if a 
+        # With this new working fits file, we attempt to solve it.
+        # First preprocessing the file. We desire to reduce the data if a
         # preprocess solution exists to do so.
         if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
             # We want to check if the FITS file has already been preprocessed.
@@ -680,7 +678,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 )
                 # Preprocessing the input file.
                 self.preprocess_solution.preprocess_fits_file(
-                    raw_filename=raw_fits_filename, out_filename=current_fits_filename, overwrite=True
+                    raw_filename=raw_fits_filename,
+                    out_filename=current_fits_filename,
+                    overwrite=True,
                 )
         else:
             # There is no preprocessing to do.

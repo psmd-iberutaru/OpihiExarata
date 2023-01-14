@@ -529,7 +529,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 )
                 # Preprocessing the input file.
                 self.preprocess_solution.preprocess_fits_file(
-                    raw_filename=new_fits_filename, out_filename=current_fits_filename, overwrite=True
+                    raw_filename=new_fits_filename,
+                    out_filename=current_fits_filename,
+                    overwrite=True,
                 )
         else:
             # There is no preprocessing to do.
@@ -2122,7 +2124,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         #####
         # We only reset the orbit if the user wanted a complete reset.
         if complete:
-
             self.ui.line_edit_orbit_results_semimajor_axis_value.setText("VV.VVV")
             self.ui.line_edit_orbit_results_semimajor_axis_error.setText("EE.EEE")
             self.ui.line_edit_orbit_results_eccentricity_value.setText("VV.VVV")
@@ -2230,6 +2231,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         -------
         None
         """
+
         # The filenames, in order. We do not need the directory path in this
         # area.
         def _basename_only(pathname: str) -> str:
@@ -2608,6 +2610,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # And acceleration, as degrees per second squared.
         ra_a_deg = primary_solution.ephemeritics.ra_acceleration
         dec_a_deg = primary_solution.ephemeritics.dec_acceleration
+
         # Converting to the more familiar arcsec/s from deg/s along with
         # arcsec/s/s from deg/s/s. Truncate after and prepare to make it a
         # string for the GUI.
@@ -2680,6 +2683,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # And acceleration, as degrees per second squared.
         ra_a_deg = primary_solution.propagatives.ra_acceleration
         dec_a_deg = primary_solution.propagatives.dec_acceleration
+
         # Converting to the more familiar arcsec/s from deg/s along with
         # arcsec/s/s from deg/s/s. Round after and prepare to make it a
         # string for the GUI.
@@ -2789,7 +2793,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # We set the bounds of the colorbar based on the 1-99 % bounds.
         colorbar_low, colorbar_high = np.nanpercentile(plotting_data, [1, 99])
         # Plotting the image, should be in the background of everything.
-        # The color map, as we are using grayscale, the bad pixels need to be 
+        # The color map, as we are using grayscale, the bad pixels need to be
         # some other color.
         cmap = mpl_cm.get_cmap("gray")
         cmap.set_bad(color="red")

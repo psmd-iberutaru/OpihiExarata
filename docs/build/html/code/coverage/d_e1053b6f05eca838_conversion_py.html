@@ -64,8 +64,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="d_e1053b6f05eca838_engine_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4.4</a>,
-            created at 2022-08-31 21:27 -1000
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v7.0.5</a>,
+            created at 2023-01-13 19:40 -1000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -307,7 +307,7 @@
     <p class="pln"><span class="n"><a id="t225" href="#t225">225</a></span><span class="t">    <span class="com"># This could eventually be replaced with multiplication and addition, but</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t226" href="#t226">226</a></span><span class="t">    <span class="com"># this is a convenient way of doing it.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t227" href="#t227">227</a></span><span class="t">    <span class="nam">time_instance</span> <span class="op">=</span> <span class="nam">ap_time</span><span class="op">.</span><span class="nam">Time</span><span class="op">(</span><span class="nam">jd</span><span class="op">,</span> <span class="nam">format</span><span class="op">=</span><span class="str">"jd"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t228" href="#t228">228</a></span><span class="t">    <span class="nam">unix_time</span> <span class="op">=</span> <span class="nam">float</span><span class="op">(</span><span class="nam">time_instance</span><span class="op">.</span><span class="nam">to_value</span><span class="op">(</span><span class="str">"unix"</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t228" href="#t228">228</a></span><span class="t">    <span class="nam">unix_time</span> <span class="op">=</span> <span class="nam">np</span><span class="op">.</span><span class="nam">asarray</span><span class="op">(</span><span class="nam">time_instance</span><span class="op">.</span><span class="nam">to_value</span><span class="op">(</span><span class="str">"unix"</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t229" href="#t229">229</a></span><span class="t">    <span class="key">return</span> <span class="nam">unix_time</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t230" href="#t230">230</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t231" href="#t231">231</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -327,7 +327,7 @@
     <p class="pln"><span class="n"><a id="t245" href="#t245">245</a></span><span class="t">    <span class="com"># This could eventually be replaced with multiplication and addition, but</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t246" href="#t246">246</a></span><span class="t">    <span class="com"># this is a convenient way of doing it.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t247" href="#t247">247</a></span><span class="t">    <span class="nam">time_instance</span> <span class="op">=</span> <span class="nam">ap_time</span><span class="op">.</span><span class="nam">Time</span><span class="op">(</span><span class="nam">unix_time</span><span class="op">,</span> <span class="nam">format</span><span class="op">=</span><span class="str">"unix"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t248" href="#t248">248</a></span><span class="t">    <span class="nam">jd</span> <span class="op">=</span> <span class="nam">time_instance</span><span class="op">.</span><span class="nam">to_value</span><span class="op">(</span><span class="str">"jd"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t248" href="#t248">248</a></span><span class="t">    <span class="nam">jd</span> <span class="op">=</span> <span class="nam">np</span><span class="op">.</span><span class="nam">asarray</span><span class="op">(</span><span class="nam">time_instance</span><span class="op">.</span><span class="nam">to_value</span><span class="op">(</span><span class="str">"jd"</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t249" href="#t249">249</a></span><span class="t">    <span class="key">return</span> <span class="nam">jd</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t250" href="#t250">250</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t251" href="#t251">251</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -511,8 +511,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="d_e1053b6f05eca838_engine_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4.4</a>,
-            created at 2022-08-31 21:27 -1000
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v7.0.5</a>,
+            created at 2023-01-13 19:40 -1000
         </p>
     </div>
 </footer>

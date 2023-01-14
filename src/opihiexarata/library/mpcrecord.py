@@ -75,6 +75,7 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
                 "At least one of the lines is not 80 characters in length. It is not a"
                 " standard MPC 80-column format."
             )
+
     # A reusable function to extract the data from the a record to a list of
     # parameters.
     def _record_to_row_dictionary(line_string: str) -> dict:
@@ -212,6 +213,7 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
             "The headers of the table do not match the expected column names. This"
             " function only can handle tables with the expected names."
         )
+
     # An inner function to convert a table row to a record 80-col string.
     # It is easier to understand this way despite the performance hit.
     def _record_to_row_string(row: hint.Row) -> str:

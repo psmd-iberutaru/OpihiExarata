@@ -30,8 +30,6 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         The session ID of this API connection to astrometry.net
     """
 
-    __DEFAULT_URL = library.config.ASTROMETRYNET_ONLINE_NOVA_WEB_API_URL
-
     def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
         """The instantiation, connecting to the web API using the API key.
 
@@ -54,7 +52,9 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         """
         # Defining the URL.
         self._ASTROMETRY_NET_API_BASE_URL = (
-            str(url) if url is not None else self.__DEFAULT_URL
+            str(url)
+            if url is not None
+            else library.config.ASTROMETRYNET_ONLINE_NOVA_WEB_API_URL
         )
 
         # Base parameters.
@@ -706,6 +706,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
                     fty=valid_api_file_types
                 )
             )
+
         # Construct the URL for the request. It is a little different from the
         # normal API scheme so a new method is made.
         def _construct_file_download_url(ftype: str, id: str) -> str:
@@ -733,10 +734,22 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         return None
 
 
-class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine, library.engine.AstrometryEngine):
-    """This class is the same as the AstrometryNetWebAPIEngine, but the 
+class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine):
+    """This class is the same as the AstrometryNetWebAPIEngine, but the
     default URL point is directed somewhere else to the self-hosted version.
-    
+
     For all documentation, please refer to the parent function.
     """
-    __DEFAULT_URL = library.config.ASTROMETRYNET_SELFHOST_NOVA_WEB_API_URL
+
+    def __init__(self, url=None, apikey: str = None, silent: bool = True):
+        "Creating the host API engine."
+        # Defining the URL and the overall class.
+        SELFHOST_URL = (
+            str(url)
+            if url is not None
+            else library.config.ASTROMETRYNET_SELFHOST_NOVA_WEB_API_URL
+        )
+        # Creating the class.
+        super().__init__(url=SELFHOST_URL, apikey=apikey, silent=silent)
+        # All done.
+        return None
