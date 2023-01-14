@@ -7,6 +7,7 @@ import scipy.optimize as sp_optimize
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
+import matplotlib.cm as mpl_cm
 import matplotlib.patches as mpl_patches
 import matplotlib.pyplot as plt
 
@@ -845,11 +846,16 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # hit to ensure it all works normally.
         self.opihi_axes.clear()
 
+        # The color map, as we are using grayscale, the bad pixels need to be 
+        # some other color.
+        cmap = mpl_cm.get_cmap("gray")
+        cmap.set_bad(color="red")
+
         # Customizing the colorbar of our plotting image to match what the
         # current values are set at.
         image = self.opihi_axes.imshow(
             self.plotted_data,
-            cmap="gray",
+            cmap=cmap,
             vmin=self.colorbar_scale_low,
             vmax=self.colorbar_scale_high,
             zorder=-1,

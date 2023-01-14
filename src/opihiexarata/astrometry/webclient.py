@@ -9,9 +9,6 @@ import opihiexarata.library as library
 import opihiexarata.library.error as error
 import opihiexarata.library.hint as hint
 
-# The base URL for the API which all other service URLs are derived from.
-_DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL = "http://nova.astrometry.net/api/"
-
 
 class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
     """A python-based wrapper around the web API for astrometry.net.
@@ -32,6 +29,8 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
     session : string
         The session ID of this API connection to astrometry.net
     """
+
+    __DEFAULT_URL = library.config.ASTROMETRYNET_ONLINE_NOVA_WEB_API_URL
 
     def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
         """The instantiation, connecting to the web API using the API key.
@@ -55,7 +54,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         """
         # Defining the URL.
         self._ASTROMETRY_NET_API_BASE_URL = (
-            str(url) if url is not None else _DEFAULT_BASE_ASTROMETRY_NET_NOVA_WEB_URL
+            str(url) if url is not None else self.__DEFAULT_URL
         )
 
         # Base parameters.
@@ -732,3 +731,12 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
             url=file_download_url, filename=filename, overwrite=True
         )
         return None
+
+
+class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine, library.engine.AstrometryEngine):
+    """This class is the same as the AstrometryNetWebAPIEngine, but the 
+    default URL point is directed somewhere else to the self-hosted version.
+    
+    For all documentation, please refer to the parent function.
+    """
+    __DEFAULT_URL = library.config.ASTROMETRYNET_SELFHOST_NOVA_WEB_API_URL

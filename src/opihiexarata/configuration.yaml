@@ -189,7 +189,7 @@ MONITOR_PLOT_FILTER_B_LINE_COLOR : "#FFFF00"
 # The bias frame of the image.
 PREPROCESS_BIAS_FITS_FILENAME : ""
 
-# The dark current of the image per pixel per second.
+# The dark current of the image per pixel in counts per second.
 PREPROCESS_DARK_CURRENT_FITS_FILENAME : ""
 
 # The mask fit filenames for all of the different filters. Where masked, the 
@@ -292,6 +292,13 @@ API_CONNECTION_ENABLE_SSL_CHECKS : True
 ###########
 ##### astrometry.net Nova or self-install API.
 ###########
+
+# This is the default nova.astrometry.net API URL to use. We do not suggest 
+# that anyone changes this. If you are hosting your own version of the
+# Astrometry.net web service, use the self-hosted engine.
+ASTROMETRYNET_ONLINE_NOVA_WEB_API_URL : "http://nova.astrometry.net/api/"
+# The self-hosted engine.
+ASTROMETRYNET_SELFHOST_NOVA_WEB_API_URL : ""
 
 # It takes time for the job queue to return results, this is the maximum 
 # timeout time before the program fails (in seconds).

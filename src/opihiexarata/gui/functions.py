@@ -136,6 +136,7 @@ def pick_engine_class_from_name(
     # Defining all of the implemented engines and their names.
     astrometry_engines = {
         "astrometry.net nova": astrometry.AstrometryNetWebAPIEngine,
+        "astrometry.net host": astrometry.AstrometryNetHostAPIEngine
     }
     photometry_engines = {
         "pan-starrs 3pi dr2 mast": photometry.PanstarrsMastWebAPIEngine,

@@ -10,6 +10,7 @@ from PySide6 import QtCore, QtWidgets, QtGui
 
 import numpy as np
 
+import matplotlib.cm as mpl_cm
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -528,7 +529,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 )
                 # Preprocessing the input file.
                 self.preprocess_solution.preprocess_fits_file(
-                    raw_filename=new_fits_filename, out_filename=current_fits_filename
+                    raw_filename=new_fits_filename, out_filename=current_fits_filename, overwrite=True
                 )
         else:
             # There is no preprocessing to do.
@@ -2682,14 +2683,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Converting to the more familiar arcsec/s from deg/s along with
         # arcsec/s/s from deg/s/s. Round after and prepare to make it a
         # string for the GUI.
-        def vel_dg_to_as_str(degree: float) -> str:
+        def vel_dg_to_asec_str(degree: float) -> str:
             """Converting to arcseconds per second then formatting."""
             arcsecond = library.conversion.degrees_per_second_to_arcsec_per_second(
                 degree_per_second=degree
             )
             return "{vel:.3f}".format(vel=arcsecond)
 
-        def acc_dg_to_as_str(degree: float) -> str:
+        def acc_dg_to_asec_str(degree: float) -> str:
             """Converting to arcseconds per second squared then formatting.
             Accelerations are usually a lot less and thus should have
             scientific notation."""
@@ -2699,10 +2700,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             )
             return "{acc:.4e}".format(acc=arcsecond)
 
-        ra_v_arcsec_str = vel_dg_to_as_str(ra_v_deg)
-        dec_v_arcsec_str = vel_dg_to_as_str(dec_v_deg)
-        ra_a_arcsec_str = acc_dg_to_as_str(ra_a_deg)
-        dec_a_arcsec_str = acc_dg_to_as_str(dec_a_deg)
+        ra_v_arcsec_str = vel_dg_to_asec_str(ra_v_deg)
+        dec_v_arcsec_str = vel_dg_to_asec_str(dec_v_deg)
+        ra_a_arcsec_str = acc_dg_to_asec_str(ra_a_deg)
+        dec_a_arcsec_str = acc_dg_to_asec_str(dec_a_deg)
         # Update the dynamic text.
         self.ui.label_dynamic_propagate_results_first_order_ra_rate.setText(
             ra_v_arcsec_str
@@ -2788,8 +2789,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # We set the bounds of the colorbar based on the 1-99 % bounds.
         colorbar_low, colorbar_high = np.nanpercentile(plotting_data, [1, 99])
         # Plotting the image, should be in the background of everything.
+        # The color map, as we are using grayscale, the bad pixels need to be 
+        # some other color.
+        cmap = mpl_cm.get_cmap("gray")
+        cmap.set_bad(color="red")
         image = self.opihi_axes.imshow(
-            plotting_data, cmap="gray", vmin=colorbar_low, vmax=colorbar_high, zorder=-3
+            plotting_data, cmap=cmap, vmin=colorbar_low, vmax=colorbar_high, zorder=-3
         )
         # Disable their formatting in favor of ours.
         image.format_cursor_data = empty_string

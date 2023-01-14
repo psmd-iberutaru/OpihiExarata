@@ -37,6 +37,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
     results_fits_filename : string
         The filename of the fits file which has already been solved. The
         results of which is posted.
+    preprocess_solution : OpihiPreprocessSolution
+        The preprocessing solution which is used to convert raw images to
+        preprocessed files.
     working_opihi_solution : OpihiSolution
         The OpihiSolution of the current working fits file. The results fits
         file solution, when determined to be solved, should be saved to disk
@@ -88,6 +91,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.fits_fetch_directory = None
         self.working_fits_filename = None
         self.results_fits_filename = None
+        self.preprocess_solution = None
         self.working_opihi_solution = None
         self.results_opihi_solution = None
         self.active_status = False
@@ -102,6 +106,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # Preparing the buttons, GUI, and other functionality.
         self.__init_gui_connections()
+        self.__init_preprocess_solution()
+
 
         # Preparing the zero point database if the user desired the database
         # to record observations.
@@ -137,6 +143,52 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.ui.push_button_stop.clicked.connect(self.__connect_push_button_stop)
         self.ui.push_button_trigger.clicked.connect(self.__connect_push_button_trigger)
 
+        # All done.
+        return None
+
+    def __init_preprocess_solution(self):
+        """Initialize the preprocessing solution. The preprocessing files
+        should be specified in the configuration file.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Using the configuration file to extract where the preprocessing
+        # filenames are to build the solution.
+        try:
+            preprocess = opihiexarata.OpihiPreprocessSolution(
+                mask_c_fits_filename=library.config.PREPROCESS_MASK_C_FITS_FILENAME,
+                mask_g_fits_filename=library.config.PREPROCESS_MASK_G_FITS_FILENAME,
+                mask_r_fits_filename=library.config.PREPROCESS_MASK_R_FITS_FILENAME,
+                mask_i_fits_filename=library.config.PREPROCESS_MASK_I_FITS_FILENAME,
+                mask_z_fits_filename=library.config.PREPROCESS_MASK_Z_FITS_FILENAME,
+                mask_1_fits_filename=library.config.PREPROCESS_MASK_1_FITS_FILENAME,
+                mask_2_fits_filename=library.config.PREPROCESS_MASK_2_FITS_FILENAME,
+                mask_b_fits_filename=library.config.PREPROCESS_MASK_B_FITS_FILENAME,
+                flat_c_fits_filename=library.config.PREPROCESS_FLAT_C_FITS_FILENAME,
+                flat_g_fits_filename=library.config.PREPROCESS_FLAT_G_FITS_FILENAME,
+                flat_r_fits_filename=library.config.PREPROCESS_FLAT_R_FITS_FILENAME,
+                flat_i_fits_filename=library.config.PREPROCESS_FLAT_I_FITS_FILENAME,
+                flat_z_fits_filename=library.config.PREPROCESS_FLAT_Z_FITS_FILENAME,
+                flat_1_fits_filename=library.config.PREPROCESS_FLAT_1_FITS_FILENAME,
+                flat_2_fits_filename=library.config.PREPROCESS_FLAT_2_FITS_FILENAME,
+                flat_b_fits_filename=library.config.PREPROCESS_FLAT_B_FITS_FILENAME,
+                bias_fits_filename=library.config.PREPROCESS_BIAS_FITS_FILENAME,
+                dark_current_fits_filename=library.config.PREPROCESS_DARK_CURRENT_FITS_FILENAME,
+                linearity_fits_filename=library.config.PREPROCESS_LINEARITY_FITS_FILENAME,
+            )
+        except Exception:
+            # Something failed with making the preprocess solution, a
+            # configuration file issue is likely the reason.
+            # TODO
+            preprocess = None
+        finally:
+            self.preprocess_solution = preprocess
         # All done.
         return None
 
@@ -600,7 +652,41 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # Keeping the GUI up to date while in the loop.
             self.refresh_window()
 
-        # With this new working fits file, we attempt to solve it.
+
+        # With this new working fits file, we attempt to solve it. 
+        # First preprocessing the file. We desire to reduce the data if a 
+        # preprocess solution exists to do so.
+        if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
+            # We want to check if the FITS file has already been preprocessed.
+            raw_fits_filename = self.working_fits_filename
+            header, __ = library.fits.read_fits_image_file(filename=raw_fits_filename)
+            was_processed = header.get("OXM_REDU", False)
+            if was_processed:
+                # The user already loaded a preprocessed FITS file, there is
+                # no reason to preprocess it again.
+                current_fits_filename = raw_fits_filename
+            else:
+                # We derive the FITS filename for the preprocessed solution, if it
+                # exists.
+                nf_dir, nf_base, nf_ext = library.path.split_pathname(
+                    pathname=raw_fits_filename
+                )
+                # Appending the preprocessing suffix.
+                PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
+                current_fits_filename = library.path.merge_pathname(
+                    directory=nf_dir,
+                    filename=nf_base + PREPROCESS_SUFFIX,
+                    extension=nf_ext,
+                )
+                # Preprocessing the input file.
+                self.preprocess_solution.preprocess_fits_file(
+                    raw_filename=raw_fits_filename, out_filename=current_fits_filename, overwrite=True
+                )
+        else:
+            # There is no preprocessing to do.
+            current_fits_filename = raw_fits_filename
+        # Next, we solve for the astrometry and photometry.
+        self.working_fits_filename = current_fits_filename
         working_opihi_solution = self.solve_astrometry_photometry_single_image(
             filename=self.working_fits_filename
         )

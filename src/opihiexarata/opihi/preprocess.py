@@ -4,7 +4,6 @@ produces a valid reduced image.
 import copy
 
 import numpy as np
-import numpy.ma as np_ma
 import scipy.optimize as sp_optimize
 
 import opihiexarata.library as library
@@ -45,7 +44,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         The filename for the pixel mask for the 2 filter stored in a
         fits file.
     _mask_b_fits_filename : string
-        The filename for the pixel mask for the b filter stored in a
+        The filename for the pixel mask for the block filter stored in a
         fits file.
 
     _flat_c_fits_filename : string
@@ -70,7 +69,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         The filename for the flat field for the 2 filter stored in a
         fits file.
     _flat_b_fits_filename : string
-        The filename for the flat field for the b filter stored in a
+        The filename for the flat field for the block filter stored in a
         fits file.
 
     _bias_fits_filename : string
@@ -107,7 +106,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         The pixel mask for the 2 filter as determined by the provided
         fits file.
     mask_b : array
-        The pixel mask for the b filter as determined by the provided
+        The pixel mask for the block filter as determined by the provided
         fits file.
 
     flat_c : array
@@ -132,7 +131,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         The flat field for the 2 filter as determined by the provided
         fits file.
     flat_b : array
-        The flat field for the b filter as determined by the provided
+        The flat field for the block filter as determined by the provided
         fits file.
 
 
@@ -140,6 +139,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         The bias array as determined by the provided fits file.
     dark_current : array
         The dark rate, per pixel, as determined by the provided fits file.
+        The dark current unit is counts / second.
     linearity_factors : array
         The polynomial factors of the linearity function starting from the
         0th order.
@@ -196,7 +196,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             The filename for the pixel mask in the 2 filter stored in a
             fits file.
         mask_b_fits_filename : string
-            The filename for the pixel mask in the b filter stored in a
+            The filename for the pixel mask in the block filter stored in a
             fits file.
 
         flat_c_fits_filename : string
@@ -221,7 +221,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             The filename for the flat field in the 2 filter stored in a
             fits file.
         flat_b_fits_filename : string
-            The filename for the flat field in the b filter stored in a
+            The filename for the flat field in the block filter stored in a
             fits file.
 
 
@@ -266,10 +266,10 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self._linearity_fits_filename = linearity_fits_filename
         # Reading the fits file data. There are inner functions for mask and
         # flats for organizational purposes.
-        self.bias, __ = library.fits.read_fits_image_file(
+        __, self.bias = library.fits.read_fits_image_file(
             filename=self._bias_fits_filename
         )
-        self.dark_current, __ = library.fits.read_fits_image_file(
+        __, self.dark_current = library.fits.read_fits_image_file(
             filename=self._dark_current_fits_filename
         )
         self.__init_read_mask_data()
@@ -397,18 +397,24 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         -------
         None
         """
-        time_array = 0
-        avg_signal_array = 0
+        # Obtaining the saturation function via the points provided.
+        unsaturated_signal, saturated_signal = np.genfromtxt(
+            self._linearity_fits_filename
+        ).T
+
         # Using just 2nd order linearity correction to fit the saturation
         # function.
         def _polynomial(x, a, b, c):
             return a + b * x + c * x**2
 
         # Fitting.
-        param, __ = sp_optimize.curve_fit(_polynomial, time_array, avg_signal_array)
-        self.linearity_factors = param
-        # Using the fitted parameters to derive the linearity curve.
-        self.linearity_function = lambda r: _polynomial(x=r, *self.linearity_factors)
+        self.linearity_factors, __ = sp_optimize.curve_fit(
+            _polynomial, saturated_signal, unsaturated_signal
+        )
+        
+        # Using the fitted parameters to derive the linearity curve. Using 
+        # keywords here may be unnecessary.
+        self.linearity_function = lambda r: _polynomial(r, *self.linearity_factors)
         # All done.
         return None
 
@@ -476,11 +482,12 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             - exposure_time * self.dark_current
         ) / flat
         # Adding the mask to the data.
-        preprocess_data = np_ma.array(unmasked_preprocess_data, mask=mask)
-        raise preprocess_data
+        preprocess_data = copy.deepcopy(unmasked_preprocess_data)
+        preprocess_data[mask] = np.nan
+        return preprocess_data
 
     def preprocess_fits_file(
-        self, raw_filename: str, out_filename: str = None
+        self, raw_filename: str, out_filename: str = None, overwrite:bool=False
     ) -> tuple[hint.Header, hint.array]:
         """Preprocess an Opihi image, the provided fits filename is read, the
         needed information extracted from it, and it is processed using
@@ -495,6 +502,9 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             The filename to save the reduced image as a fits file. Some added
             entries are added to the header. If this is not provided as
             defaults to None, no file is saved.
+        overwrite : bool, default = False
+            If overwrite is True, the filename is overwritten in the event of 
+            a collision.
 
         Returns
         -------
@@ -524,7 +534,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         # Adding helpful preprocessing information to the header, we follow
         # the convention for all OpihiExarata data.
         preprocess_header_entries = {
-            "OXM_PPRO": True,
+            "OXM_REDU": True,
         }
         # Adding it using the library function so that the defaults may be
         # added as well.
@@ -539,7 +549,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
                 filename=out_filename,
                 header=preprocess_header,
                 data=preprocess_data,
-                overwrite=False,
+                overwrite=overwrite,
             )
         elif out_filename is not None:
             # The outgoing filename is entered but it was not an acceptable
