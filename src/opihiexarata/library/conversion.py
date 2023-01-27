@@ -421,3 +421,50 @@ def filter_header_string_to_filter_name(header_string: str) -> str:
             )
         )
     return filter_name
+
+
+def numpy_type_string_to_instance(numpy_type_string: str) -> hint.numpy_generic:
+    """Provided an input string which is supposed to represent a Numpy type,
+    this function provides the type instance itself.
+
+    The main reason for breaking this out into a new function is in the
+    event that aliases needs to be made.
+
+    Parameters
+    ----------
+    numpy_type_string : str
+        The Numpy type, provided as a string which is formatted mostly as
+        numpy.{type_string}. However, should alias exist, they will also be
+        handled.
+
+    Returns
+    -------
+    numpy_type_instance : Numpy generic
+        The data type instance that the string is likely referring to.
+    """
+    # It is likely easiest to do a falling cascade for both readability and
+    # form. We check all of the types to known aliases or results.
+    np_t_str = str(numpy_type_string).casefold()
+    # Staring with integers.
+    if np_t_str in ("short", "int16", "h"):
+        numpy_type_instance = np.short
+    elif np_t_str in ("intc", "int32", "i"):
+        numpy_type_instance = np.intc
+    elif np_t_str in ("int_", "int64", "intp", "l"):
+        numpy_type_instance = np.intc
+    # Now onto floats.
+    elif np_t_str in ("half", "float16", "e"):
+        numpy_type_instance = np.half
+    elif np_t_str in ("single", "float32", "f"):
+        numpy_type_instance = np.single
+    elif np_t_str in ("", "double", "float_", "float64", "d"):
+        numpy_type_instance = np.double
+    elif np_t_str in ("longdouble", "longfloat", "float128", "g"):
+        numpy_type_instance = np.longdouble
+    # No matching type.
+    else:
+        # We default to Numpy's default.
+        numpy_type_instance = np.float_
+
+    # All done.
+    return numpy_type_instance

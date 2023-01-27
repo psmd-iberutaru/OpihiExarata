@@ -27,6 +27,7 @@ from subprocess import CompletedProcess
 # Arrays. This is done because ArrayLike casts a rather larger union
 # documentation.
 from numpy import ndarray
+from numpy import generic as numpy_generic
 from numpy.typing import ArrayLike, DTypeLike
 
 array = ndarray

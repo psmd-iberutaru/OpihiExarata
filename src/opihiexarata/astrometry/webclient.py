@@ -59,7 +59,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
 
         # Base parameters.
         # The default arguments for uploading files. In (key, value, type) form.
-        # Detailed is also their useage cases per
+        # Detailed is also their usage cases per
         # http://astrometry.net/doc/net/api.html#submitting-a-url
         self._DEFAULT_URL_ARGUMENTS = [
             # These parameters are for licensing and distribution terms.
@@ -274,8 +274,8 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
     def _send_web_request(
         self, service: str, args: dict = {}, file_args: dict = None
     ) -> dict:
-        """A wrapper function for sending a webrequest to the astrometry.net API
-        service. Returns the results as well.
+        """A wrapper function for sending a web request to the astrometry.net
+        API service. Returns the results as well.
 
         Parameters
         ----------
@@ -742,7 +742,7 @@ class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine):
     """
 
     def __init__(self, url=None, apikey: str = None, silent: bool = True):
-        "Creating the host API engine."
+        """Creating the host API engine."""
         # Defining the URL and the overall class.
         SELFHOST_URL = (
             str(url)

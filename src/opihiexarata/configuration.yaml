@@ -14,8 +14,15 @@ TEMPORARY_DIRECTORY_REQUIRE_UNIQUE : False
 # With regards to the Minor Planet Center, this is the observatory code of
 # the observation. A three digit alpha-numeric code. A list of these codes from
 # the MPC: https://www.minorplanetcenter.net/iau/lists/ObsCodesF.html
-# This parameter should be a string as some enteries have letters.
+# This parameter should be a string as some entries have letters.
 MPC_OBSERVATORY_CODE : "568"
+
+# This is the floating-point precision that should be used when saving a FITS
+# file. Tweak this to set the proper file sizes. Files which are too large
+# may have difficulty being uploaded to solvers. Consult Numpy's documentation.
+# https://numpy.org/doc/stable/reference/arrays.scalars.html 
+# The setting here should be the text of a Numpy type.
+FITS_FILE_SAVING_FITS_NUMPY_ARRAY_DATA_TYPE : "f"
 
 ############################################################
 ##########     Opihi Manual GUI Configuration
@@ -75,9 +82,9 @@ GUI_MANUAL_PROMPT_FOR_ASTEROID_INFORMATION : True
 GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_SIZE : 30
 GUI_MANUAL_IMAGE_PLOT_TARGET_MARKER_COLOR : "#FF0000"
 
-# If the ephemeris or propagation solutions were solved, then the timepoints
-# which are used to define the futrue arc trace plot are defined here. It 
-# uses the observational time as the origin and timesteps, in seconds, some
+# If the ephemeris or propagation solutions were solved, then the time points
+# which are used to define the future arc trace plot are defined here. It 
+# uses the observational time as the origin and time steps, in seconds, some
 # number of times provided here. The desired colors as well, in matplotlib 
 # form (we suggest hex).
 GUI_MANUAL_FUTURE_TIME_PLOT_TIMESTEP_SECONDS : 60
@@ -87,9 +94,9 @@ GUI_MANUAL_FUTURE_TIME_PLOT_PROPAGATE_LINE_COLOR : "#F85888"
 
 # When the program is busy, it plots an image which tells the user such. If 
 # is it not (temporarily) replacing the main FITS image and results, it is 
-# overplotted instead with a transparancy as specified here, it should be 
+# overplotted instead with a transparency as specified here, it should be 
 # between 0 and 1. Both the replacement and transparency is controlled here. 
-# Setting transparency to 0 and replacement to False is equivilant to removing 
+# Setting transparency to 0 and replacement to False is equivalent to removing 
 # this alert feature. Transparency is 1 if replacement is True.
 GUI_MANUAL_BUSY_ALERT_IMAGE_REPLACEMENT : True
 GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY : 1
@@ -99,8 +106,8 @@ GUI_MANUAL_BUSY_ALERT_IMAGE_TRANSPARENCY : 1
 ############################################################
 
 # This sets the precision (number of decimal points) of the location values 
-# derived from the target selector box. More is usually better because of the 
-# subpixel centeroiding, but GUI space and ease of viewing should be 
+# derived from the target selector box. More is usually better because of 
+# subpixel centroids, but GUI space and ease of viewing should be 
 # taken into consideration. 
 GUI_SELECTOR_TARGET_LOCATION_PIXEL_DECIMAL_PRECISION : 4
 
@@ -145,7 +152,7 @@ GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS : 0.42
 MONITOR_DATABASE_DIRECTORY : "./exarata_zeropoint_database/"
 
 # The path where the interactive html plot file should be saved to. We 
-# suggest an absolute path if you are saving it to a webserver.
+# suggest an absolute path if you are saving it to a web server.
 MONITOR_PLOT_HTML_FILENAME : "zero_point_plotly.html"
 
 # The interactive plotly html file contains a lot of javascript to make it 
@@ -169,7 +176,7 @@ MONITOR_PLOT_QUERY_X_HOURS_AGO : 24
 MONITOR_PLOT_ZERO_POINT_AXIS_LOWER_LIMIT : null
 MONITOR_PLOT_ZERO_POINT_AXIS_UPPER_LIMIT : null
 
-# The interactive zero point figure seperates the plots by the filter name.
+# The interactive zero point figure separates the plots by the filter name.
 # The colors of each of the lines (representing the filter types) are described
 # here. The color values provided here are must be CSS colors as they are 
 # passed to Plotly (we suggest hex).
@@ -218,7 +225,7 @@ PREPROCESS_FLAT_B_FITS_FILENAME : ""
 PREPROCESS_LINEARITY_FITS_FILENAME : ""
 
 # When saving a FITS file with preprocessed raw data, the default is to have 
-# a small suffix atteched to the original filename to avoid overwritting. 
+# a small suffix atteched to the original filename to avoid overwriting. 
 # The suffix is defined here.
 PREPROCESS_DEFAULT_SAVING_SUFFIX : ".pp"
 
@@ -265,7 +272,7 @@ PHOTOMETRY_STAR_RADIUS_ARCSECOND : 3
 PHOTOMETRY_SCIENCE_RADIUS_MASK_PIXELS : 500
 PHOTOMETRY_EDGE_WIDTH_MASK_PIXELS : 100
 
-# Photometry does not work well when using highly satuated stars or 
+# Photometry does not work well when using highly saturated stars or 
 # under saturated stars in the calculation. As such, we... 
 # ... limit the stars used to those only dimmer than some apparent magnitude;
 # ... (others);

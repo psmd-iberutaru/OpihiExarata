@@ -308,8 +308,14 @@ def write_fits_image_file(
         raise error.InputError(
             "The data must be an image-like object, stored as a Numpy array."
         )
+    else:
+        # Derive the data type to save the FITS file.
+        data_type = library.conversion.numpy_type_string_to_instance(
+            numpy_type_string=library.config.FITS_FILE_SAVING_FITS_NUMPY_ARRAY_DATA_TYPE
+        )
+        saving_data = np.array(data, dtype=data_type)
     # Create the image and add the header.
-    hdu = ap_fits.PrimaryHDU(data=data, header=header)
+    hdu = ap_fits.PrimaryHDU(data=saving_data, header=header)
     # Write.
     hdu.writeto(filename, overwrite=overwrite)
     return None
