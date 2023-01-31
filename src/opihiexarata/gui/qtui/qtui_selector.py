@@ -179,10 +179,10 @@ class Ui_SelectorWindow(object):
 
         self.horizontal_layout_colorbar_scale.addWidget(self.check_box_autoscale_1_99)
 
-        self.check_box_invert_colorbar = QCheckBox(self.verticalLayoutWidget)
-        self.check_box_invert_colorbar.setObjectName(u"check_box_invert_colorbar")
+        self.check_box_reverse_colorbar = QCheckBox(self.verticalLayoutWidget)
+        self.check_box_reverse_colorbar.setObjectName(u"check_box_reverse_colorbar")
 
-        self.horizontal_layout_colorbar_scale.addWidget(self.check_box_invert_colorbar)
+        self.horizontal_layout_colorbar_scale.addWidget(self.check_box_reverse_colorbar)
 
 
         self.vertical_layout_selector.addLayout(self.horizontal_layout_colorbar_scale)
@@ -252,7 +252,7 @@ class Ui_SelectorWindow(object):
         self.label_static_scale.setText(QCoreApplication.translate("SelectorWindow", u"Scale [Low High]", None))
         self.push_button_scale_1_99.setText(QCoreApplication.translate("SelectorWindow", u"1 - 99 %", None))
         self.check_box_autoscale_1_99.setText(QCoreApplication.translate("SelectorWindow", u"Auto", None))
-        self.check_box_invert_colorbar.setText(QCoreApplication.translate("SelectorWindow", u"Reverse", None))
+        self.check_box_reverse_colorbar.setText(QCoreApplication.translate("SelectorWindow", u"Reverse", None))
         self.label_static_target_x.setText(QCoreApplication.translate("SelectorWindow", u"Target X:", None))
         self.line_edit_dynamic_target_x.setText(QCoreApplication.translate("SelectorWindow", u"XXXX", None))
         self.label_static_target_y.setText(QCoreApplication.translate("SelectorWindow", u"Target Y:", None))
