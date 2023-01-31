@@ -73,6 +73,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
     colorbar_scale_low : float
         The lower value for which the color bar determines as its 0, the lowest
         color value.
+    reverse_colorbar : bool
+        If True, for plotting only, reverse the colorbar.
     colorbar_scale_high : float
         The higher value for which the color bar determines as its 1, the
         highest color value.
@@ -171,6 +173,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         low, high = np.percentile(self.plotted_data, [1, 99])
         self.colorbar_scale_low = float(low)
         self.colorbar_scale_high = float(high)
+        self.reverse_colorbar = False
 
         # Making the plot itself.
         self.__init_opihi_image()
@@ -347,6 +350,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         )
         self.ui.check_box_autoscale_1_99.stateChanged.connect(
             self.__connect_check_box_autoscale_1_99
+        )
+        self.ui.check_box_reverse_colorbar.stateChanged.connect(
+            self.__connect_check_box_reverse_colorbar
         )
 
         # The pixel location submission button connection.
@@ -731,6 +737,26 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.refresh_window()
         return None
 
+    def __connect_check_box_reverse_colorbar(self) -> None:
+        """This check box allows the user to reverse the colors of the color 
+        bar.
+
+        Parameters
+        ----------
+        None
+
+        Return
+        ------
+        None
+        """
+        # Get the state of the check box.
+        checkbox_state = self.ui.check_box_reverse_colorbar.isChecked()
+        # As the mode is being set by the GUI, we use the string form.
+        self.reverse_colorbar = bool(checkbox_state)
+        # Refresh the window because the scaling has changed.
+        self.refresh_window()
+        return None
+
     def __connect_push_button_submit_target(self) -> None:
         """This button submits the current location of the target and closes
         the window. (The target information is saved within the class
@@ -847,8 +873,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.opihi_axes.clear()
 
         # The color map, as we are using grayscale, the bad pixels need to be
-        # some other color.
-        cmap = mpl_cm.get_cmap("gray")
+        # some other color. If the colormap is to be reversed, then do so 
+        # as well.
+        raw_cmap = mpl_cm.get_cmap("gray")
+        if self.reverse_colorbar:
+            cmap = raw_cmap.reversed()
+        else:
+            cmap = raw_cmap
         cmap.set_bad(color="red")
 
         # Customizing the colorbar of our plotting image to match what the
