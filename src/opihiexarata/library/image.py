@@ -191,8 +191,8 @@ def determine_translation_image_array(
     # masked pixels, defaulting to some standard random value for any 
     # non-finite numbers allows for faster stable computation with little 
     # impact on accuracy.
-    reference_array[np.isfinite(reference_array)] = 0.0
-    translate_array[np.isfinite(translate_array)] = 0.0
+    reference_array[np.isfinite(reference_array)] = 1.0
+    translate_array[np.isfinite(translate_array)] = 1.0
     # Using scikit's implementation of FFT/DFT. Too high of an up-sample factor
     # leads to slow computation time. 1/10 of a pixel is more than good enough
     # here.
