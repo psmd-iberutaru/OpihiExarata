@@ -181,11 +181,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 dark_current_fits_filename=library.config.PREPROCESS_DARK_CURRENT_FITS_FILENAME,
                 linearity_fits_filename=library.config.PREPROCESS_LINEARITY_FITS_FILENAME,
             )
-        except Exception:
+        except Exception as err:
             # Something failed with making the preprocess solution, a
             # configuration file issue is likely the reason.
             # TODO
-            preprocess = None
+            print(err)
         finally:
             self.preprocess_solution = preprocess
         # All done.
