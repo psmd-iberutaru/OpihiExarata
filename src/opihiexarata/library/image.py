@@ -187,14 +187,17 @@ def determine_translation_image_array(
         which would translate the translation array back onto the reference
         array.
     """
-    # Determining the masks of the image array on the fly.
-    reference_mask = np.isfinite(reference_array)
-    translate_mask = np.isfinite(translate_array)
+    # Using masked phased cross correlation is too heavy and there are few 
+    # masked pixels, defaulting to some standard random value for any 
+    # non-finite numbers allows for faster stable computation with little 
+    # impact on accuracy.
+    reference_array[np.isfinite(reference_array)] = 0.0
+    translate_array[np.isfinite(translate_array)] = 0.0
     # Using scikit's implementation of FFT/DFT. Too high of an up-sample factor
-    # leads to slow computation time. 1/100 of a pixel is more than good enough
+    # leads to slow computation time. 1/10 of a pixel is more than good enough
     # here.
     translation = ski_registration.phase_cross_correlation(
-        reference_array, translate_array, upsample_factor=100, return_error=False, reference_mask=reference_mask, moving_mask=translate_mask
+        reference_array, translate_array, upsample_factor=50, return_error=False,
     )
     # The function has the axis order in Numpy's convention, we break it up
     # to match the return signature of this function.
