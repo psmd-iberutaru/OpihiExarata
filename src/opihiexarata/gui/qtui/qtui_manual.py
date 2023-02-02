@@ -320,6 +320,7 @@ class Ui_ManualWindow(object):
 
         self.tab_widget_solutions = QTabWidget(self.verticalLayoutWidget)
         self.tab_widget_solutions.setObjectName(u"tab_widget_solutions")
+        self.tab_widget_solutions.setEnabled(True)
         sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
@@ -884,6 +885,7 @@ class Ui_ManualWindow(object):
         self.tab_widget_solutions.addTab(self.tab_photometry, "")
         self.tab_orbit = QWidget()
         self.tab_orbit.setObjectName(u"tab_orbit")
+        self.tab_orbit.setEnabled(False)
         self.verticalLayoutWidget_5 = QWidget(self.tab_orbit)
         self.verticalLayoutWidget_5.setObjectName(u"verticalLayoutWidget_5")
         self.verticalLayoutWidget_5.setGeometry(QRect(10, 10, 881, 291))
@@ -1059,6 +1061,7 @@ class Ui_ManualWindow(object):
         self.tab_widget_solutions.addTab(self.tab_orbit, "")
         self.tab_ephemeris = QWidget()
         self.tab_ephemeris.setObjectName(u"tab_ephemeris")
+        self.tab_ephemeris.setEnabled(False)
         self.verticalLayoutWidget_6 = QWidget(self.tab_ephemeris)
         self.verticalLayoutWidget_6.setObjectName(u"verticalLayoutWidget_6")
         self.verticalLayoutWidget_6.setGeometry(QRect(10, 10, 881, 291))

@@ -980,9 +980,12 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                         raise_on_error=True,
                         vehicle_args=vehicle_args,
                     )
-                except Exception as _e:
-                    print("warn", _e)
-                    raise _e
+                except error.InputError:
+                    # An input error is typically due to improper filters being
+                    # provided 
+                    print("warn: bad filter set!")
+                except Exception:
+                    print("warn")
                 else:
                     # Photometry is special as the data may also be saved to the
                     # zero point database. We attempt to write a zero point record to

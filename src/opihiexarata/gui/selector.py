@@ -152,6 +152,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # cache speedup and subtraction capability.
         self._recompute_subtraction_arrays()
 
+        # Dummy values for the box.
+        self.box_search_x0 = 1
+        self.box_search_y0 = 1
+        self.box_search_x1 = 1
+        self.box_search_y1 = 1
+
+
         # The location of the target, the user did not provide it so
         # blank currently.
         self.target_x = None

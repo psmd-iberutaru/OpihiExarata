@@ -344,11 +344,10 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
             data = urllib.parse.urlencode(data)
             data = data.encode("utf-8")
 
-        # Finally send the request.
-        request = urllib.request.Request(url=api_url, headers=headers, data=data)
-
         # Processing the request.
         try:
+            # Finally send the request.
+            request = urllib.request.Request(url=api_url, headers=headers, data=data)
             file = urllib.request.urlopen(
                 request, timeout=library.config.ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT
             )
