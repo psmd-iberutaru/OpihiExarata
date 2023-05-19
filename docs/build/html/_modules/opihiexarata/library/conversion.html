@@ -1,89 +1,45 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2023.1.13 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2023.5.18 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="../../../index.html" class="icon icon-home"> OpihiExarata
           
-
-          
+          <a href="../../../index.html" class="icon icon-home">
+            OpihiExarata
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
@@ -432,69 +388,30 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">OpihiExarata</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
-      <li>opihiexarata.library.conversion</li>
-    
-    
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">opihiexarata.library.conversion</li>
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for opihiexarata.library.conversion</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;For miscellaneous conversions.&quot;&quot;&quot;</span>
 
@@ -919,49 +836,80 @@
             <span class="p">)</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">filter_name</span></div>
+
+
+<div class="viewcode-block" id="numpy_type_string_to_instance"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.numpy_type_string_to_instance">[docs]</a><span class="k">def</span> <span class="nf">numpy_type_string_to_instance</span><span class="p">(</span><span class="n">numpy_type_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">numpy_generic</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Provided an input string which is supposed to represent a Numpy type,</span>
+<span class="sd">    this function provides the type instance itself.</span>
+
+<span class="sd">    The main reason for breaking this out into a new function is in the</span>
+<span class="sd">    event that aliases needs to be made.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    numpy_type_string : str</span>
+<span class="sd">        The Numpy type, provided as a string which is formatted mostly as</span>
+<span class="sd">        numpy.{type_string}. However, should alias exist, they will also be</span>
+<span class="sd">        handled.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy_type_instance : Numpy generic</span>
+<span class="sd">        The data type instance that the string is likely referring to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># It is likely easiest to do a falling cascade for both readability and</span>
+    <span class="c1"># form. We check all of the types to known aliases or results.</span>
+    <span class="n">np_t_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">numpy_type_string</span><span class="p">)</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+    <span class="c1"># Staring with integers.</span>
+    <span class="k">if</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;short&quot;</span><span class="p">,</span> <span class="s2">&quot;int16&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">short</span>
+    <span class="k">elif</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;intc&quot;</span><span class="p">,</span> <span class="s2">&quot;int32&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intc</span>
+    <span class="k">elif</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;int_&quot;</span><span class="p">,</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span> <span class="s2">&quot;intp&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intc</span>
+    <span class="c1"># Now onto floats.</span>
+    <span class="k">elif</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;half&quot;</span><span class="p">,</span> <span class="s2">&quot;float16&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">half</span>
+    <span class="k">elif</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;single&quot;</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">single</span>
+    <span class="k">elif</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;double&quot;</span><span class="p">,</span> <span class="s2">&quot;float_&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">double</span>
+    <span class="k">elif</span> <span class="n">np_t_str</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;longdouble&quot;</span><span class="p">,</span> <span class="s2">&quot;longfloat&quot;</span><span class="p">,</span> <span class="s2">&quot;float128&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">):</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">longdouble</span>
+    <span class="c1"># No matching type.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># We default to Numpy&#39;s default.</span>
+        <span class="n">numpy_type_instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">numpy_type_instance</span></div>
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Kenji Sparrow Emerson.
-
-    </p>
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

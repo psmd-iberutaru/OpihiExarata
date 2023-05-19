@@ -819,7 +819,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             zero_point_error = self.results_opihi_solution.photometrics.zero_point_error
             filter_name = self.results_opihi_solution.photometrics.filter_name
             # Formatting the information as a string.
-            pm_sym = "\u00B1"
+            pm_sym = "\u00b1"
             zero_point_str = "{zp:.3f} {pm} {zpe:.3f}".format(
                 zp=zero_point, pm=pm_sym, zpe=zero_point_error
             )

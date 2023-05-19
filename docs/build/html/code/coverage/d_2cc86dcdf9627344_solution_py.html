@@ -54,9 +54,9 @@
             </div>
         </aside>
         <h2>
-            <span class="text">183 statements &nbsp;</span>
+            <span class="text">185 statements &nbsp;</span>
             <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">0<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">183<span class="text"> missing</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">185<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -64,8 +64,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="d_2cc86dcdf9627344_webclient_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v7.0.5</a>,
-            created at 2023-01-13 19:40 -1000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.2.5">coverage.py v7.2.5</a>,
+            created at 2023-05-18 17:01 -1000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -335,7 +335,7 @@
     <p class="pln"><span class="n"><a id="t253" href="#t253">253</a></span><span class="t">    <span class="com"># few times first.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t254" href="#t254">254</a></span><span class="t">    <span class="nam">attempt_count</span> <span class="op">=</span> <span class="num">0</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t255" href="#t255">255</a></span><span class="t">    <span class="nam">MAX_ATTEMPTS</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">API_CONNECTION_MAXIMUM_ATTEMPTS</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t256" href="#t256">256</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t256" href="#t256">256</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t257" href="#t257">257</a></span><span class="t">        <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t258" href="#t258">258</a></span><span class="t">            <span class="nam">anet_webapi</span> <span class="op">=</span> <span class="nam">astrometry</span><span class="op">.</span><span class="nam">AstrometryNetWebAPIEngine</span><span class="op">(</span><span class="nam">apikey</span><span class="op">=</span><span class="nam">PRIVATE_KEY</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t259" href="#t259">259</a></span><span class="t">        <span class="key">except</span> <span class="nam">error</span><span class="op">.</span><span class="nam">WebRequestError</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -404,7 +404,7 @@
     <p class="pln"><span class="n"><a id="t322" href="#t322">322</a></span><span class="t">    <span class="com"># astrometry.net.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t323" href="#t323">323</a></span><span class="t">    <span class="nam">start_time</span> <span class="op">=</span> <span class="nam">time</span><span class="op">.</span><span class="nam">time</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t324" href="#t324">324</a></span><span class="t">    <span class="nam">TIMEOUT_TIME</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t325" href="#t325">325</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t325" href="#t325">325</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t326" href="#t326">326</a></span><span class="t">        <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t327" href="#t327">327</a></span><span class="t">            <span class="nam">job_id</span> <span class="op">=</span> <span class="nam">anet_webapi</span><span class="op">.</span><span class="nam">job_id</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t328" href="#t328">328</a></span><span class="t">            <span class="nam">job_status</span> <span class="op">=</span> <span class="nam">anet_webapi</span><span class="op">.</span><span class="nam">get_job_status</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -446,7 +446,7 @@
     <p class="mis show_mis"><span class="n"><a id="t364" href="#t364">364</a></span><span class="t">                <span class="key">continue</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t365" href="#t365">365</a></span><span class="t">        <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t366" href="#t366">366</a></span><span class="t">            <span class="com"># The logic should not get here.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t367" href="#t367">367</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">LogicFlowError</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t367" href="#t367">367</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">LogicFlowError</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t368" href="#t368">368</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t369" href="#t369">369</a></span><span class="t">    <span class="com"># Preparing data for extraction.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t370" href="#t370">370</a></span><span class="t">    <span class="nam">job_results</span> <span class="op">=</span> <span class="nam">anet_webapi</span><span class="op">.</span><span class="nam">get_job_results</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -496,7 +496,7 @@
     <p class="pln"><span class="n"><a id="t414" href="#t414">414</a></span><span class="t">    <span class="com"># few times first.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t415" href="#t415">415</a></span><span class="t">    <span class="nam">attempt_count</span> <span class="op">=</span> <span class="num">0</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t416" href="#t416">416</a></span><span class="t">    <span class="nam">MAX_ATTEMPTS</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">API_CONNECTION_MAXIMUM_ATTEMPTS</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t417" href="#t417">417</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t417" href="#t417">417</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t418" href="#t418">418</a></span><span class="t">        <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t419" href="#t419">419</a></span><span class="t">            <span class="nam">anet_webapi</span> <span class="op">=</span> <span class="nam">astrometry</span><span class="op">.</span><span class="nam">AstrometryNetWebAPIEngine</span><span class="op">(</span><span class="nam">apikey</span><span class="op">=</span><span class="nam">PRIVATE_KEY</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t420" href="#t420">420</a></span><span class="t">        <span class="key">except</span> <span class="nam">error</span><span class="op">.</span><span class="nam">WebRequestError</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -565,7 +565,7 @@
     <p class="pln"><span class="n"><a id="t483" href="#t483">483</a></span><span class="t">    <span class="com"># astrometry.net.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t484" href="#t484">484</a></span><span class="t">    <span class="nam">start_time</span> <span class="op">=</span> <span class="nam">time</span><span class="op">.</span><span class="nam">time</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t485" href="#t485">485</a></span><span class="t">    <span class="nam">TIMEOUT_TIME</span> <span class="op">=</span> <span class="nam">library</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t486" href="#t486">486</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t486" href="#t486">486</a></span><span class="t">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t487" href="#t487">487</a></span><span class="t">        <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t488" href="#t488">488</a></span><span class="t">            <span class="nam">job_id</span> <span class="op">=</span> <span class="nam">anet_webapi</span><span class="op">.</span><span class="nam">job_id</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t489" href="#t489">489</a></span><span class="t">            <span class="nam">job_status</span> <span class="op">=</span> <span class="nam">anet_webapi</span><span class="op">.</span><span class="nam">get_job_status</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -607,7 +607,7 @@
     <p class="mis show_mis"><span class="n"><a id="t525" href="#t525">525</a></span><span class="t">                <span class="key">continue</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t526" href="#t526">526</a></span><span class="t">        <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t527" href="#t527">527</a></span><span class="t">            <span class="com"># The logic should not get here.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t528" href="#t528">528</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">LogicFlowError</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t528" href="#t528">528</a></span><span class="t">            <span class="key">raise</span> <span class="nam">error</span><span class="op">.</span><span class="nam">LogicFlowError</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t529" href="#t529">529</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t530" href="#t530">530</a></span><span class="t">    <span class="com"># Preparing data for extraction.</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t531" href="#t531">531</a></span><span class="t">    <span class="nam">job_results</span> <span class="op">=</span> <span class="nam">anet_webapi</span><span class="op">.</span><span class="nam">get_job_results</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -637,8 +637,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="d_2cc86dcdf9627344_webclient_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v7.0.5</a>,
-            created at 2023-01-13 19:40 -1000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.2.5">coverage.py v7.2.5</a>,
+            created at 2023-05-18 17:01 -1000
         </p>
     </div>
 </footer>

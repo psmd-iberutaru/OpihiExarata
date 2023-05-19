@@ -187,9 +187,9 @@ def determine_translation_image_array(
         which would translate the translation array back onto the reference
         array.
     """
-    # Using masked phased cross correlation is too heavy and there are few 
-    # masked pixels, defaulting to some standard random value for any 
-    # non-finite numbers allows for faster stable computation with little 
+    # Using masked phased cross correlation is too heavy and there are few
+    # masked pixels, defaulting to some standard random value for any
+    # non-finite numbers allows for faster stable computation with little
     # impact on accuracy.
     reference_array[~np.isfinite(reference_array)] = 0.0
     translate_array[~np.isfinite(translate_array)] = 0.0
@@ -197,7 +197,10 @@ def determine_translation_image_array(
     # leads to slow computation time. 1/10 of a pixel is more than good enough
     # here.
     translation = ski_registration.phase_cross_correlation(
-        reference_array, translate_array, upsample_factor=50, return_error=False,
+        reference_array,
+        translate_array,
+        upsample_factor=50,
+        return_error=False,
     )
     # The function has the axis order in Numpy's convention, we break it up
     # to match the return signature of this function.

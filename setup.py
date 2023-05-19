@@ -16,16 +16,16 @@ DOCUMENTATION_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 SOURCE_URL = "https://github.com/psmd-iberutaru/OpihiExarata"
 
 DEPENDENCIES = [
-    "astropy",
+    "astropy<=5.2.2",
     "numpy",
     "pyyaml",
     "pillow",
-    "PySide6",
+    "PySide6==6.4.2",
     "requests",
-    "scikit-image",
+    "scikit-image==0.20.0",
     "scipy",
-    "matplotlib",
-    "plotly",
+    "matplotlib<=3.6.3",
+    "plotly<=5.13.0",
     "pandas",
 ]
 

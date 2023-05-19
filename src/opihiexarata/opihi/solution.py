@@ -232,8 +232,6 @@ class OpihiSolution(library.engine.ExarataSolution):
         self.propagatives_engine_class = None
         return None
 
-    # Asteroid observations table is based solely on the asteroid observation
-    # list. If the list ever changes, so too does the observation table.
     def __get_asteroid_observations(self) -> hint.Table:
         """Property: get asteroid observation table.
         We derive the observation table from the asteroid history data.

@@ -982,7 +982,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                     )
                 except error.InputError:
                     # An input error is typically due to improper filters being
-                    # provided 
+                    # provided
                     print("warn: bad filter set!")
                 except Exception:
                     print("warn")
@@ -2438,7 +2438,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         mag_str = {}
 
         # The plus minus symbol for errors.
-        pm_sym = "\u00B1"
+        pm_sym = "\u00b1"
 
         # Finding and solving for the photometry. We do not need mutability for
         # this so going by indexes themselves are inconvenient.

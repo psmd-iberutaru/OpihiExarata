@@ -158,7 +158,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.box_search_x1 = 1
         self.box_search_y1 = 1
 
-
         # The location of the target, the user did not provide it so
         # blank currently.
         self.target_x = None
@@ -745,7 +744,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         return None
 
     def __connect_check_box_reverse_colorbar(self) -> None:
-        """This check box allows the user to reverse the colors of the color 
+        """This check box allows the user to reverse the colors of the color
         bar.
 
         Parameters
@@ -880,7 +879,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.opihi_axes.clear()
 
         # The color map, as we are using grayscale, the bad pixels need to be
-        # some other color. If the colormap is to be reversed, then do so 
+        # some other color. If the colormap is to be reversed, then do so
         # as well.
         raw_cmap = mpl_cm.get_cmap("gray")
         if self.reverse_colorbar:
