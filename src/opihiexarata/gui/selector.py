@@ -1187,7 +1187,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             search_x = float(x_gaussian_param[0])
             search_y = float(y_gaussian_param[0])
         except Exception:
-            print("warn")
+            error.warn(warn_class=error.AccuracyWarning, message="The centroid of the star could not be computed using Gaussian cross sections; we are using maximum pixel instead.")
             # Something happened and for some reason the Gaussian method did
             # not work as intended. We fall back to a far more robust but
             # inaccurate approach of determining the center based on the

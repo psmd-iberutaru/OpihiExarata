@@ -514,8 +514,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # which otherwise would skew our results.
         # Stars which are too bright saturate our detector. We limit based on
         # the magnitude as specified. A dimmer object has a higher magnitude.
-        LIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
-        invalid_filter_magnitude = np.where(magnitude <= LIM_MAG, True, False)
+        MIN_MAG = library.config.PHOTOMETRY_ZERO_POINT_DIMMEST_MAGNITUDE
+        MAX_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
+        invalid_filter_magnitude = np.where(np.logical_and(MIN_MAG <= magnitude, magnitude <= MAX_MAG), True, False)
         # We only can use count data which is actually valid, using invalid
         # count data corrupts our instrument magnitudes and everything else
         # down the line.

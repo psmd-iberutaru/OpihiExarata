@@ -516,7 +516,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             if filter_name not in getattr(
                 opihi_solution.photometrics, "available_filters", []
             ):
-                print("warn")
+                error.warn(warn_class=error.FilterWarning, message="The filter {f} is not within the list of available filters; hence photometry failed.".format(f=filter_name))
 
         # Saving the file.
         # Extracting the entire path from the current name, we are saving it
@@ -618,7 +618,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # have information about it. This prevents doing too much work.
         def _is_same_file(file_1: str, file_2: str) -> bool:
             """A small inner function to see if two files are the same
-            for the purposes of fetching files."""
+            for the purposes of fetching files.
+            
+            Note we also check for the root of the filename so we avoid any 
+            loops with the intermediate files in reduction.
+            """
             # Assume false, they are not the same file.
             file_1 = file_1 if isinstance(file_1, str) else ""
             file_2 = file_2 if isinstance(file_2, str) else ""
@@ -628,11 +632,18 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # If neither exists...
             if not os.path.isfile(file_1) and not os.path.isfile(file_2):
                 return True
-            # If they are the same file...
+            # If they are the same file in the OS...
             try:
                 return bool(os.path.samefile(file_1, file_2))
             except FileNotFoundError:
                 pass
+            # If their base names are the same; assuming we remove all of the 
+            # reduction tags.
+            base_file_1 = file_1.replace(library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX, "").replace(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX, "")
+            base_file_2 = file_2.replace(library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX, "").replace(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX, "")
+            if base_file_1 == base_file_2:
+                return True
+
             # All done; as no check says they are the same file, they are not.
             return False
 
@@ -640,16 +651,23 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         if _is_same_file(file_1=fetched_filename, file_2=self.results_fits_filename):
             # The new fetched file is the same one that is already solved. It
             # would be silly to solve it again, there is no point in continuing.
+            self.refresh_window()
             return None
         elif _is_same_file(file_1=fetched_filename, file_2=self.working_fits_filename):
             # Same principle, this new file is the same as the working file.
             # We need to be patient.
+            self.refresh_window()
             return None
         else:
             # This new file becomes our working file.
             self.working_fits_filename = fetched_filename
             # Keeping the GUI up to date while in the loop.
             self.refresh_window()
+
+        # We have a new file, however, in the unlikely event that this 
+        # file is still being written and is locked under permissions because
+        # it is mid-write, we wait a little bit.
+        library.http.api_request_sleep(seconds=1)
 
         # With this new working fits file, we attempt to solve it.
         # First preprocessing the file. We desire to reduce the data if a

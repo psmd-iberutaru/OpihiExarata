@@ -699,7 +699,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # early.
         primary_solution = self.opihi_solution_list[self.primary_file_index]
         if not isinstance(primary_solution, opihiexarata.OpihiSolution):
-            print("warn")
+            error.warn(warn_class=error.SequentialOrderWarning, message="The file does not actually have a solution attached to it.")
             return None
         # In order to send the TCS the target's location, it must have been
         # defined already. Otherwise, there is nothing to do.
@@ -707,14 +707,14 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             primary_solution.asteroid_location is None
             or primary_solution.asteroid_location == (None, None)
         ):
-            print("warn")
+            error.warn(warn_class=error.SequentialOrderWarning, message="The location of the target has not been provided, we cannot calculate a position and so nothing can be sent to the TCS.")
             return None
         # The astrometric solution itself is also required.
         if not (
             isinstance(primary_solution.astrometrics, astrometry.AstrometricSolution)
             and primary_solution.astrometrics_status
         ):
-            print("warn")
+            error.warn(warn_class="The astrometric solution has not been computed yet. We cannot calculate the position to send to the TCS.")
             return None
 
         # Extracting the needed parameters for the TCS command.
@@ -983,9 +983,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 except error.InputError:
                     # An input error is typically due to improper filters being
                     # provided
-                    print("warn: bad filter set!")
-                except Exception:
-                    print("warn")
+                    error.warn(warn_class=error.InputWarning,message="An InputError was caught from the photometry solution, this is likely because the filter was incorrect.")
+                except Exception as err:
+                    error.warn(warn_class=error.UnknownWarning, message="The following error was thrown: {e}".format(e=err))
+                    raise err
                 else:
                     # Photometry is special as the data may also be saved to the
                     # zero point database. We attempt to write a zero point record to
@@ -1166,7 +1167,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             isinstance(primary_solution, opihiexarata.OpihiSolution)
             and isinstance(primary_solution.ephemeritics, ephemeris.EphemeriticSolution)
         ):
-            print("warn")
+            error.warn(warn_class=error.SequentialOrderWarning, message="There is no ephemeris solution and thus no rates to send to update the TCS.")
             return None
 
         # We use the ephemeritic solution rates to update the TCS, the
@@ -1330,7 +1331,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             isinstance(primary_solution, opihiexarata.OpihiSolution)
             and isinstance(primary_solution.propagatives, propagate.PropagativeSolution)
         ):
-            print("warn")
+            error.warn(warn_class=error.SequentialOrderWarning, message="There is no propagation solution and thus no rates to send to update the TCS.")
             return None
 
         # We use the propagative solution rates to update the TCS, the
@@ -1787,7 +1788,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # If the file does not exist, there is nothing to load so a blank
         # history is returned.
         if not os.path.isfile(archive_filename):
-            print("warn")
+            error.warn(warn_class=error.InputWarning, message="We cannot find an an archive filename for historical astroid observations. No history is being provided.")
             target_history = []
         else:
             # Read the historical data.
@@ -1821,12 +1822,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             try:
                 archive_filename = self._get_mpcrecord_archive_filename()
             except Exception:
-                print("warn")
                 archive_filename = None
         # An archive filename cannot be determined, we cannot save the
         # observational history. There is no point in continuing.
         if not isinstance(archive_filename, str):
-            print("warn")
+            error.warn(warn_class=error.InputWarning, message="The archive filename cannot be determined, so we cannot save any of the observational data.")
             return None
 
         # Loading the old history.

@@ -332,10 +332,9 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         # The MAST API service is a url request. Constructing the URL based on
         # the provided information.
         mast_api_url = (
-            "https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr{v}/mean?"
+            "https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr{v}/mean.csv?"
             "ra={a}&dec={d}&radius={r}&nDetections.gte={n}&columns={c}&pagesize={l}&"
-            "ng.gte={p}&nr.gte={p}&ni.gte={p}&nz.gte={p}&"
-            "format=csv"
+            "ng.gte={p}&nr.gte={p}&ni.gte={p}&nz.gte={p}"
         ).format(
             v=data_release,
             a=ra,
@@ -347,7 +346,7 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
             p=color_detections,
         )
         # Pull the data into a table.
-        query = requests.post(mast_api_url, verify=self.verify_ssl)
+        query = requests.get(mast_api_url, verify=self.verify_ssl)
         catalog_results = ap_ascii.read(query.text, format="csv")
         return catalog_results
 
