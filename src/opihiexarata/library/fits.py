@@ -193,6 +193,12 @@ def update_opihiexarata_fits_header(
         # they get FITS headers really only support some specific basic types.
         if isinstance(valuedex, (int, float, bool, str)):
             # These are generally accepted types.
+            if np.isfinite(valuedex):
+                # All good.
+                pass
+            else:
+                if np.isnan(valuedex):
+                    valuedex = "NaN"
             pass
         elif valuedex is None:
             # Astropy may be able to handle it.
