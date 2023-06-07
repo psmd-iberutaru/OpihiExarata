@@ -60,21 +60,21 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         # Base parameters.
         # The default arguments for uploading files. In (key, value, type) form.
         # Detailed is also their usage cases per
-        # http://astrometry.net/doc/net/api.html#submitting-a-url
+        # https://astrometrynet.readthedocs.io/en/latest/net/api.html
         self._DEFAULT_URL_ARGUMENTS = [
             # These parameters are for licensing and distribution terms.
             ("allow_commercial_use", "d", str),
             ("allow_modifications", "d", str),
             # For visibility by the general public.
-            ("publicly_visible", "y", str),
+            ("publicly_visible", "n", str),
             # Image scaling parameters, if provided, when known, helps the
             # processing a little.
-            ("scale_units", None, str),
-            ("scale_type", None, str),
+            ("scale_units", "degwidth", str),
+            ("scale_type", "ev", str),
             ("scale_lower", None, float),
             ("scale_upper", None, float),
-            ("scale_est", None, float),
-            ("scale_err", None, float),
+            ("scale_est", 0.5, float),
+            ("scale_err", 10, float),
             # These parameters allows for the establishment of an initial guess
             # specified byt he centers, and its maximal deviation as specified
             # by the radius parameter. (In degrees.)

@@ -352,9 +352,7 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
             p=color_detections,
         )
         # Pull the data into a table.
-        print(mast_api_url)
         query = requests.get(mast_api_url, verify=self.verify_ssl)
-        print(query.text)
         catalog_results = ap_ascii.read(query.text, format="csv")
         return catalog_results
 

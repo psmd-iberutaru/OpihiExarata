@@ -6,8 +6,7 @@ Citations
 
 If you use the Opihi telescope or its accompanying OpihiExarata software, please cite your usage using the following citation information:
 
-(The citation information here will be updated as more publication 
-information is provided.)
+Lee, E., Emerson, K. S., Connelley, M. S., Bowe, T., Bus, S. J., and Lockhart, C. Z., "Commissioning 'Opihi: a wide-angle finderscope for the NASA Infrared Telescope Facility", in *Ground-based and Airborne Instrumentation for Astronomy IX*, 2022, vol. 12184. doi:`10.1117/12.2627277 <https://ui.adsabs.harvard.edu/link_gateway/2022SPIE12184E..8DL/doi:10.1117/12.2627277>`_ 
 
 
 

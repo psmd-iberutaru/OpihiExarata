@@ -91,11 +91,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.results_opihi_solution = None
         self.preprocess_solution = None
         self.zero_point_database = None
+        self.loop_state = "None"
 
         # The configuration file has a default fits fetch directory.
         AF_DIR = library.config.GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
         if os.path.isdir(AF_DIR):
-            self.fits_fetch_directory = AF_DIR
+            self.fits_fetch_directory = os.path.abspath(AF_DIR)
         else:
             self.fits_fetch_directory = None
 
@@ -260,7 +261,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Enable the flag.
         self.loop_state = "running"
         # Start the automatic loop.
-        self.automatic_triggering()
+        self.threaded_automatic_opihi_image_solve()
+        self.refresh_window()
         # All done.
         return None
 
@@ -279,6 +281,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         """
         # Enable the flag.
         self.loop_state = "stopped"
+        self.refresh_window()
         # All done.
         return None
 
@@ -327,6 +330,14 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         verification : bool
             If the filename is good, it it True.
         """
+        # Initial check.
+        if filename is None:
+            # There is no filename.
+            verification = False
+            return verification
+        else:
+            filename = str(filename)
+        
         # Absolute paths are easier to work with.
         filename = os.path.abspath(filename)
         # We assume the filename is good.
@@ -339,9 +350,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # If the file is the same as the results file, it
         # has already been done.
-        if os.path.samefile(filename, self.working_fits_filename):
+        working_fits_filename = str(copy.deepcopy(self.working_fits_filename))
+        results_fits_filename = str(copy.deepcopy(self.results_fits_filename))
+        if os.path.isfile(working_fits_filename) and os.path.samefile(filename, working_fits_filename):
             verification = False
-        if os.path.samefile(filename, self.results_fits_filename):
+        if os.path.isfile(results_fits_filename) and os.path.samefile(filename, results_fits_filename):
             verification = False
 
         # If the file is already a processed file.
@@ -385,23 +398,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         return bool(verification)
     
 
-    def threaded_trigger_opihi_image_solve(self) -> None:
-        """This function is just a wrapper around the original function to 
-        allow for threading.
-        
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # We just call the trigger itself. We still thread it out as to not
-        # completely freeze the GUI.
-        trigger_solving_thread = threading.Thread(target=self.trigger_opihi_image_solve)
-        trigger_solving_thread.start()
-
     def trigger_opihi_image_solve(self) -> None:
         """This function does a single instance of the automatic solving.
         
@@ -420,7 +416,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.fetch_fits_filename = self.fetch_new_filename()
         self.refresh_window()
         # We need to verify the filename before doing anything.
-        if not self.verify_new_filename(filename=self.fetched_filename):
+        if not self.verify_new_filename(filename=self.fetch_fits_filename):
             # The file cannot be verified to be a good file so we do nothing.
             return None
 
@@ -439,6 +435,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # If we have a preprocessing solution, we can preprocess the data first.
         if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
             preprocess_filename = self.preprocess_opihi_image(filename=working_fits_filename)
+        else:
+            # No preprocessing done.
+            preprocess_filename = working_fits_filename
             
 
         # We need to determine the engines which we will be using to solve 
@@ -470,7 +469,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Finally, we try and save the image.
         # Extracting the entire path from the current name, we are saving it
         # to the same location.
-        directory, basename, extension = library.path.split_pathname(pathname=working_fits_filename)
+        directory, basename, extension = library.path.split_pathname(pathname=preprocess_filename)
         # We are just adding the suffix to the filename.
         new_basename = basename + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
         # Recombining the path.
@@ -488,6 +487,26 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
+
+
+    def threaded_trigger_opihi_image_solve(self) -> None:
+        """This function is just a wrapper around the original function to 
+        allow for threading.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # We just call the trigger itself. We still thread it out as to not
+        # completely freeze the GUI.
+        trigger_solving_thread = threading.Thread(target=self.trigger_opihi_image_solve)
+        trigger_solving_thread.start()
+
+
 
     def automatic_opihi_image_solve(self) -> None:
         """This function contains the loop which runs to do automatic solving.
@@ -536,6 +555,25 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # All done.
         self.refresh_window()
 
+
+    def threaded_automatic_opihi_image_solve(self) -> None:
+        """This function is just a wrapper around the original function to 
+        allow for threading.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # We just call the trigger itself. We still thread it out as to not
+        # completely freeze the GUI.
+        automatic_solving_thread = threading.Thread(target=self.automatic_opihi_image_solve)
+        automatic_solving_thread.start()
+
+
     def check_automatic_stops(self) -> bool:
         """This function checks for the stops to stop the automatic triggering
         of the next image.
@@ -572,7 +610,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # files are being retrieved from. As this is a manual file intervention
             # the program is considered halted rather than stopped.
             stop_file_dir = self.fits_fetch_directory
-            stop_file_fname = "opihiexarata_automatic"
+            stop_file_fname = "opihiexarata"
             stop_file_ext = "stop"
             stop_file_pathname = library.path.merge_pathname(
                 directory=stop_file_dir, filename=stop_file_fname, extension=stop_file_ext
@@ -882,7 +920,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # Refreshing the operational status.
         loop_state = self.loop_state.casefold()
-        if loop_state == "trigger":
+        if loop_state == "none":
+            loop_state_string = "None"
+        elif loop_state == "trigger":
             loop_state_string = "Trigger"
         elif loop_state == "running":
             loop_state_string = "Running"
@@ -938,6 +978,28 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
+
+    
+    def closeEvent(self, event) -> None:
+        """We override the original Qt close event to take into account the 
+        automatic loop.
+        
+        Parameters
+        ----------
+        event : ?
+            The event that occurs.
+        
+        Returns
+        -------
+        None
+        """
+        # We just need to stop the loop, if it is going on.
+        self.loop_state = "halted"
+        # We can close now.
+        event.accept()
+        # All done.
+        return None
+
 
 
 def start_automatic_window() -> None:
