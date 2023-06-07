@@ -321,12 +321,18 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         columns = [namedex.lower() for namedex in columns]
         colstring = "[" + ",".join(columns) + "]"
 
-        # Check that the data release is suppored.
+        # Check that the data release is supported.
         data_release = str(data_release)
         VALID_PANSTARRS_DATA_RELEASES = ("1", "2")
         if data_release not in VALID_PANSTARRS_DATA_RELEASES:
             raise error.InputError(
                 "The data release version provided is not supported."
+            )
+        
+        # Pan-STARRS only supports a declination of greater than -30 deg.
+        if dec <= -30.0:
+            raise error.EngineError(
+                "The Pan-STARRS survey does not have any sky coverage lower than declination -30 degrees. The current queried declination is {d} degrees.".format(d=dec)
             )
 
         # The MAST API service is a url request. Constructing the URL based on
@@ -346,7 +352,9 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
             p=color_detections,
         )
         # Pull the data into a table.
+        print(mast_api_url)
         query = requests.get(mast_api_url, verify=self.verify_ssl)
+        print(query.text)
         catalog_results = ap_ascii.read(query.text, format="csv")
         return catalog_results
 

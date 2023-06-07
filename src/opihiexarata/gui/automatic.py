@@ -19,7 +19,6 @@ import opihiexarata.photometry as photometry
 
 import opihiexarata.gui as gui
 
-
 class OpihiAutomaticWindow(QtWidgets.QMainWindow):
     """The GUI that is responsible for the implementation of the automatic mode
     of Opihi, fetching images automatically based on time and solving for both
@@ -31,40 +30,35 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
     ----------
     fits_fetch_directory : string
         The directory which the fits files should be automatically pulled from.
+
+    fetched_fits_filename : string
+        The filename of the fits file which has just most recently fetched.
     working_fits_filename : string
         The filename of the fits file which is being worked on, or will be
         worked on.
     results_fits_filename : string
         The filename of the fits file which has already been solved. The
         results of which is posted.
+
+    fetch_filename_record : list
+        A list of all of the files which were fetched before and so it creates
+        a record of files which not to do.
+
+    results_opihi_solution : OpihiSolution
+        The OpihiSolution of the current results fits file. The results fits
+        file solution, when determined to be solved, should be saved to disk
+        automatically.
+
     preprocess_solution : OpihiPreprocessSolution
         The preprocessing solution which is used to convert raw images to
         preprocessed files.
-    working_opihi_solution : OpihiSolution
-        The OpihiSolution of the current working fits file. The results fits
-        file solution, when determined to be solved, should be saved to disk
-        automatically.
-    results_opihi_solution : OpihiSolution
-        The OpihiSolution of the current working fits file. The results fits
-        file solution, when determined to be solved, should be saved to disk
-        automatically.
-    active_status : bool
-        The flag which determines if the software is still considered in
-        automatic mode and should be still solving images. If True, the process
-        assumes that it is still active.
-    operational_status_flag : string
-        The status flag. This is similar to the active status, but this tracks
-        for issues related to the operational state, not the loop itself.
-        It primarily contains...
 
-            - normal : Everything is working normally.
-            - trigger : An image is being solved by a manual trigger command.
-            - failed : An image failed to solve.
-            - halted : The automatic mode stopped, but it was not done by the
-            active status flag, but a file halt.
     zero_point_database : OpihiZeroPointDatabaseSolution
         If a zero point database is going to be constructed, as per the
         configuration file, this is the instance which manages the database.
+
+    loop_state : string
+        The loop state.
     """
 
     def __init__(self) -> None:
@@ -89,13 +83,14 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # Establishing the defaults for all of the relevant attributes.
         self.fits_fetch_directory = None
+        self.fetch_fits_filename = None
         self.working_fits_filename = None
         self.results_fits_filename = None
-        self.preprocess_solution = None
-        self.working_opihi_solution = None
+        self.fetch_filename_record = []
+        self.fetch_opihi_solution = None
         self.results_opihi_solution = None
-        self.active_status = False
-        self.operational_status_flag = "normal"
+        self.preprocess_solution = None
+        self.zero_point_database = None
 
         # The configuration file has a default fits fetch directory.
         AF_DIR = library.config.GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
@@ -104,6 +99,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         else:
             self.fits_fetch_directory = None
 
+        
         # Preparing the buttons, GUI, and other functionality.
         self.__init_gui_connections()
         self.__init_preprocess_solution()
@@ -118,9 +114,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             database = None
         self.zero_point_database = database
 
+        # Update all of the text.
+        self.refresh_window()
+
         # All done.
         return None
-
+    
     def __init_gui_connections(self) -> None:
         """Creating the function connections for the GUI interface.
 
@@ -144,6 +143,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
+    
 
     def __init_preprocess_solution(self):
         """Initialize the preprocessing solution. The preprocessing files
@@ -184,12 +184,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         except Exception as err:
             # Something failed with making the preprocess solution, a
             # configuration file issue is likely the reason.
-            # TODO
-            print(err)
+            error.warn(warn_class=error.UnknownWarning, message="We are not sure why the preprocess solution failed. {e}".format(e=err))
         finally:
             self.preprocess_solution = preprocess
         # All done.
         return None
+
 
     def __connect_push_button_change_directory(self) -> None:
         """The connection for the button to change the automatic fetch
@@ -224,6 +224,27 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
+    def __connect_push_button_trigger(self) -> None:
+        """This does one process, fetching a single image and processing it as
+        normal. However, it does not trigger the automatic mode loop as it is
+        built for a single image only.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # As we instigated a manual trigger, update the GUI/status.
+        self.loop_state = "trigger"
+        self.refresh_window()
+        # We just call the trigger itself. We still thread it out as to not
+        # completely freeze the GUI.
+        self.threaded_trigger_opihi_image_solve()
+        return None
+
     def __connect_push_button_start(self) -> None:
         """This enables the automatic active mode by changing the flag and
         starting the process.
@@ -237,7 +258,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         None
         """
         # Enable the flag.
-        self.active_status = True
+        self.loop_state = "running"
         # Start the automatic loop.
         self.automatic_triggering()
         # All done.
@@ -257,139 +278,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         None
         """
         # Enable the flag.
-        self.active_status = False
+        self.loop_state = "stopped"
         # All done.
         return None
-
-    def __connect_push_button_trigger(self) -> None:
-        """This does one process, fetching a single image and processing it as
-        normal. However, it does not trigger the automatic mode loop as it is
-        built for a single image only.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # As we instigated a manual trigger, update the GUI/status.
-        self.operational_status_flag = "trigger"
-        self.refresh_window()
-        # We just call the trigger itself. We still thread it out as to not
-        # completely freeze the GUI.
-        trigger_solving_thread = threading.Thread(target=self.trigger_next_image_solve)
-        trigger_solving_thread.start()
-        return None
-
-    def automatic_triggering(self) -> None:
-        """This function executes the continuous running automatic mode loop.
-
-        All of the stops are checked before a new trigger is executed.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # In order for the infinite loop from the automatic triggering to not
-        # also freeze the GUI (as to disallow the user to stop the loop), it
-        # should be executed in a separate thread.
-        infinite_solving_thread = threading.Thread(
-            target=self._automatic_triggering_infinite_loop
-        )
-        # Starting the infinite loop.
-        infinite_solving_thread.start()
-
-        # All done.
-        return None
-
-    def _automatic_triggering_infinite_loop(self) -> None:
-        """This is where the actual infinite loop is done.
-
-        All of the stops are checked before a new trigger is executed.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Just to check if there is already a reason to stop.
-        stop_check = self._automatic_triggering_check_stops()
-        self.refresh_window()
-
-        # Automatic triggering is an infinite loop as we want to do it
-        # until stopped via the stop checks.
-        while True:
-            # See if we are to stop.
-            stop_check = self._automatic_triggering_check_stops()
-            if stop_check:
-                # There is an instruction to stop, we do so.
-                break
-            else:
-                # Continuing to executing the next trigger.
-                self.trigger_next_image_solve()
-                # We take a little break to ensure that, in the case of no new
-                # file from the trigger, we are not hammering the disk too hard.
-                COOLDOWN = (
-                    library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS
-                )
-                time.sleep(COOLDOWN)
-
-        # The loop has been broken and likely this is because the stop check
-        # signified to stop. Either way, the automatic loop is no longer
-        # active.
-        self.active_status = not stop_check
-        self.refresh_window()
-        # All done.
-        return None
-
-    def _automatic_triggering_check_stops(self) -> bool:
-        """This function checks for the stops to stop the automatic triggering
-        of the next image.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        stop_check : bool
-            This is the flag which signifies if the triggering should stop or
-            not. If True, the triggering should stop.
-        """
-        # Assume we keep on going.
-        stop_check = False
-
-        # Check if internally the GUI stop flag was made. If the status is
-        # flagged to be stopped, then so the loop should be.
-        if self.active_status:
-            stop_check = False
-        else:
-            stop_check = True
-
-        # Check if a stop file was placed in the directory where the automatic
-        # files are being retrieved from. As this is a manual file intervention
-        # the program is considered halted rather than stopped.
-        stop_directory = self.fits_fetch_directory
-        stop_filename = "opihiexarata_automatic"
-        stop_extension = "stop"
-        stop_pathname = library.path.merge_pathname(
-            directory=stop_directory, filename=stop_filename, extension=stop_extension
-        )
-        if os.path.exists(stop_pathname):
-            self.operational_status_flag = "halted"
-            stop_check = True
-
-        # All done.
-        return stop_check
 
     def fetch_new_filename(self) -> str:
         """This function fetches a new fits filename based on the most recent
@@ -411,6 +302,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             fetched_filename = library.path.get_most_recent_filename_in_directory(
                 directory=self.fits_fetch_directory,
                 extension=fits_extension,
+                recursive=True,
                 exclude_opihiexarata_output_files=True,
             )
         except ValueError:
@@ -420,25 +312,354 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # Absolute paths are generally much easier to work with.
             fetched_filename = os.path.abspath(fetched_filename)
         return fetched_filename
-
-    def solve_astrometry_photometry_single_image(
-        self, filename: str
-    ) -> hint.OpihiSolution:
-        """This solves for the astrometric and photometric solutions of a
-        provided file. The engines are provided based on the dropdown menus.
-
-        Note this calculation does not affect the `opihi_solution` instance of
-        the class. That is a job for a different function.
-
+    
+    def verify_new_filename(self, filename:str) -> bool:
+        """This function verifies a filename. Basically, it checks that the 
+        file exists and has not already been done before.
+        
         Parameters
         ----------
         filename : string
-            The filename of the fits file to be solved.
+            The filename to verify.
 
         Returns
         -------
+        verification : bool
+            If the filename is good, it it True.
+        """
+        # Absolute paths are easier to work with.
+        filename = os.path.abspath(filename)
+        # We assume the filename is good.
+        verification = True
+
+        # We first need to test if the file even exits.
+        if not os.path.isfile(filename):
+            # The file does not exist so it fails verification.
+            verification = False
+
+        # If the file is the same as the results file, it
+        # has already been done.
+        if os.path.samefile(filename, self.working_fits_filename):
+            verification = False
+        if os.path.samefile(filename, self.results_fits_filename):
+            verification = False
+
+        # If the file is already a processed file.
+        if library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX in filename:
+            verification = False
+        if library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX in filename:
+            verification = False
+
+        # If there exists processed versions of the file.
+        file_dir, file_base, file_ext = library.path.split_pathname(
+            pathname=filename
+        )
+        proposed_preprocess_filename = library.path.merge_pathname(
+                    directory=file_dir,
+                    filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
+                    extension=file_ext,
+                )
+        proposed_processed_filename = library.path.merge_pathname(
+                    directory=file_dir,
+                    filename=file_base + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX,
+                    extension=file_ext,
+                )
+        if os.path.isfile(proposed_preprocess_filename):
+            verification = False
+        if os.path.isfile(proposed_processed_filename):
+            verification = False
+
+        # We do an early exit check here to save processing time.
+        if not verification:
+            return verification
+        
+        # Now we check based on all previously fetched files.
+        for filedex in copy.deepcopy(self.fetch_filename_record):
+            if filename == filedex:
+                verification = False
+
+        # It passed all of the verification tests, only a True verification
+        # should be sent.
+        if not verification:
+            raise error.DevelopmentError("The automatic mode file pass all of the verification tests, but the verification is still False.")
+        return bool(verification)
+    
+
+    def threaded_trigger_opihi_image_solve(self) -> None:
+        """This function is just a wrapper around the original function to 
+        allow for threading.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # We just call the trigger itself. We still thread it out as to not
+        # completely freeze the GUI.
+        trigger_solving_thread = threading.Thread(target=self.trigger_opihi_image_solve)
+        trigger_solving_thread.start()
+
+    def trigger_opihi_image_solve(self) -> None:
+        """This function does a single instance of the automatic solving.
+        
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # It is always good to have a refresh of the information.
+        self.refresh_window()
+
+        # A new image is to be solved. We fetch the new image.
+        self.fetch_fits_filename = self.fetch_new_filename()
+        self.refresh_window()
+        # We need to verify the filename before doing anything.
+        if not self.verify_new_filename(filename=self.fetched_filename):
+            # The file cannot be verified to be a good file so we do nothing.
+            return None
+
+        # The filename is officially a working filename now.
+        working_fits_filename = copy.deepcopy(self.fetch_fits_filename)
+        self.working_fits_filename = copy.deepcopy(working_fits_filename)
+        self.refresh_window()
+        # We add it to the record.
+        self.fetch_filename_record.append(working_fits_filename)
+
+        # We have a new file, however, in the unlikely event that this 
+        # file is still being written and is locked under permissions because
+        # it is mid-write, we wait a little bit.
+        library.http.api_request_sleep(seconds=1)
+
+        # If we have a preprocessing solution, we can preprocess the data first.
+        if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
+            preprocess_filename = self.preprocess_opihi_image(filename=working_fits_filename)
+            
+
+        # We need to determine the engines which we will be using to solve 
+        # this image.
+        astrometry_engine_name = self.ui.combo_box_astrometry_engine.currentText()
+        astrometry_engine_name = astrometry_engine_name.casefold()
+        photometry_engine_name = self.ui.combo_box_photometry_engine.currentText()
+        photometry_engine_name = photometry_engine_name.casefold()
+        astrometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=astrometry_engine_name,
+            engine_type=library.engine.AstrometryEngine,
+        )
+        photometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
+            engine_name=photometry_engine_name,
+            engine_type=library.engine.PhotometryEngine,
+        )
+
+        # Now, we try and solve the image.
+        opihi_solution = self.solve_opihi_image(filename=preprocess_filename, astrometry_engine=astrometry_engine, photometry_engine=photometry_engine)
+
+        # Refreshing any data.
+        self.refresh_window()
+
+        # We attempt to write a zero point record to the database, the wrapper
+        # writing function checks if writing to the database is a valid
+        # operation. We work on a copy of the solution just in case.
+        self.write_zero_point_record_to_database(opihi_solution=opihi_solution)
+
+        # Finally, we try and save the image.
+        # Extracting the entire path from the current name, we are saving it
+        # to the same location.
+        directory, basename, extension = library.path.split_pathname(pathname=working_fits_filename)
+        # We are just adding the suffix to the filename.
+        new_basename = basename + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
+        # Recombining the path.
+        saving_fits_filename = library.path.merge_pathname(
+            directory=directory, filename=new_basename, extension=extension
+        )
+        opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=True)
+
+        # The solution is now the most recent results solution.
+        self.results_fits_filename = copy.deepcopy(saving_fits_filename)
+        self.results_opihi_solution = copy.deepcopy(opihi_solution)
+
+        # Refreshing any data.
+        self.refresh_window()
+
+        # All done.
+        return None
+
+    def automatic_opihi_image_solve(self) -> None:
+        """This function contains the loop which runs to do automatic solving.
+        
+        We just model automatic mode as repeatedly clicking the trigger button.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        # Just to check if there is already a reason to stop.
+        stop = self.check_automatic_stops()
+        self.refresh_window()
+        if stop:
+            # We should not even try to do the loop, we are stopped.
+            return None
+        
+        # Automatic triggering is an infinite loop as we want to do it
+        # until stopped via the stop checks.
+        while not stop:
+            # See if we are to stop; if so, we stop.
+            stop = self.check_automatic_stops()
+            if stop:
+                break
+
+            # We take a little break to ensure that, in the case of no new
+            # file from the trigger, we are not hammering the disk too hard.
+            __ = library.http.api_request_sleep(seconds=library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS)
+
+            # We attempt to do another trigger solve.
+            self.threaded_trigger_opihi_image_solve()
+
+            # Refreshing the window.
+            self.refresh_window()
+
+        # The loop has been broken and likely this is because the stop check
+        # signified to stop. Either way, the automatic loop is no longer
+        # active.
+        stop = True
+        self.loop_state = "stopped"
+        self.refresh_window()
+        # All done.
+        self.refresh_window()
+
+    def check_automatic_stops(self) -> bool:
+        """This function checks for the stops to stop the automatic triggering
+        of the next image.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        stop : bool
+            This is the flag which signifies if the triggering should stop or
+            not. If True, the triggering should stop.
+        """
+        try:
+            # Assume we keep on going.
+            stop = False
+
+            # Check if internally the GUI stop flag was made.
+            if self.loop_state == "running":
+                stop = False
+            else:
+                stop = True
+
+            # The automatic mode should not be running during the day. We set 
+            # this time as a "good enough" always-daytime limit. This also serves
+            # to stop it.
+            current_24hour_time = int(time.strftime("%H"))
+            # Hardcoded "daytime hours".
+            if 8 <= current_24hour_time <= 17:
+                stop = True
+
+            # Check if a stop file was placed in the directory where the automatic
+            # files are being retrieved from. As this is a manual file intervention
+            # the program is considered halted rather than stopped.
+            stop_file_dir = self.fits_fetch_directory
+            stop_file_fname = "opihiexarata_automatic"
+            stop_file_ext = "stop"
+            stop_file_pathname = library.path.merge_pathname(
+                directory=stop_file_dir, filename=stop_file_fname, extension=stop_file_ext
+            )
+            if os.path.exists(stop_file_pathname):
+                self.loop_state = "halted"
+                stop = True
+
+        except Exception as err:
+            # For some reason, one of the stop checks could not be done 
+            # properly, we stop.
+            stop = True
+
+        # All done.
+        return stop
+
+    def preprocess_opihi_image(self, filename:str) -> str:
+        """This function preprocess an Opihi image, where available and 
+        returns the filename of the preprocessed file.
+        
+        Parameters
+        ----------
+        filename : string
+            The filename of file which will be preprocessed.
+            
+        Returns
+        -------
+        preprocess_filename : string
+            The filename of the file which has been preprocessed with the 
+            preprocessed solution of this class instance.
+        """
+        # We first need to check that we have a preprocess solution.
+        if not isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
+            raise error.InputError("The preprocess solution does not exist, we cannot preprocess any data.")
+        
+        # We check if the file was already preprocessed.
+        header, __ = library.fits.read_fits_image_file(filename=filename)
+        is_preprocessed = header.get("OXM_REDU", False)
+        if is_preprocessed:
+            # The file is already preprocessed, nothing to do.
+            return filename
+        
+        # Deriving the preprocessed filename.
+        file_dir, file_base, file_ext = library.path.split_pathname(
+                    pathname=filename
+                )
+        preprocess_filename = library.path.merge_pathname(
+                    directory=file_dir,
+                    filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
+                    extension=file_ext,
+                )
+        
+        # Finally, we attempt to preprocess the data.
+        try:
+            self.preprocess_solution.preprocess_fits_file(
+                    raw_filename=filename,
+                    out_filename=preprocess_filename,
+                    overwrite=True,
+                )
+        except Exception as err:
+            # Sending out a warning.
+            error.warn(warn_class=error.UnknownWarning, message="The data could not be preprocessed, an error was thrown: {e}".format(e=err))
+            # For some reason, the preprocessing failed. Reverting.
+            preprocess_filename = filename
+        # All done.
+        return preprocess_filename
+
+    @staticmethod
+    def solve_opihi_image(filename:str, astrometry_engine:hint.AstrometryEngine, photometry_engine:hint.PhotometryEngine) -> hint.OpihiSolution:
+        """This function solves the Opihi image provided by the filename.
+        
+        We use a static method here to be a little more thread safe.
+        
+        Parameters
+        ----------
+        filename : string
+            The filename to load and solve.
+        astrometry_engine : AstrometryEngine
+            The astrometry engine to use.
+        photometry_engine : PhotometryEngine
+            The photometry engine to use.
+            
+        Returns
+        -------
         opihi_solution : OpihiSolution
-            The solution with the astrometry and photometry engines solved.
+            The solution class of the Opihi image after it has been solved 
+            (or at least attempted to be).
         """
         # Extracting the header of this fits file to get the observing
         # metadata from it.
@@ -457,7 +678,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         observing_time = library.conversion.modified_julian_day_to_julian_day(
             mjd=header["MJD_OBS"]
         )
-
         # From this filename, create the Opihi solution. There is no asteroid
         # information as the automatic mode does not take asteroids into
         # account.
@@ -468,84 +688,32 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             observing_time=observing_time,
         )
 
-        # Determine the astrometry engine from user input via the drop down
-        # menu. The recognizing text ought to be case insensitive.
-        astrometry_engine_name = self.ui.combo_box_astrometry_engine.currentText()
-        astrometry_engine_name = astrometry_engine_name.casefold()
-        # Search programed engines for the one specified.
-        astrometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
-            engine_name=astrometry_engine_name,
-            engine_type=library.engine.AstrometryEngine,
-        )
-        astrometry_vehicle_args = {}
-
-        # Determine the photometry engine from user input via the drop down
-        # menu. The recognizing text ought to be case insensitive, makes
-        # life easier.
-        photometry_engine_name = self.ui.combo_box_photometry_engine.currentText()
-        photometry_engine_name = photometry_engine_name.casefold()
-        # Search programed engines for the one specified.
-        photometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
-            engine_name=photometry_engine_name,
-            engine_type=library.engine.PhotometryEngine,
-        )
-        photometry_vehicle_args = {}
-
         # Given the engines, solve for both the astrometry and photometry.
         # We rely on the error handling of the OpihiSolution solving itself.
-        __, astrometry_solve_status = opihi_solution.solve_astrometry(
-            solver_engine=astrometry_engine,
-            overwrite=True,
-            raise_on_error=False,
-            vehicle_args=astrometry_vehicle_args,
-        )
-        # If the astrometry failed, there is no photometry to do.
-        if astrometry_solve_status:
-            __, photometry_solve_status = opihi_solution.solve_photometry(
-                solver_engine=photometry_engine,
+
+        try:
+            __, __ = opihi_solution.solve_astrometry(
+                solver_engine=astrometry_engine,
                 overwrite=True,
-                raise_on_error=False,
-                vehicle_args=photometry_vehicle_args,
+                raise_on_error=True,
+                vehicle_args={},
             )
-        else:
-            photometry_solve_status = None
-
-        # Check that the filter compatibility. If the photometry failed, this
-        # may be one of the reasons so it is something to warn about.
-        if not photometry_solve_status:
-            if filter_name not in getattr(
-                opihi_solution.photometrics, "available_filters", []
-            ):
-                error.warn(warn_class=error.FilterWarning, message="The filter {f} is not within the list of available filters; hence photometry failed.".format(f=filter_name))
-
-        # Saving the file.
-        # Extracting the entire path from the current name, we are saving it
-        # to the same location.
-        directory, basename, extension = library.path.split_pathname(pathname=filename)
-        # We are just adding the suffix to the filename.
-        suffix = str(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX)
-        new_basename = basename + suffix
-        # Recombining the path.
-        saving_fits_filename = library.path.merge_pathname(
-            directory=directory, filename=new_basename, extension=extension
-        )
-        opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=True)
-
-        # We attempt to write a zero point record to the database, the wrapper
-        # writing function checks if writing to the database is a valid
-        # operation. We work on a copy of the solution just in case.
-        opihi_solution_copy = copy.deepcopy(opihi_solution)
-        # We thread it away.
-        write_database_thread = threading.Thread(
-            target=self.__write_zero_point_record_to_database,
-            kwargs={"opihi_solution": opihi_solution_copy},
-        )
-        write_database_thread.start()
+            __, __ = opihi_solution.solve_photometry(
+                    solver_engine=photometry_engine,
+                    overwrite=True,
+                    raise_on_error=True,
+                    vehicle_args={},
+                )
+    
+        except error.ExarataException as err:
+            # Something went wrong with the solving. We do nothing more.
+            error.warn(warn_class=error.InputWarning, message="The filename {f} failed to solve with the error {e}".format(f=filename, e=err))
+    
 
         # All done.
         return opihi_solution
 
-    def __write_zero_point_record_to_database(
+    def write_zero_point_record_to_database(
         self, opihi_solution: hint.OpihiSolution
     ) -> None:
         """This function writes the zero point information assuming a solved
@@ -596,150 +764,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    def trigger_next_image_solve(self) -> None:
-        """This function triggers the next iteration of the automatic solving
-        loop.
 
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # It is always good to have a refresh of the information.
-        self.refresh_window()
-
-        # A new image is to be solved. We fetch the new image.
-        fetched_filename = self.fetch_new_filename()
-
-        # Test to see if we have already processed this file and currently
-        # have information about it. This prevents doing too much work.
-        def _is_same_file(file_1: str, file_2: str) -> bool:
-            """A small inner function to see if two files are the same
-            for the purposes of fetching files.
-            
-            Note we also check for the root of the filename so we avoid any 
-            loops with the intermediate files in reduction.
-            """
-            # Assume false, they are not the same file.
-            file_1 = file_1 if isinstance(file_1, str) else ""
-            file_2 = file_2 if isinstance(file_2, str) else ""
-            # If they are the same...
-            if file_1 == file_2:
-                return True
-            # If neither exists...
-            if not os.path.isfile(file_1) and not os.path.isfile(file_2):
-                return True
-            # If they are the same file in the OS...
-            try:
-                return bool(os.path.samefile(file_1, file_2))
-            except FileNotFoundError:
-                pass
-            # If their base names are the same; assuming we remove all of the 
-            # reduction tags.
-            base_file_1 = file_1.replace(library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX, "").replace(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX, "")
-            base_file_2 = file_2.replace(library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX, "").replace(library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX, "")
-            if base_file_1 == base_file_2:
-                return True
-
-            # All done; as no check says they are the same file, they are not.
-            return False
-
-        # Checking if the files are the same...
-        if _is_same_file(file_1=fetched_filename, file_2=self.results_fits_filename):
-            # The new fetched file is the same one that is already solved. It
-            # would be silly to solve it again, there is no point in continuing.
-            self.refresh_window()
-            return None
-        elif _is_same_file(file_1=fetched_filename, file_2=self.working_fits_filename):
-            # Same principle, this new file is the same as the working file.
-            # We need to be patient.
-            self.refresh_window()
-            return None
-        else:
-            # This new file becomes our working file.
-            self.working_fits_filename = fetched_filename
-            # Keeping the GUI up to date while in the loop.
-            self.refresh_window()
-
-        # We have a new file, however, in the unlikely event that this 
-        # file is still being written and is locked under permissions because
-        # it is mid-write, we wait a little bit.
-        library.http.api_request_sleep(seconds=1)
-
-        # With this new working fits file, we attempt to solve it.
-        # First preprocessing the file. We desire to reduce the data if a
-        # preprocess solution exists to do so.
-        if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
-            # We want to check if the FITS file has already been preprocessed.
-            raw_fits_filename = self.working_fits_filename
-            header, __ = library.fits.read_fits_image_file(filename=raw_fits_filename)
-            was_processed = header.get("OXM_REDU", False)
-            if was_processed:
-                # The user already loaded a preprocessed FITS file, there is
-                # no reason to preprocess it again.
-                current_fits_filename = raw_fits_filename
-            else:
-                # We derive the FITS filename for the preprocessed solution, if it
-                # exists.
-                nf_dir, nf_base, nf_ext = library.path.split_pathname(
-                    pathname=raw_fits_filename
-                )
-                # Appending the preprocessing suffix.
-                PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
-                current_fits_filename = library.path.merge_pathname(
-                    directory=nf_dir,
-                    filename=nf_base + PREPROCESS_SUFFIX,
-                    extension=nf_ext,
-                )
-                # Preprocessing the input file.
-                self.preprocess_solution.preprocess_fits_file(
-                    raw_filename=raw_fits_filename,
-                    out_filename=current_fits_filename,
-                    overwrite=True,
-                )
-        else:
-            # There is no preprocessing to do.
-            current_fits_filename = raw_fits_filename
-        # Next, we solve for the astrometry and photometry.
-        self.working_fits_filename = current_fits_filename
-        working_opihi_solution = self.solve_astrometry_photometry_single_image(
-            filename=self.working_fits_filename
-        )
-        self.working_opihi_solution = working_opihi_solution
-
-        # If the solve failed, as detected by the status flags, then it cannot
-        # be a result.
-        if (
-            self.working_opihi_solution.astrometrics_status
-            and self.working_opihi_solution.photometrics_status
-        ):
-            # The solving likely worked alright. It is good enough to
-            # consider this as a "results" class. A copy is desired so that
-            # it does not get mixed up.
-            self.operational_status_flag = "normal"
-            self.results_fits_filename = copy.deepcopy(self.working_fits_filename)
-            self.results_opihi_solution = copy.deepcopy(self.working_opihi_solution)
-        elif isinstance(self.working_opihi_solution, opihiexarata.OpihiSolution):
-            # The operational status is considered failed. However, there is
-            # no reason to stop the loop, but the GUI must be updated.
-            self.operational_status_flag = "failed"
-        else:
-            # The code should not go here, as it should otherwise have been
-            # caught by the first two cases as they should be the only valid
-            # ones.
-            raise error.LogicFlowError(
-                "The results of the automatic solving of a single image is either None"
-                " or the OpihiSolution class itself. But, neither case was found to be"
-                " the case, something is wrong."
-            )
-        # The GUI should be refreshed with either case.
-        self.refresh_window()
-
-        # All done.
-        return None
 
     def refresh_window(self) -> None:
         """Refreshes the GUI window with new information where available.
@@ -776,6 +801,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # If the filenames have not been provided, then we just highlight that
         # they have not been provided (which is different from the default
         # filler names).
+        if isinstance(self.fetch_fits_filename, str):
+            fetch_basename = library.path.get_filename_with_extension(
+                pathname=self.fetch_fits_filename
+            )
+            self.ui.label_dynamic_fetch_filename.setText(fetch_basename)
+        else:
+            self.ui.label_dynamic_fetch_filename.setText("None")
         if isinstance(self.working_fits_filename, str):
             working_basename = library.path.get_filename_with_extension(
                 pathname=self.working_fits_filename
@@ -847,38 +879,25 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         else:
             # There is no OpihiSolution to pull information from.
             pass
-            # For testing.
-            self.ui.label_dynamic_time.setText(
-                str(library.conversion.current_utc_to_julian_day())
-            )
 
         # Refreshing the operational status.
-        operational_status_flag = self.operational_status_flag.casefold()
-        if operational_status_flag == "normal":
-            # Everything is normal, so the status string can be based on the
-            # active status of the system loop.
-            if self.active_status:
-                status_string = "Running"
-            else:
-                status_string = "Stopped"
-        elif operational_status_flag == "trigger":
-            # A manual trigger has been specified.
-            status_string = "Triggered"
-        elif operational_status_flag == "failed":
-            # The solving engines failed to solve.
-            status_string = "Failed"
-        elif operational_status_flag == "halted":
-            # The loop failed to terminate on its own or manual stop file has
-            # been made to force the stop of the loop.
-            status_string = "Halted"
+        loop_state = self.loop_state.casefold()
+        if loop_state == "trigger":
+            loop_state_string = "Trigger"
+        elif loop_state == "running":
+            loop_state_string = "Running"
+        elif loop_state == "stopped":
+            loop_state_string = "Stopped"
+        elif loop_state == "halted":
+            loop_state_string = "Halted"
         else:
-            status_string = "Default"
+            loop_state_string = "Default"
             raise error.DevelopmentError(
                 "The operational status flag is `{oflag}`. There is no string refresh"
                 " case built to handle this flag. It must be implemented."
             )
         # Setting the string.
-        self.ui.label_dynamic_operational_status.setText(status_string)
+        self.ui.label_dynamic_operational_status.setText(loop_state_string)
 
         # All done.
         return None
@@ -899,6 +918,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Directory.
         self.ui.label_dynamic_fits_directory.setText("/path/to/fits/directory/")
         # Filenames.
+        self.ui.label_dynamic_fetch_filename.setText(
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
+        )
         self.ui.label_dynamic_working_filename.setText(
             "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
         )
@@ -942,3 +964,19 @@ def start_automatic_window() -> None:
 
 if __name__ == "__main__":
     start_automatic_window()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
