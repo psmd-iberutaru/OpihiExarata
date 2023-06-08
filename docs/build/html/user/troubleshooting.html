@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Troubleshooting &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>Troubleshooting &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -427,7 +427,7 @@ fails to stop the loop as designed, then this is likely because of an oversight
 when the code was changed. The loop will run forever until stopped as per the
 design of the automatic mode.</p>
 <p>You can force the loop to stop gracefully by creating a file named
-<code class="file docutils literal notranslate"><span class="pre">opihiexarata_automatic.stop</span></code> in the same data directory that the
+<code class="file docutils literal notranslate"><span class="pre">opihiexarata.stop</span></code> in the same data directory that the
 automatic loop is fetching the most recent images from. The loop checks for the
 existence of this file and it will stop in a similar way to if the stop button
 was pressed. The loop will be considered <span class="guilabel">Halted</span> as it stopped via

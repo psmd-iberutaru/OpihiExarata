@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.gui.old_automatic &mdash; OpihiExarata 2023.6.7 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/manual_mode.html">Manual Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/manual_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/manual_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#specify-new-target-name">Specify New Target Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#take-and-image">Take and Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#find-asteroid-location">Find Asteroid Location</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/manual_mode.html#target-selector-gui">Target Selector GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#compute-astrometric-solution">Compute Astrometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#compute-photometric-solution">Compute Photometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-on-sky-position">Asteroid On-Sky Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#historical-observations">Historical Observations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-observation-record">Asteroid Observation Record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-position-propagation">Asteroid Position Propagation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#orbital-elements">Orbital Elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#ephemeris">Ephemeris</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#asteroid-on-sky-future-track">Asteroid On-Sky Future Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/manual_mode.html#telescope-control-software-update">Telescope Control Software: Update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#gaia">Gaia</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/installation/index.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/conventions.html#filter-names">Filter Names</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">opihiexarata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/opihiexarata.html">opihiexarata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.gui.html">opihiexarata.gui package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/opihiexarata.__main__.html">opihiexarata.__main__ module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.__main__.html#opihiexarata.__main__.__main_execute_arguments"><code class="docutils literal notranslate"><span class="pre">__main_execute_arguments()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.__main__.html#opihiexarata.__main__.__main_parse_arguments"><code class="docutils literal notranslate"><span class="pre">__main_parse_arguments()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/opihiexarata.__main__.html#opihiexarata.__main__.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">opihiexarata.gui.old_automatic</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opihiexarata.gui.old_automatic</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This is where the automatic mode window is implemented.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library</span> <span class="k">as</span> <span class="nn">library</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.error</span> <span class="k">as</span> <span class="nn">error</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.astrometry</span> <span class="k">as</span> <span class="nn">astrometry</span>
+<span class="kn">import</span> <span class="nn">opihiexarata.photometry</span> <span class="k">as</span> <span class="nn">photometry</span>
+
+<span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
+
+
+<div class="viewcode-block" id="OpihiAutomaticWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow">[docs]</a><span class="k">class</span> <span class="nc">OpihiAutomaticWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The GUI that is responsible for the implementation of the automatic mode</span>
+<span class="sd">    of Opihi, fetching images automatically based on time and solving for both</span>
+<span class="sd">    the astrometry and photometry.</span>
+
+<span class="sd">    Only non-GUI attributes are listed here.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fits_fetch_directory : string</span>
+<span class="sd">        The directory which the fits files should be automatically pulled from.</span>
+<span class="sd">    fetched_fits_filename : string</span>
+<span class="sd">        The filename of the fits file which has just most recently fetched.</span>
+<span class="sd">    working_fits_filename : string</span>
+<span class="sd">        The filename of the fits file which is being worked on, or will be</span>
+<span class="sd">        worked on.</span>
+<span class="sd">    results_fits_filename : string</span>
+<span class="sd">        The filename of the fits file which has already been solved. The</span>
+<span class="sd">        results of which is posted.</span>
+<span class="sd">    fetch_filename_record : list</span>
+<span class="sd">        A list of all of the files which were fetched before and so it creates</span>
+<span class="sd">        a record of files which not to do.</span>
+<span class="sd">    preprocess_solution : OpihiPreprocessSolution</span>
+<span class="sd">        The preprocessing solution which is used to convert raw images to</span>
+<span class="sd">        preprocessed files.</span>
+<span class="sd">    working_opihi_solution : OpihiSolution</span>
+<span class="sd">        The OpihiSolution of the current working fits file. The results fits</span>
+<span class="sd">        file solution, when determined to be solved, should be saved to disk</span>
+<span class="sd">        automatically.</span>
+<span class="sd">    results_opihi_solution : OpihiSolution</span>
+<span class="sd">        The OpihiSolution of the current working fits file. The results fits</span>
+<span class="sd">        file solution, when determined to be solved, should be saved to disk</span>
+<span class="sd">        automatically.</span>
+<span class="sd">    active_status : bool</span>
+<span class="sd">        The flag which determines if the software is still considered in</span>
+<span class="sd">        automatic mode and should be still solving images. If True, the process</span>
+<span class="sd">        assumes that it is still active.</span>
+<span class="sd">    operational_status_flag : string</span>
+<span class="sd">        The status flag. This is similar to the active status, but this tracks</span>
+<span class="sd">        for issues related to the operational state, not the loop itself.</span>
+<span class="sd">        It primarily contains...</span>
+
+<span class="sd">            - normal : Everything is working normally.</span>
+<span class="sd">            - trigger : An image is being solved by a manual trigger command.</span>
+<span class="sd">            - failed : An image failed to solve.</span>
+<span class="sd">            - halted : The automatic mode stopped, but it was not done by the</span>
+<span class="sd">            active status flag, but a file halt.</span>
+<span class="sd">    zero_point_database : OpihiZeroPointDatabaseSolution</span>
+<span class="sd">        If a zero point database is going to be constructed, as per the</span>
+<span class="sd">        configuration file, this is the instance which manages the database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The automatic GUI window for OpihiExarata. This interacts with</span>
+<span class="sd">        the user with regards to the automatic solving mode of Opihi.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Creating the GUI itself using the Qt framework and the converted</span>
+        <span class="c1"># Qt designer files.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OpihiAutomaticWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">qtui</span><span class="o">.</span><span class="n">Ui_AutomaticWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Window icon, we use the default for now.</span>
+        <span class="n">gui</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">apply_window_icon</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Establishing the defaults for all of the relevant attributes.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fetch_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results_fits_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fetch_filename_record</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_opihi_solution</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_status</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operational_status_flag</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span>
+
+        <span class="c1"># The configuration file has a default fits fetch directory.</span>
+        <span class="n">AF_DIR</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">AF_DIR</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span> <span class="o">=</span> <span class="n">AF_DIR</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Preparing the buttons, GUI, and other functionality.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_gui_connections</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_preprocess_solution</span><span class="p">()</span>
+
+        <span class="c1"># Preparing the zero point database if the user desired the database</span>
+        <span class="c1"># to record observations.</span>
+        <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS</span><span class="p">:</span>
+            <span class="n">database</span> <span class="o">=</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiZeroPointDatabaseSolution</span><span class="p">(</span>
+                <span class="n">database_directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_DATABASE_DIRECTORY</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">database</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span> <span class="o">=</span> <span class="n">database</span>
+
+        <span class="c1"># Update all of the text.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__init_gui_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creating the function connections for the GUI interface.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># For the fetch directory.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_change_directory</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_change_directory</span>
+        <span class="p">)</span>
+
+        <span class="c1"># For the start and stop buttons.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_start</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_start</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_stop</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_stop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">push_button_trigger</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connect_push_button_trigger</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init_preprocess_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the preprocessing solution. The preprocessing files</span>
+<span class="sd">        should be specified in the configuration file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Using the configuration file to extract where the preprocessing</span>
+        <span class="c1"># filenames are to build the solution.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">preprocess</span> <span class="o">=</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiPreprocessSolution</span><span class="p">(</span>
+                <span class="n">mask_c_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_C_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_g_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_G_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_r_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_R_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_i_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_I_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_z_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_Z_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_1_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_1_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_2_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_2_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">mask_b_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_MASK_B_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_c_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_C_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_g_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_G_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_r_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_R_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_i_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_I_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_z_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_Z_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_1_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_1_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_2_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_2_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">flat_b_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_FLAT_B_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">bias_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_BIAS_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">dark_current_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DARK_CURRENT_FITS_FILENAME</span><span class="p">,</span>
+                <span class="n">linearity_fits_filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_LINEARITY_FITS_FILENAME</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="c1"># Something failed with making the preprocess solution, a</span>
+            <span class="c1"># configuration file issue is likely the reason.</span>
+            <span class="n">error</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">warn_class</span><span class="o">=</span><span class="n">error</span><span class="o">.</span><span class="n">UnknownWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;We are not sure why the preprocess solution failed. </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">e</span><span class="o">=</span><span class="n">err</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span> <span class="o">=</span> <span class="n">preprocess</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_change_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The connection for the button to change the automatic fetch</span>
+<span class="sd">        directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ask the user for the filename via a dialog.</span>
+        <span class="c1"># We start off from the current one for some semblance of consistency.</span>
+        <span class="n">new_fetch_directory</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Select Opihi Fetch Directory&quot;</span><span class="p">,</span>
+            <span class="nb">dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">ShowDirsOnly</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># If the user did not provide a file to enter, there is nothing to be</span>
+        <span class="c1"># changed.</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">new_fetch_directory</span><span class="p">):</span>
+            <span class="c1"># Assign the new fits filename.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">new_fetch_directory</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Nothing to do.</span>
+            <span class="k">pass</span>
+        <span class="c1"># Refresh the GUI information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This enables the automatic active mode by changing the flag and</span>
+<span class="sd">        starting the process.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Enable the flag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Start the automatic loop.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">automatic_triggering</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This disables the automatic active mode by changing the flag. The</span>
+<span class="sd">        loop itself should detect that the flag has changed. It finishes the</span>
+<span class="sd">        current process but does not fetch any more.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Enable the flag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_status</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__connect_push_button_trigger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This does one process, fetching a single image and processing it as</span>
+<span class="sd">        normal. However, it does not trigger the automatic mode loop as it is</span>
+<span class="sd">        built for a single image only.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># As we instigated a manual trigger, update the GUI/status.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operational_status_flag</span> <span class="o">=</span> <span class="s2">&quot;trigger&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="c1"># We just call the trigger itself. We still thread it out as to not</span>
+        <span class="c1"># completely freeze the GUI.</span>
+        <span class="n">trigger_solving_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger_next_image_solve</span><span class="p">)</span>
+        <span class="n">trigger_solving_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.automatic_triggering"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.automatic_triggering">[docs]</a>    <span class="k">def</span> <span class="nf">automatic_triggering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function executes the continuous running automatic mode loop.</span>
+
+<span class="sd">        All of the stops are checked before a new trigger is executed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># In order for the infinite loop from the automatic triggering to not</span>
+        <span class="c1"># also freeze the GUI (as to disallow the user to stop the loop), it</span>
+        <span class="c1"># should be executed in a separate thread.</span>
+        <span class="n">infinite_solving_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_automatic_triggering_infinite_loop</span>
+        <span class="p">)</span>
+        <span class="c1"># Starting the infinite loop.</span>
+        <span class="n">infinite_solving_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow._automatic_triggering_infinite_loop"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop">[docs]</a>    <span class="k">def</span> <span class="nf">_automatic_triggering_infinite_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is where the actual infinite loop is done.</span>
+
+<span class="sd">        All of the stops are checked before a new trigger is executed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Just to check if there is already a reason to stop.</span>
+        <span class="n">stop_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_automatic_triggering_check_stops</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+
+        <span class="c1"># Automatic triggering is an infinite loop as we want to do it</span>
+        <span class="c1"># until stopped via the stop checks.</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># See if we are to stop.</span>
+            <span class="n">stop_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_automatic_triggering_check_stops</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">stop_check</span><span class="p">:</span>
+                <span class="c1"># There is an instruction to stop, we do so.</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Continuing to executing the next trigger.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">trigger_next_image_solve</span><span class="p">()</span>
+                <span class="c1"># We take a little break to ensure that, in the case of no new</span>
+                <span class="c1"># file from the trigger, we are not hammering the disk too hard.</span>
+                <span class="n">COOLDOWN</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS</span>
+                <span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">COOLDOWN</span><span class="p">)</span>
+
+        <span class="c1"># The loop has been broken and likely this is because the stop check</span>
+        <span class="c1"># signified to stop. Either way, the automatic loop is no longer</span>
+        <span class="c1"># active.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_status</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">stop_check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow._automatic_triggering_check_stops"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_check_stops">[docs]</a>    <span class="k">def</span> <span class="nf">_automatic_triggering_check_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function checks for the stops to stop the automatic triggering</span>
+<span class="sd">        of the next image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        stop_check : bool</span>
+<span class="sd">            This is the flag which signifies if the triggering should stop or</span>
+<span class="sd">            not. If True, the triggering should stop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assume we keep on going.</span>
+        <span class="n">stop_check</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check if internally the GUI stop flag was made. If the status is</span>
+        <span class="c1"># flagged to be stopped, then so the loop should be.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_status</span><span class="p">:</span>
+            <span class="n">stop_check</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stop_check</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Check if a stop file was placed in the directory where the automatic</span>
+        <span class="c1"># files are being retrieved from. As this is a manual file intervention</span>
+        <span class="c1"># the program is considered halted rather than stopped.</span>
+        <span class="n">stop_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span>
+        <span class="n">stop_filename</span> <span class="o">=</span> <span class="s2">&quot;opihiexarata_automatic&quot;</span>
+        <span class="n">stop_extension</span> <span class="o">=</span> <span class="s2">&quot;stop&quot;</span>
+        <span class="n">stop_pathname</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">stop_directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">stop_filename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">stop_extension</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stop_pathname</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operational_status_flag</span> <span class="o">=</span> <span class="s2">&quot;halted&quot;</span>
+            <span class="n">stop_check</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">stop_check</span></div>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.fetch_new_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.fetch_new_filename">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_new_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function fetches a new fits filename based on the most recent</span>
+<span class="sd">        filename within the automatic fetching directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fetched_filename : string</span>
+<span class="sd">            The filename that was fetched. It is the most recent file added to</span>
+<span class="sd">            the automatic fetching directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We are looking for only fits files.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fits_extension</span> <span class="o">=</span> <span class="s2">&quot;fits&quot;</span>
+            <span class="n">fetched_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_most_recent_filename_in_directory</span><span class="p">(</span>
+                <span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span><span class="p">,</span>
+                <span class="n">extension</span><span class="o">=</span><span class="n">fits_extension</span><span class="p">,</span>
+                <span class="n">exclude_opihiexarata_output_files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># There is likely no actual matching file in the directory.</span>
+            <span class="n">fetched_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Absolute paths are generally much easier to work with.</span>
+            <span class="n">fetched_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">fetched_filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fetched_filename</span></div>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.verify_new_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.verify_new_filename">[docs]</a>    <span class="k">def</span> <span class="nf">verify_new_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fetched_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function verifies if the new filename is actually new, or it</span>
+<span class="sd">        is a file that has already been fetched before.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fetched_filename : string</span>
+<span class="sd">            The filename which was fetched which will be verified.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        verification : bool</span>
+<span class="sd">            The state of the verification that the fetched file is a new file.</span>
+<span class="sd">            If True, it is a valid and new file to be solved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Absolute paths are easier to work with.</span>
+        <span class="n">fetched_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">fetched_filename</span><span class="p">)</span>
+        <span class="c1"># We first need to test if the file even exits.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fetched_filename</span><span class="p">):</span>
+            <span class="c1"># The file does not exist so it fails verification.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># If the file is the same as any of the previously fetched files.</span>
+        <span class="k">def</span> <span class="nf">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;A small inner function to see if two files are the same</span>
+<span class="sd">            for the purposes of fetching files.</span>
+
+<span class="sd">            Note we also check for the root of the filename so we avoid any</span>
+<span class="sd">            loops with the intermediate files in reduction.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># Assume false, they are not the same file.</span>
+            <span class="n">file_1</span> <span class="o">=</span> <span class="n">file_1</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_1</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">file_2</span> <span class="o">=</span> <span class="n">file_2</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_2</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1"># If they are the same...</span>
+            <span class="k">if</span> <span class="n">file_1</span> <span class="o">==</span> <span class="n">file_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># If neither exists...</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_1</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># If they are the same file in the OS...</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">samefile</span><span class="p">(</span><span class="n">file_1</span><span class="p">,</span> <span class="n">file_2</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="c1"># If their base names are the same; assuming we remove all of the</span>
+            <span class="c1"># reduction tags.</span>
+            <span class="n">base_file_1</span> <span class="o">=</span> <span class="n">file_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DEFAULT_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">base_file_2</span> <span class="o">=</span> <span class="n">file_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DEFAULT_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">base_file_1</span> <span class="o">==</span> <span class="n">base_file_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># All done; as no check says they are the same file, they are not.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># We test on the working and results files.</span>
+        <span class="k">if</span> <span class="n">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="o">=</span><span class="n">fetched_filename</span><span class="p">,</span> <span class="n">file_2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="o">=</span><span class="n">fetched_filename</span><span class="p">,</span> <span class="n">file_2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">results_fits_filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="c1"># Finally, we test on all other files in the record.</span>
+        <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_filename_record</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="o">=</span><span class="n">fetched_filename</span><span class="p">,</span> <span class="n">file_2</span><span class="o">=</span><span class="n">filedex</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.solve_astrometry_photometry_single_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image">[docs]</a>    <span class="k">def</span> <span class="nf">solve_astrometry_photometry_single_image</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This solves for the astrometric and photometric solutions of a</span>
+<span class="sd">        provided file. The engines are provided based on the dropdown menus.</span>
+
+<span class="sd">        Note this calculation does not affect the `opihi_solution` instance of</span>
+<span class="sd">        the class. That is a job for a different function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : string</span>
+<span class="sd">            The filename of the fits file to be solved.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        opihi_solution : OpihiSolution</span>
+<span class="sd">            The solution with the astrometry and photometry engines solved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Extracting the header of this fits file to get the observing</span>
+        <span class="c1"># metadata from it.</span>
+        <span class="n">header</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># The filter which image is in, extracted from the fits file,</span>
+        <span class="c1"># assuming standard form.</span>
+        <span class="n">filter_header_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;FWHL&quot;</span><span class="p">])</span>
+        <span class="n">filter_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">filter_header_string_to_filter_name</span><span class="p">(</span>
+            <span class="n">header_string</span><span class="o">=</span><span class="n">filter_header_string</span>
+        <span class="p">)</span>
+        <span class="c1"># The exposure time of the image, extracted from the fits file,</span>
+        <span class="c1"># assuming standard form.</span>
+        <span class="n">exposure_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;ITIME&quot;</span><span class="p">])</span>
+        <span class="c1"># Converting date to Julian day as the solution class requires it.</span>
+        <span class="c1"># We use the modified Julian day from the header file.</span>
+        <span class="n">observing_time</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">modified_julian_day_to_julian_day</span><span class="p">(</span>
+            <span class="n">mjd</span><span class="o">=</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;MJD_OBS&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># From this filename, create the Opihi solution. There is no asteroid</span>
+        <span class="c1"># information as the automatic mode does not take asteroids into</span>
+        <span class="c1"># account.</span>
+        <span class="n">opihi_solution</span> <span class="o">=</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">(</span>
+            <span class="n">fits_filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+            <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span>
+            <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
+            <span class="n">observing_time</span><span class="o">=</span><span class="n">observing_time</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Determine the astrometry engine from user input via the drop down</span>
+        <span class="c1"># menu. The recognizing text ought to be case insensitive.</span>
+        <span class="n">astrometry_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_astrometry_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="n">astrometry_engine_name</span> <span class="o">=</span> <span class="n">astrometry_engine_name</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="c1"># Search programed engines for the one specified.</span>
+        <span class="n">astrometry_engine</span> <span class="o">=</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">pick_engine_class_from_name</span><span class="p">(</span>
+            <span class="n">engine_name</span><span class="o">=</span><span class="n">astrometry_engine_name</span><span class="p">,</span>
+            <span class="n">engine_type</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">astrometry_vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Determine the photometry engine from user input via the drop down</span>
+        <span class="c1"># menu. The recognizing text ought to be case insensitive, makes</span>
+        <span class="c1"># life easier.</span>
+        <span class="n">photometry_engine_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_box_photometry_engine</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="n">photometry_engine_name</span> <span class="o">=</span> <span class="n">photometry_engine_name</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="c1"># Search programed engines for the one specified.</span>
+        <span class="n">photometry_engine</span> <span class="o">=</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">pick_engine_class_from_name</span><span class="p">(</span>
+            <span class="n">engine_name</span><span class="o">=</span><span class="n">photometry_engine_name</span><span class="p">,</span>
+            <span class="n">engine_type</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PhotometryEngine</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">photometry_vehicle_args</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Given the engines, solve for both the astrometry and photometry.</span>
+        <span class="c1"># We rely on the error handling of the OpihiSolution solving itself.</span>
+        <span class="n">__</span><span class="p">,</span> <span class="n">astrometry_solve_status</span> <span class="o">=</span> <span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_astrometry</span><span class="p">(</span>
+            <span class="n">solver_engine</span><span class="o">=</span><span class="n">astrometry_engine</span><span class="p">,</span>
+            <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">vehicle_args</span><span class="o">=</span><span class="n">astrometry_vehicle_args</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># If the astrometry failed, there is no photometry to do.</span>
+        <span class="k">if</span> <span class="n">astrometry_solve_status</span><span class="p">:</span>
+            <span class="n">__</span><span class="p">,</span> <span class="n">photometry_solve_status</span> <span class="o">=</span> <span class="n">opihi_solution</span><span class="o">.</span><span class="n">solve_photometry</span><span class="p">(</span>
+                <span class="n">solver_engine</span><span class="o">=</span><span class="n">photometry_engine</span><span class="p">,</span>
+                <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">vehicle_args</span><span class="o">=</span><span class="n">photometry_vehicle_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">photometry_solve_status</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Check that the filter compatibility. If the photometry failed, this</span>
+        <span class="c1"># may be one of the reasons so it is something to warn about.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">photometry_solve_status</span><span class="p">:</span>
+            <span class="n">avaliable_filters</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                <span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="p">,</span> <span class="s2">&quot;available_filters&quot;</span><span class="p">,</span> <span class="p">[]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">avaliable_filters</span><span class="p">:</span>
+                <span class="n">error</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">warn_class</span><span class="o">=</span><span class="n">error</span><span class="o">.</span><span class="n">FilterWarning</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;The filter </span><span class="si">{f}</span><span class="s2"> is not within the list of available filters&quot;</span>
+                        <span class="s2">&quot; </span><span class="si">{af}</span><span class="s2">; hence photometry failed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">f</span><span class="o">=</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="n">avaliable_filters</span>
+                        <span class="p">)</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Saving the file.</span>
+        <span class="c1"># Extracting the entire path from the current name, we are saving it</span>
+        <span class="c1"># to the same location.</span>
+        <span class="n">directory</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split_pathname</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># We are just adding the suffix to the filename.</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX</span><span class="p">)</span>
+        <span class="n">new_basename</span> <span class="o">=</span> <span class="n">basename</span> <span class="o">+</span> <span class="n">suffix</span>
+        <span class="c1"># Recombining the path.</span>
+        <span class="n">saving_fits_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">new_basename</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extension</span>
+        <span class="p">)</span>
+        <span class="n">opihi_solution</span><span class="o">.</span><span class="n">save_to_fits_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">saving_fits_filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># We attempt to write a zero point record to the database, the wrapper</span>
+        <span class="c1"># writing function checks if writing to the database is a valid</span>
+        <span class="c1"># operation. We work on a copy of the solution just in case.</span>
+        <span class="n">opihi_solution_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">opihi_solution</span><span class="p">)</span>
+        <span class="c1"># We thread it away.</span>
+        <span class="n">write_database_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__write_zero_point_record_to_database</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;opihi_solution&quot;</span><span class="p">:</span> <span class="n">opihi_solution_copy</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">write_database_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">opihi_solution</span></div>
+
+    <span class="k">def</span> <span class="nf">__write_zero_point_record_to_database</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">opihi_solution</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function writes the zero point information assuming a solved</span>
+<span class="sd">        photometric solution. This function is so that threading this process</span>
+<span class="sd">        away is a lot easier.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        opihi_solution : OpihiSolution</span>
+<span class="sd">            The solution class of the image.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The photometry solution must exist and it must be properly solved.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="p">,</span> <span class="n">photometry</span><span class="o">.</span><span class="n">PhotometricSolution</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics_status</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="c1"># The database solution must exist to write to, and the user must</span>
+        <span class="c1"># actually want to write to it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiZeroPointDatabaseSolution</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Because many files are being written to the database, we do not</span>
+        <span class="c1"># want to try and busy the database with cleaning itself up every time</span>
+        <span class="c1"># we want to write to it so we do it randomly.</span>
+        <span class="n">CLEAN_RATE</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DATABASE_CLEAN_FILE_RATE</span>
+        <span class="n">will_clean_record_file</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">CLEAN_RATE</span>
+
+        <span class="c1"># We write the record based on the information from the solution.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="o">.</span><span class="n">write_zero_point_record_julian_day</span><span class="p">(</span>
+            <span class="n">jd</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">observing_time</span><span class="p">,</span>
+            <span class="n">zero_point</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point</span><span class="p">,</span>
+            <span class="n">zero_point_error</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point_error</span><span class="p">,</span>
+            <span class="n">filter_name</span><span class="o">=</span><span class="n">opihi_solution</span><span class="o">.</span><span class="n">filter_name</span><span class="p">,</span>
+            <span class="n">clean_file</span><span class="o">=</span><span class="n">will_clean_record_file</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We additionally create a new figure for the monitoring webpage.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="o">.</span><span class="n">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.trigger_next_image_solve"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.trigger_next_image_solve">[docs]</a>    <span class="k">def</span> <span class="nf">trigger_next_image_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function triggers the next iteration of the automatic solving</span>
+<span class="sd">        loop.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># It is always good to have a refresh of the information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+
+        <span class="c1"># A new image is to be solved. We fetch the new image.</span>
+        <span class="n">fetched_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_new_filename</span><span class="p">()</span>
+
+        <span class="c1"># Test to see if we have already processed this file and currently</span>
+        <span class="c1"># have information about it. This prevents doing too much work.</span>
+        <span class="k">def</span> <span class="nf">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;A small inner function to see if two files are the same</span>
+<span class="sd">            for the purposes of fetching files.</span>
+
+<span class="sd">            Note we also check for the root of the filename so we avoid any</span>
+<span class="sd">            loops with the intermediate files in reduction.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># Assume false, they are not the same file.</span>
+            <span class="n">file_1</span> <span class="o">=</span> <span class="n">file_1</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_1</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">file_2</span> <span class="o">=</span> <span class="n">file_2</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_2</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1"># If they are the same...</span>
+            <span class="k">if</span> <span class="n">file_1</span> <span class="o">==</span> <span class="n">file_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># If neither exists...</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_1</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># If they are the same file in the OS...</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">samefile</span><span class="p">(</span><span class="n">file_1</span><span class="p">,</span> <span class="n">file_2</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="c1"># If their base names are the same; assuming we remove all of the</span>
+            <span class="c1"># reduction tags.</span>
+            <span class="n">base_file_1</span> <span class="o">=</span> <span class="n">file_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DEFAULT_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">base_file_2</span> <span class="o">=</span> <span class="n">file_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DEFAULT_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">base_file_1</span> <span class="o">==</span> <span class="n">base_file_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="c1"># All done; as no check says they are the same file, they are not.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Checking if the files are the same...</span>
+        <span class="k">if</span> <span class="n">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="o">=</span><span class="n">fetched_filename</span><span class="p">,</span> <span class="n">file_2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">results_fits_filename</span><span class="p">):</span>
+            <span class="c1"># The new fetched file is the same one that is already solved. It</span>
+            <span class="c1"># would be silly to solve it again, there is no point in continuing.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="o">=</span><span class="n">fetched_filename</span><span class="p">,</span> <span class="n">file_2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span><span class="p">):</span>
+            <span class="c1"># Same principle, this new file is the same as the working file.</span>
+            <span class="c1"># We need to be patient.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># This new file becomes our working file.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span> <span class="o">=</span> <span class="n">fetched_filename</span>
+            <span class="c1"># Keeping the GUI up to date while in the loop.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+
+        <span class="c1"># We have a new file, however, in the unlikely event that this</span>
+        <span class="c1"># file is still being written and is locked under permissions because</span>
+        <span class="c1"># it is mid-write, we wait a little bit.</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">api_request_sleep</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># With this new working fits file, we attempt to solve it.</span>
+        <span class="c1"># First preprocessing the file. We desire to reduce the data if a</span>
+        <span class="c1"># preprocess solution exists to do so.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiPreprocessSolution</span><span class="p">):</span>
+            <span class="c1"># We want to check if the FITS file has already been preprocessed.</span>
+            <span class="n">raw_fits_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span>
+            <span class="n">header</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">raw_fits_filename</span><span class="p">)</span>
+            <span class="n">was_processed</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OXM_REDU&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">was_processed</span><span class="p">:</span>
+                <span class="c1"># The user already loaded a preprocessed FITS file, there is</span>
+                <span class="c1"># no reason to preprocess it again.</span>
+                <span class="n">current_fits_filename</span> <span class="o">=</span> <span class="n">raw_fits_filename</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># We derive the FITS filename for the preprocessed solution, if it</span>
+                <span class="c1"># exists.</span>
+                <span class="n">nf_dir</span><span class="p">,</span> <span class="n">nf_base</span><span class="p">,</span> <span class="n">nf_ext</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split_pathname</span><span class="p">(</span>
+                    <span class="n">pathname</span><span class="o">=</span><span class="n">raw_fits_filename</span>
+                <span class="p">)</span>
+                <span class="c1"># Appending the preprocessing suffix.</span>
+                <span class="n">PREPROCESS_SUFFIX</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PREPROCESS_DEFAULT_SAVING_SUFFIX</span>
+                <span class="n">current_fits_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+                    <span class="n">directory</span><span class="o">=</span><span class="n">nf_dir</span><span class="p">,</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="n">nf_base</span> <span class="o">+</span> <span class="n">PREPROCESS_SUFFIX</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="n">nf_ext</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="c1"># Preprocessing the input file.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_solution</span><span class="o">.</span><span class="n">preprocess_fits_file</span><span class="p">(</span>
+                    <span class="n">raw_filename</span><span class="o">=</span><span class="n">raw_fits_filename</span><span class="p">,</span>
+                    <span class="n">out_filename</span><span class="o">=</span><span class="n">current_fits_filename</span><span class="p">,</span>
+                    <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># There is no preprocessing to do.</span>
+            <span class="n">current_fits_filename</span> <span class="o">=</span> <span class="n">raw_fits_filename</span>
+        <span class="c1"># Next, we solve for the astrometry and photometry.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span> <span class="o">=</span> <span class="n">current_fits_filename</span>
+        <span class="n">working_opihi_solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_astrometry_photometry_single_image</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_opihi_solution</span> <span class="o">=</span> <span class="n">working_opihi_solution</span>
+
+        <span class="c1"># If the solve failed, as detected by the status flags, then it cannot</span>
+        <span class="c1"># be a result.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">working_opihi_solution</span><span class="o">.</span><span class="n">astrometrics_status</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">working_opihi_solution</span><span class="o">.</span><span class="n">photometrics_status</span>
+        <span class="p">):</span>
+            <span class="c1"># The solving likely worked alright. It is good enough to</span>
+            <span class="c1"># consider this as a &quot;results&quot; class. A copy is desired so that</span>
+            <span class="c1"># it does not get mixed up.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operational_status_flag</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_fits_filename</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">working_opihi_solution</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">working_opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">):</span>
+            <span class="c1"># The operational status is considered failed. However, there is</span>
+            <span class="c1"># no reason to stop the loop, but the GUI must be updated.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operational_status_flag</span> <span class="o">=</span> <span class="s2">&quot;failed&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The code should not go here, as it should otherwise have been</span>
+            <span class="c1"># caught by the first two cases as they should be the only valid</span>
+            <span class="c1"># ones.</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span><span class="p">(</span>
+                <span class="s2">&quot;The results of the automatic solving of a single image is either None&quot;</span>
+                <span class="s2">&quot; or the OpihiSolution class itself. But, neither case was found to be&quot;</span>
+                <span class="s2">&quot; the case, something is wrong.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># The GUI should be refreshed with either case.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_window</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.refresh_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.refresh_window">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refreshes the GUI window with new information where available.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Refreshing text.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh_dynamic_label_text</span><span class="p">()</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">__refresh_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refreshes the GUI window&#39;s dynamic text.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Refreshing the directory text.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_fits_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fits_fetch_directory</span><span class="p">)</span>
+
+        <span class="c1"># Refreshing the filename text, we do not need the directory part.</span>
+        <span class="c1"># If the filenames have not been provided, then we just highlight that</span>
+        <span class="c1"># they have not been provided (which is different from the default</span>
+        <span class="c1"># filler names).</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">working_basename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span>
+                <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">working_fits_filename</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">working_basename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_fits_filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">results_basename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span>
+                <span class="n">pathname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">results_fits_filename</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">results_basename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If there is no resulting Opihi solution, then there is no data to be</span>
+        <span class="c1"># extracted for results. The results solution should also be always</span>
+        <span class="c1"># solved so we do not need to check for it. We also need to make sure</span>
+        <span class="c1"># that the astrometric solution and photometric solution was valid.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="p">,</span> <span class="n">opihiexarata</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">astrometrics_status</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">photometrics_status</span>
+        <span class="p">):</span>
+            <span class="c1"># Obtaining the observing time.</span>
+            <span class="n">observing_time_jd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">observing_time</span>
+            <span class="p">(</span>
+                <span class="n">year_int</span><span class="p">,</span>
+                <span class="n">moth_int</span><span class="p">,</span>
+                <span class="n">days_int</span><span class="p">,</span>
+                <span class="n">hour_int</span><span class="p">,</span>
+                <span class="n">mint_int</span><span class="p">,</span>
+                <span class="n">secs_float</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span><span class="n">jd</span><span class="o">=</span><span class="n">observing_time_jd</span><span class="p">)</span>
+            <span class="c1"># Allowing for padded zeros for ISO 8601 (like) compatibility,</span>
+            <span class="c1"># because it is a more unambiguous format.</span>
+            <span class="n">date_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{y:04d}</span><span class="s2">-</span><span class="si">{m:02d}</span><span class="s2">-</span><span class="si">{d:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">year_int</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">moth_int</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">days_int</span>
+            <span class="p">)</span>
+            <span class="n">time_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{h:02d}</span><span class="s2">:</span><span class="si">{m:02d}</span><span class="s2">:</span><span class="si">{s:04.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">h</span><span class="o">=</span><span class="n">hour_int</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">mint_int</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">secs_float</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_date</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">date_string</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_time</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">time_string</span><span class="p">)</span>
+
+            <span class="c1"># Refreshing the astrometry results.</span>
+            <span class="n">ra_deg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">ra</span>
+            <span class="n">dec_deg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">astrometrics</span><span class="o">.</span><span class="n">dec</span>
+            <span class="c1"># To sexagesimal as it is easier to read, the results provided are</span>
+            <span class="c1"># in degrees.</span>
+            <span class="n">ra_sex</span><span class="p">,</span> <span class="n">dec_sex</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">degrees_to_sexagesimal_ra_dec</span><span class="p">(</span>
+                <span class="n">ra_deg</span><span class="o">=</span><span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span><span class="o">=</span><span class="n">dec_deg</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">3</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ra</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">ra_sex</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_dec</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dec_sex</span><span class="p">)</span>
+
+            <span class="c1"># Refreshing photometry results.</span>
+            <span class="n">zero_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point</span>
+            <span class="n">zero_point_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">zero_point_error</span>
+            <span class="n">filter_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_opihi_solution</span><span class="o">.</span><span class="n">photometrics</span><span class="o">.</span><span class="n">filter_name</span>
+            <span class="c1"># Formatting the information as a string.</span>
+            <span class="n">pm_sym</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u00b1</span><span class="s2">&quot;</span>
+            <span class="n">zero_point_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{zp:.3f}</span><span class="s2"> </span><span class="si">{pm}</span><span class="s2"> </span><span class="si">{zpe:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">zp</span><span class="o">=</span><span class="n">zero_point</span><span class="p">,</span> <span class="n">pm</span><span class="o">=</span><span class="n">pm_sym</span><span class="p">,</span> <span class="n">zpe</span><span class="o">=</span><span class="n">zero_point_error</span>
+            <span class="p">)</span>
+            <span class="n">filter_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_zero_point</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">zero_point_str</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_filter</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># There is no OpihiSolution to pull information from.</span>
+            <span class="k">pass</span>
+            <span class="c1"># For testing.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_time</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">())</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Refreshing the operational status.</span>
+        <span class="n">operational_status_flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operational_status_flag</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">operational_status_flag</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+            <span class="c1"># Everything is normal, so the status string can be based on the</span>
+            <span class="c1"># active status of the system loop.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_status</span><span class="p">:</span>
+                <span class="n">status_string</span> <span class="o">=</span> <span class="s2">&quot;Running&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">status_string</span> <span class="o">=</span> <span class="s2">&quot;Stopped&quot;</span>
+        <span class="k">elif</span> <span class="n">operational_status_flag</span> <span class="o">==</span> <span class="s2">&quot;trigger&quot;</span><span class="p">:</span>
+            <span class="c1"># A manual trigger has been specified.</span>
+            <span class="n">status_string</span> <span class="o">=</span> <span class="s2">&quot;Triggered&quot;</span>
+        <span class="k">elif</span> <span class="n">operational_status_flag</span> <span class="o">==</span> <span class="s2">&quot;failed&quot;</span><span class="p">:</span>
+            <span class="c1"># The solving engines failed to solve.</span>
+            <span class="n">status_string</span> <span class="o">=</span> <span class="s2">&quot;Failed&quot;</span>
+        <span class="k">elif</span> <span class="n">operational_status_flag</span> <span class="o">==</span> <span class="s2">&quot;halted&quot;</span><span class="p">:</span>
+            <span class="c1"># The loop failed to terminate on its own or manual stop file has</span>
+            <span class="c1"># been made to force the stop of the loop.</span>
+            <span class="n">status_string</span> <span class="o">=</span> <span class="s2">&quot;Halted&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status_string</span> <span class="o">=</span> <span class="s2">&quot;Default&quot;</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">(</span>
+                <span class="s2">&quot;The operational status flag is `</span><span class="si">{oflag}</span><span class="s2">`. There is no string refresh&quot;</span>
+                <span class="s2">&quot; case built to handle this flag. It must be implemented.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Setting the string.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_operational_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">status_string</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.reset_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.reset_window">[docs]</a>    <span class="k">def</span> <span class="nf">reset_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function resets the window to the default values or</span>
+<span class="sd">        parameters</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Resetting all of the text to their defaults.</span>
+        <span class="c1"># Directory.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_fits_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;/path/to/fits/directory/&quot;</span><span class="p">)</span>
+        <span class="c1"># Filenames.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># Astrometric coordinates and results.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_ra</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;RR:RR:RR.RRR&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_dec</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+DD:DD:DD.DDD&quot;</span><span class="p">)</span>
+        <span class="c1"># Photometric results.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_zero_point</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;ZZZ.ZZZ + EE.EEE&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_filter</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;FF&quot;</span><span class="p">)</span>
+        <span class="c1"># Operational status.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_operational_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Default&quot;</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
+<div class="viewcode-block" id="start_automatic_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.start_automatic_window">[docs]</a><span class="k">def</span> <span class="nf">start_automatic_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the function to create the automatic window for usage.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Creating the application and its infrastructure.</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+    <span class="c1"># The automatic GUI window.</span>
+    <span class="n">automatic_window</span> <span class="o">=</span> <span class="n">OpihiAutomaticWindow</span><span class="p">()</span>
+    <span class="n">automatic_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="c1"># Closing out of the window.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">start_automatic_window</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

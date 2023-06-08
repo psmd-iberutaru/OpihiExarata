@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.qtui.qtui_automatic &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.gui.qtui.qtui_automatic &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../../_static/pyukumuku_favicon.png"/>
@@ -562,16 +562,6 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;grid_layout_fits_filenames&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
-            <span class="s2">&quot;label_dynamic_results_filename&quot;</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font1</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
             <span class="s2">&quot;label_static_results_filename&quot;</span>
@@ -579,7 +569,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span>
+            <span class="s2">&quot;label_dynamic_results_filename&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_working_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
@@ -589,7 +589,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_working_filename</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_working_filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_working_filename</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
@@ -599,7 +599,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_fetch_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_fetch_filename</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;label_static_fetch_filename&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_static_fetch_filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_fetch_filename</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verticalLayoutWidget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_fetch_filename</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;label_dynamic_fetch_filename&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_fetch_filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">vertical_layout_automatic</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_layout_fits_filenames</span><span class="p">)</span>
@@ -799,18 +813,26 @@
             <span class="p">),</span>
         <span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Results:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_results_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
                 <span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits&quot;</span><span class="p">,</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_results_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
-            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Results:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_working_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Working:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_working_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
+                <span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits&quot;</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_static_fetch_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Fetch:&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dynamic_fetch_filename</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
                 <span class="s2">&quot;AutomaticWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits&quot;</span><span class="p">,</span> <span class="kc">None</span>
             <span class="p">)</span>

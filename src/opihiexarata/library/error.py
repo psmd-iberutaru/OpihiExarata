@@ -165,18 +165,24 @@ class ExarataWarning(UserWarning):
     """The base warning class which all of the other OpihiExarata warnings
     are derived from."""
 
+
 class AccuracyWarning(ExarataWarning):
-    """This warning is to be used when something is not as accurate as it 
+    """This warning is to be used when something is not as accurate as it
     should be."""
+
+
 class InputWarning(ExarataWarning):
     """This warning is to be used when something was incorrectly input."""
+
 
 class FilterWarning(ExarataWarning):
     """This warning is to be used when improper filters were used."""
 
+
 class SequentialOrderWarning(ExarataWarning):
     """This warning is to be used when something is being done out of order or
     the specific order is not being followed.."""
+
 
 class UnknownWarning(ExarataWarning):
     """This warning is to be used when something was incorrectly input."""

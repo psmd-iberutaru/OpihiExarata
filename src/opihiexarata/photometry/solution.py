@@ -516,7 +516,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
         # the magnitude as specified. A dimmer object has a higher magnitude.
         DIM_MAG = library.config.PHOTOMETRY_ZERO_POINT_DIMMEST_MAGNITUDE
         BRIGHT_MAG = library.config.PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE
-        invalid_filter_magnitude = np.where(np.logical_and(BRIGHT_MAG <= magnitude, magnitude <= DIM_MAG), False, True)
+        invalid_filter_magnitude = np.where(
+            np.logical_and(BRIGHT_MAG <= magnitude, magnitude <= DIM_MAG), False, True
+        )
         # We only can use count data which is actually valid, using invalid
         # count data corrupts our instrument magnitudes and everything else
         # down the line.
@@ -532,9 +534,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
 
         # Zero points via the definition equation
         zero_points = valid_magnitude - valid_inst_magnitude
-        # Zero points are technically a magnitude so we can only find its 
+        # Zero points are technically a magnitude so we can only find its
         # average by converting to linear space.
-        zero_point = -sqrt5_100 * np.log10(np.nanmedian(10**(-zero_points*0.4)))
+        zero_point = -sqrt5_100 * np.log10(np.nanmedian(10 ** (-zero_points * 0.4)))
         # We use the error on the mean, but instead we use medians and its
         # standard deviation equivalent to be robust to bad data points.
         n_stars = np.sum(np.isfinite(zero_points))

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.panstarrs &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.photometry.panstarrs &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -736,7 +736,7 @@
         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">namedex</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">namedex</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
         <span class="n">colstring</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
 
-        <span class="c1"># Check that the data release is suppored.</span>
+        <span class="c1"># Check that the data release is supported.</span>
         <span class="n">data_release</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_release</span><span class="p">)</span>
         <span class="n">VALID_PANSTARRS_DATA_RELEASES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">data_release</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_PANSTARRS_DATA_RELEASES</span><span class="p">:</span>
@@ -744,13 +744,20 @@
                 <span class="s2">&quot;The data release version provided is not supported.&quot;</span>
             <span class="p">)</span>
 
+        <span class="c1"># Pan-STARRS only supports a declination of greater than -30 deg.</span>
+        <span class="k">if</span> <span class="n">dec</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">EngineError</span><span class="p">(</span>
+                <span class="s2">&quot;The Pan-STARRS survey does not have any sky coverage lower than&quot;</span>
+                <span class="s2">&quot; declination -30 degrees. The current queried declination is </span><span class="si">{d}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; degrees.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">dec</span><span class="p">)</span>
+            <span class="p">)</span>
+
         <span class="c1"># The MAST API service is a url request. Constructing the URL based on</span>
         <span class="c1"># the provided information.</span>
         <span class="n">mast_api_url</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr</span><span class="si">{v}</span><span class="s2">/mean?&quot;</span>
+            <span class="s2">&quot;https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr</span><span class="si">{v}</span><span class="s2">/mean.csv?&quot;</span>
             <span class="s2">&quot;ra=</span><span class="si">{a}</span><span class="s2">&amp;dec=</span><span class="si">{d}</span><span class="s2">&amp;radius=</span><span class="si">{r}</span><span class="s2">&amp;nDetections.gte=</span><span class="si">{n}</span><span class="s2">&amp;columns=</span><span class="si">{c}</span><span class="s2">&amp;pagesize=</span><span class="si">{l}</span><span class="s2">&amp;&quot;</span>
-            <span class="s2">&quot;ng.gte=</span><span class="si">{p}</span><span class="s2">&amp;nr.gte=</span><span class="si">{p}</span><span class="s2">&amp;ni.gte=</span><span class="si">{p}</span><span class="s2">&amp;nz.gte=</span><span class="si">{p}</span><span class="s2">&amp;&quot;</span>
-            <span class="s2">&quot;format=csv&quot;</span>
+            <span class="s2">&quot;ng.gte=</span><span class="si">{p}</span><span class="s2">&amp;nr.gte=</span><span class="si">{p}</span><span class="s2">&amp;ni.gte=</span><span class="si">{p}</span><span class="s2">&amp;nz.gte=</span><span class="si">{p}</span><span class="s2">&quot;</span>
         <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">v</span><span class="o">=</span><span class="n">data_release</span><span class="p">,</span>
             <span class="n">a</span><span class="o">=</span><span class="n">ra</span><span class="p">,</span>
@@ -762,7 +769,7 @@
             <span class="n">p</span><span class="o">=</span><span class="n">color_detections</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># Pull the data into a table.</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">mast_api_url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify_ssl</span><span class="p">)</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mast_api_url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify_ssl</span><span class="p">)</span>
         <span class="n">catalog_results</span> <span class="o">=</span> <span class="n">ap_ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">catalog_results</span></div>
 

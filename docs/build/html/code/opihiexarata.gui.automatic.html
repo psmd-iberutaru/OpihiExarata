@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.automatic module &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.gui.automatic module &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -546,14 +546,13 @@ should be specified in the configuration file.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.__write_zero_point_record_to_database">
-<span class="sig-name descname"><span class="pre">__write_zero_point_record_to_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opihi_solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.__write_zero_point_record_to_database" title="Permalink to this definition"></a></dt>
-<dd><p>This function writes the zero point information assuming a solved
-photometric solution. This function is so that threading this process
-away is a lot easier.</p>
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.automatic_opihi_image_solve">
+<span class="sig-name descname"><span class="pre">automatic_opihi_image_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.automatic_opihi_image_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.automatic_opihi_image_solve" title="Permalink to this definition"></a></dt>
+<dd><p>This function contains the loop which runs to do automatic solving.</p>
+<p>We just model automatic mode as repeatedly clicking the trigger button.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>opihi_solution</strong> (<a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><em>OpihiSolution</em></a>) – The solution class of the image.</p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -562,8 +561,8 @@ away is a lot easier.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow._automatic_triggering_check_stops">
-<span class="sig-name descname"><span class="pre">_automatic_triggering_check_stops</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow._automatic_triggering_check_stops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow._automatic_triggering_check_stops" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.check_automatic_stops">
+<span class="sig-name descname"><span class="pre">check_automatic_stops</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.check_automatic_stops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.check_automatic_stops" title="Permalink to this definition"></a></dt>
 <dd><p>This function checks for the stops to stop the automatic triggering
 of the next image.</p>
 <dl class="field-list simple">
@@ -571,7 +570,7 @@ of the next image.</p>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>stop_check</strong> – This is the flag which signifies if the triggering should stop or
+<dd class="field-even"><p><strong>stop</strong> – This is the flag which signifies if the triggering should stop or
 not. If True, the triggering should stop.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -581,28 +580,13 @@ not. If True, the triggering should stop.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop">
-<span class="sig-name descname"><span class="pre">_automatic_triggering_infinite_loop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow._automatic_triggering_infinite_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop" title="Permalink to this definition"></a></dt>
-<dd><p>This is where the actual infinite loop is done.</p>
-<p>All of the stops are checked before a new trigger is executed.</p>
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.closeEvent" title="Permalink to this definition"></a></dt>
+<dd><p>We override the original Qt close event to take into account the
+automatic loop.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.automatic_triggering">
-<span class="sig-name descname"><span class="pre">automatic_triggering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.automatic_triggering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.automatic_triggering" title="Permalink to this definition"></a></dt>
-<dd><p>This function executes the continuous running automatic mode loop.</p>
-<p>All of the stops are checked before a new trigger is executed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
+<dd class="field-odd"><p><strong>event</strong> – The event that occurs.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -622,6 +606,25 @@ filename within the automatic fetching directory.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>fetched_filename</strong> – The filename that was fetched. It is the most recent file added to
 the automatic fetching directory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.preprocess_opihi_image">
+<span class="sig-name descname"><span class="pre">preprocess_opihi_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.preprocess_opihi_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.preprocess_opihi_image" title="Permalink to this definition"></a></dt>
+<dd><p>This function preprocess an Opihi image, where available and
+returns the filename of the preprocessed file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – The filename of file which will be preprocessed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>preprocess_filename</strong> – The filename of the file which has been preprocessed with the
+preprocessed solution of this class instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>string</p>
@@ -659,18 +662,21 @@ parameters</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image">
-<span class="sig-name descname"><span class="pre">solve_astrometry_photometry_single_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.solve_astrometry_photometry_single_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image" title="Permalink to this definition"></a></dt>
-<dd><p>This solves for the astrometric and photometric solutions of a
-provided file. The engines are provided based on the dropdown menus.</p>
-<p>Note this calculation does not affect the <cite>opihi_solution</cite> instance of
-the class. That is a job for a different function.</p>
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.solve_opihi_image">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">solve_opihi_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">astrometry_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><span class="pre">AstrometryEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">photometry_engine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><span class="pre">PhotometryEngine</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.solve_opihi_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.solve_opihi_image" title="Permalink to this definition"></a></dt>
+<dd><p>This function solves the Opihi image provided by the filename.</p>
+<p>We use a static method here to be a little more thread safe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – The filename of the fits file to be solved.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – The filename to load and solve.</p></li>
+<li><p><strong>astrometry_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine" title="opihiexarata.library.engine.AstrometryEngine"><em>AstrometryEngine</em></a>) – The astrometry engine to use.</p></li>
+<li><p><strong>photometry_engine</strong> (<a class="reference internal" href="opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine" title="opihiexarata.library.engine.PhotometryEngine"><em>PhotometryEngine</em></a>) – The photometry engine to use.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>opihi_solution</strong> – The solution with the astrometry and photometry engines solved.</p>
+<dd class="field-even"><p><strong>opihi_solution</strong> – The solution class of the Opihi image after it has been solved
+(or at least attempted to be).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution">OpihiSolution</a></p>
@@ -684,13 +690,76 @@ the class. That is a job for a different function.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.trigger_next_image_solve">
-<span class="sig-name descname"><span class="pre">trigger_next_image_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.trigger_next_image_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.trigger_next_image_solve" title="Permalink to this definition"></a></dt>
-<dd><p>This function triggers the next iteration of the automatic solving
-loop.</p>
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.threaded_automatic_opihi_image_solve">
+<span class="sig-name descname"><span class="pre">threaded_automatic_opihi_image_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.threaded_automatic_opihi_image_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.threaded_automatic_opihi_image_solve" title="Permalink to this definition"></a></dt>
+<dd><p>This function is just a wrapper around the original function to
+allow for threading.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.threaded_trigger_opihi_image_solve">
+<span class="sig-name descname"><span class="pre">threaded_trigger_opihi_image_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.threaded_trigger_opihi_image_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.threaded_trigger_opihi_image_solve" title="Permalink to this definition"></a></dt>
+<dd><p>This function is just a wrapper around the original function to
+allow for threading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.trigger_opihi_image_solve">
+<span class="sig-name descname"><span class="pre">trigger_opihi_image_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.trigger_opihi_image_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.trigger_opihi_image_solve" title="Permalink to this definition"></a></dt>
+<dd><p>This function does a single instance of the automatic solving.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.verify_new_filename">
+<span class="sig-name descname"><span class="pre">verify_new_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.verify_new_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.verify_new_filename" title="Permalink to this definition"></a></dt>
+<dd><p>This function verifies a filename. Basically, it checks that the
+file exists and has not already been done before.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – The filename to verify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>verification</strong> – If the filename is good, it it True.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.automatic.OpihiAutomaticWindow.write_zero_point_record_to_database">
+<span class="sig-name descname"><span class="pre">write_zero_point_record_to_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opihi_solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/automatic.html#OpihiAutomaticWindow.write_zero_point_record_to_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.automatic.OpihiAutomaticWindow.write_zero_point_record_to_database" title="Permalink to this definition"></a></dt>
+<dd><p>This function writes the zero point information assuming a solved
+photometric solution. This function is so that threading this process
+away is a lot easier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>opihi_solution</strong> (<a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><em>OpihiSolution</em></a>) – The solution class of the image.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>

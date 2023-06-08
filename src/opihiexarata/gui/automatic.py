@@ -19,6 +19,7 @@ import opihiexarata.photometry as photometry
 
 import opihiexarata.gui as gui
 
+
 class OpihiAutomaticWindow(QtWidgets.QMainWindow):
     """The GUI that is responsible for the implementation of the automatic mode
     of Opihi, fetching images automatically based on time and solving for both
@@ -100,7 +101,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         else:
             self.fits_fetch_directory = None
 
-        
         # Preparing the buttons, GUI, and other functionality.
         self.__init_gui_connections()
         self.__init_preprocess_solution()
@@ -120,7 +120,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
-    
+
     def __init_gui_connections(self) -> None:
         """Creating the function connections for the GUI interface.
 
@@ -144,7 +144,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
-    
 
     def __init_preprocess_solution(self):
         """Initialize the preprocessing solution. The preprocessing files
@@ -185,12 +184,18 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         except Exception as err:
             # Something failed with making the preprocess solution, a
             # configuration file issue is likely the reason.
-            error.warn(warn_class=error.UnknownWarning, message="We are not sure why the preprocess solution failed. {e}".format(e=err))
+            error.warn(
+                warn_class=error.UnknownWarning,
+                message=(
+                    "We are not sure why the preprocess solution failed. {e}".format(
+                        e=err
+                    )
+                ),
+            )
         finally:
             self.preprocess_solution = preprocess
         # All done.
         return None
-
 
     def __connect_push_button_change_directory(self) -> None:
         """The connection for the button to change the automatic fetch
@@ -315,11 +320,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # Absolute paths are generally much easier to work with.
             fetched_filename = os.path.abspath(fetched_filename)
         return fetched_filename
-    
-    def verify_new_filename(self, filename:str) -> bool:
-        """This function verifies a filename. Basically, it checks that the 
+
+    def verify_new_filename(self, filename: str) -> bool:
+        """This function verifies a filename. Basically, it checks that the
         file exists and has not already been done before.
-        
+
         Parameters
         ----------
         filename : string
@@ -330,18 +335,17 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         verification : bool
             If the filename is good, it it True.
         """
+        # We assume the filename is good.
+        verification = True
+
         # Initial check.
         if filename is None:
             # There is no filename.
             verification = False
             return verification
         else:
-            filename = str(filename)
-        
-        # Absolute paths are easier to work with.
-        filename = os.path.abspath(filename)
-        # We assume the filename is good.
-        verification = True
+            # Absolute paths are easier to work with.
+            filename = os.path.abspath(str(filename))
 
         # We first need to test if the file even exits.
         if not os.path.isfile(filename):
@@ -352,9 +356,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # has already been done.
         working_fits_filename = str(copy.deepcopy(self.working_fits_filename))
         results_fits_filename = str(copy.deepcopy(self.results_fits_filename))
-        if os.path.isfile(working_fits_filename) and os.path.samefile(filename, working_fits_filename):
+        if os.path.isfile(working_fits_filename) and os.path.samefile(
+            filename, working_fits_filename
+        ):
             verification = False
-        if os.path.isfile(results_fits_filename) and os.path.samefile(filename, results_fits_filename):
+        if os.path.isfile(results_fits_filename) and os.path.samefile(
+            filename, results_fits_filename
+        ):
             verification = False
 
         # If the file is already a processed file.
@@ -364,28 +372,36 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             verification = False
 
         # If there exists processed versions of the file.
-        file_dir, file_base, file_ext = library.path.split_pathname(
-            pathname=filename
-        )
+        file_dir, file_base, file_ext = library.path.split_pathname(pathname=filename)
         proposed_preprocess_filename = library.path.merge_pathname(
-                    directory=file_dir,
-                    filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
-                    extension=file_ext,
-                )
-        proposed_processed_filename = library.path.merge_pathname(
-                    directory=file_dir,
-                    filename=file_base + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX,
-                    extension=file_ext,
-                )
+            directory=file_dir,
+            filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
+            extension=file_ext,
+        )
+        proposed_solved_filename = library.path.merge_pathname(
+            directory=file_dir,
+            filename=file_base
+            + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX,
+            extension=file_ext,
+        )
+        proposed_preprocess_solved_filename = library.path.merge_pathname(
+            directory=file_dir,
+            filename=file_base
+            + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
+            + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX,
+            extension=file_ext,
+        )
         if os.path.isfile(proposed_preprocess_filename):
             verification = False
-        if os.path.isfile(proposed_processed_filename):
+        if os.path.isfile(proposed_solved_filename):
+            verification = False
+        if os.path.isfile(proposed_preprocess_solved_filename):
             verification = False
 
         # We do an early exit check here to save processing time.
         if not verification:
             return verification
-        
+
         # Now we check based on all previously fetched files.
         for filedex in copy.deepcopy(self.fetch_filename_record):
             if filename == filedex:
@@ -394,13 +410,15 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # It passed all of the verification tests, only a True verification
         # should be sent.
         if not verification:
-            raise error.DevelopmentError("The automatic mode file pass all of the verification tests, but the verification is still False.")
+            raise error.DevelopmentError(
+                "The automatic mode file pass all of the verification tests, but the"
+                " verification is still False."
+            )
         return bool(verification)
-    
 
     def trigger_opihi_image_solve(self) -> None:
         """This function does a single instance of the automatic solving.
-        
+
         Parameters
         ----------
         None
@@ -427,20 +445,21 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # We add it to the record.
         self.fetch_filename_record.append(working_fits_filename)
 
-        # We have a new file, however, in the unlikely event that this 
+        # We have a new file, however, in the unlikely event that this
         # file is still being written and is locked under permissions because
         # it is mid-write, we wait a little bit.
         library.http.api_request_sleep(seconds=1)
 
         # If we have a preprocessing solution, we can preprocess the data first.
         if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
-            preprocess_filename = self.preprocess_opihi_image(filename=working_fits_filename)
+            preprocess_filename = self.preprocess_opihi_image(
+                filename=working_fits_filename
+            )
         else:
             # No preprocessing done.
             preprocess_filename = working_fits_filename
-            
 
-        # We need to determine the engines which we will be using to solve 
+        # We need to determine the engines which we will be using to solve
         # this image.
         astrometry_engine_name = self.ui.combo_box_astrometry_engine.currentText()
         astrometry_engine_name = astrometry_engine_name.casefold()
@@ -456,7 +475,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         )
 
         # Now, we try and solve the image.
-        opihi_solution = self.solve_opihi_image(filename=preprocess_filename, astrometry_engine=astrometry_engine, photometry_engine=photometry_engine)
+        opihi_solution = self.solve_opihi_image(
+            filename=preprocess_filename,
+            astrometry_engine=astrometry_engine,
+            photometry_engine=photometry_engine,
+        )
 
         # Refreshing any data.
         self.refresh_window()
@@ -469,9 +492,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Finally, we try and save the image.
         # Extracting the entire path from the current name, we are saving it
         # to the same location.
-        directory, basename, extension = library.path.split_pathname(pathname=preprocess_filename)
+        directory, basename, extension = library.path.split_pathname(
+            pathname=preprocess_filename
+        )
         # We are just adding the suffix to the filename.
-        new_basename = basename + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
+        new_basename = (
+            basename + library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
+        )
         # Recombining the path.
         saving_fits_filename = library.path.merge_pathname(
             directory=directory, filename=new_basename, extension=extension
@@ -488,11 +515,10 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-
     def threaded_trigger_opihi_image_solve(self) -> None:
-        """This function is just a wrapper around the original function to 
+        """This function is just a wrapper around the original function to
         allow for threading.
-        
+
         Parameters
         ----------
         None
@@ -506,11 +532,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         trigger_solving_thread = threading.Thread(target=self.trigger_opihi_image_solve)
         trigger_solving_thread.start()
 
-
-
     def automatic_opihi_image_solve(self) -> None:
         """This function contains the loop which runs to do automatic solving.
-        
+
         We just model automatic mode as repeatedly clicking the trigger button.
 
         Parameters
@@ -527,7 +551,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         if stop:
             # We should not even try to do the loop, we are stopped.
             return None
-        
+
         # Automatic triggering is an infinite loop as we want to do it
         # until stopped via the stop checks.
         while not stop:
@@ -538,7 +562,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
             # We take a little break to ensure that, in the case of no new
             # file from the trigger, we are not hammering the disk too hard.
-            __ = library.http.api_request_sleep(seconds=library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS)
+            __ = library.http.api_request_sleep(
+                seconds=library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS
+            )
 
             # We attempt to do another trigger solve.
             self.threaded_trigger_opihi_image_solve()
@@ -555,11 +581,10 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # All done.
         self.refresh_window()
 
-
     def threaded_automatic_opihi_image_solve(self) -> None:
-        """This function is just a wrapper around the original function to 
+        """This function is just a wrapper around the original function to
         allow for threading.
-        
+
         Parameters
         ----------
         None
@@ -570,9 +595,10 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         """
         # We just call the trigger itself. We still thread it out as to not
         # completely freeze the GUI.
-        automatic_solving_thread = threading.Thread(target=self.automatic_opihi_image_solve)
+        automatic_solving_thread = threading.Thread(
+            target=self.automatic_opihi_image_solve
+        )
         automatic_solving_thread.start()
-
 
     def check_automatic_stops(self) -> bool:
         """This function checks for the stops to stop the automatic triggering
@@ -598,7 +624,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             else:
                 stop = True
 
-            # The automatic mode should not be running during the day. We set 
+            # The automatic mode should not be running during the day. We set
             # this time as a "good enough" always-daytime limit. This also serves
             # to stop it.
             current_24hour_time = int(time.strftime("%H"))
@@ -613,77 +639,92 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             stop_file_fname = "opihiexarata"
             stop_file_ext = "stop"
             stop_file_pathname = library.path.merge_pathname(
-                directory=stop_file_dir, filename=stop_file_fname, extension=stop_file_ext
+                directory=stop_file_dir,
+                filename=stop_file_fname,
+                extension=stop_file_ext,
             )
             if os.path.exists(stop_file_pathname):
                 self.loop_state = "halted"
                 stop = True
 
         except Exception as err:
-            # For some reason, one of the stop checks could not be done 
+            # For some reason, one of the stop checks could not be done
             # properly, we stop.
             stop = True
 
         # All done.
         return stop
 
-    def preprocess_opihi_image(self, filename:str) -> str:
-        """This function preprocess an Opihi image, where available and 
+    def preprocess_opihi_image(self, filename: str) -> str:
+        """This function preprocess an Opihi image, where available and
         returns the filename of the preprocessed file.
-        
+
         Parameters
         ----------
         filename : string
             The filename of file which will be preprocessed.
-            
+
         Returns
         -------
         preprocess_filename : string
-            The filename of the file which has been preprocessed with the 
+            The filename of the file which has been preprocessed with the
             preprocessed solution of this class instance.
         """
         # We first need to check that we have a preprocess solution.
-        if not isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
-            raise error.InputError("The preprocess solution does not exist, we cannot preprocess any data.")
-        
+        if not isinstance(
+            self.preprocess_solution, opihiexarata.OpihiPreprocessSolution
+        ):
+            raise error.InputError(
+                "The preprocess solution does not exist, we cannot preprocess any data."
+            )
+
         # We check if the file was already preprocessed.
         header, __ = library.fits.read_fits_image_file(filename=filename)
         is_preprocessed = header.get("OXM_REDU", False)
         if is_preprocessed:
             # The file is already preprocessed, nothing to do.
             return filename
-        
+
         # Deriving the preprocessed filename.
-        file_dir, file_base, file_ext = library.path.split_pathname(
-                    pathname=filename
-                )
+        file_dir, file_base, file_ext = library.path.split_pathname(pathname=filename)
         preprocess_filename = library.path.merge_pathname(
-                    directory=file_dir,
-                    filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
-                    extension=file_ext,
-                )
-        
+            directory=file_dir,
+            filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
+            extension=file_ext,
+        )
+
         # Finally, we attempt to preprocess the data.
         try:
             self.preprocess_solution.preprocess_fits_file(
-                    raw_filename=filename,
-                    out_filename=preprocess_filename,
-                    overwrite=True,
-                )
+                raw_filename=filename,
+                out_filename=preprocess_filename,
+                overwrite=True,
+            )
         except Exception as err:
             # Sending out a warning.
-            error.warn(warn_class=error.UnknownWarning, message="The data could not be preprocessed, an error was thrown: {e}".format(e=err))
+            error.warn(
+                warn_class=error.UnknownWarning,
+                message=(
+                    "The data could not be preprocessed, an error was thrown: {e}".format(
+                        e=err
+                    )
+                ),
+            )
             # For some reason, the preprocessing failed. Reverting.
             preprocess_filename = filename
         # All done.
         return preprocess_filename
 
     @staticmethod
-    def solve_opihi_image(filename:str, astrometry_engine:hint.AstrometryEngine, photometry_engine:hint.PhotometryEngine) -> hint.OpihiSolution:
+    def solve_opihi_image(
+        filename: str,
+        astrometry_engine: hint.AstrometryEngine,
+        photometry_engine: hint.PhotometryEngine,
+    ) -> hint.OpihiSolution:
         """This function solves the Opihi image provided by the filename.
-        
+
         We use a static method here to be a little more thread safe.
-        
+
         Parameters
         ----------
         filename : string
@@ -692,11 +733,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             The astrometry engine to use.
         photometry_engine : PhotometryEngine
             The photometry engine to use.
-            
+
         Returns
         -------
         opihi_solution : OpihiSolution
-            The solution class of the Opihi image after it has been solved 
+            The solution class of the Opihi image after it has been solved
             (or at least attempted to be).
         """
         # Extracting the header of this fits file to get the observing
@@ -737,16 +778,20 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 vehicle_args={},
             )
             __, __ = opihi_solution.solve_photometry(
-                    solver_engine=photometry_engine,
-                    overwrite=True,
-                    raise_on_error=True,
-                    vehicle_args={},
-                )
-    
+                solver_engine=photometry_engine,
+                overwrite=True,
+                raise_on_error=True,
+                vehicle_args={},
+            )
+
         except error.ExarataException as err:
             # Something went wrong with the solving. We do nothing more.
-            error.warn(warn_class=error.InputWarning, message="The filename {f} failed to solve with the error {e}".format(f=filename, e=err))
-    
+            error.warn(
+                warn_class=error.InputWarning,
+                message="The filename {f} failed to solve with the error {e}".format(
+                    f=filename, e=err
+                ),
+            )
 
         # All done.
         return opihi_solution
@@ -801,8 +846,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
         return None
-
-
 
     def refresh_window(self) -> None:
         """Refreshes the GUI window with new information where available.
@@ -979,16 +1022,15 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # All done.
         return None
 
-    
     def closeEvent(self, event) -> None:
-        """We override the original Qt close event to take into account the 
+        """We override the original Qt close event to take into account the
         automatic loop.
-        
+
         Parameters
         ----------
         event : ?
             The event that occurs.
-        
+
         Returns
         -------
         None
@@ -999,7 +1041,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         event.accept()
         # All done.
         return None
-
 
 
 def start_automatic_window() -> None:
@@ -1026,19 +1067,3 @@ def start_automatic_window() -> None:
 
 if __name__ == "__main__":
     start_automatic_window()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

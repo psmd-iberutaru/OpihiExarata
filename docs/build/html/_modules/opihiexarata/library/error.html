@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.library.error &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -579,6 +579,28 @@
 <div class="viewcode-block" id="ExarataWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.ExarataWarning">[docs]</a><span class="k">class</span> <span class="nc">ExarataWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base warning class which all of the other OpihiExarata warnings</span>
 <span class="sd">    are derived from.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="AccuracyWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.AccuracyWarning">[docs]</a><span class="k">class</span> <span class="nc">AccuracyWarning</span><span class="p">(</span><span class="n">ExarataWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This warning is to be used when something is not as accurate as it</span>
+<span class="sd">    should be.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InputWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.InputWarning">[docs]</a><span class="k">class</span> <span class="nc">InputWarning</span><span class="p">(</span><span class="n">ExarataWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This warning is to be used when something was incorrectly input.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="FilterWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.FilterWarning">[docs]</a><span class="k">class</span> <span class="nc">FilterWarning</span><span class="p">(</span><span class="n">ExarataWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This warning is to be used when improper filters were used.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SequentialOrderWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.SequentialOrderWarning">[docs]</a><span class="k">class</span> <span class="nc">SequentialOrderWarning</span><span class="p">(</span><span class="n">ExarataWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This warning is to be used when something is being done out of order or</span>
+<span class="sd">    the specific order is not being followed..&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="UnknownWarning"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.UnknownWarning">[docs]</a><span class="k">class</span> <span class="nc">UnknownWarning</span><span class="p">(</span><span class="n">ExarataWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This warning is to be used when something was incorrectly input.&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="warn"><a class="viewcode-back" href="../../../code/opihiexarata.library.error.html#opihiexarata.library.error.warn">[docs]</a><span class="k">def</span> <span class="nf">warn</span><span class="p">(</span>

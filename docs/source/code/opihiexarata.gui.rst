@@ -19,6 +19,7 @@ Submodules
    opihiexarata.gui.functions
    opihiexarata.gui.manual
    opihiexarata.gui.name
+   opihiexarata.gui.old_automatic
    opihiexarata.gui.selector
 
 Module contents

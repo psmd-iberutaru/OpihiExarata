@@ -328,11 +328,13 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
             raise error.InputError(
                 "The data release version provided is not supported."
             )
-        
+
         # Pan-STARRS only supports a declination of greater than -30 deg.
         if dec <= -30.0:
             raise error.EngineError(
-                "The Pan-STARRS survey does not have any sky coverage lower than declination -30 degrees. The current queried declination is {d} degrees.".format(d=dec)
+                "The Pan-STARRS survey does not have any sky coverage lower than"
+                " declination -30 degrees. The current queried declination is {d}"
+                " degrees.".format(d=dec)
             )
 
         # The MAST API service is a url request. Constructing the URL based on

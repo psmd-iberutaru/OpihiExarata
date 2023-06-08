@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.error module &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.library.error module &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -422,6 +422,14 @@
 <span id="opihiexarata-library-error-module"></span><h1>opihiexarata.library.error module<a class="headerlink" href="#module-opihiexarata.library.error" title="Permalink to this heading"></a></h1>
 <p>Error, warning, and logging functionality pertinent to the function of Exarata.</p>
 <dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.AccuracyWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">AccuracyWarning</span></span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#AccuracyWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.AccuracyWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataWarning" title="opihiexarata.library.error.ExarataWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataWarning</span></code></a></p>
+<p>This warning is to be used when something is not as accurate as it
+should be.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.BeyondScopeError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">BeyondScopeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#BeyondScopeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.BeyondScopeError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
@@ -537,11 +545,25 @@ and something fails.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.FilterWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">FilterWarning</span></span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#FilterWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.FilterWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataWarning" title="opihiexarata.library.error.ExarataWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataWarning</span></code></a></p>
+<p>This warning is to be used when improper filters were used.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.InputError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">InputError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#InputError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.InputError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataException" title="opihiexarata.library.error.ExarataException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataException</span></code></a></p>
 <p>An error to be used when the inputs to a function are not valid and do
 not match the expectations of that function.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.InputWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">InputWarning</span></span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#InputWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.InputWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataWarning" title="opihiexarata.library.error.ExarataWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataWarning</span></code></a></p>
+<p>This warning is to be used when something was incorrectly input.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -598,12 +620,27 @@ reasons.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.SequentialOrderWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">SequentialOrderWarning</span></span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#SequentialOrderWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.SequentialOrderWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataWarning" title="opihiexarata.library.error.ExarataWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataWarning</span></code></a></p>
+<p>This warning is to be used when something is being done out of order or
+the specific order is not being followed..</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="opihiexarata.library.error.UndiscoveredError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">UndiscoveredError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#UndiscoveredError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.UndiscoveredError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataBaseException" title="opihiexarata.library.error.ExarataBaseException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataBaseException</span></code></a></p>
 <p>This is an error used in cases where the source of the error has not
 been determined and so a more helpful error message or mitigation strategy
 cannot be devised.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="opihiexarata.library.error.UnknownWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.library.error.</span></span><span class="sig-name descname"><span class="pre">UnknownWarning</span></span><a class="reference internal" href="../_modules/opihiexarata/library/error.html#UnknownWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.error.UnknownWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opihiexarata.library.error.ExarataWarning" title="opihiexarata.library.error.ExarataWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExarataWarning</span></code></a></p>
+<p>This warning is to be used when something was incorrectly input.</p>
 </dd></dl>
 
 <dl class="py exception">

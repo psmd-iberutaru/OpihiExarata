@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -1602,7 +1602,13 @@
             <span class="n">search_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_gaussian_param</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">search_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">y_gaussian_param</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="n">error</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">warn_class</span><span class="o">=</span><span class="n">error</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The centroid of the star could not be computed using Gaussian&quot;</span>
+                    <span class="s2">&quot; cross sections; we are using maximum pixel instead.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
             <span class="c1"># Something happened and for some reason the Gaussian method did</span>
             <span class="c1"># not work as intended. We fall back to a far more robust but</span>
             <span class="c1"># inaccurate approach of determining the center based on the</span>

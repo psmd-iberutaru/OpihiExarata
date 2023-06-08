@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.photometry.solution &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -929,8 +929,11 @@
         <span class="c1"># which otherwise would skew our results.</span>
         <span class="c1"># Stars which are too bright saturate our detector. We limit based on</span>
         <span class="c1"># the magnitude as specified. A dimmer object has a higher magnitude.</span>
-        <span class="n">LIM_MAG</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE</span>
-        <span class="n">invalid_filter_magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="n">LIM_MAG</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">DIM_MAG</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_ZERO_POINT_DIMMEST_MAGNITUDE</span>
+        <span class="n">BRIGHT_MAG</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">PHOTOMETRY_ZERO_POINT_BRIGHTEST_MAGNITUDE</span>
+        <span class="n">invalid_filter_magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">BRIGHT_MAG</span> <span class="o">&lt;=</span> <span class="n">magnitude</span><span class="p">,</span> <span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="n">DIM_MAG</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span>
+        <span class="p">)</span>
         <span class="c1"># We only can use count data which is actually valid, using invalid</span>
         <span class="c1"># count data corrupts our instrument magnitudes and everything else</span>
         <span class="c1"># down the line.</span>
@@ -946,7 +949,9 @@
 
         <span class="c1"># Zero points via the definition equation</span>
         <span class="n">zero_points</span> <span class="o">=</span> <span class="n">valid_magnitude</span> <span class="o">-</span> <span class="n">valid_inst_magnitude</span>
-        <span class="n">zero_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">zero_points</span><span class="p">)</span>
+        <span class="c1"># Zero points are technically a magnitude so we can only find its</span>
+        <span class="c1"># average by converting to linear space.</span>
+        <span class="n">zero_point</span> <span class="o">=</span> <span class="o">-</span><span class="n">sqrt5_100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">zero_points</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">)))</span>
         <span class="c1"># We use the error on the mean, but instead we use medians and its</span>
         <span class="c1"># standard deviation equivalent to be robust to bad data points.</span>
         <span class="n">n_stars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">zero_points</span><span class="p">))</span>

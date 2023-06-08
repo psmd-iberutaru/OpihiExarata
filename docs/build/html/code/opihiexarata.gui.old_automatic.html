@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opihiexarata.gui.old_automatic module &mdash; OpihiExarata 2023.6.7 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opihiexarata.gui.selector module" href="opihiexarata.gui.selector.html" />
+    <link rel="prev" title="opihiexarata.gui.name module" href="opihiexarata.gui.name.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpihiExarata
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/opihi_telescope.html">Opihi Telescope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/system_framework.html">System Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/system_framework.html#engines">Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/system_framework.html#vehicles-and-solutions">Vehicles and Solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/command_line.html">Command Line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/command_line.html#available-actions">Available Actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#manual">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#automatic">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#generate">Generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user/command_line.html#available-options">Available Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#id1">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#id2">Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#id3">Automatic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#secrets">Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#overwrite">Overwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/command_line.html#keep-temporary">Keep Temporary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/manual_mode.html">Manual Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/manual_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/manual_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#specify-new-target-name">Specify New Target Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#take-and-image">Take and Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#find-asteroid-location">Find Asteroid Location</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../user/manual_mode.html#target-selector-gui">Target Selector GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#compute-astrometric-solution">Compute Astrometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#compute-photometric-solution">Compute Photometric Solution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-on-sky-position">Asteroid On-Sky Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#historical-observations">Historical Observations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-observation-record">Asteroid Observation Record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-position-propagation">Asteroid Position Propagation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#orbital-elements">Orbital Elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#ephemeris">Ephemeris</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#asteroid-on-sky-future-track">Asteroid On-Sky Future Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/manual_mode.html#telescope-control-software-update">Telescope Control Software: Update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/automatic_mode.html">Automatic Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/automatic_mode.html#graphical-user-interface">Graphical User Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/automatic_mode.html#procedure">Procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#start-and-open-gui">Start and Open GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#specify-data-directory">Specify Data Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#specify-solving-engines">Specify Solving Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#trigger-continuous-images">Trigger Continuous Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#trigger-automatic-solving">Trigger Automatic Solving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../user/automatic_mode.html#trigger-once-manually">Trigger Once Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#displayed-status-and-results">Displayed Status and Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/automatic_mode.html#stop-automatic-solving">Stop Automatic Solving</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#standard-configuration-file">Standard Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/configuration.html#secrets-configuration-file">Secrets Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/recording_fits_file.html">Recording FITS File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/recording_fits_file.html#header-naming-convention">Header Naming Convention</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/citations.html">Citations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/citations.html#references">References</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#nasa-infrared-telescope-facility">NASA Infrared Telescope Facility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#mast">MAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#minor-planet-center">Minor Planet Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#scipy">Scipy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#matplotlib">Matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#astropy">Astropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#numpy">Numpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#gaia">Gaia</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#pan-starrs1">Pan-STARRS1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#jpl-horizons">JPL Horizons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#astrometry-net">Astrometry.net</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user/citations.html#acknowledgements">Acknowledgements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user/citations.html#opihiexarata-processing-image">OpihiExarata Processing Image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/trivia.html">Trivia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/trivia.html#etymology-of-opihiexarata">Etymology of OpihiExarata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">Technical Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/installation/index.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#automated-scripts">Automated Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/index.html#script-usage">Script Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/installation/index.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/download.html">Install: Download</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/download.html#via-git-recommended">Via git (Recommended)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/download.html#via-zip-archive">Via .zip Archive</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/python.html">Install: Python Part</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/python.html#download">Download</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/python.html#build">Build</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/python.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/documentation.html">Optional: Documentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/documentation.html#build">Build</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/windows.html">Optional: Windows Compatibility</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#powershell-execution-policy">Powershell Execution Policy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#windows-subsystem-for-linux">Windows Subsystem for Linux</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#verify">Verify</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/windows.html#final">Final</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/installation/orbfit.html">Install: Orbfit</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#download-orbfit">Download OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#compile">Compile</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#download-jpl-ephemerides-file">Download JPL Ephemerides File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#testing-suite">Testing Suite</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#executable-path-for-configuration-file">Executable Path for Configuration File</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/installation/orbfit.html#opihiexarata-template-files">OpihiExarata Template Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/architecture/index.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/services_engines.html">Services and Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometryengines">AstrometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#astrometry-net-nova">Astrometry.net Nova</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#photometryengines">PhotometryEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#pan-starrs-3pi-dr2-mast">Pan-STARRS 3pi DR2 MAST</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#orbitengines">OrbitEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#orbfit">OrbFit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#custom-orbit">Custom Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#ephemerisengines">EphemerisEngines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#jpl-horizons">JPL Horizons</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/services_engines.html#propagationengine">PropagationEngine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#linear">Linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/services_engines.html#quadratic">Quadratic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html">Vehicles and Solutions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#vehicles">Vehicles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#astrometry-vehicle-functions">Astrometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#photometry-vehicle-functions">Photometry Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#orbit-vehicle-functions">Orbit Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#ephemeris-vehicle-functions">Ephemeris Vehicle Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#propagation-vehicle-functions">Propagation Vehicle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#solution">Solution</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihisolution">OpihiSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihipreprocesssolution">OpihiPreprocessSolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../technical/architecture/vehicles_solutions.html#opihizeropointdatabasesolution">OpihiZeroPointDatabaseSolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/library.html">Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#conversion">Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#engines">Engines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#error">Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#fits-file-handing">FITS File Handing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#type-hinting">Type Hinting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#http-calls">HTTP Calls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#image-array-processing">Image Array Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#json-parsing">JSON Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#minor-planet-center-records">Minor Planet Center Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#file-and-directory-path-manipulations">File and Directory Path Manipulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#photometric-and-astrometric-data-handing-table">Photometric and Astrometric Data Handing Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#telescope-control-software">Telescope Control Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/library.html#temporary-directory">Temporary Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html">Graphical User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#qt-designer">Qt Designer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/graphical_user_interface.html#building-ui-files">Building UI Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/architecture/monitor_database.html">Monitor Database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/architecture/monitor_database.html#managing-the-database">Managing the Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/conventions.html">Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#sky-coordinate-systems">Sky-Coordinate Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#code-style">Code Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#formatting-style">Formatting Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#type-hinting">Type Hinting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#documentation-files">Documentation Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#main-body-files">Main Body Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#image-files">Image Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/conventions.html#python-docstrings">Python Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/conventions.html#filter-names">Filter Names</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/algorithms/index.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html">Photometric Zero Point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#calculating-magnitude">Calculating Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#filtering-considerations">Filtering Considerations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/photometric_zero_point.html#limiting-by-magnitude">Limiting by Magnitude</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html">Polynomial Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#coordinate-conversion">Coordinate Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#fitting-coordinates">Fitting Coordinates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/polynomial_propagation.html#wrap-around">Wrap Around</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html">Spherical Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#definitions">Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#deriving-rates">Deriving Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#spherical-motion">Spherical Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#celestial-sphere">Celestial Sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#lemmas">Lemmas</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../technical/algorithms/spherical_kinematics.html#derivation-of-vector-equation-of-motion">Derivation of Vector Equation of Motion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opihiexarata</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opihiexarata.html">opihiexarata package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opihiexarata.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.astrometry.html">opihiexarata.astrometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.astrometry.html#module-opihiexarata.astrometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.ephemeris.html">opihiexarata.ephemeris package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.ephemeris.html#module-opihiexarata.ephemeris">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="opihiexarata.gui.html">opihiexarata.gui package</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5 current"><a class="reference internal" href="opihiexarata.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.gui.html#module-opihiexarata.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.library.html">opihiexarata.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.library.html#module-opihiexarata.library">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.opihi.html">opihiexarata.opihi package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.opihi.html#module-opihiexarata.opihi">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.orbit.html">opihiexarata.orbit package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.orbit.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.orbit.html#module-opihiexarata.orbit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.photometry.html">opihiexarata.photometry package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.photometry.html#module-opihiexarata.photometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.propagate.html">opihiexarata.propagate package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.propagate.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.propagate.html#module-opihiexarata.propagate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opihiexarata.__main__.html">opihiexarata.__main__ module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.__main__.html#opihiexarata.__main__.__main_execute_arguments"><code class="docutils literal notranslate"><span class="pre">__main_execute_arguments()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.__main__.html#opihiexarata.__main__.__main_parse_arguments"><code class="docutils literal notranslate"><span class="pre">__main_parse_arguments()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="opihiexarata.__main__.html#opihiexarata.__main__.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opihiexarata.html#module-opihiexarata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpihiExarata</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">opihiexarata</a></li>
+          <li class="breadcrumb-item"><a href="opihiexarata.html">opihiexarata package</a></li>
+          <li class="breadcrumb-item"><a href="opihiexarata.gui.html">opihiexarata.gui package</a></li>
+      <li class="breadcrumb-item active">opihiexarata.gui.old_automatic module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/opihiexarata.gui.old_automatic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-opihiexarata.gui.old_automatic">
+<span id="opihiexarata-gui-old-automatic-module"></span><h1>opihiexarata.gui.old_automatic module<a class="headerlink" href="#module-opihiexarata.gui.old_automatic" title="Permalink to this heading"></a></h1>
+<p>This is where the automatic mode window is implemented.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.old_automatic.</span></span><span class="sig-name descname"><span class="pre">OpihiAutomaticWindow</span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_change_directory">
+<span class="sig-name descname"><span class="pre">__connect_push_button_change_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_change_directory" title="Permalink to this definition"></a></dt>
+<dd><p>The connection for the button to change the automatic fetch
+directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_start">
+<span class="sig-name descname"><span class="pre">__connect_push_button_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_start" title="Permalink to this definition"></a></dt>
+<dd><p>This enables the automatic active mode by changing the flag and
+starting the process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_stop">
+<span class="sig-name descname"><span class="pre">__connect_push_button_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_stop" title="Permalink to this definition"></a></dt>
+<dd><p>This disables the automatic active mode by changing the flag. The
+loop itself should detect that the flag has changed. It finishes the
+current process but does not fetch any more.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_trigger">
+<span class="sig-name descname"><span class="pre">__connect_push_button_trigger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__connect_push_button_trigger" title="Permalink to this definition"></a></dt>
+<dd><p>This does one process, fetching a single image and processing it as
+normal. However, it does not trigger the automatic mode loop as it is
+built for a single image only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>The automatic GUI window for OpihiExarata. This interacts with
+the user with regards to the automatic solving mode of Opihi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init_gui_connections">
+<span class="sig-name descname"><span class="pre">__init_gui_connections</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init_gui_connections" title="Permalink to this definition"></a></dt>
+<dd><p>Creating the function connections for the GUI interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init_preprocess_solution">
+<span class="sig-name descname"><span class="pre">__init_preprocess_solution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init_preprocess_solution" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the preprocessing solution. The preprocessing files
+should be specified in the configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__refresh_dynamic_label_text">
+<span class="sig-name descname"><span class="pre">__refresh_dynamic_label_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__refresh_dynamic_label_text" title="Permalink to this definition"></a></dt>
+<dd><p>Refreshes the GUI window’s dynamic text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__write_zero_point_record_to_database">
+<span class="sig-name descname"><span class="pre">__write_zero_point_record_to_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opihi_solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__write_zero_point_record_to_database" title="Permalink to this definition"></a></dt>
+<dd><p>This function writes the zero point information assuming a solved
+photometric solution. This function is so that threading this process
+away is a lot easier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>opihi_solution</strong> (<a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><em>OpihiSolution</em></a>) – The solution class of the image.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_check_stops">
+<span class="sig-name descname"><span class="pre">_automatic_triggering_check_stops</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow._automatic_triggering_check_stops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_check_stops" title="Permalink to this definition"></a></dt>
+<dd><p>This function checks for the stops to stop the automatic triggering
+of the next image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>stop_check</strong> – This is the flag which signifies if the triggering should stop or
+not. If True, the triggering should stop.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop">
+<span class="sig-name descname"><span class="pre">_automatic_triggering_infinite_loop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow._automatic_triggering_infinite_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop" title="Permalink to this definition"></a></dt>
+<dd><p>This is where the actual infinite loop is done.</p>
+<p>All of the stops are checked before a new trigger is executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.automatic_triggering">
+<span class="sig-name descname"><span class="pre">automatic_triggering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.automatic_triggering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.automatic_triggering" title="Permalink to this definition"></a></dt>
+<dd><p>This function executes the continuous running automatic mode loop.</p>
+<p>All of the stops are checked before a new trigger is executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.fetch_new_filename">
+<span class="sig-name descname"><span class="pre">fetch_new_filename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.fetch_new_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.fetch_new_filename" title="Permalink to this definition"></a></dt>
+<dd><p>This function fetches a new fits filename based on the most recent
+filename within the automatic fetching directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fetched_filename</strong> – The filename that was fetched. It is the most recent file added to
+the automatic fetching directory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.refresh_window">
+<span class="sig-name descname"><span class="pre">refresh_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.refresh_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.refresh_window" title="Permalink to this definition"></a></dt>
+<dd><p>Refreshes the GUI window with new information where available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.reset_window">
+<span class="sig-name descname"><span class="pre">reset_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.reset_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.reset_window" title="Permalink to this definition"></a></dt>
+<dd><p>This function resets the window to the default values or
+parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image">
+<span class="sig-name descname"><span class="pre">solve_astrometry_photometry_single_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution"><span class="pre">OpihiSolution</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.solve_astrometry_photometry_single_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image" title="Permalink to this definition"></a></dt>
+<dd><p>This solves for the astrometric and photometric solutions of a
+provided file. The engines are provided based on the dropdown menus.</p>
+<p>Note this calculation does not affect the <cite>opihi_solution</cite> instance of
+the class. That is a job for a different function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – The filename of the fits file to be solved.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>opihi_solution</strong> – The solution with the astrometry and photometry engines solved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution" title="opihiexarata.opihi.solution.OpihiSolution">OpihiSolution</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;OpihiAutomaticWindow&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QMainWindow&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.staticMetaObject" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.trigger_next_image_solve">
+<span class="sig-name descname"><span class="pre">trigger_next_image_solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.trigger_next_image_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.trigger_next_image_solve" title="Permalink to this definition"></a></dt>
+<dd><p>This function triggers the next iteration of the automatic solving
+loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.OpihiAutomaticWindow.verify_new_filename">
+<span class="sig-name descname"><span class="pre">verify_new_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetched_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#OpihiAutomaticWindow.verify_new_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.verify_new_filename" title="Permalink to this definition"></a></dt>
+<dd><p>This function verifies if the new filename is actually new, or it
+is a file that has already been fetched before.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fetched_filename</strong> (<em>string</em>) – The filename which was fetched which will be verified.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>verification</strong> – The state of the verification that the fetched file is a new file.
+If True, it is a valid and new file to be solved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.gui.old_automatic.start_automatic_window">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.gui.old_automatic.</span></span><span class="sig-name descname"><span class="pre">start_automatic_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opihiexarata/gui/old_automatic.html#start_automatic_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.gui.old_automatic.start_automatic_window" title="Permalink to this definition"></a></dt>
+<dd><p>This is the function to create the automatic window for usage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opihiexarata.gui.name.html" class="btn btn-neutral float-left" title="opihiexarata.gui.name module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opihiexarata.gui.selector.html" class="btn btn-neutral float-right" title="opihiexarata.gui.selector module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kenji Sparrow Emerson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

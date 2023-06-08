@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2023.5.18 documentation</title>
+  <title>opihiexarata.astrometry.webclient &mdash; OpihiExarata 2023.6.7 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -475,21 +475,21 @@
         <span class="c1"># Base parameters.</span>
         <span class="c1"># The default arguments for uploading files. In (key, value, type) form.</span>
         <span class="c1"># Detailed is also their usage cases per</span>
-        <span class="c1"># http://astrometry.net/doc/net/api.html#submitting-a-url</span>
+        <span class="c1"># https://astrometrynet.readthedocs.io/en/latest/net/api.html</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_URL_ARGUMENTS</span> <span class="o">=</span> <span class="p">[</span>
             <span class="c1"># These parameters are for licensing and distribution terms.</span>
             <span class="p">(</span><span class="s2">&quot;allow_commercial_use&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;allow_modifications&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
             <span class="c1"># For visibility by the general public.</span>
-            <span class="p">(</span><span class="s2">&quot;publicly_visible&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;publicly_visible&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
             <span class="c1"># Image scaling parameters, if provided, when known, helps the</span>
             <span class="c1"># processing a little.</span>
-            <span class="p">(</span><span class="s2">&quot;scale_units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">&quot;scale_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_units&quot;</span><span class="p">,</span> <span class="s2">&quot;degwidth&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_type&quot;</span><span class="p">,</span> <span class="s2">&quot;ev&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;scale_lower&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;scale_upper&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">&quot;scale_est&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">&quot;scale_err&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_est&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;scale_err&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
             <span class="c1"># These parameters allows for the establishment of an initial guess</span>
             <span class="c1"># specified byt he centers, and its maximal deviation as specified</span>
             <span class="c1"># by the radius parameter. (In degrees.)</span>
