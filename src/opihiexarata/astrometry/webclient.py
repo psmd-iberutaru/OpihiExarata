@@ -69,12 +69,12 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
             ("publicly_visible", "n", str),
             # Image scaling parameters, if provided, when known, helps the
             # processing a little.
-            ("scale_units", "degwidth", str),
-            ("scale_type", "ev", str),
-            ("scale_lower", None, float),
-            ("scale_upper", None, float),
-            ("scale_est", 0.5, float),
-            ("scale_err", 10, float),
+            ("scale_units", "arcsecperpix", str),
+            ("scale_type", "ul", str),
+            ("scale_lower", 0.9, float),
+            ("scale_upper", 1.0, float),
+            ("scale_est", None, float),
+            ("scale_err", None, float),
             # These parameters allows for the establishment of an initial guess
             # specified byt he centers, and its maximal deviation as specified
             # by the radius parameter. (In degrees.)
