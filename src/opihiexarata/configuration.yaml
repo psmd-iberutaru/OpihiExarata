@@ -189,6 +189,11 @@ MONITOR_PLOT_FILTER_1_LINE_COLOR : "#00FFFF"
 MONITOR_PLOT_FILTER_2_LINE_COLOR : "#FF00FF"
 MONITOR_PLOT_FILTER_B_LINE_COLOR : "#FFFF00"
 
+# The monitor plot uses datetime objects to display the time. By default, we 
+# use UTC as the timezone which to plot everything in. However, this can be 
+# modified here by supplying an IANA timezone name to convert to.
+MONITOR_PLOT_IANA_TIMEZONE : "Etc/UTC"
+
 ############################################################
 ##########     Opihi Preprocess Configuration
 ############################################################

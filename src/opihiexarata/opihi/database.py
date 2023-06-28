@@ -5,7 +5,9 @@ this class should monitor its own database."""
 
 import os
 import datetime
+import zoneinfo
 import glob
+import copy
 import astropy.table as ap_table
 import plotly.express as px
 
@@ -877,6 +879,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         plot_lower_zero_point: float = None,
         plot_upper_zero_point: float = None,
         include_plotlyjs: str = True,
+        using_timezone:str=None
     ) -> None:
         """This function creates the monitoring plot for the monitoring
         service webpage. It plots data from the zero point database depending
@@ -901,6 +904,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         include_plotlyjs : string, default = True
             The setting for how the plotly javascript file will be included.
             Consult the plotly documentation for available options.
+        using_timezone : string, default = None
+            The timezone to use for the plot. By default, we use UTC, but,
+            a different timezone can be provided to convert to.
 
         Returns
         -------
@@ -912,6 +918,15 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         zero_point_record_table = self.query_database_between_julian_days(
             begin_jd=plot_query_begin_jd - 1, end_jd=plot_query_end_jd + 1
         )
+        
+        # We convert to a different timezone if needed, else, we just add the 
+        # timezones to the original simple datetime objects.
+        using_timezone = "Etc/UTC" if using_timezone is None else using_timezone
+        zprc_datetimes = zero_point_record_table["datetime"]
+        # Converting the datetimes.
+        zprc_tz_datetimes = [library.conversion.datetime_timezone_1_to_timezone_2(from_datetime=datetimedex, from_timezone="Etc/UTC", to_timezone=using_timezone) for datetimedex in zprc_datetimes]
+        zero_point_record_table_timezone = copy.deepcopy(zero_point_record_table)
+        zero_point_record_table_timezone["datetime"][:] = zprc_tz_datetimes
 
         # We group similar filters into lines.
         symbol_group_table_key = "filter_name"
@@ -954,7 +969,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We make the plot here. Further visual and aesthetic formatting is
         # done below.
         fig = px.scatter(
-            zero_point_record_table.to_pandas(),
+            zero_point_record_table_timezone.to_pandas(),
             x=line_x_table_key,
             y=line_y_table_key,
             error_y=line_y_error_table_key,
@@ -974,11 +989,12 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         utc_now_tuple = library.conversion.julian_day_to_full_date(
             jd=library.conversion.current_utc_to_julian_day()
         )
-        utc_now_datetime = datetime.datetime(*int_only(utc_now_tuple))
-        utc_time_string = utc_now_datetime.strftime(iso_8601_time_format)
+        utc_now_datetime = datetime.datetime(*int_only(utc_now_tuple), tzinfo=zoneinfo.ZoneInfo("Etc/UTC"))
+        using_timezone_zoneinfo = zoneinfo.ZoneInfo(key=using_timezone)
+        tz_time_string = utc_now_datetime.astimezone(using_timezone_zoneinfo).strftime(iso_8601_time_format)
         fig.update_layout(
-            title_text="Opihi Zero Point Trends (Current: {curr} UTC)".format(
-                curr=utc_time_string
+            title_text="Opihi Zero Point Trends (Current: {curr} {tz})".format(
+                curr=tz_time_string, tz=using_timezone
             )
         )
         # All datetimes should have the same formatting. We rotate it so it
@@ -1068,6 +1084,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # And, the setting for how to handle the javascript.
         include_plotlyjs = library.config.MONITOR_PLOT_PLOTLY_JAVASCRIPT_METHOD
 
+        # The timezone which to convert to.
+        using_timezone = library.config.MONITOR_PLOT_IANA_TIMEZONE
+
         # Create the plot using this configuration parameters.
         self.create_plotly_monitoring_html_plot(
             html_filename=html_filename,
@@ -1076,6 +1095,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             plot_lower_zero_point=lower_zero_point,
             plot_upper_zero_point=upper_zero_point,
             include_plotlyjs=include_plotlyjs,
+            using_timezone=using_timezone,
         )
         # All done.
         return None

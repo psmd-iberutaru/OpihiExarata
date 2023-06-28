@@ -14,6 +14,8 @@ from typing import *
 from collections import *
 from collections.abc import *
 
+from datetime import *
+
 from argparse import ArgumentParser, Namespace
 
 from astropy.io.fits import Header, FITS_rec
