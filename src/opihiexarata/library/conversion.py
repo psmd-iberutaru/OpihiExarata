@@ -325,12 +325,14 @@ def current_utc_to_julian_day() -> float:
     return current_jd
 
 
-def datetime_timezone_1_to_timezone_2(from_datetime:hint.Union[hint.datetime, str], from_timezone:str, to_timezone:str) -> hint.datetime:
+def datetime_timezone_1_to_timezone_2(
+    from_datetime: hint.Union[hint.datetime, str], from_timezone: str, to_timezone: str
+) -> hint.datetime:
     """This function converts a date time from one timezone to another timezone.
-    
+
     If the datetime provided is a string of an ISO 8601 time, we convert it,
     otherwise, we raise. The timezones provided can be any IANA timezone.
-    
+
     Parameters
     ----------
     from_datetime : datetime or str
@@ -347,25 +349,39 @@ def datetime_timezone_1_to_timezone_2(from_datetime:hint.Union[hint.datetime, st
     """
     # Check if the datetime is really a datetime or a string representation
     # thereof.
-    iso_8601_time_format = R"%Y-%m-%d %H:%M:%S"
     if isinstance(from_datetime, datetime.datetime):
         # All good.
         pass
     elif isinstance(from_datetime, str):
         # Try and convert.
         try:
-
-            from_datetime = datetime.strptime(from_datetime, format=iso_8601_time_format)
+            from_datetime = datetime.datetime.fromisoformat(from_datetime)
         except ValueError:
-            raise error.InputError("The string format of the datetime is not valid and cannot be converted. The input: {inp}".format(inp=from_datetime))
+            raise error.InputError(
+                "The string format of the datetime is not valid and cannot be"
+                " converted. We require it to be in an ISO 8601-like format. The input:"
+                " {inp}".format(inp=from_datetime)
+            )
     else:
-        raise error.InputError("The datetime input provided is neither a datetime or a datetime string to be converted. The input: {inp}".format(inp=from_datetime))
-    
+        raise error.InputError(
+            "The datetime input provided is neither a datetime or a datetime string to"
+            " be converted. The input: {inp}".format(inp=from_datetime)
+        )
+
     # Adding the important timezone information, using the built in class.
     from_timezone = zoneinfo.ZoneInfo(key=from_timezone)
     to_timezone = zoneinfo.ZoneInfo(key=to_timezone)
     # Adding it to the datetime.
-    from_datetime_zone_aware = datetime.datetime(year=from_timezone.year, month=from_timezone.month, day=from_timezone.day, hour=from_timezone.hour, minute=from_timezone.minute, second=from_timezone.second, microsecond=from_timezone.microsecond, tzinfo=from_timezone)
+    from_datetime_zone_aware = datetime.datetime(
+        year=from_datetime.year,
+        month=from_datetime.month,
+        day=from_datetime.day,
+        hour=from_datetime.hour,
+        minute=from_datetime.minute,
+        second=from_datetime.second,
+        microsecond=from_datetime.microsecond,
+        tzinfo=from_timezone,
+    )
     # Converting it to a different timezone.
     to_datetime = from_datetime_zone_aware.astimezone(to_timezone)
     return to_datetime

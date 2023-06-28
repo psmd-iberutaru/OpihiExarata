@@ -879,7 +879,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         plot_lower_zero_point: float = None,
         plot_upper_zero_point: float = None,
         include_plotlyjs: str = True,
-        using_timezone:str=None
+        using_timezone: str = None,
     ) -> None:
         """This function creates the monitoring plot for the monitoring
         service webpage. It plots data from the zero point database depending
@@ -918,15 +918,25 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         zero_point_record_table = self.query_database_between_julian_days(
             begin_jd=plot_query_begin_jd - 1, end_jd=plot_query_end_jd + 1
         )
-        
-        # We convert to a different timezone if needed, else, we just add the 
+
+        # We convert to a different timezone if needed, else, we just add the
         # timezones to the original simple datetime objects.
         using_timezone = "Etc/UTC" if using_timezone is None else using_timezone
         zprc_datetimes = zero_point_record_table["datetime"]
         # Converting the datetimes.
-        zprc_tz_datetimes = [library.conversion.datetime_timezone_1_to_timezone_2(from_datetime=datetimedex, from_timezone="Etc/UTC", to_timezone=using_timezone) for datetimedex in zprc_datetimes]
+        zprc_tz_datetimes = [
+            library.conversion.datetime_timezone_1_to_timezone_2(
+                from_datetime=datetimedex,
+                from_timezone="Etc/UTC",
+                to_timezone=using_timezone,
+            )
+            for datetimedex in zprc_datetimes
+        ]
         zero_point_record_table_timezone = copy.deepcopy(zero_point_record_table)
         zero_point_record_table_timezone["datetime"][:] = zprc_tz_datetimes
+
+        print(zero_point_record_table)
+        print(zero_point_record_table_timezone)
 
         # We group similar filters into lines.
         symbol_group_table_key = "filter_name"
@@ -989,9 +999,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         utc_now_tuple = library.conversion.julian_day_to_full_date(
             jd=library.conversion.current_utc_to_julian_day()
         )
-        utc_now_datetime = datetime.datetime(*int_only(utc_now_tuple), tzinfo=zoneinfo.ZoneInfo("Etc/UTC"))
+        utc_now_datetime = datetime.datetime(
+            *int_only(utc_now_tuple), tzinfo=zoneinfo.ZoneInfo("Etc/UTC")
+        )
         using_timezone_zoneinfo = zoneinfo.ZoneInfo(key=using_timezone)
-        tz_time_string = utc_now_datetime.astimezone(using_timezone_zoneinfo).strftime(iso_8601_time_format)
+        tz_time_string = utc_now_datetime.astimezone(using_timezone_zoneinfo).strftime(
+            iso_8601_time_format
+        )
         fig.update_layout(
             title_text="Opihi Zero Point Trends (Current: {curr} {tz})".format(
                 curr=tz_time_string, tz=using_timezone
@@ -1012,7 +1026,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         fig.update_layout(hovermode="x unified")
         # We also fix the x-axis and y-axis and legend title.
         fig.update_layout(
-            xaxis_title="Time", yaxis_title="Zero Point", legend_title_text="Filter"
+            xaxis_title="Time - {tz}".format(tz=using_timezone),
+            yaxis_title="Zero Point",
+            legend_title_text="Filter",
         )
 
         # We only want to plot between the provided time range. We queried

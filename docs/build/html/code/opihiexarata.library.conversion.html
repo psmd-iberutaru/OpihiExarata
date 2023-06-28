@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2023.6.7 documentation</title>
+  <title>opihiexarata.library.conversion module &mdash; OpihiExarata 2023.6.27 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -440,6 +440,29 @@ time.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="opihiexarata.library.conversion.datetime_timezone_1_to_timezone_2">
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">datetime_timezone_1_to_timezone_2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_datetime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_timezone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_timezone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">datetime</span></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#datetime_timezone_1_to_timezone_2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.datetime_timezone_1_to_timezone_2" title="Permalink to this definition"></a></dt>
+<dd><p>This function converts a date time from one timezone to another timezone.</p>
+<p>If the datetime provided is a string of an ISO 8601 time, we convert it,
+otherwise, we raise. The timezones provided can be any IANA timezone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>from_datetime</strong> (<em>datetime</em><em> or </em><em>str</em>) – The data time, or string representation of one to convert.</p></li>
+<li><p><strong>from_timezone</strong> (<em>str</em>) – The timezone which date_time is currently in.</p></li>
+<li><p><strong>to_timezone</strong> (<em>str</em>) – The timezone which we are converting to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>to_datetime</strong> – The datetime after the conversion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.conversion.decimal_day_to_julian_day">
 <span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">decimal_day_to_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#decimal_day_to_julian_day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.decimal_day_to_julian_day" title="Permalink to this definition"></a></dt>
 <dd><p>A function to convert decimal day time formats to the Julian day.</p>
@@ -642,7 +665,7 @@ contained as a decimal.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opihiexarata.library.conversion.numpy_type_string_to_instance">
-<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">numpy_type_string_to_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numpy_type_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.generic" title="(in NumPy v1.24)"><span class="pre">generic</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#numpy_type_string_to_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.numpy_type_string_to_instance" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">opihiexarata.library.conversion.</span></span><span class="sig-name descname"><span class="pre">numpy_type_string_to_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numpy_type_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.generic" title="(in NumPy v1.25)"><span class="pre">generic</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/library/conversion.html#numpy_type_string_to_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.library.conversion.numpy_type_string_to_instance" title="Permalink to this definition"></a></dt>
 <dd><p>Provided an input string which is supposed to represent a Numpy type,
 this function provides the type instance itself.</p>
 <p>The main reason for breaking this out into a new function is in the

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2023.6.7 documentation</title>
+  <title>opihiexarata.library.conversion &mdash; OpihiExarata 2023.6.27 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -416,6 +416,8 @@
 <span></span><span class="sd">&quot;&quot;&quot;For miscellaneous conversions.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">zoneinfo</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">ap_coordinates</span>
 <span class="kn">import</span> <span class="nn">astropy.time</span> <span class="k">as</span> <span class="nn">ap_time</span>
@@ -736,6 +738,51 @@
     <span class="n">current_unix_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="n">current_jd</span> <span class="o">=</span> <span class="n">unix_time_to_julian_day</span><span class="p">(</span><span class="n">unix_time</span><span class="o">=</span><span class="n">current_unix_time</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">current_jd</span></div>
+
+
+<div class="viewcode-block" id="datetime_timezone_1_to_timezone_2"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.datetime_timezone_1_to_timezone_2">[docs]</a><span class="k">def</span> <span class="nf">datetime_timezone_1_to_timezone_2</span><span class="p">(</span><span class="n">from_datetime</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">datetime</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">from_timezone</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">to_timezone</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">datetime</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function converts a date time from one timezone to another timezone.</span>
+<span class="sd">    </span>
+<span class="sd">    If the datetime provided is a string of an ISO 8601 time, we convert it,</span>
+<span class="sd">    otherwise, we raise. The timezones provided can be any IANA timezone.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    from_datetime : datetime or str</span>
+<span class="sd">        The data time, or string representation of one to convert.</span>
+<span class="sd">    from_timezone : str</span>
+<span class="sd">        The timezone which date_time is currently in.</span>
+<span class="sd">    to_timezone : str</span>
+<span class="sd">        The timezone which we are converting to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    to_datetime : datetime</span>
+<span class="sd">        The datetime after the conversion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the datetime is really a datetime or a string representation</span>
+    <span class="c1"># thereof.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_datetime</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+        <span class="c1"># All good.</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_datetime</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># Try and convert.</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">from_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">from_datetime</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span><span class="s2">&quot;The string format of the datetime is not valid and cannot be converted. We require it to be in an ISO 8601-like format. The input: </span><span class="si">{inp}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inp</span><span class="o">=</span><span class="n">from_datetime</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">InputError</span><span class="p">(</span><span class="s2">&quot;The datetime input provided is neither a datetime or a datetime string to be converted. The input: </span><span class="si">{inp}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inp</span><span class="o">=</span><span class="n">from_datetime</span><span class="p">))</span>
+    
+    <span class="c1"># Adding the important timezone information, using the built in class.</span>
+    <span class="n">from_timezone</span> <span class="o">=</span> <span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">from_timezone</span><span class="p">)</span>
+    <span class="n">to_timezone</span> <span class="o">=</span> <span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">to_timezone</span><span class="p">)</span>
+    <span class="c1"># Adding it to the datetime.</span>
+    <span class="n">from_datetime_zone_aware</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="n">from_datetime</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">from_timezone</span><span class="p">)</span>
+    <span class="c1"># Converting it to a different timezone.</span>
+    <span class="n">to_datetime</span> <span class="o">=</span> <span class="n">from_datetime_zone_aware</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">to_timezone</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">to_datetime</span></div>
 
 
 <div class="viewcode-block" id="string_month_to_number"><a class="viewcode-back" href="../../../code/opihiexarata.library.conversion.html#opihiexarata.library.conversion.string_month_to_number">[docs]</a><span class="k">def</span> <span class="nf">string_month_to_number</span><span class="p">(</span><span class="n">month_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
