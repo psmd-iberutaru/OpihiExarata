@@ -870,6 +870,54 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         )
         # All done.
         return query_record_table
+    
+    def query_database_all(self) -> hint.Table:
+        """This queries the table for all of the data within it.
+        
+        This is a wrapper function around the normal query tool for a range 
+        of dates which starts and ends way beyond the normal date ranges of 
+        Opihi, and so, will cover all of the data within the database.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        query_record_table : Table
+            A table containing the data as queried from the database across 
+            all reasonable times.
+        """
+        # These two dates are far enough apart that it should cover the entire
+        # database.
+        all_begin_year=2000
+        all_begin_month=1
+        all_begin_day=1
+        all_begin_hour=0
+        all_begin_minute=0
+        all_begin_second=0
+        all_end_year=2101
+        all_end_month=1
+        all_end_day=1
+        all_end_hour=0
+        all_end_minute=0
+        all_end_second=0
+        # Pulling the table between this large date range.
+        query_record_table = self.query_database_between_datetimes(
+            begin_year=all_begin_year,
+            begin_month=all_begin_month,
+            begin_day=all_begin_day,
+            begin_hour=all_begin_hour,
+            begin_minute=all_begin_minute,
+            begin_second=all_begin_second,
+            end_year=all_end_year,
+            end_month=all_end_month,
+            end_day=all_end_day,
+            end_hour=all_end_hour,
+            end_minute=all_end_minute,
+            end_second=all_end_second,
+        )
+        return query_record_table
 
     def create_plotly_monitoring_html_plot(
         self,
@@ -1026,7 +1074,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         fig.update_layout(hovermode="x unified")
         # We also fix the x-axis and y-axis and legend title.
         fig.update_layout(
-            xaxis_title="Time - {tz}".format(tz=using_timezone),
+            xaxis_title="Time [{tz}]".format(tz=using_timezone),
             yaxis_title="Zero Point",
             legend_title_text="Filter",
         )
