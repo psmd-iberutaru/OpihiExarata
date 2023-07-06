@@ -983,9 +983,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         zero_point_record_table_timezone = copy.deepcopy(zero_point_record_table)
         zero_point_record_table_timezone["datetime"][:] = zprc_tz_datetimes
 
-        print(zero_point_record_table)
-        print(zero_point_record_table_timezone)
-
         # We group similar filters into lines.
         symbol_group_table_key = "filter_name"
 
@@ -1092,6 +1089,17 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # this is to just trim off the decimal seconds.
         datetime_lower_limit = datetime.datetime(*int_only(begin_datetime_tuple))
         datetime_upper_limit = datetime.datetime(*int_only(end_datetime_tuple))
+        # The range should also be timezone aware.
+        datetime_lower_limit = library.conversion.datetime_timezone_1_to_timezone_2(
+                from_datetime=datetime_lower_limit,
+                from_timezone="Etc/UTC",
+                to_timezone=using_timezone,
+            )
+        datetime_upper_limit = library.conversion.datetime_timezone_1_to_timezone_2(
+                from_datetime=datetime_upper_limit,
+                from_timezone="Etc/UTC",
+                to_timezone=using_timezone,
+            )
         fig.update_layout(xaxis_range=[datetime_lower_limit, datetime_upper_limit])
 
         # The upper and lower zero point plot limits.
