@@ -439,7 +439,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         try:
             zero_point_error = float(zero_point_error_str)
         except ValueError:
-            zero_point_error_str = float("nan")
+            zero_point_error = float("nan")
 
         # We can compile the dictionary from here. We include the datetime for
         # ease of handling.
