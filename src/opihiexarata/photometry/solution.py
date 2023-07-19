@@ -503,9 +503,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
 
         # Extract the proper photometric values for the filter being used.
         filter_table_header = "{f}_mag".format(f=filter_name)
-        magnitude = inter_star_table[filter_table_header].as_array()
+        magnitude = inter_star_table[filter_table_header].data
         # And the count data.
-        counts = inter_star_table["counts"].as_array()
+        counts = inter_star_table["counts"].data
         # Instrument magnitudes.
         sqrt5_100 = 2.51188643151
         inst_magnitude = -sqrt5_100 * np.log10(counts / exposure_time)
