@@ -503,9 +503,9 @@ class PhotometricSolution(library.engine.ExarataSolution):
 
         # Extract the proper photometric values for the filter being used.
         filter_table_header = "{f}_mag".format(f=filter_name)
-        magnitude = inter_star_table[filter_table_header]
+        magnitude = inter_star_table[filter_table_header].as_array()
         # And the count data.
-        counts = inter_star_table["counts"]
+        counts = inter_star_table["counts"].as_array()
         # Instrument magnitudes.
         sqrt5_100 = 2.51188643151
         inst_magnitude = -sqrt5_100 * np.log10(counts / exposure_time)
@@ -544,6 +544,17 @@ class PhotometricSolution(library.engine.ExarataSolution):
             zero_points, nan_policy="omit"
         )
         zero_point_error = zero_point_deviation / np.sqrt(n_stars)
+        # Final consistency check, if the values are not actually finite or 
+        # real values for that matter, the zero point is nothing. We also 
+        # properly handle the different cases of NaN for values and errors.
+        if not np.isfinite(zero_point):
+            zero_point = np.nan
+            zero_point_error = np.nan
+        elif not np.isfinite(zero_point_error):
+            zero_point_error = np.nan
+        else:
+            # All good.
+            pass
         return zero_point, zero_point_error
 
     def calculate_star_photon_counts_coordinate(

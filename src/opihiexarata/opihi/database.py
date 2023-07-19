@@ -422,7 +422,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         (
             datetime_str,
             zero_point_str,
-            __,
+            plus_minus_str,
             zero_point_error_str,
             filter_name_str,
         ) = record.split()
@@ -430,9 +430,16 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We use datetime to better format the ISO date time string.
         record_datetime = datetime.datetime.fromisoformat(datetime_str)
 
-        # Converting to numbers.
-        zero_point = float(zero_point_str)
-        zero_point_error = float(zero_point_error_str)
+        # Converting to numbers. If it cannot be converted to numbers, then 
+        # by definition, it is not really a valid record.
+        try:
+            zero_point = float(zero_point_str)
+        except ValueError:
+            zero_point = float("nan")
+        try:
+            zero_point_error = float(zero_point_error_str)
+        except ValueError:
+            zero_point_error_str = float("nan")
 
         # We can compile the dictionary from here. We include the datetime for
         # ease of handling.
