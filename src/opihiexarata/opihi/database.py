@@ -8,6 +8,7 @@ import datetime
 import zoneinfo
 import glob
 import copy
+import numpy as np
 import astropy.table as ap_table
 import plotly.express as px
 
@@ -430,7 +431,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We use datetime to better format the ISO date time string.
         record_datetime = datetime.datetime.fromisoformat(datetime_str)
 
-        # Converting to numbers. If it cannot be converted to numbers, then 
+        # Converting to numbers. If it cannot be converted to numbers, then
         # by definition, it is not really a valid record.
         try:
             zero_point = float(zero_point_str)
@@ -877,38 +878,38 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         )
         # All done.
         return query_record_table
-    
+
     def query_database_all(self) -> hint.Table:
         """This queries the table for all of the data within it.
-        
-        This is a wrapper function around the normal query tool for a range 
-        of dates which starts and ends way beyond the normal date ranges of 
+
+        This is a wrapper function around the normal query tool for a range
+        of dates which starts and ends way beyond the normal date ranges of
         Opihi, and so, will cover all of the data within the database.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         query_record_table : Table
-            A table containing the data as queried from the database across 
+            A table containing the data as queried from the database across
             all reasonable times.
         """
         # These two dates are far enough apart that it should cover the entire
         # database.
-        all_begin_year=2000
-        all_begin_month=1
-        all_begin_day=1
-        all_begin_hour=0
-        all_begin_minute=0
-        all_begin_second=0
-        all_end_year=2101
-        all_end_month=1
-        all_end_day=1
-        all_end_hour=0
-        all_end_minute=0
-        all_end_second=0
+        all_begin_year = 2000
+        all_begin_month = 1
+        all_begin_day = 1
+        all_begin_hour = 0
+        all_begin_minute = 0
+        all_begin_second = 0
+        all_end_year = 2101
+        all_end_month = 1
+        all_end_day = 1
+        all_end_hour = 0
+        all_end_minute = 0
+        all_end_second = 0
         # Pulling the table between this large date range.
         query_record_table = self.query_database_between_datetimes(
             begin_year=all_begin_year,
@@ -1042,6 +1043,26 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             category_orders=symbol_order_specification,
         )
 
+        # We also add the horizontal reference lines here if we can otherwise
+        # we would just skip.
+        reference_values_dict = {
+            "c": library.config.MONITOR_PLOT_FILTER_C_ZERO_POINT_REFERENCE,
+            "g": library.config.MONITOR_PLOT_FILTER_G_ZERO_POINT_REFERENCE,
+            "r": library.config.MONITOR_PLOT_FILTER_R_ZERO_POINT_REFERENCE,
+            "i": library.config.MONITOR_PLOT_FILTER_I_ZERO_POINT_REFERENCE,
+            "z": library.config.MONITOR_PLOT_FILTER_Z_ZERO_POINT_REFERENCE,
+            "1": library.config.MONITOR_PLOT_FILTER_1_ZERO_POINT_REFERENCE,
+            "2": library.config.MONITOR_PLOT_FILTER_2_ZERO_POINT_REFERENCE,
+            "b": library.config.MONITOR_PLOT_FILTER_B_ZERO_POINT_REFERENCE,
+        }
+        for keydex, valuedex in reference_values_dict.items():
+            # We need to check if we can even plot the value.
+            if (valuedex is not None) and np.isfinite(valuedex):
+                # We plot the value.
+                fig.add_hline(
+                    valuedex, line_dash="dot", line_color=plot_color_map[keydex]
+                )
+
         # The overall title of the figure. It is helpful to put the UTC time
         # of when the figure was made. We are using a more human readable
         # version of ISO 8601 time formatting.
@@ -1098,15 +1119,15 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         datetime_upper_limit = datetime.datetime(*int_only(end_datetime_tuple))
         # The range should also be timezone aware.
         datetime_lower_limit = library.conversion.datetime_timezone_1_to_timezone_2(
-                from_datetime=datetime_lower_limit,
-                from_timezone="Etc/UTC",
-                to_timezone=using_timezone,
-            )
+            from_datetime=datetime_lower_limit,
+            from_timezone="Etc/UTC",
+            to_timezone=using_timezone,
+        )
         datetime_upper_limit = library.conversion.datetime_timezone_1_to_timezone_2(
-                from_datetime=datetime_upper_limit,
-                from_timezone="Etc/UTC",
-                to_timezone=using_timezone,
-            )
+            from_datetime=datetime_upper_limit,
+            from_timezone="Etc/UTC",
+            to_timezone=using_timezone,
+        )
         fig.update_layout(xaxis_range=[datetime_lower_limit, datetime_upper_limit])
 
         # The upper and lower zero point plot limits.
