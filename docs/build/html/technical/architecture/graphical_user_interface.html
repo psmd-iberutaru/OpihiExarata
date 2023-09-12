@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Graphical User Interface &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Graphical User Interface &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -418,7 +418,7 @@
            <div itemprop="articleBody">
              
   <section id="graphical-user-interface">
-<span id="technical-architecture-graphical-user-interface"></span><h1>Graphical User Interface<a class="headerlink" href="#graphical-user-interface" title="Permalink to this heading"></a></h1>
+<span id="technical-architecture-graphical-user-interface"></span><h1>Graphical User Interface<a class="headerlink" href="#graphical-user-interface" title="Link to this heading"></a></h1>
 <p>The graphical user interface (GUI) makes use of PySide6 which itself is a
 Python implementation of the Qt 6 GUI framework.</p>
 <p>We use PySide6 as opposed to PyQt 6 because of licensing preferences and
@@ -433,7 +433,7 @@ for the <a class="reference internal" href="../../user/manual_mode.html#user-man
 The interface is optimized to those use cases and does not otherwise follow
 a rigid theme.</p>
 <section id="qt-designer">
-<h2>Qt Designer<a class="headerlink" href="#qt-designer" title="Permalink to this heading"></a></h2>
+<h2>Qt Designer<a class="headerlink" href="#qt-designer" title="Link to this heading"></a></h2>
 <p>To design the GUIs, we use
 <a class="reference external" href="https://doc.qt.io/qt-6/qtdesigner-manual.html">Qt Designer</a> as it is an
 easy interface. This program can be downloaded via the
@@ -450,7 +450,7 @@ something akin to <code class="file docutils literal notranslate"><span class="p
 and modified as needed.</p>
 </section>
 <section id="building-ui-files">
-<span id="technical-architecture-graphical-user-interface-building-ui-files"></span><h2>Building UI Files<a class="headerlink" href="#building-ui-files" title="Permalink to this heading"></a></h2>
+<span id="technical-architecture-graphical-user-interface-building-ui-files"></span><h2>Building UI Files<a class="headerlink" href="#building-ui-files" title="Link to this heading"></a></h2>
 <p>It is part of development (not installation) to develop the Python versions of
 the GUI files. The UI files created via Qt Designer can be converted to their
 Python versions using <strong class="command">pyside6-uic</strong>. (See

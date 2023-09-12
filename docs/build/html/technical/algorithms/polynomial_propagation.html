@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Polynomial Propagation &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Polynomial Propagation &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -419,7 +419,7 @@
            <div itemprop="articleBody">
              
   <section id="polynomial-propagation">
-<span id="technical-algorithms-polynomial-propagation"></span><h1>Polynomial Propagation<a class="headerlink" href="#polynomial-propagation" title="Permalink to this heading"></a></h1>
+<span id="technical-algorithms-polynomial-propagation"></span><h1>Polynomial Propagation<a class="headerlink" href="#polynomial-propagation" title="Link to this heading"></a></h1>
 <p>Polynomial propagation is one of the different implemented propagation engines
 (see <a class="reference internal" href="../architecture/services_engines.html#technical-architecture-services-engines"><span class="std std-ref">Services and Engines</span></a>). Conceptually it is one
 of the easiest methods. Simply put, it just computes the rate of right
@@ -432,7 +432,7 @@ previous observations.</p>
 <li><p>The motion of the asteroid across the sky within the provided time span is small enough such that the aforementioned tangent plane projection still holds.</p></li>
 </ul>
 <section id="coordinate-conversion">
-<h2>Coordinate Conversion<a class="headerlink" href="#coordinate-conversion" title="Permalink to this heading"></a></h2>
+<h2>Coordinate Conversion<a class="headerlink" href="#coordinate-conversion" title="Link to this heading"></a></h2>
 <p>The only required observational data for this method of propagation is the
 RA and DEC of the observations, <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span>, along with
 the time of observations <span class="math notranslate nohighlight">\(t\)</span>. Because of the conventions of OpihiExarata
@@ -461,7 +461,7 @@ We use the most recent observation to set the range, the other points are
 cycled until no wrap around occurs.</p>
 </section>
 <section id="fitting-coordinates">
-<h2>Fitting Coordinates<a class="headerlink" href="#fitting-coordinates" title="Permalink to this heading"></a></h2>
+<h2>Fitting Coordinates<a class="headerlink" href="#fitting-coordinates" title="Link to this heading"></a></h2>
 <p>We treat both <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span> as separate and independent
 coordinates and we also treat their on-sky rates as independent of each other.
 This is valid as long as the timescales are relatively small and the
@@ -494,7 +494,7 @@ Higher order polynomials and more complicated functions often over-fit (and
 are otherwise overcomplicated) as typically there are only a few observations
 and thus few <span class="math notranslate nohighlight">\((\alpha, \delta, t)\)</span> sets for fitting.</p>
 <section id="wrap-around">
-<h3>Wrap Around<a class="headerlink" href="#wrap-around" title="Permalink to this heading"></a></h3>
+<h3>Wrap Around<a class="headerlink" href="#wrap-around" title="Link to this heading"></a></h3>
 <p>In some cases, the approximate angular coordinates given by <span class="math notranslate nohighlight">\(P_{n,A}(f)\)</span>
 and <span class="math notranslate nohighlight">\(P_{n,D}(f)\)</span> may exceed the standard angular bounds of
 <span class="math notranslate nohighlight">\(0 \leq \angle \leq 360\)</span> or <span class="math notranslate nohighlight">\(-90 \leq \angle \leq 90\)</span> for right

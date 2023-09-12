@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.gui.manual &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -444,7 +444,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
 
 
-<div class="viewcode-block" id="OpihiManualWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow">[docs]</a><span class="k">class</span> <span class="nc">OpihiManualWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiManualWindow">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">OpihiManualWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The GUI that is responsible for interaction between the user and the</span>
 <span class="sd">    two Opihi solutions, the image (OpihiPreprocessSolution) and the</span>
 <span class="sd">    results (OpihiSolution).</span>
@@ -484,7 +486,9 @@
 <span class="sd">        configuration file, this is the instance which manages the database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OpihiManualWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The manual GUI window for OpihiExarata. This interacts directly</span>
 <span class="sd">        with the total solution object of Opihi.</span>
 
@@ -569,6 +573,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reset_all</span><span class="p">()</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__init_gui_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Assign the action bindings for the buttons which get new</span>
@@ -1857,7 +1862,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiManualWindow._get_target_selector_reference_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_target_selector_reference_filename">[docs]</a>    <span class="k">def</span> <span class="nf">_get_target_selector_reference_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_filename</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow._get_target_selector_reference_filename">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_target_selector_reference_filename">[docs]</a>
+    <span class="k">def</span> <span class="nf">_get_target_selector_reference_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_filename</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function gets what the reference filename ought to be based</span>
 <span class="sd">        on the current filename provided.</span>
 
@@ -1909,7 +1916,10 @@
         <span class="c1"># All done</span>
         <span class="k">return</span> <span class="n">reference_filename</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow._get_target_set_name_guess"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_target_set_name_guess">[docs]</a>    <span class="k">def</span> <span class="nf">_get_target_set_name_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow._get_target_set_name_guess">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_target_set_name_guess">[docs]</a>
+    <span class="k">def</span> <span class="nf">_get_target_set_name_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function attempts to guess the target name from multiple</span>
 <span class="sd">        sources in the order of authority.</span>
 
@@ -2009,7 +2019,10 @@
         <span class="n">guess_target_set_name</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_MANUAL_DEFAULT_TARGET_SET_NAME</span>
         <span class="k">return</span> <span class="n">guess_target_set_name</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow._get_mpcrecord_archive_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_mpcrecord_archive_filename">[docs]</a>    <span class="k">def</span> <span class="nf">_get_mpcrecord_archive_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow._get_mpcrecord_archive_filename">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_mpcrecord_archive_filename">[docs]</a>
+    <span class="k">def</span> <span class="nf">_get_mpcrecord_archive_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a function which gets the MPC record archive filename</span>
 <span class="sd">        from naming conventions and the current fits file name.</span>
 
@@ -2074,7 +2087,10 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">mpc_record_filename</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow._get_primary_fits_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_primary_fits_filename">[docs]</a>    <span class="k">def</span> <span class="nf">_get_primary_fits_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow._get_primary_fits_filename">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._get_primary_fits_filename">[docs]</a>
+    <span class="k">def</span> <span class="nf">_get_primary_fits_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function gets the FITS filename of the primary file as</span>
 <span class="sd">        determined by the GUI radio buttons.</span>
 
@@ -2104,7 +2120,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">primary_fits_filename</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.get_target_history_current"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.get_target_history_current">[docs]</a>    <span class="k">def</span> <span class="nf">get_target_history_current</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.get_target_history_current">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.get_target_history_current">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_target_history_current</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function gets the current entries for the target history from</span>
 <span class="sd">        the OpihiSolutions and the current data loaded into the GUI.</span>
 
@@ -2142,7 +2161,10 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">target_history_current</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.load_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.load_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.load_fits_file">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.load_fits_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This loads a FITS file and returns an OpihiSolution class.</span>
 
 <span class="sd">        Parameters</span>
@@ -2214,7 +2236,10 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">opihi_solution</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.load_target_history_archive"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.load_target_history_archive">[docs]</a>    <span class="k">def</span> <span class="nf">load_target_history_archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">archive_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.load_target_history_archive">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.load_target_history_archive">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_target_history_archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">archive_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This loads the target/asteroid history archive file and allows it</span>
 <span class="sd">        to be used by the solution classes of all of the other solutions.</span>
 
@@ -2256,7 +2281,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">target_history</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.save_target_history_archive"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_target_history_archive">[docs]</a>    <span class="k">def</span> <span class="nf">save_target_history_archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">archive_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.save_target_history_archive">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_target_history_archive">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_target_history_archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">archive_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This saves the target history archive into a file which contains</span>
 <span class="sd">        all of the history of the asteroid/target observations, both past and</span>
 <span class="sd">        the present ones solved for.</span>
@@ -2320,7 +2348,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.save_all_fits_files"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_all_fits_files">[docs]</a>    <span class="k">def</span> <span class="nf">save_all_fits_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.save_all_fits_files">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_all_fits_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_all_fits_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function saves all of the FITS files into their respective</span>
 <span class="sd">        default locations and configurations.</span>
 
@@ -2338,7 +2369,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.save_index_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_index_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">save_index_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.save_index_fits_file">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.save_index_fits_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_index_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function executes the saving of the FITS file based on the</span>
 <span class="sd">        provided index.</span>
 
@@ -2389,7 +2423,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow._parse_custom_orbital_elements"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._parse_custom_orbital_elements">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_custom_orbital_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow._parse_custom_orbital_elements">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow._parse_custom_orbital_elements">[docs]</a>
+    <span class="k">def</span> <span class="nf">_parse_custom_orbital_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function takes the textual form of the orbital elements as</span>
 <span class="sd">        entered and tries to parse it into a set of orbital elements and errors.</span>
 
@@ -2454,7 +2491,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">orbital_elements</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.reset_all"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.reset_all">[docs]</a>    <span class="k">def</span> <span class="nf">reset_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.reset_all">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.reset_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function completely resets the GUI into its initial state.</span>
 
 <span class="sd">        Parameters</span>
@@ -2481,7 +2521,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.reset_dynamic_label_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.reset_dynamic_label_text">[docs]</a>    <span class="k">def</span> <span class="nf">reset_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">complete</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.reset_dynamic_label_text">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.reset_dynamic_label_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">complete</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset all of the dynamic label text and other related fields,</span>
 <span class="sd">        this is traditionally done just before a new image is going to be</span>
 <span class="sd">        introduced.</span>
@@ -2659,7 +2702,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.refresh_dynamic_label_text"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.refresh_dynamic_label_text">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.refresh_dynamic_label_text">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.refresh_dynamic_label_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">refresh_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh all of the dynamic label text, this fills out the</span>
 <span class="sd">        information based on the current solutions available and solved.</span>
 
@@ -2685,6 +2731,7 @@
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__refresh_dynamic_label_text_file_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh all of the dynamic label text for the file selector.</span>
@@ -3191,7 +3238,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiManualWindow.draw_nothing"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_nothing">[docs]</a>    <span class="k">def</span> <span class="nf">draw_nothing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiManualWindow.draw_nothing">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_nothing">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw_nothing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function clears the plot completely and assigns no data to it.</span>
 
 <span class="sd">        Parameters</span>
@@ -3208,7 +3257,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.draw_opihi_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_opihi_image">[docs]</a>    <span class="k">def</span> <span class="nf">draw_opihi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.draw_opihi_image">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_opihi_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw_opihi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Redraw the Opihi image given that new results may have been added</span>
 <span class="sd">        because some solutions were completed. This modifies the GUI in-place.</span>
 
@@ -3353,7 +3405,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">opihi_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiManualWindow.draw_busy_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_busy_image">[docs]</a>    <span class="k">def</span> <span class="nf">draw_busy_image</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiManualWindow.draw_busy_image">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.OpihiManualWindow.draw_busy_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw_busy_image</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">progress_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This draws the busy image.</span>
@@ -3455,6 +3510,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
+
     <span class="k">def</span> <span class="nf">__configuration_draw_busy_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Exactly the same as `draw_busy_image`, but we use the settings</span>
 <span class="sd">        as per the configuration. This function is just a connivent wrapper.</span>
@@ -3535,7 +3591,10 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="start_manual_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.start_manual_window">[docs]</a><span class="k">def</span> <span class="nf">start_manual_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="start_manual_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.manual.html#opihiexarata.gui.manual.start_manual_window">[docs]</a>
+<span class="k">def</span> <span class="nf">start_manual_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the function to create the manual window for usage.</span>
 
 <span class="sd">    Parameters</span>
@@ -3555,6 +3614,7 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="kc">None</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

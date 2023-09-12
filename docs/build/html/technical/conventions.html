@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conventions &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Conventions &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -418,11 +418,11 @@
            <div itemprop="articleBody">
              
   <section id="conventions">
-<span id="technical-conventions"></span><h1>Conventions<a class="headerlink" href="#conventions" title="Permalink to this heading"></a></h1>
+<span id="technical-conventions"></span><h1>Conventions<a class="headerlink" href="#conventions" title="Link to this heading"></a></h1>
 <p>In order for the entire software to be self-consistent, a few conventions
 have been established to help develop it. We detail these conventions here.</p>
 <section id="sky-coordinate-systems">
-<h2>Sky-Coordinate Systems<a class="headerlink" href="#sky-coordinate-systems" title="Permalink to this heading"></a></h2>
+<h2>Sky-Coordinate Systems<a class="headerlink" href="#sky-coordinate-systems" title="Link to this heading"></a></h2>
 <p>By convention, and for future proofing, we use and rely on the International
 Celestial Reference System (ICRS) to define our coordinates.</p>
 <p>For the purposes of this project we assume that the ICRS system and the
@@ -431,7 +431,7 @@ seen as a waste of time and unnecessary complexity provided the small
 difference between the two.</p>
 </section>
 <section id="units">
-<h2>Units<a class="headerlink" href="#units" title="Permalink to this heading"></a></h2>
+<h2>Units<a class="headerlink" href="#units" title="Link to this heading"></a></h2>
 <p>Although there are many packages like Astropy which help deal with different
 units and the conversion between the two, we decided that it is easier to
 conform to a single set of units for the values within the software and
@@ -479,9 +479,9 @@ in the following table.</p>
 </ul>
 </section>
 <section id="code-style">
-<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this heading"></a></h2>
+<h2>Code Style<a class="headerlink" href="#code-style" title="Link to this heading"></a></h2>
 <section id="formatting-style">
-<h3>Formatting Style<a class="headerlink" href="#formatting-style" title="Permalink to this heading"></a></h3>
+<h3>Formatting Style<a class="headerlink" href="#formatting-style" title="Link to this heading"></a></h3>
 <p>For consistency, the Python code style that this project uses is the
 <a class="reference external" href="https://pypi.org/project/black/">black</a> code style. This style is enforced
 by the aforementioned package, the auxillary script from
@@ -489,7 +489,7 @@ by the aforementioned package, the auxillary script from
 formatting.</p>
 </section>
 <section id="type-hinting">
-<h3>Type Hinting<a class="headerlink" href="#type-hinting" title="Permalink to this heading"></a></h3>
+<h3>Type Hinting<a class="headerlink" href="#type-hinting" title="Link to this heading"></a></h3>
 <p>Type hinting allows for many text and development environments to infer
 specific properties of code to provide better suggestions and other
 programming tools. Python supports type hinting (see <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0483/"><strong>PEP 483</strong></a> and <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0484/"><strong>PEP 484</strong></a>)
@@ -502,19 +502,19 @@ is existing infrastructure for making using type hinting easier to use from
 </section>
 </section>
 <section id="documentation-files">
-<h2>Documentation Files<a class="headerlink" href="#documentation-files" title="Permalink to this heading"></a></h2>
+<h2>Documentation Files<a class="headerlink" href="#documentation-files" title="Link to this heading"></a></h2>
 <p>The documentation is automatically generated using Sphinx. Because of this,
 there are some peculiarities when writing the documentation, we document them
 here.</p>
 <section id="main-body-files">
-<h3>Main Body Files<a class="headerlink" href="#main-body-files" title="Permalink to this heading"></a></h3>
+<h3>Main Body Files<a class="headerlink" href="#main-body-files" title="Link to this heading"></a></h3>
 <p>The main body of documentation uses reStructuredText files as markup. A
 Sphinx specific primer can be found on
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">their website</a>. A more complete reference for reStructuredText can be found in
 <a class="reference external" href="https://docutils.sourceforge.io/rst.html">their documentation</a>.</p>
 </section>
 <section id="image-files">
-<h3>Image Files<a class="headerlink" href="#image-files" title="Permalink to this heading"></a></h3>
+<h3>Image Files<a class="headerlink" href="#image-files" title="Link to this heading"></a></h3>
 <p>Images are important in providing additional information in documentation.
 Because the documentation can be built into either HTML or LaTeX forms, special
 care should be exercised for images as both take different file formats.</p>
@@ -529,7 +529,7 @@ going to be built into.</p>
 </ul>
 </section>
 <section id="python-docstrings">
-<h3>Python Docstrings<a class="headerlink" href="#python-docstrings" title="Permalink to this heading"></a></h3>
+<h3>Python Docstrings<a class="headerlink" href="#python-docstrings" title="Link to this heading"></a></h3>
 <p>For Sphinx to properly load and process the documentation strings from the
 Python files themselves, they need to be marked up in a specific way. Natively
 it would be in reStructuredText, but it looks ugly. Instead, we use the
@@ -539,7 +539,7 @@ Napoleon extension for Sphinx to allow for the usage of
 </section>
 </section>
 <section id="filter-names">
-<span id="technical-conventions-filter-names"></span><h2>Filter Names<a class="headerlink" href="#filter-names" title="Permalink to this heading"></a></h2>
+<span id="technical-conventions-filter-names"></span><h2>Filter Names<a class="headerlink" href="#filter-names" title="Link to this heading"></a></h2>
 <p>Although the filter wheel has its own description of the filter names, for
 ease of programming, we define the following filter names to use throughout
 the software. They are typically single characters indicative of the actual

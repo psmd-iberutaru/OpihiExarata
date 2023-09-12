@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optional: Documentation &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Optional: Documentation &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -418,14 +418,14 @@
            <div itemprop="articleBody">
              
   <section id="optional-documentation">
-<span id="technical-installation-documentation"></span><h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Permalink to this heading"></a></h1>
+<span id="technical-installation-documentation"></span><h1>Optional: Documentation<a class="headerlink" href="#optional-documentation" title="Link to this heading"></a></h1>
 <p>Building the documentation is relatively simple as we leverage Sphinx to
 build it. This is also done when the <code class="docutils literal notranslate"><span class="pre">auxiliary.ps1</span></code> auxillary script is
 run.</p>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
 <section id="sphinx">
-<h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this heading"></a></h3>
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h3>
 <p>To build the Sphinx documentation, Python needs to be installed. (The Python
 version installed in <a class="reference internal" href="python.html#technical-installation-python-part"><span class="std std-ref">Install: Python Part</span></a> can be used.)</p>
 <p>The following packages must be installed:</p>
@@ -434,20 +434,20 @@ version installed in <a class="reference internal" href="python.html#technical-i
 </div>
 </section>
 <section id="latex">
-<h3>LaTeX<a class="headerlink" href="#latex" title="Permalink to this heading"></a></h3>
+<h3>LaTeX<a class="headerlink" href="#latex" title="Link to this heading"></a></h3>
 <p>If a PDF version of the documentation is desired, Sphinx can build it via
 LaTeX. LaTeX must be installed. We suggest installing the
 <a class="reference external" href="https://tug.org/texlive/">TeX Live distribution</a> and selecting the full install. Instructions on
 how to install TeX Live is beyond the scope of this documentation.</p>
 </section>
 <section id="directory">
-<h3>Directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h3>
+<h3>Directory<a class="headerlink" href="#directory" title="Link to this heading"></a></h3>
 <p>Change your directory to the <code class="file docutils literal notranslate"><span class="pre">OpihiExarata/docs</span></code> directory, run all of
 the commands while within this directory.</p>
 </section>
 </section>
 <section id="build">
-<h2>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h2>
+<h2>Build<a class="headerlink" href="#build" title="Link to this heading"></a></h2>
 <p><strong>First</strong>, the Python docstrings need to be processed into documentation. This
 can be done via running:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">f</span> <span class="o">-</span><span class="n">e</span> <span class="o">-</span><span class="n">o</span> <span class="o">./</span><span class="n">code</span><span class="o">/</span> <span class="o">./../</span><span class="n">src</span><span class="o">/</span><span class="n">opihiexarata</span><span class="o">/</span>

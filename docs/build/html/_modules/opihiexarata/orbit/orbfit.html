@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.orbit.orbfit &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -437,7 +437,9 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine">[docs]</a><span class="k">class</span> <span class="nc">OrbfitOrbitDeterminerEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">OrbfitOrbitDeterminerEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Uses the Orbfit package to determine the orbital elements of an astroid</span>
 <span class="sd">    provided observations. This assumes that the installation instructions</span>
 <span class="sd">    provided were followed.</span>
@@ -450,7 +452,9 @@
 <span class="sd">        The errors of the orbital elements.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiation of the orbfit package.</span>
 
 <span class="sd">        Parameters</span>
@@ -476,6 +480,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_orbfit_files</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__check_installation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">no_raise</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -583,7 +588,9 @@
         <span class="n">valid_install</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">valid_install</span>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._prepare_orbfit_files"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._prepare_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_prepare_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._prepare_orbfit_files">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._prepare_orbfit_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">_prepare_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function prepares the operational directory for Orbfit inside</span>
 <span class="sd">        of the temporary directory. This allows for files to be generated for</span>
 <span class="sd">        useage by the binary orbfit.</span>
@@ -618,7 +625,10 @@
             <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">filedex</span><span class="p">,</span> <span class="n">ORBFIT_OPERATING_DIR</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._clean_orbfit_files"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._clean_orbfit_files">[docs]</a>    <span class="k">def</span> <span class="nf">_clean_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._clean_orbfit_files">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._clean_orbfit_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">_clean_orbfit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function cleans up the operational directory of Orbfit.</span>
 <span class="sd">        If there are leftover files, the program may try to use them in a</span>
 <span class="sd">        manner which is not desired. It is usually better to start from</span>
@@ -661,7 +671,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._solve_single_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">_solve_single_orbit</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine._solve_single_orbit">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit">[docs]</a>
+    <span class="k">def</span> <span class="nf">_solve_single_orbit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This uses the Orbfit program to an orbit provided a record of</span>
@@ -821,7 +834,10 @@
         <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="n">mjd_dat_values</span>
         <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Attempts to compute Keplarian orbits provided a table of observations.</span>
 
 <span class="sd">        This function attempts to compute the orbit using the entire</span>
@@ -1019,7 +1035,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
 
-<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit_via_record"><a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit_via_record">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit_via_record</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OrbfitOrbitDeterminerEngine.solve_orbit_via_record">
+<a class="viewcode-back" href="../../../code/opihiexarata.orbit.orbfit.html#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit_via_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_orbit_via_record</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">observation_record</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Attempts to compute Keplarian orbits provided a standard 80-column</span>
@@ -1050,7 +1069,9 @@
         <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_orbit</span><span class="p">(</span>
             <span class="n">observation_table</span><span class="o">=</span><span class="n">obs_table</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div></div>
+        <span class="k">return</span> <span class="n">kepler_elements</span><span class="p">,</span> <span class="n">kepler_error</span><span class="p">,</span> <span class="n">modified_julian_date</span></div>
+</div>
+
 </pre></div>
 
            </div>

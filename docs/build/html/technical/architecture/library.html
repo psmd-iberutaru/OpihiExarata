@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Library &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Library &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -418,7 +418,7 @@
            <div itemprop="articleBody">
              
   <section id="library">
-<span id="technical-architecture-library"></span><h1>Library<a class="headerlink" href="#library" title="Permalink to this heading"></a></h1>
+<span id="technical-architecture-library"></span><h1>Library<a class="headerlink" href="#library" title="Link to this heading"></a></h1>
 <p>Here we provide a brief summary of the available functionality provided by the
 software library of OpihiExarata. The whole point of the library is to store
 functions and subroutines which are useful across the entire software
@@ -434,7 +434,7 @@ the capabilities thereof to better fit the use cases for OpihiExarata.</p>
 <a class="reference internal" href="../../index.html#home-code-manual"><span class="std std-ref">Code Manual</span></a>, but hopefully they help in searching for library
 functionality.</p>
 <section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.config.html#module-opihiexarata.library.config" title="opihiexarata.library.config"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.config</span></code></a>.</p>
 <p>The implementation of configuration parameters is done via this module.</p>
 <p>When a user specifies a configuration file to be applied to this software, the
@@ -453,7 +453,7 @@ provided by the user via regular methods, is done via
 this will only apply the configuration to the current Python session.</p>
 </section>
 <section id="conversion">
-<span id="technical-architecture-library-conversion"></span><h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this heading"></a></h2>
+<span id="technical-architecture-library-conversion"></span><h2>Conversion<a class="headerlink" href="#conversion" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.conversion.html#module-opihiexarata.library.conversion" title="opihiexarata.library.conversion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.conversion</span></code></a>.</p>
 <p>All types of required conversions are implemented here. The OpihiExarata
 software has specific conventions (see <a class="reference internal" href="../conventions.html#technical-conventions"><span class="std std-ref">Conventions</span></a>) for units
@@ -469,7 +469,7 @@ be converted back to degrees.</p>
 things like filter or engine names are also provided.</p>
 </section>
 <section id="engines">
-<h2>Engines<a class="headerlink" href="#engines" title="Permalink to this heading"></a></h2>
+<h2>Engines<a class="headerlink" href="#engines" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.engine.html#module-opihiexarata.library.engine" title="opihiexarata.library.engine"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.engine</span></code></a>.</p>
 <p>Base classes for different engines and solution implementations exist here.
 They are typically subclassed for the actual implementation of the engines
@@ -478,7 +478,7 @@ They are typically subclassed for the actual implementation of the engines
 type checking.</p>
 </section>
 <section id="error">
-<h2>Error<a class="headerlink" href="#error" title="Permalink to this heading"></a></h2>
+<h2>Error<a class="headerlink" href="#error" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.error.html#module-opihiexarata.library.error" title="opihiexarata.library.error"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.error</span></code></a>.</p>
 <p>Error exceptions specific to OpihiExarata are created here. All errors that
 come from OpihiExarata (either directly or indirectly) should be defined here.
@@ -486,7 +486,7 @@ Using built-in Python errors is not suggested as using an error here helps
 specify that the issue comes from OpihiExarata.</p>
 </section>
 <section id="fits-file-handing">
-<h2>FITS File Handing<a class="headerlink" href="#fits-file-handing" title="Permalink to this heading"></a></h2>
+<h2>FITS File Handing<a class="headerlink" href="#fits-file-handing" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.fits.html#module-opihiexarata.library.fits" title="opihiexarata.library.fits"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.fits</span></code></a>.</p>
 <p>This implements functions which assist in the reading and writing of image and
 table FITS files. Astropy has a lot of functionality for this, and these
@@ -495,7 +495,7 @@ OpihiExarata and so that the reading and writing of FITS files are uniformly
 applied across the software.</p>
 </section>
 <section id="type-hinting">
-<span id="technical-architecture-library-hint"></span><h2>Type Hinting<a class="headerlink" href="#type-hinting" title="Permalink to this heading"></a></h2>
+<span id="technical-architecture-library-hint"></span><h2>Type Hinting<a class="headerlink" href="#type-hinting" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.hint.html#module-opihiexarata.library.hint" title="opihiexarata.library.hint"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.hint</span></code></a>.</p>
 <p>Python is a dynamically typed language. However it implements type hints
 (see <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0483/"><strong>PEP 483</strong></a> and <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0484/"><strong>PEP 484</strong></a>) so that text editors and other development
@@ -506,7 +506,7 @@ would otherwise need to be imported to be used are instead all imported into
 this one namespace to be used across the codebase.</p>
 </section>
 <section id="http-calls">
-<h2>HTTP Calls<a class="headerlink" href="#http-calls" title="Permalink to this heading"></a></h2>
+<h2>HTTP Calls<a class="headerlink" href="#http-calls" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.http.html#module-opihiexarata.library.http" title="opihiexarata.library.http"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.http</span></code></a>.</p>
 <p>Some of the functionality of OpihiExarata requires the use of HTTP APIs.
 Although a lot of the HTTP web functionality is implemented outside of this
@@ -515,7 +515,7 @@ process), there are some functions common among them which are implemented
 here.</p>
 </section>
 <section id="image-array-processing">
-<h2>Image Array Processing<a class="headerlink" href="#image-array-processing" title="Permalink to this heading"></a></h2>
+<h2>Image Array Processing<a class="headerlink" href="#image-array-processing" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.image.html#module-opihiexarata.library.image" title="opihiexarata.library.image"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.image</span></code></a>.</p>
 <p>Opihi is an imaging telescope and images are often represented as arrays.
 However, there are some functionality that make sense in terms of images but
@@ -523,7 +523,7 @@ have more involved implementations when using arrays as images. Functions
 here implement common manipulations of images represented as arrays.</p>
 </section>
 <section id="json-parsing">
-<h2>JSON Parsing<a class="headerlink" href="#json-parsing" title="Permalink to this heading"></a></h2>
+<h2>JSON Parsing<a class="headerlink" href="#json-parsing" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.json.html#module-opihiexarata.library.json" title="opihiexarata.library.json"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.json</span></code></a>.</p>
 <p>Although OpihiExarata prefers YAML formatting for configuration files and
 other data serializations, JSON is another popular format which is used by
@@ -531,21 +531,21 @@ some of the services OpihiExarata relies on. Thus some JSON functionality
 is implemented here as wrapper functions.</p>
 </section>
 <section id="minor-planet-center-records">
-<h2>Minor Planet Center Records<a class="headerlink" href="#minor-planet-center-records" title="Permalink to this heading"></a></h2>
+<h2>Minor Planet Center Records<a class="headerlink" href="#minor-planet-center-records" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.mpcrecord.html#module-opihiexarata.library.mpcrecord" title="opihiexarata.library.mpcrecord"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.mpcrecord</span></code></a>.</p>
 <p>One of the most ubiquitous ways of representing an observation of an asteroid
 is using the
 <a class="reference external" href="https://www.minorplanetcenter.net/iau/info/OpticalObs.html">MPC 80-column foarmat record</a>.
 However, it is not a very connivent format for Python to use and so
 functions which convert between the 80-column format and an Astropy table
-(see <a class="reference external" href="https://docs.astropy.org/en/stable/table/index.html#module-astropy.table" title="(in Astropy v5.4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">astropy.table</span></code></a>, or more specifically,
-<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">astropy.table.Table</span></code></a>). In general, the table format is better for
+(see <a class="reference external" href="https://docs.astropy.org/en/stable/table/index.html#module-astropy.table" title="(in Astropy v5.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">astropy.table</span></code></a>, or more specifically,
+<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">astropy.table.Table</span></code></a>). In general, the table format is better for
 internal manipulation while the 80-column format is used primarily to record
 and send asteroid observations to other services (including, obviously, the
 Minor Planet Center).</p>
 </section>
 <section id="file-and-directory-path-manipulations">
-<h2>File and Directory Path Manipulations<a class="headerlink" href="#file-and-directory-path-manipulations" title="Permalink to this heading"></a></h2>
+<h2>File and Directory Path Manipulations<a class="headerlink" href="#file-and-directory-path-manipulations" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.path.html#module-opihiexarata.library.path" title="opihiexarata.library.path"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.path</span></code></a>.</p>
 <p>Path and filename manipulations are common across all aspects of OpihiExarata.
 For uniform application and convenience, common path manipulations are
@@ -553,7 +553,7 @@ implemented here. This only has implementations for where the filepaths are
 strings and not objects.</p>
 </section>
 <section id="photometric-and-astrometric-data-handing-table">
-<h2>Photometric and Astrometric Data Handing Table<a class="headerlink" href="#photometric-and-astrometric-data-handing-table" title="Permalink to this heading"></a></h2>
+<h2>Photometric and Astrometric Data Handing Table<a class="headerlink" href="#photometric-and-astrometric-data-handing-table" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.phototable.html#module-opihiexarata.library.phototable" title="opihiexarata.library.phototable"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.phototable</span></code></a>.</p>
 <p>The astrometric solution and the photometric solution
 (see <a class="reference internal" href="vehicles_solutions.html#technical-architecture-vehicles-solutions"><span class="std std-ref">Vehicles and Solutions</span></a>) both have a lot of
@@ -564,7 +564,7 @@ comprehensive to better harmonize the interplay between the astrometric and
 photometric solutions. Feature expansion in this region is unlikely.</p>
 </section>
 <section id="telescope-control-software">
-<h2>Telescope Control Software<a class="headerlink" href="#telescope-control-software" title="Permalink to this heading"></a></h2>
+<h2>Telescope Control Software<a class="headerlink" href="#telescope-control-software" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.tcs.html#module-opihiexarata.library.tcs" title="opihiexarata.library.tcs"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.tcs</span></code></a>.</p>
 <p>It is important for the OpihiExarata software to talk to the telescope
 control software to give it the needed information to correct the pointing. It
@@ -575,7 +575,7 @@ implementation is specific for the IRTF TCS and it requires the installation
 of the t3io software.</p>
 </section>
 <section id="temporary-directory">
-<h2>Temporary Directory<a class="headerlink" href="#temporary-directory" title="Permalink to this heading"></a></h2>
+<h2>Temporary Directory<a class="headerlink" href="#temporary-directory" title="Link to this heading"></a></h2>
 <p>See <a class="reference internal" href="../../code/opihiexarata.library.temporary.html#module-opihiexarata.library.temporary" title="opihiexarata.library.temporary"><code class="xref py py-mod docutils literal notranslate"><span class="pre">opihiexarata.library.temporary</span></code></a>.</p>
 <p>Sometimes the OpihiExarata software needs to save temporary files when
 processing data and reading the results. In order for these files not to

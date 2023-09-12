@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manual Mode &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Manual Mode &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -418,7 +418,7 @@
            <div itemprop="articleBody">
              
   <section id="manual-mode">
-<span id="user-manual-mode"></span><h1>Manual Mode<a class="headerlink" href="#manual-mode" title="Permalink to this heading"></a></h1>
+<span id="user-manual-mode"></span><h1>Manual Mode<a class="headerlink" href="#manual-mode" title="Link to this heading"></a></h1>
 <p>The manual mode of OpihiExarata is its asteroid view-finding mode. Although,
 photometric monitoring can be done manually, and the manual mode is well
 equipped for said use case, it is not the primary use case for the manual mode.</p>
@@ -433,7 +433,7 @@ asteroid target.</p>
 please also reference the GUI figure provided for reference. We also summarize
 the procedure and process of the manual mode via a flowchart.</p>
 <section id="graphical-user-interface">
-<span id="user-manual-mode-graphical-user-interface"></span><h2>Graphical User Interface<a class="headerlink" href="#graphical-user-interface" title="Permalink to this heading"></a></h2>
+<span id="user-manual-mode-graphical-user-interface"></span><h2>Graphical User Interface<a class="headerlink" href="#graphical-user-interface" title="Link to this heading"></a></h2>
 <figure class="align-default" id="id2">
 <span id="figure-manual-mode-gui-all"></span><img alt="../_images/manual-mode-gui-all.png" src="../_images/manual-mode-gui-all.png" />
 <figcaption>
@@ -441,7 +441,7 @@ the procedure and process of the manual mode via a flowchart.</p>
 the interface is freshly loaded. Most of the text is filler text, they will
 change as the program is executed. Note that there are different tabs for
 the summary, astrometry, photometry, orbit, ephemeris, and propagation.
-Each of the sections covers their GUIs, this is just the general GUI.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+Each of the sections covers their GUIs, this is just the general GUI.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The manual mode GUI contains a main data window and a few tabs
@@ -474,18 +474,18 @@ the telescope control software. Non-sidereal rates are sent as well if they
 were calculated via</p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading"></a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading"></a></h2>
 <figure class="align-default" id="id3">
 <span id="figure-manual-mode-flowchart"></span><img alt="../_images/manual-mode-flowchart.svg" src="../_images/manual-mode-flowchart.svg" /><figcaption>
 <p><span class="caption-number">Fig. 3 </span><span class="caption-text">A flowchart summary of the procedure of the manual mode. It includes
-the actions of the user along with the program’s flow afterwards.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+the actions of the user along with the program’s flow afterwards.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>We describe the procedure for utilizing the asteroid view-finding (manual)
 mode of OpihiExarata. See <a class="reference internal" href="automatic_mode.html#figure-automatic-mode-flowchart"><span class="std std-numref">Fig. 11</span></a> for a
 flowchart summary of this procedure.</p>
 <section id="start-and-open-gui">
-<h3>Start and Open GUI<a class="headerlink" href="#start-and-open-gui" title="Permalink to this heading"></a></h3>
+<h3>Start and Open GUI<a class="headerlink" href="#start-and-open-gui" title="Link to this heading"></a></h3>
 <p>You will want to open the OpihiExarata manual mode GUI, typically via the
 command-line interface with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opihiexarata</span> <span class="n">manual</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">--</span><span class="n">secret</span><span class="o">=</span><span class="n">secrets</span><span class="o">.</span><span class="n">yaml</span>
@@ -496,7 +496,7 @@ configuration and secrets file; see <a class="reference internal" href="configur
 information.</p>
 </section>
 <section id="specify-new-target-name">
-<span id="user-manual-mode-procedure-specify-new-target-name"></span><h3>Specify New Target Name<a class="headerlink" href="#specify-new-target-name" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-specify-new-target-name"></span><h3>Specify New Target Name<a class="headerlink" href="#specify-new-target-name" title="Link to this heading"></a></h3>
 <p>The OpihiExarata manual mode software groups sequential images as belonging to
 a set of observations of a single target. In order to tell the software what
 target/asteroid you are observing you need to provide its name.</p>
@@ -513,7 +513,7 @@ historical observations from the Minor Planet Center.</p>
 </div>
 </section>
 <section id="take-and-image">
-<h3>Take and Image<a class="headerlink" href="#take-and-image" title="Permalink to this heading"></a></h3>
+<h3>Take and Image<a class="headerlink" href="#take-and-image" title="Link to this heading"></a></h3>
 <p>The first step in processing data is to take an image using the camera
 controller.</p>
 <div class="admonition note">
@@ -528,7 +528,7 @@ It does not matter which is the reference image for more images taken. (See
 </div>
 </section>
 <section id="find-asteroid-location">
-<span id="user-manual-mode-procedure-find-asteroid-location"></span><h3>Find Asteroid Location<a class="headerlink" href="#find-asteroid-location" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-find-asteroid-location"></span><h3>Find Asteroid Location<a class="headerlink" href="#find-asteroid-location" title="Link to this heading"></a></h3>
 <p>You will need to find and specify the location of the asteroid in the image.
 It is beyond the scope of this software and procedure to implement this
 automatically. (If you are not observing asteroids, you may skip this step
@@ -537,12 +537,12 @@ and just click <span class="guilabel">Submit</span> in the
 <p>Use the <a class="reference internal" href="#user-manual-mode-procedure-find-asteroid-location-target-selector-gui"><span class="std std-ref">Target Selector GUI</span></a>
 to find the asteroid pixel location.</p>
 <section id="target-selector-gui">
-<span id="user-manual-mode-procedure-find-asteroid-location-target-selector-gui"></span><h4>Target Selector GUI<a class="headerlink" href="#target-selector-gui" title="Permalink to this heading"></a></h4>
+<span id="user-manual-mode-procedure-find-asteroid-location-target-selector-gui"></span><h4>Target Selector GUI<a class="headerlink" href="#target-selector-gui" title="Link to this heading"></a></h4>
 <figure class="align-default" id="id4">
 <span id="figure-target-selector-gui"></span><img alt="../_images/target-selector-gui.png" src="../_images/target-selector-gui.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 4 </span><span class="caption-text">The GUI for finding the pixel location of a target in the image. The
-targets are typically asteroids.</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+targets are typically asteroids.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The target selector GUI allows you to select a specific target (generally an
@@ -589,12 +589,12 @@ click <span class="guilabel">Submit</span>. The location of your target will be 
 </section>
 </section>
 <section id="compute-astrometric-solution">
-<span id="user-manual-mode-procedure-find-asteroid-location-compute-astrometric-solution"></span><h3>Compute Astrometric Solution<a class="headerlink" href="#compute-astrometric-solution" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-find-asteroid-location-compute-astrometric-solution"></span><h3>Compute Astrometric Solution<a class="headerlink" href="#compute-astrometric-solution" title="Link to this heading"></a></h3>
 <figure class="align-default" id="id5">
 <span id="figure-manual-mode-gui-astrometry"></span><img alt="../_images/manual-mode-gui-astrometry.png" src="../_images/manual-mode-gui-astrometry.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 5 </span><span class="caption-text">The astrometry GUI tab for customizing and executing astrometric solutions.
-This is the default view before any values have been calculated.</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+This is the default view before any values have been calculated.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The astrometric solution of the image is next to be solved. The pattern of
@@ -622,12 +622,12 @@ and click the <span class="guilabel">Custom Solve</span> button to convert it to
 button does nothing without a valid astrometric solution.</p>
 </section>
 <section id="compute-photometric-solution">
-<span id="user-manual-mode-procedure-find-asteroid-location-compute-photometric-solution"></span><h3>Compute Photometric Solution<a class="headerlink" href="#compute-photometric-solution" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-find-asteroid-location-compute-photometric-solution"></span><h3>Compute Photometric Solution<a class="headerlink" href="#compute-photometric-solution" title="Link to this heading"></a></h3>
 <figure class="align-default" id="id6">
 <span id="figure-manual-mode-gui-photometry"></span><img alt="../_images/manual-mode-gui-photometry.png" src="../_images/manual-mode-gui-photometry.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">The photometry GUI tab for customizing and executing photometric solutions.
-This is the default view before any values have been calculated.</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
+This is the default view before any values have been calculated.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The photometric solution of the image is next to be solved. The brightness of
@@ -656,14 +656,14 @@ solution from
 </div>
 </section>
 <section id="asteroid-on-sky-position">
-<span id="user-manual-mode-procedure-asteroid-on-sky-position"></span><h3>Asteroid On-Sky Position<a class="headerlink" href="#asteroid-on-sky-position" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-asteroid-on-sky-position"></span><h3>Asteroid On-Sky Position<a class="headerlink" href="#asteroid-on-sky-position" title="Link to this heading"></a></h3>
 <p>The asteroid pixel location is derived from the procedure in
 <a class="reference internal" href="#user-manual-mode-procedure-find-asteroid-location-target-selector-gui"><span class="std std-ref">Target Selector GUI</span></a>
 and the corresponding on-sky location is derived from the procedure in
 <a class="reference internal" href="#user-manual-mode-procedure-find-asteroid-location-compute-astrometric-solution"><span class="std std-ref">Compute Astrometric Solution</span></a>.</p>
 </section>
 <section id="historical-observations">
-<span id="user-manual-mode-procedure-historical-observations"></span><h3>Historical Observations<a class="headerlink" href="#historical-observations" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-historical-observations"></span><h3>Historical Observations<a class="headerlink" href="#historical-observations" title="Link to this heading"></a></h3>
 <p>The software will attempt to use the target/asteroid name provided in
 <a class="reference internal" href="#user-manual-mode-procedure-specify-new-target-name"><span class="std std-ref">Specify New Target Name</span></a>
 to obtain the set of historical observations from the Minor Planet Center.</p>
@@ -671,7 +671,7 @@ to obtain the set of historical observations from the Minor Planet Center.</p>
 observations.</p>
 </section>
 <section id="asteroid-observation-record">
-<span id="user-manual-mode-procedure-asteroid-observation-record"></span><h3>Asteroid Observation Record<a class="headerlink" href="#asteroid-observation-record" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-asteroid-observation-record"></span><h3>Asteroid Observation Record<a class="headerlink" href="#asteroid-observation-record" title="Link to this heading"></a></h3>
 <p>The combination of both <a class="reference internal" href="#user-manual-mode-procedure-historical-observations"><span class="std std-ref">Historical Observations</span></a>
 and <a class="reference internal" href="#user-manual-mode-procedure-asteroid-on-sky-position"><span class="std std-ref">Asteroid On-Sky Position</span></a> makes up the
 sum total of the asteroid observation record. Using this asteroid observation
@@ -687,12 +687,12 @@ asteroid:</p>
 <a class="reference internal" href="#user-manual-mode-procedure-asteroid-position-propagation"><span class="std std-ref">Asteroid Position Propagation</span></a>.</p>
 </section>
 <section id="asteroid-position-propagation">
-<span id="user-manual-mode-procedure-asteroid-position-propagation"></span><h3>Asteroid Position Propagation<a class="headerlink" href="#asteroid-position-propagation" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-asteroid-position-propagation"></span><h3>Asteroid Position Propagation<a class="headerlink" href="#asteroid-position-propagation" title="Link to this heading"></a></h3>
 <figure class="align-default" id="id7">
 <span id="figure-manual-mode-gui-propagate"></span><img alt="../_images/manual-mode-gui-propagate.png" src="../_images/manual-mode-gui-propagate.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 7 </span><span class="caption-text">The propagation GUI tab for customizing and executing propagation solutions.
-This is the default view before any values have been calculated.</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+This is the default view before any values have been calculated.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Propagating the on-sky motion of the asteroid is done by taking the
@@ -727,12 +727,12 @@ solution from
 </div>
 </section>
 <section id="orbital-elements">
-<span id="user-manual-mode-procedure-orbital-elements"></span><h3>Orbital Elements<a class="headerlink" href="#orbital-elements" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-orbital-elements"></span><h3>Orbital Elements<a class="headerlink" href="#orbital-elements" title="Link to this heading"></a></h3>
 <figure class="align-default" id="id8">
 <span id="figure-manual-mode-gui-orbit"></span><img alt="../_images/manual-mode-gui-orbit.png" src="../_images/manual-mode-gui-orbit.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 8 </span><span class="caption-text">The orbit GUI tab for customizing and executing orbital solutions.
-This is the default view before any values have been calculated.</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+This is the default view before any values have been calculated.</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Provided a list of historical observations, we can solve for the Keplerian
@@ -770,12 +770,12 @@ solution from
 </div>
 </section>
 <section id="ephemeris">
-<span id="user-manual-mode-procedure-ephemeris"></span><h3>Ephemeris<a class="headerlink" href="#ephemeris" title="Permalink to this heading"></a></h3>
+<span id="user-manual-mode-procedure-ephemeris"></span><h3>Ephemeris<a class="headerlink" href="#ephemeris" title="Link to this heading"></a></h3>
 <figure class="align-default" id="id9">
 <span id="figure-manual-mode-gui-ephemeris"></span><img alt="../_images/manual-mode-gui-ephemeris.png" src="../_images/manual-mode-gui-ephemeris.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 9 </span><span class="caption-text">The ephemeris GUI tab for customizing and executing ephemeris solutions.
-This is the default view before any values have been calculated.</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
+This is the default view before any values have been calculated.</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The orbital elements derived in <a class="reference internal" href="#user-manual-mode-procedure-orbital-elements"><span class="std std-ref">Orbital Elements</span></a>
@@ -809,7 +809,7 @@ itself depends on a completed astrometric solution from
 </div>
 </section>
 <section id="asteroid-on-sky-future-track">
-<span id="user-manual-procedure-asteroid-on-sky-future-track"></span><h3>Asteroid On-Sky Future Track<a class="headerlink" href="#asteroid-on-sky-future-track" title="Permalink to this heading"></a></h3>
+<span id="user-manual-procedure-asteroid-on-sky-future-track"></span><h3>Asteroid On-Sky Future Track<a class="headerlink" href="#asteroid-on-sky-future-track" title="Link to this heading"></a></h3>
 <p>Regardless of which method you use to derive the future track of the asteroid
 (either from <a class="reference internal" href="#user-manual-mode-procedure-asteroid-position-propagation"><span class="std std-ref">Asteroid Position Propagation</span></a> or
 from <a class="reference internal" href="#user-manual-mode-procedure-orbital-elements"><span class="std std-ref">Orbital Elements</span></a> and
@@ -818,7 +818,7 @@ asteroid and the on-sky rates are determined (see the respective sections
 for details).</p>
 </section>
 <section id="telescope-control-software-update">
-<h3>Telescope Control Software: Update<a class="headerlink" href="#telescope-control-software-update" title="Permalink to this heading"></a></h3>
+<h3>Telescope Control Software: Update<a class="headerlink" href="#telescope-control-software-update" title="Link to this heading"></a></h3>
 <p>The new asteroid on-sky future track (position and on-sky rates) derived from
 <a class="reference internal" href="#user-manual-procedure-asteroid-on-sky-future-track"><span class="std std-ref">Asteroid On-Sky Future Track</span></a> can be sent to the
 telescope control software to slew the telescope to the correct location of

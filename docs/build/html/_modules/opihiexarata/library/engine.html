@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.engine &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.library.engine &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -421,7 +421,9 @@
 
 
 <span class="c1"># The solution classes.</span>
-<div class="viewcode-block" id="ExarataSolution"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution">[docs]</a><span class="k">class</span> <span class="nc">ExarataSolution</span><span class="p">:</span>
+<div class="viewcode-block" id="ExarataSolution">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataSolution">[docs]</a>
+<span class="k">class</span> <span class="nc">ExarataSolution</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class for all of the solution classes which use engines to</span>
 <span class="sd">    solve particular problems.&quot;&quot;&quot;</span>
 
@@ -432,8 +434,11 @@
         <span class="p">)</span></div>
 
 
+
 <span class="c1"># The engine classes</span>
-<div class="viewcode-block" id="ExarataEngine"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataEngine">[docs]</a><span class="k">class</span> <span class="nc">ExarataEngine</span><span class="p">:</span>
+<div class="viewcode-block" id="ExarataEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.ExarataEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">ExarataEngine</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class for all of the engines which power the interfaces for</span>
 <span class="sd">    the OpihiExarata system. This should not used for anything other than</span>
 <span class="sd">    type hinting and subclassing.&quot;&quot;&quot;</span>
@@ -445,29 +450,45 @@
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AstrometryEngine"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine">[docs]</a><span class="k">class</span> <span class="nc">AstrometryEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
+
+<div class="viewcode-block" id="AstrometryEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.AstrometryEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">AstrometryEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class where the Astrometry engines are derived from. Should</span>
 <span class="sd">    not be used other than for type hinting and subclassing.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="EphemerisEngine"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine">[docs]</a><span class="k">class</span> <span class="nc">EphemerisEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EphemerisEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.EphemerisEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">EphemerisEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class for all of the Ephemeris determination engines. Should not</span>
 <span class="sd">    be used other than for type hinting and subclassing.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="OrbitEngine"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine">[docs]</a><span class="k">class</span> <span class="nc">OrbitEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrbitEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.OrbitEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">OrbitEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class for all of the Orbit determination engines. Should not</span>
 <span class="sd">    be used other than for type hinting and subclassing.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="PhotometryEngine"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine">[docs]</a><span class="k">class</span> <span class="nc">PhotometryEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PhotometryEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.PhotometryEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">PhotometryEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class where the Photometry engines are derived from. Should</span>
 <span class="sd">    not be used other than for type hinting and subclassing.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="PropagationEngine"><a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.PropagationEngine">[docs]</a><span class="k">class</span> <span class="nc">PropagationEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PropagationEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.engine.html#opihiexarata.library.engine.PropagationEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">PropagationEngine</span><span class="p">(</span><span class="n">ExarataEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class where the Propagation engines are derived from. Should</span>
 <span class="sd">    not be used other than for type hinting and subclassing.&quot;&quot;&quot;</span></div>
+
 </pre></div>
 
            </div>

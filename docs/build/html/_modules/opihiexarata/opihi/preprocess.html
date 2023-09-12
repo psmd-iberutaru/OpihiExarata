@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.preprocess &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.opihi.preprocess &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -426,7 +426,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-<div class="viewcode-block" id="OpihiPreprocessSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiPreprocessSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiPreprocessSolution">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution">[docs]</a>
+<span class="k">class</span> <span class="nc">OpihiPreprocessSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A class which represents the reduction process of Opihi data, having the</span>
 <span class="sd">    raw data corrected using previously and provided derived flats and darks.</span>
 <span class="sd">    The required parameters (such as exposure time) must also be provided.</span>
@@ -563,7 +565,9 @@
 <span class="sd">        across all of the pixels.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OpihiPreprocessSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="OpihiPreprocessSolution.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">mask_c_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">mask_g_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -694,6 +698,7 @@
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__init_read_mask_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function just reads all of the fits file data for the</span>
@@ -833,7 +838,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiPreprocessSolution.preprocess_data_image"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_data_image">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data_image</span><span class="p">(</span>
+<div class="viewcode-block" id="OpihiPreprocessSolution.preprocess_data_image">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_data_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">preprocess_data_image</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The formal reduction algorithm for data from Opihi. It follows</span>
@@ -901,7 +908,10 @@
         <span class="n">preprocess_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
         <span class="k">return</span> <span class="n">preprocess_data</span></div>
 
-<div class="viewcode-block" id="OpihiPreprocessSolution.preprocess_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_fits_file</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiPreprocessSolution.preprocess_fits_file">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.preprocess.html#opihiexarata.opihi.preprocess.OpihiPreprocessSolution.preprocess_fits_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">preprocess_fits_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">raw_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess an Opihi image, the provided fits filename is read, the</span>
@@ -980,7 +990,9 @@
             <span class="k">pass</span>
 
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="n">preprocess_header</span><span class="p">,</span> <span class="n">preprocess_data</span></div></div>
+        <span class="k">return</span> <span class="n">preprocess_header</span><span class="p">,</span> <span class="n">preprocess_data</span></div>
+</div>
+
 </pre></div>
 
            </div>

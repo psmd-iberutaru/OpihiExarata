@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.opihi.solution &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -432,7 +432,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.ephemeris</span> <span class="k">as</span> <span class="nn">ephemeris</span>
 
 
-<div class="viewcode-block" id="OpihiSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiSolution">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution">[docs]</a>
+<span class="k">class</span> <span class="nc">OpihiSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the main class which acts as a collection container of</span>
 <span class="sd">    solution classes. It facilitates the interaction between the solution</span>
 <span class="sd">    classes and the GUI.</span>
@@ -527,7 +529,9 @@
 
     <span class="c1"># https://www.adsabs.harvard.edu/full/1895PA......3...17S</span>
 
-<div class="viewcode-block" id="OpihiSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="OpihiSolution.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -647,19 +651,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">propagatives_engine_class</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
+
     <span class="k">def</span> <span class="nf">__get_asteroid_observations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Property: get asteroid observation table.</span>
-<span class="sd">        We derive the observation table from the asteroid history data.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        None</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        asteroid_observations : Table</span>
-<span class="sd">            The Astropy table which is a copy of the data in asteroid history.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Deriving the observations from the table.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">asteroid_observations</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">mpcrecord</span><span class="o">.</span><span class="n">minor_planet_record_to_table</span><span class="p">(</span>
@@ -671,18 +664,6 @@
         <span class="k">return</span> <span class="n">asteroid_observations</span>
 
     <span class="k">def</span> <span class="nf">__set_asteroid_observations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Property: set asteroid observation table.</span>
-<span class="sd">        You cannot set the asteroid observations directly as it is determined</span>
-<span class="sd">        from the asteroid history.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        None</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># The observations are derived from the table, it cannot be changed.</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">ReadOnlyError</span><span class="p">(</span>
             <span class="s2">&quot;The asteroid observation table is derived from the asteroid history&quot;</span>
@@ -690,19 +671,8 @@
             <span class="s2">&quot; asteroid history list is changed.&quot;</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
-
     <span class="k">def</span> <span class="nf">__del_asteroid_observations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Property: delete asteroid observation table.</span>
-<span class="sd">        The table cannot be deleted.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        None</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">ReadOnlyError</span><span class="p">(</span>
             <span class="s2">&quot;The asteroid observation table is derived from the asteroid history&quot;</span>
             <span class="s2">&quot; attribute, it cannot be deleted.&quot;</span>
@@ -715,7 +685,9 @@
         <span class="n">__del_asteroid_observations</span><span class="p">,</span>
     <span class="p">)</span>
 
-<div class="viewcode-block" id="OpihiSolution.solve_astrometry"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_astrometry">[docs]</a>    <span class="k">def</span> <span class="nf">solve_astrometry</span><span class="p">(</span>
+<div class="viewcode-block" id="OpihiSolution.solve_astrometry">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_astrometry">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_astrometry</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AstrometryEngine</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -770,7 +742,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">astrometrics_engine_class</span> <span class="o">=</span> <span class="n">solver_engine</span>
         <span class="k">return</span> <span class="n">astrometry_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.solve_photometry"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_photometry">[docs]</a>    <span class="k">def</span> <span class="nf">solve_photometry</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiSolution.solve_photometry">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_photometry">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_photometry</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PhotometryEngine</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -862,7 +837,10 @@
 
         <span class="k">return</span> <span class="n">photometric_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.solve_orbit"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiSolution.solve_orbit">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_orbit">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_orbit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OrbitEngine</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -1002,7 +980,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">orbitals_engine_class</span> <span class="o">=</span> <span class="n">solver_engine</span>
         <span class="k">return</span> <span class="n">orbital_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.solve_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">solve_ephemeris</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiSolution.solve_ephemeris">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_ephemeris">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_ephemeris</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -1074,7 +1055,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">ephemeritics_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.solve_propagate"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_propagate">[docs]</a>    <span class="k">def</span> <span class="nf">solve_propagate</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiSolution.solve_propagate">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.solve_propagate">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">solver_engine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">PropagationEngine</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -1211,7 +1195,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">propagative_solution</span><span class="p">,</span> <span class="n">solve_status</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.mpc_table_row"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_table_row">[docs]</a>    <span class="k">def</span> <span class="nf">mpc_table_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiSolution.mpc_table_row">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_table_row">[docs]</a>
+    <span class="k">def</span> <span class="nf">mpc_table_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;An MPC table of the current observation with information provided</span>
 <span class="sd">        by solved solutions. This routine does not attempt to do any solutions.</span>
 
@@ -1316,7 +1303,10 @@
         <span class="n">table_row</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">mpc_table</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">table_row</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.mpc_record_row"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_record_row">[docs]</a>    <span class="k">def</span> <span class="nf">mpc_record_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiSolution.mpc_record_row">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_record_row">[docs]</a>
+    <span class="k">def</span> <span class="nf">mpc_record_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns an 80-character record describing the observation of this</span>
 <span class="sd">        object assuming it is an asteroid. It only uses information</span>
 <span class="sd">        that is provided and does not attempt to compute any solutions.</span>
@@ -1345,7 +1335,10 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">mpc_record_row</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.mpc_record_full"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_record_full">[docs]</a>    <span class="k">def</span> <span class="nf">mpc_record_full</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="OpihiSolution.mpc_record_full">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.mpc_record_full">[docs]</a>
+    <span class="k">def</span> <span class="nf">mpc_record_full</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This creates a full MPC record from all observations, including the</span>
 <span class="sd">        history and this current observation.</span>
 
@@ -1378,7 +1371,10 @@
         <span class="n">mpc_record</span> <span class="o">=</span> <span class="n">asteroid_history</span> <span class="o">+</span> <span class="n">asteroid_current</span>
         <span class="k">return</span> <span class="n">mpc_record</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.compute_asteroid_magnitude"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.compute_asteroid_magnitude">[docs]</a>    <span class="k">def</span> <span class="nf">compute_asteroid_magnitude</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiSolution.compute_asteroid_magnitude">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.compute_asteroid_magnitude">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_asteroid_magnitude</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">asteroid_location</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function computes the asteroid magnitude provided the location</span>
@@ -1442,7 +1438,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">asteroid_magnitude_error</span> <span class="o">=</span> <span class="n">magnitude_error</span>
         <span class="k">return</span> <span class="n">magnitude</span><span class="p">,</span> <span class="n">magnitude_error</span></div>
 
-<div class="viewcode-block" id="OpihiSolution.save_to_fits_file"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.save_to_fits_file">[docs]</a>    <span class="k">def</span> <span class="nf">save_to_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiSolution.save_to_fits_file">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution.save_to_fits_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_to_fits_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;We save all of the information that we can from this solution to</span>
 <span class="sd">        a FITS file.</span>
 
@@ -1491,7 +1490,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiSolution._generate_opihiexarata_fits_entries_dictionary"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution._generate_opihiexarata_fits_entries_dictionary">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_opihiexarata_fits_entries_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OpihiSolution._generate_opihiexarata_fits_entries_dictionary">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.solution.html#opihiexarata.opihi.solution.OpihiSolution._generate_opihiexarata_fits_entries_dictionary">[docs]</a>
+    <span class="k">def</span> <span class="nf">_generate_opihiexarata_fits_entries_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;We determine the OpihiExarata header entries here. We follow the</span>
 <span class="sd">        specification for the OpihiExarata FITS header. We only add values</span>
 <span class="sd">        which we have proper data for to the dictionary.</span>
@@ -1679,7 +1681,9 @@
         <span class="n">available_entries</span><span class="p">[</span><span class="s2">&quot;OX___END&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="n">available_entries</span></div></div>
+        <span class="k">return</span> <span class="n">available_entries</span></div>
+</div>
+
 </pre></div>
 
            </div>

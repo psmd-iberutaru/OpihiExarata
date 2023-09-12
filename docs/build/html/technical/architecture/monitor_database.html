@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monitor Database &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Monitor Database &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -418,7 +418,7 @@
            <div itemprop="articleBody">
              
   <section id="monitor-database">
-<span id="technical-architecture-monitor-database"></span><h1>Monitor Database<a class="headerlink" href="#monitor-database" title="Permalink to this heading"></a></h1>
+<span id="technical-architecture-monitor-database"></span><h1>Monitor Database<a class="headerlink" href="#monitor-database" title="Link to this heading"></a></h1>
 <p>One of the functionalities of the Opihi telescope is to record and monitor
 the atmospheric conditions over time. This functionality is similar to the
 <a class="reference external" href="https://www.cfht.hawaii.edu/Instruments/Elixir/skyprobe/home.html">CFHT SkyProbe</a>.</p>
@@ -429,7 +429,7 @@ for computing the photometric solution in manual mode, and <a class="reference i
 generally for computing the photometric solution in automatic mode.) We save
 the zero point information in a database.</p>
 <section id="database-schema">
-<h2>Database Schema<a class="headerlink" href="#database-schema" title="Permalink to this heading"></a></h2>
+<h2>Database Schema<a class="headerlink" href="#database-schema" title="Link to this heading"></a></h2>
 <p>The layout of a database is typically described by the database schema. For
 our purposes, we find that a flat file database is the simplest to understand
 for those unfamiliar with OpihiExarata itself. Although typically a general
@@ -444,7 +444,7 @@ the full data is needed.</p>
 </ol>
 </section>
 <section id="managing-the-database">
-<h2>Managing the Database<a class="headerlink" href="#managing-the-database" title="Permalink to this heading"></a></h2>
+<h2>Managing the Database<a class="headerlink" href="#managing-the-database" title="Link to this heading"></a></h2>
 <p>The database is custom to this software and so the API which manages it is
 also native to OpihiExarata. The database is managed with an instance of the
 database solution class found. (For more information, see

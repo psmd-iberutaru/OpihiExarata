@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.qtui.qtui_manual &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.gui.qtui.qtui_manual &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -477,8 +477,12 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="Ui_ManualWindow"><a class="viewcode-back" href="../../../../code/opihiexarata.gui.qtui.qtui_manual.html#opihiexarata.gui.qtui.qtui_manual.Ui_ManualWindow">[docs]</a><span class="k">class</span> <span class="nc">Ui_ManualWindow</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<div class="viewcode-block" id="Ui_ManualWindow.setupUi"><a class="viewcode-back" href="../../../../code/opihiexarata.gui.qtui.qtui_manual.html#opihiexarata.gui.qtui.qtui_manual.Ui_ManualWindow.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ManualWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_ManualWindow">
+<a class="viewcode-back" href="../../../../code/opihiexarata.gui.qtui.qtui_manual.html#opihiexarata.gui.qtui.qtui_manual.Ui_ManualWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">Ui_ManualWindow</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_ManualWindow.setupUi">
+<a class="viewcode-back" href="../../../../code/opihiexarata.gui.qtui.qtui_manual.html#opihiexarata.gui.qtui.qtui_manual.Ui_ManualWindow.setupUi">[docs]</a>
+    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ManualWindow</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ManualWindow</span><span class="o">.</span><span class="n">objectName</span><span class="p">():</span>
             <span class="n">ManualWindow</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">)</span>
         <span class="n">ManualWindow</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">930</span><span class="p">,</span> <span class="mi">821</span><span class="p">)</span>
@@ -2897,9 +2901,12 @@
 
         <span class="n">QMetaObject</span><span class="o">.</span><span class="n">connectSlotsByName</span><span class="p">(</span><span class="n">ManualWindow</span><span class="p">)</span></div>
 
+
     <span class="c1"># setupUi</span>
 
-<div class="viewcode-block" id="Ui_ManualWindow.retranslateUi"><a class="viewcode-back" href="../../../../code/opihiexarata.gui.qtui.qtui_manual.html#opihiexarata.gui.qtui.qtui_manual.Ui_ManualWindow.retranslateUi">[docs]</a>    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ManualWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="Ui_ManualWindow.retranslateUi">
+<a class="viewcode-back" href="../../../../code/opihiexarata.gui.qtui.qtui_manual.html#opihiexarata.gui.qtui.qtui_manual.Ui_ManualWindow.retranslateUi">[docs]</a>
+    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ManualWindow</span><span class="p">):</span>
         <span class="n">ManualWindow</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;OpihiExarata Manual Mode&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
@@ -3317,10 +3324,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_ephemeris_results_second_order</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
                 <span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span>
-                <span class="p">(</span>
-                    <span class="s1">&#39;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;2nd Order [&amp;quot;/s&lt;span style=&quot;&#39;</span>
-                    <span class="s1">&#39; vertical-align:super;&quot;&gt;2&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;2nd Order [&amp;quot;/s&lt;span style=&quot;&#39;</span>
+                <span class="s1">&#39; vertical-align:super;&quot;&gt;2&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -3410,10 +3415,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">label_static_propagate_results_second_order</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
                 <span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span>
-                <span class="p">(</span>
-                    <span class="s1">&#39;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;2nd Order [&amp;quot;/s&lt;span style=&quot;&#39;</span>
-                    <span class="s1">&#39; vertical-align:super;&quot;&gt;2&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span>
-                <span class="p">),</span>
+                <span class="s1">&#39;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;2nd Order [&amp;quot;/s&lt;span style=&quot;&#39;</span>
+                <span class="s1">&#39; vertical-align:super;&quot;&gt;2&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -3466,7 +3469,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_widget_solutions</span><span class="o">.</span><span class="n">setTabText</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tab_widget_solutions</span><span class="o">.</span><span class="n">indexOf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_propagate</span><span class="p">),</span>
             <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;ManualWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Propagate&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 
     <span class="c1"># retranslateUi</span>
 </pre></div>

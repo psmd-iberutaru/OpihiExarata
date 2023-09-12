@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.path &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.library.path &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -425,7 +425,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-<div class="viewcode-block" id="get_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_directory">[docs]</a><span class="k">def</span> <span class="nf">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="get_directory">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_directory">[docs]</a>
+<span class="k">def</span> <span class="nf">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the directory from the pathname without the file or the extension.</span>
 
 <span class="sd">    Parameters</span>
@@ -442,7 +444,10 @@
     <span class="k">return</span> <span class="n">directory</span></div>
 
 
-<div class="viewcode-block" id="get_most_recent_filename_in_directory"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_most_recent_filename_in_directory">[docs]</a><span class="k">def</span> <span class="nf">get_most_recent_filename_in_directory</span><span class="p">(</span>
+
+<div class="viewcode-block" id="get_most_recent_filename_in_directory">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_most_recent_filename_in_directory">[docs]</a>
+<span class="k">def</span> <span class="nf">get_most_recent_filename_in_directory</span><span class="p">(</span>
     <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">extension</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -565,7 +570,10 @@
     <span class="k">return</span> <span class="n">recent_filename</span></div>
 
 
-<div class="viewcode-block" id="get_filename_without_extension"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_without_extension">[docs]</a><span class="k">def</span> <span class="nf">get_filename_without_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="get_filename_without_extension">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_without_extension">[docs]</a>
+<span class="k">def</span> <span class="nf">get_filename_without_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the filename from the pathname without the file extension.</span>
 
 <span class="sd">    Parameters</span>
@@ -585,7 +593,10 @@
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
-<div class="viewcode-block" id="get_filename_with_extension"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_with_extension">[docs]</a><span class="k">def</span> <span class="nf">get_filename_with_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="get_filename_with_extension">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_filename_with_extension">[docs]</a>
+<span class="k">def</span> <span class="nf">get_filename_with_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the filename from the pathname with the file extension.</span>
 
 <span class="sd">    Parameters</span>
@@ -601,7 +612,10 @@
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_file_extension"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_file_extension">[docs]</a><span class="k">def</span> <span class="nf">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="get_file_extension">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.get_file_extension">[docs]</a>
+<span class="k">def</span> <span class="nf">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the file extension only from the pathname.</span>
 
 <span class="sd">    Parameters</span>
@@ -618,7 +632,10 @@
     <span class="k">return</span> <span class="n">extension</span></div>
 
 
-<div class="viewcode-block" id="merge_pathname"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.merge_pathname">[docs]</a><span class="k">def</span> <span class="nf">merge_pathname</span><span class="p">(</span>
+
+<div class="viewcode-block" id="merge_pathname">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.merge_pathname">[docs]</a>
+<span class="k">def</span> <span class="nf">merge_pathname</span><span class="p">(</span>
     <span class="n">directory</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Joins directories, filenames, and file extensions into one pathname.</span>
@@ -655,7 +672,10 @@
     <span class="k">return</span> <span class="n">pathname</span></div>
 
 
-<div class="viewcode-block" id="split_pathname"><a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.split_pathname">[docs]</a><span class="k">def</span> <span class="nf">split_pathname</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="split_pathname">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.path.html#opihiexarata.library.path.split_pathname">[docs]</a>
+<span class="k">def</span> <span class="nf">split_pathname</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Splits a path into a directory, filename, and file extension.</span>
 
 <span class="sd">    This is a wrapper function around the more elementry functions</span>
@@ -680,6 +700,7 @@
     <span class="n">filename</span> <span class="o">=</span> <span class="n">get_filename_without_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">pathname</span><span class="p">)</span>
     <span class="n">extension</span> <span class="o">=</span> <span class="n">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">pathname</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">extension</span></div>
+
 </pre></div>
 
            </div>

@@ -544,8 +544,8 @@ class PhotometricSolution(library.engine.ExarataSolution):
             zero_points, nan_policy="omit"
         )
         zero_point_error = zero_point_deviation / np.sqrt(n_stars)
-        # Final consistency check, if the values are not actually finite or 
-        # real values for that matter, the zero point is nothing. We also 
+        # Final consistency check, if the values are not actually finite or
+        # real values for that matter, the zero point is nothing. We also
         # properly handle the different cases of NaN for values and errors.
         if not np.isfinite(zero_point):
             zero_point = np.nan

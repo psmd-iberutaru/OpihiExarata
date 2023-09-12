@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.library.tcs &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.library.tcs &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -439,7 +439,9 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="t3io_tcs_next"><a class="viewcode-back" href="../../../code/opihiexarata.library.tcs.html#opihiexarata.library.tcs.t3io_tcs_next">[docs]</a><span class="k">def</span> <span class="nf">t3io_tcs_next</span><span class="p">(</span>
+<div class="viewcode-block" id="t3io_tcs_next">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.tcs.html#opihiexarata.library.tcs.t3io_tcs_next">[docs]</a>
+<span class="k">def</span> <span class="nf">t3io_tcs_next</span><span class="p">(</span>
     <span class="n">ra</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">dec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">ra_proper_motion</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -598,7 +600,10 @@
     <span class="k">return</span> <span class="n">t3io_response</span></div>
 
 
-<div class="viewcode-block" id="t3io_tcs_ns_rate"><a class="viewcode-back" href="../../../code/opihiexarata.library.tcs.html#opihiexarata.library.tcs.t3io_tcs_ns_rate">[docs]</a><span class="k">def</span> <span class="nf">t3io_tcs_ns_rate</span><span class="p">(</span><span class="n">ra_velocity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dec_velocity</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">:</span>
+
+<div class="viewcode-block" id="t3io_tcs_ns_rate">
+<a class="viewcode-back" href="../../../code/opihiexarata.library.tcs.html#opihiexarata.library.tcs.t3io_tcs_ns_rate">[docs]</a>
+<span class="k">def</span> <span class="nf">t3io_tcs_ns_rate</span><span class="p">(</span><span class="n">ra_velocity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dec_velocity</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This uses the t3io program to execute the TCS ns.rate command.</span>
 <span class="sd">    This command allows for the specification of the non-sidereal rates of the</span>
 <span class="sd">    target.</span>
@@ -663,6 +668,7 @@
     <span class="n">t3io_command_arguments_str</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">argdex</span><span class="p">)</span> <span class="k">for</span> <span class="n">argdex</span> <span class="ow">in</span> <span class="n">t3io_command_arguments</span><span class="p">]</span>
     <span class="n">t3io_response</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">t3io_command_arguments_str</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">t3io_response</span></div>
+
 </pre></div>
 
            </div>

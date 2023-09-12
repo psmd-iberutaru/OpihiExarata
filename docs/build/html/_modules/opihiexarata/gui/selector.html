@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.gui.selector &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -438,7 +438,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
 
 
-<div class="viewcode-block" id="TargetSelectorWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow">[docs]</a><span class="k">class</span> <span class="nc">TargetSelectorWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetSelectorWindow">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">TargetSelectorWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the general class for the target selector window. The whole</span>
 <span class="sd">    purpose of this class is for the ease of finding an asteroid.</span>
 
@@ -507,7 +509,9 @@
 <span class="sd">        A class to wrap around the imshow formatter for fancy printing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TargetSelectorWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="TargetSelectorWindow.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">current_fits_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">reference_fits_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the target selector window. Though often used for asteroids,</span>
@@ -607,6 +611,7 @@
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__init_opihi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the image area which will display what Opihi took from the</span>
@@ -1241,7 +1246,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">close_window</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="TargetSelectorWindow.refresh_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.refresh_window">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TargetSelectorWindow.refresh_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.refresh_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh the text content of the window given new information.</span>
 <span class="sd">        This refreshes both the dynamic label text and redraws the image.</span>
 
@@ -1259,6 +1266,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__refresh_text</span><span class="p">()</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__refresh_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Redraw and refresh the image, this is mostly used to allow for the</span>
@@ -1399,7 +1407,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="TargetSelectorWindow.close_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.close_window">[docs]</a>    <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TargetSelectorWindow.close_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.close_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes the window. Generally called when it is all done.</span>
 
 <span class="sd">        Parameters</span>
@@ -1417,7 +1427,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="TargetSelectorWindow._recompute_subtraction_arrays"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._recompute_subtraction_arrays">[docs]</a>    <span class="k">def</span> <span class="nf">_recompute_subtraction_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TargetSelectorWindow._recompute_subtraction_arrays">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._recompute_subtraction_arrays">[docs]</a>
+    <span class="k">def</span> <span class="nf">_recompute_subtraction_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This computes the subtracted arrays for both none, sidereal, and</span>
 <span class="sd">        non-sidereal subtractions. This is done mostly for speed considerations</span>
 <span class="sd">        as the values can be computed and stored during image loading.</span>
@@ -1464,7 +1477,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="TargetSelectorWindow._recompute_colorbar_autoscale"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._recompute_colorbar_autoscale">[docs]</a>    <span class="k">def</span> <span class="nf">_recompute_colorbar_autoscale</span><span class="p">(</span>
+
+<div class="viewcode-block" id="TargetSelectorWindow._recompute_colorbar_autoscale">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow._recompute_colorbar_autoscale">[docs]</a>
+    <span class="k">def</span> <span class="nf">_recompute_colorbar_autoscale</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">lower_percentile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">higher_percentile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">99</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a function to recompute the autoscaling of the colorbar.</span>
@@ -1510,7 +1526,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="TargetSelectorWindow.find_target_location"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.find_target_location">[docs]</a>    <span class="k">def</span> <span class="nf">find_target_location</span><span class="p">(</span>
+
+<div class="viewcode-block" id="TargetSelectorWindow.find_target_location">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.TargetSelectorWindow.find_target_location">[docs]</a>
+    <span class="k">def</span> <span class="nf">find_target_location</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the location of a target by using a guessed location.</span>
@@ -1626,10 +1645,14 @@
             <span class="n">target_y</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">search_y</span>
 
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div></div>
+        <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ask_user_target_selector_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.ask_user_target_selector_window">[docs]</a><span class="k">def</span> <span class="nf">ask_user_target_selector_window</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ask_user_target_selector_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.ask_user_target_selector_window">[docs]</a>
+<span class="k">def</span> <span class="nf">ask_user_target_selector_window</span><span class="p">(</span>
     <span class="n">current_fits_filename</span><span class="p">,</span> <span class="n">reference_fits_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the target selector window to have the user provide the</span>
@@ -1676,7 +1699,10 @@
     <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.selector.html#opihiexarata.gui.selector.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
 
     <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span> <span class="o">=</span> <span class="n">ask_user_target_selector_window</span><span class="p">()</span>
@@ -1684,6 +1710,7 @@
     <span class="n">application</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

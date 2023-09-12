@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.photometry.panstarrs &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.photometry.panstarrs &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -559,7 +559,9 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="PanstarrsMastWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">PanstarrsMastWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PhotometryEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">PanstarrsMastWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">PhotometryEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a photometric data extractor using PanSTARRS data obtained from</span>
 <span class="sd">    their catalogs via the MAST API.</span>
 
@@ -567,7 +569,9 @@
 <span class="sd">    information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verify_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verify_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the instance of the API.</span>
 
 <span class="sd">        Parameters</span>
@@ -584,7 +588,10 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="PanstarrsMastWebAPIEngine._mask_table_data"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine._mask_table_data">[docs]</a>    <span class="k">def</span> <span class="nf">_mask_table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine._mask_table_data">
+<a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine._mask_table_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">_mask_table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This masks the raw data derived from PanSTARRS, implementing the</span>
 <span class="sd">        masking/null value specifics of the PanSTARRS system.</span>
 
@@ -627,7 +634,10 @@
             <span class="n">masked_data_table</span><span class="p">[</span><span class="n">colnamedex</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span>
         <span class="k">return</span> <span class="n">masked_data_table</span></div>
 
-<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.cone_search"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.cone_search">[docs]</a>    <span class="k">def</span> <span class="nf">cone_search</span><span class="p">(</span>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.cone_search">
+<a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.cone_search">[docs]</a>
+    <span class="k">def</span> <span class="nf">cone_search</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">ra</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">dec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -773,7 +783,10 @@
         <span class="n">catalog_results</span> <span class="o">=</span> <span class="n">ap_ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">catalog_results</span></div>
 
-<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.masked_cone_search"><a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.masked_cone_search">[docs]</a>    <span class="k">def</span> <span class="nf">masked_cone_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+
+<div class="viewcode-block" id="PanstarrsMastWebAPIEngine.masked_cone_search">
+<a class="viewcode-back" href="../../../code/opihiexarata.photometry.panstarrs.html#opihiexarata.photometry.panstarrs.PanstarrsMastWebAPIEngine.masked_cone_search">[docs]</a>
+    <span class="k">def</span> <span class="nf">masked_cone_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The same as cone_search, but it also masks the data based on the</span>
 <span class="sd">        masking idiosyncrasies of PanSTARRS.</span>
 
@@ -791,7 +804,9 @@
         <span class="n">catalog_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cone_search</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># Mask the table.</span>
         <span class="n">masked_catalog_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_table_data</span><span class="p">(</span><span class="n">data_table</span><span class="o">=</span><span class="n">catalog_results</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">masked_catalog_results</span></div></div>
+        <span class="k">return</span> <span class="n">masked_catalog_results</span></div>
+</div>
+
 </pre></div>
 
            </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.old_automatic &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.gui.old_automatic &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -435,7 +435,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
 
 
-<div class="viewcode-block" id="OpihiAutomaticWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow">[docs]</a><span class="k">class</span> <span class="nc">OpihiAutomaticWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiAutomaticWindow">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">OpihiAutomaticWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The GUI that is responsible for the implementation of the automatic mode</span>
 <span class="sd">    of Opihi, fetching images automatically based on time and solving for both</span>
 <span class="sd">    the astrometry and photometry.</span>
@@ -487,7 +489,9 @@
 <span class="sd">        configuration file, this is the instance which manages the database.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiAutomaticWindow.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The automatic GUI window for OpihiExarata. This interacts with</span>
 <span class="sd">        the user with regards to the automatic solving mode of Opihi.</span>
 
@@ -545,6 +549,7 @@
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__init_gui_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Creating the function connections for the GUI interface.</span>
@@ -714,7 +719,9 @@
         <span class="n">trigger_solving_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.automatic_triggering"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.automatic_triggering">[docs]</a>    <span class="k">def</span> <span class="nf">automatic_triggering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiAutomaticWindow.automatic_triggering">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.automatic_triggering">[docs]</a>
+    <span class="k">def</span> <span class="nf">automatic_triggering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function executes the continuous running automatic mode loop.</span>
 
 <span class="sd">        All of the stops are checked before a new trigger is executed.</span>
@@ -739,7 +746,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow._automatic_triggering_infinite_loop"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop">[docs]</a>    <span class="k">def</span> <span class="nf">_automatic_triggering_infinite_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow._automatic_triggering_infinite_loop">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_infinite_loop">[docs]</a>
+    <span class="k">def</span> <span class="nf">_automatic_triggering_infinite_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This is where the actual infinite loop is done.</span>
 
 <span class="sd">        All of the stops are checked before a new trigger is executed.</span>
@@ -782,7 +792,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow._automatic_triggering_check_stops"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_check_stops">[docs]</a>    <span class="k">def</span> <span class="nf">_automatic_triggering_check_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow._automatic_triggering_check_stops">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow._automatic_triggering_check_stops">[docs]</a>
+    <span class="k">def</span> <span class="nf">_automatic_triggering_check_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function checks for the stops to stop the automatic triggering</span>
 <span class="sd">        of the next image.</span>
 
@@ -822,7 +835,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">stop_check</span></div>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.fetch_new_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.fetch_new_filename">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_new_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.fetch_new_filename">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.fetch_new_filename">[docs]</a>
+    <span class="k">def</span> <span class="nf">fetch_new_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function fetches a new fits filename based on the most recent</span>
 <span class="sd">        filename within the automatic fetching directory.</span>
 
@@ -852,7 +868,10 @@
             <span class="n">fetched_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">fetched_filename</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fetched_filename</span></div>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.verify_new_filename"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.verify_new_filename">[docs]</a>    <span class="k">def</span> <span class="nf">verify_new_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fetched_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.verify_new_filename">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.verify_new_filename">[docs]</a>
+    <span class="k">def</span> <span class="nf">verify_new_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fetched_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function verifies if the new filename is actually new, or it</span>
 <span class="sd">        is a file that has already been fetched before.</span>
 
@@ -919,7 +938,10 @@
             <span class="k">if</span> <span class="n">_is_same_file</span><span class="p">(</span><span class="n">file_1</span><span class="o">=</span><span class="n">fetched_filename</span><span class="p">,</span> <span class="n">file_2</span><span class="o">=</span><span class="n">filedex</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.solve_astrometry_photometry_single_image"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image">[docs]</a>    <span class="k">def</span> <span class="nf">solve_astrometry_photometry_single_image</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.solve_astrometry_photometry_single_image">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.solve_astrometry_photometry_single_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_astrometry_photometry_single_image</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This solves for the astrometric and photometric solutions of a</span>
@@ -1052,6 +1074,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">opihi_solution</span></div>
 
+
     <span class="k">def</span> <span class="nf">__write_zero_point_record_to_database</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">opihi_solution</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">OpihiSolution</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1103,7 +1126,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.trigger_next_image_solve"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.trigger_next_image_solve">[docs]</a>    <span class="k">def</span> <span class="nf">trigger_next_image_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiAutomaticWindow.trigger_next_image_solve">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.trigger_next_image_solve">[docs]</a>
+    <span class="k">def</span> <span class="nf">trigger_next_image_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function triggers the next iteration of the automatic solving</span>
 <span class="sd">        loop.</span>
 
@@ -1252,7 +1277,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.refresh_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.refresh_window">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiAutomaticWindow.refresh_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.refresh_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">refresh_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refreshes the GUI window with new information where available.</span>
 
 <span class="sd">        Parameters</span>
@@ -1268,6 +1296,7 @@
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="nf">__refresh_dynamic_label_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refreshes the GUI window&#39;s dynamic text.</span>
@@ -1394,7 +1423,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpihiAutomaticWindow.reset_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.reset_window">[docs]</a>    <span class="k">def</span> <span class="nf">reset_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiAutomaticWindow.reset_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.OpihiAutomaticWindow.reset_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function resets the window to the default values or</span>
 <span class="sd">        parameters</span>
 
@@ -1426,10 +1457,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_dynamic_operational_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Default&quot;</span><span class="p">)</span>
 
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
 
 
-<div class="viewcode-block" id="start_automatic_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.start_automatic_window">[docs]</a><span class="k">def</span> <span class="nf">start_automatic_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="start_automatic_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.old_automatic.html#opihiexarata.gui.old_automatic.start_automatic_window">[docs]</a>
+<span class="k">def</span> <span class="nf">start_automatic_window</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the function to create the automatic window for usage.</span>
 
 <span class="sd">    Parameters</span>
@@ -1449,6 +1484,7 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="kc">None</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

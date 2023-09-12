@@ -407,13 +407,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             if filename == filedex:
                 verification = False
 
-        # It passed all of the verification tests, only a True verification
-        # should be sent.
-        if not verification:
-            raise error.DevelopmentError(
-                "The automatic mode file pass all of the verification tests, but the"
-                " verification is still False."
-            )
         return bool(verification)
 
     def trigger_opihi_image_solve(self) -> None:

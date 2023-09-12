@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spherical Kinematics &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>Spherical Kinematics &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/pyukumuku_favicon.png"/>
@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -419,7 +419,7 @@
            <div itemprop="articleBody">
              
   <section id="spherical-kinematics">
-<h1>Spherical Kinematics<a class="headerlink" href="#spherical-kinematics" title="Permalink to this heading"></a></h1>
+<h1>Spherical Kinematics<a class="headerlink" href="#spherical-kinematics" title="Link to this heading"></a></h1>
 <p>Here we detail the algorithm for computing the propagation of the position of
 an asteroid given observations. This method uses the laws of kinematic motion
 in spherical coordinates.</p>
@@ -428,7 +428,7 @@ in spherical coordinates.</p>
 proven to be correct and work for the purposes of being a PropagationEngine.</p>
 </div>
 <section id="definitions">
-<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading"></a></h2>
+<h2>Definitions<a class="headerlink" href="#definitions" title="Link to this heading"></a></h2>
 <p>We are using spherical coordinates, namely the coordinates
 <span class="math notranslate nohighlight">\((r, \theta, \phi)\)</span> for the radial distance, polar angle, and azimuthal
 angle respectively. In relation to astrometric coordinates RA and DEC,
@@ -490,7 +490,7 @@ movement of the position vector representing the asteroid:</p>
 observation to the current time.</p>
 </section>
 <section id="deriving-rates">
-<h2>Deriving Rates<a class="headerlink" href="#deriving-rates" title="Permalink to this heading"></a></h2>
+<h2>Deriving Rates<a class="headerlink" href="#deriving-rates" title="Link to this heading"></a></h2>
 <p>Multiple observations from Opihi provides multiple sightings of an asteroid at
 many different points in the sky, providing multiple RA and DEC coordinates,
 <span class="math notranslate nohighlight">\(\alpha_n\)</span> and <span class="math notranslate nohighlight">\(\delta_n\)</span> at time <span class="math notranslate nohighlight">\(t_n\)</span>. We have a total of
@@ -530,7 +530,7 @@ default, for this special case:</p>
 \[\#(\ddot\theta_q) = \#(\ddot\phi_q) = 0 \implies Q = 0 \longrightarrow \ddot\theta = 0 \quad \ddot\phi = 0\]</div>
 </section>
 <section id="spherical-motion">
-<h2>Spherical Motion<a class="headerlink" href="#spherical-motion" title="Permalink to this heading"></a></h2>
+<h2>Spherical Motion<a class="headerlink" href="#spherical-motion" title="Link to this heading"></a></h2>
 <p>With the 0th, 1st, and 2nd order rates calculated from the set of <span class="math notranslate nohighlight">\(N\)</span>
 observations, the kinematic vectors can be calculated. The special
 observations defining the coordinate system and the velocities also define
@@ -561,7 +561,7 @@ the kinematic equation; the time intervals <span class="math notranslate nohighl
 \[\mathbf{r}^+_i = \mathbf{r}_0 + \mathbf{v}_0 \left(t^+_i - t_0\right) + \frac{1}{2} \mathbf{a} \left(t^+_i - t_0\right)^2\]</div>
 </section>
 <section id="celestial-sphere">
-<h2>Celestial Sphere<a class="headerlink" href="#celestial-sphere" title="Permalink to this heading"></a></h2>
+<h2>Celestial Sphere<a class="headerlink" href="#celestial-sphere" title="Link to this heading"></a></h2>
 <p>These new future position vectors <span class="math notranslate nohighlight">\(\mathbf{r}^+_i\)</span> are in Cartesian
 coordinates. The calculations should be done in Cartesian, provided the
 conversion earlier.</p>
@@ -592,9 +592,9 @@ DEC temporal coordinates <span class="math notranslate nohighlight">\((\alpha^+_
 t^+_i &amp;= t^+_i\end{split}\]</div>
 </section>
 <section id="lemmas">
-<h2>Lemmas<a class="headerlink" href="#lemmas" title="Permalink to this heading"></a></h2>
+<h2>Lemmas<a class="headerlink" href="#lemmas" title="Link to this heading"></a></h2>
 <section id="derivation-of-vector-equation-of-motion">
-<h3>Derivation of Vector Equation of Motion<a class="headerlink" href="#derivation-of-vector-equation-of-motion" title="Permalink to this heading"></a></h3>
+<h3>Derivation of Vector Equation of Motion<a class="headerlink" href="#derivation-of-vector-equation-of-motion" title="Link to this heading"></a></h3>
 <p>Newton’s second law and constant acceleration stipulates:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{F} = m \mathbf{a} = m \ddot{\mathbf{r}} \qquad \dot{\mathbf{F}} = 0\]</div>

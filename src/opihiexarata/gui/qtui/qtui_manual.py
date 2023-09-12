@@ -2902,10 +2902,8 @@ class Ui_ManualWindow(object):
         self.label_static_ephemeris_results_second_order.setText(
             QCoreApplication.translate(
                 "ManualWindow",
-                (
-                    '<html><head/><body><p>2nd Order [&quot;/s<span style="'
-                    ' vertical-align:super;">2</span>]</p></body></html>'
-                ),
+                '<html><head/><body><p>2nd Order [&quot;/s<span style="'
+                ' vertical-align:super;">2</span>]</p></body></html>',
                 None,
             )
         )
@@ -2995,10 +2993,8 @@ class Ui_ManualWindow(object):
         self.label_static_propagate_results_second_order.setText(
             QCoreApplication.translate(
                 "ManualWindow",
-                (
-                    '<html><head/><body><p>2nd Order [&quot;/s<span style="'
-                    ' vertical-align:super;">2</span>]</p></body></html>'
-                ),
+                '<html><head/><body><p>2nd Order [&quot;/s<span style="'
+                ' vertical-align:super;">2</span>]</p></body></html>',
                 None,
             )
         )

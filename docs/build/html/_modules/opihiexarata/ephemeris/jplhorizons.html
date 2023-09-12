@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.ephemeris.jplhorizons &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -425,7 +425,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.library.hint</span> <span class="k">as</span> <span class="nn">hint</span>
 
 
-<div class="viewcode-block" id="JPLHorizonsWebAPIEngine"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine">[docs]</a><span class="k">class</span> <span class="nc">JPLHorizonsWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">):</span>
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine">
+<a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine">[docs]</a>
+<span class="k">class</span> <span class="nc">JPLHorizonsWebAPIEngine</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">EphemerisEngine</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This obtains the ephemeris of an asteroid using JPL horizons provided</span>
 <span class="sd">    the Keplerian orbital elements of the asteroid as determined by orbital</span>
 <span class="sd">    solutions.</span>
@@ -460,7 +462,9 @@
 <span class="sd">        second squared.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="JPLHorizonsWebAPIEngine.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">semimajor_axis</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">eccentricity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -603,6 +607,7 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
+
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">__parse_jpl_horizons_output</span><span class="p">(</span><span class="n">response_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function serves to parse the output from the JPL horizons. It</span>
@@ -735,7 +740,9 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">ephemeris_table</span>
 
-<div class="viewcode-block" id="JPLHorizonsWebAPIEngine._refresh_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._refresh_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh_ephemeris</span><span class="p">(</span>
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine._refresh_ephemeris">
+<a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._refresh_ephemeris">[docs]</a>
+    <span class="k">def</span> <span class="nf">_refresh_ephemeris</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stop_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">time_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function refreshes the calculations rederiving the solution</span>
@@ -780,7 +787,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="JPLHorizonsWebAPIEngine._query_jpl_horizons"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._query_jpl_horizons">[docs]</a>    <span class="k">def</span> <span class="nf">_query_jpl_horizons</span><span class="p">(</span>
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine._query_jpl_horizons">
+<a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine._query_jpl_horizons">[docs]</a>
+    <span class="k">def</span> <span class="nf">_query_jpl_horizons</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">stop_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">time_step</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function queries JPL horizons. Using the current orbital</span>
@@ -862,7 +872,10 @@
         <span class="n">ephemeris_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_jpl_horizons_output</span><span class="p">(</span><span class="n">response_text</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ephemeris_table</span></div>
 
-<div class="viewcode-block" id="JPLHorizonsWebAPIEngine.forward_ephemeris"><a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.forward_ephemeris">[docs]</a>    <span class="k">def</span> <span class="nf">forward_ephemeris</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="JPLHorizonsWebAPIEngine.forward_ephemeris">
+<a class="viewcode-back" href="../../../code/opihiexarata.ephemeris.jplhorizons.html#opihiexarata.ephemeris.jplhorizons.JPLHorizonsWebAPIEngine.forward_ephemeris">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward_ephemeris</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This allows the computation of future positions at a future time</span>
 <span class="sd">        using the derived ephemeris.</span>
 
@@ -943,7 +956,9 @@
             <span class="k">return</span> <span class="n">future_ra</span><span class="p">,</span> <span class="n">future_dec</span>
         <span class="c1"># The code should not reach here.</span>
         <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">LogicFlowError</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
 </pre></div>
 
            </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.database &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.opihi.database &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -423,6 +423,7 @@
 <span class="kn">import</span> <span class="nn">zoneinfo</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">astropy.table</span> <span class="k">as</span> <span class="nn">ap_table</span>
 <span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
 
@@ -448,7 +449,9 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution">[docs]</a><span class="k">class</span> <span class="nc">OpihiZeroPointDatabaseSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution">[docs]</a>
+<span class="k">class</span> <span class="nc">OpihiZeroPointDatabaseSolution</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">ExarataSolution</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The flat file database solution which provides an API-like solution to</span>
 <span class="sd">    interacting with a flat-file database with nested folders for all of the</span>
 <span class="sd">    zero point entries.</span>
@@ -459,7 +462,9 @@
 <span class="sd">        The path to the directory where the flat file database is.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Creating the instance of the database for which we will use to</span>
 <span class="sd">        manage the directory.</span>
 
@@ -516,7 +521,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.clean_record_text_file"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_record_text_file">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.clean_record_text_file">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_record_text_file">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">clean_record_text_file</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">garbage_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -598,7 +606,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.clean_database_text_files"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_database_text_files">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.clean_database_text_files">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.clean_database_text_files">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">clean_database_text_files</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">garbage_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -652,7 +663,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.drop_database_text_files"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.drop_database_text_files">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.drop_database_text_files">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.drop_database_text_files">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">drop_database_text_files</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">database_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function deletes all zero point record files within a given</span>
 <span class="sd">        database. We use &quot;drop&quot; per database parlance.</span>
@@ -708,7 +722,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._generate_text_record_filename"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_text_record_filename">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_text_record_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._generate_text_record_filename">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_text_record_filename">[docs]</a>
+    <span class="k">def</span> <span class="nf">_generate_text_record_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The text records which stores all of the information of the</span>
 <span class="sd">        zero points are created in a specific way to allow for the user to</span>
 <span class="sd">        manually navigate it with ease.</span>
@@ -737,7 +754,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">text_record_filename</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._generate_zero_point_record_line"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_zero_point_record_line">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_zero_point_record_line</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._generate_zero_point_record_line">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._generate_zero_point_record_line">[docs]</a>
+    <span class="k">def</span> <span class="nf">_generate_zero_point_record_line</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -817,7 +837,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">zero_point_record</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._parse_zero_point_record_line"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._parse_zero_point_record_line">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_zero_point_record_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution._parse_zero_point_record_line">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution._parse_zero_point_record_line">[docs]</a>
+    <span class="k">def</span> <span class="nf">_parse_zero_point_record_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function parses the zero point record line to return a</span>
 <span class="sd">        dictionary which is much more helpful in working with the data.</span>
 
@@ -837,7 +860,7 @@
         <span class="p">(</span>
             <span class="n">datetime_str</span><span class="p">,</span>
             <span class="n">zero_point_str</span><span class="p">,</span>
-            <span class="n">__</span><span class="p">,</span>
+            <span class="n">plus_minus_str</span><span class="p">,</span>
             <span class="n">zero_point_error_str</span><span class="p">,</span>
             <span class="n">filter_name_str</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -845,9 +868,16 @@
         <span class="c1"># We use datetime to better format the ISO date time string.</span>
         <span class="n">record_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">datetime_str</span><span class="p">)</span>
 
-        <span class="c1"># Converting to numbers.</span>
-        <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">zero_point_str</span><span class="p">)</span>
-        <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">zero_point_error_str</span><span class="p">)</span>
+        <span class="c1"># Converting to numbers. If it cannot be converted to numbers, then</span>
+        <span class="c1"># by definition, it is not really a valid record.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">zero_point_str</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">zero_point</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">zero_point_error_str</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">zero_point_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
 
         <span class="c1"># We can compile the dictionary from here. We include the datetime for</span>
         <span class="c1"># ease of handling.</span>
@@ -877,7 +907,10 @@
         <span class="c1"># All done</span>
         <span class="k">return</span> <span class="n">record_dictionary</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.write_zero_point_record"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record">[docs]</a>    <span class="k">def</span> <span class="nf">write_zero_point_record</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.write_zero_point_record">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_zero_point_record</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -950,7 +983,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day">[docs]</a>    <span class="k">def</span> <span class="nf">write_zero_point_record_julian_day</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.write_zero_point_record_julian_day">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_zero_point_record_julian_day</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1010,7 +1046,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_list"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_list">[docs]</a>    <span class="k">def</span> <span class="nf">read_zero_point_record_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_list">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_list">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_zero_point_record_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This reads a zero point record file and converts it to a list for</span>
 <span class="sd">        each row is a a row in the record file itself.</span>
 
@@ -1045,7 +1084,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">record_list</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_table"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_table">[docs]</a>    <span class="k">def</span> <span class="nf">read_zero_point_record_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_table">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_table">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_zero_point_record_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This reads a zero point record file and converts it into a nice</span>
 <span class="sd">        table for easier reading and manipulation.</span>
 
@@ -1073,7 +1115,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">record_table</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_database"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_database">[docs]</a>    <span class="k">def</span> <span class="nf">read_zero_point_record_database</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.read_zero_point_record_database">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.read_zero_point_record_database">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_zero_point_record_database</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function reads all record files in the database that the</span>
 <span class="sd">        instance is managing. Depending on the amount of data, this can be</span>
 <span class="sd">        a little slow and take up a lot of memory, but it should be fine.</span>
@@ -1110,7 +1155,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">database_table</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_between_datetimes"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_datetimes">[docs]</a>    <span class="k">def</span> <span class="nf">query_database_between_datetimes</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_between_datetimes">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_datetimes">[docs]</a>
+    <span class="k">def</span> <span class="nf">query_database_between_datetimes</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">begin_year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">begin_month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -1238,7 +1286,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">query_record_table</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_between_julian_days"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_julian_days">[docs]</a>    <span class="k">def</span> <span class="nf">query_database_between_julian_days</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_between_julian_days">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_between_julian_days">[docs]</a>
+    <span class="k">def</span> <span class="nf">query_database_between_julian_days</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">begin_jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">end_jd</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This queries the database and returns a table with all entries in</span>
@@ -1286,7 +1337,61 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">query_record_table</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">[docs]</a>    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.query_database_all">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.query_database_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">query_database_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This queries the table for all of the data within it.</span>
+
+<span class="sd">        This is a wrapper function around the normal query tool for a range</span>
+<span class="sd">        of dates which starts and ends way beyond the normal date ranges of</span>
+<span class="sd">        Opihi, and so, will cover all of the data within the database.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        query_record_table : Table</span>
+<span class="sd">            A table containing the data as queried from the database across</span>
+<span class="sd">            all reasonable times.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># These two dates are far enough apart that it should cover the entire</span>
+        <span class="c1"># database.</span>
+        <span class="n">all_begin_year</span> <span class="o">=</span> <span class="mi">2000</span>
+        <span class="n">all_begin_month</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">all_begin_day</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">all_begin_hour</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">all_begin_minute</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">all_begin_second</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">all_end_year</span> <span class="o">=</span> <span class="mi">2101</span>
+        <span class="n">all_end_month</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">all_end_day</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">all_end_hour</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">all_end_minute</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">all_end_second</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Pulling the table between this large date range.</span>
+        <span class="n">query_record_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_database_between_datetimes</span><span class="p">(</span>
+            <span class="n">begin_year</span><span class="o">=</span><span class="n">all_begin_year</span><span class="p">,</span>
+            <span class="n">begin_month</span><span class="o">=</span><span class="n">all_begin_month</span><span class="p">,</span>
+            <span class="n">begin_day</span><span class="o">=</span><span class="n">all_begin_day</span><span class="p">,</span>
+            <span class="n">begin_hour</span><span class="o">=</span><span class="n">all_begin_hour</span><span class="p">,</span>
+            <span class="n">begin_minute</span><span class="o">=</span><span class="n">all_begin_minute</span><span class="p">,</span>
+            <span class="n">begin_second</span><span class="o">=</span><span class="n">all_begin_second</span><span class="p">,</span>
+            <span class="n">end_year</span><span class="o">=</span><span class="n">all_end_year</span><span class="p">,</span>
+            <span class="n">end_month</span><span class="o">=</span><span class="n">all_end_month</span><span class="p">,</span>
+            <span class="n">end_day</span><span class="o">=</span><span class="n">all_end_day</span><span class="p">,</span>
+            <span class="n">end_hour</span><span class="o">=</span><span class="n">all_end_hour</span><span class="p">,</span>
+            <span class="n">end_minute</span><span class="o">=</span><span class="n">all_end_minute</span><span class="p">,</span>
+            <span class="n">end_second</span><span class="o">=</span><span class="n">all_end_second</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">query_record_table</span></div>
+
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">html_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">plot_query_begin_jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1294,7 +1399,7 @@
         <span class="n">plot_lower_zero_point</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">plot_upper_zero_point</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">include_plotlyjs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">using_timezone</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">using_timezone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function creates the monitoring plot for the monitoring</span>
 <span class="sd">        service webpage. It plots data from the zero point database depending</span>
@@ -1333,18 +1438,22 @@
         <span class="n">zero_point_record_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_database_between_julian_days</span><span class="p">(</span>
             <span class="n">begin_jd</span><span class="o">=</span><span class="n">plot_query_begin_jd</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end_jd</span><span class="o">=</span><span class="n">plot_query_end_jd</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="p">)</span>
-        
-        <span class="c1"># We convert to a different timezone if needed, else, we just add the </span>
+
+        <span class="c1"># We convert to a different timezone if needed, else, we just add the</span>
         <span class="c1"># timezones to the original simple datetime objects.</span>
         <span class="n">using_timezone</span> <span class="o">=</span> <span class="s2">&quot;Etc/UTC&quot;</span> <span class="k">if</span> <span class="n">using_timezone</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">using_timezone</span>
         <span class="n">zprc_datetimes</span> <span class="o">=</span> <span class="n">zero_point_record_table</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span>
         <span class="c1"># Converting the datetimes.</span>
-        <span class="n">zprc_tz_datetimes</span> <span class="o">=</span> <span class="p">[</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">datetime_timezone_1_to_timezone_2</span><span class="p">(</span><span class="n">from_datetime</span><span class="o">=</span><span class="n">datetimedex</span><span class="p">,</span> <span class="n">from_timezone</span><span class="o">=</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="p">,</span> <span class="n">to_timezone</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">)</span> <span class="k">for</span> <span class="n">datetimedex</span> <span class="ow">in</span> <span class="n">zprc_datetimes</span><span class="p">]</span>
+        <span class="n">zprc_tz_datetimes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">datetime_timezone_1_to_timezone_2</span><span class="p">(</span>
+                <span class="n">from_datetime</span><span class="o">=</span><span class="n">datetimedex</span><span class="p">,</span>
+                <span class="n">from_timezone</span><span class="o">=</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="p">,</span>
+                <span class="n">to_timezone</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">datetimedex</span> <span class="ow">in</span> <span class="n">zprc_datetimes</span>
+        <span class="p">]</span>
         <span class="n">zero_point_record_table_timezone</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">zero_point_record_table</span><span class="p">)</span>
         <span class="n">zero_point_record_table_timezone</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">zprc_tz_datetimes</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="n">zero_point_record_table</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">zero_point_record_table_timezone</span><span class="p">)</span>
 
         <span class="c1"># We group similar filters into lines.</span>
         <span class="n">symbol_group_table_key</span> <span class="o">=</span> <span class="s2">&quot;filter_name&quot;</span>
@@ -1398,6 +1507,26 @@
             <span class="n">category_orders</span><span class="o">=</span><span class="n">symbol_order_specification</span><span class="p">,</span>
         <span class="p">)</span>
 
+        <span class="c1"># We also add the horizontal reference lines here if we can otherwise</span>
+        <span class="c1"># we would just skip.</span>
+        <span class="n">reference_values_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_C_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;g&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_G_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;r&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_R_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;i&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_I_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_Z_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_1_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_2_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+            <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MONITOR_PLOT_FILTER_B_ZERO_POINT_REFERENCE</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">reference_values_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># We need to check if we can even plot the value.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">valuedex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">valuedex</span><span class="p">):</span>
+                <span class="c1"># We plot the value.</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">add_hline</span><span class="p">(</span>
+                    <span class="n">valuedex</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="n">plot_color_map</span><span class="p">[</span><span class="n">keydex</span><span class="p">]</span>
+                <span class="p">)</span>
+
         <span class="c1"># The overall title of the figure. It is helpful to put the UTC time</span>
         <span class="c1"># of when the figure was made. We are using a more human readable</span>
         <span class="c1"># version of ISO 8601 time formatting.</span>
@@ -1407,9 +1536,13 @@
         <span class="n">utc_now_tuple</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">julian_day_to_full_date</span><span class="p">(</span>
             <span class="n">jd</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">current_utc_to_julian_day</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="n">utc_now_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">utc_now_tuple</span><span class="p">),</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="p">))</span>
+        <span class="n">utc_now_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">utc_now_tuple</span><span class="p">),</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">using_timezone_zoneinfo</span> <span class="o">=</span> <span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">)</span>
-        <span class="n">tz_time_string</span> <span class="o">=</span> <span class="n">utc_now_datetime</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">using_timezone_zoneinfo</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">iso_8601_time_format</span><span class="p">)</span>
+        <span class="n">tz_time_string</span> <span class="o">=</span> <span class="n">utc_now_datetime</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">using_timezone_zoneinfo</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
+            <span class="n">iso_8601_time_format</span>
+        <span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
             <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Opihi Zero Point Trends (Current: </span><span class="si">{curr}</span><span class="s2"> </span><span class="si">{tz}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">curr</span><span class="o">=</span><span class="n">tz_time_string</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">using_timezone</span>
@@ -1430,7 +1563,9 @@
         <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">hovermode</span><span class="o">=</span><span class="s2">&quot;x unified&quot;</span><span class="p">)</span>
         <span class="c1"># We also fix the x-axis and y-axis and legend title.</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
-            <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Time - </span><span class="si">{tz}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">),</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Zero Point&quot;</span><span class="p">,</span> <span class="n">legend_title_text</span><span class="o">=</span><span class="s2">&quot;Filter&quot;</span>
+            <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Time [</span><span class="si">{tz}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">),</span>
+            <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Zero Point&quot;</span><span class="p">,</span>
+            <span class="n">legend_title_text</span><span class="o">=</span><span class="s2">&quot;Filter&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># We only want to plot between the provided time range. We queried</span>
@@ -1446,6 +1581,17 @@
         <span class="c1"># this is to just trim off the decimal seconds.</span>
         <span class="n">datetime_lower_limit</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">begin_datetime_tuple</span><span class="p">))</span>
         <span class="n">datetime_upper_limit</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">int_only</span><span class="p">(</span><span class="n">end_datetime_tuple</span><span class="p">))</span>
+        <span class="c1"># The range should also be timezone aware.</span>
+        <span class="n">datetime_lower_limit</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">datetime_timezone_1_to_timezone_2</span><span class="p">(</span>
+            <span class="n">from_datetime</span><span class="o">=</span><span class="n">datetime_lower_limit</span><span class="p">,</span>
+            <span class="n">from_timezone</span><span class="o">=</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="p">,</span>
+            <span class="n">to_timezone</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">datetime_upper_limit</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">datetime_timezone_1_to_timezone_2</span><span class="p">(</span>
+            <span class="n">from_datetime</span><span class="o">=</span><span class="n">datetime_upper_limit</span><span class="p">,</span>
+            <span class="n">from_timezone</span><span class="o">=</span><span class="s2">&quot;Etc/UTC&quot;</span><span class="p">,</span>
+            <span class="n">to_timezone</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis_range</span><span class="o">=</span><span class="p">[</span><span class="n">datetime_lower_limit</span><span class="p">,</span> <span class="n">datetime_upper_limit</span><span class="p">])</span>
 
         <span class="c1"># The upper and lower zero point plot limits.</span>
@@ -1464,7 +1610,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration"><a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a wrapper function around</span>
 <span class="sd">        `create_plotly_monitoring_html_plot` where the parameters of said</span>
 <span class="sd">        function are supplied by the assumptions in the configuration file.</span>
@@ -1516,7 +1665,9 @@
             <span class="n">using_timezone</span><span class="o">=</span><span class="n">using_timezone</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
 </pre></div>
 
            </div>

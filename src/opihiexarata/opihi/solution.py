@@ -234,6 +234,7 @@ class OpihiSolution(library.engine.ExarataSolution):
 
     def __get_asteroid_observations(self) -> hint.Table:
         """Property: get asteroid observation table.
+
         We derive the observation table from the asteroid history data.
 
         Parameters
@@ -257,6 +258,7 @@ class OpihiSolution(library.engine.ExarataSolution):
 
     def __set_asteroid_observations(self, value: hint.Any) -> None:
         """Property: set asteroid observation table.
+
         You cannot set the asteroid observations directly as it is determined
         from the asteroid history.
 
@@ -278,6 +280,7 @@ class OpihiSolution(library.engine.ExarataSolution):
 
     def __del_asteroid_observations(self) -> None:
         """Property: delete asteroid observation table.
+
         The table cannot be deleted.
 
         Parameters

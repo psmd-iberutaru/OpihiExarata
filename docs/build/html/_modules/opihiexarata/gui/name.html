@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.name &mdash; OpihiExarata 2023.6.27 documentation</title>
+  <title>opihiexarata.gui.name &mdash; OpihiExarata 2023.9.11 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -431,7 +431,9 @@
 <span class="kn">import</span> <span class="nn">opihiexarata.gui</span> <span class="k">as</span> <span class="nn">gui</span>
 
 
-<div class="viewcode-block" id="TargetNameWindow"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow">[docs]</a><span class="k">class</span> <span class="nc">TargetNameWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetNameWindow">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">TargetNameWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the pop up window which will ask for the name of the target.</span>
 <span class="sd">    Some sanitization of the name also happens here to make sure it is proper.</span>
 
@@ -450,7 +452,9 @@
 <span class="sd">        way it is False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TargetNameWindow.__init__"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TargetNameWindow.__init__">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Setting up the window for the user prompt.</span>
 
 <span class="sd">        Parameters</span>
@@ -480,7 +484,10 @@
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="TargetNameWindow._sanitize_input"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow._sanitize_input">[docs]</a>    <span class="nd">@staticmethod</span>
+
+<div class="viewcode-block" id="TargetNameWindow._sanitize_input">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.TargetNameWindow._sanitize_input">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_sanitize_input</span><span class="p">(</span><span class="n">raw_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sanitization of the raw input to the proper input.</span>
 
@@ -496,10 +503,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Nothing for now, something that needs to be done.</span>
         <span class="n">sanitized_input</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">raw_input</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sanitized_input</span></div></div>
+        <span class="k">return</span> <span class="n">sanitized_input</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ask_user_target_name_window"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.ask_user_target_name_window">[docs]</a><span class="k">def</span> <span class="nf">ask_user_target_name_window</span><span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ask_user_target_name_window">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.ask_user_target_name_window">[docs]</a>
+<span class="k">def</span> <span class="nf">ask_user_target_name_window</span><span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the target name window to prompt the user for the name of the</span>
 <span class="sd">    object that they are studying.</span>
 
@@ -536,7 +547,10 @@
     <span class="k">return</span> <span class="n">target_name</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../code/opihiexarata.gui.name.html#opihiexarata.gui.name.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># This is really just to test the GUI, to actually use the GUI, please use</span>
     <span class="c1"># the proper function.</span>
     <span class="n">application</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
@@ -546,6 +560,7 @@
     <span class="n">name</span> <span class="o">=</span> <span class="n">ask_user_target_name_window</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test target name: &quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
