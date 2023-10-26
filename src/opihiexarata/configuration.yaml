@@ -119,6 +119,15 @@ GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE : 40
 ##########     Opihi Automatic GUI Configuration
 ############################################################
 
+# By default, we stop the processing of the data if it is day time. This 
+# serves as an absolute break to prevent the running of the infinite loop in
+# automatic mode. The hour span configured here is when the system will stop.
+# We also provide the timezone here as a configuration to be more platform
+# independent; if None, default to UTC time.
+GUI_AUTOMATIC_DAYTIME_BREAK_LOWER_HOUR : 8
+GUI_AUTOMATIC_DAYTIME_BREAK_UPPER_HOUR : 17
+GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE : "Etc/UTC"
+
 # If True, then whenever an observation has been completed, if it has a 
 # valid photometric solution, then the measurement is added to the database 
 # as specified.

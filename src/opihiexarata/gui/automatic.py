@@ -6,6 +6,8 @@ import copy
 import threading
 import time
 import random
+import datetime
+import zoneinfo
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
@@ -620,9 +622,16 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # The automatic mode should not be running during the day. We set
             # this time as a "good enough" always-daytime limit. This also serves
             # to stop it.
-            current_24hour_time = int(time.strftime("%H"))
-            # Hardcoded "daytime hours".
-            if 8 <= current_24hour_time <= 17:
+            # We get the timezone we are checking, this is important as the 
+            # configuration values are local time.
+            if library.config.GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE is None:
+                local_timezone = "Etc/UTC"
+            else:
+                local_timezone = library.config.GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE
+            local_time = datetime.datetime.now(zoneinfo.ZoneInfo(local_timezone))
+            local_hour = local_time.hour
+            # Configuration based Hardcoded "daytime hours".
+            if library.config.GUI_AUTOMATIC_DAYTIME_BREAK_LOWER_HOUR <= local_hour <= library.config.GUI_AUTOMATIC_DAYTIME_BREAK_UPPER_HOUR:
                 stop = True
 
             # Check if a stop file was placed in the directory where the automatic
