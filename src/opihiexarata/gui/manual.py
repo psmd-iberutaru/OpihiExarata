@@ -1,6 +1,7 @@
 """
 The manual GUI window.
 """
+
 import sys
 import os
 import threading

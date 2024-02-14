@@ -622,7 +622,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # The automatic mode should not be running during the day. We set
             # this time as a "good enough" always-daytime limit. This also serves
             # to stop it.
-            # We get the timezone we are checking, this is important as the 
+            # We get the timezone we are checking, this is important as the
             # configuration values are local time.
             if library.config.GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE is None:
                 local_timezone = "Etc/UTC"
@@ -631,7 +631,11 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             local_time = datetime.datetime.now(zoneinfo.ZoneInfo(local_timezone))
             local_hour = local_time.hour
             # Configuration based Hardcoded "daytime hours".
-            if library.config.GUI_AUTOMATIC_DAYTIME_BREAK_LOWER_HOUR <= local_hour <= library.config.GUI_AUTOMATIC_DAYTIME_BREAK_UPPER_HOUR:
+            if (
+                library.config.GUI_AUTOMATIC_DAYTIME_BREAK_LOWER_HOUR
+                <= local_hour
+                <= library.config.GUI_AUTOMATIC_DAYTIME_BREAK_UPPER_HOUR
+            ):
                 stop = True
 
             # Check if a stop file was placed in the directory where the automatic
@@ -844,7 +848,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         )
 
         # We additionally create a new figure for the monitoring webpage.
-        self.zero_point_database.create_plotly_monitoring_html_plot_via_configuration()
+        self.zero_point_database.create_plotly_zero_point_html_plot_via_configuration()
 
         # All done.
         return None

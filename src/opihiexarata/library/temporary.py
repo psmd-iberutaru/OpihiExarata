@@ -1,7 +1,7 @@
-"""This is where functions dealing with the temporary files and temporary 
-directory of the OpihiExarata system. Temporary files are helpful because they 
-may also contain information useful to the user. These functions thus serve the 
-same purpose as Python's build-in functions, but it is more restricted to 
+"""This is where functions dealing with the temporary files and temporary
+directory of the OpihiExarata system. Temporary files are helpful because they
+may also contain information useful to the user. These functions thus serve the
+same purpose as Python's build-in functions, but it is more restricted to
 OpihiExarata and it is also more persistant."""
 
 import os

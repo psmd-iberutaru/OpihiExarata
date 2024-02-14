@@ -1,9 +1,9 @@
-"""Controls the inputting of configuration files. This also serves to bring all 
-of the configuration parameters into a more accessible space which other parts 
+"""Controls the inputting of configuration files. This also serves to bring all
+of the configuration parameters into a more accessible space which other parts
 of Exarata can use.
 
-Note these configuration constant parameters are all accessed using capital 
-letters regardless of the configuration file's labels. Moreover, there are 
+Note these configuration constant parameters are all accessed using capital
+letters regardless of the configuration file's labels. Moreover, there are
 constant parameters which are stored here which are not otherwise changeable
 by the configuration file.
 """

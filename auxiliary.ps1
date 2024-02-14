@@ -61,6 +61,8 @@ if ($LaTeX) {
     sphinx-build -M latexpdf $doc_src $doc_bld_latex
 }
 
+Exit 
+
 ##### Formatting the code.
 Write-Output ""
 Write-Output "=========================================="

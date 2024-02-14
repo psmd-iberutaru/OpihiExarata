@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.database &mdash; OpihiExarata 2023.9.11 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <title>opihiexarata.opihi.database &mdash; OpihiExarata 2024.2.13 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
@@ -13,7 +15,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/documentation_options.js?v=1c6d33b9"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -124,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#oserror-too-many-open-files">OSError Too Many Open Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
 </ul>
 </li>
@@ -413,9 +416,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opihiexarata.opihi.database</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;The database solution for storing and recording zero point data. </span>
-<span class="sd">We use a flat file database here with ordered directories to make it easily </span>
-<span class="sd">transversal by other tools and to have it be simple. A single instance of </span>
+<span></span><span class="sd">&quot;&quot;&quot;The database solution for storing and recording zero point data.</span>
+<span class="sd">We use a flat file database here with ordered directories to make it easily</span>
+<span class="sd">transversal by other tools and to have it be simple. A single instance of</span>
 <span class="sd">this class should monitor its own database.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -1389,9 +1392,9 @@
         <span class="k">return</span> <span class="n">query_record_table</span></div>
 
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">
-<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot</span><span class="p">(</span>
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_zero_point_html_plot">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_zero_point_html_plot">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_plotly_zero_point_html_plot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">html_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">plot_query_begin_jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1611,11 +1614,11 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">
-<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_monitoring_html_plot_via_configuration">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpihiZeroPointDatabaseSolution.create_plotly_zero_point_html_plot_via_configuration">
+<a class="viewcode-back" href="../../../code/opihiexarata.opihi.database.html#opihiexarata.opihi.database.OpihiZeroPointDatabaseSolution.create_plotly_zero_point_html_plot_via_configuration">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_plotly_zero_point_html_plot_via_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a wrapper function around</span>
-<span class="sd">        `create_plotly_monitoring_html_plot` where the parameters of said</span>
+<span class="sd">        `create_plotly_zero_point_html_plot` where the parameters of said</span>
 <span class="sd">        function are supplied by the assumptions in the configuration file.</span>
 
 <span class="sd">        Namely, the duration that the database is queried is where the end</span>

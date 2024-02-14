@@ -1,5 +1,5 @@
-"""The main solution class for propagations.
-"""
+"""The main solution class for propagations."""
+
 import numpy as np
 
 

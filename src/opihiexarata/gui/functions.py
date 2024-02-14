@@ -1,4 +1,4 @@
-"""Where helpful functions which otherwise do not belong in the library, 
+"""Where helpful functions which otherwise do not belong in the library,
 for the GUIs, exist."""
 
 import os

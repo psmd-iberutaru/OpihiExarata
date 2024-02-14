@@ -1,4 +1,4 @@
-"""Tests which do not really match any given function but instead apply 
+"""Tests which do not really match any given function but instead apply
 globally."""
 
 import opihiexarata

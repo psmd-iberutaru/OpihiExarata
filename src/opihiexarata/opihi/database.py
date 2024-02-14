@@ -1,6 +1,6 @@
-"""The database solution for storing and recording zero point data. 
-We use a flat file database here with ordered directories to make it easily 
-transversal by other tools and to have it be simple. A single instance of 
+"""The database solution for storing and recording zero point data.
+We use a flat file database here with ordered directories to make it easily
+transversal by other tools and to have it be simple. A single instance of
 this class should monitor its own database."""
 
 import os
@@ -927,7 +927,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         )
         return query_record_table
 
-    def create_plotly_monitoring_html_plot(
+    def create_plotly_zero_point_html_plot(
         self,
         html_filename: str,
         plot_query_begin_jd: float,
@@ -1146,9 +1146,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # All done.
         return None
 
-    def create_plotly_monitoring_html_plot_via_configuration(self) -> None:
+    def create_plotly_zero_point_html_plot_via_configuration(self) -> None:
         """This is a wrapper function around
-        `create_plotly_monitoring_html_plot` where the parameters of said
+        `create_plotly_zero_point_html_plot` where the parameters of said
         function are supplied by the assumptions in the configuration file.
 
         Namely, the duration that the database is queried is where the end

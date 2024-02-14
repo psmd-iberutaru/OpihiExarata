@@ -1,4 +1,4 @@
-"""This contains the Python wrapper class around Orbfit, assuming the 
+"""This contains the Python wrapper class around Orbfit, assuming the
 installation procedure was followed."""
 
 import glob

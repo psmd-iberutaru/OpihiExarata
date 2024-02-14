@@ -1,4 +1,4 @@
-"""This is a class which defines a custom orbit. A user supplies the orbital 
+"""This is a class which defines a custom orbit. A user supplies the orbital
 elements to this engine and the vehicle function."""
 
 import numpy as np

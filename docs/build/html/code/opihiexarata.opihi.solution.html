@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.opihi.solution module &mdash; OpihiExarata 2023.9.11 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <title>opihiexarata.opihi.solution module &mdash; OpihiExarata 2024.2.13 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -14,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../_static/documentation_options.js?v=1c6d33b9"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -127,6 +129,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#oserror-too-many-open-files">OSError Too Many Open Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
 </ul>
 </li>
@@ -632,12 +635,35 @@ been attempted.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.__del_asteroid_observations">
 <span class="sig-name descname"><span class="pre">__del_asteroid_observations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.__del_asteroid_observations" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Property: delete asteroid observation table.</p>
+<p>The table cannot be deleted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.__get_asteroid_observations">
-<span class="sig-name descname"><span class="pre">__get_asteroid_observations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.__get_asteroid_observations" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">__get_asteroid_observations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v6.0)"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.__get_asteroid_observations" title="Link to this definition"></a></dt>
+<dd><p>Property: get asteroid observation table.</p>
+<p>We derive the observation table from the asteroid history data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>asteroid_observations</strong> – The Astropy table which is a copy of the data in asteroid history.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.__init__">
@@ -673,7 +699,18 @@ If None, we attempt to pull the value from the fits file.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.__set_asteroid_observations">
 <span class="sig-name descname"><span class="pre">__set_asteroid_observations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.__set_asteroid_observations" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Property: set asteroid observation table.</p>
+<p>You cannot set the asteroid observations directly as it is determined
+from the asteroid history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution._generate_opihiexarata_fits_entries_dictionary">
@@ -696,8 +733,24 @@ which we have proper data for to the dictionary.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="id0">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asteroid_observations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">Table</span></a></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asteroid_observations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v6.0)"><span class="pre">Table</span></a></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>get asteroid observation table.</p>
+<p>We derive the observation table from the asteroid history data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>asteroid_observations</strong> – The Astropy table which is a copy of the data in asteroid history.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Property</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.compute_asteroid_magnitude">
@@ -766,7 +819,7 @@ that is provided and does not attempt to compute any solutions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.opihi.solution.OpihiSolution.mpc_table_row">
-<span class="sig-name descname"><span class="pre">mpc_table_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">Table</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.mpc_table_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.mpc_table_row" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mpc_table_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v6.0)"><span class="pre">Table</span></a></span></span><a class="reference internal" href="../_modules/opihiexarata/opihi/solution.html#OpihiSolution.mpc_table_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.opihi.solution.OpihiSolution.mpc_table_row" title="Link to this definition"></a></dt>
 <dd><p>An MPC table of the current observation with information provided
 by solved solutions. This routine does not attempt to do any solutions.</p>
 <dl class="field-list simple">

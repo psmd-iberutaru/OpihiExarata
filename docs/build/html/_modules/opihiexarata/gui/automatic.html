@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.gui.automatic &mdash; OpihiExarata 2023.9.11 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <title>opihiexarata.gui.automatic &mdash; OpihiExarata 2024.2.13 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
     <link rel="shortcut icon" href="../../../_static/pyukumuku_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
@@ -13,7 +15,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../../../_static/documentation_options.js?v=1c6d33b9"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -124,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#oserror-too-many-open-files">OSError Too Many Open Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
 </ul>
 </li>
@@ -421,6 +424,8 @@
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">zoneinfo</span>
 
 <span class="kn">from</span> <span class="nn">PySide6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span>
 
@@ -1060,9 +1065,20 @@
             <span class="c1"># The automatic mode should not be running during the day. We set</span>
             <span class="c1"># this time as a &quot;good enough&quot; always-daytime limit. This also serves</span>
             <span class="c1"># to stop it.</span>
-            <span class="n">current_24hour_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H&quot;</span><span class="p">))</span>
-            <span class="c1"># Hardcoded &quot;daytime hours&quot;.</span>
-            <span class="k">if</span> <span class="mi">8</span> <span class="o">&lt;=</span> <span class="n">current_24hour_time</span> <span class="o">&lt;=</span> <span class="mi">17</span><span class="p">:</span>
+            <span class="c1"># We get the timezone we are checking, this is important as the</span>
+            <span class="c1"># configuration values are local time.</span>
+            <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">local_timezone</span> <span class="o">=</span> <span class="s2">&quot;Etc/UTC&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">local_timezone</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE</span>
+            <span class="n">local_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="n">local_timezone</span><span class="p">))</span>
+            <span class="n">local_hour</span> <span class="o">=</span> <span class="n">local_time</span><span class="o">.</span><span class="n">hour</span>
+            <span class="c1"># Configuration based Hardcoded &quot;daytime hours&quot;.</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DAYTIME_BREAK_LOWER_HOUR</span>
+                <span class="o">&lt;=</span> <span class="n">local_hour</span>
+                <span class="o">&lt;=</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">GUI_AUTOMATIC_DAYTIME_BREAK_UPPER_HOUR</span>
+            <span class="p">):</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># Check if a stop file was placed in the directory where the automatic</span>
@@ -1284,7 +1300,7 @@
         <span class="p">)</span>
 
         <span class="c1"># We additionally create a new figure for the monitoring webpage.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="o">.</span><span class="n">create_plotly_monitoring_html_plot_via_configuration</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point_database</span><span class="o">.</span><span class="n">create_plotly_zero_point_html_plot_via_configuration</span><span class="p">()</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="kc">None</span></div>

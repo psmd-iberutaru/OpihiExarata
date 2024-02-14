@@ -1,6 +1,5 @@
-"""Photometric database access using PANSTARRS data. There are a few ways and 
+"""Photometric database access using PANSTARRS data. There are a few ways and
 they are implemented here."""
-
 
 import astropy.io.ascii as ap_ascii
 import astropy.table as ap_table

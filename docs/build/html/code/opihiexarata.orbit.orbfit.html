@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>opihiexarata.orbit.orbfit module &mdash; OpihiExarata 2023.9.11 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <title>opihiexarata.orbit.orbfit module &mdash; OpihiExarata 2024.2.13 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
     <link rel="shortcut icon" href="../_static/pyukumuku_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -14,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=44b97a70"></script>
+        <script src="../_static/documentation_options.js?v=1c6d33b9"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -127,6 +129,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../user/zero_point_monitoring.html">Zero Point Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#automatic-mode-stop-button-not-working">Automatic Mode Stop Button Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#oserror-too-many-open-files">OSError Too Many Open Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../user/troubleshooting.html#pyside-gui-does-not-match-documentation-or-ui-files">PySide GUI Does Not Match Documentation or UI Files</a></li>
 </ul>
 </li>
@@ -520,7 +523,7 @@ useage by the binary orbfit.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit">
-<span class="sig-name descname"><span class="pre">_solve_single_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/orbit/orbfit.html#OrbfitOrbitDeterminerEngine._solve_single_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_solve_single_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v6.0)"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/orbit/orbfit.html#OrbfitOrbitDeterminerEngine._solve_single_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine._solve_single_orbit" title="Link to this definition"></a></dt>
 <dd><p>This uses the Orbfit program to an orbit provided a record of
 observations. If it cannot be solved, an error is raised.</p>
 <p>This function is not intended to solve an entire set of observations,
@@ -547,7 +550,7 @@ the Keplerian orbital parameters provided.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit">
-<span class="sig-name descname"><span class="pre">solve_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/orbit/orbfit.html#OrbfitOrbitDeterminerEngine.solve_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solve_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observation_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v6.0)"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opihiexarata/orbit/orbfit.html#OrbfitOrbitDeterminerEngine.solve_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opihiexarata.orbit.orbfit.OrbfitOrbitDeterminerEngine.solve_orbit" title="Link to this definition"></a></dt>
 <dd><p>Attempts to compute Keplarian orbits provided a table of observations.</p>
 <p>This function attempts to compute the orbit using the entire
 observation table. If it is unable to, then the observations are split

@@ -1,5 +1,4 @@
-"""Parts of the Exarata GUI.
-"""
+"""Parts of the Exarata GUI."""
 
 # The relevant GUIs which are to be used when interfacing with the outside
 # world.

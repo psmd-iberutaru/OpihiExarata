@@ -31,6 +31,24 @@ process that OpihiExarata is running in.
 In either case, this is an error with the code of OpihiExarata and the 
 maintainers of the software should be contacted.
 
+.. _user-troubleshooting_oserror_too_many_open_files
+
+OSError Too Many Open Files
+===========================
+
+Sometimes there is an issue where there are too many open files. This happens 
+due to Astropy using memory mapping for reading FITS files. The references 
+are not actually terminated and because of this it reaches the Linux file limit.
+See the `Astropy FAQ`_. 
+
+OpihiExarata should already have a memory mapping disabled and some mitigation 
+to avoid this issue. However, the effectiveness and pitfalls of the mitigation 
+is not fully understood. Hence this troubleshooting entry.
+
+A temporary fix if this issue ever occurs is to close the OpihiExarata window
+and optionally restart the terminal session/window it is in.
+
+.. _Astropy FAQ: https://docs.astropy.org/en/stable/io/fits/appendix/faq.html#i-am-opening-many-fits-files-in-a-loop-and-getting-oserror-too-many-open-files
 
 .. _user-troubleshooting-pyside-gui-does-not-match-documentation-or-ui-files:
 

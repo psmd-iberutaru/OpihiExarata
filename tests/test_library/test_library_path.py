@@ -1,4 +1,5 @@
 """Tests pathname manipulations."""
+
 import sys
 
 import opihiexarata

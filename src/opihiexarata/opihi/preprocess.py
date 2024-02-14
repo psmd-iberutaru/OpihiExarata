@@ -1,6 +1,7 @@
-"""A data wrapper class which takes in raw Opihi data, flats, and darks and 
+"""A data wrapper class which takes in raw Opihi data, flats, and darks and
 produces a valid reduced image.
 """
+
 import copy
 
 import numpy as np

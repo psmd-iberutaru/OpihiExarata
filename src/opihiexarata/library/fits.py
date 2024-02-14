@@ -128,10 +128,12 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
     header : Astropy Header
         The header of the fits file.
     """
-    with ap_fits.open(filename) as hdul:
-        hdu = hdul[extension].copy()
-        header = hdu.header
-        data = hdu.data
+    # The files are small enough that we can relieve memory mapping.
+    with ap_fits.open(filename, memmap=False) as hdul:
+        hdu = copy.deepcopy(hdul[extension])
+        header = copy.deepcopy(hdu.header)
+        data = copy.deepcopy(hdu.data)
+        del hdul[0].data
     # Check that the data does not exist, so the data read should be none.
     if data is not None:
         raise error.FileError(
@@ -236,10 +238,11 @@ def read_fits_image_file(
     data : array
         The data image of the fits file.
     """
-    with ap_fits.open(filename) as hdul:
-        hdu = hdul[extension].copy()
-        header = hdu.header
-        data = hdu.data
+    with ap_fits.open(filename, memmap=False) as hdul:
+        hdu = copy.deepcopy(hdul[extension])
+        header = copy.deepcopy(hdu.header)
+        data = copy.deepcopy(hdu.data)
+        del hdul[0].data
     # Check that the data really is an image.
     if not isinstance(data, np.ndarray):
         raise error.FileError(
@@ -269,10 +272,11 @@ def read_fits_table_file(
     table : Astropy Table
         The data table of the fits file.
     """
-    with ap_fits.open(filename) as hdul:
-        hdu = hdul[extension].copy()
-        header = hdu.header
-        data = hdu.data
+    with ap_fits.open(filename, memmap=False) as hdul:
+        hdu = copy.deepcopy(hdul[extension])
+        header = copy.deepcopy(hdu.header)
+        data = copy.deepcopy(hdu.data)
+        del hdul[0].data
     # Check that the data really is table-like.
     if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):
         raise error.FileError(

@@ -1,4 +1,4 @@
-"""A collection of functions to deal with JSON input and handling. For the 
+"""A collection of functions to deal with JSON input and handling. For the
 most part, these functions are just wrappers around the built-in JSON handling."""
 
 import json

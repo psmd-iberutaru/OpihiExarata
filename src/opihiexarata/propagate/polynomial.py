@@ -2,7 +2,7 @@
 terms but ignoring some spherical effects.
 
 Although this could be easily implemented in a better method using subclassing
-rather than having two classes, as having a 3rd order is not really feasible, 
+rather than having two classes, as having a 3rd order is not really feasible,
 and for the sake of readability and stability, two separate copy-like classes
 are written.
 """
