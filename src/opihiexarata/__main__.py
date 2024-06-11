@@ -2,16 +2,22 @@
 which is then passed to execution to do exactly as expected by the commands.
 
 The actual execution is done in the command.py file so that this file
-does not get too large."""
+does not get too large.
+"""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+
+import argparse
 import os
 
 import opihiexarata
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
-
-import argparse
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 def main() -> None:
@@ -25,6 +31,7 @@ def main() -> None:
     Returns
     -------
     None
+
     """
     # Parse the arguments.
     parser, arguments = __main_parse_arguments()
@@ -48,6 +55,7 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
     parsed_arguments : Namespace
         The arguments as parsed by the parser. Though technically it is a
         Namespace class, it is practically a dictionary.
+
     """
     # General description.
     parser = argparse.ArgumentParser(
@@ -56,7 +64,7 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
             " `opihiexarata --help` for help on the available arguments."
             " This command-line interface really is only build to start"
             " the GUIs and other auxiliary functions."
-        )
+        ),
     )
     # Adding positional arguments.
     parser.add_argument(
@@ -64,8 +72,9 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         nargs="?",
         default="help",
         help=(
-            "The primary action to execute. Common actions: `manual` and `automatic`"
-            " for the two windows. See documentation for more information."
+            "The primary action to execute. Common actions: `manual` and"
+            " `automatic` for the two windows. See documentation for more"
+            " information."
         ),
     )
 
@@ -89,8 +98,8 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         default=False,
         required=False,
         help=(
-            "Invoking this option opens up the automatic mode GUI along with the"
-            " provided action."
+            "Invoking this option opens up the automatic mode GUI along with"
+            " the provided action."
         ),
     )
     parser.add_argument(
@@ -100,9 +109,9 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         default=None,
         required=False,
         help=(
-            "The OpihiExarata standard configuration file path. If the action is"
-            " generate then this is the path where a new default/blank configuration"
-            " file will be created."
+            "The OpihiExarata standard configuration file path. If the action"
+            " is generate then this is the path where a new default/blank"
+            " configuration file will be created."
         ),
     )
     parser.add_argument(
@@ -113,8 +122,8 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         required=False,
         help=(
             "The OpihiExarata secrets configuration file path. If the action is"
-            " generate then this is the path where a new default/blank secrets file"
-            " will be created."
+            " generate then this is the path where a new default/blank secrets"
+            " file will be created."
         ),
     )
     parser.add_argument(
@@ -123,8 +132,8 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         default=False,
         required=False,
         help=(
-            "For any command line function where file conflicts are possible, then this"
-            " flag specifies that files should be overwritten."
+            "For any command line function where file conflicts are possible,"
+            " then this flag specifies that files should be overwritten."
         ),
     )
     parser.add_argument(
@@ -133,8 +142,9 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
         default=False,
         required=False,
         help=(
-            "If provided, the temporary directory created is not purged and is instead"
-            " kept. This is really something that should only be done for debugging."
+            "If provided, the temporary directory created is not purged and is"
+            " instead kept. This is really something that should only be done"
+            " for debugging."
         ),
     )
 
@@ -145,7 +155,8 @@ def __main_parse_arguments() -> tuple[hint.ArgumentParser, hint.Namespace]:
 
 
 def __main_execute_arguments(
-    parser: hint.ArgumentParser, arguments: hint.Namespace
+    parser: hint.ArgumentParser,
+    arguments: hint.Namespace,
 ) -> None:
     """We actually execute the software using the arguments provided in the
     # command line call. GUI's are started on separate threads
@@ -159,6 +170,7 @@ def __main_execute_arguments(
     Returns
     -------
     None
+
     """
     # We do not always need the fanciness of the Namespace class. It can often
     # be more harmful than good.
@@ -173,13 +185,17 @@ def __main_execute_arguments(
         # otherwise the action is likely generate.
         standard_config_path = os.path.abspath(standard_config_path)
         if os.path.isfile(standard_config_path):
-            library.config.load_then_apply_configuration(filename=standard_config_path)
+            library.config.load_then_apply_configuration(
+                filename=standard_config_path,
+            )
     if secrets_config_path is not None:
         # A secrets file path has been supplied, attempting to load it
         # otherwise the action is likely generate.
         secrets_config_path = os.path.abspath(secrets_config_path)
         if os.path.isfile(secrets_config_path):
-            library.config.load_then_apply_configuration(filename=secrets_config_path)
+            library.config.load_then_apply_configuration(
+                filename=secrets_config_path,
+            )
 
     # A lot of the actions require the temporary directory for file handling
     # and other things. We create it here; it is later purged and destroyed
@@ -188,7 +204,6 @@ def __main_execute_arguments(
 
     # The optional second thread actions. These happen independently of the
     # main action and are not freezed because of it.
-    pass
 
     # The primary actions happen on the main thread and because the GUI's stall
     # it on the Python end, we execute these last.
@@ -214,11 +229,13 @@ def __main_execute_arguments(
         overwrite = arguments_dict.get("overwrite", False)
         if standard_config_path is not None:
             library.config.generate_configuration_file_copy(
-                filename=standard_config_path, overwrite=overwrite
+                filename=standard_config_path,
+                overwrite=overwrite,
             )
         if secrets_config_path is not None:
             library.config.generate_secrets_file_copy(
-                filename=secrets_config_path, overwrite=overwrite
+                filename=secrets_config_path,
+                overwrite=overwrite,
             )
     elif action in ("h", "help"):
         # We just print the help screen, an action is required but none seems
@@ -226,8 +243,8 @@ def __main_execute_arguments(
         parser.print_help()
     else:
         raise error.CommandLineError(
-            "The action `{act}` specified is not valid. Commonly accepted actions:"
-            " manual, automatic, help. See documentation.".format(act=action)
+            f"The action `{action}` specified is not valid. Commonly accepted"
+            " actions: manual, automatic, help. See documentation.",
         )
 
     # Cleaning up the temporary directory, unless the user wanted to keep it.
@@ -239,7 +256,6 @@ def __main_execute_arguments(
         __ = library.temporary.delete_temporary_directory()
 
     # All done.
-    return None
 
 
 if __name__ == "__main__":

@@ -1,5 +1,16 @@
 """This contains the Python wrapper class around Orbfit, assuming the
-installation procedure was followed."""
+installation procedure was followed.
+"""
+
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
 
 import glob
 import os
@@ -7,19 +18,15 @@ import platform
 import shutil
 import subprocess
 
-import astropy as ap
 import astropy.table as ap_table
 import numpy as np
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 # Handling Windows installs are a little more involved so this flag determines
 # if it is needed.
-_IS_WINDOWS_OPERATING_SYSTEM = (
-    True if platform.system().casefold() == "windows" else False
-)
+_IS_WINDOWS_OPERATING_SYSTEM = platform.system().casefold() == "windows"
 
 
 class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
@@ -33,9 +40,10 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         The six Keplarian orbital elements.
     orbital_elements_errors : dict
         The errors of the orbital elements.
+
     """
 
-    def __init__(self) -> None:
+    def __init__(self: hint.Self) -> None:
         """Instantiation of the orbfit package.
 
         Parameters
@@ -45,6 +53,7 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         Returns
         -------
         None
+
         """
         # Ensure that the installation is actually valid; otherwise this
         # entire class would be useless.
@@ -53,17 +62,18 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         # Operating in the temporary directory would clutter it unnecessarily.
         # Instead, we work in a subdirectory of it.
         self.ORBFIT_OPERATING_DIR = os.path.abspath(
-            os.path.join(library.config.TEMPORARY_DIRECTORY, "operate_orbfit")
+            os.path.join(library.config.TEMPORARY_DIRECTORY, "operate_orbfit"),
         )
         # Preparing the directory for orbfit to work in.
         self._prepare_orbfit_files()
         # Pre-cleaning of the directory in the event some files were leftover.
         self._clean_orbfit_files()
 
-        return None
-
     @classmethod
-    def __check_installation(cls, no_raise: bool = False) -> bool:
+    def __check_installation(
+        cls: hint.Type[hint.Self],
+        no_raise: bool = False,
+    ) -> bool:
         """Check if the installation was completed according to the
         documentation provided. This functions only checks for the existence
         of the template files.
@@ -78,6 +88,7 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         -------
         valid_install : bool
             If the installation is detected to be valid, then this returns True.
+
         """
         # By default, we assume the installation was wrong.
         valid_install = False
@@ -88,56 +99,60 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
                 valid_install = cls.__check_installation(no_raise=False)
             except error.InstallError:
                 valid_install = False
-            finally:
-                return valid_install
-        else:
-            # Otherwise... Let the program stop on a bad install... continuing.
-            pass
+            return valid_install
 
-        ORBFIT_PATH = library.config.ORBFIT_DIRECTORY
-        ORBFIT_BIN_PATH = library.config.ORBFIT_BINARY_EXECUTABLE_DIRECTORY
+        orbfit_path = library.config.ORBFIT_DIRECTORY
+        orbfit_bin_path = library.config.ORBFIT_BINARY_EXECUTABLE_DIRECTORY
         # Defined by the install process.
-        ORBFIT_TEMPLATE_PATH = os.path.join(ORBFIT_PATH, "exarata")
+        ORBFIT_TEMPLATE_PATH = os.path.join(orbfit_path, "exarata")
         # These paths are defined by the assumptions made in the install
         # process. If these do not exist, it is highly likely the installation
         # step for this was not done and it is known that this class will not
         # do anything.
         INP_FILE_PATHNAME = library.path.merge_pathname(
-            directory=ORBFIT_TEMPLATE_PATH, filename="exarata", extension="inp"
+            directory=ORBFIT_TEMPLATE_PATH,
+            filename="exarata",
+            extension="inp",
         )
         OBS_FILE_PATHNAME = library.path.merge_pathname(
-            directory=ORBFIT_TEMPLATE_PATH, filename="exarata", extension="obs"
+            directory=ORBFIT_TEMPLATE_PATH,
+            filename="exarata",
+            extension="obs",
         )
         OOP_FILE_PATHNAME = library.path.merge_pathname(
-            directory=ORBFIT_TEMPLATE_PATH, filename="exarata", extension="oop"
+            directory=ORBFIT_TEMPLATE_PATH,
+            filename="exarata",
+            extension="oop",
         )
         ORBFIT_EXECUTABLE = library.path.merge_pathname(
-            directory=[ORBFIT_PATH, "bin"], filename="orbfit", extension="x"
+            directory=[orbfit_path, "bin"],
+            filename="orbfit",
+            extension="x",
         )
         # Test if the files exist.
         if not os.path.exists(INP_FILE_PATHNAME):
             raise error.InstallError(
-                "The input file which should contain the name of their targets does not"
-                " exist. Please follow the instructions on setting up the OpihiExarata"
-                " template files."
+                "The input file which should contain the name of their targets"
+                " does not exist. Please follow the instructions on setting up"
+                " the OpihiExarata template files.",
             )
         if not os.path.exists(OBS_FILE_PATHNAME):
             raise error.InstallError(
-                "The observational file which should contain the name of their targets"
-                " does not exist. Please follow the instructions on setting up "
-                " the OpihiExarata template files."
+                "The observational file which should contain the name of their"
+                " targets does not exist. Please follow the instructions on"
+                " setting up  the OpihiExarata template files.",
             )
         if not os.path.exists(OOP_FILE_PATHNAME):
             raise error.InstallError(
-                "The operations file which should contain the name of their targets"
-                " does not exist. Please follow the instructions on setting up "
-                " the OpihiExarata template files."
+                "The operations file which should contain the name of their"
+                " targets does not exist. Please follow the instructions on"
+                " setting up  the OpihiExarata template files.",
             )
         if not os.path.exists(ORBFIT_EXECUTABLE):
             raise error.InstallError(
-                "The orbfit compiled executable does not exist in the expected binary"
-                " directory. This is indicative of a bad install of OrbFit. Please"
-                " reinstall Orbfit."
+                "The orbfit compiled executable does not exist in the expected"
+                " binary directory. This is indicative of a bad install of"
+                " OrbFit. Please reinstall Orbfit.",
             )
 
         # An additional check is needed if the system is Windows; the
@@ -148,19 +163,22 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
             # provided by the configuration file is an absolute path and
             # path join cuts off the preceding paths.
             test_binary_dir = os.path.join(
-                *[R"\\wsl$", "Ubuntu/", ORBFIT_BIN_PATH.removeprefix("/")]
+                *[R"\\wsl$", "Ubuntu/", orbfit_bin_path.removeprefix("/")],
             )
         else:
-            test_binary_dir = ORBFIT_BIN_PATH
+            test_binary_dir = orbfit_bin_path
         test_binary_path = library.path.merge_pathname(
-            directory=test_binary_dir, filename="orbfit", extension="x"
+            directory=test_binary_dir,
+            filename="orbfit",
+            extension="x",
         )
         if not os.path.exists(test_binary_path):
             raise error.InstallError(
                 "The orbfit compiled executable does not exist in the expected"
-                " directory as per the install instructions. However, it was found in a"
-                " previous check using the orbfit directory. Check your configuration"
-                " file that the binary executable directory entry is correct."
+                " directory as per the install instructions. However, it was"
+                " found in a previous check using the orbfit directory. Check"
+                " your configuration file that the binary executable directory"
+                " entry is correct.",
             )
 
         # If it passed without raising any errors, then the install is likely
@@ -168,7 +186,7 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         valid_install = True
         return valid_install
 
-    def _prepare_orbfit_files(self) -> None:
+    def _prepare_orbfit_files(self: hint.Self) -> None:
         """This function prepares the operational directory for Orbfit inside
         of the temporary directory. This allows for files to be generated for
         useage by the binary orbfit.
@@ -180,6 +198,7 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         Returns
         -------
         None
+
         """
         # The paths which hold the needed files.
         ORBFIT_BIN = library.config.ORBFIT_BINARY_EXECUTABLE_DIRECTORY
@@ -196,14 +215,15 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         # Copying the template files.
         orbfit_list = glob.glob(
             library.path.merge_pathname(
-                directory=ORBFIT_TEM, filename="*", extension="*"
-            )
+                directory=ORBFIT_TEM,
+                filename="*",
+                extension="*",
+            ),
         )
         for filedex in orbfit_list:
             shutil.copy(filedex, ORBFIT_OPERATING_DIR)
-        return None
 
-    def _clean_orbfit_files(self) -> None:
+    def _clean_orbfit_files(self: hint.Self) -> None:
         """This function cleans up the operational directory of Orbfit.
         If there are leftover files, the program may try to use them in a
         manner which is not desired. It is usually better to start from
@@ -216,19 +236,31 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         Returns
         -------
         None
+
         """
         # The operational directory.
         ORBFIT_OPERATING_DIR = self.ORBFIT_OPERATING_DIR
         # Removing the files which are considered the results of the orbit
         # determination; both error files and the completed files. This
         # is based off of the Makefile clean function in the tests.
-        extentions_to_delete = ["pro", "clo", "odc", "oel", "olg", "oep", "rwo", "err"]
+        extentions_to_delete = [
+            "pro",
+            "clo",
+            "odc",
+            "oel",
+            "olg",
+            "oep",
+            "rwo",
+            "err",
+        ]
         # Delete the files.
         for extdex in extentions_to_delete:
             matching_files = glob.glob(
                 library.path.merge_pathname(
-                    directory=ORBFIT_OPERATING_DIR, filename="*", extension=extdex
-                )
+                    directory=ORBFIT_OPERATING_DIR,
+                    filename="*",
+                    extension=extdex,
+                ),
             )
             # Removing the files which match the extension pattern.
             for filedex in matching_files:
@@ -237,17 +269,19 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         # Resetting the observation file. Although the writing of the file
         # should overwrite it, this is a fall back just in case.
         obs_filename = library.path.merge_pathname(
-            directory=ORBFIT_OPERATING_DIR, filename="exarata", extension="obs"
+            directory=ORBFIT_OPERATING_DIR,
+            filename="exarata",
+            extension="obs",
         )
         os.remove(obs_filename)
         with open(obs_filename, "w"):
             pass
 
         # All done.
-        return None
 
     def _solve_single_orbit(
-        self, observation_table: hint.Table
+        self: hint.Self,
+        observation_table: hint.Table,
     ) -> tuple[dict, dict, float]:
         """This uses the Orbfit program to an orbit provided a record of
         observations. If it cannot be solved, an error is raised.
@@ -273,6 +307,7 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         modified_julian_date : float
             The modified Julian date corresponding to the osculating orbit and
             the Keplerian orbital parameters provided.
+
         """
         # The paths which hold the needed files.
         ORBFIT_BIN = library.config.ORBFIT_BINARY_EXECUTABLE_DIRECTORY
@@ -282,11 +317,13 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
 
         # Convert the table into the needed 80-column format.
         obs_record = library.mpcrecord.minor_planet_table_to_record(
-            table=observation_table
+            table=observation_table,
         )
         # Creating the observation file.
         obs_file = library.path.merge_pathname(
-            directory=ORBFIT_OPERATING_DIR, filename="exarata", extension="obs"
+            directory=ORBFIT_OPERATING_DIR,
+            filename="exarata",
+            extension="obs",
         )
         with open(obs_file, "w") as file:
             # Because for some reason, newlines needs to be added in manually.
@@ -295,7 +332,9 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         # Execute the Orbfit program, this function call is operating system
         # dependnet so we need to handle both Windows and Linux.
         ORBFIT_EXE = library.path.merge_pathname(
-            directory=ORBFIT_BIN, filename="orbfit", extension="x"
+            directory=ORBFIT_BIN,
+            filename="orbfit",
+            extension="x",
         )
         if _IS_WINDOWS_OPERATING_SYSTEM:
             # The Orbfit executable must use POSIX-like pathnames only as it is
@@ -303,52 +342,56 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
             ORBFIT_EXE_WSL_PATH = ORBFIT_EXE.replace("\\", "/")
             # Leveraging Powershell and WSL.
             windows_command = (
-                'powershell.exe "cd {opdir}; wsl echo exarata | wsl {orbexe}"'.format(
-                    opdir=ORBFIT_OPERATING_DIR, orbexe=ORBFIT_EXE_WSL_PATH
-                )
+                f'powershell.exe "cd {ORBFIT_OPERATING_DIR}; wsl echo exarata |'
+                f' wsl {ORBFIT_EXE_WSL_PATH}"'
             )
             command = windows_command
         else:
             # Standard Linux.
-            linux_command = "cd {opdir}; echo exarata | {orbexe}".format(
-                opdir=ORBFIT_OPERATING_DIR, orbexe=ORBFIT_EXE
+            linux_command = (
+                f"cd {ORBFIT_OPERATING_DIR}; echo exarata | {ORBFIT_EXE}"
             )
             command = linux_command
         # Run the command and complete the orbital elements via the Orbfit
         # executable.
-        __ = subprocess.run(command, shell=True)
+        __ = subprocess.run(command, shell=True, check=False)
 
         # Process the output. The results, if successful are stored in an
         # orbital elements file which needs to be processed and read in.
         # Otherwise, if it failed, then orbfit uses a file flag.
         orbit_file_path = library.path.merge_pathname(
-            directory=ORBFIT_OPERATING_DIR, filename="exarata", extension="oel"
+            directory=ORBFIT_OPERATING_DIR,
+            filename="exarata",
+            extension="oel",
         )
         error_file_path = library.path.merge_pathname(
-            directory=ORBFIT_OPERATING_DIR, filename="exarata", extension="err"
+            directory=ORBFIT_OPERATING_DIR,
+            filename="exarata",
+            extension="err",
         )
         if os.path.isfile(error_file_path):
             # The orbit determincation failed, likely because the software
             # could not converge on a good fit.
             self._clean_orbfit_files()
             raise error.EngineError(
-                "The orbfit software could not determine a fitting orbit solution."
+                "The orbfit software could not determine a fitting orbit"
+                " solution.",
             )
         elif os.path.isfile(orbit_file_path):
             # The orbit has been determined. The parameters can be extracted
             # from the orbit file.
-            with open(orbit_file_path, "r") as file:
+            with open(orbit_file_path) as file:
                 content = file.readlines()
                 # Stripping the newlines; the list itself kind of encodes this.
                 content = [linedex.strip() for linedex in content]
                 # Getting the Kepler orbital elements.
                 kep_ele_line = str(
-                    [linedex for linedex in content if "KEP" in linedex][0]
+                    [linedex for linedex in content if "KEP" in linedex][0],
                 )
                 # Getting the errors on the Kepler orbital elements.
                 try:
                     kep_err_line = str(
-                        [linedex for linedex in content if "RMS" in linedex][0]
+                        [linedex for linedex in content if "RMS" in linedex][0],
                     )
                 except IndexError:
                     # It does not look like an error was computed; using
@@ -358,14 +401,16 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
                     ANG_ERR_FRAC = library.config.ORBFIT_MAXIMUM_ANGULAR_ERROR
                     kep_err_line = (
                         "! RMS    {la}   {le}   {a}   {a}   {a}   {a}".format(
-                            la=float(kep_ele_line.split()[1:][0]) * LIN_ERR_FRAC,
-                            le=float(kep_ele_line.split()[1:][1]) * LIN_ERR_FRAC,
+                            la=float(kep_ele_line.split()[1:][0])
+                            * LIN_ERR_FRAC,
+                            le=float(kep_ele_line.split()[1:][1])
+                            * LIN_ERR_FRAC,
                             a=360 * ANG_ERR_FRAC,
                         )
                     )
                 # The modified Julian date which these elements correspond to.
                 mjd_dat_line = str(
-                    [linedex for linedex in content if "MJD" in linedex][0]
+                    [linedex for linedex in content if "MJD" in linedex][0],
                 )
             # Clean up the results so that it does not interfere with future
             # runs.
@@ -397,8 +442,8 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
             }
         else:
             raise error.UndiscoveredError(
-                "The output from orbfit execution is unexpected. Neither an orbital"
-                " elements file or an error file exists."
+                "The output from orbfit execution is unexpected. Neither an"
+                " orbital elements file or an error file exists.",
             )
         # For documentation naming conventions.
         kepler_elements = kep_ele_dict
@@ -406,8 +451,11 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         modified_julian_date = mjd_dat_values
         return kepler_elements, kepler_error, modified_julian_date
 
-    def solve_orbit(self, observation_table: hint.Table) -> tuple[dict, dict, float]:
-        """Attempts to compute Keplarian orbits provided a table of observations.
+    def solve_orbit(
+        self: hint.Self,
+        observation_table: hint.Table,
+    ) -> tuple[dict, dict, float]:
+        """Compute Keplarian orbits provided a table of observations.
 
         This function attempts to compute the orbit using the entire
         observation table. If it is unable to, then the observations are split
@@ -417,7 +465,7 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
 
         Parameters
         ----------
-        observation_record : Astropy Table
+        observation_table : Astropy Table
             The table of observational records; this will be converted to the
             required MPC 80 column format.
 
@@ -430,22 +478,18 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         modified_julian_date : float
             The modified Julian date corresponding to the osculating orbit and
             the Keplerian orbital parameters provided.
-        """
 
+        """
         # First attempt to do the entire observation table. If it works, then
         # swell.
         try:
             sng_k_ele, sng_k_err, sng_mjd_date = self._solve_single_orbit(
-                observation_table=observation_table
+                observation_table=observation_table,
             )
         except error.EngineError:
             # The fit failed. The observation table will be split to see if
             # the more robust option might work.
             pass
-        except Exception:
-            # Some other unexpected error has occurred; reraise with a higher
-            # priority for development.
-            raise error.UndiscoveredError
         else:
             # Using the entire observation table worked.
             # For documentation naming conventions.
@@ -469,19 +513,20 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         kep_err_dict_list = []
         mod_jul_date_list = []
 
-        # We derive the observational subtables by just indexing the main table based
-        # on the year.
+        # We derive the observational sub-tables by just indexing the main
+        # table based on the year.
         for uyeardex in unique_years:
             subset_rows = np.where(year_array == uyeardex)
             subset_obs_table = observation_table[subset_rows]
-            # Attempt to solve for the orbital elements. If it fails, then continue on.
+            # Attempt to solve for the orbital elements. If it fails, then
+            # continue on.
             try:
                 ele_dict, err_dict, mjd_flot = self._solve_single_orbit(
-                    observation_table=subset_obs_table
+                    observation_table=subset_obs_table,
                 )
             except error.EngineError:
-                # The fit likely failed, this observational subtable will provide us
-                # nothing.
+                # The fit likely failed, this observational suitable will
+                # provide us nothing.
                 continue
             else:
                 # Keep the results to average out later.
@@ -491,47 +536,61 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
             finally:
                 # Clean up the current files for the next computation.
                 self._clean_orbfit_files()
-        # If no results actually came back and no orbit could be found, then no
-        # orbital information can be extracted. It should be checked that the results
-        # are all of the same length though.
-        if len(kep_ele_dict_list) == len(kep_err_dict_list) == len(mod_jul_date_list):
+        # If no results actually came back and no orbit could be found, then
+        # no orbital information can be extracted. It should be checked that
+        # the results are all of the same length though.
+        if (
+            len(kep_ele_dict_list)
+            == len(kep_err_dict_list)
+            == len(mod_jul_date_list)
+        ):
             if len(mod_jul_date_list) == 0:
                 # No results, all of the orbit solving failed.
                 raise error.EngineError(
-                    "No orbit could be found from the subset of the observations."
+                    "No orbit could be found from the subset of the"
+                    " observations.",
                 )
             else:
                 # Something exists, process it.
                 pass
         else:
-            # The results returned are not parallel arrays, it is unknown why this would
-            # happen.
+            # The results returned are not parallel arrays, it is unknown why
+            # this would happen.
             raise error.UndiscoveredError
 
-        # The results stored in the dictionaries, it is easier to use tables and arrays
-        # despite the overhead.
+        # The results stored in the dictionaries, it is easier to use tables
+        # and arrays despite the overhead.
         kepler_element_table = ap_table.Table(kep_ele_dict_list)
         kepler_error_table = ap_table.Table(kep_err_dict_list)
         mod_julian_date_array = np.array(mod_jul_date_list, dtype=float)
 
-        # In order to statistically combine them, the Julian date needs to be the
-        # same.
-        if not np.allclose(mod_julian_date_array[:-1], mod_julian_date_array[1:]):
+        # In order to statistically combine them, the Julian date needs to be
+        # the same.
+        if not np.allclose(
+            mod_julian_date_array[:-1],
+            mod_julian_date_array[1:],
+        ):
             raise error.InputError(
-                "The modified Julian dates are not the same. The orbfit configuration"
-                " file created at install should contain the same date."
+                "The modified Julian dates are not the same. The orbfit"
+                " configuration file created at install should contain the"
+                " same date.",
             )
 
-        # The mean of the parameters. The angles needs to be treated differently as
-        # they are circular quantities. See https://en.wikipedia.org/wiki/Circular_mean
+        # The mean of the parameters. The angles needs to be treated
+        # differently as they are circular quantities. See
+        # https://en.wikipedia.org/wiki/Circular_mean
         # Wrapper functions make it easy to implement with error propagation.
-        def _average_angle(ang: hint.array, err: hint.array) -> tuple[float, float]:
-            """Finds the average and the propagated error of angles in degrees."""
+        def _average_angle(
+            ang: hint.array,
+            err: hint.array,
+        ) -> tuple[float, float]:
+            """Calculate average and error of angles, in degrees."""
             # Numpy trigonometric functions use radians.
             angles_rad = ang * (np.pi / 180)
             # The arctan2 variant of the circular mean is provided.
             circ_mean_rad = np.arctan2(
-                np.sum(np.sin(angles_rad)), np.sum(np.cos(angles_rad))
+                np.sum(np.sin(angles_rad)),
+                np.sum(np.cos(angles_rad)),
             )
             # Back into degrees.
             circ_mean = circ_mean_rad * (180 / np.pi)
@@ -544,8 +603,11 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
             # Done.
             return circ_mean, lin_error
 
-        def _average_linear(data: hint.array, err: hint.array) -> tuple[float, float]:
-            """Finds the average and the propagated error of standard linear points."""
+        def _average_linear(
+            data: hint.array,
+            err: hint.array,
+        ) -> tuple[float, float]:
+            """Calculate average and error of standard linear points."""
             # Linear median; sometimes orbfit throws out some weird answers.
             lin_mean = np.median(data)
             # Linear error propagation.
@@ -605,7 +667,8 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         return kepler_elements, kepler_error, modified_julian_date
 
     def solve_orbit_via_record(
-        self, observation_record: list[str]
+        self: hint.Self,
+        observation_record: list[str],
     ) -> tuple[dict, dict, float]:
         """Attempts to compute Keplarian orbits provided a standard 80-column
          record of observations.
@@ -626,13 +689,14 @@ class OrbfitOrbitDeterminerEngine(library.engine.OrbitEngine):
         modified_julian_date : float
             The modified Julian date corresponding to the osculating orbit and
             the Keplerian orbital parameters provided.
+
         """
         # Convert from the record to a the table.
         obs_table = library.mpcrecord.minor_planet_record_to_table(
-            records=observation_record
+            records=observation_record,
         )
         # Calling the primary function.
         kepler_elements, kepler_error, modified_julian_date = self.solve_orbit(
-            observation_table=obs_table
+            observation_table=obs_table,
         )
         return kepler_elements, kepler_error, modified_julian_date

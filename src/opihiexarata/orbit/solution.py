@@ -1,14 +1,22 @@
 """The orbit solution class."""
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import numpy as np
 import scipy.optimize as sp_optimize
 
-
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
-
-import opihiexarata.orbit as orbit
+from opihiexarata import library
+from opihiexarata import orbit
+from opihiexarata.library import error
 
 
 class OrbitalSolution(library.engine.ExarataSolution):
@@ -33,7 +41,8 @@ class OrbitalSolution(library.engine.ExarataSolution):
     longitude_ascending_node : float
         The longitude of the ascending node of the orbit solved, in degrees.
     longitude_ascending_node_error : float
-        The error on the longitude of the ascending node of the orbit solved, in degrees.
+        The error on the longitude of the ascending node of the orbit solved,
+        in degrees.
     argument_perihelion : float
         The argument of perihelion of the orbit solved, in degrees.
     argument_perihelion_error : float
@@ -51,13 +60,14 @@ class OrbitalSolution(library.engine.ExarataSolution):
     epoch_julian_day : float
         The epoch where for these osculating orbital elements. This value is
         in Julian days.
+
     """
 
     def __init__(
-        self,
+        self: OrbitalSolution,
         observation_record: list[str],
         solver_engine: hint.OrbitEngine,
-        vehicle_args: dict = {},
+        vehicle_args: dict | None = None,
     ) -> None:
         """The initialization function. Provided the list of observations,
         solves the orbit for the Keplarian orbits.
@@ -70,21 +80,25 @@ class OrbitalSolution(library.engine.ExarataSolution):
         solver_engine : OrbitEngine
             The engine which will be used to complete the orbital elements
             from the observation record.
-        vehicle_args : dictionary
+        vehicle_args : dictionary, default = None
             If the vehicle function for the provided solver engine needs
             extra arguments not otherwise provided by the standard input,
-            they are given here.
+            they are given here. If None, we use a blank dictionary.
 
         Returns
         -------
         None
+
         """
+        # Defaults
+        vehicle_args = {} if vehicle_args is None else vehicle_args
+
         # Check that the solver engine is a valid submission, that is is an
         # expected engine class.
         if isinstance(solver_engine, library.engine.OrbitEngine):
             raise error.EngineError(
                 "The orbit solver engine provided should be the engine class"
-                " itself, not an instance thereof."
+                " itself, not an instance thereof.",
             )
         elif issubclass(solver_engine, library.engine.OrbitEngine):
             # It is fine, the user submitted a valid orbit engine.
@@ -92,7 +106,7 @@ class OrbitalSolution(library.engine.ExarataSolution):
         else:
             raise error.EngineError(
                 "The provided orbit engine is not a valid engine which can be"
-                " used for orbit solutions."
+                " used for orbit solutions.",
             )
 
         # Derive the orbital elements using the proper vehicle function for
@@ -100,28 +114,28 @@ class OrbitalSolution(library.engine.ExarataSolution):
         if issubclass(solver_engine, orbit.OrbfitOrbitDeterminerEngine):
             # Solve using Orbfit.
             raw_orbit_results = _vehicle_orbfit_orbit_determiner(
-                observation_record=observation_record
+                observation_record=observation_record,
             )
         elif issubclass(solver_engine, orbit.CustomOrbitEngine):
             # A custom orbit has been desired, the vehicle function arguments
             # contain the values needed.
             raw_orbit_results = _vehicle_custom_orbit(
-                observation_record=observation_record, vehicle_args=vehicle_args
+                observation_record=observation_record,
+                vehicle_args=vehicle_args,
             )
         else:
             # There is no vehicle function, the engine is not supported.
             raise error.EngineError(
-                "The provided orbit engine `{eng}` is not supported, there is no"
-                " associated vehicle function for it.".format(eng=str(solver_engine))
+                f"The provided orbit engine `{solver_engine!s}` is not"
+                " supported, there is no associated vehicle function for it.",
             )
 
         # Sanity check on the dictionary-like return.
         if not isinstance(raw_orbit_results, dict):
             raise error.DevelopmentError(
-                "The results of the orbit engines should be a dictionary. The orbit"
-                " engine used, and the subsequent vehicle function: {engtype}".format(
-                    engtype=solver_engine
-                )
+                "The results of the orbit engines should be a dictionary. The"
+                " orbit engine used, and the subsequent vehicle function:"
+                f" {solver_engine}",
             )
         else:
             # Quick type checking; everything should be float or at the least
@@ -143,25 +157,29 @@ class OrbitalSolution(library.engine.ExarataSolution):
             self.inclination = orbit_results["inclination"]
             self.inclination_error = orbit_results["inclination_error"]
             # Longitude
-            self.longitude_ascending_node = orbit_results["longitude_ascending_node"]
+            self.longitude_ascending_node = orbit_results[
+                "longitude_ascending_node"
+            ]
             self.longitude_ascending_node_error = orbit_results[
                 "longitude_ascending_node_error"
             ]
             # Perihelion
             self.argument_perihelion = orbit_results["argument_perihelion"]
-            self.argument_perihelion_error = orbit_results["argument_perihelion_error"]
+            self.argument_perihelion_error = orbit_results[
+                "argument_perihelion_error"
+            ]
             # Mean anomaly
             self.mean_anomaly = orbit_results["mean_anomaly"]
             self.mean_anomaly_error = orbit_results["mean_anomaly_error"]
             # MJD
             self.epoch_julian_day = orbit_results["epoch_julian_day"]
-        except KeyError:
+        except KeyError as err:
             raise error.EngineError(
                 "The engine results provided are insufficient for this orbit"
-                " solver. Either the engine cannot be used because it cannot provide"
-                " the needed results, or the vehicle function does not pull the"
-                " required results from the engine."
-            )
+                " solver. Either the engine cannot be used because it cannot"
+                " provide the needed results, or the vehicle function does not"
+                " pull the required results from the engine.",
+            ) from err
 
         # Calculating the eccentric anomaly and error from the provided values.
         (
@@ -177,9 +195,8 @@ class OrbitalSolution(library.engine.ExarataSolution):
         self.true_anomaly_error = true_anomaly_error
 
         # All done.
-        return None
 
-    def __calculate_eccentric_anomaly(self) -> tuple[float, float]:
+    def __calculate_eccentric_anomaly(self: hint.Self) -> tuple[float, float]:
         """Calculating the eccentric anomaly and error from the mean anomaly.
 
         Parameters
@@ -193,6 +210,7 @@ class OrbitalSolution(library.engine.ExarataSolution):
         eccentric_anomaly_error : float
             The eccentric anomaly error derived as an average from the upper
             and lower ranges of the mean anomaly.
+
         """
         # Needed orbital values.
         eccentricity = self.eccentricity
@@ -200,24 +218,28 @@ class OrbitalSolution(library.engine.ExarataSolution):
         mean_anomaly_error = self.mean_anomaly_error
         # Calculating the eccentric anomaly.
         eccentric_anomaly = _calculate_eccentric_anomaly(
-            mean_anomaly=mean_anomaly, eccentricity=eccentricity
+            mean_anomaly=mean_anomaly,
+            eccentricity=eccentricity,
         )
         # And the error using upper and lower bound method.
         lower_eccentric_anomaly = _calculate_eccentric_anomaly(
-            mean_anomaly=mean_anomaly - mean_anomaly_error, eccentricity=eccentricity
+            mean_anomaly=mean_anomaly - mean_anomaly_error,
+            eccentricity=eccentricity,
         )
         upper_eccentric_anomaly = _calculate_eccentric_anomaly(
-            mean_anomaly=mean_anomaly + mean_anomaly_error, eccentricity=eccentricity
+            mean_anomaly=mean_anomaly + mean_anomaly_error,
+            eccentricity=eccentricity,
         )
         bounds_eccentric_anomaly = np.array(
-            [lower_eccentric_anomaly, upper_eccentric_anomaly], dtype=float
+            [lower_eccentric_anomaly, upper_eccentric_anomaly],
+            dtype=float,
         )
         eccentric_anomaly_error = np.mean(
-            np.abs(bounds_eccentric_anomaly - eccentric_anomaly)
+            np.abs(bounds_eccentric_anomaly - eccentric_anomaly),
         )
         return eccentric_anomaly, eccentric_anomaly_error
 
-    def __calculate_true_anomaly(self) -> tuple[float, float]:
+    def __calculate_true_anomaly(self: hint.Self) -> tuple[float, float]:
         """Calculating the true anomaly and error from the eccentric anomaly.
 
         Parameters
@@ -231,6 +253,7 @@ class OrbitalSolution(library.engine.ExarataSolution):
         true_anomaly_error : float
             The true anomaly error derived as an average from the upper
             and lower ranges of the eccentric anomaly.
+
         """
         # Needed orbital values.
         eccentricity = self.eccentricity
@@ -238,7 +261,8 @@ class OrbitalSolution(library.engine.ExarataSolution):
         eccentric_anomaly_error = self.eccentric_anomaly_error
         # Calculating the eccentric anomaly.
         true_anomaly = _calculate_true_anomaly(
-            eccentric_anomaly=eccentric_anomaly, eccentricity=eccentricity
+            eccentric_anomaly=eccentric_anomaly,
+            eccentricity=eccentricity,
         )
         # And the error using upper and lower bound method.
         lower_true_anomaly = _calculate_true_anomaly(
@@ -250,13 +274,17 @@ class OrbitalSolution(library.engine.ExarataSolution):
             eccentricity=eccentricity,
         )
         bounds_true_anomaly = np.array(
-            [lower_true_anomaly, upper_true_anomaly], dtype=float
+            [lower_true_anomaly, upper_true_anomaly],
+            dtype=float,
         )
         true_anomaly_error = np.mean(np.abs(bounds_true_anomaly - true_anomaly))
         return true_anomaly, true_anomaly_error
 
 
-def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> float:
+def _calculate_eccentric_anomaly(
+    mean_anomaly: float,
+    eccentricity: float,
+) -> float:
     """Calculate the eccentric anomaly from the mean anomaly and eccentricity
     of an orbit. This is found iteratively using Newton's method.
 
@@ -264,37 +292,52 @@ def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> fl
     ----------
     mean_anomaly : float
         The mean anomaly of the orbit, in degrees.
+    eccentricity : float
+        The actual eccentricity of the orbit.
 
     Returns
     -------
     eccentric_anomaly : float
         The eccentric anomaly as derived from the mean anomaly, in degrees.
+
     """
     # Converting first to radians.
     radian_mean_anomaly = mean_anomaly * (np.pi / 180)
 
     # The main equation to solve using the root finding algorithm; as derived
     # from Kepler's equation.
-    def root_kepler_equation(ecc_ano=0, mean_ano=0, eccen=0):
+    def root_kepler_equation(
+        ecc_ano: float = 0,
+        mean_ano: float = 0,
+        eccen: float = 0,
+    ) -> float:
         return ecc_ano - eccen * np.sin(ecc_ano) - mean_ano
 
-    def root_kepler_equation_prime(ecc_ano=0, mean_ano=0, eccen=0):
+    def root_kepler_equation_prime(
+        ecc_ano: float = 0,
+        mean_ano: float = 0,
+        eccen: float = 0,
+    ) -> float:
+        # Just dummy stuff.
+        __ = mean_ano
+        # Actual calculation.
         return 1 - eccen * np.cos(ecc_ano)
 
     # Initial guess. High eccentricities are better served by a different
     # initial guess than the native one.
-    if eccentricity <= 0.7:
-        initial_guess = radian_mean_anomaly
-    else:
-        initial_guess = np.pi
+    initial_guess = radian_mean_anomaly if eccentricity <= 0.7 else np.pi
 
     # Using the root finding algorithm to find the eccentric anomaly.
     root_results = sp_optimize.root_scalar(
         f=lambda ec_an: root_kepler_equation(
-            ecc_ano=ec_an, mean_ano=radian_mean_anomaly, eccen=eccentricity
+            ecc_ano=ec_an,
+            mean_ano=radian_mean_anomaly,
+            eccen=eccentricity,
         ),
         fprime=lambda ec_an: root_kepler_equation_prime(
-            ecc_ano=ec_an, mean_ano=radian_mean_anomaly, eccen=eccentricity
+            ecc_ano=ec_an,
+            mean_ano=radian_mean_anomaly,
+            eccen=eccentricity,
         ),
         method="newton",
         x0=initial_guess,
@@ -307,7 +350,10 @@ def _calculate_eccentric_anomaly(mean_anomaly: float, eccentricity: float) -> fl
     return eccentric_anomaly
 
 
-def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity: float) -> float:
+def _calculate_true_anomaly(
+    eccentric_anomaly: float,
+    eccentricity: float,
+) -> float:
     """Calculate the true anomaly from the mean anomaly and eccentricity
     of an orbit.
 
@@ -318,11 +364,14 @@ def _calculate_true_anomaly(eccentric_anomaly: float, eccentricity: float) -> fl
     ----------
     eccentric_anomaly : float
         The eccentric anomaly of the orbit, in degrees.
+    eccentricity : float
+        The eccentricity of the orbit itself.
 
     Returns
     -------
     true_anomaly : float
         The true anomaly as derived from the eccentric anomaly, in degrees.
+
     """
     # Converting first to radians.
     radian_eccentric_anomaly = eccentric_anomaly * (np.pi / 180)
@@ -355,6 +404,7 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
     orbit_results : dict
         The results of the orbit computation using the Orbfit engine. Namely,
         this returns the 6 classical Kepler elements, using mean anomaly.
+
     """
     # Creating the Orbfit class. It does an correct installation check. If
     # the installation is wrong, it is mentioned. Catching it should it fail
@@ -362,22 +412,22 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
     # information.
     try:
         orbfit = orbit.OrbfitOrbitDeterminerEngine()
-    except error.InstallError:
+    except error.InstallError as err:
         raise error.InstallError(
-            "The Orbfit engine is not properly installed; thus it cannot be used to"
-            " compute the orbital elements for this solution class."
-        )
+            "The Orbfit engine is not properly installed; thus it cannot be"
+            " used to compute the orbital elements for this solution class.",
+        ) from err
 
     # Solving for the orbit. This engine has a record-based solution function
     # so just using it.
     kepler_elements, kepler_error, mjd_epoch = orbfit.solve_orbit_via_record(
-        observation_record=observation_record
+        observation_record=observation_record,
     )
 
     # As the Orbfit engine returns the epoch as a MJD but the overall solution
     # requires it as a Julian date, we convert here.
     epoch_julian_day = library.conversion.modified_julian_day_to_julian_day(
-        mjd=mjd_epoch
+        mjd=mjd_epoch,
     )
 
     # Converting the the results from this engine to the standard output
@@ -403,8 +453,11 @@ def _vehicle_orbfit_orbit_determiner(observation_record: list[str]) -> dict:
     return orbit_results
 
 
-def _vehicle_custom_orbit(observation_record: list[str], vehicle_args: dict) -> dict:
-    """This is the vehicle function for the specification of a custom orbit.
+def _vehicle_custom_orbit(
+    observation_record: list[str],
+    vehicle_args: dict,
+) -> dict:
+    """Vehicle function for the specification of a custom orbit.
 
     A check is done for the extra vehicle arguments to ensure that the orbital
     elements desired are within the arguments. The observation record is
@@ -419,6 +472,7 @@ def _vehicle_custom_orbit(observation_record: list[str], vehicle_args: dict) -> 
         The arguments to be passed to the Engine class to help its creation
         and solving abilities. In this case, it is just the orbital elements
         as defined.
+
     """
     # We do not care about the observation record.
     __ = observation_record
@@ -427,11 +481,12 @@ def _vehicle_custom_orbit(observation_record: list[str], vehicle_args: dict) -> 
     # vehicle, then raise an error back.
     try:
         custom_orbit = orbit.CustomOrbitEngine(**vehicle_args)
-    except TypeError:
+    except TypeError as err:
         raise error.EngineError(
             "The custom orbit engine cannot be created as the required orbital"
-            " parameters have not been passed down through the vehicle arguments."
-        )
+            " parameters have not been passed down through the vehicle"
+            " arguments.",
+        ) from err
 
     # Converting the the results from this engine to the standard output
     # expected by the vehicle functions for orbit solving. Of course, we are

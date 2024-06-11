@@ -1,25 +1,31 @@
 """This is where the automatic mode window is implemented."""
 
-import sys
-import os
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import copy
-import threading
-import time
-import random
 import datetime
+import os
+import random
+import sys
+import threading
 import zoneinfo
 
-from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6 import QtWidgets
 
 import opihiexarata
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
-
-import opihiexarata.astrometry as astrometry
-import opihiexarata.photometry as photometry
-
-import opihiexarata.gui as gui
+from opihiexarata import gui
+from opihiexarata import library
+from opihiexarata import photometry
+from opihiexarata.library import error
 
 
 class OpihiAutomaticWindow(QtWidgets.QMainWindow):
@@ -62,6 +68,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
     loop_state : string
         The loop state.
+
     """
 
     def __init__(self) -> None:
@@ -75,6 +82,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Creating the GUI itself using the Qt framework and the converted
         # Qt designer files.
@@ -97,7 +105,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.loop_state = "None"
 
         # The configuration file has a default fits fetch directory.
-        AF_DIR = library.config.GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
+        AF_DIR = (
+            library.config.GUI_AUTOMATIC_INITIAL_AUTOMATIC_IMAGE_FETCHING_DIRECTORY
+        )
         if os.path.isdir(AF_DIR):
             self.fits_fetch_directory = os.path.abspath(AF_DIR)
         else:
@@ -111,7 +121,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # to record observations.
         if library.config.GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS:
             database = opihiexarata.OpihiZeroPointDatabaseSolution(
-                database_directory=library.config.MONITOR_DATABASE_DIRECTORY
+                database_directory=library.config.MONITOR_DATABASE_DIRECTORY,
             )
         else:
             database = None
@@ -121,7 +131,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.refresh_window()
 
         # All done.
-        return None
 
     def __init_gui_connections(self) -> None:
         """Creating the function connections for the GUI interface.
@@ -133,19 +142,25 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # For the fetch directory.
         self.ui.push_button_change_directory.clicked.connect(
-            self.__connect_push_button_change_directory
+            self.__connect_push_button_change_directory,
         )
 
         # For the start and stop buttons.
-        self.ui.push_button_start.clicked.connect(self.__connect_push_button_start)
-        self.ui.push_button_stop.clicked.connect(self.__connect_push_button_stop)
-        self.ui.push_button_trigger.clicked.connect(self.__connect_push_button_trigger)
+        self.ui.push_button_start.clicked.connect(
+            self.__connect_push_button_start,
+        )
+        self.ui.push_button_stop.clicked.connect(
+            self.__connect_push_button_stop,
+        )
+        self.ui.push_button_trigger.clicked.connect(
+            self.__connect_push_button_trigger,
+        )
 
         # All done.
-        return None
 
     def __init_preprocess_solution(self):
         """Initialize the preprocessing solution. The preprocessing files
@@ -158,6 +173,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Using the configuration file to extract where the preprocessing
         # filenames are to build the solution.
@@ -189,15 +205,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             error.warn(
                 warn_class=error.UnknownWarning,
                 message=(
-                    "We are not sure why the preprocess solution failed. {e}".format(
-                        e=err
-                    )
+                    f"We are not sure why the preprocess solution failed. {err}"
                 ),
             )
+            preprocess = None
         finally:
             self.preprocess_solution = preprocess
         # All done.
-        return None
 
     def __connect_push_button_change_directory(self) -> None:
         """The connection for the button to change the automatic fetch
@@ -210,6 +224,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Ask the user for the filename via a dialog.
         # We start off from the current one for some semblance of consistency.
@@ -230,7 +245,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Refresh the GUI information.
         self.refresh_window()
         # All done.
-        return None
 
     def __connect_push_button_trigger(self) -> None:
         """This does one process, fetching a single image and processing it as
@@ -244,6 +258,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # As we instigated a manual trigger, update the GUI/status.
         self.loop_state = "trigger"
@@ -251,7 +266,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # We just call the trigger itself. We still thread it out as to not
         # completely freeze the GUI.
         self.threaded_trigger_opihi_image_solve()
-        return None
 
     def __connect_push_button_start(self) -> None:
         """This enables the automatic active mode by changing the flag and
@@ -264,6 +278,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Enable the flag.
         self.loop_state = "running"
@@ -271,7 +286,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.threaded_automatic_opihi_image_solve()
         self.refresh_window()
         # All done.
-        return None
 
     def __connect_push_button_stop(self) -> None:
         """This disables the automatic active mode by changing the flag. The
@@ -285,12 +299,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Enable the flag.
         self.loop_state = "stopped"
         self.refresh_window()
         # All done.
-        return None
 
     def fetch_new_filename(self) -> str:
         """This function fetches a new fits filename based on the most recent
@@ -305,15 +319,18 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         fetched_filename : string
             The filename that was fetched. It is the most recent file added to
             the automatic fetching directory.
+
         """
         # We are looking for only fits files.
         try:
             fits_extension = "fits"
-            fetched_filename = library.path.get_most_recent_filename_in_directory(
-                directory=self.fits_fetch_directory,
-                extension=fits_extension,
-                recursive=True,
-                exclude_opihiexarata_output_files=True,
+            fetched_filename = (
+                library.path.get_most_recent_filename_in_directory(
+                    directory=self.fits_fetch_directory,
+                    extension=fits_extension,
+                    recursive=True,
+                    exclude_opihiexarata_output_files=True,
+                )
             )
         except ValueError:
             # There is likely no actual matching file in the directory.
@@ -336,6 +353,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         -------
         verification : bool
             If the filename is good, it it True.
+
         """
         # We assume the filename is good.
         verification = True
@@ -359,11 +377,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         working_fits_filename = str(copy.deepcopy(self.working_fits_filename))
         results_fits_filename = str(copy.deepcopy(self.results_fits_filename))
         if os.path.isfile(working_fits_filename) and os.path.samefile(
-            filename, working_fits_filename
+            filename,
+            working_fits_filename,
         ):
             verification = False
         if os.path.isfile(results_fits_filename) and os.path.samefile(
-            filename, results_fits_filename
+            filename,
+            results_fits_filename,
         ):
             verification = False
 
@@ -374,10 +394,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             verification = False
 
         # If there exists processed versions of the file.
-        file_dir, file_base, file_ext = library.path.split_pathname(pathname=filename)
+        file_dir, file_base, file_ext = library.path.split_pathname(
+            pathname=filename,
+        )
         proposed_preprocess_filename = library.path.merge_pathname(
             directory=file_dir,
-            filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
+            filename=file_base
+            + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
             extension=file_ext,
         )
         proposed_solved_filename = library.path.merge_pathname(
@@ -421,6 +444,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # It is always good to have a refresh of the information.
         self.refresh_window()
@@ -431,7 +455,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # We need to verify the filename before doing anything.
         if not self.verify_new_filename(filename=self.fetch_fits_filename):
             # The file cannot be verified to be a good file so we do nothing.
-            return None
+            return
 
         # The filename is officially a working filename now.
         working_fits_filename = copy.deepcopy(self.fetch_fits_filename)
@@ -446,9 +470,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         library.http.api_request_sleep(seconds=1)
 
         # If we have a preprocessing solution, we can preprocess the data first.
-        if isinstance(self.preprocess_solution, opihiexarata.OpihiPreprocessSolution):
+        if isinstance(
+            self.preprocess_solution,
+            opihiexarata.OpihiPreprocessSolution,
+        ):
             preprocess_filename = self.preprocess_opihi_image(
-                filename=working_fits_filename
+                filename=working_fits_filename,
             )
         else:
             # No preprocessing done.
@@ -456,17 +483,25 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # We need to determine the engines which we will be using to solve
         # this image.
-        astrometry_engine_name = self.ui.combo_box_astrometry_engine.currentText()
-        astrometry_engine_name = astrometry_engine_name.casefold()
-        photometry_engine_name = self.ui.combo_box_photometry_engine.currentText()
-        photometry_engine_name = photometry_engine_name.casefold()
-        astrometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
-            engine_name=astrometry_engine_name,
-            engine_type=library.engine.AstrometryEngine,
+        astrometry_engine_name = (
+            self.ui.combo_box_astrometry_engine.currentText()
         )
-        photometry_engine = opihiexarata.gui.functions.pick_engine_class_from_name(
-            engine_name=photometry_engine_name,
-            engine_type=library.engine.PhotometryEngine,
+        astrometry_engine_name = astrometry_engine_name.casefold()
+        photometry_engine_name = (
+            self.ui.combo_box_photometry_engine.currentText()
+        )
+        photometry_engine_name = photometry_engine_name.casefold()
+        astrometry_engine = (
+            opihiexarata.gui.functions.pick_engine_class_from_name(
+                engine_name=astrometry_engine_name,
+                engine_type=library.engine.AstrometryEngine,
+            )
+        )
+        photometry_engine = (
+            opihiexarata.gui.functions.pick_engine_class_from_name(
+                engine_name=photometry_engine_name,
+                engine_type=library.engine.PhotometryEngine,
+            )
         )
 
         # Now, we try and solve the image.
@@ -488,7 +523,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Extracting the entire path from the current name, we are saving it
         # to the same location.
         directory, basename, extension = library.path.split_pathname(
-            pathname=preprocess_filename
+            pathname=preprocess_filename,
         )
         # We are just adding the suffix to the filename.
         new_basename = (
@@ -496,9 +531,14 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         )
         # Recombining the path.
         saving_fits_filename = library.path.merge_pathname(
-            directory=directory, filename=new_basename, extension=extension
+            directory=directory,
+            filename=new_basename,
+            extension=extension,
         )
-        opihi_solution.save_to_fits_file(filename=saving_fits_filename, overwrite=True)
+        opihi_solution.save_to_fits_file(
+            filename=saving_fits_filename,
+            overwrite=True,
+        )
 
         # The solution is now the most recent results solution.
         self.results_fits_filename = copy.deepcopy(saving_fits_filename)
@@ -508,7 +548,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.refresh_window()
 
         # All done.
-        return None
+        return
 
     def threaded_trigger_opihi_image_solve(self) -> None:
         """This function is just a wrapper around the original function to
@@ -521,10 +561,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # We just call the trigger itself. We still thread it out as to not
         # completely freeze the GUI.
-        trigger_solving_thread = threading.Thread(target=self.trigger_opihi_image_solve)
+        trigger_solving_thread = threading.Thread(
+            target=self.trigger_opihi_image_solve,
+        )
         trigger_solving_thread.start()
 
     def automatic_opihi_image_solve(self) -> None:
@@ -539,13 +582,14 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Just to check if there is already a reason to stop.
         stop = self.check_automatic_stops()
         self.refresh_window()
         if stop:
             # We should not even try to do the loop, we are stopped.
-            return None
+            return
 
         # Automatic triggering is an infinite loop as we want to do it
         # until stopped via the stop checks.
@@ -558,7 +602,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # We take a little break to ensure that, in the case of no new
             # file from the trigger, we are not hammering the disk too hard.
             __ = library.http.api_request_sleep(
-                seconds=library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS
+                seconds=library.config.GUI_AUTOMATIC_SOLVE_LOOP_COOLDOWN_DELAY_SECONDS,
             )
 
             # We attempt to do another trigger solve.
@@ -587,11 +631,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # We just call the trigger itself. We still thread it out as to not
         # completely freeze the GUI.
         automatic_solving_thread = threading.Thread(
-            target=self.automatic_opihi_image_solve
+            target=self.automatic_opihi_image_solve,
         )
         automatic_solving_thread.start()
 
@@ -608,6 +653,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         stop : bool
             This is the flag which signifies if the triggering should stop or
             not. If True, the triggering should stop.
+
         """
         try:
             # Assume we keep on going.
@@ -627,8 +673,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             if library.config.GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE is None:
                 local_timezone = "Etc/UTC"
             else:
-                local_timezone = library.config.GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE
-            local_time = datetime.datetime.now(zoneinfo.ZoneInfo(local_timezone))
+                local_timezone = (
+                    library.config.GUI_AUTOMATIC_DAYTIME_BREAK_TIMEZONE
+                )
+            local_time = datetime.datetime.now(
+                zoneinfo.ZoneInfo(local_timezone),
+            )
             local_hour = local_time.hour
             # Configuration based Hardcoded "daytime hours".
             if (
@@ -653,7 +703,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 self.loop_state = "halted"
                 stop = True
 
-        except Exception as err:
+        except Exception:
             # For some reason, one of the stop checks could not be done
             # properly, we stop.
             stop = True
@@ -675,13 +725,16 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         preprocess_filename : string
             The filename of the file which has been preprocessed with the
             preprocessed solution of this class instance.
+
         """
         # We first need to check that we have a preprocess solution.
         if not isinstance(
-            self.preprocess_solution, opihiexarata.OpihiPreprocessSolution
+            self.preprocess_solution,
+            opihiexarata.OpihiPreprocessSolution,
         ):
             raise error.InputError(
-                "The preprocess solution does not exist, we cannot preprocess any data."
+                "The preprocess solution does not exist, we cannot preprocess"
+                " any data.",
             )
 
         # We check if the file was already preprocessed.
@@ -692,10 +745,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             return filename
 
         # Deriving the preprocessed filename.
-        file_dir, file_base, file_ext = library.path.split_pathname(pathname=filename)
+        file_dir, file_base, file_ext = library.path.split_pathname(
+            pathname=filename,
+        )
         preprocess_filename = library.path.merge_pathname(
             directory=file_dir,
-            filename=file_base + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
+            filename=file_base
+            + library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX,
             extension=file_ext,
         )
 
@@ -711,9 +767,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             error.warn(
                 warn_class=error.UnknownWarning,
                 message=(
-                    "The data could not be preprocessed, an error was thrown: {e}".format(
-                        e=err
-                    )
+                    "The data could not be preprocessed, an error was thrown:"
+                    f" {err}"
                 ),
             )
             # For some reason, the preprocessing failed. Reverting.
@@ -745,6 +800,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         opihi_solution : OpihiSolution
             The solution class of the Opihi image after it has been solved
             (or at least attempted to be).
+
         """
         # Extracting the header of this fits file to get the observing
         # metadata from it.
@@ -753,7 +809,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # assuming standard form.
         filter_header_string = str(header["FWHL"])
         filter_name = library.conversion.filter_header_string_to_filter_name(
-            header_string=filter_header_string
+            header_string=filter_header_string,
         )
         # The exposure time of the image, extracted from the fits file,
         # assuming standard form.
@@ -761,7 +817,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # Converting date to Julian day as the solution class requires it.
         # We use the modified Julian day from the header file.
         observing_time = library.conversion.modified_julian_day_to_julian_day(
-            mjd=header["MJD_OBS"]
+            mjd=header["MJD_OBS"],
         )
         # From this filename, create the Opihi solution. There is no asteroid
         # information as the automatic mode does not take asteroids into
@@ -794,8 +850,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # Something went wrong with the solving. We do nothing more.
             error.warn(
                 warn_class=error.InputWarning,
-                message="The filename {f} failed to solve with the error {e}".format(
-                    f=filename, e=err
+                message=(
+                    f"The filename {filename} failed to solve with the error"
+                    f" {err}"
                 ),
             )
 
@@ -803,7 +860,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         return opihi_solution
 
     def write_zero_point_record_to_database(
-        self, opihi_solution: hint.OpihiSolution
+        self,
+        opihi_solution: hint.OpihiSolution,
     ) -> None:
         """This function writes the zero point information assuming a solved
         photometric solution. This function is so that threading this process
@@ -817,20 +875,25 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # The photometry solution must exist and it must be properly solved.
-        if not isinstance(opihi_solution.photometrics, photometry.PhotometricSolution):
-            return None
+        if not isinstance(
+            opihi_solution.photometrics,
+            photometry.PhotometricSolution,
+        ):
+            return
         if not opihi_solution.photometrics_status:
-            return None
+            return
         # The database solution must exist to write to, and the user must
         # actually want to write to it.
         if not isinstance(
-            self.zero_point_database, opihiexarata.OpihiZeroPointDatabaseSolution
+            self.zero_point_database,
+            opihiexarata.OpihiZeroPointDatabaseSolution,
         ):
-            return None
+            return
         if not library.config.GUI_AUTOMATIC_DATABASE_SAVE_OBSERVATIONS:
-            return None
+            return
 
         # Because many files are being written to the database, we do not
         # want to try and busy the database with cleaning itself up every time
@@ -851,7 +914,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.zero_point_database.create_plotly_zero_point_html_plot_via_configuration()
 
         # All done.
-        return None
+        return
 
     def refresh_window(self) -> None:
         """Refreshes the GUI window with new information where available.
@@ -863,12 +926,12 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Refreshing text.
         self.__refresh_dynamic_label_text()
 
         # All done.
-        return None
 
     def __refresh_dynamic_label_text(self) -> None:
         """Refreshes the GUI window's dynamic text.
@@ -880,6 +943,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Refreshing the directory text.
         self.ui.label_dynamic_fits_directory.setText(self.fits_fetch_directory)
@@ -890,21 +954,21 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         # filler names).
         if isinstance(self.fetch_fits_filename, str):
             fetch_basename = library.path.get_filename_with_extension(
-                pathname=self.fetch_fits_filename
+                pathname=self.fetch_fits_filename,
             )
             self.ui.label_dynamic_fetch_filename.setText(fetch_basename)
         else:
             self.ui.label_dynamic_fetch_filename.setText("None")
         if isinstance(self.working_fits_filename, str):
             working_basename = library.path.get_filename_with_extension(
-                pathname=self.working_fits_filename
+                pathname=self.working_fits_filename,
             )
             self.ui.label_dynamic_working_filename.setText(working_basename)
         else:
             self.ui.label_dynamic_working_filename.setText("None")
         if isinstance(self.results_fits_filename, str):
             results_basename = library.path.get_filename_with_extension(
-                pathname=self.results_fits_filename
+                pathname=self.results_fits_filename,
             )
             self.ui.label_dynamic_results_filename.setText(results_basename)
         else:
@@ -931,12 +995,8 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             ) = library.conversion.julian_day_to_full_date(jd=observing_time_jd)
             # Allowing for padded zeros for ISO 8601 (like) compatibility,
             # because it is a more unambiguous format.
-            date_string = "{y:04d}-{m:02d}-{d:02d}".format(
-                y=year_int, m=moth_int, d=days_int
-            )
-            time_string = "{h:02d}:{m:02d}:{s:04.1f}".format(
-                h=hour_int, m=mint_int, s=secs_float
-            )
+            date_string = f"{year_int:04d}-{moth_int:02d}-{days_int:02d}"
+            time_string = f"{hour_int:02d}:{mint_int:02d}:{secs_float:04.1f}"
             self.ui.label_dynamic_date.setText(date_string)
             self.ui.label_dynamic_time.setText(time_string)
 
@@ -946,20 +1006,22 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # To sexagesimal as it is easier to read, the results provided are
             # in degrees.
             ra_sex, dec_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-                ra_deg=ra_deg, dec_deg=dec_deg, precision=3
+                ra_deg=ra_deg,
+                dec_deg=dec_deg,
+                precision=3,
             )
             self.ui.label_dynamic_ra.setText(ra_sex)
             self.ui.label_dynamic_dec.setText(dec_sex)
 
             # Refreshing photometry results.
             zero_point = self.results_opihi_solution.photometrics.zero_point
-            zero_point_error = self.results_opihi_solution.photometrics.zero_point_error
+            zero_point_error = (
+                self.results_opihi_solution.photometrics.zero_point_error
+            )
             filter_name = self.results_opihi_solution.photometrics.filter_name
             # Formatting the information as a string.
             pm_sym = "\u00b1"
-            zero_point_str = "{zp:.3f} {pm} {zpe:.3f}".format(
-                zp=zero_point, pm=pm_sym, zpe=zero_point_error
-            )
+            zero_point_str = f"{zero_point:.3f} {pm_sym} {zero_point_error:.3f}"
             filter_name = str(filter_name)
             self.ui.label_dynamic_zero_point.setText(zero_point_str)
             self.ui.label_dynamic_filter.setText(filter_name)
@@ -982,14 +1044,14 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         else:
             loop_state_string = "Default"
             raise error.DevelopmentError(
-                "The operational status flag is `{oflag}`. There is no string refresh"
-                " case built to handle this flag. It must be implemented."
+                "The operational status flag is `{oflag}`. There is no string"
+                " refresh case built to handle this flag. It must be"
+                " implemented.",
             )
         # Setting the string.
         self.ui.label_dynamic_operational_status.setText(loop_state_string)
 
         # All done.
-        return None
 
     def reset_window(self) -> None:
         """This function resets the window to the default values or
@@ -1002,19 +1064,20 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # Resetting all of the text to their defaults.
         # Directory.
         self.ui.label_dynamic_fits_directory.setText("/path/to/fits/directory/")
         # Filenames.
         self.ui.label_dynamic_fetch_filename.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits",
         )
         self.ui.label_dynamic_working_filename.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits",
         )
         self.ui.label_dynamic_results_filename.setText(
-            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits"
+            "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits",
         )
         # Astrometric coordinates and results.
         self.ui.label_dynamic_ra.setText("RR:RR:RR.RRR")
@@ -1026,7 +1089,6 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         self.ui.label_dynamic_operational_status.setText("Default")
 
         # All done.
-        return None
 
     def closeEvent(self, event) -> None:
         """We override the original Qt close event to take into account the
@@ -1040,13 +1102,13 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
         Returns
         -------
         None
+
         """
         # We just need to stop the loop, if it is going on.
         self.loop_state = "halted"
         # We can close now.
         event.accept()
         # All done.
-        return None
 
 
 def start_automatic_window() -> None:
@@ -1059,6 +1121,7 @@ def start_automatic_window() -> None:
     Returns
     -------
     None
+
     """
     # Creating the application and its infrastructure.
     app = QtWidgets.QApplication([])
@@ -1068,7 +1131,6 @@ def start_automatic_window() -> None:
     # Closing out of the window.
     sys.exit(app.exec())
     # All done.
-    return None
 
 
 if __name__ == "__main__":

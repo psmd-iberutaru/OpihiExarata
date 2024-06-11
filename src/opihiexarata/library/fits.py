@@ -1,14 +1,24 @@
 """Fits file based operations. These are kind of like convince functions."""
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import copy
 
-import numpy as np
 import astropy.io.fits as ap_fits
 import astropy.table as ap_table
+import numpy as np
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 # This is structured as {key:(default, comment)}.
 _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY = {
@@ -97,6 +107,7 @@ def get_observing_time(filename: str) -> float:
     -------
     observing_time_jd : float
         The time of the observation, in Julian days.
+
     """
     # We pull the header.
     header = read_fits_header(filename=filename)
@@ -104,12 +115,15 @@ def get_observing_time(filename: str) -> float:
     observing_time_mjd = header["MJD_OBS"]
     # We convert to Julian days as that is the convention of this software.
     observing_time_jd = library.conversion.modified_julian_day_to_julian_day(
-        mjd=observing_time_mjd
+        mjd=observing_time_mjd,
     )
     return observing_time_jd
 
 
-def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint.Header:
+def read_fits_header(
+    filename: str,
+    extension: hint.Union[int, str] = 0,
+) -> hint.Header:
     """This reads the header of fits files only. This should be used only if
     there is no data.
 
@@ -127,6 +141,7 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
     -------
     header : Astropy Header
         The header of the fits file.
+
     """
     # The files are small enough that we can relieve memory mapping.
     with ap_fits.open(filename, memmap=False) as hdul:
@@ -137,8 +152,9 @@ def read_fits_header(filename: str, extension: hint.Union[int, str] = 0) -> hint
     # Check that the data does not exist, so the data read should be none.
     if data is not None:
         raise error.FileError(
-            "This function is designed to read headers of fits files only, and thus the"
-            " data of this fits file or extension is expected to be None, nothing."
+            "This function is designed to read headers of fits files only, and"
+            " thus the data of this fits file or extension is expected to be"
+            " None, nothing.",
         )
     return header
 
@@ -166,6 +182,7 @@ def update_opihiexarata_fits_header(
     -------
     opihiexarata_header : Astropy Header
         The header which OpihiExarata entries have been be added to.
+
     """
     # Working on a copy of the header just in case.
     opihiexarata_header = copy.deepcopy(header)
@@ -175,9 +192,11 @@ def update_opihiexarata_fits_header(
     # We assume the defaults at first and see if the provided header or the
     # provided entries have overridden us. This ensures that the defaults
     # are always there.
-    for keydex in _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY.keys():
+    for keydex in _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY:
         # Extracting the default values and the comment.
-        defaultdex, commentdex = _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY[keydex]
+        defaultdex, commentdex = _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY[
+            keydex
+        ]
         # We attempt to get a value, either from the supplied header or the
         # entries provided, to override our default.
         if entries.get(keydex, None) is not None:
@@ -201,25 +220,29 @@ def update_opihiexarata_fits_header(
             if np.isfinite(valuedex):
                 # All good.
                 pass
-            else:
-                if np.isnan(valuedex):
-                    valuedex = "NaN"
+            elif np.isnan(valuedex):
+                valuedex = "NaN"
         elif valuedex is None:
             # Astropy may be able to handle it.
             pass
         else:
             raise error.InputError(
-                "The input value {v} has a type of {t}. FITS file headers really"
-                " only accept strings or numbers.".format(v=valuedex, t=type(valuedex))
+                f"The input value {valuedex} has a type of {type(valuedex)}."
+                " FITS file headers really only accept strings or numbers.",
             )
         # Adding this record to the row.
-        opihiexarata_header.set(keyword=keydex, value=valuedex, comment=commentdex)
+        opihiexarata_header.set(
+            keyword=keydex,
+            value=valuedex,
+            comment=commentdex,
+        )
     # All done.
     return opihiexarata_header
 
 
 def read_fits_image_file(
-    filename: str, extension: hint.Union[int, str] = 0
+    filename: str,
+    extension: hint.Union[int, str] = 0,
 ) -> tuple[hint.Header, hint.array]:
     """This reads fits files, assuming that the fits file is an image. It is a
     wrapper function around the astropy functions.
@@ -237,6 +260,7 @@ def read_fits_image_file(
         The header of the fits file.
     data : array
         The data image of the fits file.
+
     """
     with ap_fits.open(filename, memmap=False) as hdul:
         hdu = copy.deepcopy(hdul[extension])
@@ -246,14 +270,16 @@ def read_fits_image_file(
     # Check that the data really is an image.
     if not isinstance(data, np.ndarray):
         raise error.FileError(
-            "This function is designed to read image fits files, and thus the data of"
-            " this fits file or extension is expected to be array-like."
+            "This function is designed to read image fits files, and thus the"
+            " data of this fits file or extension is expected to be"
+            " array-like.",
         )
     return header, data
 
 
 def read_fits_table_file(
-    filename: str, extension: hint.Union[int, str] = 0
+    filename: str,
+    extension: hint.Union[int, str] = 0,
 ) -> tuple[hint.Header, hint.Table]:
     """This reads fits files, assuming that the fits file is a binary table.
     It is a wrapper function around the astropy functions.
@@ -271,6 +297,7 @@ def read_fits_table_file(
         The header of the fits file.
     table : Astropy Table
         The data table of the fits file.
+
     """
     with ap_fits.open(filename, memmap=False) as hdul:
         hdu = copy.deepcopy(hdul[extension])
@@ -280,8 +307,9 @@ def read_fits_table_file(
     # Check that the data really is table-like.
     if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):
         raise error.FileError(
-            "This function is designed to read binary table fits files, and thus the"
-            " data of this fits file or extension is expected to be a table."
+            "This function is designed to read binary table fits files, and"
+            " thus the data of this fits file or extension is expected to be a"
+            " table.",
         )
     else:
         # The return is specified to be an astropy table.
@@ -290,7 +318,10 @@ def read_fits_table_file(
 
 
 def write_fits_image_file(
-    filename: str, header: hint.Header, data: hint.array, overwrite: bool = False
+    filename: str,
+    header: hint.Header,
+    data: hint.array,
+    overwrite: bool = False,
 ) -> None:
     """This writes fits image files to disk. Acting as a wrapper around the
     fits functionality of astropy.
@@ -309,32 +340,35 @@ def write_fits_image_file(
     Returns
     -------
     None
+
     """
     # Type checking, ensuring that this function is being used for images only.
     if not isinstance(header, (dict, ap_fits.Header)):
         raise error.InputError(
-            "The header must either be an astropy Header class or something convertible"
-            " to it."
+            "The header must either be an astropy Header class or something"
+            " convertible to it.",
         )
     if not isinstance(data, np.ndarray):
         raise error.InputError(
-            "The data must be an image-like object, stored as a Numpy array."
+            "The data must be an image-like object, stored as a Numpy array.",
         )
     else:
         # Derive the data type to save the FITS file.
         data_type = library.conversion.numpy_type_string_to_instance(
-            numpy_type_string=library.config.FITS_FILE_SAVING_FITS_NUMPY_ARRAY_DATA_TYPE
+            numpy_type_string=library.config.FITS_FILE_SAVING_FITS_NUMPY_ARRAY_DATA_TYPE,
         )
         saving_data = np.array(data, dtype=data_type)
     # Create the image and add the header.
     hdu = ap_fits.PrimaryHDU(data=saving_data, header=header)
     # Write.
     hdu.writeto(filename, overwrite=overwrite)
-    return None
 
 
 def write_fits_table_file(
-    filename: str, header: hint.Header, data: hint.Table, overwrite: bool = False
+    filename: str,
+    header: hint.Header,
+    data: hint.Table,
+    overwrite: bool = False,
 ) -> None:
     """This writes fits table files to disk. Acting as a wrapper around the
     fits functionality of astropy.
@@ -353,12 +387,13 @@ def write_fits_table_file(
     Returns
     -------
     None
+
     """
     # Type checking, ensuring that this function is being used for images only.
     if not isinstance(header, (dict, ap_fits.Header)):
         raise error.InputError(
-            "The header must either be an astropy Header class or something convertible"
-            " to it."
+            "The header must either be an astropy Header class or something"
+            " convertible to it.",
         )
     if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):
         raise error.InputError("The data must be an table-like object.")
@@ -366,4 +401,3 @@ def write_fits_table_file(
     binary_table = ap_fits.BinTableHDU(data=data, header=header)
     # Write.
     binary_table.writeto(filename, overwrite=overwrite)
-    return None

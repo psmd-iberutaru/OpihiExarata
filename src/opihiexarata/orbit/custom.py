@@ -1,11 +1,10 @@
 """This is a class which defines a custom orbit. A user supplies the orbital
-elements to this engine and the vehicle function."""
+elements to this engine and the vehicle function.
+"""
 
 import numpy as np
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
 
 
 class CustomOrbitEngine(library.engine.OrbitEngine):
@@ -43,10 +42,11 @@ class CustomOrbitEngine(library.engine.OrbitEngine):
     epoch_julian_day : float
         The epoch where for these osculating orbital elements. This value is
         in Julian days.
+
     """
 
     def __init__(
-        self,
+        self: "CustomOrbitEngine",
         semimajor_axis: float,
         eccentricity: float,
         inclination: float,
@@ -87,7 +87,8 @@ class CustomOrbitEngine(library.engine.OrbitEngine):
         eccentricity_error : float, default = None
             The error on the eccentricity of the orbit provided.
         inclination_error : float, default = None
-            The error on the angle of inclination of the orbit provided, in degrees.
+            The error on the angle of inclination of the orbit provided,
+            in degrees.
         longitude_ascending_node_error : float, default = None
             The error on the longitude of the ascending node of the orbit
             provided, in degrees.
@@ -100,6 +101,7 @@ class CustomOrbitEngine(library.engine.OrbitEngine):
         Returns
         -------
         None
+
         """
         # Given that all of the values were provided to us, we just
         # re-encapsulate it.
@@ -116,7 +118,9 @@ class CustomOrbitEngine(library.engine.OrbitEngine):
         # Errors are optional, if they were not provided, it is most
         # appropriate for them to be NaN.
         self.semimajor_axis_error = (
-            np.nan if semimajor_axis_error is None else float(semimajor_axis_error)
+            np.nan
+            if semimajor_axis_error is None
+            else float(semimajor_axis_error)
         )
         self.eccentricity_error = (
             np.nan if eccentricity_error is None else float(eccentricity_error)
@@ -139,4 +143,3 @@ class CustomOrbitEngine(library.engine.OrbitEngine):
         )
 
         # All done.
-        return None

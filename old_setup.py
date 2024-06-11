@@ -89,5 +89,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     install_requires=DEPENDENCIES,
     python_requires=">=3.9",
-    entry_points={"console_scripts": ["opihiexarata=opihiexarata:__main__.main"]},
+    entry_points={
+        "console_scripts": ["opihiexarata=opihiexarata:__main__.main"]
+    },
 )

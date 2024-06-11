@@ -1,18 +1,33 @@
 """Functions to help with image and array manipulations."""
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import os
+
 import numpy as np
 import PIL.Image
 import scipy.ndimage as sp_ndimage
 import skimage.registration as ski_registration
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 def slice_array_boundary(
-    array: hint.array, x_min: int, x_max: int, y_min: int, y_max: int
+    array: hint.array,
+    x_min: int,
+    x_max: int,
+    y_min: int,
+    y_max: int,
 ) -> hint.array:
     """Slice an image array such that it stops at the boundaries and does not
     exceed past it. This function basically handels runtime slicing, but it
@@ -37,6 +52,7 @@ def slice_array_boundary(
     -------
     boundary_sliced_array : array-like
         The array, sliced while adhering to the boundary of the slices.
+
     """
     # The maximum value that a slice can have is determined by their column
     # and row count.
@@ -88,23 +104,26 @@ def scale_image_array(
     -------
     scaled_array : array-like
         The array, after the scaling.
+
     """
     # Ensure that the percentile values are within percentile ranges.
     if not 0 <= lower_percent_cut <= 100:
         raise error.InputError(
-            "The lower percentile cut should be between 0 <= x <= 100. You provided:"
-            " {value}".format(value=lower_percent_cut)
+            "The lower percentile cut should be between 0 <= x <= 100. You"
+            f" provided: {lower_percent_cut}",
         )
     if not 0 <= upper_percent_cut <= 100:
         raise error.InputError(
-            "The upper percentile cut should be between 0 <= x <= 100. You provided:"
-            " {value}".format(value=upper_percent_cut)
+            "The upper percentile cut should be between 0 <= x <= 100. You"
+            f" provided: {upper_percent_cut}",
         )
     # Find where to mask out using the percentile cuts.
     lower_cut = np.nanpercentile(array, lower_percent_cut)
     upper_cut = np.nanpercentile(array, 100 - upper_percent_cut)
     invalid_pixels = np.where(
-        np.logical_and(lower_cut <= array, array <= upper_cut), False, True
+        np.logical_and(lower_cut <= array, array <= upper_cut),
+        False,
+        True,
     )
     # Mask out those values which are invalid.
     array = np.array(array, copy=True)
@@ -120,7 +139,10 @@ def scale_image_array(
 
 
 def translate_image_array(
-    array: hint.array, shift_x: float = 0, shift_y: float = 0, pad_value: float = np.nan
+    array: hint.array,
+    shift_x: float = 0,
+    shift_y: float = 0,
+    pad_value: float = np.nan,
 ) -> hint.array:
     """This function translates an image or array in some direction. The image
     is treated as value padded so pixels beyond the scope of the image after
@@ -141,6 +163,7 @@ def translate_image_array(
     -------
     shifted_image : array
         The image array after shifting.
+
     """
     # The padded values, assumed to be NaN.
     # Using Scipy's built-in shifting function.
@@ -156,7 +179,8 @@ def translate_image_array(
 
 
 def determine_translation_image_array(
-    translate_array: hint.array, reference_array: hint.array
+    translate_array: hint.array,
+    reference_array: hint.array,
 ) -> tuple[float, float]:
     """This function determines the cross-correlated translation
     required to determine the translation which occurred to the translated
@@ -186,6 +210,7 @@ def determine_translation_image_array(
         The y-axis length, in pixels, of the translation vector determined
         which would translate the translation array back onto the reference
         array.
+
     """
     # Using masked phased cross correlation is too heavy and there are few
     # masked pixels, defaulting to some standard random value for any
@@ -209,7 +234,10 @@ def determine_translation_image_array(
 
 
 def create_circular_mask(
-    array: hint.array, center_x: int, center_y: int, radius: float
+    array: hint.array,
+    center_x: int,
+    center_y: int,
+    radius: float,
 ) -> hint.array:
     """Creates an array which is a circular mask of some radius centered at a
     custom index value location. This process is a little intensive so using
@@ -235,6 +263,7 @@ def create_circular_mask(
     circular_mask : array-like
         The mask; it is the same dimensions of the input data array. If True,
         the the mask should be applied.
+
     """
     # Creating an array to make the circle, it should be just big enough to
     # create the circle but not too big to have unneeded calculations. To
@@ -258,7 +287,12 @@ def create_circular_mask(
     center_y = int(center_y)
     half_width = width // 2
     base_mask = np.full_like(array, False, dtype=bool)
-    padded_mask = np.pad(base_mask, width, mode="constant", constant_values=False)
+    padded_mask = np.pad(
+        base_mask,
+        width,
+        mode="constant",
+        constant_values=False,
+    )
     center_x = int(center_x) + width
     center_y = int(center_y) + width
     padded_mask[
@@ -275,7 +309,9 @@ def create_circular_mask(
 
 
 def save_array_as_png_grayscale(
-    array: hint.array, filename: str, overwrite: bool = False
+    array: hint.array,
+    filename: str,
+    overwrite: bool = False,
 ) -> None:
     """This converts an array to a grayscale PNG file.
 
@@ -292,6 +328,7 @@ def save_array_as_png_grayscale(
         the appropriate filename extension, it will be appended.
     overwrite : boolean
         If the file already exists, should it be overwritten?
+
     """
     # Check the extension.
     user_ext = library.path.get_file_extension(pathname=filename)
@@ -300,7 +337,8 @@ def save_array_as_png_grayscale(
         # Adding the extension.
         preferred_ext = valid_ext[-1]
         filename_png = library.path.merge_pathname(
-            filename=filename, extension=preferred_ext
+            filename=filename,
+            extension=preferred_ext,
         )
     else:
         filename_png = filename
@@ -312,10 +350,9 @@ def save_array_as_png_grayscale(
             os.remove(filename_png)
         else:
             raise error.FileError(
-                "The png file already exists. Overwrite is False. The image cannot be"
-                " saved at the specified path: {path}".format(path=filename_png)
+                "The png file already exists. Overwrite is False. The image"
+                f" cannot be saved at the specified path: {filename_png}",
             )
     # Finally, scale the file.
     image_object = PIL.Image.fromarray(array).convert("L")
     image_object.save(filename_png)
-    return None

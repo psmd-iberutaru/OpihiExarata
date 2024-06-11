@@ -1,11 +1,15 @@
-import astropy as ap
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import astropy.coordinates as ap_coordinates
 import astropy.table as ap_table
 import astropy.units as ap_units
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata.library import error
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
 
 __MPC_TABLE_NAME_TYPE_PAIR = {
     "minor_planet_number": str,
@@ -40,6 +44,7 @@ def blank_minor_planet_table() -> hint.Table:
     -------
     blank_table : Astropy Table
         The table with only the column headings; no records are in the table.
+
     """
     # The names of the columns
     column_names = MPC_MINOR_PLANET_TABLE_COLUMN_NAMES
@@ -67,13 +72,14 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
     table : Astropy Table
         A table containing the same information that is in the MPC record
         format in an easier interface.
+
     """
     # Each line of the record should be 80 characters long.
     for linedex in records:
         if len(linedex) != 80:
             raise error.InputError(
-                "At least one of the lines is not 80 characters in length. It is not a"
-                " standard MPC 80-column format."
+                "At least one of the lines is not 80 characters in length. It"
+                " is not a standard MPC 80-column format.",
             )
 
     # A reusable function to extract the data from the a record to a list of
@@ -152,7 +158,9 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
             blank_2,
             observatory_code,
         ]
-        record_dict = dict(zip(MPC_MINOR_PLANET_TABLE_COLUMN_NAMES, ordered_entries))
+        record_dict = dict(
+            zip(MPC_MINOR_PLANET_TABLE_COLUMN_NAMES, ordered_entries),
+        )
         return record_dict
 
     # It is easier to make the Table from a list of rows representative
@@ -203,6 +211,7 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         The records in MPC format. Each entry is 80 characters long and are in
         the standard format. The entries are derived from the provided table
         with information cut to fit into the format.
+
     """
     # Check that the table has the required column headers. Although the order
     # is not required to be the same, ensuring the same order ensures the
@@ -210,8 +219,8 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
     column_names = MPC_MINOR_PLANET_TABLE_COLUMN_NAMES
     if table.colnames != column_names:
         raise error.InputError(
-            "The headers of the table do not match the expected column names. This"
-            " function only can handle tables with the expected names."
+            "The headers of the table do not match the expected column names."
+            " This function only can handle tables with the expected names.",
         )
 
     # An inner function to convert a table row to a record 80-col string.
@@ -219,7 +228,11 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
     def _record_to_row_string(row: hint.Row) -> str:
         # Every thing needs to be a string. This is a wrapper function which
         # helps with the spacing and column widths.
-        def _construct_string(entry: str, exact_length: int, justify: str) -> str:
+        def _construct_string(
+            entry: str,
+            exact_length: int,
+            justify: str,
+        ) -> str:
             """A unified function to create a string for the entry provided.
             This function handles justification and string clipping for too
             long strings. Provided the entry, the maximum length allowed by
@@ -235,7 +248,7 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
                 justified_entry_str = entry_str.rjust(exact_length, " ")
             else:
                 raise error.DevelopmentError(
-                    "The justification option provided is not supported."
+                    "The justification option provided is not supported.",
                 )
             # All done.
             assert len(justified_entry_str) == exact_length
@@ -246,12 +259,16 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         # The minor planet number.
         raw_minor_planet_number = str(row["minor_planet_number"])
         str_minor_planet_number = _construct_string(
-            entry=raw_minor_planet_number, exact_length=5, justify="left"
+            entry=raw_minor_planet_number,
+            exact_length=5,
+            justify="left",
         )
         # The provisional designation.
         raw_provisional_number = str(row["provisional_number"])
         str_provisional_number = _construct_string(
-            entry=raw_provisional_number, exact_length=7, justify="left"
+            entry=raw_provisional_number,
+            exact_length=7,
+            justify="left",
         )
         # The discovery asterisk flag.
         raw_discovery = bool(row["discovery"])
@@ -259,41 +276,69 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         # The publishing note.
         raw_publishable_note = str(row["publishable_note"])
         str_publishable_note = _construct_string(
-            entry=raw_publishable_note, exact_length=1, justify="right"
+            entry=raw_publishable_note,
+            exact_length=1,
+            justify="right",
         )
         # The observational note.
         raw_observing_note = str(row["observing_note"])
         str_observing_note = _construct_string(
-            entry=raw_observing_note, exact_length=1, justify="right"
+            entry=raw_observing_note,
+            exact_length=1,
+            justify="right",
         )
         # The date of observation. The month and days need leading zeros if
         # it is not a double digit date.
         raw_year = str(row["year"])
-        raw_month = "0" + str(row["month"]) if row["month"] < 10 else str(row["month"])
+        raw_month = (
+            "0" + str(row["month"]) if row["month"] < 10 else str(row["month"])
+        )
         raw_day = "0" + str(row["day"]) if row["day"] < 10 else str(row["day"])
         raw_observing_date = " ".join([raw_year, raw_month, raw_day])
         str_observing_date = _construct_string(
-            entry=raw_observing_date, exact_length=17, justify="left"
+            entry=raw_observing_date,
+            exact_length=17,
+            justify="left",
         )
         # The right ascension and declination.
         skycoord = ap_coordinates.SkyCoord(
-            float(row["ra"]), float(row["dec"]), frame="icrs", unit="deg"
+            float(row["ra"]),
+            float(row["dec"]),
+            frame="icrs",
+            unit="deg",
         )
         raw_str_ra = skycoord.ra.to_string(
-            ap_units.hour, sep=":", pad=True, precision=None
+            ap_units.hour,
+            sep=":",
+            pad=True,
+            precision=None,
         )
         raw_str_dec = skycoord.dec.to_string(
-            ap_units.deg, sep=":", pad=True, precision=None, alwayssign=True
+            ap_units.deg,
+            sep=":",
+            pad=True,
+            precision=None,
+            alwayssign=True,
         )
         # MPC record uses spaces as seperator.
         raw_str_ra = raw_str_ra.replace(":", " ")
         raw_str_dec = raw_str_dec.replace(":", " ")
-        str_ra = _construct_string(entry=raw_str_ra, exact_length=12, justify="left")
-        str_dec = _construct_string(entry=raw_str_dec, exact_length=12, justify="left")
+        str_ra = _construct_string(
+            entry=raw_str_ra,
+            exact_length=12,
+            justify="left",
+        )
+        str_dec = _construct_string(
+            entry=raw_str_dec,
+            exact_length=12,
+            justify="left",
+        )
         # Space which is defined to be blank by the specification.
         raw_blank_1 = str(row["blank_1"])
         str_blank_1 = _construct_string(
-            entry=raw_blank_1, exact_length=9, justify="left"
+            entry=raw_blank_1,
+            exact_length=9,
+            justify="left",
         )
         # The magnitude; this way we can handle both blank strings and numbers.
         raw_magnitude = str(row["magnitude"]).strip()
@@ -304,30 +349,42 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
             # Magnitude value string must be centered on the decimal point.
             raw_mag_whole, raw_mag_frac = raw_magnitude.split(".")
             raw_mag_whole = _construct_string(
-                entry=raw_mag_whole, exact_length=2, justify="right"
+                entry=raw_mag_whole,
+                exact_length=2,
+                justify="right",
             )
             raw_mag_frac = _construct_string(
-                entry=raw_mag_frac, exact_length=2, justify="left"
+                entry=raw_mag_frac,
+                exact_length=2,
+                justify="left",
             )
             raw_mag_synth = raw_mag_whole + "." + raw_mag_frac
         str_magnitude = _construct_string(
-            entry=raw_mag_synth, exact_length=5, justify="left"
+            entry=raw_mag_synth,
+            exact_length=5,
+            justify="left",
         )
         # The bandpass.
         raw_bandpass = str(row["bandpass"]).strip()
         str_bandpass = _construct_string(
-            entry=raw_bandpass, exact_length=1, justify="left"
+            entry=raw_bandpass,
+            exact_length=1,
+            justify="left",
         )
         # The pseudo blank area, which is defined to be blank but is often not
         # for some reason.
         raw_blank_2 = str(row["blank_2"])
         str_blank_2 = _construct_string(
-            entry=raw_blank_2, exact_length=6, justify="left"
+            entry=raw_blank_2,
+            exact_length=6,
+            justify="left",
         )
         # The observetory code.
         raw_observatory_code = str(row["observatory_code"])
         str_observatory_code = _construct_string(
-            entry=raw_observatory_code, exact_length=3, justify="left"
+            entry=raw_observatory_code,
+            exact_length=3,
+            justify="left",
         )
         # Done.
         # From the length controlled strings, the record which encodes the
@@ -350,8 +407,8 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
         # Ensure that the record is exactly 80 columns long.
         if len(record) != 80:
             raise error.DevelopmentError(
-                "The row derived record string is not 80 columns. The current record"
-                " string: `{rec}`.".format(rec=record)
+                "The row derived record string is not 80 columns. The current"
+                f" record string: `{record}`.",
             )
         else:
             # The record is assumed to be good.
@@ -388,6 +445,7 @@ def clean_minor_planet_record(records: list[str]) -> list[str]:
     -------
     clean_records : list
         The records after they have been cleaned.
+
     """
     # First, we remove any duplicate entries.
     cleaner_records = list(set(records))

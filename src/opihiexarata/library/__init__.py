@@ -1,16 +1,20 @@
 """Common routines which are important functions of Exarata."""
 
-import opihiexarata.library.config as config
-import opihiexarata.library.conversion as conversion
-import opihiexarata.library.engine as engine
-import opihiexarata.library.error as error
-import opihiexarata.library.fits as fits
-import opihiexarata.library.hint as hint
-import opihiexarata.library.http as http
-import opihiexarata.library.image as image
-import opihiexarata.library.json as json
-import opihiexarata.library.mpcrecord as mpcrecord
-import opihiexarata.library.path as path
-import opihiexarata.library.phototable as phototable
-import opihiexarata.library.tcs as tcs
-import opihiexarata.library.temporary as temporary
+from typing import TYPE_CHECKING
+
+from opihiexarata.library import config
+from opihiexarata.library import conversion
+from opihiexarata.library import engine
+from opihiexarata.library import error
+from opihiexarata.library import fits
+from opihiexarata.library import http
+from opihiexarata.library import image
+from opihiexarata.library import json
+from opihiexarata.library import mpcrecord
+from opihiexarata.library import path
+from opihiexarata.library import phototable
+from opihiexarata.library import tcs
+from opihiexarata.library import temporary
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint

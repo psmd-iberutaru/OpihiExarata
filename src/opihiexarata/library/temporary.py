@@ -2,14 +2,14 @@
 directory of the OpihiExarata system. Temporary files are helpful because they
 may also contain information useful to the user. These functions thus serve the
 same purpose as Python's build-in functions, but it is more restricted to
-OpihiExarata and it is also more persistant."""
+OpihiExarata and it is also more persistant.
+"""
 
-import os
 import glob
+import os
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 def create_temporary_directory(unique: bool = None) -> None:
@@ -26,6 +26,7 @@ def create_temporary_directory(unique: bool = None) -> None:
     Returns
     -------
     None
+
     """
     # Check if a stink should be made if the directory already exists.
     if unique is None:
@@ -39,15 +40,13 @@ def create_temporary_directory(unique: bool = None) -> None:
     directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     if os.path.isdir(directory) and unique_check:
         raise error.DirectoryError(
-            "The directory path provided for the temporary directory already exists. A"
-            " temporary directory cannot be made. Directory: {dir}".format(
-                dir=directory
-            )
+            "The directory path provided for the temporary directory already"
+            " exists. A temporary directory cannot be made. Directory:"
+            f" {directory}",
         )
     else:
         os.makedirs(directory, exist_ok=not unique_check)
     # All done.
-    return None
 
 
 def delete_temporary_directory() -> None:
@@ -62,6 +61,7 @@ def delete_temporary_directory() -> None:
     Returns
     -------
     None
+
     """
     temporary_directory = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     # Determine if the directory is empty of all useful files.
@@ -70,16 +70,15 @@ def delete_temporary_directory() -> None:
             for entry in scandir:
                 if entry.is_file():
                     raise error.DirectoryError(
-                        "Cannot delete the temporary directory, it contains files."
-                        " Purge the temporary directory before deleting it. Directory:"
-                        " {dir}".format(dir=temporary_directory)
+                        "Cannot delete the temporary directory, it contains"
+                        " files. Purge the temporary directory before deleting"
+                        f" it. Directory: {temporary_directory}",
                     )
     except FileNotFoundError:
         raise error.DirectoryError(
-            "The directory cannot be found. The temporary directory cannot be scanned"
-            " for deletion if it does not exist. Directory: {dir}".format(
-                dir=temporary_directory
-            )
+            "The directory cannot be found. The temporary directory cannot be"
+            " scanned for deletion if it does not exist. Directory:"
+            f" {temporary_directory}",
         )
     # Otherwise, delete the directory.
     if os.path.isdir(temporary_directory):
@@ -87,7 +86,6 @@ def delete_temporary_directory() -> None:
     else:
         # The directory does not exist, or it is not actually a directory.
         pass
-    return None
 
 
 def purge_temporary_directory() -> None:
@@ -101,11 +99,13 @@ def purge_temporary_directory() -> None:
     Returns
     -------
     None
+
     """
     # List of all of the files.
     temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
     path_search_string = library.path.merge_pathname(
-        directory=[temp_dir, "**"], filename="*"
+        directory=[temp_dir, "**"],
+        filename="*",
     )
     file_list = glob.glob(path_search_string, recursive=True)
     # Remove all of the files.
@@ -115,7 +115,6 @@ def purge_temporary_directory() -> None:
         except OSError:
             continue
     # All done.
-    return None
 
 
 def make_temporary_directory_path(filename: str) -> str:
@@ -132,7 +131,11 @@ def make_temporary_directory_path(filename: str) -> str:
     full_path : string
         The full path of the file, as it would be stored in the temporary
         directory.
+
     """
     temp_dir = os.path.abspath(library.config.TEMPORARY_DIRECTORY)
-    full_path = library.path.merge_pathname(directory=temp_dir, filename=filename)
+    full_path = library.path.merge_pathname(
+        directory=temp_dir,
+        filename=filename,
+    )
     return full_path

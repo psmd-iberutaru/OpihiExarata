@@ -1,14 +1,24 @@
 """This is a module for uniform handling of the photometric star table.
 Many different databases will have their own standards and so functions and
 classes helpful for unifying all of their different entries into one uniform
-table which the software can expect are detailed here."""
+table which the software can expect are detailed here.
+"""
 
-import numpy as np
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import astropy.table as ap_table
+import numpy as np
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata.library import error
 
 # The general template of the photometric table.
 OPIHI_FILTERS = ("c", "g", "r", "i", "z", "1", "2", "b")
@@ -65,10 +75,10 @@ __INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR = {
     "counts": float,
 }
 INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES = list(
-    __INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR.keys()
+    __INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR.keys(),
 )
 INTERSECTION_ASTROPHOTO_TABLE_COLUMN_TYPES = list(
-    __INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR.values()
+    __INTERSECTION_ASTROPHOTO_TABLE_NAME_TYPE_PAIR.values(),
 )
 
 
@@ -84,6 +94,7 @@ def blank_photometry_table() -> hint.Table:
     -------
     blank_table : Astropy Table
         The table with only the column headings; no records are in the table.
+
     """
     # The names of the columns
     column_names = PHOTOMETRY_TABLE_COLUMN_NAMES
@@ -110,6 +121,7 @@ def fill_incomplete_photometry_table(partial_table: hint.Table) -> hint.Table:
     complete_table : Table
         A completed form of the partial table which is standardized to the
         expectations of the photometry table.
+
     """
     # A totally blank column for the cases where there are no observations of
     # a given filter for either the magnitude or error in the magnitude.
@@ -137,18 +149,18 @@ def fill_incomplete_photometry_table(partial_table: hint.Table) -> hint.Table:
             # If there is another error, then it is likely something is very
             # wrong with the table, but we do not know.
             raise error.UndiscoveredError(
-                "For some reason, the partial table cannot be accessed as expected for"
-                " a partial photometry table. Check the error stack."
+                "For some reason, the partial table cannot be accessed as"
+                " expected for a partial photometry table. Check the error"
+                " stack.",
             )
         finally:
             # The information to be added to the photometry table. We do check
             # that the name and data was extracted, somehow.
             if column_name is None and column_data is None:
                 raise error.DevelopmentError(
-                    "For some reason, the information about {col} from the partial"
-                    " table was not extracted or detected to be missing.".format(
-                        col=colnamedex
-                    )
+                    f"For some reason, the information about {colnamedex} from"
+                    " the partial table was not extracted or detected to be"
+                    " missing.",
                 )
             else:
                 # Adding the information.
@@ -160,8 +172,9 @@ def fill_incomplete_photometry_table(partial_table: hint.Table) -> hint.Table:
     # standard table.
     if complete_table.colnames != PHOTOMETRY_TABLE_COLUMN_NAMES:
         raise error.DevelopmentError(
-            "The standard photometry table derived from the partial table does not have"
-            " the same columns as expected from a standard photometry table."
+            "The standard photometry table derived from the partial table does"
+            " not have the same columns as expected from a standard photometry"
+            " table.",
         )
     # All done.
     return complete_table

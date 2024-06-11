@@ -1,26 +1,34 @@
 """Where helpful functions which otherwise do not belong in the library,
-for the GUIs, exist."""
+for the GUIs, exist.
+"""
+
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
 
 import os
 
 import matplotlib.pyplot as plt
+from PySide6 import QtGui
 
-from PySide6 import QtCore, QtWidgets, QtGui
-
-import opihiexarata
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
-
-import opihiexarata.astrometry as astrometry
-import opihiexarata.photometry as photometry
-import opihiexarata.propagate as propagate
-import opihiexarata.orbit as orbit
-import opihiexarata.ephemeris as ephemeris
+from opihiexarata import astrometry
+from opihiexarata import ephemeris
+from opihiexarata import library
+from opihiexarata import orbit
+from opihiexarata import photometry
+from opihiexarata import propagate
+from opihiexarata.library import error
 
 
 def apply_window_icon(
-    window: hint.Union[hint.widget, hint.window], icon_path: str = None
+    window: hint.Union[hint.widget, hint.window],
+    icon_path: str = None,
 ) -> None:
     """This function just applies the window icon to the GUI interfaces.
     We break it out as a function so that it is much easier to change the
@@ -37,18 +45,20 @@ def apply_window_icon(
     Returns
     -------
     None
+
     """
     if icon_path is not None:
         icon_path = os.path.abspath(icon_path)
     else:
         self_dir = os.path.dirname(os.path.abspath(__file__))
         icon_path = library.path.merge_pathname(
-            directory=[self_dir, "qtui"], filename="window_icon", extension="png"
+            directory=[self_dir, "qtui"],
+            filename="window_icon",
+            extension="png",
         )
     # We set the window icon.
     window.setWindowIcon(QtGui.QIcon(icon_path))
     # All done.
-    return None
 
 
 def get_busy_image_array(progress_index: int = None) -> hint.array:
@@ -66,6 +76,7 @@ def get_busy_image_array(progress_index: int = None) -> hint.array:
     -------
     busy_image : array
         The image array which is the busy image.
+
     """
     # Getting the busy file image.
     self_dir = os.path.dirname(os.path.abspath(__file__))
@@ -109,7 +120,8 @@ def get_busy_image_array(progress_index: int = None) -> hint.array:
 
 
 def pick_engine_class_from_name(
-    engine_name: str, engine_type: hint.ExarataEngine = library.engine.ExarataEngine
+    engine_name: str,
+    engine_type: hint.ExarataEngine = library.engine.ExarataEngine,
 ) -> hint.ExarataEngine:
     """This returns a specific engine class provided its user friendly name.
     This is a convince function for both development and implementation.
@@ -129,6 +141,7 @@ def pick_engine_class_from_name(
     -------
     engine_class : ExarataEngine
         The more specific engine class based on the engine name.
+
     """
     # Making the engine entry case insensitive.
     engine_name = str(engine_name).casefold()
@@ -175,8 +188,8 @@ def pick_engine_class_from_name(
         ]
     else:
         raise error.InputError(
-            "The engine type provided to narrow down the search space is not a valid"
-            " ExarataEngine."
+            "The engine type provided to narrow down the search space is not a"
+            " valid ExarataEngine.",
         )
 
     # Searching through all of the engines to find the right one.
@@ -191,8 +204,8 @@ def pick_engine_class_from_name(
     # If the loop did not break, then it likely means that no engine has been
     # found which matches the name provided.
     raise error.InputError(
-        "There is no engine of the name `{n}` that matches any implemented engine of"
-        " the `{t}` class.".format(n=engine_name, t=engine_type)
+        f"There is no engine of the name `{engine_name}` that matches any"
+        f" implemented engine of the `{engine_type}` class.",
     )
     # All done.
     return None

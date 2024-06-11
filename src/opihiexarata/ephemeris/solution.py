@@ -1,11 +1,19 @@
 """The ephemeris solution class."""
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
 
-import opihiexarata.ephemeris as ephemeris
-import opihiexarata.orbit as orbit
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+from opihiexarata import ephemeris
+from opihiexarata import library
+from opihiexarata import orbit
+from opihiexarata.library import error
 
 
 class EphemeriticSolution(library.engine.ExarataSolution):
@@ -30,6 +38,7 @@ class EphemeriticSolution(library.engine.ExarataSolution):
     dec_acceleration : float
         The declination angular acceleration of the target, in degrees per
         second squared.
+
     """
 
     def __init__(
@@ -57,29 +66,30 @@ class EphemeriticSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # Check that the solver engine is a valid submission, that is is an
         # expected engine class.
         if isinstance(solver_engine, library.engine.EphemerisEngine):
             raise error.EngineError(
-                "The ephemeris solver engine provided should be the engine class"
-                " itself, not an instance thereof."
+                "The ephemeris solver engine provided should be the engine"
+                " class itself, not an instance thereof.",
             )
         elif issubclass(solver_engine, library.engine.EphemerisEngine):
             # It is fine, the user submitted a valid orbit engine.
             pass
         else:
             raise error.EngineError(
-                "The provided ephemeris engine is not a valid engine which can be"
-                " used for ephemeris solutions."
+                "The provided ephemeris engine is not a valid engine which can"
+                " be used for ephemeris solutions.",
             )
 
         # Check that the astrometric solution is a valid solution.
         if not isinstance(orbitals, orbit.OrbitalSolution):
             raise error.InputError(
-                "A precomputed orbital solution is required for the computation of"
-                " the ephemeritic solution. It must be an OrbitalSolution class"
-                " from OpihiExarata."
+                "A precomputed orbital solution is required for the computation"
+                " of the ephemeritic solution. It must be an OrbitalSolution"
+                " class from OpihiExarata.",
             )
         else:
             self.orbitals = orbitals
@@ -89,37 +99,39 @@ class EphemeriticSolution(library.engine.ExarataSolution):
         if issubclass(solver_engine, ephemeris.JPLHorizonsWebAPIEngine):
             # The propagation results.
             raw_ephemeris_results = _vehicle_jpl_horizons_web_api(
-                orbitals=self.orbitals
+                orbitals=self.orbitals,
             )
         else:
             # There is no vehicle function, the engine is not supported.
             raise error.EngineError(
-                "The provided ephemeris engine `{eng}` is not supported, there is no"
-                " associated vehicle function for it.".format(eng=str(solver_engine))
+                f"The provided ephemeris engine `{solver_engine!s}` is not"
+                " supported, there is no associated vehicle function for it.",
             )
 
         # Get the results of the solution. If the engine did not provide all of
         # the needed values, then the engine is deficient.
         try:
             # The original information.
-            self._ephemeris_function = raw_ephemeris_results["ephemeris_function"]
+            self._ephemeris_function = raw_ephemeris_results[
+                "ephemeris_function"
+            ]
             self.ra_velocity = raw_ephemeris_results["ra_velocity"]
             self.dec_velocity = raw_ephemeris_results["dec_velocity"]
             self.ra_acceleration = raw_ephemeris_results["ra_acceleration"]
             self.dec_acceleration = raw_ephemeris_results["dec_acceleration"]
         except KeyError:
             raise error.EngineError(
-                "The engine results provided are insufficient for this ephemeris"
-                " solver. Either the engine cannot be used because it cannot provide"
-                " the needed results, or the vehicle function does not pull the"
-                " required results from the engine."
+                "The engine results provided are insufficient for this"
+                " ephemeris solver. Either the engine cannot be used because it"
+                " cannot provide the needed results, or the vehicle function"
+                " does not pull the required results from the engine.",
             )
 
         # All done.
-        return None
 
     def forward_ephemeris(
-        self, future_time: hint.array
+        self,
+        future_time: hint.array,
     ) -> tuple[hint.array, hint.array]:
         """A wrapper call around the engine's ephemeris function. This
         allows the computation of future positions at a future time using
@@ -139,6 +151,7 @@ class EphemeriticSolution(library.engine.ExarataSolution):
         future_dec : ndarray
             The set of declinations that corresponds to the future times, in
             degrees.
+
         """
         future_ra, future_dec = self._ephemeris_function(future_time)
         return future_ra, future_dec
@@ -158,6 +171,7 @@ def _vehicle_jpl_horizons_web_api(orbitals: hint.OrbitalSolution):
     ephemeris_results : dictionary
         The results of the ephemeris engine which then gets integrated into
         the solution.
+
     """
     # The results dictionary.
     ephemeris_results = {}

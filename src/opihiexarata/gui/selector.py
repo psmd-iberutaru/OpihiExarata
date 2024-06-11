@@ -1,26 +1,30 @@
-import sys
-import os
+from __future__ import annotations
+
 import copy
-
-import numpy as np
-import scipy.optimize as sp_optimize
-
-from PySide6 import QtCore, QtWidgets, QtGui
+import os
+import sys
+from typing import TYPE_CHECKING
 
 import matplotlib.cm as mpl_cm
 import matplotlib.patches as mpl_patches
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy.optimize as sp_optimize
 
 # Using Qt backends.
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.backends.backend_qt5agg import (
+    NavigationToolbar2QT as NavigationToolbar,
+)
+from PySide6 import QtCore
+from PySide6 import QtWidgets
 
+from opihiexarata import gui
+from opihiexarata import library
+from opihiexarata.library import error
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
-
-import opihiexarata.gui as gui
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
 
 
 class TargetSelectorWindow(QtWidgets.QWidget):
@@ -90,10 +94,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         GUI. This uses matplotlib's built-in Qt support.
     _opihi_coordinate_formatter : CoordinateFormatter
         A class to wrap around the imshow formatter for fancy printing.
+
     """
 
     def __init__(
-        self, current_fits_filename: str, reference_fits_filename: str = None
+        self,
+        current_fits_filename: str,
+        reference_fits_filename: str = None,
     ) -> None:
         """Create the target selector window. Though often used for asteroids,
         there is no reason why is should specific to them; so we use a general
@@ -112,6 +119,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Creating the GUI itself using the Qt framework and the converted
         # Qt designer files.
@@ -127,7 +135,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # The data from which will be shown to the user which they will use
         # to find the location of the target.
         current_header, current_data = library.fits.read_fits_image_file(
-            filename=current_fits_filename
+            filename=current_fits_filename,
         )
         self.current_filename = current_fits_filename
         self.current_header = current_header
@@ -135,10 +143,12 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # The reference data, if the fits file has been provided. Need to
         # take into account if the reference filename is not provided.
         if isinstance(reference_fits_filename, str) and os.path.isfile(
-            reference_fits_filename
+            reference_fits_filename,
         ):
-            reference_header, reference_data = library.fits.read_fits_image_file(
-                filename=reference_fits_filename
+            reference_header, reference_data = (
+                library.fits.read_fits_image_file(
+                    filename=reference_fits_filename,
+                )
             )
             self.reference_filename = str(reference_fits_filename)
             self.reference_header = reference_header
@@ -191,7 +201,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.refresh_window()
 
         # All done.
-        return None
 
     def __init_opihi_image(self) -> None:
         """Create the image area which will display what Opihi took from the
@@ -205,6 +214,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Deriving the size of the image from the filler dummy image. The
         # figure should be a square. (Height really is the primary concern.)
@@ -217,7 +227,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # using a Matplotlib Qt widget backend. We will add these to the
         # layout later.
         fig, ax = plt.subplots(
-            figsize=(edge_size_in, edge_size_in), constrained_layout=True
+            figsize=(edge_size_in, edge_size_in),
+            constrained_layout=True,
         )
         self.opihi_figure = fig
         self.opihi_axes = ax
@@ -231,20 +242,21 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # function/class is used.
         class CoordinateFormatter:
             """A simple function class to properly format the navigation bar
-            coordinate text. This assumes the current structure of the GUI."""
+            coordinate text. This assumes the current structure of the GUI.
+            """
 
             def __init__(self, gui_instance: TargetSelectorWindow) -> None:
                 self.gui_instance = gui_instance
-                return None
 
             def __call__(self, x, y) -> str:
                 """The coordinate string going to be put onto the navigation
-                bar."""
+                bar.
+                """
                 # The pixel locations.
                 x_index = int(x)
                 y_index = int(y)
-                x_coord_string = "{x_int:d}".format(x_int=x_index)
-                y_coord_string = "{y_int:d}".format(y_int=y_index)
+                x_coord_string = f"{x_index:d}"
+                y_coord_string = f"{y_index:d}"
                 # Extracting the data.
                 try:
                     z_float = self.gui_instance.plotted_data[y_index, x_index]
@@ -256,11 +268,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                     z_coord_string = "NaN"
                 else:
                     # Parse the string from the number provided.
-                    z_coord_string = "{z_flt:.2f}".format(z_flt=z_float)
+                    z_coord_string = f"{z_float:.2f}"
 
                 # Compiling it all together.
-                coord_string = "[{x_str}, {y_str}] = {z_str}".format(
-                    x_str=x_coord_string, y_str=y_coord_string, z_str=z_coord_string
+                coord_string = (
+                    f"[{x_coord_string}, {y_coord_string}] = {z_coord_string}"
                 )
                 return coord_string
 
@@ -285,7 +297,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Remove the dummy spacers otherwise it is just extra unneeded space.
         self.ui.vertical_layout_image.removeWidget(self.ui.dummy_selector_image)
-        self.ui.vertical_layout_image.removeWidget(self.ui.dummy_selector_navbar)
+        self.ui.vertical_layout_image.removeWidget(
+            self.ui.dummy_selector_navbar,
+        )
         self.ui.dummy_selector_image.hide()
         self.ui.dummy_selector_navbar.hide()
         self.ui.dummy_selector_image.deleteLater()
@@ -299,7 +313,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.opihi_axes.set_ylim(0, self.current_data.shape[0])
         # Redraw the image.
         self.refresh_window()
-        return None
 
     def __init_gui_connections(self):
         """A initiation set of functions that attach to the buttons on the
@@ -312,61 +325,62 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # The connections for the fits file selection.
         self.ui.push_button_change_reference_filename.clicked.connect(
-            self.__connect_push_button_change_reference_filename
+            self.__connect_push_button_change_reference_filename,
         )
 
         # The figure connections for dragging of the search box. The Opihi
         # image initialization should be done first.
         self.opihi_canvas.mpl_connect(
-            "button_press_event", self.__connect_matplotlib_mouse_press_event
+            "button_press_event",
+            self.__connect_matplotlib_mouse_press_event,
         )
         self.opihi_canvas.mpl_connect(
-            "button_release_event", self.__connect_matplotlib_mouse_release_event
+            "button_release_event",
+            self.__connect_matplotlib_mouse_release_event,
         )
 
         # The subtraction method connections for comparing the current
         # and release fits images. These buttons really just set the
         # subtraction method flag.
         self.ui.push_button_mode_none.clicked.connect(
-            self.__connect_push_button_mode_none
+            self.__connect_push_button_mode_none,
         )
         self.ui.push_button_mode_reference.clicked.connect(
-            self.__connect_push_button_mode_reference
+            self.__connect_push_button_mode_reference,
         )
         self.ui.push_button_mode_sidereal.clicked.connect(
-            self.__connect_push_button_mode_sidereal
+            self.__connect_push_button_mode_sidereal,
         )
         self.ui.push_button_mode_non_sidereal.clicked.connect(
-            self.__connect_push_button_mode_non_sidereal
+            self.__connect_push_button_mode_non_sidereal,
         )
 
         # The scale and colorbar connections for determining the scale and
         # color bar information, along with the automatic way.
         self.ui.line_edit_dynamic_scale_low.editingFinished.connect(
-            self.__connect_line_edit_dynamic_scale_low
+            self.__connect_line_edit_dynamic_scale_low,
         )
         self.ui.line_edit_dynamic_scale_high.editingFinished.connect(
-            self.__connect_line_edit_dynamic_scale_high
+            self.__connect_line_edit_dynamic_scale_high,
         )
         self.ui.push_button_scale_1_99.clicked.connect(
-            self.__connect_push_button_scale_1_99
+            self.__connect_push_button_scale_1_99,
         )
         self.ui.check_box_autoscale_1_99.stateChanged.connect(
-            self.__connect_check_box_autoscale_1_99
+            self.__connect_check_box_autoscale_1_99,
         )
         self.ui.check_box_reverse_colorbar.stateChanged.connect(
-            self.__connect_check_box_reverse_colorbar
+            self.__connect_check_box_reverse_colorbar,
         )
 
         # The pixel location submission button connection.
         self.ui.push_button_submit_target.clicked.connect(
-            self.__connect_push_button_submit_target
+            self.__connect_push_button_submit_target,
         )
-
-        return None
 
     def __connect_push_button_change_reference_filename(self) -> None:
         """This function provides a popup dialog to prompt the user to change
@@ -379,11 +393,12 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # We assume, as a good jumping off point, that the reference filename
         # is in the same directory as the current image.
         current_image_directory = library.path.get_directory(
-            pathname=self.current_filename
+            pathname=self.current_filename,
         )
         # Use the build-in OS dialog box.
         new_reference_filename, __ = QtWidgets.QFileDialog.getOpenFileName(
@@ -395,8 +410,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # If no file was provided, then there is nothing to do.
         if os.path.isfile(new_reference_filename):
             # Extracted the needed information provided this new fits file.
-            reference_header, reference_data = library.fits.read_fits_image_file(
-                filename=new_reference_filename
+            reference_header, reference_data = (
+                library.fits.read_fits_image_file(
+                    filename=new_reference_filename,
+                )
             )
             self.reference_filename = new_reference_filename
             self.reference_header = reference_header
@@ -410,9 +427,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self._recompute_subtraction_arrays()
         # Redraw and refresh the window to use this new updated information.
         self.refresh_window()
-        return None
 
-    def __connect_matplotlib_mouse_press_event(self, event: hint.MouseEvent) -> None:
+    def __connect_matplotlib_mouse_press_event(
+        self,
+        event: hint.MouseEvent,
+    ) -> None:
         """A function to describe what would happen when a mouse press is
         done on the Matplotlib image.
 
@@ -427,18 +446,21 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
-        """
 
+        """
         # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.opihi_nav_toolbar.mode.value != "":
             # We proxy the middle button and left mouse button together for
             # zooming. We just allow it in addition. This is a band aid
             # solution.
-            if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
+            if (
+                event.button == 2
+                and self.opihi_nav_toolbar.mode.value == "zoom rect"
+            ):
                 event.button = 1
                 self.opihi_nav_toolbar.press_zoom(event=event)
-            return None
+            return
 
         # If the button click was from the middle mouse button, a box is
         # being drawn for defining the box of the asteroid.
@@ -452,9 +474,12 @@ class TargetSelectorWindow(QtWidgets.QWidget):
                 # One of the bounds of the search rectangle.
                 self.box_search_x0 = float(event.xdata)
                 self.box_search_y0 = float(event.ydata)
-        return None
+        return
 
-    def __connect_matplotlib_mouse_release_event(self, event: hint.MouseEvent) -> None:
+    def __connect_matplotlib_mouse_release_event(
+        self,
+        event: hint.MouseEvent,
+    ) -> None:
         """A function to describe what would happen when a mouse press is
         released done on the Matplotlib image.
 
@@ -466,17 +491,20 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
-        """
 
+        """
         # A tool on the toolbar is wanting to be used if the mode is non-blank,
         # prioritize the tool over the selector.
         if self.opihi_nav_toolbar.mode.value != "":
             # We proxy the middle button and left mouse button together for
             # zooming. This is a band aid solution.
-            if event.button == 2 and self.opihi_nav_toolbar.mode.value == "zoom rect":
+            if (
+                event.button == 2
+                and self.opihi_nav_toolbar.mode.value == "zoom rect"
+            ):
                 event.button = 1
                 self.opihi_nav_toolbar.release_zoom(event=event)
-            return None
+            return
 
         # If the button click was from the middle mouse button, a box is
         # being drawn for defining the box of the asteroid.
@@ -512,7 +540,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # Redrawing the image to have the location be visible.
         self.refresh_window()
-        return None
+        return
 
     def __connect_push_button_mode_none(self) -> None:
         """This function sets the subtraction method to None, for comparing
@@ -531,6 +559,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # As the mode is being set by the GUI, we use the string form.
         self.subtraction_method = "none"
@@ -539,7 +568,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.plotted_data = self.subtract_none
         # Refresh the window because the method changed.
         self.refresh_window()
-        return None
 
     def __connect_push_button_mode_reference(self) -> None:
         """This function sets the subtraction method to Reference, plotting
@@ -555,6 +583,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # As the mode is being set by the GUI, we use the string form.
         self.subtraction_method = "reference"
@@ -563,7 +592,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.plotted_data = self.subtract_reference
         # Refresh the window because the method changed.
         self.refresh_window()
-        return None
 
     def __connect_push_button_mode_sidereal(self) -> None:
         """This function sets the subtraction method to sidereal, for comparing
@@ -579,6 +607,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Setting the mode to sidereal.
         self.subtraction_method = "sidereal"
@@ -587,7 +616,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.plotted_data = self.subtract_sidereal
         # Refresh the window because the method changed.
         self.refresh_window()
-        return None
 
     def __connect_push_button_mode_non_sidereal(self) -> None:
         """This function sets the subtraction method to non-sidereal, for
@@ -604,6 +632,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Setting the mode to non-sidereal.
         self.subtraction_method = "non-sidereal"
@@ -612,7 +641,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.plotted_data = self.subtract_non_sidereal
         # Refresh the window because the method changed.
         self.refresh_window()
-        return None
 
     def __connect_line_edit_dynamic_scale_low(self) -> None:
         """A function to operate on the change of the text of the low scale.
@@ -624,6 +652,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Saving the old lower bound scale value in the event that the text
         # entered cannot be properly converted.
@@ -655,7 +684,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # image itself is likely fine too.)
         self.refresh_window()
         # All done.
-        return None
 
     def __connect_line_edit_dynamic_scale_high(self) -> None:
         """A function to operate on the change of the text of the high scale.
@@ -667,6 +695,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Saving the old higher bound scale value in the event that the text
         # entered cannot be properly converted.
@@ -698,7 +727,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # image itself is likely fine too.)
         self.refresh_window()
         # All done.
-        return None
 
     def __connect_push_button_scale_1_99(self) -> None:
         """A function set the scale automatically to 1-99 within the
@@ -711,14 +739,17 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # We can autoscale to these values by recomputing the colorbar values.
-        self._recompute_colorbar_autoscale(lower_percentile=1, higher_percentile=99)
+        self._recompute_colorbar_autoscale(
+            lower_percentile=1,
+            higher_percentile=99,
+        )
         # Redraw the image with this new colorbar range. (Refreshing the
         # image itself is likely fine too.)
         self.refresh_window()
         # All done.
-        return None
 
     def __connect_check_box_autoscale_1_99(self) -> None:
         """This check box allows the user to force the autoscaling of images
@@ -731,6 +762,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Return
         ------
         None
+
         """
         # Get the state of the check box.
         checkbox_state = self.ui.check_box_autoscale_1_99.isChecked()
@@ -738,10 +770,12 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.autoscale_1_99 = bool(checkbox_state)
         # Because this checkbox itself is expected to trigger scaling as well.
         if self.autoscale_1_99:
-            self._recompute_colorbar_autoscale(lower_percentile=1, higher_percentile=99)
+            self._recompute_colorbar_autoscale(
+                lower_percentile=1,
+                higher_percentile=99,
+            )
         # Refresh the window because the scaling has changed.
         self.refresh_window()
-        return None
 
     def __connect_check_box_reverse_colorbar(self) -> None:
         """This check box allows the user to reverse the colors of the color
@@ -754,6 +788,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Return
         ------
         None
+
         """
         # Get the state of the check box.
         checkbox_state = self.ui.check_box_reverse_colorbar.isChecked()
@@ -761,7 +796,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.reverse_colorbar = bool(checkbox_state)
         # Refresh the window because the scaling has changed.
         self.refresh_window()
-        return None
 
     def __connect_push_button_submit_target(self) -> None:
         """This button submits the current location of the target and closes
@@ -782,6 +816,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # The pixel locations as derived from the box mode.
         box_pixel_x = self.target_x
@@ -804,7 +839,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         finally:
             # Type checking the currently assumed pixel values.
             if isinstance(using_pixel_x, (int, float)) and isinstance(
-                using_pixel_y, (int, float)
+                using_pixel_y,
+                (int, float),
             ):
                 # The pixel values provided either through manual or box entry
                 # is valid; prioritization has already been done.
@@ -824,7 +860,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # All done, closing the window as we can now let the primary part of
         # the program continue.
         self.close_window()
-        return None
 
     def refresh_window(self) -> None:
         """Refresh the text content of the window given new information.
@@ -837,13 +872,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Rewriting the text...
         self.__refresh_image()
         # ...redrawing the image plot...
         self.__refresh_text()
         # All done.
-        return None
 
     def __refresh_image(self) -> None:
         """Redraw and refresh the image, this is mostly used to allow for the
@@ -856,6 +891,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # To retain the current zoom and pan, save the limits that the image
         # is currently at before redrawing.
@@ -866,12 +902,15 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # 1-99 % autoscaling. This must be done before the figure it cleared
         # before redrawing else it computes it from a single pixel image.
         if self.autoscale_1_99:
-            self._recompute_colorbar_autoscale(lower_percentile=1, higher_percentile=99)
+            self._recompute_colorbar_autoscale(
+                lower_percentile=1,
+                higher_percentile=99,
+            )
 
         # This is a function to replace the coordinate formatting in
         # favor of our own.
         def empty_string(string: str) -> str:
-            return str()
+            return ""
 
         # Clearing the axes, starting fresh and anew as this entire function
         # does a whole redraw. It may not be needed but small performance
@@ -902,12 +941,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
         # If there is a specified target location, put it on the map.
         if isinstance(self.target_x, (int, float)) and isinstance(
-            self.target_y, (int, float)
+            self.target_y,
+            (int, float),
         ):
             # Represent the marker as the targets location as defined by the
             # search box and the target finding function.
             MARKER_SIZE = float(
-                library.config.GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE
+                library.config.GUI_SELECTOR_IMAGE_PLOT_TARGET_MARKER_SIZE,
             )
             self.opihi_axes.scatter(
                 self.target_x,
@@ -939,7 +979,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # And finally, drawing the image.
         self.opihi_canvas.draw()
         # All done.
-        return None
 
     def __refresh_text(self) -> None:
         """This function just refreshes the GUI text based on the current
@@ -952,28 +991,35 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Refreshing the current and reference fits filenames. No directory
         # information.
         current_bare_filename = library.path.get_filename_with_extension(
-            pathname=self.current_filename
+            pathname=self.current_filename,
         )
         reference_bare_filename = library.path.get_filename_with_extension(
-            pathname=self.reference_filename
+            pathname=self.reference_filename,
         )
-        self.ui.label_dynamic_current_fits_filename.setText(current_bare_filename)
-        self.ui.label_dynamic_reference_fits_filename.setText(reference_bare_filename)
+        self.ui.label_dynamic_current_fits_filename.setText(
+            current_bare_filename,
+        )
+        self.ui.label_dynamic_reference_fits_filename.setText(
+            reference_bare_filename,
+        )
 
         # Refreshing the scale value text as set. Formatting the numerical
         # values into strings.
-        scale_low_str = "{lo:.5f}".format(lo=self.colorbar_scale_low)
-        scale_high_str = "{hi:.5f}".format(hi=self.colorbar_scale_high)
+        scale_low_str = f"{self.colorbar_scale_low:.5f}"
+        scale_high_str = f"{self.colorbar_scale_high:.5f}"
         self.ui.line_edit_dynamic_scale_low.setText(scale_low_str)
         self.ui.line_edit_dynamic_scale_high.setText(scale_high_str)
 
         # Refreshing the target pixel location in the manual entry. Formatting
         # the numerical values into strings.
-        PRECISION = library.config.GUI_SELECTOR_TARGET_LOCATION_PIXEL_DECIMAL_PRECISION
+        PRECISION = (
+            library.config.GUI_SELECTOR_TARGET_LOCATION_PIXEL_DECIMAL_PRECISION
+        )
         target_x = self.target_x if self.target_x is not None else np.nan
         target_y = self.target_y if self.target_y is not None else np.nan
         target_x_str = "{x:.{p}f}".format(x=target_x, p=int(PRECISION))
@@ -982,7 +1028,6 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.ui.line_edit_dynamic_target_y.setText(target_y_str)
 
         # All done.
-        return None
 
     def close_window(self) -> None:
         """Closes the window. Generally called when it is all done.
@@ -994,13 +1039,13 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Delete the plot. This ensures that there is not memory leak with
         # many plots open over time.
         plt.close(self.opihi_figure)
         # Close the window.
         self.close()
-        return None
 
     def _recompute_subtraction_arrays(self) -> None:
         """This computes the subtracted arrays for both none, sidereal, and
@@ -1014,6 +1059,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Begin with computing no subtraction. This is really just the same
         # as the current data.
@@ -1032,8 +1078,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # translation vector between the two images. Because we are shifting
         # the reference image forward, the current data is the reference
         # for translation.
-        x_pix_change, y_pix_change = library.image.determine_translation_image_array(
-            translate_array=self.reference_data, reference_array=self.current_data
+        x_pix_change, y_pix_change = (
+            library.image.determine_translation_image_array(
+                translate_array=self.reference_data,
+                reference_array=self.current_data,
+            )
         )
         # We shift the reference image forward in time as translation splines
         # and it is best not to interpolate the real data. We assume nothing
@@ -1047,10 +1096,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         self.subtract_non_sidereal = self.current_data - shifted_reference_data
 
         # All done.
-        return None
 
     def _recompute_colorbar_autoscale(
-        self, lower_percentile: float = 1, higher_percentile: float = 99
+        self,
+        lower_percentile: float = 1,
+        higher_percentile: float = 99,
     ) -> None:
         """This is a function to recompute the autoscaling of the colorbar.
 
@@ -1070,33 +1120,39 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Percentiles must be between 0 <= p <= 100.
         if not (0 <= lower_percentile <= 100 and 0 <= higher_percentile <= 100):
             raise error.InputError(
-                "The percentiles given for the colorbar scaling are not between 0 and"
-                " 100 as expected of percentiles."
+                "The percentiles given for the colorbar scaling are not between"
+                " 0 and 100 as expected of percentiles.",
             )
 
         # The subset of the data that is currently displayed on the screen.
         xmin, xmax = self.opihi_axes.get_xlim()
         ymin, ymax = self.opihi_axes.get_ylim()
         displayed_plotted_image = self.plotted_data[
-            int(ymin) : int(ymax), int(xmin) : int(xmax)
+            int(ymin) : int(ymax),
+            int(xmin) : int(xmax),
         ]
         # Calculate the percentile values from this subarray as the colorbar
         # bounds. If the images was translated, there will be NaNs to deal
         # with.
         low, high = np.nanpercentile(
-            displayed_plotted_image.flatten(), [lower_percentile, higher_percentile]
+            displayed_plotted_image.flatten(),
+            [lower_percentile, higher_percentile],
         )
         self.colorbar_scale_low = low
         self.colorbar_scale_high = high
         # All done.
-        return None
 
     def find_target_location(
-        self, x0: float, x1: float, y0: float, y1: float
+        self,
+        x0: float,
+        x1: float,
+        y0: float,
+        y1: float,
     ) -> tuple[float, float]:
         """Find the location of a target by using a guessed location.
         The bounds of the search is specified by the rectangle.
@@ -1125,8 +1181,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             The location of the target, based on the guess.
         target_y : float
             The location of the target, based on the guess.
-        """
 
+        """
         # Define the search area by the search radius. Being generous on the
         # search radius.
         x0 = int(x0)
@@ -1158,12 +1214,25 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             guess_search_y = np.argsort(y_axis_collapse)[-2]
             # Formatting the guesses. We use the actual sum value as well for
             # an estimation of the amplitude.
-            guess_x_gaussian = [guess_search_x, 1, x_axis_collapse[guess_search_x]]
-            guess_y_gaussian = [guess_search_y, 1, y_axis_collapse[guess_search_y]]
+            guess_x_gaussian = [
+                guess_search_x,
+                1,
+                x_axis_collapse[guess_search_x],
+            ]
+            guess_y_gaussian = [
+                guess_search_y,
+                1,
+                y_axis_collapse[guess_search_y],
+            ]
 
             # Using a 1-D Gaussian fit to determine the actual center along
             # each axis.
-            def gaussian_function(x: hint.array, cen: float, std: float, amp: float):
+            def gaussian_function(
+                x: hint.array,
+                cen: float,
+                std: float,
+                amp: float,
+            ):
                 return amp * np.exp(-((x - cen) ** 2) / (2 * std**2))
 
             # The x-axis is the pixel locations themselves with the y-axis
@@ -1190,8 +1259,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             error.warn(
                 warn_class=error.AccuracyWarning,
                 message=(
-                    "The centroid of the star could not be computed using Gaussian"
-                    " cross sections; we are using maximum pixel instead."
+                    "The centroid of the star could not be computed using"
+                    " Gaussian cross sections; we are using maximum pixel"
+                    " instead."
                 ),
             )
             # Something happened and for some reason the Gaussian method did
@@ -1199,7 +1269,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             # inaccurate approach of determining the center based on the
             # maximum pixel.
             search_y, search_x = np.unravel_index(
-                np.nanargmax(search_array), search_array.shape
+                np.nanargmax(search_array),
+                search_array.shape,
             )
             # Define the location of the target as the center of the maximum
             # pixel, not its edge.
@@ -1215,7 +1286,8 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
 
 def ask_user_target_selector_window(
-    current_fits_filename, reference_fits_filename: str = None
+    current_fits_filename,
+    reference_fits_filename: str = None,
 ) -> tuple[float, float]:
     """Use the target selector window to have the user provide the
     information needed to determine the location of the target.
@@ -1236,6 +1308,7 @@ def ask_user_target_selector_window(
         The location of the target in the x axis direction.
     target_y : float
         The location of the target in the y axis direction.
+
     """
     # Create the target selector viewer window and let the user interact with
     # it until they let the answer be found.
@@ -1246,7 +1319,9 @@ def ask_user_target_selector_window(
     # Freeze all other processes until the location of the target has been
     # determined. This is a blocking process because everything else requires
     # this to be done.
-    target_selector_window.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
+    target_selector_window.setAttribute(
+        QtCore.Qt.WidgetAttribute.WA_DeleteOnClose,
+    )
     target_selector_window.show()
     # Using an event loop to wait until the widget closes, which is when
     # the user is done selecting the target location.
@@ -1285,5 +1360,4 @@ if __name__ == "__main__":
     data_array = (Z1 - Z2) * 2
 
     x, y = ask_user_target_selector_window(data_array=data_array)
-    print("XY Coordinates: ", x, y)
     sys.exit()

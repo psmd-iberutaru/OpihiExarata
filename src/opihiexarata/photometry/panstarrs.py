@@ -1,14 +1,25 @@
-"""Photometric database access using PANSTARRS data. There are a few ways and
-they are implemented here."""
+"""Photometric database access using PANSTARRS data.
+
+There are a few ways and they are implemented here.
+"""
+
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
 
 import astropy.io.ascii as ap_ascii
 import astropy.table as ap_table
 import numpy as np
 import requests
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 PANSTARRS_AVAILABLE_COLUMNS = [
     "objName",
@@ -144,14 +155,19 @@ PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE = [
 
 
 class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
-    """This is a photometric data extractor using PanSTARRS data obtained from
+    """Photometric engine using PanSTARRS and the MAST API.
+
+    This is a photometric data extractor using PanSTARRS data obtained from
     their catalogs via the MAST API.
 
     See https://catalogs.mast.stsci.edu/docs/panstarrs.html for more
     information.
     """
 
-    def __init__(self, verify_ssl: bool = True) -> None:
+    def __init__(
+        self: PanstarrsMastWebAPIEngine,
+        verify_ssl: bool = True,
+    ) -> None:
         """Create the instance of the API.
 
         Parameters
@@ -163,13 +179,14 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         Returns
         -------
         None
+
         """
         self.verify_ssl = verify_ssl
 
-        return None
+    def _mask_table_data(self: hint.Self, data_table: hint.Table) -> hint.Table:
+        """Mask the table data based on PanSTARRS conventions.
 
-    def _mask_table_data(self, data_table: hint.Table) -> hint.Table:
-        """This masks the raw data derived from PanSTARRS, implementing the
+        This masks the raw data derived from PanSTARRS, implementing the
         masking/null value specifics of the PanSTARRS system.
 
         The point of this is to make masked or invalid data more typical to
@@ -184,6 +201,7 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         ------
         masked_data_table : Astropy Table
             The masked table.
+
         """
         # Enable masking capabilities, requires a new table.
         masked_data_table = ap_table.Table(data_table, masked=True)
@@ -203,16 +221,16 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
                 mask = np.where(column_data <= -999, True, False)
             else:
                 raise error.UndiscoveredError(
-                    "The data type that PanSTARRS is sending is not one which has an"
-                    " appropriate masking idiosyncrasy documented and implemented in"
-                    " this API."
+                    "The data type that PanSTARRS is sending is not one which"
+                    " has an appropriate masking idiosyncrasy documented and"
+                    " implemented in this API.",
                 )
             # Apply the mask to the column.
             masked_data_table[colnamedex].mask = mask
         return masked_data_table
 
     def cone_search(
-        self,
+        self: hint.Self,
         ra: float,
         dec: float,
         radius: float,
@@ -222,7 +240,9 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         max_rows: int = 1000,
         data_release: int = 2,
     ) -> hint.Table:
-        """Search the PanSTARRS database for targets within a cone region
+        """Query the PanSTARRS database using a cone search.
+
+        Search the PanSTARRS database for targets within a cone region
         specified.
 
         The table data returned from this function is not processed and is raw
@@ -260,45 +280,49 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         ------
         catalog_results : Astropy Table
             The result of the cone search, pulled from the PanSTARRS catalog.
+
         """
         # Ensure that the RA and DEC are within degrees limits. The radius limit
         # also should have reasonable limits constrained upon it.
         if not 0 <= ra <= 360:
             raise error.InputError(
-                "The right ascension for the cone search must be in degrees and within"
-                " the reasonable limits thereof."
+                "The right ascension for the cone search must be in degrees and"
+                " within the reasonable limits thereof.",
             )
         if not -90 <= dec <= 90:
             raise error.InputError(
-                "The declination for the cone search must be in degrees and within the"
-                " reasonable limits thereof."
+                "The declination for the cone search must be in degrees and"
+                " within the reasonable limits thereof.",
             )
         if not 0 <= radius <= 180:
             raise error.InputError(
-                "The right ascension for the cone search must be in degrees and within"
-                " the reasonable limits thereof. The limit is the entire sky."
+                "The right ascension for the cone search must be in degrees and"
+                " within the reasonable limits thereof. The limit is the entire"
+                " sky.",
             )
         # Sanity checks for the other input parameters.
         try:
             detections = int(detections)
             if detections < 1:
                 raise error.InputError(
-                    "The number of required detections must be at least one."
+                    "The number of required detections must be at least one.",
                 )
         except TypeError:
             error.InputError(
-                "The number of detections inputted must be integer convertable."
+                "The number of detections inputted must be integer"
+                " convertable.",
             )
         try:
             max_rows = int(max_rows)
             if max_rows < 1:
                 raise error.InputError(
-                    "The number of required maximum rows queried must be at least one."
+                    "The number of required maximum rows queried must be at"
+                    " least one.",
                 )
         except TypeError:
             error.InputError(
                 "The number of maximum rows queried inputted must be integer"
-                " convertable."
+                " convertable.",
             )
 
         # Check that the columns provided are valid columns.
@@ -311,10 +335,13 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
         else:
             columns = list(columns)
         for columnlabeldex in columns:
-            if columnlabeldex.lower() not in PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE:
+            if (
+                columnlabeldex.lower()
+                not in PANSTARRS_AVAILABLE_COLUMNS_LOWERCASE
+            ):
                 raise error.InputError(
-                    "The column label `{label}` is not a valid column which can be used"
-                    " with the PanSTARRS query.".format(label=columnlabeldex)
+                    f"The column label `{columnlabeldex}` is not a valid column"
+                    " which can be used with the PanSTARRS query.",
                 )
         # Specific formatting for the MAST API call.
         columns = [namedex.lower() for namedex in columns]
@@ -322,57 +349,61 @@ class PanstarrsMastWebAPIEngine(library.engine.PhotometryEngine):
 
         # Check that the data release is supported.
         data_release = str(data_release)
-        VALID_PANSTARRS_DATA_RELEASES = ("1", "2")
-        if data_release not in VALID_PANSTARRS_DATA_RELEASES:
+        valid_data_releases = ("1", "2")
+        if data_release not in valid_data_releases:
             raise error.InputError(
-                "The data release version provided is not supported."
+                "The data release version provided is not supported.",
             )
 
         # Pan-STARRS only supports a declination of greater than -30 deg.
-        if dec <= -30.0:
+        pan_starrs_dec_limit = -30
+        if dec <= pan_starrs_dec_limit:
             raise error.EngineError(
-                "The Pan-STARRS survey does not have any sky coverage lower than"
-                " declination -30 degrees. The current queried declination is {d}"
-                " degrees.".format(d=dec)
+                "The Pan-STARRS survey does not have any sky coverage lower"
+                " than declination -30 degrees. The current queried"
+                f" declination is {dec} degrees.",
             )
 
         # The MAST API service is a url request. Constructing the URL based on
         # the provided information.
         mast_api_url = (
-            "https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr{v}/mean.csv?"
-            "ra={a}&dec={d}&radius={r}&nDetections.gte={n}&columns={c}&pagesize={l}&"
-            "ng.gte={p}&nr.gte={p}&ni.gte={p}&nz.gte={p}"
-        ).format(
-            v=data_release,
-            a=ra,
-            d=dec,
-            r=radius,
-            n=detections,
-            c=colstring,
-            l=max_rows,
-            p=color_detections,
+            f"https://catalogs.mast.stsci.edu/api/v0.1/panstarrs/dr{data_release}/mean.csv?"
+            f"ra={ra}&dec={dec}&radius={radius}&nDetections.gte={detections}&columns={colstring}&pagesize={max_rows}&"
+            f"ng.gte={color_detections}&nr.gte={color_detections}&ni.gte={color_detections}&nz.gte={color_detections}"
         )
         # Pull the data into a table.
         query = requests.get(mast_api_url, verify=self.verify_ssl)
         catalog_results = ap_ascii.read(query.text, format="csv")
         return catalog_results
 
-    def masked_cone_search(self, *args, **kwargs) -> hint.Table:
-        """The same as cone_search, but it also masks the data based on the
+    def masked_cone_search(
+        self: hint.Self,
+        *args: hint.Any,
+        **kwargs: hint.Any,
+    ) -> hint.Table:
+        """Cone search, but also mask the data based on PanSTARRS.
+
+        The same as cone_search, but it also masks the data based on the
         masking idiosyncrasies of PanSTARRS.
 
         Parameters
         ----------
-        (see cone_search)
+        *args : Any
+            Passed to `cone_search`.
+        **kwargs : Any
+            Passed to `cone_search`.
 
         Returns
         -------
         masked_catalog_results : Astropy Table
             The data from the cone search with the entries masked where
             appropriate.
+
         """
         # Get the data that will be post-processed using making.
         catalog_results = self.cone_search(*args, **kwargs)
         # Mask the table.
-        masked_catalog_results = self._mask_table_data(data_table=catalog_results)
+        masked_catalog_results = self._mask_table_data(
+            data_table=catalog_results,
+        )
         return masked_catalog_results

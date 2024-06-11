@@ -8,19 +8,32 @@ values from the conventions of OpihiExarata (as the expected input) to the
 expected input for the TCS.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import os
-import subprocess
 import string
+import subprocess
 
-
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 # Sometimes it is best to limit the user to only use latin characters (ascii)
 # because of older software and other conventions.
 LATIN_ASCII_CHARACTER_SET = set(
-    string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_" + " "
+    string.ascii_uppercase
+    + string.ascii_lowercase
+    + string.digits
+    + "-_"
+    + " ",
 )
 
 
@@ -78,6 +91,7 @@ def t3io_tcs_next(
     t3io_response : CompletedProcess
         The response of the t3io command as captured (and packaged) by
         the subprocess module.
+
     """
     # To use the TCS, we utilize the t3io program. Its location is determined
     # by the configuration file.
@@ -86,8 +100,9 @@ def t3io_tcs_next(
     # TCS.
     if not os.path.exists(BINARY_PATH):
         raise error.ConfigurationError(
-            "The t3io program does not exist at the path provided in the configuration."
-            " This software cannot properly execute TCS commands."
+            "The t3io program does not exist at the path provided in the"
+            " configuration. This software cannot properly execute TCS"
+            " commands.",
         )
     # The hostname to be used, this matters as sometimes the hostname to be
     # used is the testing TCS hostname.
@@ -99,17 +114,18 @@ def t3io_tcs_next(
         # the command is parsed.
         tcs_host_string = ""
     else:
-        tcs_host_string = "-h {h}".format(h=TCS_HOST)
+        tcs_host_string = f"-h {TCS_HOST}"
 
     # The t3io program takes the RA and DECs as sexagesimal.
     ra_sex, deg_sex = library.conversion.degrees_to_sexagesimal_ra_dec(
-        ra_deg=ra, dec_deg=dec
+        ra_deg=ra,
+        dec_deg=dec,
     )
 
     # The proper motion is not currently implemented.
     if ra_proper_motion != 0 or dec_proper_motion != 0:
         raise error.DevelopmentError(
-            "Proper motion is not yet implemented for this function."
+            "Proper motion is not yet implemented for this function.",
         )
 
     # We assume the epoch and equinox passed by the user is correct.
@@ -121,8 +137,8 @@ def t3io_tcs_next(
     coordinate_system = coordinate_system.casefold()
     if coordinate_system not in ("fk5", "fk4", "app"):
         raise error.InputError(
-            "The TCS software only accepts the following coordinate systems: fk5, fk4,"
-            " app. See the documentation for more information."
+            "The TCS software only accepts the following coordinate systems:"
+            " fk5, fk4, app. See the documentation for more information.",
         )
 
     # We assume the object name is case sensitive. However, spaces must be
@@ -140,9 +156,9 @@ def t3io_tcs_next(
     else:
         # There are invalid characters.
         raise error.InputError(
-            "There are invalid characters in the target name provided: `{tn}`. The"
-            " software only accepts ASCII letters, numbers, and the following symbols:"
-            " -_ ".format(tn=target_name)
+            "There are invalid characters in the target name provided:"
+            f" `{target_name}`. The software only accepts ASCII letters,"
+            " numbers, and the following symbols: -_ ",
         )
 
     # The magnitude of the object.
@@ -152,10 +168,10 @@ def t3io_tcs_next(
     # needs to be in arcseconds per second. By convention we use degrees
     # per second so we need to convert.
     ra_vel_as_s = library.conversion.degrees_per_second_to_arcsec_per_second(
-        degree_per_second=ra_velocity
+        degree_per_second=ra_velocity,
     )
     dec_vel_as_s = library.conversion.degrees_per_second_to_arcsec_per_second(
-        degree_per_second=dec_velocity
+        degree_per_second=dec_velocity,
     )
 
     # We compile the command to export to the shell for the t3io program.
@@ -178,12 +194,17 @@ def t3io_tcs_next(
         "opihiexarata",
     ]
     # Subprocess expects only strings.
-    t3io_command_arguments_str = [str(argdex) for argdex in t3io_command_arguments]
-    t3io_response = subprocess.run(t3io_command_arguments_str)
+    t3io_command_arguments_str = [
+        str(argdex) for argdex in t3io_command_arguments
+    ]
+    t3io_response = subprocess.run(t3io_command_arguments_str, check=False)
     return t3io_response
 
 
-def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedProcess:
+def t3io_tcs_ns_rate(
+    ra_velocity: float,
+    dec_velocity: float,
+) -> hint.CompletedProcess:
     """This uses the t3io program to execute the TCS ns.rate command.
     This command allows for the specification of the non-sidereal rates of the
     target.
@@ -203,6 +224,7 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     t3io_response : CompletedProcess
         The response of the t3io command as captured (and packaged) by
         the subprocess module.
+
     """
     # To use the TCS, we utilize the t3io program. Its location is determined
     # by the configuration file.
@@ -211,8 +233,9 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
     # TCS.
     if not os.path.exists(BINARY_PATH):
         raise error.ConfigurationError(
-            "The t3io program does not exist at the path provided in the configuration."
-            " This software cannot properly execute TCS commands."
+            "The t3io program does not exist at the path provided in the"
+            " configuration. This software cannot properly execute TCS"
+            " commands.",
         )
     # The hostname to be used, this matters as sometimes the hostname to be
     # used is the testing TCS hostname.
@@ -224,16 +247,16 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
         # the command is parsed.
         tcs_host_string = ""
     else:
-        tcs_host_string = "-h {h}".format(h=TCS_HOST)
+        tcs_host_string = f"-h {TCS_HOST}"
 
     # The RA and DEC velocities (non-sidereal rates) for the t3io software
     # needs to be in arcseconds per second. By convention we use degrees
     # per second so we need to convert.
     ra_vel_as_s = library.conversion.degrees_per_second_to_arcsec_per_second(
-        degree_per_second=ra_velocity
+        degree_per_second=ra_velocity,
     )
     dec_vel_as_s = library.conversion.degrees_per_second_to_arcsec_per_second(
-        degree_per_second=dec_velocity
+        degree_per_second=dec_velocity,
     )
 
     # We compile the command to export to the shell for the t3io program.
@@ -245,6 +268,8 @@ def t3io_tcs_ns_rate(ra_velocity: float, dec_velocity: float) -> hint.CompletedP
         ra_vel_as_s,
         dec_vel_as_s,
     ]
-    t3io_command_arguments_str = [str(argdex) for argdex in t3io_command_arguments]
-    t3io_response = subprocess.run(t3io_command_arguments_str)
+    t3io_command_arguments_str = [
+        str(argdex) for argdex in t3io_command_arguments
+    ]
+    t3io_response = subprocess.run(t3io_command_arguments_str, check=False)
     return t3io_response

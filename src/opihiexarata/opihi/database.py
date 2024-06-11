@@ -1,20 +1,32 @@
 """The database solution for storing and recording zero point data.
 We use a flat file database here with ordered directories to make it easily
 transversal by other tools and to have it be simple. A single instance of
-this class should monitor its own database."""
+this class should monitor its own database.
+"""
 
-import os
-import datetime
-import zoneinfo
-import glob
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import copy
-import numpy as np
+import datetime
+import glob
+import os
+import zoneinfo
+
 import astropy.table as ap_table
+import numpy as np
 import plotly.express as px
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 DATABASE_CHECK_FILE_BASENAME = "exarata_zero_point_database"
 DATABASE_CHECK_FILE_EXTENSION = "check"
@@ -43,6 +55,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
     ----------
     database_directory : string
         The path to the directory where the flat file database is.
+
     """
 
     def __init__(self, database_directory: str) -> None:
@@ -64,6 +77,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # If the directory does not exist, we assume that we can make it.
         # The file checking step will prepare a blank directory.
@@ -81,30 +95,28 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         )
         if os.path.isfile(check_filename):
             pass
+        elif len(os.listdir(database_directory)) == 0:
+            # Creating the check file.
+            with open(check_filename, "w") as __:
+                pass
+            # We can still continue with the database
         else:
-            # If the directory is empty, we assume to start a new database.
-            if len(os.listdir(database_directory)) == 0:
-                # Creating the check file.
-                with open(check_filename, "w") as __:
-                    pass
-                # We can still continue with the database
-            else:
-                raise error.DirectoryError(
-                    "The directory provided {dir} is not a directory which is detected"
-                    " to be a proper database directory for zero point recording;"
-                    " neither is it an empty directory to start a new database.".format(
-                        dir=database_directory
-                    )
-                )
+            raise error.DirectoryError(
+                f"The directory provided {database_directory} is not a"
+                " directory which is detected to be a proper database"
+                " directory for zero point recording; neither is it an empty"
+                " directory to start a new database.",
+            )
         # Keeping the record.
         self.database_directory = os.path.abspath(database_directory)
 
         # All done.
-        return None
 
     @classmethod
     def clean_record_text_file(
-        cls, filename: str, garbage_filename: str = None
+        cls,
+        filename: str,
+        garbage_filename: str = None,
     ) -> None:
         """This function takes a record file and cleans it up. Sorting it by
         time and deleting any lines which do not conform to the expected
@@ -128,9 +140,10 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # We need to read every line.
-        with open(filename, "r") as file:
+        with open(filename) as file:
             record_lines = file.readlines()
         # The extra new line characters get in the way of cleaning and we
         # will add them back later.
@@ -182,11 +195,12 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
                 garbage_file.writelines(garbage_records)
 
         # All done.
-        return None
 
     @classmethod
     def clean_database_text_files(
-        cls, database_directory: str, garbage_filename: str = None
+        cls,
+        database_directory: str,
+        garbage_filename: str = None,
     ) -> None:
         """This function cleans each and every file inside of the the database
         provided by the inputted database directory.
@@ -209,6 +223,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # We need to make sure that the directory itself exists and it is a
         # database directory.
@@ -219,24 +234,26 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         )
         if not os.path.isfile(check_filename):
             raise error.DirectoryError(
-                "The directory {dir} provided is not a valid OpihiExarata zero point"
-                " database directory as it is missing the check file. We will not"
-                " attempt to clean it.".format(dir=database_directory)
+                f"The directory {database_directory} provided is not a valid"
+                " OpihiExarata zero point database directory as it is missing"
+                " the check file. We will not attempt to clean it.",
             )
 
         # We search through all of the database files. We do not try and
         # clean non-database files.
         database_glob_search = library.path.merge_pathname(
-            directory=database_directory, filename="*.zp_ox", extension="txt"
+            directory=database_directory,
+            filename="*.zp_ox",
+            extension="txt",
         )
         database_files = glob.glob(database_glob_search)
         # Clean every file.
         for filedex in database_files:
             cls.clean_record_text_file(
-                filename=filedex, garbage_filename=garbage_filename
+                filename=filedex,
+                garbage_filename=garbage_filename,
             )
         # All done.
-        return None
 
     @classmethod
     def drop_database_text_files(cls, database_directory: str) -> None:
@@ -257,6 +274,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # We need to make sure that the directory itself exists and it is a
         # database directory.
@@ -267,10 +285,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         )
         if not os.path.isfile(check_filename):
             raise error.DirectoryError(
-                "The directory {dir} provided is not a valid OpihiExarata zero point"
-                " database directory. There is nothing to delete.".format(
-                    dir=database_directory
-                )
+                f"The directory {database_directory} provided is not a valid"
+                " OpihiExarata zero point database directory. There is nothing"
+                " to delete.",
             )
         else:
             # We remove the check file as this directory will no longer
@@ -280,7 +297,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We search through all of the database files. We do not delete
         # non-database files.
         database_glob_search = library.path.merge_pathname(
-            directory=database_directory, filename="*.zp_ox", extension="txt"
+            directory=database_directory,
+            filename="*.zp_ox",
+            extension="txt",
         )
         database_files = glob.glob(database_glob_search)
         # Removing the files.
@@ -292,9 +311,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             os.removedirs(database_directory)
 
         # All done.
-        return None
 
-    def _generate_text_record_filename(self, year: int, month: int, day: int) -> str:
+    def _generate_text_record_filename(
+        self,
+        year: int,
+        month: int,
+        day: int,
+    ) -> str:
         """The text records which stores all of the information of the
         zero points are created in a specific way to allow for the user to
         manually navigate it with ease.
@@ -312,13 +335,16 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         -------
         text_record_filename : string
             The filename where the record should go in.
+
         """
         # The filename is really just the date.
         date = datetime.date(year=year, month=month, day=day)
-        basename = "{isodate}.zp_ox".format(isodate=date.isoformat())
+        basename = f"{date.isoformat()}.zp_ox"
         # Combining it with directory and the expected text file extension.
         text_record_filename = library.path.merge_pathname(
-            directory=self.database_directory, filename=basename, extension="txt"
+            directory=self.database_directory,
+            filename=basename,
+            extension="txt",
         )
         # All done.
         return text_record_filename
@@ -363,20 +389,25 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         -------
         zero_point_record : string
             The string representation of the zero point record.
+
         """
         # We check that the data provided is a proper date. The smallest
         # precision is a second so anything lower than that we do not need.
         second = int(second)
         try:
             record_datetime = datetime.datetime(
-                year=year, month=month, day=day, hour=hour, minute=minute, second=second
+                year=year,
+                month=month,
+                day=day,
+                hour=hour,
+                minute=minute,
+                second=second,
             )
         except ValueError:
             raise error.InputError(
-                "The time and date values provided cannot be composed to a real life"
-                " date and time. Input is: {yr}-{mn}-{dy}  {hr}:{mi}:{sc}.".format(
-                    yr=year, mn=month, dy=day, hr=hour, mi=minute, sc=second
-                )
+                "The time and date values provided cannot be composed to a"
+                f" real life date and time. Input is: {year}-{month}-{day} "
+                f" {hour}:{minute}:{second}.",
             )
         else:
             datetime_string = record_datetime.isoformat(timespec="seconds")
@@ -384,21 +415,23 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We compose the zero point string, both the value and the error.
         ASCII_PLUS_MINUS_SYMBOL = "+/-"
         ZERO_POINT_DIGIT_LENGTH = 12
-        zero_point_string = "{zp:{ln}.{zp_f}f}  {pm}  {zpe:{ln}.{zpe_f}f}".format(
-            zp=zero_point,
-            zpe=zero_point_error,
-            pm=ASCII_PLUS_MINUS_SYMBOL,
-            ln=ZERO_POINT_DIGIT_LENGTH,
-            zp_f=ZERO_POINT_DIGIT_LENGTH - 3 - 1,
-            zpe_f=ZERO_POINT_DIGIT_LENGTH - 1 - 1,
+        zero_point_string = (
+            "{zp:{ln}.{zp_f}f}  {pm}  {zpe:{ln}.{zpe_f}f}".format(
+                zp=zero_point,
+                zpe=zero_point_error,
+                pm=ASCII_PLUS_MINUS_SYMBOL,
+                ln=ZERO_POINT_DIGIT_LENGTH,
+                zp_f=ZERO_POINT_DIGIT_LENGTH - 3 - 1,
+                zpe_f=ZERO_POINT_DIGIT_LENGTH - 1 - 1,
+            )
         )
 
         # We compose the filter name string.
-        filter_string = "{flt:>2}".format(flt=filter_name)
+        filter_string = f"{filter_name:>2}"
 
         # Combing it all together now.
-        zero_point_record = "{time}    {zp_e}    {flt}".format(
-            time=datetime_string, zp_e=zero_point_string, flt=filter_string
+        zero_point_record = (
+            f"{datetime_string}    {zero_point_string}    {filter_string}"
         )
         # All done.
         return zero_point_record
@@ -417,6 +450,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         record_dictionary : dictionary
             The record dictionary containing the information from the record
             line.
+
         """
         # We break up the record into its parts. We do not care about the
         # plus minus symbol.
@@ -513,6 +547,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # We need to compose the record from the information provided.
         zero_point_record = self._generate_zero_point_record_line(
@@ -529,7 +564,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
 
         # We need to derive the correct filename.
         record_filename = self._generate_text_record_filename(
-            year=year, month=month, day=day
+            year=year,
+            month=month,
+            day=day,
         )
 
         # We add our entry to the file, we add the newline here.
@@ -575,6 +612,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # We take the Julian day and convert it to the civil time so we can
         # use the other function.
@@ -601,7 +639,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             clean_file=clean_file,
         )
         # All done.
-        return None
 
     def read_zero_point_record_list(self, filename: str) -> list[str]:
         """This reads a zero point record file and converts it to a list for
@@ -616,25 +653,28 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         -------
         record_list : Table
             The representation of all of the zero point data in a list.
+
         """
         # Check that the file is a zero point record file assuming the
         # extension.
         if filename[-10:] != ".zp_ox.txt":
             raise error.FileError(
-                "The filename {f} is not detected to be an OpihiExarata zero point"
-                " record file based on its extension.".format(f=filename)
+                f"The filename {filename} is not detected to be an OpihiExarata"
+                " zero point record file based on its extension.",
             )
         elif not os.path.isfile(filename):
             raise error.FileError(
-                "The filename {f} does not exist in the database and thus it cannot be"
-                " read.".format(f=filename)
+                f"The filename {filename} does not exist in the database and"
+                " thus it cannot be read.",
             )
         else:
             # We need to read the zero point record file.
-            with open(filename, "r") as file:
+            with open(filename) as file:
                 record_lines = file.readlines()
             # We do not need the new line characters.
-            record_list = [linedex.removesuffix("\n") for linedex in record_lines]
+            record_list = [
+                linedex.removesuffix("\n") for linedex in record_lines
+            ]
         # All done.
         return record_list
 
@@ -651,6 +691,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         -------
         record_table : Table
             The representation of all of the zero point data in a table.
+
         """
         # Pulling all of the lines from the file.
         record_lines = self.read_zero_point_record_list(filename=filename)
@@ -680,10 +721,13 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         database_table : Table
             A table of all of the zero point data from files contained within
             the database.
+
         """
         # We need to grab all of the zero point files in the database.
         database_glob_search = library.path.merge_pathname(
-            directory=self.database_directory, filename="*.zp_ox", extension="txt"
+            directory=self.database_directory,
+            filename="*.zp_ox",
+            extension="txt",
         )
         database_files = glob.glob(database_glob_search)
 
@@ -752,6 +796,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         -------
         query_record_table : Table
             A table containing the data as queried from the database.
+
         """
         # Datetimes are the best way to handle this.
         begin_datetime = datetime.datetime(
@@ -777,23 +822,29 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We loop over all relevant dates to extract all relevant files for
         # the query. This allows us to sort for only those days relevant and
         # saves us time.
-        def datetime_range(start_dt, end_dt):
+        def datetime_range(start_dt: hint.datetime, end_dt: hint.datetime):
             """A generator for iterating between datetimes. We include the
-            end point."""
+            end point.
+            """
             for incrementdex in range(int((end_dt - start_dt).days) + 1):
                 yield start_dt + datetime.timedelta(days=incrementdex)
 
         # Search for any other days, other than the beginning day, that we
         # need to pull data from.
-        for datedex in datetime_range(start_dt=begin_datetime, end_dt=end_datetime):
+        for datedex in datetime_range(
+            start_dt=begin_datetime,
+            end_dt=end_datetime,
+        ):
             # Getting the database file name for this date.
             database_filename = self._generate_text_record_filename(
-                year=datedex.year, month=datedex.month, day=datedex.day
+                year=datedex.year,
+                month=datedex.month,
+                day=datedex.day,
             )
             # Attempt to read the file.
             try:
                 database_record_list += self.read_zero_point_record_list(
-                    filename=database_filename
+                    filename=database_filename,
                 )
             except error.FileError:
                 # The file likely does not exist so there is nothing to read.
@@ -803,7 +854,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # handle the entire date so we can also double check using that.
         valid_record_rows = []
         for recorddex in database_record_list:
-            record_dictionary = self._parse_zero_point_record_line(record=recorddex)
+            record_dictionary = self._parse_zero_point_record_line(
+                record=recorddex,
+            )
             record_datetime = datetime.datetime(
                 year=record_dictionary["year"],
                 month=record_dictionary["month"],
@@ -832,7 +885,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         return query_record_table
 
     def query_database_between_julian_days(
-        self, begin_jd: float, end_jd: float
+        self,
+        begin_jd: float,
+        end_jd: float,
     ) -> hint.Table:
         """This queries the database and returns a table with all entries in
         the database in between two given dates and times. The date and times
@@ -852,14 +907,15 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         -------
         query_record_table : Table
             A table containing the data as queried from the database.
+
         """
         # We need to convert the Julian days to the default full time date
         # representation.
-        b_yr, b_mn, b_dy, b_hr, b_mi, b_sc = library.conversion.julian_day_to_full_date(
-            jd=begin_jd
+        b_yr, b_mn, b_dy, b_hr, b_mi, b_sc = (
+            library.conversion.julian_day_to_full_date(jd=begin_jd)
         )
-        e_yr, e_mn, e_dy, e_hr, e_mi, e_sc = library.conversion.julian_day_to_full_date(
-            jd=end_jd
+        e_yr, e_mn, e_dy, e_hr, e_mi, e_sc = (
+            library.conversion.julian_day_to_full_date(jd=end_jd)
         )
         # Sending it to the original query function.
         query_record_table = self.query_database_between_datetimes(
@@ -895,6 +951,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         query_record_table : Table
             A table containing the data as queried from the database across
             all reasonable times.
+
         """
         # These two dates are far enough apart that it should cover the entire
         # database.
@@ -967,12 +1024,14 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # We need to fetch the data to query. We query just a little outside
         # of the range provided so that the plots are continuous and connect
         # to points outside of the range. A day is more than enough.
         zero_point_record_table = self.query_database_between_julian_days(
-            begin_jd=plot_query_begin_jd - 1, end_jd=plot_query_end_jd + 1
+            begin_jd=plot_query_begin_jd - 1,
+            end_jd=plot_query_end_jd + 1,
         )
 
         # We convert to a different timezone if needed, else, we just add the
@@ -988,7 +1047,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             )
             for datetimedex in zprc_datetimes
         ]
-        zero_point_record_table_timezone = copy.deepcopy(zero_point_record_table)
+        zero_point_record_table_timezone = copy.deepcopy(
+            zero_point_record_table,
+        )
         zero_point_record_table_timezone["datetime"][:] = zprc_tz_datetimes
 
         # We group similar filters into lines.
@@ -1012,13 +1073,8 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We define the order the filters are plotted just by the verbal
         # order of their name. Done as per `category_orders` documentation.
         symbol_order_specification = {
-            "filter_name": ["c", "g", "r", "i", "z", "1", "2", "b"]
+            "filter_name": ["c", "g", "r", "i", "z", "1", "2", "b"],
         }
-
-        # The symbol for plotting. Large markers are not needed and the
-        # error bars already provide some marker. As we all use the same
-        # symbol, we do not really need to use an array.
-        # marker = None
 
         # We provide additional context for custom data that should be
         # available to the plotting resources.
@@ -1060,7 +1116,9 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             if (valuedex is not None) and np.isfinite(valuedex):
                 # We plot the value.
                 fig.add_hline(
-                    valuedex, line_dash="dot", line_color=plot_color_map[keydex]
+                    valuedex,
+                    line_dash="dot",
+                    line_color=plot_color_map[keydex],
                 )
 
         # The overall title of the figure. It is helpful to put the UTC time
@@ -1070,24 +1128,29 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # Datetime only takes seconds as an integer.
         int_only = lambda array: [int(valuedex) for valuedex in array]
         utc_now_tuple = library.conversion.julian_day_to_full_date(
-            jd=library.conversion.current_utc_to_julian_day()
+            jd=library.conversion.current_utc_to_julian_day(),
         )
         utc_now_datetime = datetime.datetime(
-            *int_only(utc_now_tuple), tzinfo=zoneinfo.ZoneInfo("Etc/UTC")
+            *int_only(utc_now_tuple),
+            tzinfo=zoneinfo.ZoneInfo("Etc/UTC"),
         )
         using_timezone_zoneinfo = zoneinfo.ZoneInfo(key=using_timezone)
-        tz_time_string = utc_now_datetime.astimezone(using_timezone_zoneinfo).strftime(
-            iso_8601_time_format
-        )
+        tz_time_string = utc_now_datetime.astimezone(
+            using_timezone_zoneinfo,
+        ).strftime(iso_8601_time_format)
         fig.update_layout(
-            title_text="Opihi Zero Point Trends (Current: {curr} {tz})".format(
-                curr=tz_time_string, tz=using_timezone
-            )
+            title_text=(
+                "Opihi Zero Point Trends (Current:"
+                f" {tz_time_string} {using_timezone})"
+            ),
         )
         # All datetimes should have the same formatting. We rotate it so it
         # is a little more readable.
         tick_rotation = 15
-        fig.update_xaxes(tickformat=iso_8601_time_format, tickangle=tick_rotation)
+        fig.update_xaxes(
+            tickformat=iso_8601_time_format,
+            tickangle=tick_rotation,
+        )
 
         # We configure the message when hovering to be a little bit more clear.
         hover_message_template = R"%{x}<br>     %{y}"
@@ -1099,7 +1162,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         fig.update_layout(hovermode="x unified")
         # We also fix the x-axis and y-axis and legend title.
         fig.update_layout(
-            xaxis_title="Time [{tz}]".format(tz=using_timezone),
+            xaxis_title=f"Time [{using_timezone}]",
             yaxis_title="Zero Point",
             legend_title_text="Filter",
         )
@@ -1108,32 +1171,43 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # outside of that range so that we could be continuous for our plot
         # lines.
         begin_datetime_tuple = library.conversion.julian_day_to_full_date(
-            jd=plot_query_begin_jd
+            jd=plot_query_begin_jd,
         )
         end_datetime_tuple = library.conversion.julian_day_to_full_date(
-            jd=plot_query_end_jd
+            jd=plot_query_end_jd,
         )
         # We use integer seconds only for the datetimes, the best way to do
         # this is to just trim off the decimal seconds.
-        datetime_lower_limit = datetime.datetime(*int_only(begin_datetime_tuple))
+        datetime_lower_limit = datetime.datetime(
+            *int_only(begin_datetime_tuple),
+        )
         datetime_upper_limit = datetime.datetime(*int_only(end_datetime_tuple))
         # The range should also be timezone aware.
-        datetime_lower_limit = library.conversion.datetime_timezone_1_to_timezone_2(
-            from_datetime=datetime_lower_limit,
-            from_timezone="Etc/UTC",
-            to_timezone=using_timezone,
+        datetime_lower_limit = (
+            library.conversion.datetime_timezone_1_to_timezone_2(
+                from_datetime=datetime_lower_limit,
+                from_timezone="Etc/UTC",
+                to_timezone=using_timezone,
+            )
         )
-        datetime_upper_limit = library.conversion.datetime_timezone_1_to_timezone_2(
-            from_datetime=datetime_upper_limit,
-            from_timezone="Etc/UTC",
-            to_timezone=using_timezone,
+        datetime_upper_limit = (
+            library.conversion.datetime_timezone_1_to_timezone_2(
+                from_datetime=datetime_upper_limit,
+                from_timezone="Etc/UTC",
+                to_timezone=using_timezone,
+            )
         )
-        fig.update_layout(xaxis_range=[datetime_lower_limit, datetime_upper_limit])
+        fig.update_layout(
+            xaxis_range=[datetime_lower_limit, datetime_upper_limit],
+        )
 
         # The upper and lower zero point plot limits.
-        if plot_lower_zero_point is not None and plot_upper_zero_point is not None:
+        if (
+            plot_lower_zero_point is not None
+            and plot_upper_zero_point is not None
+        ):
             fig.update_layout(
-                yaxis_range=[plot_lower_zero_point, plot_upper_zero_point]
+                yaxis_range=[plot_lower_zero_point, plot_upper_zero_point],
             )
         else:
             # Use Plotly's interpretation, however, with inverted axes.
@@ -1144,7 +1218,6 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # Plotly javascript file.
         fig.write_html(html_filename, include_plotlyjs=include_plotlyjs)
         # All done.
-        return None
 
     def create_plotly_zero_point_html_plot_via_configuration(self) -> None:
         """This is a wrapper function around
@@ -1164,6 +1237,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # The current time, as per the function call.
         current_time_jd = library.conversion.current_utc_to_julian_day()
@@ -1175,8 +1249,12 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         query_end_jd = current_time_jd
 
         # The zero point y-axis limits.
-        lower_zero_point = library.config.MONITOR_PLOT_ZERO_POINT_AXIS_LOWER_LIMIT
-        upper_zero_point = library.config.MONITOR_PLOT_ZERO_POINT_AXIS_UPPER_LIMIT
+        lower_zero_point = (
+            library.config.MONITOR_PLOT_ZERO_POINT_AXIS_LOWER_LIMIT
+        )
+        upper_zero_point = (
+            library.config.MONITOR_PLOT_ZERO_POINT_AXIS_UPPER_LIMIT
+        )
 
         # The path where the html file will be saved to along with instructions
         # on how to handle the javascript file.
@@ -1198,4 +1276,3 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
             using_timezone=using_timezone,
         )
         # All done.
-        return None

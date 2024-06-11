@@ -1,11 +1,262 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[pytest]
-pythonpath = [
-  "src"
+[project]
+name = "OpihiExarata"
+dynamic = ["version"]
+description = "Analysis software for the IRTF Opihi telescope."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = []
+authors = [
+    { name = "Sparrow", email = "psmd.iberutaru@gmail.com" },
 ]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "astropy",
+    "pyyaml",
+    "matplotlib",
+    "PySide6>=6.5.0",
+    "pillow",
+    "requests",
+    "scikit-image==0.20.0",
+    "plotly",
+    "pandas",
+]
+
+[project.urls]
+Homepage = "http://irtfweb.ifa.hawaii.edu/~opihi/"
+Documentation = "https://psmd-iberutaru.github.io/OpihiExarata"
+Issues = "https://github.com/psmd-iberutaru/OpihiExarata/issues"
+Source = "https://github.com/psmd-iberutaru/OpihiExarata/"
+
+[project.scripts]
+opihiexarata = "opihiexarata:__main__.main"
+
+
+
+# Tools and other build information. 
+#####################################
+
+[tool.hatch.version]
+path = "src/opihiexarata/__version__.py"
+
+[tool.hatch.build]
+exclude = [
+    # We do not want to package the utility scripts and files in a build.
+    "./utility/*"
+]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pyinstaller",
+    "coverage[toml]>=7.3.4",
+    "pytest>=8.1.0",
+    "black[jupyter]>=24.4.0",
+    "pylint[spelling]>=3.2.2",
+    "ruff>=0.4.8",
+    "sphinx>=7.2.6",
+    "sphinx-book-theme>=1.1.0",
+]
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+format = [
+    "black {args:.}",
+]
+cover = [
+    "coverage run -m pytest {args:tests}",
+    "- coverage combine",
+    "coverage report",
+    "coverage html",
+    "coverage erase",
+]
+lint = [
+    "ruff check {args:src}",
+    "pylint {args:src}",
+]
+lintfix = [
+    "format",
+    "ruff check {args:src} --fix",
+    "format",
+]
+docs = [
+    "sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/opihiexarata/",
+    "sphinx-build -a -b html ./docs/source/ ./docs/build/html/",
+    # To build the LaTeX file, uncomment the line below. We do not usually 
+    # build it all the time due to its low usage and cluttering of the Git 
+    # tree with large files.
+    #"sphinx-build -M latexpdf ./docs/source/ ./docs/build/latex/",
+]
+auxiliary = [
+    "format",
+    "lintfix",
+    "lint",
+    "test",
+    "cover",
+    "format",
+    "docs",
+]
+aux = "auxiliary"
+
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.9"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    ".", "src",
+]
+testpaths = [
+    "tests"
+]
+
+[tool.black]
+target-version = ["py39"]
+line-length = 80
+preview = true
+
+[tool.ruff]
+target-version = "py39"
+line-length = 80
+
+[tool.ruff.lint]
+select = [
+    "ALL",
+]
+ignore = [
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Inherited from previous development...
+    # ...the usage of raw strings in raise is probably fine.
+    "EM",
+    # ...long error messages are ok.
+    "TRY003",
+    # ...not sure the issue?
+    "RET506",
+    # ...a good rule, but we target Python 3.9 and the good solution is only 
+    # 3.10+.
+    "RUF013",
+    # ...more investigation is needed to determine the correct conversion.
+    "C417", "C416", "RUF015",
+    # ...small syntax refactoring, probably doesn't really matter
+    "SLF001",
+    # ...logic simplification is extra, to be done later.
+    "PLR0912", "PLR0915",
+    # ...timeout specification needs more research to determine the use
+    "S113",
+    # ...magic values are often constants, more descriptive names needed.
+    "PLR2004", "N806",
+    # Documentation problems, need to be fixed but it is a lot.
+    "D205","D401", "D404",
+    # Needed for orbit to work, changing requires a lot of investigation as to 
+    # how.
+    "S602",
+    # ...need to add the type hints for classes.
+    "ANN101",
+    # ...it is a good idea not to catch blind exceptions.
+    "BLE001",
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    # Allow non-abstract empty methods in abstract base classes.
+    "B027",
+    # Allow boolean positional values in function declarations and calls, 
+    # like `dict.get(... True)`. We ignore all of the rules regarding boolean 
+    # positional traps, because generally, it is a non-issue.
+    "FBT",
+    # Incompatabilies; these are objectively wrong.
+    "D203", "D213",
+    # Allow variable assignment for return. It is easier to find and follow the
+    # return path.
+    "RET504",
+    # Sometimes there are actual reasons for having a lot of arguments.
+    "PLR0913",
+    # Our file paths are better represented as base strings, we do not ever
+    # need to overcomplicate our paths with OOP. As such, suggestions to 
+    # use pathlib really is not needed.
+    "PTH",
+]
+unfixable = [
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["opihiexarata"]
+force-single-line = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
+# The hint module can have unused imports because it is part of its job to 
+# provide hints.
+"src/opihiexarata/library/hint.py" = ["F401", "F403"]
+# The __init__ files often provide the imports to other files. 
+# So they are used, just not in that file.
+"src/opihiexarata/**/__init__.py" = ["F401"]
+
+[tool.ruff.lint.mccabe]
+# Flag errors (`C901`) whenever the complexity level exceeds some value.
+# A lot of the functions here exceed the default McCabe complexity value of 10,
+# so we need to raise it. Excessive raising should be avoided.
+max-complexity = 15
+
+[tool.pylint]
+clear-cache-post-run = true
+recursive = true
+good-names-rgxs = [
+    # Allow for 2-character names, following the usual snake case conventions.
+    "[_a-z][_a-z0-9]?$",
+]
+disable = [
+    "R0801", # (duplicate-code)
+    "R0902", # (too-many-instance-attributes)
+    "R0903", # (too-few-public-methods)
+    "R0913", # (too-many-arguments)
+    "R0914", # (too-many-locals)
+    "R0401", # (cyclic-import)
+]
+extension-pkg-allow-list = [
+    "PySide6",
+]
+generated-members = [
+    # Configuration and parameters are generated on-the-fly. We need to inform 
+    # pylint that they are okay as it does not do introspection on the fly as 
+    # well.
+    "library.config.*",
+    "library.data.*",
+    # Astropy Constants seem to also be generated.
+    "astropy.constants.*"
+]
+
+[tool.coverage.run]
+source_pkgs = ["opihiexarata", "tests"]
+branch = true
+parallel = true
+omit = [
+    "src/opihiexarata/__version__.py",
+]
+
+[tool.coverage.paths]
+opihiexarata = ["src/opihiexarata", "*/opihiexarata/src/opihiexarata"]
+tests = ["tests", "*/opihiexarata/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+title = "Opihiexarata Code Coverage Report"
+directory = "./docs/build/html/coverage/"

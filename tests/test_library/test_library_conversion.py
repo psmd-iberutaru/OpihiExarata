@@ -7,16 +7,20 @@ def test_decimal_day_to_julian_day() -> None:
     """Test the conversion from decimal day to Julian days."""
     # A defining definition of Julian days.
     origin_julian_day = 2451544.5
-    test_origin_julian = opihiexarata.library.conversion.decimal_day_to_julian_day(
-        year=2000, month=1, day=1
+    test_origin_julian = (
+        opihiexarata.library.conversion.decimal_day_to_julian_day(
+            year=2000, month=1, day=1
+        )
     )
     assert_message = "The definition Julian day conversion is not correct."
     assert np.isclose(origin_julian_day, test_origin_julian), assert_message
 
     # A random date.
     tower_julian_day = 2452164.0437731
-    test_tower_julian_day = opihiexarata.library.conversion.decimal_day_to_julian_day(
-        year=2001, month=9, day=11.543773148
+    test_tower_julian_day = (
+        opihiexarata.library.conversion.decimal_day_to_julian_day(
+            year=2001, month=9, day=11.543773148
+        )
     )
     assert_message = "The random Julian day conversion is not correct."
     assert np.isclose(tower_julian_day, test_tower_julian_day), assert_message
@@ -28,16 +32,20 @@ def test_full_date_to_julian_day() -> None:
     """Test the conversion from a full date to Julian days."""
     # A defining definition of Julian time.
     origin_julian_day = 2451545
-    test_origin_julian_day = opihiexarata.library.conversion.full_date_to_julian_day(
-        year=2000, month=1, day=1, hour=12, minute=0, second=0
+    test_origin_julian_day = (
+        opihiexarata.library.conversion.full_date_to_julian_day(
+            year=2000, month=1, day=1, hour=12, minute=0, second=0
+        )
     )
     assert_message = "The definition Julian day conversion is not correct."
     assert np.isclose(origin_julian_day, test_origin_julian_day), assert_message
 
     # A random date.
     tower_julian_day = 2452164.0324074
-    test_tower_julian_day = opihiexarata.library.conversion.full_date_to_julian_day(
-        year=2001, month=9, day=11, hour=12, minute=46, second=40
+    test_tower_julian_day = (
+        opihiexarata.library.conversion.full_date_to_julian_day(
+            year=2001, month=9, day=11, hour=12, minute=46, second=40
+        )
     )
     assert_message = "The random Julian day conversion is not correct."
     assert np.isclose(tower_julian_day, test_tower_julian_day), assert_message

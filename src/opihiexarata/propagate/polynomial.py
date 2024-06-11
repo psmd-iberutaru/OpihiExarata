@@ -1,4 +1,6 @@
-"""For polynomial fitting propagation, using approximations of 1st or 2nd order
+"""Polynomial propagation using extrapolation.
+
+For polynomial fitting propagation, using approximations of 1st or 2nd order
 terms but ignoring some spherical effects.
 
 Although this could be easily implemented in a better method using subclassing
@@ -7,17 +9,28 @@ and for the sake of readability and stability, two separate copy-like classes
 are written.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
 import numpy as np
-import scipy as sp
 import scipy.optimize as sp_optimize
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 class LinearPropagationEngine(library.engine.PropagationEngine):
-    """A simple propagation engine which uses 1st order extrapolation of
+    """Propagate using linear extrapolation.
+
+    A simple propagation engine which uses 1st order extrapolation of
     RA DEC points independently to determine future location.
 
     Attributes
@@ -36,10 +49,16 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
     ra_wrap_around : boolean
         A flag which signifies that the RA values, as given, wraps around the
         0/360 point.
+
     """
 
-    def __init__(self, ra: hint.array, dec: hint.array, obs_time: hint.array) -> None:
-        """Instantiation of the propagation engine.
+    def __init__(
+        self: LinearPropagationEngine,
+        ra: hint.array,
+        dec: hint.array,
+        obs_time: hint.array,
+    ) -> None:
+        """Instantiate the propagation engine.
 
         Parameters
         ----------
@@ -56,6 +75,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         Returns
         -------
         None
+
         """
         # Must be parallel arrays.
         ra = np.asarray(ra)
@@ -66,8 +86,8 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
             pass
         else:
             raise error.InputError(
-                "The RA, DEC, and observation time arrays should be parallel and be"
-                " flat. They represent the observations of asteroids."
+                "The RA, DEC, and observation time arrays should be parallel"
+                " and be flat. They represent the observations of asteroids.",
             )
 
         # Saving the observational values. The UNIX time is helpful for fitting
@@ -75,14 +95,15 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         self.ra_array = ra
         self.dec_array = dec
         self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(
-            jd=obs_time
+            jd=obs_time,
         )
         self.obs_time_array = obs_time
 
         # We need to determine if the RA values loop around the angle value.
         # If so, we need to perform a transformation to and from an alternative
         # coordinate system 180 degrees offset.
-        if np.ptp(ra) >= 270:
+        excessive_angle = 270
+        if np.ptp(ra) >= excessive_angle:
             # The angles is almost guaranteed to have wrapped around.
             self.ra_wraparound = True
         else:
@@ -93,16 +114,17 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         # If there is a wraparound, we need to account for that.
         fixed_ra_array = self._right_ascension_rotation(ra=ra)
         ra_param, __ = self.__fit_polynomial_function(
-            fit_x=self.unix_obs_time_array, fit_y=fixed_ra_array
+            fit_x=self.unix_obs_time_array,
+            fit_y=fixed_ra_array,
         )
         dec_param, __ = self.__fit_polynomial_function(
-            fit_x=self.unix_obs_time_array, fit_y=self.dec_array
+            fit_x=self.unix_obs_time_array,
+            fit_y=self.dec_array,
         )
         self.ra_poly_param = ra_param
         self.dec_poly_param = dec_param
 
         # All done.
-        return None
 
     @staticmethod
     def __linear_function(
@@ -110,7 +132,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         c0: float,
         c1: float,
     ) -> hint.array:
-        """The linear polynomial function that will be used.
+        """Linear polynomial function that will be used.
 
         This function is hard coded to be a specific order on purpose. The
         order may be changed between versions if need be, but should not be
@@ -130,21 +152,24 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         y : array-like
             The output after computing the polynomial with the provided
             coefficients.
+
         """
         # Computing the polynomial
         y = c0 + c1 * x**1
         return y
 
     def __fit_polynomial_function(
-        self, fit_x: hint.array, fit_y: hint.array
+        self: hint.Self,
+        fit_x: hint.array,
+        fit_y: hint.array,
     ) -> tuple[tuple, tuple]:
-        """A wrapper class for fitting the defined specific polynomial function.
+        """Wrap class for fitting the defined specific polynomial function.
 
         Parameters
         ----------
-        fix_x : array-like
+        fit_x : array-like
             The x values which shall be fit.
-        fix_y : array-like
+        fit_y : array-like
             The y values which shall be fit.
 
         Returns
@@ -154,6 +179,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
             Determined by the order of the polynomial function.
         fit_error : tuple
             The error on the parameters of the fit.
+
         """
         # Ensuring that the arrays are numpy-like and can thus be handled by
         # scipy.
@@ -170,7 +196,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
                 fit_y,
                 method="lm",
             )
-        except:
+        except RuntimeError:
             fit_param, fit_covar = sp_optimize.curve_fit(
                 polynomial_function,
                 fit_x,
@@ -183,8 +209,13 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         # All done.
         return fit_param, fit_error
 
-    def _right_ascension_rotation(self, ra: hint.array) -> hint.array:
-        """If the RA loops around the 0/360 region, this function transforms
+    def _right_ascension_rotation(
+        self: hint.Self,
+        ra: hint.array,
+    ) -> hint.array:
+        """Normalize RA rotation to deal with modularity.
+
+        If the RA loops around the 0/360 region, this function transforms
         it via a rotation to +/- 180 so that the polynomial fitting is not
         problematic.
 
@@ -200,19 +231,23 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         -------
         rotated_ra : array
             The array after the rotation, if a wraparound is present.
+
         """
-        # If a wraparound was detected, we need to do a rotation.
+        # If a wraparound was detected, we need to do a rotation. Else
+        # no rotation is required.
         ra = np.array(ra)
-        if self.ra_wraparound:
-            rotated_ra = (ra + 180) % 360
-        else:
-            # No rotation is required.
-            rotated_ra = ra
+        rotated_ra = (ra + 180) % 360 if self.ra_wraparound else ra
+
         # All done.
         return rotated_ra
 
-    def _right_ascension_inverse_rotation(self, rotated_ra: hint.array) -> hint.array:
-        """This function inverses the rotation done because of the
+    def _right_ascension_inverse_rotation(
+        self: hint.Self,
+        rotated_ra: hint.array,
+    ) -> hint.array:
+        """Revert the rotation for wraparound avoidance.
+
+        This function inverses the rotation done because of the
         transformation to avoid the wraparound in the 0/360 region if it
         exists.
 
@@ -221,7 +256,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
 
         Parameters
         ----------
-        rotation_ra : array-like
+        rotated_ra : array-like
             The RA array, after the rotation has been done by the rotation
             function.
 
@@ -229,6 +264,7 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         -------
         inverse_rotated_ra : array
             The array after the inverse rotation, if a wraparound is present.
+
         """
         # If a wrap around was detected, we need to do the inverse rotation.
         rotated_ra = np.array(rotated_ra)
@@ -240,9 +276,12 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         return inverse_rotated_ra
 
     def forward_propagate(
-        self, future_time: hint.array
+        self: hint.Self,
+        future_time: hint.array,
     ) -> tuple[hint.array, hint.array]:
-        """Determine a new location(s) based on the polynomial propagation,
+        """Find the new RA and DECs from propagation.
+
+        Determine a new location(s) based on the polynomial propagation,
         providing new times to locate in the future.
 
         Parameters
@@ -259,10 +298,13 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
         future_dec : ndarray
             The set of declinations that corresponds to the future times, in
             degrees.
+
         """
         # As the polynomial fitting was done with UNIX time instead of Julian
         # days, we need to convert to the same timescale.
-        future_time_unix = library.conversion.julian_day_to_unix_time(jd=future_time)
+        future_time_unix = library.conversion.julian_day_to_unix_time(
+            jd=future_time,
+        )
         # Determining the RA and DEC via the polynomial function based on the
         # fitted parameters.
         new_ra = self.__linear_function(future_time_unix, *self.ra_poly_param)
@@ -280,7 +322,9 @@ class LinearPropagationEngine(library.engine.PropagationEngine):
 
 
 class QuadraticPropagationEngine(library.engine.PropagationEngine):
-    """A simple propagation engine which uses 2nd order extrapolation of
+    """Quadratic propagation engine.
+
+    A simple propagation engine which uses 2nd order extrapolation of
     RA DEC points independently to determine future location.
 
     Attributes
@@ -296,10 +340,16 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
             The polynomial fit parameters for the RA(time) propagation.
     dec_poly_param : tuple
             The polynomial fit parameters for the DEC(time) propagation.
+
     """
 
-    def __init__(self, ra: hint.array, dec: hint.array, obs_time: hint.array) -> None:
-        """Instantiation of the propagation engine.
+    def __init__(
+        self: QuadraticPropagationEngine,
+        ra: hint.array,
+        dec: hint.array,
+        obs_time: hint.array,
+    ) -> None:
+        """Instantiate the propagation engine.
 
         Parameters
         ----------
@@ -316,6 +366,7 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         Returns
         -------
         None
+
         """
         # Must be parallel arrays.
         ra = np.asarray(ra)
@@ -326,8 +377,8 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
             pass
         else:
             raise error.InputError(
-                "The RA, DEC, and observation time arrays should be parallel and be"
-                " flat. They represent the observations of asteroids."
+                "The RA, DEC, and observation time arrays should be parallel "
+                "and be flat. They represent the observations of asteroids.",
             )
 
         # Saving the observational values. The UNIX time is helpful for fitting
@@ -335,14 +386,15 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         self.ra_array = ra
         self.dec_array = dec
         self.unix_obs_time_array = library.conversion.julian_day_to_unix_time(
-            jd=obs_time
+            jd=obs_time,
         )
         self.obs_time_array = obs_time
 
         # We need to determine if the RA values loop around the angle value.
         # If so, we need to perform a transformation to and from an alternative
         # coordinate system 180 degrees offset.
-        if np.ptp(ra) >= 270:
+        min_likely_wrap_around = 270
+        if np.ptp(ra) >= min_likely_wrap_around:
             # The angles is almost guaranteed to have wrapped around.
             self.ra_wraparound = True
         else:
@@ -353,22 +405,26 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         # If there is a wraparound, we need to account for that.
         fixed_ra_array = self._right_ascension_rotation(ra=ra)
         ra_param, __ = self.__fit_polynomial_function(
-            fit_x=self.unix_obs_time_array, fit_y=fixed_ra_array
+            fit_x=self.unix_obs_time_array,
+            fit_y=fixed_ra_array,
         )
         dec_param, __ = self.__fit_polynomial_function(
-            fit_x=self.unix_obs_time_array, fit_y=self.dec_array
+            fit_x=self.unix_obs_time_array,
+            fit_y=self.dec_array,
         )
         self.ra_poly_param = ra_param
         self.dec_poly_param = dec_param
 
         # All done.
-        return None
 
     @staticmethod
     def __quadratic_function(
-        x: hint.array, c0: float, c1: float, c2: float
+        x: hint.array,
+        c0: float,
+        c1: float,
+        c2: float,
     ) -> hint.array:
-        """The polynomial function that will be used.
+        """Propagation quadratic function.
 
         This function is hard coded to be a specific order on purpose. The
         order may be changed between versions if need be, but should not be
@@ -390,21 +446,24 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         y : array-like
             The output after computing the polynomial with the provided
             coefficients.
+
         """
         # Computing the polynomial
         y = c0 + c1 * x**1 + c2 * x**2
         return y
 
     def __fit_polynomial_function(
-        self, fit_x: hint.array, fit_y: hint.array
+        self: hint.Self,
+        fit_x: hint.array,
+        fit_y: hint.array,
     ) -> tuple[tuple, tuple]:
-        """A wrapper class for fitting the defined specific polynomial function.
+        """Wrap function for fitting the defined specific polynomial function.
 
         Parameters
         ----------
-        fix_x : array-like
+        fit_x : array-like
             The x values which shall be fit.
-        fix_y : array-like
+        fit_y : array-like
             The y values which shall be fit.
 
         Returns
@@ -414,6 +473,7 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
             Determined by the order of the polynomial function.
         fit_error : tuple
             The error on the parameters of the fit.
+
         """
         # Ensuring that the arrays are numpy-like and can thus be handled by
         # scipy.
@@ -431,7 +491,7 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
                 p0=[1, 1, 0],
                 max_nfev=10000,
             )
-        except:
+        except RuntimeError:
             fit_param, fit_covar = sp_optimize.curve_fit(
                 polynomial_function,
                 fit_x,
@@ -445,8 +505,13 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         # All done.
         return fit_param, fit_error
 
-    def _right_ascension_rotation(self, ra: hint.array) -> hint.array:
-        """If the RA loops around the 0/360 region, this function transforms
+    def _right_ascension_rotation(
+        self: hint.Self,
+        ra: hint.array,
+    ) -> hint.array:
+        """Rotate the RA to avoid wrap around.
+
+        If the RA loops around the 0/360 region, this function transforms
         it via a rotation to +/- 180 so that the polynomial fitting is not
         problematic.
 
@@ -462,28 +527,28 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         -------
         rotated_ra : array
             The array after the rotation, if a wraparound is present.
+
         """
         # If a wraparound was detected, we need to do a rotation.
         ra = np.array(ra)
-        if self.ra_wraparound:
-            rotated_ra = (ra + 180) % 360
-        else:
-            # No rotation is required.
-            rotated_ra = ra
+        rotated_ra = (ra + 180) % 360 if self.ra_wraparound else ra
         # All done.
         return rotated_ra
 
-    def _right_ascension_inverse_rotation(self, rotated_ra: hint.array) -> hint.array:
-        """This function inverses the rotation done because of the
-        transformation to avoid the wraparound in the 0/360 region if it
-        exists.
+    def _right_ascension_inverse_rotation(
+        self: hint.Self,
+        rotated_ra: hint.array,
+    ) -> hint.array:
+        """Revert the rotation for wraparound avoidance.
 
-        If there was no wraparound present, then this function just passes the
-        input untouched.
+        This function inverses the rotation done because of the
+        transformation to avoid the wraparound in the 0/360 region if it
+        exists. If there was no wraparound present, then this function just
+        passes the input untouched.
 
         Parameters
         ----------
-        rotation_ra : array-like
+        rotated_ra : array-like
             The RA array, after the rotation has been done by the rotation
             function.
 
@@ -491,6 +556,7 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         -------
         inverse_rotated_ra : array
             The array after the inverse rotation, if a wraparound is present.
+
         """
         # If a wrap around was detected, we need to do the inverse rotation.
         rotated_ra = np.array(rotated_ra)
@@ -502,10 +568,12 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         return inverse_rotated_ra
 
     def forward_propagate(
-        self, future_time: hint.array
+        self: hint.Self,
+        future_time: hint.array,
     ) -> tuple[hint.array, hint.array]:
-        """Determine a new location(s) based on the polynomial propagation,
-        providing new times to locate in the future.
+        """Determine a new location(s) based on the polynomial propagation.
+
+        Propagation serves to provide new times to locate in the future.
 
         Parameters
         ----------
@@ -521,14 +589,23 @@ class QuadraticPropagationEngine(library.engine.PropagationEngine):
         future_dec : ndarray
             The set of declinations that corresponds to the future times, in
             degrees.
+
         """
         # As the polynomial fitting was done with UNIX time instead of Julian
         # days, we need to convert to the same timescale.
-        future_time_unix = library.conversion.julian_day_to_unix_time(jd=future_time)
+        future_time_unix = library.conversion.julian_day_to_unix_time(
+            jd=future_time,
+        )
         # Determining the RA and DEC via the polynomial function based on the
         # fitted parameters.
-        new_ra = self.__quadratic_function(future_time_unix, *self.ra_poly_param)
-        new_dec = self.__quadratic_function(future_time_unix, *self.dec_poly_param)
+        new_ra = self.__quadratic_function(
+            future_time_unix,
+            *self.ra_poly_param,
+        )
+        new_dec = self.__quadratic_function(
+            future_time_unix,
+            *self.dec_poly_param,
+        )
         # If a wraparound is present in the original data, then the data that
         # was fit was rotated. So, the fit values provided are in that rotated
         # coordinate space. We revert it back to the original coordinates

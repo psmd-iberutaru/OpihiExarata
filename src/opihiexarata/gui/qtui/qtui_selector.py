@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 ################################################################################
 ## Form generated from reading UI file 'selector.ui'
 ##
@@ -8,55 +6,25 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    QTime,
-    QUrl,
-    Qt,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QCheckBox,
-    QFrame,
-    QGraphicsView,
-    QGridLayout,
-    QHBoxLayout,
-    QLabel,
-    QLineEdit,
-    QPushButton,
-    QSizePolicy,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtCore import QCoreApplication
+from PySide6.QtCore import QMetaObject
+from PySide6.QtCore import QRect
+from PySide6.QtCore import QSize
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
+from PySide6.QtWidgets import QCheckBox
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QGraphicsView
+from PySide6.QtWidgets import QGridLayout
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QLineEdit
+from PySide6.QtWidgets import QPushButton
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 
 
-class Ui_SelectorWindow(object):
+class Ui_SelectorWindow:
     def setupUi(self, SelectorWindow):
         if not SelectorWindow.objectName():
             SelectorWindow.setObjectName("SelectorWindow")
@@ -72,10 +40,14 @@ class Ui_SelectorWindow(object):
         self.vertical_layout_selector.setObjectName("vertical_layout_selector")
         self.vertical_layout_selector.setContentsMargins(0, 0, 0, 0)
         self.grid_layout_file_selection = QGridLayout()
-        self.grid_layout_file_selection.setObjectName("grid_layout_file_selection")
-        self.label_dynamic_current_fits_filename = QLabel(self.verticalLayoutWidget)
+        self.grid_layout_file_selection.setObjectName(
+            "grid_layout_file_selection",
+        )
+        self.label_dynamic_current_fits_filename = QLabel(
+            self.verticalLayoutWidget,
+        )
         self.label_dynamic_current_fits_filename.setObjectName(
-            "label_dynamic_current_fits_filename"
+            "label_dynamic_current_fits_filename",
         )
         self.label_dynamic_current_fits_filename.setMinimumSize(QSize(400, 0))
         font1 = QFont()
@@ -83,50 +55,76 @@ class Ui_SelectorWindow(object):
         self.label_dynamic_current_fits_filename.setFont(font1)
 
         self.grid_layout_file_selection.addWidget(
-            self.label_dynamic_current_fits_filename, 0, 1, 1, 1
+            self.label_dynamic_current_fits_filename,
+            0,
+            1,
+            1,
+            1,
         )
 
-        self.label_dynamic_reference_fits_filename = QLabel(self.verticalLayoutWidget)
+        self.label_dynamic_reference_fits_filename = QLabel(
+            self.verticalLayoutWidget,
+        )
         self.label_dynamic_reference_fits_filename.setObjectName(
-            "label_dynamic_reference_fits_filename"
+            "label_dynamic_reference_fits_filename",
         )
         self.label_dynamic_reference_fits_filename.setMinimumSize(QSize(400, 0))
         self.label_dynamic_reference_fits_filename.setFont(font1)
 
         self.grid_layout_file_selection.addWidget(
-            self.label_dynamic_reference_fits_filename, 1, 1, 1, 1
+            self.label_dynamic_reference_fits_filename,
+            1,
+            1,
+            1,
+            1,
         )
 
         self.push_button_change_reference_filename = QPushButton(
-            self.verticalLayoutWidget
+            self.verticalLayoutWidget,
         )
         self.push_button_change_reference_filename.setObjectName(
-            "push_button_change_reference_filename"
+            "push_button_change_reference_filename",
         )
         self.push_button_change_reference_filename.setFont(font1)
 
         self.grid_layout_file_selection.addWidget(
-            self.push_button_change_reference_filename, 1, 2, 1, 1
+            self.push_button_change_reference_filename,
+            1,
+            2,
+            1,
+            1,
         )
 
-        self.label_static_current_fits_filename = QLabel(self.verticalLayoutWidget)
+        self.label_static_current_fits_filename = QLabel(
+            self.verticalLayoutWidget,
+        )
         self.label_static_current_fits_filename.setObjectName(
-            "label_static_current_fits_filename"
+            "label_static_current_fits_filename",
         )
         self.label_static_current_fits_filename.setFont(font1)
 
         self.grid_layout_file_selection.addWidget(
-            self.label_static_current_fits_filename, 0, 0, 1, 1
+            self.label_static_current_fits_filename,
+            0,
+            0,
+            1,
+            1,
         )
 
-        self.label_static_reference_fits_filename = QLabel(self.verticalLayoutWidget)
+        self.label_static_reference_fits_filename = QLabel(
+            self.verticalLayoutWidget,
+        )
         self.label_static_reference_fits_filename.setObjectName(
-            "label_static_reference_fits_filename"
+            "label_static_reference_fits_filename",
         )
         self.label_static_reference_fits_filename.setFont(font1)
 
         self.grid_layout_file_selection.addWidget(
-            self.label_static_reference_fits_filename, 1, 0, 1, 1
+            self.label_static_reference_fits_filename,
+            1,
+            0,
+            1,
+            1,
         )
 
         self.vertical_layout_selector.addLayout(self.grid_layout_file_selection)
@@ -162,16 +160,16 @@ class Ui_SelectorWindow(object):
 
         self.horizonta_layout_subtraction_mode = QHBoxLayout()
         self.horizonta_layout_subtraction_mode.setObjectName(
-            "horizonta_layout_subtraction_mode"
+            "horizonta_layout_subtraction_mode",
         )
         self.label_static_subtraction_mode = QLabel(self.verticalLayoutWidget)
         self.label_static_subtraction_mode.setObjectName(
-            "label_static_subtraction_mode"
+            "label_static_subtraction_mode",
         )
         self.label_static_subtraction_mode.setFont(font1)
 
         self.horizonta_layout_subtraction_mode.addWidget(
-            self.label_static_subtraction_mode
+            self.label_static_subtraction_mode,
         )
 
         self.line_3 = QFrame(self.verticalLayoutWidget)
@@ -186,37 +184,49 @@ class Ui_SelectorWindow(object):
         self.push_button_mode_none.setObjectName("push_button_mode_none")
         self.push_button_mode_none.setFont(font1)
 
-        self.horizonta_layout_subtraction_mode.addWidget(self.push_button_mode_none)
+        self.horizonta_layout_subtraction_mode.addWidget(
+            self.push_button_mode_none,
+        )
 
         self.push_button_mode_reference = QPushButton(self.verticalLayoutWidget)
-        self.push_button_mode_reference.setObjectName("push_button_mode_reference")
+        self.push_button_mode_reference.setObjectName(
+            "push_button_mode_reference",
+        )
         self.push_button_mode_reference.setFont(font1)
 
         self.horizonta_layout_subtraction_mode.addWidget(
-            self.push_button_mode_reference
+            self.push_button_mode_reference,
         )
 
         self.push_button_mode_sidereal = QPushButton(self.verticalLayoutWidget)
-        self.push_button_mode_sidereal.setObjectName("push_button_mode_sidereal")
+        self.push_button_mode_sidereal.setObjectName(
+            "push_button_mode_sidereal",
+        )
         self.push_button_mode_sidereal.setFont(font1)
 
-        self.horizonta_layout_subtraction_mode.addWidget(self.push_button_mode_sidereal)
+        self.horizonta_layout_subtraction_mode.addWidget(
+            self.push_button_mode_sidereal,
+        )
 
-        self.push_button_mode_non_sidereal = QPushButton(self.verticalLayoutWidget)
+        self.push_button_mode_non_sidereal = QPushButton(
+            self.verticalLayoutWidget,
+        )
         self.push_button_mode_non_sidereal.setObjectName(
-            "push_button_mode_non_sidereal"
+            "push_button_mode_non_sidereal",
         )
         self.push_button_mode_non_sidereal.setFont(font1)
 
         self.horizonta_layout_subtraction_mode.addWidget(
-            self.push_button_mode_non_sidereal
+            self.push_button_mode_non_sidereal,
         )
 
-        self.vertical_layout_selector.addLayout(self.horizonta_layout_subtraction_mode)
+        self.vertical_layout_selector.addLayout(
+            self.horizonta_layout_subtraction_mode,
+        )
 
         self.horizontal_layout_colorbar_scale = QHBoxLayout()
         self.horizontal_layout_colorbar_scale.setObjectName(
-            "horizontal_layout_colorbar_scale"
+            "horizontal_layout_colorbar_scale",
         )
         self.label_static_scale = QLabel(self.verticalLayoutWidget)
         self.label_static_scale.setObjectName("label_static_scale")
@@ -225,40 +235,54 @@ class Ui_SelectorWindow(object):
         self.horizontal_layout_colorbar_scale.addWidget(self.label_static_scale)
 
         self.line_edit_dynamic_scale_low = QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_dynamic_scale_low.setObjectName("line_edit_dynamic_scale_low")
+        self.line_edit_dynamic_scale_low.setObjectName(
+            "line_edit_dynamic_scale_low",
+        )
         self.line_edit_dynamic_scale_low.setFont(font1)
 
         self.horizontal_layout_colorbar_scale.addWidget(
-            self.line_edit_dynamic_scale_low
+            self.line_edit_dynamic_scale_low,
         )
 
         self.line_edit_dynamic_scale_high = QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_dynamic_scale_high.setObjectName("line_edit_dynamic_scale_high")
+        self.line_edit_dynamic_scale_high.setObjectName(
+            "line_edit_dynamic_scale_high",
+        )
         self.line_edit_dynamic_scale_high.setFont(font1)
 
         self.horizontal_layout_colorbar_scale.addWidget(
-            self.line_edit_dynamic_scale_high
+            self.line_edit_dynamic_scale_high,
         )
 
         self.push_button_scale_1_99 = QPushButton(self.verticalLayoutWidget)
         self.push_button_scale_1_99.setObjectName("push_button_scale_1_99")
         self.push_button_scale_1_99.setFont(font1)
 
-        self.horizontal_layout_colorbar_scale.addWidget(self.push_button_scale_1_99)
+        self.horizontal_layout_colorbar_scale.addWidget(
+            self.push_button_scale_1_99,
+        )
 
         self.check_box_autoscale_1_99 = QCheckBox(self.verticalLayoutWidget)
         self.check_box_autoscale_1_99.setObjectName("check_box_autoscale_1_99")
         self.check_box_autoscale_1_99.setFont(font1)
         self.check_box_autoscale_1_99.setChecked(True)
 
-        self.horizontal_layout_colorbar_scale.addWidget(self.check_box_autoscale_1_99)
+        self.horizontal_layout_colorbar_scale.addWidget(
+            self.check_box_autoscale_1_99,
+        )
 
         self.check_box_reverse_colorbar = QCheckBox(self.verticalLayoutWidget)
-        self.check_box_reverse_colorbar.setObjectName("check_box_reverse_colorbar")
+        self.check_box_reverse_colorbar.setObjectName(
+            "check_box_reverse_colorbar",
+        )
 
-        self.horizontal_layout_colorbar_scale.addWidget(self.check_box_reverse_colorbar)
+        self.horizontal_layout_colorbar_scale.addWidget(
+            self.check_box_reverse_colorbar,
+        )
 
-        self.vertical_layout_selector.addLayout(self.horizontal_layout_colorbar_scale)
+        self.vertical_layout_selector.addLayout(
+            self.horizontal_layout_colorbar_scale,
+        )
 
         self.line = QFrame(self.verticalLayoutWidget)
         self.line.setObjectName("line")
@@ -270,46 +294,56 @@ class Ui_SelectorWindow(object):
 
         self.horizontal_layout_target_pixel_entry = QHBoxLayout()
         self.horizontal_layout_target_pixel_entry.setObjectName(
-            "horizontal_layout_target_pixel_entry"
+            "horizontal_layout_target_pixel_entry",
         )
         self.label_static_target_x = QLabel(self.verticalLayoutWidget)
         self.label_static_target_x.setObjectName("label_static_target_x")
         self.label_static_target_x.setFont(font)
 
-        self.horizontal_layout_target_pixel_entry.addWidget(self.label_static_target_x)
+        self.horizontal_layout_target_pixel_entry.addWidget(
+            self.label_static_target_x,
+        )
 
         self.line_edit_dynamic_target_x = QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_dynamic_target_x.setObjectName("line_edit_dynamic_target_x")
+        self.line_edit_dynamic_target_x.setObjectName(
+            "line_edit_dynamic_target_x",
+        )
         self.line_edit_dynamic_target_x.setFont(font)
 
         self.horizontal_layout_target_pixel_entry.addWidget(
-            self.line_edit_dynamic_target_x
+            self.line_edit_dynamic_target_x,
         )
 
         self.label_static_target_y = QLabel(self.verticalLayoutWidget)
         self.label_static_target_y.setObjectName("label_static_target_y")
         self.label_static_target_y.setFont(font)
 
-        self.horizontal_layout_target_pixel_entry.addWidget(self.label_static_target_y)
+        self.horizontal_layout_target_pixel_entry.addWidget(
+            self.label_static_target_y,
+        )
 
         self.line_edit_dynamic_target_y = QLineEdit(self.verticalLayoutWidget)
-        self.line_edit_dynamic_target_y.setObjectName("line_edit_dynamic_target_y")
+        self.line_edit_dynamic_target_y.setObjectName(
+            "line_edit_dynamic_target_y",
+        )
         self.line_edit_dynamic_target_y.setFont(font)
 
         self.horizontal_layout_target_pixel_entry.addWidget(
-            self.line_edit_dynamic_target_y
+            self.line_edit_dynamic_target_y,
         )
 
         self.push_button_submit_target = QPushButton(self.verticalLayoutWidget)
-        self.push_button_submit_target.setObjectName("push_button_submit_target")
+        self.push_button_submit_target.setObjectName(
+            "push_button_submit_target",
+        )
         self.push_button_submit_target.setFont(font)
 
         self.horizontal_layout_target_pixel_entry.addWidget(
-            self.push_button_submit_target
+            self.push_button_submit_target,
         )
 
         self.vertical_layout_selector.addLayout(
-            self.horizontal_layout_target_pixel_entry
+            self.horizontal_layout_target_pixel_entry,
         )
 
         self.retranslateUi(SelectorWindow)
@@ -321,72 +355,90 @@ class Ui_SelectorWindow(object):
     def retranslateUi(self, SelectorWindow):
         SelectorWindow.setWindowTitle(
             QCoreApplication.translate(
-                "SelectorWindow", "OpihiExarata Target Selector", None
-            )
+                "SelectorWindow",
+                "OpihiExarata Target Selector",
+                None,
+            ),
         )
         self.label_dynamic_current_fits_filename.setText(
             QCoreApplication.translate(
-                "SelectorWindow", "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits", None
-            )
+                "SelectorWindow",
+                "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.a.fits",
+                None,
+            ),
         )
         self.label_dynamic_reference_fits_filename.setText(
             QCoreApplication.translate(
-                "SelectorWindow", "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits", None
-            )
+                "SelectorWindow",
+                "opi.20XXA999.YYMMDD.AAAAAAAAA.00001.b.fits",
+                None,
+            ),
         )
         self.push_button_change_reference_filename.setText(
-            QCoreApplication.translate("SelectorWindow", "Change", None)
+            QCoreApplication.translate("SelectorWindow", "Change", None),
         )
         self.label_static_current_fits_filename.setText(
-            QCoreApplication.translate("SelectorWindow", "Current:", None)
+            QCoreApplication.translate("SelectorWindow", "Current:", None),
         )
         self.label_static_reference_fits_filename.setText(
-            QCoreApplication.translate("SelectorWindow", "Reference:", None)
+            QCoreApplication.translate("SelectorWindow", "Reference:", None),
         )
         self.dummy_selector_navbar.setText(
-            QCoreApplication.translate("SelectorWindow", "DUMMY NAVIGATION BAR", None)
+            QCoreApplication.translate(
+                "SelectorWindow",
+                "DUMMY NAVIGATION BAR",
+                None,
+            ),
         )
         self.label_static_subtraction_mode.setText(
-            QCoreApplication.translate("SelectorWindow", "Subtraction Method", None)
+            QCoreApplication.translate(
+                "SelectorWindow",
+                "Subtraction Method",
+                None,
+            ),
         )
         self.push_button_mode_none.setText(
-            QCoreApplication.translate("SelectorWindow", "None", None)
+            QCoreApplication.translate("SelectorWindow", "None", None),
         )
         self.push_button_mode_reference.setText(
-            QCoreApplication.translate("SelectorWindow", "Reference", None)
+            QCoreApplication.translate("SelectorWindow", "Reference", None),
         )
         self.push_button_mode_sidereal.setText(
-            QCoreApplication.translate("SelectorWindow", "Sidereal", None)
+            QCoreApplication.translate("SelectorWindow", "Sidereal", None),
         )
         self.push_button_mode_non_sidereal.setText(
-            QCoreApplication.translate("SelectorWindow", "Non-sidereal", None)
+            QCoreApplication.translate("SelectorWindow", "Non-sidereal", None),
         )
         self.label_static_scale.setText(
-            QCoreApplication.translate("SelectorWindow", "Scale [Low High]", None)
+            QCoreApplication.translate(
+                "SelectorWindow",
+                "Scale [Low High]",
+                None,
+            ),
         )
         self.push_button_scale_1_99.setText(
-            QCoreApplication.translate("SelectorWindow", "1 - 99 %", None)
+            QCoreApplication.translate("SelectorWindow", "1 - 99 %", None),
         )
         self.check_box_autoscale_1_99.setText(
-            QCoreApplication.translate("SelectorWindow", "Auto", None)
+            QCoreApplication.translate("SelectorWindow", "Auto", None),
         )
         self.check_box_reverse_colorbar.setText(
-            QCoreApplication.translate("SelectorWindow", "Reverse", None)
+            QCoreApplication.translate("SelectorWindow", "Reverse", None),
         )
         self.label_static_target_x.setText(
-            QCoreApplication.translate("SelectorWindow", "Target X:", None)
+            QCoreApplication.translate("SelectorWindow", "Target X:", None),
         )
         self.line_edit_dynamic_target_x.setText(
-            QCoreApplication.translate("SelectorWindow", "XXXX", None)
+            QCoreApplication.translate("SelectorWindow", "XXXX", None),
         )
         self.label_static_target_y.setText(
-            QCoreApplication.translate("SelectorWindow", "Target Y:", None)
+            QCoreApplication.translate("SelectorWindow", "Target Y:", None),
         )
         self.line_edit_dynamic_target_y.setText(
-            QCoreApplication.translate("SelectorWindow", "YYYY", None)
+            QCoreApplication.translate("SelectorWindow", "YYYY", None),
         )
         self.push_button_submit_target.setText(
-            QCoreApplication.translate("SelectorWindow", "Submit", None)
+            QCoreApplication.translate("SelectorWindow", "Submit", None),
         )
 
     # retranslateUi

@@ -1,13 +1,23 @@
 """The different ephemeris engines which use JPL horizons as its backend."""
 
-import requests
-import numpy as np
-import scipy.interpolate as sp_interpolate
-import astropy.table as ap_table
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
+import astropy.table as ap_table
+import numpy as np
+import requests
+import scipy.interpolate as sp_interpolate
+
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
@@ -43,6 +53,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
     dec_acceleration : float
         The declination angular acceleration of the target, in degrees per
         second squared.
+
     """
 
     def __init__(
@@ -77,6 +88,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         Return
         ------
         None
+
         """
         # Storing the orbital elements for usage during the API calls.
         self.semimajor_axis = semimajor_axis
@@ -97,7 +109,8 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # Extracting the first pass ephemeris table. The ephemeris function
         # uses this table to properly compute the future locations.
         __ = self._refresh_ephemeris(
-            start_time=self.start_time, stop_time=self.stop_time
+            start_time=self.start_time,
+            stop_time=self.stop_time,
         )
 
         # The rates of the asteroid. We care only about the rates most
@@ -131,11 +144,13 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # acceleration across the sky (ignoring 3rd order differential
         # effects).
         def _determining_average_acceleration(
-            time: hint.array, velocity: hint.array
+            time: hint.array,
+            velocity: hint.array,
         ) -> float:
             """We just use a function here to better group processes and
             local variable names. We use central difference to 4th order
-            error. We can afford the number of points needed."""
+            error. We can afford the number of points needed.
+            """
             # Spacing, though we assume uniform, we want to make sure.
             uniform_spacing = np.mean(time[1:] - time[:-1])
             # Splitting up into the different subsets of V_{n-2} ... V_{n+2}.
@@ -147,11 +162,16 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
 
             # Finding the derivative.
             def derivative_function(
-                x_m2: float, x_m1: float, x_p1: float, x_p2: float, h: float
+                x_m2: float,
+                x_m1: float,
+                x_p1: float,
+                x_p2: float,
+                h: float,
             ) -> float:
                 """The constants for this function is well known for higher
                 order finite difference methods. Here is the 4th order form.
-                Arrays are also accepted."""
+                Arrays are also accepted.
+                """
                 d_dv = (
                     (1 / 12) * x_m2
                     + (-2 / 3) * x_m1
@@ -168,7 +188,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
                     x_p1=vel_p1,
                     x_p2=vel_p2,
                     h=uniform_spacing,
-                )
+                ),
             )
             # Assuming constant acceleration. There may be spikes that we do
             # not want to deal with so a median is fine. There will also likely
@@ -179,14 +199,15 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # We are assuming constant acceleration, and our time span is not that
         # large so this should be okay.
         self.ra_acceleration = _determining_average_acceleration(
-            time=unix_time, velocity=jpl_ra_rate
+            time=unix_time,
+            velocity=jpl_ra_rate,
         )
         self.dec_acceleration = _determining_average_acceleration(
-            time=unix_time, velocity=jpl_dec_rate
+            time=unix_time,
+            velocity=jpl_dec_rate,
         )
 
         # All done.
-        return None
 
     @staticmethod
     def __parse_jpl_horizons_output(response_text: str) -> hint.Table:
@@ -201,6 +222,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
 
         Returns
         -------
+
         """
         # Using lines is a lot easier to manage.
         response_lines = response_text.split("\n")
@@ -218,10 +240,9 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         # Something happened, the demarcations were not found.
         if soe_index is None or eoe_index is None:
             raise error.WebRequestError(
-                "The demarcations for the ephemeris were not found, it is likely that"
-                " the web request sent was incorrect. The response from the API: \n {r}".format(
-                    r=response_text
-                )
+                "The demarcations for the ephemeris were not found, it is"
+                " likely that the web request sent was incorrect. The response"
+                f" from the API: \n {response_text}",
             )
         # Using the demarcations to extract the ephemeris section of the
         # query lines. We do not need the demarcations themselves though.
@@ -244,7 +265,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
                 line_split = line.split()
             else:
                 raise error.UndiscoveredError(
-                    "The JPL response has more entries than accountable for."
+                    "The JPL response has more entries than accountable for.",
                 )
 
             # ...and dealing with the parts.
@@ -271,7 +292,8 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             ra_sex = line_split[2] + ":" + line_split[3] + ":" + line_split[4]
             dec_sex = line_split[5] + ":" + line_split[6] + ":" + line_split[7]
             ra_deg, dec_deg = library.conversion.sexagesimal_ra_dec_to_degrees(
-                ra_sex=ra_sex, dec_sex=dec_sex
+                ra_sex=ra_sex,
+                dec_sex=dec_sex,
             )
             # The RA and DEC rates; these values are in arcsec/hr, but
             # convention in this software is deg/sec so convert. The flat
@@ -290,7 +312,12 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             # From the current date and time, deriving the julian day. It
             # is useful for all of the other calculations.
             julian_day = library.conversion.full_date_to_julian_day(
-                year=year, month=month, day=day, hour=hour, minute=minute, second=second
+                year=year,
+                month=month,
+                day=day,
+                hour=hour,
+                minute=minute,
+                second=second,
             )
 
             # Compiling the dictionary.
@@ -321,7 +348,10 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         return ephemeris_table
 
     def _refresh_ephemeris(
-        self, start_time: float = None, stop_time: float = None, time_step: float = None
+        self,
+        start_time: float = None,
+        stop_time: float = None,
+        time_step: float = None,
     ) -> None:
         """This function refreshes the calculations rederiving the solution
         table and the ephemeris function.
@@ -342,15 +372,18 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         Returns
         -------
         None
+
         """
         # If the values provided do not really differ from what we have now,
         # then it would be a lot of work for nothing.
         if (start_time is None) and (stop_time is None) and (time_step is None):
             # Doing no work.
-            return None
+            return
         else:
             # Assign refreshed values to the current instance to do the work.
-            self.start_time = self.start_time if start_time is None else start_time
+            self.start_time = (
+                self.start_time if start_time is None else start_time
+            )
             self.stop_time = self.stop_time if stop_time is None else stop_time
             self.time_step = self.time_step if time_step is None else time_step
 
@@ -363,10 +396,13 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         self.ephemeris_table = ephemeris_table
 
         # All done.
-        return None
+        return
 
     def _query_jpl_horizons(
-        self, start_time: float, stop_time: float, time_step: float
+        self,
+        start_time: float,
+        stop_time: float,
+        time_step: float,
     ) -> hint.Table:
         """This function queries JPL horizons. Using the current orbital
         elements, and provided a minimum time, maximum time, and time step,
@@ -386,6 +422,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         -------
         epidermis_table : Table
             The table of computed sky locations over time from JPL horizons.
+
         """
         # The JPL service does not accept time steps in less than a second
         # and floors at a minute. Minutes are the best unit, so we round to
@@ -400,7 +437,7 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             "OBJECT": "OpihiExarata-Small-Body",
             # The location of the observatory, we assume an observatory on
             # Earth.
-            "CENTER": "{code}@399".format(code=library.config.MPC_OBSERVATORY_CODE),
+            "CENTER": f"{library.config.MPC_OBSERVATORY_CODE}@399",
             # Specifying to the JPL system that we are supplying elements, the
             # semicolon must be URI encoded else the system does not
             # recognize it. Also specifying that our ephemeris calculations
@@ -418,9 +455,9 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             "EPOCH": self.epoch,
             "ECLIP": "J2000",
             # Formatting the time parameters.
-            "START_TIME": "JD{start}".format(start=start_time),
-            "STOP_TIME": "JD{stop}".format(stop=stop_time),
-            "STEP_SIZE": "{min}m".format(min=time_step_minute),
+            "START_TIME": f"JD{start_time}",
+            "STOP_TIME": f"JD{stop_time}",
+            "STEP_SIZE": f"{time_step_minute}m",
             # The output quantities to be extracted from the JPL Horizons
             # service. It is specified by a set of flags. See:
             # https://ssd.jpl.nasa.gov/horizons/manual.html#output
@@ -465,13 +502,17 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         future_dec : ndarray
             The set of declinations that corresponds to the future times, in
             degrees.
+
         """
         # If any of the future time is outside of the current times provided
         # by the ephemeris table, then more data needs to be obtained. We
         # do not propagate or extrapolate.
         future_time = np.array(future_time)
         if not np.all(
-            np.logical_and(self.start_time < future_time, future_time < self.stop_time)
+            np.logical_and(
+                self.start_time < future_time,
+                future_time < self.stop_time,
+            ),
         ):
             # New data to be queried. Establishing it so that the bounds are
             # set by the new time requested plus a buffer of a few minutes.
@@ -491,7 +532,10 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
                 else self.stop_time
             )
             # Refreshing the ephemeris data.
-            self._refresh_ephemeris(start_time=new_start_time, stop_time=new_stop_time)
+            self._refresh_ephemeris(
+                start_time=new_start_time,
+                stop_time=new_stop_time,
+            )
             # Attempt to compute the forward ephemeris data now with the
             # updated information.
             return self.forward_ephemeris(future_time=future_time)
@@ -518,10 +562,11 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             future_dec = dec_interpolate(future_time)
         except ValueError:
             raise error.DevelopmentError(
-                "The ephemeris interpolation functions are trying to interpolate"
-                " outside of their defined range. However, this should have already"
-                " been caught with the time bounds check and a new queried ephemeris"
-                " table should have fixed this issue."
+                "The ephemeris interpolation functions are trying to"
+                " interpolate outside of their defined range. However, this"
+                " should have already been caught with the time bounds check"
+                " and a new queried ephemeris table should have fixed this"
+                " issue.",
             )
         else:
             # All done, seem to be fine.

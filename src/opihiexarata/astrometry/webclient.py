@@ -1,13 +1,19 @@
+from __future__ import annotations
+
 import os
+import random
+import urllib.error
 import urllib.parse
 import urllib.request
-import urllib.error
-import random
+from typing import TYPE_CHECKING
+
 import astropy.wcs as ap_wcs
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
 
 
 class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
@@ -28,9 +34,15 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         The original filename that was used to upload the data.
     session : string
         The session ID of this API connection to astrometry.net
+
     """
 
-    def __init__(self, url=None, apikey: str = None, silent: bool = True) -> None:
+    def __init__(
+        self,
+        url=None,
+        apikey: str = None,
+        silent: bool = True,
+    ) -> None:
         """The instantiation, connecting to the web API using the API key.
 
         Parameters
@@ -49,6 +61,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         Returns
         -------
         None
+
         """
         # Defining the URL.
         self._ASTROMETRY_NET_API_BASE_URL = (
@@ -105,9 +118,8 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         self.session = session_key
 
         # Placeholder variables.
-        self.original_upload_filename = str()
+        self.original_upload_filename = ""
         self._image_return_results = {}
-        return None
 
     def __login(self, apikey: str) -> str:
         """The method to log into the API system.
@@ -121,6 +133,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         session_key : string
             The session key for this login session.
+
         """
         # The key.
         args = {"apikey": apikey}
@@ -129,7 +142,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         # Check if the session works and that the API key given is valid.
         if not session:
             raise error.WebRequestError(
-                "The provided API key did not provide a valid session."
+                "The provided API key did not provide a valid session.",
             )
         else:
             # The session should be fine.
@@ -144,24 +157,23 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
 
     def __set_submission_id(self, sub_id) -> None:
         """Assign the submission ID, it should only be done once when the
-        image is obtained."""
+        image is obtained.
+        """
         if self.__submission_id is None:
             self.__submission_id = sub_id
         else:
             raise error.ReadOnlyError(
-                "The submission ID has already been set by obtaining it from the API"
-                " service."
+                "The submission ID has already been set by obtaining it from"
+                " the API service.",
             )
-        return None
 
     def __del_submission_id(self) -> None:
         """Remove the current submission ID association."""
         self.__submission_id = None
-        return None
 
     __doc_submission_id = (
-        "When file upload or table upload is sent to the API, the submission ID is"
-        " saved here."
+        "When file upload or table upload is sent to the API, the submission ID"
+        " is saved here."
     )
     __submission_id = None
     submission_id = property(
@@ -182,18 +194,20 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         # Call the API to get the job ID.
         try:
             submission_results = self.get_submission_results(
-                submission_id=self.submission_id
+                submission_id=self.submission_id,
             )
         except error.WebRequestError:
             # Make a more helpful error message for what is going on.
             if self.submission_id is None:
                 raise error.WebRequestError(
-                    "There cannot be a job id without there being a submission for that"
-                    " job to operate on."
+                    "There cannot be a job id without there being a submission"
+                    " for that job to operate on.",
                 )
             else:
                 # What happened is unknown.
-                raise error.UndiscoveredError("Why the web request failed is unknown.")
+                raise error.UndiscoveredError(
+                    "Why the web request failed is unknown.",
+                )
         else:
             job_id_list = submission_results.get("jobs", [])
             # If there are no jobs, then it is likely still in queue.
@@ -207,19 +221,19 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
 
     def __set_job_id(self, job_id) -> None:
         """Assign the job ID, it should only be done once when the
-        image is obtained."""
+        image is obtained.
+        """
         if self.__job_id is None:
             self.__job_id = job_id
         else:
             raise error.ReadOnlyError(
-                "The job ID has already been set by obtaining it from the API service."
+                "The job ID has already been set by obtaining it from the API"
+                " service.",
             )
-        return None
 
     def __del_job_id(self) -> None:
         """Remove the current job ID association."""
         self.__job_id = None
-        return None
 
     __doc_job_id = (
         "When file upload or table upload is sent to the API, the job ID of the"
@@ -241,6 +255,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         url : str
             The URL for the service.
+
         """
         url = self._ASTROMETRY_NET_API_BASE_URL + service
         return url
@@ -272,7 +287,10 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         return args
 
     def _send_web_request(
-        self, service: str, args: dict = {}, file_args: dict = None
+        self,
+        service: str,
+        args: dict = {},
+        file_args: dict = None,
     ) -> dict:
         """A wrapper function for sending a web request to the astrometry.net
         API service. Returns the results as well.
@@ -292,6 +310,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         results : dictionary
             The results of the web request if it did not fail.
+
         """
         # Obtain the session key derived when this class is instantiated and
         # logged into. Use this session key for requests.
@@ -306,12 +325,12 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         # If the request requires that a file be send, then it must be in the
         # correct format. Namely, a multipart/form-data format.
         if file_args is not None:
-            boundary_key = "".join([random.choice("0123456789") for __ in range(19)])
-            boundary = "==============={bkey}==".format(bkey=boundary_key)
+            boundary_key = "".join(
+                [random.choice("0123456789") for __ in range(19)],
+            )
+            boundary = f"==============={boundary_key}=="
             headers = {
-                "Content-Type": 'multipart/form-data; boundary="{bd}"'.format(
-                    bd=boundary
-                )
+                "Content-Type": f'multipart/form-data; boundary="{boundary}"',
             }
             data_pre = str(
                 "--"
@@ -328,11 +347,12 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
                 + "\n"
                 + "Content-Type: application/octet-stream\r\n"
                 + "MIME-Version: 1.0\r\n"
-                + 'Content-disposition: form-data; name="file"; filename="{name}"'.format(
-                    name=file_args["filename"]
+                + 'Content-disposition: form-data; name="file";'
+                ' filename="{name}"'.format(
+                    name=file_args["filename"],
                 )
                 + "\r\n"
-                + "\r\n"
+                + "\r\n",
             )
             data_post = "\n" + "--" + boundary + "--\n"
             data = data_pre.encode() + file_args["data"] + data_post.encode()
@@ -347,9 +367,14 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         # Processing the request.
         try:
             # Finally send the request.
-            request = urllib.request.Request(url=api_url, headers=headers, data=data)
+            request = urllib.request.Request(
+                url=api_url,
+                headers=headers,
+                data=data,
+            )
             file = urllib.request.urlopen(
-                request, timeout=library.config.ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT
+                request,
+                timeout=library.config.ASTROMETRYNET_WEBAPI_JOB_QUEUE_TIMEOUT,
             )
             text = file.read()
             result = library.json.json_to_dictionary(json_string=text)
@@ -360,20 +385,19 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
                 # Try to deduce what the error is.
                 if error_message == "bad apikey":
                     raise error.WebRequestError(
-                        "The API key provided is not a valid key."
+                        "The API key provided is not a valid key.",
                     )
                 else:
                     raise error.WebRequestError(
-                        "The server returned an error status message: \n {message}".format(
-                            message=error_message
-                        )
+                        "The server returned an error status message: \n"
+                        f" {error_message}",
                     )
             else:
                 return result
         except urllib.error.HTTPError:
             raise error.WebRequestError(
-                "The web request output cannot be properly processed. This is likely"
-                " from a bad web request."
+                "The web request output cannot be properly processed. This is"
+                " likely from a bad web request.",
             )
         # The logic should not flow beyond this point.
         raise error.LogicFlowError
@@ -401,10 +425,11 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
                 - Objects in field : Known objects in the image field.
                 - Annotations : Known objects in the field, with annotations.
                 - Info : A collection of most everything above.
+
         """
         job_id = job_id if job_id is not None else self.job_id
         # Get the result of the job.
-        service_string = "jobs/{id}".format(id=job_id)
+        service_string = f"jobs/{job_id}"
         try:
             job_result = self._send_web_request(service=service_string)
         except error.WebRequestError:
@@ -414,30 +439,38 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         status = job_result.get("status", False)
         if status != "success":
             raise error.WebRequestError(
-                "The job result request failed, check that the job ID is correct or try"
-                " again later."
+                "The job result request failed, check that the job ID is"
+                " correct or try again later.",
             )
         else:
             results = {}
             # For the status.
             results["status"] = status
             # For the calibrations.
-            service_string = "jobs/{id}/calibration".format(id=job_id)
-            results["calibration"] = self._send_web_request(service=service_string)
+            service_string = f"jobs/{job_id}/calibration"
+            results["calibration"] = self._send_web_request(
+                service=service_string,
+            )
             # For the tags.
-            service_string = "jobs/{id}/tags".format(id=job_id)
+            service_string = f"jobs/{job_id}/tags"
             results["tags"] = self._send_web_request(service=service_string)
             # For the machine tags.
-            service_string = "jobs/{id}/machine_tags".format(id=job_id)
-            results["machine_tags"] = self._send_web_request(service=service_string)
+            service_string = f"jobs/{job_id}/machine_tags"
+            results["machine_tags"] = self._send_web_request(
+                service=service_string,
+            )
             # For the objects in field.
-            service_string = "jobs/{id}/objects_in_field".format(id=job_id)
-            results["objects_in_field"] = self._send_web_request(service=service_string)
+            service_string = f"jobs/{job_id}/objects_in_field"
+            results["objects_in_field"] = self._send_web_request(
+                service=service_string,
+            )
             # For the annotations.
-            service_string = "jobs/{id}/annotations".format(id=job_id)
-            results["annotations"] = self._send_web_request(service=service_string)
+            service_string = f"jobs/{job_id}/annotations"
+            results["annotations"] = self._send_web_request(
+                service=service_string,
+            )
             # For the info.
-            service_string = "jobs/{id}/info".format(id=job_id)
+            service_string = f"jobs/{job_id}/info"
             results["info"] = self._send_web_request(service=service_string)
         # All done.
         return results
@@ -456,10 +489,11 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         status : string
             The status of the submission. If the job has not run yet, None is
             returned instead.
+
         """
         job_id = job_id if job_id is not None else self.job_id
         # Get the result of the job.
-        service_string = "jobs/{id}".format(id=job_id)
+        service_string = f"jobs/{job_id}"
         status = None
         try:
             job_result = self._send_web_request(service=service_string)
@@ -488,11 +522,12 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         result : dict
             The result of the submission.
+
         """
         submission_id = (
             submission_id if submission_id is not None else self.submission_id
         )
-        service_string = "submissions/{sub_id}".format(sub_id=submission_id)
+        service_string = f"submissions/{submission_id}"
         result = self._send_web_request(service=service_string)
         return result
 
@@ -509,6 +544,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         status : string
             The status of the submission.
+
         """
         submission_id = (
             submission_id if submission_id is not None else self.submission_id
@@ -518,7 +554,10 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         return status
 
     def get_reference_star_pixel_correlation(
-        self, job_id: str = None, temp_filename: str = None, delete_after: bool = True
+        self,
+        job_id: str = None,
+        temp_filename: str = None,
+        delete_after: bool = True,
     ) -> hint.Table:
         """This obtains the table that correlates the location of reference
         stars and their pixel locations. It is obtained from the fits corr file
@@ -541,30 +580,37 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         correlation_table : Table
             The table which details the correlation between the coordinates of
             the stars and their pixel locations.
+
         """
         job_id = job_id if job_id is not None else self.job_id
         # Download the correlation file to read into a data table.
         upload_filename = library.path.get_filename_without_extension(
-            pathname=self.original_upload_filename
+            pathname=self.original_upload_filename,
         )
         fits_table_filename = (
-            temp_filename if temp_filename is not None else upload_filename + "_corr"
+            temp_filename
+            if temp_filename is not None
+            else upload_filename + "_corr"
         )
         # The full path of the filename derived from saving it in a temporary
         # directory.
         corr_filename = library.path.merge_pathname(
-            filename=fits_table_filename, extension="fits"
+            filename=fits_table_filename,
+            extension="fits",
         )
         corr_pathname = library.temporary.make_temporary_directory_path(
-            filename=corr_filename
+            filename=corr_filename,
         )
         # Save the correlation file.
         self.download_result_file(
-            filename=corr_pathname, file_type="corr", job_id=job_id
+            filename=corr_pathname,
+            file_type="corr",
+            job_id=job_id,
         )
         # Load the data from the file.
         __, correlation_table = library.fits.read_fits_table_file(
-            filename=corr_pathname, extension=1
+            filename=corr_pathname,
+            extension=1,
         )
         # Delete the temporary file after loading it if desired.
         if delete_after:
@@ -572,7 +618,10 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         return correlation_table
 
     def get_wcs(
-        self, job_id: str = None, temp_filename: str = None, delete_after: bool = True
+        self,
+        job_id: str = None,
+        temp_filename: str = None,
+        delete_after: bool = True,
     ) -> hint.WCS:
         """This obtains the wcs header file and then computes World Coordinate
         System solution from it. Because astrometry.net computes it for us,
@@ -593,26 +642,32 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         wcs : Astropy WCS
             The world coordinate solution class for the image provided.
+
         """
         job_id = job_id if job_id is not None else self.job_id
         # Download the correlation file to read into a data table.
         upload_filename = library.path.get_filename_without_extension(
-            pathname=self.original_upload_filename
+            pathname=self.original_upload_filename,
         )
         fits_table_filename = (
-            temp_filename if temp_filename is not None else upload_filename + "_wcs"
+            temp_filename
+            if temp_filename is not None
+            else upload_filename + "_wcs"
         )
         # The full path of the filename derived from saving it in a temporary
         # directory.
         corr_filename = library.path.merge_pathname(
-            filename=fits_table_filename, extension="fits"
+            filename=fits_table_filename,
+            extension="fits",
         )
         corr_pathname = library.temporary.make_temporary_directory_path(
-            filename=corr_filename
+            filename=corr_filename,
         )
         # Save the correlation file.
         self.download_result_file(
-            filename=corr_pathname, file_type="wcs", job_id=job_id
+            filename=corr_pathname,
+            file_type="wcs",
+            job_id=job_id,
         )
         # Load the header from the file.
         wcs_header = library.fits.read_fits_header(filename=corr_pathname)
@@ -639,6 +694,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         -------
         results : dict
             The results of the API call to upload the image.
+
         """
         # When uploading a new file, the submission and job IDs will change.
         # They must be reset because of their read-only nature.
@@ -652,10 +708,14 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         file_args = None
         try:
             file = open(pathname, "rb")
-            filename = library.path.get_filename_with_extension(pathname=pathname)
+            filename = library.path.get_filename_with_extension(
+                pathname=pathname,
+            )
             file_args = {"filename": filename, "data": file.read()}
-        except IOError:
-            raise error.FileError("File does not exist: {path}".format(path=pathname))
+        except OSError:
+            raise error.FileError(
+                f"File does not exist: {pathname}",
+            )
         # Extract the submission id. This allows for easier
         # association between this class instance and the uploaded file.
         upload_results = self._send_web_request("upload", args, file_args)
@@ -663,7 +723,10 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         return upload_results
 
     def download_result_file(
-        self, filename: str, file_type: str, job_id: str = None
+        self,
+        filename: str,
+        file_type: str,
+        job_id: str = None,
     ) -> None:
         """Downloads fits data table files which correspond to the job id.
 
@@ -691,6 +754,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         Returns
         -------
         None
+
         """
         # Get the proper job ID.
         job_id = job_id if job_id is not None else self.job_id
@@ -700,37 +764,41 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         valid_api_file_types = ("wcs", "new_fits", "rdls", "axy", "corr")
         if file_type not in valid_api_file_types:
             raise error.WebRequestError(
-                "The provided file type to be downloaded is not a valid type which can"
-                " be downloaded, it must be one of: {fty}".format(
-                    fty=valid_api_file_types
-                )
+                "The provided file type to be downloaded is not a valid type"
+                " which can be downloaded, it must be one of:"
+                f" {valid_api_file_types}",
             )
 
         # Construct the URL for the request. It is a little different from the
         # normal API scheme so a new method is made.
         def _construct_file_download_url(ftype: str, id: str) -> str:
             """Construct the file curl from the file type `ftype` and the
-            job id `id`."""
-            url = "http://nova.astrometry.net/{_type}_file/{_id}".format(
-                _type=ftype, _id=id
-            )
+            job id `id`.
+            """
+            url = f"http://nova.astrometry.net/{ftype}_file/{id}"
             return url
 
-        file_download_url = _construct_file_download_url(ftype=file_type, id=job_id)
+        file_download_url = _construct_file_download_url(
+            ftype=file_type,
+            id=job_id,
+        )
         # Before downloading the file, check that the file actually exists.
         if job_id is None:
-            raise error.WebRequestError("There is no job to download the file from.")
+            raise error.WebRequestError(
+                "There is no job to download the file from.",
+            )
         if library.http.get_http_status_code(url=file_download_url) != 200:
             raise error.WebRequestError(
-                "The file download link is not giving an acceptable http status code."
-                " It is likely that the job is still processing and thus the data files"
-                " are not ready."
+                "The file download link is not giving an acceptable http status"
+                " code. It is likely that the job is still processing and thus"
+                " the data files are not ready.",
             )
         # Download the file.
         library.http.download_file_from_url(
-            url=file_download_url, filename=filename, overwrite=True
+            url=file_download_url,
+            filename=filename,
+            overwrite=True,
         )
-        return None
 
 
 class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine):
@@ -751,4 +819,3 @@ class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine):
         # Creating the class.
         super().__init__(url=SELFHOST_URL, apikey=apikey, silent=silent)
         # All done.
-        return None

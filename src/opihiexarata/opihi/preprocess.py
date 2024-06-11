@@ -2,14 +2,23 @@
 produces a valid reduced image.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
 import copy
 
 import numpy as np
 import scipy.optimize as sp_optimize
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 class OpihiPreprocessSolution(library.engine.ExarataSolution):
@@ -147,6 +156,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
     linearity_function : function
         The linearity function across the whole CCD. It is an average function
         across all of the pixels.
+
     """
 
     def __init__(
@@ -239,6 +249,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # Adding the raw inputs as they may be needed later for some reason.
         # Mask files, per filter.
@@ -268,10 +279,10 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         # Reading the fits file data. There are inner functions for mask and
         # flats for organizational purposes.
         __, self.bias = library.fits.read_fits_image_file(
-            filename=self._bias_fits_filename
+            filename=self._bias_fits_filename,
         )
         __, self.dark_current = library.fits.read_fits_image_file(
-            filename=self._dark_current_fits_filename
+            filename=self._dark_current_fits_filename,
         )
         self.__init_read_mask_data()
         self.__init_read_flat_data()
@@ -279,7 +290,6 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self.__init_read_linearity_data()
 
         # All done.
-        return None
 
     def __init_read_mask_data(self) -> None:
         """This function just reads all of the fits file data for the
@@ -293,31 +303,32 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # Reading all of the mask files.
         __, mask_c = library.fits.read_fits_image_file(
-            filename=self._mask_c_fits_filename
+            filename=self._mask_c_fits_filename,
         )
         __, mask_g = library.fits.read_fits_image_file(
-            filename=self._mask_g_fits_filename
+            filename=self._mask_g_fits_filename,
         )
         __, mask_r = library.fits.read_fits_image_file(
-            filename=self._mask_r_fits_filename
+            filename=self._mask_r_fits_filename,
         )
         __, mask_i = library.fits.read_fits_image_file(
-            filename=self._mask_i_fits_filename
+            filename=self._mask_i_fits_filename,
         )
         __, mask_z = library.fits.read_fits_image_file(
-            filename=self._mask_z_fits_filename
+            filename=self._mask_z_fits_filename,
         )
         __, mask_1 = library.fits.read_fits_image_file(
-            filename=self._mask_1_fits_filename
+            filename=self._mask_1_fits_filename,
         )
         __, mask_2 = library.fits.read_fits_image_file(
-            filename=self._mask_2_fits_filename
+            filename=self._mask_2_fits_filename,
         )
         __, mask_b = library.fits.read_fits_image_file(
-            filename=self._mask_b_fits_filename
+            filename=self._mask_b_fits_filename,
         )
         # Adding the masks to this solution so the fits files need not be
         # accessed again. A pixel is considered mask if the value is True.
@@ -330,7 +341,6 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self.mask_2 = np.array(mask_2, dtype=bool)
         self.mask_b = np.array(mask_b, dtype=bool)
         # All done.
-        return None
 
     def __init_read_flat_data(self) -> None:
         """This function just reads all of the fits file data for the
@@ -344,31 +354,32 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # Reading all of the flat files.
         __, flat_c = library.fits.read_fits_image_file(
-            filename=self._flat_c_fits_filename
+            filename=self._flat_c_fits_filename,
         )
         __, flat_g = library.fits.read_fits_image_file(
-            filename=self._flat_g_fits_filename
+            filename=self._flat_g_fits_filename,
         )
         __, flat_r = library.fits.read_fits_image_file(
-            filename=self._flat_r_fits_filename
+            filename=self._flat_r_fits_filename,
         )
         __, flat_i = library.fits.read_fits_image_file(
-            filename=self._flat_i_fits_filename
+            filename=self._flat_i_fits_filename,
         )
         __, flat_z = library.fits.read_fits_image_file(
-            filename=self._flat_z_fits_filename
+            filename=self._flat_z_fits_filename,
         )
         __, flat_1 = library.fits.read_fits_image_file(
-            filename=self._flat_1_fits_filename
+            filename=self._flat_1_fits_filename,
         )
         __, flat_2 = library.fits.read_fits_image_file(
-            filename=self._flat_2_fits_filename
+            filename=self._flat_2_fits_filename,
         )
         __, flat_b = library.fits.read_fits_image_file(
-            filename=self._flat_b_fits_filename
+            filename=self._flat_b_fits_filename,
         )
         # Adding the flats to this solution so the fits files need not be
         # accessed again.
@@ -381,7 +392,6 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self.flat_2 = np.array(flat_2)
         self.flat_b = np.array(flat_b)
         # All done.
-        return None
 
     def __init_read_linearity_data(self):
         """This function reads all of the linearity data and creates a
@@ -397,30 +407,43 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # Obtaining the saturation function via the points provided.
         unsaturated_signal, saturated_signal = np.genfromtxt(
-            self._linearity_fits_filename
+            self._linearity_fits_filename,
         ).T
 
         # Using just 2nd order linearity correction to fit the saturation
         # function.
-        def _polynomial(x, a, b, c):
+        def _polynomial(
+            x: hint.array,
+            a: float,
+            b: float,
+            c: float,
+        ) -> hint.array:
             return a + b * x + c * x**2
 
         # Fitting.
         self.linearity_factors, __ = sp_optimize.curve_fit(
-            _polynomial, saturated_signal, unsaturated_signal
+            _polynomial,
+            saturated_signal,
+            unsaturated_signal,
         )
 
         # Using the fitted parameters to derive the linearity curve. Using
         # keywords here may be unnecessary.
-        self.linearity_function = lambda r: _polynomial(r, *self.linearity_factors)
+        self.linearity_function = lambda r: _polynomial(
+            r,
+            *self.linearity_factors,
+        )
         # All done.
-        return None
 
     def preprocess_data_image(
-        self, raw_data: hint.array, exposure_time: float, filter_name: str
+        self,
+        raw_data: hint.array,
+        exposure_time: float,
+        filter_name: str,
     ) -> hint.array:
         """The formal reduction algorithm for data from Opihi. It follows
         preprocessing instructions for CCDs.
@@ -439,12 +462,13 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         -------
         preprocess_data : array
             The data, after it has been preprocessed.
+
         """
         # Get the needed mask and flat files based on the provided filter.
         # Being a little clever so a very long if/else statement is not used.
         try:
-            mask = self.__dict__.get("mask_{f}".format(f=filter_name), None)
-            flat = self.__dict__.get("flat_{f}".format(f=filter_name), None)
+            mask = self.__dict__.get(f"mask_{filter_name}", None)
+            flat = self.__dict__.get(f"flat_{filter_name}", None)
             if mask is None or flat is None:
                 raise error.IntentionalError
         except error.IntentionalError:
@@ -452,9 +476,9 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             # this class and its initialization. Likely, the filter name is
             # wrong.
             raise error.InputError(
-                "The filter name {f} is not a filter name that is a part of the"
-                " OpihiExarata system and this class does not a flat or mask for said"
-                " filter for reduction purposes.".format(f=filter_name)
+                f"The filter name {filter_name} is not a filter name that is a"
+                " part of the OpihiExarata system and this class does not a"
+                " flat or mask for said filter for reduction purposes.",
             )
 
         # All of the arrays must be the same shape for the Numpy array math
@@ -470,8 +494,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             pass
         else:
             raise error.InputError(
-                "The data array does not have the same shape as all of the other data"
-                " reduction arrays."
+                "The data array does not have the same shape as all of the"
+                " other data reduction arrays.",
             )
 
         # Reducing it based on the documentation method. Inverting  the
@@ -488,7 +512,10 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         return preprocess_data
 
     def preprocess_fits_file(
-        self, raw_filename: str, out_filename: str = None, overwrite: bool = False
+        self,
+        raw_filename: str,
+        out_filename: str = None,
+        overwrite: bool = False,
     ) -> tuple[hint.Header, hint.array]:
         """Preprocess an Opihi image, the provided fits filename is read, the
         needed information extracted from it, and it is processed using
@@ -515,21 +542,26 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         preprocess_data : array
             The data array of the image after the raw image went through the
             preprocess reduction.
+
         """
         # Read the needed fits information to do the reduction.
-        raw_header, raw_data = library.fits.read_fits_image_file(filename=raw_filename)
+        raw_header, raw_data = library.fits.read_fits_image_file(
+            filename=raw_filename,
+        )
         # The exposure time is needed for reducing the image data. (The fits
         # file uses integration time as the name.)
         raw_exposure_time = float(raw_header["ITIME"])
         # Filter name.
         filter_header_string = str(raw_header["FWHL"])
         filter_name = library.conversion.filter_header_string_to_filter_name(
-            header_string=filter_header_string
+            header_string=filter_header_string,
         )
 
         # Preprocessing the data.
         preprocess_data = self.preprocess_data_image(
-            raw_data=raw_data, exposure_time=raw_exposure_time, filter_name=filter_name
+            raw_data=raw_data,
+            exposure_time=raw_exposure_time,
+            filter_name=filter_name,
         )
 
         # Adding helpful preprocessing information to the header, we follow
@@ -540,7 +572,8 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         # Adding it using the library function so that the defaults may be
         # added as well.
         preprocess_header = library.fits.update_opihiexarata_fits_header(
-            header=raw_header, entries=preprocess_header_entries
+            header=raw_header,
+            entries=preprocess_header_entries,
         )
         # If the user wanted to save the preprocessed data as a file.
         if isinstance(out_filename, str):
@@ -557,9 +590,9 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             # path as a string, this is an error (likely on the development
             # side).
             raise error.InputError(
-                "The out filename provided is not a string; therefore, it cannot be"
-                " interpreted as a path where which the preprocessed file would be"
-                " saved."
+                "The out filename provided is not a string; therefore, it"
+                " cannot be interpreted as a path where which the preprocessed"
+                " file would be saved.",
             )
         else:
             # The file is not to be saved.

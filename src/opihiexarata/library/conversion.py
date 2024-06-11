@@ -1,16 +1,25 @@
 """For miscellaneous conversions."""
 
-import time
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
 import datetime
+import time
 import zoneinfo
-import numpy as np
+
 import astropy.coordinates as ap_coordinates
 import astropy.time as ap_time
 import astropy.units as ap_units
+import numpy as np
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata.library import error
 
 
 def degrees_per_second_to_arcsec_per_second(degree_per_second: float) -> float:
@@ -25,6 +34,7 @@ def degrees_per_second_to_arcsec_per_second(degree_per_second: float) -> float:
     -------
     arcsec_per_second : float
         The value, in arcseconds per second, which you converted to.
+
     """
     # A simple multiplicative conversion.
     arcsec_per_second = degree_per_second * 3600
@@ -32,7 +42,9 @@ def degrees_per_second_to_arcsec_per_second(degree_per_second: float) -> float:
 
 
 def degrees_to_sexagesimal_ra_dec(
-    ra_deg: float, dec_deg: float, precision: int = 2
+    ra_deg: float,
+    dec_deg: float,
+    precision: int = 2,
 ) -> tuple[str, str]:
     """Convert RA and DEC degree measurements to the more familiar HMSDMS
     sexagesimal format.
@@ -53,19 +65,35 @@ def degrees_to_sexagesimal_ra_dec(
         The right ascension in hour:minute:second sexagesimal.
     dec_sex : str
         The declination in degree:minute:second sexagesimal.
+
     """
     # Levering Astropy for this.
-    skycoord = ap_coordinates.SkyCoord(ra_deg, dec_deg, frame="icrs", unit="deg")
+    skycoord = ap_coordinates.SkyCoord(
+        ra_deg,
+        dec_deg,
+        frame="icrs",
+        unit="deg",
+    )
     ra_sex = skycoord.ra.to_string(
-        ap_units.hour, sep=":", pad=True, precision=precision
+        ap_units.hour,
+        sep=":",
+        pad=True,
+        precision=precision,
     )
     dec_sex = skycoord.dec.to_string(
-        ap_units.deg, sep=":", pad=True, precision=precision, alwayssign=True
+        ap_units.deg,
+        sep=":",
+        pad=True,
+        precision=precision,
+        alwayssign=True,
     )
     return ra_sex, dec_sex
 
 
-def sexagesimal_ra_dec_to_degrees(ra_sex: str, dec_sex: str) -> tuple[float, float]:
+def sexagesimal_ra_dec_to_degrees(
+    ra_sex: str,
+    dec_sex: str,
+) -> tuple[float, float]:
     """Convert RA and DEC measurements from the more familiar HMSDMS
     sexagesimal format to degrees.
 
@@ -82,10 +110,14 @@ def sexagesimal_ra_dec_to_degrees(ra_sex: str, dec_sex: str) -> tuple[float, flo
         The right ascension in degrees.
     dec_deg : float
         The declination in degrees.
+
     """
     # Levering Astropy for this.
     skycoord = ap_coordinates.SkyCoord(
-        ra_sex, dec_sex, frame="icrs", unit=(ap_units.hourangle, ap_units.deg)
+        ra_sex,
+        dec_sex,
+        frame="icrs",
+        unit=(ap_units.hourangle, ap_units.deg),
     )
     ra_deg = float(skycoord.ra.degree)
     dec_deg = float(skycoord.dec.degree)
@@ -109,6 +141,7 @@ def decimal_day_to_julian_day(year: int, month: int, day: float):
     -------
     julian_day : float
         The Julian day of the date provided.
+
     """
     # Determining the true year and letting the remainder flow.
     int_year = np.array(year, dtype=int)
@@ -138,7 +171,12 @@ def decimal_day_to_julian_day(year: int, month: int, day: float):
 
 
 def full_date_to_julian_day(
-    year: int, month: int, day: int, hour: int, minute: int, second: float
+    year: int,
+    month: int,
+    day: int,
+    hour: int,
+    minute: int,
+    second: float,
 ) -> float:
     """A function to convert the a whole date format into the Julian day time.
 
@@ -161,6 +199,7 @@ def full_date_to_julian_day(
     -------
     julian_day : float
         The time input converted into the Julian day.
+
     """
     time_param = {
         "year": year,
@@ -187,6 +226,7 @@ def modified_julian_day_to_julian_day(mjd: float) -> float:
     -------
     jd : float
         The Julian day value after conversion.
+
     """
     time_instance = ap_time.Time(mjd, format="mjd")
     jd = float(time_instance.to_value("jd", subfmt="float"))
@@ -205,6 +245,7 @@ def julian_day_to_modified_julian_day(jd: float) -> float:
     -------
     mjd : float
         The modified Julian day value after conversion.
+
     """
     time_instance = ap_time.Time(jd, format="mjd")
     mjd = float(time_instance.to_value("mjd", subfmt="float"))
@@ -223,6 +264,7 @@ def julian_day_to_unix_time(jd: float) -> float:
     -------
     unix_time : float
         The time converted to UNIX time.
+
     """
     # This could eventually be replaced with multiplication and addition, but
     # this is a convenient way of doing it.
@@ -243,6 +285,7 @@ def unix_time_to_julian_day(unix_time: float) -> float:
     -------
     jd : float
         The Julian day value as converted.
+
     """
     # This could eventually be replaced with multiplication and addition, but
     # this is a convenient way of doing it.
@@ -253,7 +296,6 @@ def unix_time_to_julian_day(unix_time: float) -> float:
 
 def julian_day_to_decimal_day(jd: float) -> tuple:
     """A function to convert the Julian day time to the decimal day time.
-
 
     Parameters
     ----------
@@ -269,6 +311,7 @@ def julian_day_to_decimal_day(jd: float) -> tuple:
     day : float
         The day of the the Julian day time, the hours, minute, and seconds are all
         contained as a decimal.
+
     """
     # Getting the full date and just converting it from there.
     year, month, int_day, hour, minute, second = julian_day_to_full_date(jd=jd)
@@ -300,6 +343,7 @@ def julian_day_to_full_date(jd: float) -> tuple[int, int, int, int, int, float]:
         The minute of the Julian day provided.
     second : float
         The second of the Julian day provided.
+
     """
     time_instance = ap_time.Time(jd, format="jd")
     # It is faster to not unpack, even though it is less readable.
@@ -318,6 +362,7 @@ def current_utc_to_julian_day() -> float:
     -------
     current_jd : float
         The current time in Julian date format.
+
     """
     # We can just derive it from the system UNIX time.
     current_unix_time = time.time()
@@ -326,7 +371,9 @@ def current_utc_to_julian_day() -> float:
 
 
 def datetime_timezone_1_to_timezone_2(
-    from_datetime: hint.Union[hint.datetime, str], from_timezone: str, to_timezone: str
+    from_datetime: hint.Union[hint.datetime, str],
+    from_timezone: str,
+    to_timezone: str,
 ) -> hint.datetime:
     """This function converts a date time from one timezone to another timezone.
 
@@ -346,6 +393,7 @@ def datetime_timezone_1_to_timezone_2(
     -------
     to_datetime : datetime
         The datetime after the conversion.
+
     """
     # Check if the datetime is really a datetime or a string representation
     # thereof.
@@ -359,13 +407,13 @@ def datetime_timezone_1_to_timezone_2(
         except ValueError:
             raise error.InputError(
                 "The string format of the datetime is not valid and cannot be"
-                " converted. We require it to be in an ISO 8601-like format. The input:"
-                " {inp}".format(inp=from_datetime)
+                " converted. We require it to be in an ISO 8601-like format."
+                f" The input: {from_datetime}",
             )
     else:
         raise error.InputError(
-            "The datetime input provided is neither a datetime or a datetime string to"
-            " be converted. The input: {inp}".format(inp=from_datetime)
+            "The datetime input provided is neither a datetime or a datetime"
+            f" string to be converted. The input: {from_datetime}",
         )
 
     # Adding the important timezone information, using the built in class.
@@ -402,6 +450,7 @@ def string_month_to_number(month_str: str) -> int:
     -------
     month_int : int
         The month number integer.
+
     """
     # Capitalization does not matter.
     month_str = month_str.casefold()
@@ -459,6 +508,7 @@ def filter_header_string_to_filter_name(header_string: str) -> str:
     -------
     filter_name : str
         The name of the filter that corresponds to the given filter position.
+
     """
     # As the filter position string from the camera controller and the
     # corresponding names for OpihiExarata.
@@ -475,14 +525,13 @@ def filter_header_string_to_filter_name(header_string: str) -> str:
     # Getting the OpihiExarata filter name from the string in the FITS header
     # file. We do not worry about case.
     header_string = header_string.casefold()
-    filter_name = filter_header_string_dictionary.get(header_string, None)
+    filter_name = filter_header_string_dictionary.get(header_string)
     # Double check that a proper filter name was found from the dictionary.
     if filter_name is None:
         raise error.InputError(
-            "The header string provided to determine the filter name is not a valid"
-            " filter name. It was `{filter}`, supported header strings are `{f_set}`".format(
-                filter=header_string, f_set=list(filter_header_string_dictionary.keys())
-            )
+            "The header string provided to determine the filter name is not a"
+            f" valid filter name. It was `{header_string}`, supported header"
+            f" strings are `{list(filter_header_string_dictionary.keys())}`",
         )
     return filter_name
 
@@ -505,6 +554,7 @@ def numpy_type_string_to_instance(numpy_type_string: str) -> hint.numpy_generic:
     -------
     numpy_type_instance : Numpy generic
         The data type instance that the string is likely referring to.
+
     """
     # It is likely easiest to do a falling cascade for both readability and
     # form. We check all of the types to known aliases or results.
@@ -512,9 +562,12 @@ def numpy_type_string_to_instance(numpy_type_string: str) -> hint.numpy_generic:
     # Staring with integers.
     if np_t_str in ("short", "int16", "h"):
         numpy_type_instance = np.short
-    elif np_t_str in ("intc", "int32", "i"):
-        numpy_type_instance = np.intc
-    elif np_t_str in ("int_", "int64", "intp", "l"):
+    elif np_t_str in ("intc", "int32", "i") or np_t_str in (
+        "int_",
+        "int64",
+        "intp",
+        "l",
+    ):
         numpy_type_instance = np.intc
     # Now onto floats.
     elif np_t_str in ("half", "float16", "e"):
@@ -528,7 +581,7 @@ def numpy_type_string_to_instance(numpy_type_string: str) -> hint.numpy_generic:
     # No matching type.
     else:
         # We default to Numpy's default.
-        numpy_type_instance = np.float_
+        numpy_type_instance = np.float64
 
     # All done.
     return numpy_type_instance

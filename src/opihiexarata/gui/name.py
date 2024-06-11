@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """This window is for allowing the user to fill out the name of the object
 which they are observing, used when doing new targets.
 
@@ -6,14 +8,9 @@ This is just a simple input dialog.
 
 import sys
 
-from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6 import QtWidgets
 
-
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
-
-import opihiexarata.gui as gui
+from opihiexarata import gui
 
 
 class TargetNameWindow(QtWidgets.QWidget):
@@ -33,6 +30,7 @@ class TargetNameWindow(QtWidgets.QWidget):
         The status of the entry. If it was exited with a proper input and
         submission, this is true. If it was canceled or closed in any other
         way it is False.
+
     """
 
     def __init__(self) -> None:
@@ -45,6 +43,7 @@ class TargetNameWindow(QtWidgets.QWidget):
         Returns
         -------
         None
+
         """
         # Initialization of the parent class window.
         super().__init__()
@@ -63,7 +62,6 @@ class TargetNameWindow(QtWidgets.QWidget):
         self.target_name = self._sanitize_input(raw_input=self._raw_target_name)
         self.status = bool(status)
         # All done.
-        return None
 
     @staticmethod
     def _sanitize_input(raw_input: str = None) -> str:
@@ -78,6 +76,7 @@ class TargetNameWindow(QtWidgets.QWidget):
         -------
         sanitized_input : string
             The sanitized input.
+
         """
         # Nothing for now, something that needs to be done.
         sanitized_input = str(raw_input)
@@ -98,6 +97,7 @@ def ask_user_target_name_window(default: str = None) -> str:
     -------
     target_name : string
         The target name as specified (or the default if something went amiss.)
+
     """
     # Use the input dialog class to ask the user.
     target_name_window = TargetNameWindow()
@@ -112,11 +112,10 @@ def ask_user_target_name_window(default: str = None) -> str:
     target_name = None
     if submit_status:
         target_name = str(input_name)
+    elif default is not None:
+        target_name = default
     else:
-        if default is not None:
-            target_name = default
-        else:
-            target_name = str(input_name)
+        target_name = str(input_name)
     # All done.
     return target_name
 

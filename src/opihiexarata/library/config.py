@@ -9,12 +9,12 @@ by the configuration file.
 """
 
 import os
-import yaml
 import shutil
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+import yaml
+
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 def load_configuration_file(filename: str) -> dict:
@@ -34,6 +34,7 @@ def load_configuration_file(filename: str) -> dict:
     configuration_dict : dictionary
         The dictionary which contains all of the configuration parameters
         within it.
+
     """
     # Checking the extension is valid, just as a quick sanity check that the
     # configuration file is proper.
@@ -41,19 +42,20 @@ def load_configuration_file(filename: str) -> dict:
     filename_ext = library.path.get_file_extension(pathname=filename)
     if filename_ext not in config_extension:
         raise error.FileError(
-            "Configuration file does not have the proper extension it should be a yaml"
-            " file."
+            "Configuration file does not have the proper extension it should be"
+            " a yaml file.",
         )
     # Loading the configuration file.
     try:
-        with open(filename, "r") as config_file:
-            configuration_dict = dict(yaml.load(config_file, Loader=yaml.SafeLoader))
+        with open(filename) as config_file:
+            configuration_dict = dict(
+                yaml.load(config_file, Loader=yaml.SafeLoader),
+            )
     except FileNotFoundError:
         # This is an error that is specific to OpihiExarata.
         raise error.FileError(
-            "The following configuration filename does not exist: \n {fname}".format(
-                fname=filename
-            )
+            "The following configuration filename does not exist: \n"
+            f" {filename}",
         )
     # Double check that the configuration is flat as per the documentation
     # and expectation.
@@ -61,8 +63,9 @@ def load_configuration_file(filename: str) -> dict:
         if isinstance(valuedex, dict):
             # A dictionary implies a nested configuration which is not allowed.
             raise error.ConfigurationError(
-                "The configuration file should not have any embedded configurations, it"
-                " should be a flat file. Please use the configuration file templates."
+                "The configuration file should not have any embedded"
+                " configurations, it should be a flat file. Please use the"
+                " configuration file templates.",
             )
     # The configuration dictionary should be good.
     return configuration_dict
@@ -87,8 +90,8 @@ def load_then_apply_configuration(filename: str) -> None:
     Returns
     -------
     None
-    """
 
+    """
     # Load the configuration dictionary.
     configuration = load_configuration_file(filename=filename)
     # Applying the configurations to this module's global namespace is the
@@ -102,7 +105,6 @@ def load_then_apply_configuration(filename: str) -> None:
     }
     # Applying it to the global space of this module only.
     globals().update(configuration)
-    return None
 
 
 def generate_configuration_file_copy(filename: str, overwrite=False) -> None:
@@ -121,13 +123,12 @@ def generate_configuration_file_copy(filename: str, overwrite=False) -> None:
     Returns
     -------
     None
+
     """
     # Check if the filename is already taken by something.
     if os.path.isfile(filename) and (not overwrite):
         raise error.FileError(
-            "Filename already exists, overwrite is False: \n {fname}".format(
-                fname=filename
-            )
+            f"Filename already exists, overwrite is False: \n {filename}",
         )
     # If the user did not provide a filename with the proper extension, add it.
     user_ext = library.path.get_file_extension(pathname=filename)
@@ -135,7 +136,8 @@ def generate_configuration_file_copy(filename: str, overwrite=False) -> None:
     preferred_yaml_extension = yaml_extensions[0]
     if user_ext not in yaml_extensions:
         file_destination = library.path.merge_pathname(
-            filename=filename, extension=preferred_yaml_extension
+            filename=filename,
+            extension=preferred_yaml_extension,
         )
     else:
         # Nothing needs to be done. The filename is fine.
@@ -148,10 +150,9 @@ def generate_configuration_file_copy(filename: str, overwrite=False) -> None:
         extension="yaml",
     )
     shutil.copyfile(default_config_path, file_destination)
-    return None
 
 
-def generate_secrets_file_copy(filename: str, overwrite=False) -> None:
+def generate_secrets_file_copy(filename: str, overwrite: bool = False) -> None:
     """This generates a copy of the secrets configuration file to the given
     location.
 
@@ -167,13 +168,12 @@ def generate_secrets_file_copy(filename: str, overwrite=False) -> None:
     Returns
     -------
     None
+
     """
     # Check if the filename is already taken by something.
     if os.path.isfile(filename) and (not overwrite):
         raise error.FileError(
-            "Filename already exists, overwrite is False: \n {fname}".format(
-                fname=filename
-            )
+            f"Filename already exists, overwrite is False: \n {filename}",
         )
     # If the user did not provide a filename with the proper extension, add it.
     user_ext = library.path.get_file_extension(pathname=filename)
@@ -181,7 +181,8 @@ def generate_secrets_file_copy(filename: str, overwrite=False) -> None:
     preferred_yaml_extension = yaml_extensions[0]
     if user_ext not in yaml_extensions:
         file_destination = library.path.merge_pathname(
-            filename=filename, extension=preferred_yaml_extension
+            filename=filename,
+            extension=preferred_yaml_extension,
         )
     else:
         # Nothing needs to be done. The filename is fine.
@@ -194,7 +195,6 @@ def generate_secrets_file_copy(filename: str, overwrite=False) -> None:
         extension="yaml",
     )
     shutil.copyfile(default_config_path, file_destination)
-    return None
 
 
 # Configuration/constant parameters which are otherwise not usually provided
@@ -204,5 +204,5 @@ def generate_secrets_file_copy(filename: str, overwrite=False) -> None:
 # The default path which this module is installed in. It is one higher than
 # this file which is within the library module of the OpihiExarata install.
 MODULE_INSTALLATION_PATH = os.path.dirname(
-    os.path.realpath(os.path.join(os.path.realpath(__file__), ".."))
+    os.path.realpath(os.path.join(os.path.realpath(__file__), "..")),
 )

@@ -1,13 +1,23 @@
 """This module is just functions to deal with different common pathname manipulations.
-As Exarata is going to be cross platform, this is a nice abstraction."""
+As Exarata is going to be cross platform, this is a nice abstraction.
+"""
 
-import os
-import glob
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
 import copy
+import glob
+import os
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import library
+from opihiexarata.library import error
 
 
 def get_directory(pathname: str) -> str:
@@ -22,6 +32,7 @@ def get_directory(pathname: str) -> str:
     -------
     directory : string
         The directory which belongs to the pathname.
+
     """
     directory = os.path.dirname(pathname)
     return directory
@@ -67,12 +78,13 @@ def get_most_recent_filename_in_directory(
     recent_filename : string
         The filename of the most recent file, by modification time, in the
         directory.
+
     """
     # Check if the directory provided actually exists.
     if not os.path.isdir(directory):
         raise error.InputError(
-            "The directory provided `{d}` does not exist. A most recent file cannot be"
-            " obtained.".format(d=str(directory))
+            f"The directory provided `{directory!s}` does not exist. A most"
+            " recent file cannot be obtained.",
         )
 
     # The default recency function, if not provided, is the modification times
@@ -84,7 +96,9 @@ def get_most_recent_filename_in_directory(
     # We need to check all of the files matching the provided extension. If
     # none was provided, we use all.
     extension = "*" if extension is None else extension
-    extension_list = (extension,) if isinstance(extension, str) else tuple(extension)
+    extension_list = (
+        (extension,) if isinstance(extension, str) else tuple(extension)
+    )
     matching_filenames = []
     for extensiondex in extension_list:
         # If the extension has a leading dot, then we remove it as it
@@ -96,9 +110,14 @@ def get_most_recent_filename_in_directory(
         # set
         directory_list = [directory, "**"] if recursive else [directory]
         pathname_glob_filter = merge_pathname(
-            directory=directory_list, filename="*", extension=extensiondex
+            directory=directory_list,
+            filename="*",
+            extension=extensiondex,
         )
-        extension_matching_files = glob.glob(pathname_glob_filter, recursive=recursive)
+        extension_matching_files = glob.glob(
+            pathname_glob_filter,
+            recursive=recursive,
+        )
         matching_filenames += extension_matching_files
 
     # If flagged, we do not include files which have been marked as outputs
@@ -108,8 +127,12 @@ def get_most_recent_filename_in_directory(
         # Mark for files which have been preprocessed.
         PREPROCESS_SUFFIX = library.config.PREPROCESS_DEFAULT_SAVING_SUFFIX
         MANUAL_SUFFIX = library.config.GUI_MANUAL_DEFAULT_FITS_SAVING_SUFFIX
-        AUTOMATIC_SUFFIX = library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
-        MPCRECORD_SUFFIX = library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
+        AUTOMATIC_SUFFIX = (
+            library.config.GUI_AUTOMATIC_DEFAULT_FITS_SAVING_SUFFIX
+        )
+        MPCRECORD_SUFFIX = (
+            library.config.GUI_MANUAL_DEFAULT_MPC_RECORD_SAVING_SUFFIX
+        )
         for filenamedex in copy.deepcopy(matching_filenames):
             # We only care about the basename in terms of matching suffixes.
             # Though the extension itself may be a valid suffix as well, for
@@ -121,10 +144,7 @@ def get_most_recent_filename_in_directory(
                 or (MANUAL_SUFFIX in basename)
                 or (AUTOMATIC_SUFFIX in basename)
                 or (MPCRECORD_SUFFIX in basename)
-            ):
-                continue
-            # Also check the .FITS variant.
-            elif (
+            ) or (
                 (PREPROCESS_SUFFIX + ".fits" in basename)
                 or (MANUAL_SUFFIX + ".fits" in basename)
                 or (AUTOMATIC_SUFFIX + ".fits" in basename)
@@ -144,8 +164,8 @@ def get_most_recent_filename_in_directory(
     # Just a quick check to make sure the file exists.
     if not os.path.isfile(recent_filename):
         raise error.DevelopmentError(
-            "For some reason, the detected most recent file is not actually a file."
-            " Something is wrong."
+            "For some reason, the detected most recent file is not actually a"
+            " file. Something is wrong.",
         )
     return recent_filename
 
@@ -162,6 +182,7 @@ def get_filename_without_extension(pathname: str) -> str:
     -------
     filename : string
         The filename without the file extension.
+
     """
     # In the event that there are more than one period in the full filename.
     # We only remove last one as is the conventions for extensions.
@@ -182,6 +203,7 @@ def get_filename_with_extension(pathname: str) -> str:
     -------
     filename : string
         The filename with the file extension.
+
     """
     return os.path.basename(pathname)
 
@@ -198,13 +220,16 @@ def get_file_extension(pathname: str) -> str:
     -------
     extension : string
         The file extension only.
+
     """
     extension = os.path.basename(pathname).split(".")[-1]
     return extension
 
 
 def merge_pathname(
-    directory: hint.Union[str, list] = None, filename: str = None, extension: str = None
+    directory: hint.Union[str, list] = None,
+    filename: str = None,
+    extension: str = None,
 ) -> str:
     """Joins directories, filenames, and file extensions into one pathname.
 
@@ -222,10 +247,13 @@ def merge_pathname(
     -------
     pathname : string
         The combined pathname.
+
     """
     # Combine the directories if it is a list.
     directory = directory if directory is not None else ""
-    directory = directory if isinstance(directory, (list, tuple)) else [str(directory)]
+    directory = (
+        directory if isinstance(directory, (list, tuple)) else [str(directory)]
+    )
     total_directory = os.path.join(*directory)
     # Filename.
     filename = filename if filename is not None else ""
@@ -260,6 +288,7 @@ def split_pathname(pathname: str) -> tuple[str, str, str]:
         The filename which was split from the pathname.
     extension : string
         The filename extension which was split from the pathname.
+
     """
     directory = get_directory(pathname=pathname)
     filename = get_filename_without_extension(pathname=pathname)

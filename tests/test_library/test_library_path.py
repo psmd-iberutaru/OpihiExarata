@@ -32,7 +32,8 @@ def test_get_directory() -> None:
             pathname=example_windows_pathname
         )
         expected_dir = (
-            R"A:\Kalos\Music\Pokémon\Official Tracks\Mystery Dungeon\PMD Explorers"
+            R"A:\Kalos\Music\Pokémon\Official Tracks\Mystery Dungeon\PMD"
+            r" Explorers"
         )
         # Asserting.
         assert_message = "Windows based pathnames fail."
@@ -41,7 +42,8 @@ def test_get_directory() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 -"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
+            r" Episode 1 -"
             r" Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
@@ -87,7 +89,8 @@ def test_get_filename_without_extension() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 -"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
+            r" Episode 1 -"
             r" Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
@@ -96,7 +99,8 @@ def test_get_filename_without_extension() -> None:
             pathname=example_linux_pathname
         )
         expected_filename = (
-            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right Back"
+            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right"
+            r" Back"
             r" at Ya!"
             R" Japanese [a9vrQ3Ns0gg]"
         )
@@ -136,7 +140,8 @@ def test_get_filename_with_extension() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 -"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
+            r" Episode 1 -"
             r" Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
@@ -145,7 +150,8 @@ def test_get_filename_with_extension() -> None:
             pathname=example_linux_pathname
         )
         expected_filename = (
-            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right Back"
+            R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right"
+            r" Back"
             r" at Ya!"
             R" Japanese [a9vrQ3Ns0gg].mkv"
         )
@@ -185,7 +191,8 @@ def test_get_file_extension() -> None:
         # Example of a Linux OS pathname with spaces and other intresting
         # characters.
         example_linux_pathname = (
-            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 -"
+            R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
+            r" Episode 1 -"
             r" Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
@@ -268,7 +275,9 @@ def test_split_pathname() -> None:
             windows_filename,
             windows_extension,
         ) = opihiexarata.library.path.split_pathname(pathname=windows_pathname)
-        expected_windows_directory = R"A:\Kalos\Pictures\Space Battleship Yamato"
+        expected_windows_directory = (
+            R"A:\Kalos\Pictures\Space Battleship Yamato"
+        )
         expected_windows_filename = R"Space Battle Ship USS Arizona"
         expected_windows_extension = R"jpg"
 

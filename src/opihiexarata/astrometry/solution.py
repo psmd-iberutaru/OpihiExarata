@@ -1,14 +1,19 @@
+from __future__ import annotations
+
 """The astrometric solution class."""
 
 import time
-import numpy as np
+from typing import TYPE_CHECKING
+
 import astropy.coordinates as ap_coordinates
+import numpy as np
 
-import opihiexarata.library as library
-import opihiexarata.library.error as error
-import opihiexarata.library.hint as hint
+from opihiexarata import astrometry
+from opihiexarata import library
+from opihiexarata.library import error
 
-import opihiexarata.astrometry as astrometry
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
 
 
 class AstrometricSolution(library.engine.ExarataSolution):
@@ -51,6 +56,7 @@ class AstrometricSolution(library.engine.ExarataSolution):
 
     Methods
     -------
+
     """
 
     def __init__(
@@ -79,21 +85,22 @@ class AstrometricSolution(library.engine.ExarataSolution):
         Returns
         -------
         None
+
         """
         # Check that the solver engine is a valid submission, that is is an
         # expected engine class.
         if isinstance(solver_engine, library.engine.AstrometryEngine):
             raise error.EngineError(
-                "The astrometric solver engine provided should be the engine class"
-                " itself, not an instance thereof."
+                "The astrometric solver engine provided should be the engine"
+                " class itself, not an instance thereof.",
             )
         elif issubclass(solver_engine, library.engine.AstrometryEngine):
             # It is fine, the user submitted a valid astrometric engine.
             pass
         else:
             raise error.EngineError(
-                "The provided astrometric engine is not a valid engine which can be"
-                " used for astrometric solutions."
+                "The provided astrometric engine is not a valid engine which"
+                " can be used for astrometric solutions.",
             )
 
         # Extract information from the header itself.
@@ -104,19 +111,19 @@ class AstrometricSolution(library.engine.ExarataSolution):
         if issubclass(solver_engine, astrometry.AstrometryNetWebAPIEngine):
             # Solve using the online API.
             astrometry_results = _vehicle_astrometrynet_web_api(
-                fits_filename=fits_filename
+                fits_filename=fits_filename,
             )
         elif issubclass(solver_engine, astrometry.AstrometryNetHostAPIEngine):
             # Solve using the self-host API.
             astrometry_results = _vehicle_astrometrynet_host_api(
-                fits_filename=fits_filename
+                fits_filename=fits_filename,
             )
 
         else:
             # There is no vehicle function, the engine is not supported.
             raise error.EngineError(
-                "The provided astrometric engine `{eng}` is not supported, there is no"
-                " associated vehicle function for it.".format(eng=str(solver_engine))
+                f"The provided astrometric engine `{solver_engine!s}` is not"
+                " supported, there is no associated vehicle function for it.",
             )
 
         # Get the results of the solution. If the engine did not provide all of
@@ -137,20 +144,24 @@ class AstrometricSolution(library.engine.ExarataSolution):
             self.star_table = astrometry_results["star_table"]
         except KeyError:
             raise error.EngineError(
-                "The engine results provided are insufficient for this astrometric"
-                " solver. Either the engine cannot be used because it cannot provide"
-                " the needed results, or the vehicle function does not pull the"
-                " required results from the engine."
+                "The engine results provided are insufficient for this"
+                " astrometric solver. Either the engine cannot be used because"
+                " it cannot provide the needed results, or the vehicle function"
+                " does not pull the required results from the engine.",
             )
         # Construct the Skycoord object from the data provided.
         self.skycoord = ap_coordinates.SkyCoord(
-            self.ra, self.dec, frame="icrs", unit="deg"
+            self.ra,
+            self.dec,
+            frame="icrs",
+            unit="deg",
         )
         # All done.
-        return None
 
     def pixel_to_sky_coordinates(
-        self, x: hint.Union[float, hint.array], y: hint.Union[float, hint.array]
+        self,
+        x: hint.Union[float, hint.array],
+        y: hint.Union[float, hint.array],
     ) -> tuple[hint.Union[float, hint.array], hint.Union[float, hint.array]]:
         """Compute the RA and DEC sky coordinates of this image provided
         the pixel coordinates. Floating point pixel values are supported.
@@ -170,6 +181,7 @@ class AstrometricSolution(library.engine.ExarataSolution):
             The right ascension of the pixel coordinate, in degrees.
         dec : float or array-like
             The declination of the pixel coordinate, in degrees.
+
         """
         # Convert to arrays.
         x = np.array(x)
@@ -177,7 +189,8 @@ class AstrometricSolution(library.engine.ExarataSolution):
         # Must be parallel arrays.
         if x.shape != y.shape:
             raise error.InputError(
-                "The two pixel coordinate arrays specified should be parallel arrays."
+                "The two pixel coordinate arrays specified should be parallel"
+                " arrays.",
             )
         # Compute the values from the pixel location.
         ra, dec = self.wcs.pixel_to_world_values(x, y)
@@ -190,7 +203,9 @@ class AstrometricSolution(library.engine.ExarataSolution):
         return ra, dec
 
     def sky_to_pixel_coordinates(
-        self, ra: hint.Union[float, hint.array], dec: hint.Union[float, hint.array]
+        self,
+        ra: hint.Union[float, hint.array],
+        dec: hint.Union[float, hint.array],
     ) -> tuple[hint.Union[float, hint.array], hint.Union[float, hint.array]]:
         """Compute the x and y pixel coordinates of this image provided
         the RA DEC sky coordinates.
@@ -210,6 +225,7 @@ class AstrometricSolution(library.engine.ExarataSolution):
             The x pixel coordinate in the x-axis direction.
         y : float or array-like
             The y pixel coordinate in the y-axis direction.
+
         """
         # Convert to arrays.
         ra = np.array(ra)
@@ -217,7 +233,8 @@ class AstrometricSolution(library.engine.ExarataSolution):
         # Must be parallel arrays.
         if ra.shape != dec.shape:
             raise error.InputError(
-                "The two sky coordinate arrays specified should be parallel arrays."
+                "The two sky coordinate arrays specified should be parallel"
+                " arrays.",
             )
         # Compute the values from the sky location.
         x, y = self.wcs.world_to_pixel_values(ra, dec)
@@ -244,6 +261,7 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     -------
     astrometry_results : dict
         A dictionary containing the results of the astrometric solution.
+
     """
     # The results of the solve.
     astrometry_results = {}
@@ -255,14 +273,16 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     MAX_ATTEMPTS = library.config.API_CONNECTION_MAXIMUM_ATTEMPTS
     while True:
         try:
-            anet_webapi = astrometry.AstrometryNetWebAPIEngine(apikey=PRIVATE_KEY)
+            anet_webapi = astrometry.AstrometryNetWebAPIEngine(
+                apikey=PRIVATE_KEY,
+            )
         except error.WebRequestError:
             # The connection failed, try again in a little while.
             if attempt_count >= MAX_ATTEMPTS:
                 raise error.WebRequestError(
-                    "Cannot connect to the astrometry.net web API service. Connection"
-                    " attempts exceeded the maximum value specified in the"
-                    " configuration file."
+                    "Cannot connect to the astrometry.net web API service."
+                    " Connection attempts exceeded the maximum value specified"
+                    " in the configuration file.",
                 )
             else:
                 library.http.api_request_sleep()
@@ -279,7 +299,9 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     if library.config.ASTROMETRYNET_SEND_PNG_IMAGE_FILES:
         # Convert and send the png file instead. The png is made in a temporary
         # directory.
-        __, image_data = library.fits.read_fits_image_file(filename=fits_filename)
+        __, image_data = library.fits.read_fits_image_file(
+            filename=fits_filename,
+        )
         # Rescaling the array as it helps with finding the stars. The maximum
         # and minimum values are determined by the png specification.
         LOW_CUT = library.config.ASTROMETRYNET_SEND_PNG_LOWER_PERCENT_CUT
@@ -295,13 +317,15 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
         png_path = library.temporary.make_temporary_directory_path(
             filename=library.path.merge_pathname(
                 filename=library.path.get_filename_without_extension(
-                    pathname=fits_filename
+                    pathname=fits_filename,
                 ),
                 extension="png",
-            )
+            ),
         )
         library.image.save_array_as_png_grayscale(
-            array=scaled_image_data, filename=png_path, overwrite=False
+            array=scaled_image_data,
+            filename=png_path,
+            overwrite=False,
         )
         file_upload_path = png_path
     else:
@@ -315,8 +339,9 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     # can happen.
     if anet_webapi.submission_id is None:
         raise error.WebRequestError(
-            "The uploaded file does not have a submission corresponding to it. The job"
-            " or results of the solution cannot be obtained without it."
+            "The uploaded file does not have a submission corresponding to it."
+            " The job or results of the solution cannot be obtained"
+            " without it.",
         )
     # It may take a little for the job to finish as there is a job queue for
     # astrometry.net.
@@ -341,12 +366,14 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
             elif job_status == "failure":
                 # The job failed.
                 raise error.EngineError(
-                    "The astrometry web API solving engine failed to solve this field."
+                    "The astrometry web API solving engine failed to solve this"
+                    " field.",
                 )
             else:
                 raise error.UndiscoveredError(
-                    "There is a response case that is not checked? Astrometry.net job"
-                    " id `{id}` and status `{stat}`".format(id=job_id, stat=job_status)
+                    "There is a response case that is not checked?"
+                    f" Astrometry.net job id `{job_id}` and status"
+                    f" `{job_status}`",
                 )
         except error.IntentionalError:
             # The job likely has not started yet so the data request did
@@ -355,9 +382,9 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
             current_time = time.time()
             if (current_time - start_time) >= TIMEOUT_TIME:
                 raise error.WebRequestError(
-                    "The job request did not return any results. It is likely the job"
-                    " queue time exceeds the timeout time provided in the"
-                    " configuration."
+                    "The job request did not return any results. It is likely"
+                    " the job queue time exceeds the timeout time provided in"
+                    " the configuration.",
                 )
             else:
                 library.http.api_request_sleep()
@@ -379,7 +406,9 @@ def _vehicle_astrometrynet_web_api(fits_filename: str) -> dict:
     # Extracting the data
     astrometry_results["ra"] = job_results["calibration"]["ra"]
     astrometry_results["dec"] = job_results["calibration"]["dec"]
-    astrometry_results["orientation"] = job_results["calibration"]["orientation"]
+    astrometry_results["orientation"] = job_results["calibration"][
+        "orientation"
+    ]
     astrometry_results["radius"] = job_results["calibration"]["radius"]
     astrometry_results["pixscale"] = job_results["calibration"]["pixscale"]
     astrometry_results["wcs"] = wcs
@@ -405,6 +434,7 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
     -------
     astrometry_results : dict
         A dictionary containing the results of the astrometric solution.
+
     """
     # The results of the solve.
     astrometry_results = {}
@@ -416,14 +446,16 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
     MAX_ATTEMPTS = library.config.API_CONNECTION_MAXIMUM_ATTEMPTS
     while True:
         try:
-            anet_webapi = astrometry.AstrometryNetWebAPIEngine(apikey=PRIVATE_KEY)
+            anet_webapi = astrometry.AstrometryNetWebAPIEngine(
+                apikey=PRIVATE_KEY,
+            )
         except error.WebRequestError:
             # The connection failed, try again in a little while.
             if attempt_count >= MAX_ATTEMPTS:
                 raise error.WebRequestError(
-                    "Cannot connect to the astrometry.net web API service. Connection"
-                    " attempts exceeded the maximum value specified in the"
-                    " configuration file."
+                    "Cannot connect to the astrometry.net web API service."
+                    " Connection attempts exceeded the maximum value specified"
+                    " in the configuration file.",
                 )
             else:
                 library.http.api_request_sleep()
@@ -440,7 +472,9 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
     if library.config.ASTROMETRYNET_SEND_PNG_IMAGE_FILES:
         # Convert and send the png file instead. The png is made in a temporary
         # directory.
-        __, image_data = library.fits.read_fits_image_file(filename=fits_filename)
+        __, image_data = library.fits.read_fits_image_file(
+            filename=fits_filename,
+        )
         # Rescaling the array as it helps with finding the stars. The maximum
         # and minimum values are determined by the png specification.
         LOW_CUT = library.config.ASTROMETRYNET_SEND_PNG_LOWER_PERCENT_CUT
@@ -456,13 +490,15 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
         png_path = library.temporary.make_temporary_directory_path(
             filename=library.path.merge_pathname(
                 filename=library.path.get_filename_without_extension(
-                    pathname=fits_filename
+                    pathname=fits_filename,
                 ),
                 extension="png",
-            )
+            ),
         )
         library.image.save_array_as_png_grayscale(
-            array=scaled_image_data, filename=png_path, overwrite=False
+            array=scaled_image_data,
+            filename=png_path,
+            overwrite=False,
         )
         file_upload_path = png_path
     else:
@@ -476,8 +512,9 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
     # can happen.
     if anet_webapi.submission_id is None:
         raise error.WebRequestError(
-            "The uploaded file does not have a submission corresponding to it. The job"
-            " or results of the solution cannot be obtained without it."
+            "The uploaded file does not have a submission corresponding to it."
+            " The job or results of the solution cannot be obtained"
+            " without it.",
         )
     # It may take a little for the job to finish as there is a job queue for
     # astrometry.net.
@@ -502,12 +539,14 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
             elif job_status == "failure":
                 # The job failed.
                 raise error.EngineError(
-                    "The astrometry web API solving engine failed to solve this field."
+                    "The astrometry web API solving engine failed to solve this"
+                    " field.",
                 )
             else:
                 raise error.UndiscoveredError(
-                    "There is a response case that is not checked? Astrometry.net job"
-                    " id `{id}` and status `{stat}`".format(id=job_id, stat=job_status)
+                    "There is a response case that is not checked?"
+                    f" Astrometry.net job id `{job_id}` and status"
+                    f" `{job_status}`",
                 )
         except error.IntentionalError:
             # The job likely has not started yet so the data request did
@@ -516,9 +555,9 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
             current_time = time.time()
             if (current_time - start_time) >= TIMEOUT_TIME:
                 raise error.WebRequestError(
-                    "The job request did not return any results. It is likely the job"
-                    " queue time exceeds the timeout time provided in the"
-                    " configuration."
+                    "The job request did not return any results. It is likely"
+                    " the job queue time exceeds the timeout time provided in"
+                    " the configuration.",
                 )
             else:
                 library.http.api_request_sleep()
@@ -540,7 +579,9 @@ def _vehicle_astrometrynet_host_api(fits_filename: str) -> dict:
     # Extracting the data
     astrometry_results["ra"] = job_results["calibration"]["ra"]
     astrometry_results["dec"] = job_results["calibration"]["dec"]
-    astrometry_results["orientation"] = job_results["calibration"]["orientation"]
+    astrometry_results["orientation"] = job_results["calibration"][
+        "orientation"
+    ]
     astrometry_results["radius"] = job_results["calibration"]["radius"]
     astrometry_results["pixscale"] = job_results["calibration"]["pixscale"]
     astrometry_results["wcs"] = wcs
