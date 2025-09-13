@@ -261,8 +261,6 @@ def read_fits_image_file(
         The data image of the fits file.
 
     """
-
-    print("Attempt to load image")
     with ap_fits.open(filename) as hdul:
         header = copy.deepcopy(hdul[extension].header)
         data = copy.deepcopy(hdul[extension].data)
@@ -299,7 +297,6 @@ def read_fits_table_file(
         The data table of the fits file.
 
     """
-    print("Attempt to load table")
     with ap_fits.open(filename) as hdul:
         header = copy.deepcopy(hdul[extension].header)
         data = copy.deepcopy(hdul[extension].data)
