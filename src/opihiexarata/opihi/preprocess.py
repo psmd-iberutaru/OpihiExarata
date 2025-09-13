@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 # isort: split
 
 import copy
+import os
 
 import numpy as np
 import scipy.optimize as sp_optimize
@@ -278,18 +279,69 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         self._linearity_fits_filename = linearity_fits_filename
         # Reading the fits file data. There are inner functions for mask and
         # flats for organizational purposes.
-        __, self.bias = library.fits.read_fits_image_file(
-            filename=self._bias_fits_filename,
-        )
-        __, self.dark_current = library.fits.read_fits_image_file(
-            filename=self._dark_current_fits_filename,
-        )
+        self.__init_read_bias_data()
+        self.__init_read_dark_current_data()
         self.__init_read_mask_data()
         self.__init_read_flat_data()
         # Reading the linearity data and create the linearity function.
         self.__init_read_linearity_data()
 
         # All done.
+
+    def __init_read_bias_data(self) -> None:
+        """This function reads the bias data from the fits file.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        # We try and read the file, if it exists.
+        if not os.path.exists(self._bias_fits_filename):
+            error.warn(
+                warn_class=error.InputWarning,
+                message=(
+                    f"Bias filename does not exist: {self._bias_fits_filename}"
+                ),
+            )
+        # Otherwise we read then apply the bias file. We do not care about the
+        # header.
+        __, bias = library.fits.read_fits_image_file(
+            filename=self._bias_fits_filename,
+        )
+        self.bias = bias
+
+    def __init_read_dark_current_data(self) -> None:
+        """This function reads the dark current data from the fits file.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        # We try and read the file, if it exists.
+        if not os.path.exists(self._dark_current_fits_filename):
+            error.warn(
+                warn_class=error.InputWarning,
+                message=(
+                    "Dark current filename does not exist:"
+                    f" {self._dark_current_fits_filename}"
+                ),
+            )
+        # Otherwise we read then apply the dark current file. We do not care
+        # about the header.
+        __, dark_current = library.fits.read_fits_image_file(
+            filename=self._dark_current_fits_filename,
+        )
+        self.dark_current = dark_current
 
     def __init_read_mask_data(self) -> None:
         """This function just reads all of the fits file data for the
@@ -305,41 +357,81 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         None
 
         """
+
+        # Internal reading function so we can handle logging warnings and the
+        # like.
+        def read_mask_wrapper(
+            filename: str,
+            filter_name: str = "?",
+        ) -> hint.ndarray:
+            """Read a mask FITS file.
+
+            Parameters
+            ----------
+            filename : str
+                The filename of the mask we are going to read.
+            filter_name : str, default = ?
+                The filter name which we are going to use for any warnings or
+                errors. Not required but useful for debugging.
+
+            Returns
+            -------
+            mask_data : ndarray
+                The mask.
+
+            """
+            # We try and read the file, if it exists.
+            if not os.path.exists(filename):
+                error.warn(
+                    warn_class=error.InputWarning,
+                    message=(
+                        f"Filter mask {filter_name} filename does not exist:"
+                        f" {filename}"
+                    ),
+                )
+
+            # Lastly, we read the file. We do not care about the header.
+            __, mask_data_raw = library.fits.read_fits_image_file(
+                filename=filename,
+            )
+            # Adding the masks to this solution so the fits files need not be
+            # accessed again. A pixel is considered mask if the value is True.
+            mask_data = np.array(mask_data_raw, dtype=bool)
+            return mask_data
+
         # Reading all of the mask files.
-        __, mask_c = library.fits.read_fits_image_file(
+        self.mask_c = read_mask_wrapper(
             filename=self._mask_c_fits_filename,
+            filter_name="c",
         )
-        __, mask_g = library.fits.read_fits_image_file(
+        self.mask_g = read_mask_wrapper(
             filename=self._mask_g_fits_filename,
+            filter_name="g",
         )
-        __, mask_r = library.fits.read_fits_image_file(
+        self.mask_r = read_mask_wrapper(
             filename=self._mask_r_fits_filename,
+            filter_name="r",
         )
-        __, mask_i = library.fits.read_fits_image_file(
+        self.mask_i = read_mask_wrapper(
             filename=self._mask_i_fits_filename,
+            filter_name="i",
         )
-        __, mask_z = library.fits.read_fits_image_file(
+        self.mask_z = read_mask_wrapper(
             filename=self._mask_z_fits_filename,
+            filter_name="z",
         )
-        __, mask_1 = library.fits.read_fits_image_file(
+        self.mask_1 = read_mask_wrapper(
             filename=self._mask_1_fits_filename,
+            filter_name="1",
         )
-        __, mask_2 = library.fits.read_fits_image_file(
+        self.mask_2 = read_mask_wrapper(
             filename=self._mask_2_fits_filename,
+            filter_name="2",
         )
-        __, mask_b = library.fits.read_fits_image_file(
+        self.mask_b = read_mask_wrapper(
             filename=self._mask_b_fits_filename,
+            filter_name="b",
         )
-        # Adding the masks to this solution so the fits files need not be
-        # accessed again. A pixel is considered mask if the value is True.
-        self.mask_c = np.array(mask_c, dtype=bool)
-        self.mask_g = np.array(mask_g, dtype=bool)
-        self.mask_r = np.array(mask_r, dtype=bool)
-        self.mask_i = np.array(mask_i, dtype=bool)
-        self.mask_z = np.array(mask_z, dtype=bool)
-        self.mask_1 = np.array(mask_1, dtype=bool)
-        self.mask_2 = np.array(mask_2, dtype=bool)
-        self.mask_b = np.array(mask_b, dtype=bool)
         # All done.
 
     def __init_read_flat_data(self) -> None:
@@ -356,44 +448,84 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         None
 
         """
-        # Reading all of the flat files.
-        __, flat_c = library.fits.read_fits_image_file(
+
+        # Internal reading function so we can handle logging warnings and the
+        # like.
+        def read_flat_wrapper(
+            filename: str,
+            filter_name: str = "?",
+        ) -> hint.ndarray:
+            """Read a flat FITS file.
+
+            Parameters
+            ----------
+            filename : str
+                The filename of the flat we are going to read.
+            filter_name : str, default = ?
+                The filter name which we are going to use for any warnings or
+                errors. Not required but useful for debugging.
+
+            Returns
+            -------
+            flat_data : ndarray
+                The flat.
+
+            """
+            # We try and read the file, if it exists.
+            if not os.path.exists(filename):
+                error.warn(
+                    warn_class=error.InputWarning,
+                    message=(
+                        f"Filter flat {filter_name} filename does not exist:"
+                        f" {filename}"
+                    ),
+                )
+
+            # Lastly, we read the file. We do not care about the header.
+            __, flat_data_raw = library.fits.read_fits_image_file(
+                filename=filename,
+            )
+            # Adding the masks to this solution so the fits files need not be
+            # accessed again. A pixel is considered mask if the value is True.
+            flat_data = np.array(flat_data_raw)
+            return flat_data
+
+        # Reading all of the mask files.
+        self.flat_c = read_flat_wrapper(
             filename=self._flat_c_fits_filename,
+            filter_name="c",
         )
-        __, flat_g = library.fits.read_fits_image_file(
+        self.flat_g = read_flat_wrapper(
             filename=self._flat_g_fits_filename,
+            filter_name="g",
         )
-        __, flat_r = library.fits.read_fits_image_file(
+        self.flat_r = read_flat_wrapper(
             filename=self._flat_r_fits_filename,
+            filter_name="r",
         )
-        __, flat_i = library.fits.read_fits_image_file(
+        self.flat_i = read_flat_wrapper(
             filename=self._flat_i_fits_filename,
+            filter_name="i",
         )
-        __, flat_z = library.fits.read_fits_image_file(
+        self.flat_z = read_flat_wrapper(
             filename=self._flat_z_fits_filename,
+            filter_name="z",
         )
-        __, flat_1 = library.fits.read_fits_image_file(
+        self.flat_1 = read_flat_wrapper(
             filename=self._flat_1_fits_filename,
+            filter_name="1",
         )
-        __, flat_2 = library.fits.read_fits_image_file(
+        self.flat_2 = read_flat_wrapper(
             filename=self._flat_2_fits_filename,
+            filter_name="2",
         )
-        __, flat_b = library.fits.read_fits_image_file(
+        self.flat_b = read_flat_wrapper(
             filename=self._flat_b_fits_filename,
+            filter_name="b",
         )
-        # Adding the flats to this solution so the fits files need not be
-        # accessed again.
-        self.flat_c = np.array(flat_c)
-        self.flat_g = np.array(flat_g)
-        self.flat_r = np.array(flat_r)
-        self.flat_i = np.array(flat_i)
-        self.flat_z = np.array(flat_z)
-        self.flat_1 = np.array(flat_1)
-        self.flat_2 = np.array(flat_2)
-        self.flat_b = np.array(flat_b)
         # All done.
 
-    def __init_read_linearity_data(self):
+    def __init_read_linearity_data(self) -> None:
         """This function reads all of the linearity data and creates a
         function for linearity. First order interpolation is done on this data.
 
@@ -409,6 +541,16 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
         None
 
         """
+        # We try and read the file, if it exists.
+        if not os.path.exists(self._linearity_fits_filename):
+            error.warn(
+                warn_class=error.InputWarning,
+                message=(
+                    "Linearity data filename does not exist:"
+                    f" {self._linearity_fits_filename}"
+                ),
+            )
+
         # Obtaining the saturation function via the points provided.
         unsaturated_signal, saturated_signal = np.genfromtxt(
             self._linearity_fits_filename,
@@ -450,7 +592,7 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
 
         Parameters
         ----------
-        data : array-like
+        raw_data : array-like
             The raw image data from the Opihi telescope.
         exposure_time : float
             The exposure time of the image in seconds.
@@ -470,7 +612,9 @@ class OpihiPreprocessSolution(library.engine.ExarataSolution):
             mask = self.__dict__.get(f"mask_{filter_name}", None)
             flat = self.__dict__.get(f"flat_{filter_name}", None)
             if mask is None or flat is None:
-                raise error.IntentionalError
+                raise error.IntentionalError(
+                    "Intentional raise to trigger other error.",
+                )
         except error.IntentionalError:
             # The filters are not in this class itself as per the structure of
             # this class and its initialization. Likely, the filter name is

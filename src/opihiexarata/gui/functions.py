@@ -197,9 +197,7 @@ def pick_engine_class_from_name(
         for namedex, enginedex in dictdex.items():
             if engine_name == namedex:
                 return enginedex
-            else:
-                # Not the found name.
-                continue
+            continue
 
     # If the loop did not break, then it likely means that no engine has been
     # found which matches the name provided.

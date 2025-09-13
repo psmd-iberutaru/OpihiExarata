@@ -1,10 +1,14 @@
-from __future__ import annotations
-
 """This window is for allowing the user to fill out the name of the object
 which they are observing, used when doing new targets.
 
 This is just a simple input dialog.
 """
+
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+# isort: split
 
 import sys
 
@@ -121,6 +125,7 @@ def ask_user_target_name_window(default: str = None) -> str:
 
 
 def main() -> None:
+    """Main function to test out the GUI."""
     # This is really just to test the GUI, to actually use the GUI, please use
     # the proper function.
     application = QtWidgets.QApplication([])

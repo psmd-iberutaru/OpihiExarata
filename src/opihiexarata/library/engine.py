@@ -9,7 +9,8 @@ class ExarataSolution:
     solve particular problems.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """Initialization of the solution class."""
         raise error.DevelopmentError(
             f"This is a base solution class. The {self.__class__} class should"
             " only be used for type hinting and subclassing.",
@@ -23,7 +24,8 @@ class ExarataEngine:
     type hinting and subclassing.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """Initialization of the engine class."""
         raise error.DevelopmentError(
             f"This is a base engine class. The {self.__class__} class should"
             " only be used for type hinting and subclassing.",

@@ -19,6 +19,13 @@ from opihiexarata.opihi import OpihiPreprocessSolution
 from opihiexarata.opihi import OpihiSolution
 from opihiexarata.opihi import OpihiZeroPointDatabaseSolution
 
+# isort: split
+
+# Lastly, the main file. We only do this so that Sphinx correctly builds the
+# documentation. (Though this too could be a misunderstanding.) Functionality
+# of __main__ should be done via the command line interface.
+import __main__ as __
+
 # Load the default configuration parameters. The user's configurations should
 # overwrite these when supplied.
 library.config.load_then_apply_configuration(
@@ -35,8 +42,3 @@ library.config.load_then_apply_configuration(
         extension="yaml",
     ),
 )
-
-# Lastly, the main file. We only do this so that Sphinx correctly builds the
-# documentation. (Though this too could be a misunderstanding.) Functionality
-# of __main__ should be done via the command line interface.
-import __main__ as __

@@ -56,6 +56,7 @@ def api_request_sleep(seconds: float = None) -> None:
 def download_file_from_url(
     url: str,
     filename: str,
+    http_headers: dict = {},
     overwrite: bool = False,
 ) -> None:
     """Download a file from a URL to disk.
@@ -69,6 +70,8 @@ def download_file_from_url(
         The url which the file will be downloaded from.
     filename : string
         The filename where the file will be saved.
+    http_headers : dict
+        If provided, the HTTP headers are tacked along for the ride.
     overwrite : bool, default = False
         If the file already exists, overwrite it. If False, it would raise
         an error instead.
@@ -89,7 +92,18 @@ def download_file_from_url(
     # Save the file. We supply here two methods in the event the first really
     # does get removed.
     try:
-        urllib.request.urlretrieve(url, filename)
+        with requests.get(url, headers=http_headers, stream=True) as req:
+            try:
+                req.raise_for_status()
+            except requests.HTTPError:
+                # We just detail it a bit more.
+                raise error.InputError(
+                    "Downloading file from URL returned an HTTP error."
+                )
+            # Otherwise...
+            with open(filename, "wb") as file:
+                for chunkdex in req.iter_content(chunk_size=8192):
+                    file.write(chunkdex)
     except Exception:
         # Alternative method.
         with (

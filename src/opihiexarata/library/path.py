@@ -104,7 +104,9 @@ def get_most_recent_filename_in_directory(
         # If the extension has a leading dot, then we remove it as it
         # is already assumed.
         if extensiondex.startswith("."):
-            extensiondex = extensiondex[1:]
+            extdex = extensiondex[1:]
+        else:
+            extdex = extensiondex
         # Fetch all of the matching files within the directory. We only want
         # files within the directory, not above or below unless recursive is
         # set
@@ -112,7 +114,7 @@ def get_most_recent_filename_in_directory(
         pathname_glob_filter = merge_pathname(
             directory=directory_list,
             filename="*",
-            extension=extensiondex,
+            extension=extdex,
         )
         extension_matching_files = glob.glob(
             pathname_glob_filter,
@@ -151,9 +153,9 @@ def get_most_recent_filename_in_directory(
                 or (MPCRECORD_SUFFIX + ".fits" in basename)
             ):
                 continue
-            else:
-                # All good, this is a valid candidate.
-                excluded_matching_filenames.append(filenamedex)
+            # All good, this is a valid candidate.
+            excluded_matching_filenames.append(filenamedex)
+
         # All done.
         matching_filenames = excluded_matching_filenames
 

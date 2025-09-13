@@ -1,3 +1,5 @@
+"""Functions for handling Minor Planet Center 80 column records and the like."""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -106,7 +108,7 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
         # The provincial designation of the asteroid.
         provincial_designation = raw_provincial_designation
         # The discovery asterisk can be converted to a boolean.
-        discovery = True if raw_discovery_asterisk == "*" else False
+        discovery = raw_discovery_asterisk == "*"
         # Publishing note flag.
         publishable_note = str(raw_publishable_note)
         # Observeing note flag.
@@ -173,9 +175,14 @@ def minor_planet_record_to_table(records: list[str]) -> hint.Table:
         try:
             temp_record_dict = _record_to_row_dictionary(line_string=linedex)
         except Exception:
-            # For some reason, some of the lines in an 80-column MPC entry do
-            # not seem to obey the format as understood by Sparrow.
-            # TODO.
+            error.warn(
+                warn_class=error.UnknownWarning,
+                message=(
+                    "For some reason, some of the lines in an 80-column MPC"
+                    " entry do not seem to obey the format as understood by"
+                    " Sparrow."
+                ),
+            )
             continue
         # Add it to the records.
         table_rows_list.append(temp_record_dict)
@@ -251,7 +258,12 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
                     "The justification option provided is not supported.",
                 )
             # All done.
-            assert len(justified_entry_str) == exact_length
+            if not len(justified_entry_str) == exact_length:
+                raise error.UndiscoveredError(
+                    "For some reason, the entry string"
+                    f" {justified_entry_str} does not match the exact length"
+                    f" {exact_length}",
+                )
             return justified_entry_str
 
         # Obtain each of the parameters and employ the needed constraints upon
@@ -294,7 +306,7 @@ def minor_planet_table_to_record(table: hint.Table) -> list[str]:
             "0" + str(row["month"]) if row["month"] < 10 else str(row["month"])
         )
         raw_day = "0" + str(row["day"]) if row["day"] < 10 else str(row["day"])
-        raw_observing_date = " ".join([raw_year, raw_month, raw_day])
+        raw_observing_date = f"{raw_year} {raw_month} {raw_day}"
         str_observing_date = _construct_string(
             entry=raw_observing_date,
             exact_length=17,

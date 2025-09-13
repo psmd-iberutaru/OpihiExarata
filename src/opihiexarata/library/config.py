@@ -59,7 +59,7 @@ def load_configuration_file(filename: str) -> dict:
         )
     # Double check that the configuration is flat as per the documentation
     # and expectation.
-    for __, valuedex in configuration_dict.items():
+    for valuedex in configuration_dict.values():
         if isinstance(valuedex, dict):
             # A dictionary implies a nested configuration which is not allowed.
             raise error.ConfigurationError(
@@ -107,7 +107,10 @@ def load_then_apply_configuration(filename: str) -> None:
     globals().update(configuration)
 
 
-def generate_configuration_file_copy(filename: str, overwrite=False) -> None:
+def generate_configuration_file_copy(
+    filename: str,
+    overwrite: bool = False,
+) -> None:
     """This generates a copy of the default configuration file to the given
     location.
 

@@ -159,10 +159,12 @@ def __main_execute_arguments(
     arguments: hint.Namespace,
 ) -> None:
     """We actually execute the software using the arguments provided in the
-    # command line call. GUI's are started on separate threads
+    command line call. GUI's are started on separate threads.
 
     Parameters
     ----------
+    parser : ArgumentParser
+        The argument parser which we are using.
     arguments : dict
         The parsed arguments from which the interpreted action will use. Note
         though that these arguments also has the interpreted actions.

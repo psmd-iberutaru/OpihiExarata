@@ -221,11 +221,10 @@ def determine_translation_image_array(
     # Using scikit's implementation of FFT/DFT. Too high of an up-sample factor
     # leads to slow computation time. 1/10 of a pixel is more than good enough
     # here.
-    translation = ski_registration.phase_cross_correlation(
+    translation, __, __ = ski_registration.phase_cross_correlation(
         reference_array,
         translate_array,
         upsample_factor=50,
-        return_error=False,
     )
     # The function has the axis order in Numpy's convention, we break it up
     # to match the return signature of this function.

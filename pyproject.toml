@@ -26,10 +26,10 @@ dependencies = [
     "astropy",
     "pyyaml",
     "matplotlib",
-    "PySide6>=6.5.0",
+    "PySide6",
     "pillow",
     "requests",
-    "scikit-image==0.20.0",
+    "scikit-image",
     "plotly",
     "pandas",
 ]
@@ -81,12 +81,12 @@ cover = [
     "coverage erase",
 ]
 lint = [
-    "ruff check {args:src}",
+    "ruff check {args:src} --output-format concise",
     "pylint {args:src}",
 ]
 lintfix = [
     "format",
-    "ruff check {args:src} --fix",
+    "ruff check {args:src} --output-format concise --fix",
     "format",
 ]
 docs = [
@@ -155,15 +155,79 @@ ignore = [
     "S113",
     # ...magic values are often constants, more descriptive names needed.
     "PLR2004", "N806",
-    # Documentation problems, need to be fixed but it is a lot.
+    # ...documentation problems, need to be fixed but it is a lot.
     "D205","D401", "D404",
-    # Needed for orbit to work, changing requires a lot of investigation as to 
-    # how.
+    # ...needed for orbit to work, changing requires a lot of investigation 
+    # as to how.
     "S602",
     # ...need to add the type hints for classes.
     "ANN101",
     # ...it is a good idea not to catch blind exceptions.
     "BLE001",
+    # ...this is a little semantic due to the stack trace but it ought 
+    # to be fixed.
+    "B904",
+    # ...timezone considerations should be fixed but they are mostly interface
+    # issues.
+    "DTZ001",
+    # ...long lines should be shortened when possible, but that is a "tomorrow"
+    # problem as the code is unaffected.
+    "E501",
+    # ...need to figure out which ones we can remove, or which ones are actually
+    # needed.
+    "F841",
+    # ...simple fix for raising, but need to figure out if some of these cases 
+    # could have a better raise statement.
+    "TRY201",
+    # ...this is a serious issue, the mutables should be replaced with None
+    # followed by a default creation of blank dicts in the function code.
+    "B006",
+    # ...function complexity ought to be minimized, but it takes time to debug
+    # and refractor them.
+    "C901",
+    # ...we need to fill in the class annotations later
+    "ANN102",
+    # ...wrapper function to allow these needs to be made, as sometimes it is 
+    # required to have methods but we will never use it.
+    "ARG001", "ARG002",
+    # ...we can probably refactor to avoid these cases, but it will take 
+    # a fair bit of effort.
+    "TRY301",
+    # ...subprocess can have untrusted input, but Ruff itself is unsure how to 
+    # make sure that it is considered "trusted".
+    "S603",
+    # ...auditing of URL schemes for avoiding security issues to be done, but, 
+    # we construct the URL ourselves so it should not matter.
+    "S310",
+    # ...a lot of the TODOs are not in the expected form for Ruff, but they 
+    # serve their purpose.
+    "TD", "FIX",
+    # ...ternary operators are more pythonic, but can be a later fix.
+    "SIM108",
+    # ...performance overheads need to be fixed, but it is not really a 
+    # bottleneck
+    "PERF203",
+    # ...type annotations should be added as well.
+    "ANN001",
+    # ...though a good idea, more testing will need to be done to figure out 
+    # any side effects
+    "UP008",
+    # ...renames can be done, and likely should be done.
+    "PLW0127",
+    # ...ignore prints for now, should be mitigated though.
+    "T201",
+    # ...logging the exception is needed, but that would need to be handled 
+    # on a case by case.
+    "S110",
+    # ...rarely do we actually need a cryptographic random number generator 
+    # for a lot of what we do.
+    "S311",
+    # ...the implications of this change needs to be checked.
+    "RUF005",
+    # ...fix Numpy's compatability issue.
+    "NPY002",
+
+
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     # Allow non-abstract empty methods in abstract base classes.
@@ -203,6 +267,8 @@ ban-relative-imports = "all"
 # The __init__ files often provide the imports to other files. 
 # So they are used, just not in that file.
 "src/opihiexarata/**/__init__.py" = ["F401"]
+# The Qt GUI python files are generated and so should not be linted.
+"src/opihiexarata/gui/qtui/*" = ["ALL"]
 
 [tool.ruff.lint.mccabe]
 # Flag errors (`C901`) whenever the complexity level exceeds some value.

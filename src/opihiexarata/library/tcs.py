@@ -1,7 +1,7 @@
 """This contains functions which allow for the calling of TCS commands for
 the IRTF telescope control software. It also formats the text according to
 the documentation specifications found in
-http://irtfweb.ifa.hawaii.edu/~tcs3/tcs3/users_manuals/1103_commands.pdf
+http://irtfweb.ifa.hawaii.edu/~tcs3/tcs3/users_manuals/1103_commands.pdf.
 
 These functions call to the external shell and it formats and coverts the
 values from the conventions of OpihiExarata (as the expected input) to the

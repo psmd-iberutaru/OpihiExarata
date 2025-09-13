@@ -222,6 +222,8 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
 
         Returns
         -------
+        ephemeris_table : Table
+            The JPL data in the form of a table.
 
         """
         # Using lines is a lot easier to manage.
@@ -295,10 +297,13 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
                 ra_sex=ra_sex,
                 dec_sex=dec_sex,
             )
+
             # The RA and DEC rates; these values are in arcsec/hr, but
             # convention in this software is deg/sec so convert. The flat
             # planar conversion is already done by Horizon.
-            as_hr_to_dg_s = lambda ashr: ashr / (3600 * 3600)
+            def as_hr_to_dg_s(ashr: float) -> float:
+                return ashr / (3600 * 3600)
+
             ra_rate = as_hr_to_dg_s(float(line_split[8]))
             dec_rate = as_hr_to_dg_s(float(line_split[9]))
             # The true anomaly.
@@ -379,13 +384,11 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
         if (start_time is None) and (stop_time is None) and (time_step is None):
             # Doing no work.
             return
-        else:
-            # Assign refreshed values to the current instance to do the work.
-            self.start_time = (
-                self.start_time if start_time is None else start_time
-            )
-            self.stop_time = self.stop_time if stop_time is None else stop_time
-            self.time_step = self.time_step if time_step is None else time_step
+
+        # Assign refreshed values to the current instance to do the work.
+        self.start_time = self.start_time if start_time is None else start_time
+        self.stop_time = self.stop_time if stop_time is None else stop_time
+        self.time_step = self.time_step if time_step is None else time_step
 
         # Requery the Horizons service.
         ephemeris_table = self._query_jpl_horizons(

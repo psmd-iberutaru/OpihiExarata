@@ -32,15 +32,10 @@ from numpy import ndarray
 from numpy.typing import ArrayLike
 from numpy.typing import DTypeLike
 
-array = ndarray
-
 # The windows.
 from PySide6 import QtCore
 from PySide6 import QtGui
 from PySide6 import QtWidgets
-
-widget = QtWidgets.QWidget
-window = QtWidgets.QMainWindow
 
 # Importing the engines and the solutions. It is important that all other
 # third-party type definitions are before this to prevent circular imports.
@@ -55,3 +50,8 @@ from opihiexarata.opihi.solution import OpihiSolution
 from opihiexarata.orbit.solution import OrbitalSolution
 from opihiexarata.photometry.solution import PhotometricSolution
 from opihiexarata.propagate.solution import PropagativeSolution
+
+# Aliases.
+array = ndarray
+widget = QtWidgets.QWidget
+window = QtWidgets.QMainWindow

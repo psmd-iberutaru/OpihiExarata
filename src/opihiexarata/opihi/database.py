@@ -822,7 +822,10 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # We loop over all relevant dates to extract all relevant files for
         # the query. This allows us to sort for only those days relevant and
         # saves us time.
-        def datetime_range(start_dt: hint.datetime, end_dt: hint.datetime):
+        def datetime_range(
+            start_dt: hint.datetime,
+            end_dt: hint.datetime,
+        ) -> hint.Generator:
             """A generator for iterating between datetimes. We include the
             end point.
             """
@@ -1125,8 +1128,11 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         # of when the figure was made. We are using a more human readable
         # version of ISO 8601 time formatting.
         iso_8601_time_format = R"%Y-%m-%d %H:%M:%S"
+
         # Datetime only takes seconds as an integer.
-        int_only = lambda array: [int(valuedex) for valuedex in array]
+        def int_only(array: hint.ndarray) -> list:
+            return [int(valuedex) for valuedex in array]
+
         utc_now_tuple = library.conversion.julian_day_to_full_date(
             jd=library.conversion.current_utc_to_julian_day(),
         )
@@ -1266,7 +1272,7 @@ class OpihiZeroPointDatabaseSolution(library.engine.ExarataSolution):
         using_timezone = library.config.MONITOR_PLOT_IANA_TIMEZONE
 
         # Create the plot using this configuration parameters.
-        self.create_plotly_monitoring_html_plot(
+        self.create_plotly_zero_point_html_plot(
             html_filename=html_filename,
             plot_query_begin_jd=query_begin_jd,
             plot_query_end_jd=query_end_jd,

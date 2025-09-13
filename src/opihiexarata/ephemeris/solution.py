@@ -157,7 +157,7 @@ class EphemeriticSolution(library.engine.ExarataSolution):
         return future_ra, future_dec
 
 
-def _vehicle_jpl_horizons_web_api(orbitals: hint.OrbitalSolution):
+def _vehicle_jpl_horizons_web_api(orbitals: hint.OrbitalSolution) -> dict:
     """This uses the JPL Horizons web URL API service to derive the ephemeris.
 
     Parameters
@@ -199,7 +199,8 @@ def _vehicle_jpl_horizons_web_api(orbitals: hint.OrbitalSolution):
 
     # The future ephemeris function to determine the location of the orbit
     # in the future. The time already requires Julian days.
-    ephemeris_function = lambda t: jpl_horizons.forward_ephemeris(future_time=t)
+    def ephemeris_function(future_time: float) -> tuple[float, float]:
+        return jpl_horizons.forward_ephemeris(future_time=future_time)
 
     # The on sky rates as derived from the orbital elements.
     ra_velocity = float(jpl_horizons.ra_velocity)

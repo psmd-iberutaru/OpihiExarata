@@ -1,3 +1,5 @@
+"""Astrometry web client implementations."""
+
 from __future__ import annotations
 
 import os
@@ -39,7 +41,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
 
     def __init__(
         self,
-        url=None,
+        url: str = None,
         apikey: str = None,
         silent: bool = True,
     ) -> None:
@@ -260,7 +262,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         url = self._ASTROMETRY_NET_API_BASE_URL + service
         return url
 
-    def _generate_upload_args(self, **kwargs) -> dict:
+    def _generate_upload_args(self, **kwargs: hint.Any) -> dict:
         """Generate the arguments for sending a request. This constructs the
         needed arguments, replacing the defaults with user provided arguments
         where desired.
@@ -503,11 +505,8 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         else:
             # Check the job status.
             status = job_result.get("status")
-        finally:
-            return status
-        # Should not get here.
-        raise error.LogicFlowError
-        return None
+
+        return status
 
     def get_submission_results(self, submission_id: str = None) -> dict:
         """Get the results of a submission specified by its ID.
@@ -678,7 +677,7 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
             os.remove(corr_pathname)
         return wcs
 
-    def upload_file(self, pathname: str, **kwargs) -> dict:
+    def upload_file(self, pathname: str, **kwargs: hint.Any) -> dict:
         """A wrapper to allow for the uploading of files or images to the API.
 
         This also determines the submission ID and the job ID for the uploaded
@@ -689,6 +688,8 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         pathname : str
             The pathname of the file to open. The filename is extracted and
             used as well.
+        **kwargs : Any
+            Optional additional arguments passed to the upload arguments.
 
         Returns
         -------
@@ -707,11 +708,12 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
         # Process the file upload.
         file_args = None
         try:
-            file = open(pathname, "rb")
+            with open(pathname, "rb") as file:
+                data = file.read()
             filename = library.path.get_filename_with_extension(
                 pathname=pathname,
             )
-            file_args = {"filename": filename, "data": file.read()}
+            file_args = {"filename": filename, "data": data}
         except OSError:
             raise error.FileError(
                 f"File does not exist: {pathname}",
@@ -771,16 +773,16 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
 
         # Construct the URL for the request. It is a little different from the
         # normal API scheme so a new method is made.
-        def _construct_file_download_url(ftype: str, id: str) -> str:
+        def _construct_file_download_url(ftype: str, id_: str) -> str:
             """Construct the file curl from the file type `ftype` and the
             job id `id`.
             """
-            url = f"http://nova.astrometry.net/{ftype}_file/{id}"
+            url = f"http://nova.astrometry.net/{ftype}_file/{id_}"
             return url
 
         file_download_url = _construct_file_download_url(
             ftype=file_type,
-            id=job_id,
+            id_=job_id,
         )
         # Before downloading the file, check that the file actually exists.
         if job_id is None:
@@ -793,10 +795,18 @@ class AstrometryNetWebAPIEngine(library.engine.AstrometryEngine):
                 " code. It is likely that the job is still processing and thus"
                 " the data files are not ready.",
             )
+
+        # There is an anti-bot filter. A special header is needed to bypass
+        # it.
+        headers = {
+            "Referer": "https://nova.astrometry.net/api/login",
+        }
+
         # Download the file.
         library.http.download_file_from_url(
             url=file_download_url,
             filename=filename,
+            http_headers=headers,
             overwrite=True,
         )
 
@@ -808,7 +818,12 @@ class AstrometryNetHostAPIEngine(AstrometryNetWebAPIEngine):
     For all documentation, please refer to the parent function.
     """
 
-    def __init__(self, url=None, apikey: str = None, silent: bool = True):
+    def __init__(
+        self,
+        url: str = None,
+        apikey: str = None,
+        silent: bool = True,
+    ) -> None:
         """Creating the host API engine."""
         # Defining the URL and the overall class.
         SELFHOST_URL = (

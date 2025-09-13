@@ -124,7 +124,7 @@ def sexagesimal_ra_dec_to_degrees(
     return ra_deg, dec_deg
 
 
-def decimal_day_to_julian_day(year: int, month: int, day: float):
+def decimal_day_to_julian_day(year: int, month: int, day: float) -> float:
     """A function to convert decimal day time formats to the Julian day.
 
     Parameters
@@ -496,6 +496,7 @@ def filter_header_string_to_filter_name(header_string: str) -> str:
     """The filter position string is exactly how it exists in the header files.
     This converts from the string as it exists in the header file to the filter
     name.
+
     The filter position set: {0: b, 1: 2, 2: 1, 3: z, 4: i, 5: r, 6: g, 7: c}
 
     Parameters

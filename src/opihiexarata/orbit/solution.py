@@ -499,7 +499,9 @@ def _vehicle_custom_orbit(
         "inclination": custom_orbit.inclination,
         "inclination_error": custom_orbit.inclination_error,
         "longitude_ascending_node": custom_orbit.longitude_ascending_node,
-        "longitude_ascending_node_error": custom_orbit.longitude_ascending_node_error,
+        "longitude_ascending_node_error": (
+            custom_orbit.longitude_ascending_node_error
+        ),
         "argument_perihelion": custom_orbit.argument_perihelion,
         "argument_perihelion_error": custom_orbit.argument_perihelion_error,
         "mean_anomaly": custom_orbit.mean_anomaly,

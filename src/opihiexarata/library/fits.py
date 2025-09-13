@@ -145,10 +145,9 @@ def read_fits_header(
     """
     # The files are small enough that we can relieve memory mapping.
     with ap_fits.open(filename, memmap=False) as hdul:
-        hdu = copy.deepcopy(hdul[extension])
-        header = copy.deepcopy(hdu.header)
-        data = copy.deepcopy(hdu.data)
-        del hdul[0].data
+        header = copy.deepcopy(hdul[extension].header)
+        data = copy.deepcopy(hdul[extension].data)
+        del hdul[extension].data
     # Check that the data does not exist, so the data read should be none.
     if data is not None:
         raise error.FileError(
@@ -262,11 +261,12 @@ def read_fits_image_file(
         The data image of the fits file.
 
     """
-    with ap_fits.open(filename, memmap=False) as hdul:
-        hdu = copy.deepcopy(hdul[extension])
-        header = copy.deepcopy(hdu.header)
-        data = copy.deepcopy(hdu.data)
-        del hdul[0].data
+
+    print("Attempt to load image")
+    with ap_fits.open(filename) as hdul:
+        header = copy.deepcopy(hdul[extension].header)
+        data = copy.deepcopy(hdul[extension].data)
+        del hdul[extension].data
     # Check that the data really is an image.
     if not isinstance(data, np.ndarray):
         raise error.FileError(
@@ -299,11 +299,12 @@ def read_fits_table_file(
         The data table of the fits file.
 
     """
-    with ap_fits.open(filename, memmap=False) as hdul:
-        hdu = copy.deepcopy(hdul[extension])
-        header = copy.deepcopy(hdu.header)
-        data = copy.deepcopy(hdu.data)
-        del hdul[0].data
+    print("Attempt to load table")
+    with ap_fits.open(filename) as hdul:
+        header = copy.deepcopy(hdul[extension].header)
+        data = copy.deepcopy(hdul[extension].data)
+        # Deleting where needed.
+        del hdul[extension].data
     # Check that the data really is table-like.
     if not isinstance(data, (ap_table.Table, ap_fits.FITS_rec)):
         raise error.FileError(

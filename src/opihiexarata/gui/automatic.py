@@ -162,7 +162,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
 
-    def __init_preprocess_solution(self):
+    def __init_preprocess_solution(self) -> None:
         """Initialize the preprocessing solution. The preprocessing files
         should be specified in the configuration file.
 
@@ -204,9 +204,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # configuration file issue is likely the reason.
             error.warn(
                 warn_class=error.UnknownWarning,
-                message=(
-                    f"We are not sure why the preprocess solution failed. {err}"
-                ),
+                message=f"Creating the preprocess solution failed. {err}",
             )
             preprocess = None
         finally:
@@ -363,9 +361,9 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
             # There is no filename.
             verification = False
             return verification
-        else:
-            # Absolute paths are easier to work with.
-            filename = os.path.abspath(str(filename))
+
+        # Absolute paths are easier to work with.
+        filename = os.path.abspath(str(filename))
 
         # We first need to test if the file even exits.
         if not os.path.isfile(filename):
@@ -1055,7 +1053,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
     def reset_window(self) -> None:
         """This function resets the window to the default values or
-        parameters
+        parameters.
 
         Parameters
         ----------
@@ -1090,7 +1088,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
 
         # All done.
 
-    def closeEvent(self, event) -> None:
+    def closeEvent(self, event) -> None:  # noqa: N802
         """We override the original Qt close event to take into account the
         automatic loop.
 

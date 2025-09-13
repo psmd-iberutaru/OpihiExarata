@@ -1,9 +1,17 @@
-from __future__ import annotations
-
 """The astrometric solution class."""
 
-import time
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from opihiexarata.library import hint
+# isort: split
+
+
+import time
 
 import astropy.coordinates as ap_coordinates
 import numpy as np
@@ -11,9 +19,6 @@ import numpy as np
 from opihiexarata import astrometry
 from opihiexarata import library
 from opihiexarata.library import error
-
-if TYPE_CHECKING:
-    from opihiexarata.library import hint
 
 
 class AstrometricSolution(library.engine.ExarataSolution):
@@ -53,9 +58,6 @@ class AstrometricSolution(library.engine.ExarataSolution):
     star_table : Table
         A table detailing the correlation of star locations in both pixel and
         celestial space.
-
-    Methods
-    -------
 
     """
 

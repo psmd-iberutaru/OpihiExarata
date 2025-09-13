@@ -314,7 +314,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Deriving the size of the image from the filler dummy image. The
         # figure should be a square. (Height really is the primary concern.)
         dpi = self.logicalDpiY()
-        pix_to_in = lambda p: p / dpi
+
+        def pix_to_in(p: float) -> float:
+            return p / dpi
+
         dummy_edge_size_px = (
             self.ui.graphics_view_dummy_opihi_image.maximumHeight()
         )
@@ -343,7 +346,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             def __init__(self, gui_instance: OpihiManualWindow) -> None:
                 self.gui_instance = gui_instance
 
-            def __call__(self, x, y) -> str:
+            def __call__(self, x: float, y: float) -> str:
                 """The coordinate string going to be put onto the navigation
                 bar.
                 """
@@ -404,7 +407,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         del self.ui.graphics_view_dummy_opihi_image
         del self.ui.label_static_dummy_opihi_navbar
 
-    def __init_preprocess_solution(self):
+    def __init_preprocess_solution(self) -> None:
         """Initialize the preprocessing solution. The preprocessing files
         should be specified in the configuration file.
 
@@ -444,8 +447,10 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         except Exception as err:
             # Something failed with making the preprocess solution, a
             # configuration file issue is likely the reason.
-            # TODO
-            print(err)
+            error.warn(
+                warn_class=error.UnknownWarning,
+                message=f"Creating the preprocess solution failed. {err}",
+            )
             preprocess = None
         finally:
             self.preprocess_solution = preprocess
@@ -630,23 +635,23 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         if self.fits_filename_list[index] is None:
             # No file to load, nothing to do.
             return
-        elif not isinstance(
+        if not isinstance(
             self.opihi_solution_list[index],
             opihiexarata.OpihiSolution,
         ):
             # Nowhere to put the asteroid target location.
             return
-        else:
-            # Attempt to get the correct filenames for the target selector
-            # window.
-            # First, the current filename for target selection.
-            current_fits_filename = self.fits_filename_list[index]
-            # Second, the reference filename. Assume primary, first, then
-            # last. We cannot have the current filename and reference filename
-            # be the same file.
-            reference_fits_file = self._get_target_selector_reference_filename(
-                current_filename=current_fits_filename,
-            )
+
+        # Attempt to get the correct filenames for the target selector
+        # window.
+        # First, the current filename for target selection.
+        current_fits_filename = self.fits_filename_list[index]
+        # Second, the reference filename. Assume primary, first, then
+        # last. We cannot have the current filename and reference filename
+        # be the same file.
+        reference_fits_file = self._get_target_selector_reference_filename(
+            current_filename=current_fits_filename,
+        )
 
         # We use the selector to determine the asteroid location.
         asteroid_location = gui.selector.ask_user_target_selector_window(
@@ -901,7 +906,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Solve the field using the provided engine. We need to break this out
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
-        def astrometry_solving_function():
+        def astrometry_solving_function() -> None:
             # Cycling through all of the indexes to try and solve the astrometry.
             # We need to use the index based method because for-loops do copying.
             for index in range(len(self.opihi_solution_list)):
@@ -923,6 +928,9 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                         vehicle_args=vehicle_args,
                     )
                 except Exception as _e:
+                    import traceback
+
+                    print(traceback.format_exc())
                     print("warn", _e)
             # Finally updating all of the needed information.
             self.draw_opihi_image()
@@ -1060,7 +1068,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Solve the field using the provided engine. We need to break this out
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
-        def photometry_solving_function():
+        def photometry_solving_function() -> None:
             # Cycling through all of the indexes to try and solve the astrometry.
             # We need to use the index based method because for-loops do copying.
             for index in range(len(self.opihi_solution_list)):
@@ -1163,7 +1171,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Solve the field using the provided engine. We need to break this out
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
-        def orbit_solving_function():
+        def orbit_solving_function() -> None:
             """The function to solve the orbit and refresh the plots."""
             for index in range(len(self.opihi_solution_list)):
                 if not isinstance(
@@ -1238,7 +1246,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Solve the field using the provided engine. We need to break this out
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
-        def ephemeris_solving_function():
+        def ephemeris_solving_function() -> None:
             """The function to solve the ephemeris and refresh the plots."""
             for index in range(len(self.opihi_solution_list)):
                 if not isinstance(
@@ -1408,7 +1416,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         # Solve the field using the provided engine. We need to break this out
         # into its own thread so that the busy plot notification can be shown
         # to the user. The GUI thread is otherwise blocked.
-        def propagate_solving_function():
+        def propagate_solving_function() -> None:
             """The function to solve the orbit and refresh the plots."""
             for index in range(len(self.opihi_solution_list)):
                 if not isinstance(
@@ -1441,8 +1449,11 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                         raise_on_error=True,
                         vehicle_args=vehicle_args,
                     )
-                except Exception as _e:
-                    print("warn", _e)
+                except Exception as err:
+                    error.warn(
+                        warn_class=error.UnknownWarning,
+                        message=f"Something unknown happened: {err}",
+                    )
             # Finally updating all of the needed information.
             self.draw_opihi_image()
             self.refresh_dynamic_label_text()
@@ -1830,9 +1841,6 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             primary_fits_filename,
         ):
             primary_fits_filename = None
-        else:
-            # It is all good.
-            primary_fits_filename = primary_fits_filename
 
         # All done.
         return primary_fits_filename
@@ -2079,7 +2087,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
             self.save_index_fits_file(index=index)
         # All done.
 
-    def save_index_fits_file(self, index) -> None:
+    def save_index_fits_file(self, index: int) -> None:
         """This function executes the saving of the FITS file based on the
         provided index.
 
@@ -2529,7 +2537,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
 
         # The filenames, in order. We do not need the directory path in this
         # area.
-        def _basename_only(pathname: str) -> str:
+        def _basename_only(pathname: str | None) -> str:
             """This function makes sure that only the basename is returned. The
             path provided is not a valid string, then a blank string is
             returned.
@@ -2538,8 +2546,8 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
                 return library.path.get_filename_with_extension(
                     pathname=pathname,
                 )
-            else:
-                return "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
+            # The dummy default name if there is none otherwise provided.
+            return "opi.20XXA999.YYMMDD.AAAAAAAAAA.#####.a.fits"
 
         self.ui.label_dynamic_filename_1.setText(
             _basename_only(pathname=self.fits_filename_list[1]),
@@ -3471,7 +3479,7 @@ class OpihiManualWindow(QtWidgets.QMainWindow):
         )
 
         # We additionally create a new figure for the monitoring webpage.
-        self.zero_point_database.create_plotly_monitoring_html_plot_via_configuration()
+        self.zero_point_database.create_plotly_zero_point_html_plot_via_configuration()
 
         # All done.
         return

@@ -1,3 +1,5 @@
+"""Asteroid target selector GUI functionality."""
+
 from __future__ import annotations
 
 import copy
@@ -112,9 +114,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             The current fits filename which will be used to determine where the
             location of the target is.
         reference_fits_filename : string, default = None
-            The reference fits filename which will be used to compare against the
-            current fits filename to determine where the location of the target
-            is. If None, then no image will be loaded until manually specified.
+            The reference fits filename which will be used to compare against
+            the current fits filename to determine where the location of the
+            target is. If None, then no image will be loaded until manually
+            specified.
 
         Returns
         -------
@@ -219,7 +222,10 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Deriving the size of the image from the filler dummy image. The
         # figure should be a square. (Height really is the primary concern.)
         dpi = self.logicalDpiY()
-        pix_to_in = lambda p: p / dpi
+
+        def pix_to_in(pix: float) -> float:
+            return pix / dpi
+
         dummy_edge_size_px = self.ui.dummy_selector_image.maximumHeight()
         edge_size_in = pix_to_in(dummy_edge_size_px)
 
@@ -248,7 +254,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             def __init__(self, gui_instance: TargetSelectorWindow) -> None:
                 self.gui_instance = gui_instance
 
-            def __call__(self, x, y) -> str:
+            def __call__(self, x: float, y: float) -> str:
                 """The coordinate string going to be put onto the navigation
                 bar.
                 """
@@ -314,7 +320,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
         # Redraw the image.
         self.refresh_window()
 
-    def __init_gui_connections(self):
+    def __init_gui_connections(self) -> None:
         """A initiation set of functions that attach to the buttons on the
         GUI.
 
@@ -799,8 +805,9 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
     def __connect_push_button_submit_target(self) -> None:
         """This button submits the current location of the target and closes
-        the window. (The target information is saved within the class
-        instance.)
+        the window.
+
+        (The target information is saved within the class instance.)
 
         If the text within the line edits differ than what the box selection
         has selected, then this prioritizes the values as manually defined.
@@ -1228,11 +1235,11 @@ class TargetSelectorWindow(QtWidgets.QWidget):
             # Using a 1-D Gaussian fit to determine the actual center along
             # each axis.
             def gaussian_function(
-                x: hint.array,
+                x: hint.ndarray,
                 cen: float,
                 std: float,
                 amp: float,
-            ):
+            ) -> hint.ndarray:
                 return amp * np.exp(-((x - cen) ** 2) / (2 * std**2))
 
             # The x-axis is the pixel locations themselves with the y-axis
@@ -1286,7 +1293,7 @@ class TargetSelectorWindow(QtWidgets.QWidget):
 
 
 def ask_user_target_selector_window(
-    current_fits_filename,
+    current_fits_filename: str,
     reference_fits_filename: str = None,
 ) -> tuple[float, float]:
     """Use the target selector window to have the user provide the
@@ -1336,7 +1343,8 @@ def ask_user_target_selector_window(
     return target_x, target_y
 
 
-def main():
+def main() -> tuple[float, float]:
+    """Main test function for target selector."""
     app = QtWidgets.QApplication([])
 
     target_x, target_y = ask_user_target_selector_window()

@@ -6,7 +6,7 @@ import warnings
 ####################
 
 
-class ExarataBaseException(BaseException):
+class ExarataBaseError(BaseException):
     """The base exception class. This is for exceptions that should never be
     caught and should bring everything to a halt.
     """
@@ -30,30 +30,30 @@ class ExarataBaseException(BaseException):
         # giving the user more information as to how to proceed.
         prefix = "(OpihiExarata) TERMINAL - "
         suffix = (
-            "\n"
-            + ">> Contact the maintainers of OpihiExarata to fix this issue."
+            "\n>> Contact the maintainers of OpihiExarata to fix this issue."
         )
         self.message = prefix + message + suffix
 
     def __str__(self) -> str:
+        """String representation of object."""
         return self.message
 
 
-class DevelopmentError(ExarataBaseException):
+class DevelopmentError(ExarataBaseError):
     """This is an error where the development of OpihiExarata is not correct and
     something is not coded based on the expectations of the software itself.
     This is not the fault of the user.
     """
 
 
-class LogicFlowError(ExarataBaseException):
+class LogicFlowError(ExarataBaseError):
     """This is an error to ensure that the logic does not flow to a point to a
     place where it is not supposed to. This is helpful in making sure changes
     to the code do not screw up the logical flow of the program.
     """
 
 
-class BeyondScopeError(ExarataBaseException):
+class BeyondScopeError(ExarataBaseError):
     """This is an error to be used when what is trying to be done does not
     seem reasonable. Usually warnings are the better thing for this but
     this error is used when the assumptions for reasonability guided
@@ -62,7 +62,7 @@ class BeyondScopeError(ExarataBaseException):
     """
 
 
-class UndiscoveredError(ExarataBaseException):
+class UndiscoveredError(ExarataBaseError):
     """This is an error used in cases where the source of the error has not
     been determined and so a more helpful error message or mitigation strategy
     cannot be devised.
@@ -73,7 +73,7 @@ class UndiscoveredError(ExarataBaseException):
 ####################
 
 
-class ExarataException(Exception):
+class ExarataError(Exception):
     """The main inheriting class which all exceptions use as their base. This
     is done for ease of error handling and is something that can and should be
     managed.
@@ -103,25 +103,25 @@ class ExarataException(Exception):
         return self.message
 
 
-class CommandLineError(ExarataException):
+class CommandLineError(ExarataError):
     """An error to be used where the parameters or arguments entered in the
     command line were not correct.
     """
 
 
-class ConfigurationError(ExarataException):
+class ConfigurationError(ExarataError):
     """An error to be used where the expectation of how configuration files
     and configuration parameters are structures are violated.
     """
 
 
-class DirectoryError(ExarataException):
+class DirectoryError(ExarataError):
     """An error to be used when there are issues specifically with directories
     and not just files.
     """
 
 
-class EngineError(ExarataException):
+class EngineError(ExarataError):
     """This error is for when the astrometric, photometric, or asteroid-metric
     solver engines provided are not valid or expected. This error can also be
     used when an engine fails to solve or otherwise does not work as
@@ -129,32 +129,32 @@ class EngineError(ExarataException):
     """
 
 
-class FileError(ExarataException):
+class FileError(ExarataError):
     """An error to be used when obtaining data files or configuration files
     and something fails.
     """
 
 
-class InputError(ExarataException):
+class InputError(ExarataError):
     """An error to be used when the inputs to a function are not valid and do
     not match the expectations of that function.
     """
 
 
-class InstallError(ExarataException):
+class InstallError(ExarataError):
     """An error to be used when informing the user or the program that the
     installation was not done properly and lack some of the features and
     assumptions which are a consequence of it.
     """
 
 
-class IntentionalError(ExarataException):
+class IntentionalError(ExarataError):
     """An error to be used where error catching is helpful. This error
     generally should always be caught by the code in context.
     """
 
 
-class PracticalityError(ExarataException):
+class PracticalityError(ExarataError):
     """This is an error to be used when what is trying to be done does not
     seem reasonable. Usually warnings are the better thing for this. However,
     this error should be used (as opposed to BeyondScopeError) when what
@@ -162,20 +162,20 @@ class PracticalityError(ExarataException):
     """
 
 
-class ReadOnlyError(ExarataException):
+class ReadOnlyError(ExarataError):
     """An error where variables or files are assumed to be read only, this
     enforces that notion.
     """
 
 
-class SequentialOrderError(ExarataException):
+class SequentialOrderError(ExarataError):
     """An error used when something is happening out of the expected required
     order. This order being in place for specific publicly communicated
     reasons.
     """
 
 
-class WebRequestError(ExarataException):
+class WebRequestError(ExarataError):
     """An error to be used when a web request to some API fails, either because
     of something from their end, or our end.
     """
