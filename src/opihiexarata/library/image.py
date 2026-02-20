@@ -58,14 +58,14 @@ def slice_array_boundary(
     # and row count.
     n_rows, n_cols = array.shape
     # Negative slices are already invalid and out of bounds.
-    x_min = 0 if x_min <= 0 else x_min
+    x_min = max(0, x_min)
     x_max = n_cols if x_max <= 0 else x_max
-    y_min = 0 if y_min <= 0 else y_min
+    y_min = max(0, y_min)
     y_max = n_rows if y_max <= 0 else y_max
     # Likewise, if any of the indexes exceed the bounds of the array, force
     # them back.
-    x_max = n_cols if n_cols < x_max else x_max
-    y_max = n_rows if n_rows < y_max else y_max
+    x_max = min(x_max, n_cols)
+    y_max = min(y_max, n_rows)
     # Return the slice with these bounds.
     boundary_sliced_array = array[y_min:y_max, x_min:x_max]
     return boundary_sliced_array

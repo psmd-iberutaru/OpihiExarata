@@ -524,16 +524,8 @@ class JPLHorizonsWebAPIEngine(library.engine.EphemerisEngine):
             future_stop_time = np.nanmax(future_time) + buffer_time
             # We do not want to reduce the current table we have, use the
             # previous values where needed.
-            new_start_time = (
-                self.start_time
-                if self.start_time < future_start_time
-                else future_start_time
-            )
-            new_stop_time = (
-                future_stop_time
-                if self.stop_time < future_stop_time
-                else self.stop_time
-            )
+            new_start_time = min(future_start_time, self.start_time)
+            new_stop_time = max(self.stop_time, future_stop_time)
             # Refreshing the ephemeris data.
             self._refresh_ephemeris(
                 start_time=new_start_time,

@@ -82,7 +82,7 @@ def download_file_from_url(
     default_headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0"
-        )
+        ),
     }
     using_headers = {**http_headers, **default_headers}
     # See if the file exists, if so, delete it if overwrite is True, to simulate
@@ -106,12 +106,11 @@ def download_file_from_url(
             except requests.HTTPError:
                 # We just detail it a bit more.
                 raise error.InputError(
-                    "Downloading file from URL returned an HTTP error."
+                    "Downloading file from URL returned an HTTP error.",
                 )
             # Otherwise...
             with open(filename, "wb") as file:
-                for chunkdex in req.iter_content(chunk_size=8192):
-                    file.write(chunkdex)
+                file.writelines(req.iter_content(chunk_size=8192))
     except Exception:
         # Alternative method.
         with (

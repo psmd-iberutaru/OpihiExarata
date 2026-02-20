@@ -844,7 +844,7 @@ class OpihiAutomaticWindow(QtWidgets.QMainWindow):
                 vehicle_args={},
             )
 
-        except error.ExarataException as err:
+        except error.ExarataError as err:
             # Something went wrong with the solving. We do nothing more.
             error.warn(
                 warn_class=error.InputWarning,

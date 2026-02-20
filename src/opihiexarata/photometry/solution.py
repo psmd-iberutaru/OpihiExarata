@@ -263,7 +263,6 @@ class PhotometricSolution(library.engine.ExarataSolution):
         base_columns = (
             library.phototable.INTERSECTION_ASTROPHOTO_TABLE_COLUMN_NAMES
         )
-        #
         intersection_colnames = tuple(
             set(
                 base_columns
