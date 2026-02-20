@@ -1,3 +1,3 @@
 """The version of the software. The version should be the most recent date."""
 
-__version__ = "2024.7.1"
+__version__ = "2026.1.19"
