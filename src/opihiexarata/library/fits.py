@@ -191,7 +191,7 @@ def update_opihiexarata_fits_header(
     # We assume the defaults at first and see if the provided header or the
     # provided entries have overridden us. This ensures that the defaults
     # are always there.
-    for keydex in _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY:
+    for keydex in _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY.keys():
         # Extracting the default values and the comment.
         defaultdex, commentdex = _OPIHIEXARATA_HEADER_KEYWORDS_DICTIONARY[
             keydex
